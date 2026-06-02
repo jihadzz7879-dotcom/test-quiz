@@ -54,16 +54,19 @@
             margin-bottom: 25px;
         }
 
-        .time-badge {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 12px 25px;
-            border-radius: 50px; /* دوگمەیا شێوازێ هێلکەیی/خر */
-            font-size: 18px;
+        /* دوگمەیا شێوازێ هێلکەیی بۆ دەمژمێری */
+        .countdown-box {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px 30px;
+            border-radius: 50px; 
+            font-size: 22px;
             font-weight: bold;
             display: inline-block;
-            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.1);
-            border: 1px solid #a5d6a7;
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.15);
+            border: 2px solid #ef9a9a;
+            direction: ltr; /* بۆ هندێ ژمارە ڕێک بن */
+            margin-top: 10px;
         }
 
         @keyframes pulse {
@@ -78,12 +81,51 @@
     <div class="container">
         <div class="icon">🧬</div>
         <h1>بێهنفڕەهـ بن قوتابیێن هێژا</h1>
-        <p>ئەزموونا بابەتێ <b>زیندەوەر زانی</b> یا خولا دوویێ دێ ل دەمژمێر کاتژمێر <b>٨:٠٠ ی شەڤ</b> هێتە بەردەستکرن و دروستکرن.</p>
-        <div class="time-badge">
-            ⏰ دەمژمێر 8:00 دێ هێتە کاراکردن
-        </div>
+        <p>ئەزموونا بابەتێ <b>زیندەوەر زانی</b> دێ ل دەمژمێر <b>٨:٠٠ ی شەڤێ</b> هێتە بەردەستکرن.</p>
+        
+        <p style="font-size: 16px; color: #777; margin-bottom: 10px;">دەمێ ماین بۆ دەستپێکرنێ:</p>
+        <div class="countdown-box" id="timer">--:--:--</div>
     </div>
+
+    <script>
+        // ل ڤێرە دەمژمێر 8:00 ی شەڤێ دیار بکە (بۆ نموونە ئەڤڕۆ)
+        const targetTime = new Date();
+        targetTime.setHours(20, 0, 0, 0); // کاژمێر 20 واتا 8:00 ی شەڤێ
+
+        // ئەگەر دەمژمێر 8 دەرباز بوبیت، دێ کەتە ڕۆژا پاشتر
+        if (new Date() > targetTime) {
+            targetTime.setDate(targetTime.getDate() + 1);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = targetTime - now;
+
+            if (difference <= 0) {
+                document.getElementById('timer').innerHTML = "ئەزموون دەستپێکر! لاپەڕی نوو بکەوە";
+                document.getElementById('timer').style.backgroundColor = "#e8f5e9";
+                document.getElementById('timer').style.color = "#2e7d32";
+                document.getElementById('timer').style.borderColor = "#a5d6a7";
+                // ل ڤێرە دشێی پاشان ئۆتۆماتیکی ڕیفرێش بکەی یان کۆدێ ئەزموونێ ل ڤێرە دابنی
+                return;
+            }
+
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+
+            // ڕێکخستنا شێوازێ نیشاندانێ (02:05:09)
+            const displayHours = hours < 10 ? '0' + hours : hours;
+            const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+
+            document.getElementById('timer').innerHTML = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+        }
+
+        // هەر چرکەیەکێ دەمژمێر نوو دبیتەوە
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 
 </body>
 </html>
-
