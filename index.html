@@ -45,7 +45,7 @@
             font-size: 26px;
             font-weight: bold;
             color: #d4af37;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
 
@@ -55,7 +55,6 @@
             margin-bottom: 20px;
         }
 
-        /* ستایلێ پشکا کاتژمێرێ و نڤیسینا هاندەر */
         .countdown-container {
             background-color: #161616;
             border: 1px dashed #d4af37;
@@ -84,6 +83,7 @@
             display: inline-block;
             width: 95%;
             letter-spacing: 0.5px;
+            line-height: 1.6;
         }
 
         .timer-display span {
@@ -136,7 +136,7 @@
 <div class="main-container">
     <div class="header-section">
         <div class="main-title">تاقیکرنا ویزاری</div>
-        <div class="sub-title">خولا دووێ 2025-2026</div>
+        <div class="sub-title">خولا دووێ 2026-2025</div>
     </div>
 
     <div class="countdown-container">
@@ -161,23 +161,21 @@
 </div>
 
 <script>
-    // ڕێکەفتی تاقیکرنێ (14ێ حوزەیرانا 2026 سپێدێ کاتژمێر 08:00)
-    const examDate = new Date("June 14, 2026 08:00:00").getTime();
+    // ڕێکەفتی تاقیکرنێ: 14ێ حوزەیرانا 2026 ل دەمژمێر 07:30 سپێدێ
+    const examDate = new Date("June 14, 2026 07:30:00").getTime();
 
     const timerInterval = setInterval(function() {
         const now = new Date().getTime();
         const distance = examDate - now;
 
-        // حسابکرنا دەمی
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // نیشاندانا دەمی ب شێوازەکێ جوان
         if (distance > 0) {
             document.getElementById("countdown-timer").innerHTML = 
-                `ماوە بۆ ئەزموونێ: <span>${days} ڕۆژ</span> و <span>${hours} دژ</span> و <span>${minutes} دەقە</span> و <span>${seconds} چرکە</span>`;
+                `ماوە بۆ ئەزموونێ: <span>${days} ڕۆژ</span> و <span>${hours} دەمژمێر</span> و <span>${minutes} دەقە</span> و <span>${seconds} چرکە</span>`;
         } else {
             clearInterval(timerInterval);
             document.getElementById("countdown-timer").innerHTML = "🚀 دەمێ تاقیکرنێ دەستپێکر! سەرکەفتن بۆ هەمی لایەکی.";
