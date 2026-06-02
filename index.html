@@ -11,7 +11,7 @@
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,95 +19,102 @@
             box-sizing: border-box;
         }
 
-        /* کادرێ سەرەکی یێ لاپەرەی */
+        /* کادرێ سەرەکی یێ ڕەش */
         .main-container {
             background-color: #121212;
-            border: 1px solid #222222;
-            border-radius: 20px;
+            border: 1px solid #1a1a1a;
+            border-radius: 24px;
             padding: 40px 20px;
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 500px; /* بۆ هندێ وەک وێنەی درێژ و جوان بیت */
         }
 
-        /* ناڤنیشانێ سەرەکی (تاقیکرنا ویزاری) */
+        /* پشکا سەرەکی (ناڤنیشان) */
+        .header-section {
+            margin-bottom: 30px;
+        }
+
         .main-title {
-            color: #d4af37; /* رەنگێ زێری */
-            font-size: 32px;
+            color: #d4af37; /* رەنگێ زێری یێ گەش */
+            font-size: 34px;
             font-weight: bold;
             margin-bottom: 8px;
+        }
+
+        .sub-title {
+            color: #777777;
+            font-size: 16px;
             letter-spacing: 1px;
         }
 
-        /* ژێر-ناڤنیشان (خولا دووێ) */
-        .sub-title {
-            color: #888888;
-            font-size: 16px;
-            margin-bottom: 40px;
-        }
-
-        /* تۆڕا دوگمەیان (گرید بۆ رێکخستنا ٢ ب ٢) */
-        .grid-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1px);
-            grid-auto-columns: minmax(0, 1fr);
-            grid-gap: 20px;
-            margin-bottom: 50px;
-        }
-
-        /* ستایلێ دوگمەیێن هۆلی و شیک */
-        .subject-btn {
+        /* پشکا دوگمەیان ب شێوازێ لیستێ دا تێکەڵ نەبن */
+        .buttons-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #161a23; /* رەشەکا مایل بۆ شینی وەک وێنەی */
-            border: 1px solid #2a3244;
-            border-radius: 30px; /* کۆنەرێن هۆلی و بازنەیی */
+            flex-direction: column;
+            gap: 16px; /* مەسافە د ناڤبەرا دوگمەیان دا */
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        /* ستایلێ دوگمەیێن هۆلی و شیک و بەرفرەهـ */
+        .subject-btn {
+            display: block;
+            background-color: #161a23; /* ڕەنگێ شینکا تاریک وەک یێ وێنەی */
+            border: 1px solid #252c3a;
+            border-radius: 50px; /* هۆلی و بازنەیی یێ تەمام */
             color: #ffffff;
             font-size: 18px;
             font-weight: 600;
             text-decoration: none;
-            padding: 22px 10px;
+            padding: 16px 20px;
+            text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* دەما مشک یان کلیک دچیتە سەر دوگمێ */
+        /* دەما کلیل یان لێدان دکەڤیتە سەر دوگمێ */
         .subject-btn:hover {
             border-color: #d4af37; /* گۆهرین بۆ زێری */
-            background-color: #1f2533;
-            transform: translateY(-3px); /* بلندبوونا کێم */
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+            background-color: #1f2635;
+            transform: scale(1.02); /* کێمەک مەزنتر دبیت */
         }
 
-        /* ناڤێ تە ل بنێ لاپەرەی */
+        /* ناڤێ تە ل بنێ کادری */
         .footer-text {
             color: #444444;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: bold;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
     <div class="main-container">
-        <!-- سەرێ لاپەرەی -->
-        <div class="main-title">تاقیکرنا ویزاری</div>
-        <div class="sub-title">خولا دووێ 2025-2026</div>
+        <!-- پشکا سەرەکی -->
+        <div class="header-section">
+            <div class="main-title">تاقیکرنا ویزاری</div>
+            <div class="sub-title">خولا دووێ 2025-2026</div>
+        </div>
 
-        <!-- پشکا دوگمەیان -->
-        <div class="grid-buttons">
-            <!-- ل جهێ href ناڤێ فایلێن خۆ بنڤیسە دا بەستەر کار بکەت -->
+        <!-- پشکا دوگمەیان - نوکە هەر ئێک دێ ل ڕێزەکێ بیت ب جوانی -->
+        <div class="buttons-container">
             <a href="kurdish.html" class="subject-btn">کوردی</a>
             <a href="arabic.html" class="subject-btn">عەرەبی</a>
             <a href="english.html" class="subject-btn">ئینگلیزی</a>
             <a href="yasa.html" class="subject-btn">یاسا</a>
         </div>
 
-        <!-- ل بن لایێ راستێ ناڤێ تە -->
+        <!-- ناڤێ تە ل بنێ لاپەرەی -->
         <div class="footer-text">GEHAD ZEBARI</div>
     </div>
 
