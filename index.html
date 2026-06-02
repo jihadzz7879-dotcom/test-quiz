@@ -2,19 +2,226 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاقيكرنا ياڵا - مۆدێرن</title>
     <style>
-        body { background-color: #121212; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { text-align: center; width: 90%; max-width: 400px; }
-        .btn { display: block; background: #d4af37; color: #000; padding: 15px; margin: 10px 0; border-radius: 10px; text-decoration: none; font-weight: bold; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: #1a1a1a;
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            color: #d4af37;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+        }
+
+        .quiz-header p {
+            color: #b3b3b3;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4af37, transparent);
+            margin: 20px 0;
+        }
+
+        .question-box {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            background-color: #262626;
+            border: 1px solid #3d3d3d;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-item:hover {
+            border-color: #d4af37;
+            background-color: #2d2d2d;
+            transform: translateX(-5px);
+        }
+
+        .option-item input[type="radio"] {
+            accent-color: #d4af37;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+        }
+
+        .btn-submit {
+            background-color: #d4af37;
+            color: #121212;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #f1c40f;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #d4af37;
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #222;
+            border: 1px dashed #d4af37;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>تاقیکردنێن قوتابیان</h1>
-        <a href="kurdish.html" class="btn">تاقیکرنا کوردی</a>
-        <a href="english.html" class="btn">تاقیکرنا ئینگلیزی</a>
-        <a href="arabic.html" class="btn">تاقیکرنا عەرەبی</a>
-        <a href="yasa.html" class="btn">تاقیکرنا یاسا</a>
+
+    <div class="quiz-container">
+        <!-- ناڤێ تاقیکردنێ وەک دیزاینێ تە -->
+        <div class="quiz-header">
+            <h1>تاقيكرنا ياسا</h1>
+            <p>بۆ دەستپێكرنا تاقیکرنێ بەرسڤا پرسیاران بدە</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- فۆرمێ پرسیاران -->
+        <form id="quizForm">
+            
+            <!-- پرسیارا ئێکێ -->
+            <div class="question-box">
+                <p class="question-text">١. پرسیار ل ڤێرە دێ هێتە نڤیساندن؟</p>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <input type="radio" id="q1_a" name="q1" value="A">
+                        <label for="q1_a">بەرسڤا ئێکێ (یا ڕاست)</label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" id="q1_b" name="q1" value="B">
+                        <label for="q1_b">بەرسڤا دووێ</label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" id="q1_c" name="q1" value="C">
+                        <label for="q1_c">بەرسڤا سیێ</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- پرسیارا دووێ -->
+            <div class="question-box">
+                <p class="question-text">٢. پرسیارا دووێ ل ڤێرە بنڤیسە؟</p>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <input type="radio" id="q2_a" name="q2" value="A">
+                        <label for="q2_a">بەرسڤا ئێکێ</label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" id="q2_b" name="q2" value="B">
+                        <label for="q2_b">بەرسڤا دووێ (یا ڕاست)</label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" id="q2_c" name="q2" value="C">
+                        <label for="q2_c">بەرسڤا سیێ</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- دوگمەیا تاقیکردنێ -->
+            <button type="button" class="btn-submit" onclick="checkAnswers()">ئەنجامێ تاقیکرنێ دیار بکە</button>
+        </form>
+
+        <!-- شوێنا نیشاندانا نمرێ -->
+        <div id="result"></div>
     </div>
+
+    <!-- لۆجیکێ پشکنینا بەرسڤان -->
+    <script>
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = 2; // ل فێرە ژمارا پرسیاران بنڤیسە
+            
+            // وەرگرتنا بەرسڤان
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            
+            // پشکنینا پرسیارا 1 (ئەگەر A یا ڕاست بیت)
+            if(q1 && q1.value === "A") {
+                score++;
+            }
+            
+            // پشکنینا پرسیارا 2 (ئەگەر B یا ڕاست بیت)
+            if(q2 && q2.value === "B") {
+                score++;
+            }
+            
+            // نیشاندانا ئەنجامى
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `نمریا تە: ${score} ژ ${totalQuestions}`;
+            
+            // برنا سەرێ پەیجى بۆ دیتنا ئەنجامى
+            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+        }
+    </script>
+
 </body>
 </html>
