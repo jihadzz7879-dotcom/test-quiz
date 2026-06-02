@@ -28,7 +28,7 @@
             background-color: #111111;
             border: 1px solid #1c1c1c;
             border-radius: 24px;
-            padding: 35px 25px;
+            padding: 30px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -36,7 +36,7 @@
         }
 
         .header-section {
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             text-align: center;
             width: 100%;
         }
@@ -45,13 +45,49 @@
             font-size: 26px;
             font-weight: bold;
             color: #d4af37;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
         }
 
         .sub-title {
             font-size: 15px;
             color: #b3b3b3;
+            margin-bottom: 20px;
+        }
+
+        /* ستایلێ پشکا کاتژمێرێ و نڤیسینا هاندەر */
+        .countdown-container {
+            background-color: #161616;
+            border: 1px dashed #d4af37;
+            border-radius: 16px;
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .motivation-text {
+            font-size: 14px;
+            color: #e0e0e0;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .timer-display {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 50px;
+            display: inline-block;
+            width: 95%;
+            letter-spacing: 0.5px;
+        }
+
+        .timer-display span {
+            color: #d4af37;
         }
 
         .buttons-container {
@@ -80,7 +116,7 @@
         .subject-btn:hover {
             border-color: #d4af37;
             background-color: #1f2635;
-            transform: translateY(-2px);
+            transform: scale(1.02);
         }
 
         .footer-text {
@@ -89,7 +125,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: bold;
-            margin-top: 35px;
+            margin-top: 30px;
             text-align: center;
             width: 100%;
         }
@@ -103,19 +139,51 @@
         <div class="sub-title">خولا دووێ 2025-2026</div>
     </div>
 
+    <div class="countdown-container">
+        <div class="motivation-text">
+            🌟 "هیچ تشتەک مەحاڵ نینە کاتێ تو بڕیارێ بدەی بگەهیە خەونا خۆ... هێشتا دەم یێ ل پێشیا تە، ب هێز بە!"
+        </div>
+        <div class="timer-display" id="countdown-timer">
+            دهێتە بارکرن...
+        </div>
+    </div>
+
     <div class="buttons-container">
-        <!-- هەمی بابەت ل ڤێرە بێ کۆد ڕاستەوخۆ ڤەدبن -->
         <a href="kurdish.html" class="subject-btn">کوردی</a>
         <a href="arabic.html" class="subject-btn">عەرەبی</a>
         <a href="english.html" class="subject-btn">ئینگلیزی</a>
         <a href="yasa.html" class="subject-btn">یاسا</a>
-        <!-- ئەڤە ژی مێژووە کو دچیتە سەر پەیجێ مێژوویێ یێ کۆدکری -->
         <a href="mejo.html" class="subject-btn">مێژوو</a>
         <a href="zindawar.html" class="subject-btn">زیندەوەر</a>
     </div>
 
     <div class="footer-text">GEHAD ZEBARI</div>
 </div>
+
+<script>
+    // ڕێکەفتی تاقیکرنێ (14ێ حوزەیرانا 2026 سپێدێ کاتژمێر 08:00)
+    const examDate = new Date("June 14, 2026 08:00:00").getTime();
+
+    const timerInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = examDate - now;
+
+        // حسابکرنا دەمی
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // نیشاندانا دەمی ب شێوازەکێ جوان
+        if (distance > 0) {
+            document.getElementById("countdown-timer").innerHTML = 
+                `ماوە بۆ ئەزموونێ: <span>${days} ڕۆژ</span> و <span>${hours} دژ</span> و <span>${minutes} دەقە</span> و <span>${seconds} چرکە</span>`;
+        } else {
+            clearInterval(timerInterval);
+            document.getElementById("countdown-timer").innerHTML = "🚀 دەمێ تاقیکرنێ دەستپێکر! سەرکەفتن بۆ هەمی لایەکی.";
+        }
+    }, 1000);
+</script>
 
 </body>
 </html>
