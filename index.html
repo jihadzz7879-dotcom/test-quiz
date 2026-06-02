@@ -1,39 +1,32 @@
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 20px; transition: 0.3s; }
-        .dark { background-color: #121212; color: white; }
-        .light { background-color: #f4f4f4; color: black; }
-        .blue { background-color: #003366; color: white; }
-        
-        .btn { display: block; width: 80%; margin: 10px auto; padding: 15px; border-radius: 10px; border: 1px solid #555; cursor: pointer; font-size: 18px; }
-        .theme-btns { margin-bottom: 30px; }
-        
-        .footer-insta { margin-top: 50px; font-weight: bold; color: #d4af37; }
-    </style>
-</head>
-<body class="dark">
+<script>
+    // ئەڤە لیستەیا وەڵامێن دروستە بۆ هەر 50 پرسیاران
+    const correctAnswers = {
+        q1: "ناڤ + هه‌ڤاڵناڤ", q2: "ناڤ + ڕەگ + پاشگر", q3: "ناڤ + هه‌ڤاڵناڤ", q4: "هه‌ڤاڵناڤ + ڕەگ",
+        q5: "ناڤ + ڕەگ + پاشگر", q6: "ناڤ + ڕەگ", q7: "قاره‌مان", q8: "خێرخواز",
+        q9: "ناڤ + ئامراز + ناڤ", q10: "هه‌ڤاڵناڤ + هه‌ڤاڵناڤ", q11: "لیزان", q12: "ناڤ+ڕەگ+پاشگر",
+        q13: "هه‌ڤاڵناڤ + پاشگر", q14: "ڕۆژنامەڤان", q15: "ڕەگی کار + پاشگر", q16: "چالاکانە",
+        q17: "پێشگر+هه‌ڤاڵناڤ+پاشگر", q18: "بەناز", q19: "هه‌ڤاڵناڤ + پاشگر", q20: "سەر و سەر",
+        q21: "ئەڤ سالە", q22: "ئەڤسا", q23: "پێشگر+هه‌ڤاڵناڤ+پاشگر", q24: "هه‌ڤاڵناڤێ نیشانە + ناڤ",
+        q25: "ناڤ + پاشگر", q26: "هه‌ڤاڵناڤ + بە + ناڤ", q27: "هه‌ڤاڵناڤێ نیشانە+ناڤ", q28: "هه‌ڤاڵکاره‌",
+        q29: "پێشگر + هه‌ڤاڵناڤێ لێکدای", q30: "هه‌ڤاڵناڤ + بە + ناڤ", q31: "پێشگر + هه‌ڤاڵناڤ", q32: "بەجهەرگ",
+        q33: "دیارکەرێ جیهانی", q34: "هه‌ڤاڵناڤێ داریژتی", q35: "بێباکانە", q36: "قەدی چاوگی + پاشگر",
+        q37: "پشتاو پشت", q38: "شێرانە", q39: "ل هاڤینێ", q40: "هه‌ڤاڵناڤ + ڕەگ",
+        q41: "ڕاستبێژ", q42: "ناڤ + ئامراز + هه‌ڤاڵناڤ", q43: "بەزۆر", q44: "هەمی ڕاستن",
+        q45: "جل شۆر", q46: "ناڤ+ ڕەگی کاری", q47: "چ ژوان نینن", q48: "بێوێر",
+        q49: "تا ڕۆژانە نە خوینی، دەرناچی", q50: "ناڤ + ئا + ناڤ"
+    };
 
-    <h1>تاقیکرنا ویزاری</h1>
-    <p>خولا دووی 2025-2026</p>
+    function checkAnswers() {
+        let score = 0;
+        let totalQuestions = 50;
 
-    <div class="theme-btns">
-        <button onclick="document.body.className='dark'">تاری</button>
-        <button onclick="document.body.className='light'">سپی</button>
-        <button onclick="document.body.className='blue'">شین</button>
-    </div>
+        for (let i = 1; i <= totalQuestions; i++) {
+            let selected = document.querySelector('input[name="q' + i + '"]:checked');
+            if (selected && selected.value === correctAnswers['q' + i]) {
+                score++;
+            }
+        }
 
-    <button class="btn">تاقیکردنا کوردی پولا ١٢ خولا دووي ٢٠٢٥-٢٠٢٦</button>
-    <button class="btn">تاقیکردنا عەرەبی</button>
-    <button class="btn">تاقیکردنا ئینگلیزی</button>
-    <button class="btn">تاقیکرنا یاسایێن هەڤالناڤ و هەڤالکار ژلایی پێکئینانیڤە</button>
-
-    <div class="footer-insta">
-        <p>Instagram: @GehadZebari</p>
-    </div>
-
-</body>
-</html>
+        alert("پیرۆزبیت! تە " + score + " ژ " + totalQuestions + " بەرسڤێن دروست هەبوون.");
+    }
+</script>
