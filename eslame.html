@@ -3,764 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستمێ تاقیکرنێن ویزاری - پەروەردا ئیسلامی</title>
+    <title>ئەزموونا پەروەردەیا ئیسلامی (٢٠١٤ - ٢٠٢١)</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: #0b0b0b;
             color: #ffffff;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
-
         .quiz-container {
             width: 100%;
-            max-width: 680px;
+            max-width: 550px;
             background-color: #111111;
             border: 1px solid #1c1c1c;
             border-radius: 24px;
-            padding: 30px;
+            padding: 30px 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
-        h2, h3 {
-            color: #d4af37;
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71;
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .setup-section, .quiz-section, .result-section {
-            display: none;
-        }
-
-        .active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
             margin-bottom: 8px;
+        }
+        .sub-title {
+            font-size: 14px;
             color: #b3b3b3;
-            font-size: 15px;
+            text-align: center;
+            margin-bottom: 25px;
         }
-
-        select {
+        .round-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             width: 100%;
-            padding: 12px;
-            background-color: #161616;
-            border: 1px solid #d4af37;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
         }
-
-        .btn {
-            display: block;
-            width: 100%;
+        .round-btn {
             background-color: #161a23;
             border: 1px solid #252c3a;
-            color: white;
-            padding: 14px;
             border-radius: 50px;
-            font-size: 17px;
-            font-weight: bold;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
-            margin-top: 20px;
         }
-
-        .btn:hover {
-            border-color: #d4af37;
+        .round-btn:hover {
+            border-color: #2ecc71;
             background-color: #1f2635;
             transform: scale(1.02);
         }
-
-        .question-block {
+        .quiz-section { display: none; }
+        .question-card {
             background-color: #161616;
-            border: 1px solid #222;
-            border-radius: 16px;
+            border: 1px solid #1c1c1c;
+            border-radius: 18px;
             padding: 20px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
-
         .question-text {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 600;
+            line-height: 1.7;
             margin-bottom: 15px;
-            line-height: 1.6;
+            color: #f0f0f0;
         }
-
-        .option-item {
-            background-color: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-label {
             display: flex;
             align-items: center;
+            background-color: #1e1e1e;
+            border: 1px solid #2c2c2c;
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
         }
-
-        .option-item:hover {
-            border-color: #d4af37;
-            background-color: #252525;
+        .option-label:hover {
+            border-color: #2ecc71;
+            background-color: #1a241e;
         }
-
-        .option-item input {
-            margin-left: 10px;
-            accent-color: #d4af37;
+        .option-label input {
+            margin-left: 12px;
+            accent-color: #2ecc71;
         }
-
-        .correct-ans {
-            border-color: #2ecc71 !important;
-            background-color: rgba(46, 204, 113, 0.1) !important;
-        }
-
-        .wrong-ans {
-            border-color: #e74c3c !important;
-            background-color: rgba(231, 76, 60, 0.1) !important;
-        }
-
-        .badge-correct {
-            color: #2ecc71;
+        .action-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 17px;
             font-weight: bold;
-            margin-right: auto;
+            padding: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
         }
-
-        .badge-wrong {
-            color: #e74c3c;
-            font-weight: bold;
-            margin-right: auto;
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
         }
-
-        .score-display {
-            font-size: 22px;
+        .result-box {
+            display: none;
+            background-color: #161616;
+            border: 1px solid #252c3a;
+            border-radius: 18px;
+            padding: 25px;
             text-align: center;
-            margin-bottom: 25px;
-            color: #ffffff;
         }
-        
-        .score-display span {
-            color: #d4af37;
+        .score-text {
+            font-size: 36px;
             font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
         }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #b3b3b3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-btn:hover { color: #ffffff; }
+        
+        /* ڕەنگێن ڕاست و شۆف پاش پشکنینێ */
+        .correct-choice { border: 2px solid #2ecc71 !important; background-color: #1b3a24 !important; }
+        .wrong-choice { border: 2px solid #e74c3c !important; background-color: #3a1b1b !important; }
     </style>
 </head>
 <body>
 
 <div class="quiz-container">
-    <div class="setup-section active" id="setup-screen">
-        <h2>ئەزموونێن ویزاری یێن بابەتێ ئیسلامی</h2>
-        <div class="form-group">
-            <label for="year-select">سالا خواندنێ هەلبژێرە:</label>
-            <select id="year-select">
-                <option value="2014-2015">٢٠١٤-٢٠١٥</option>
-                <option value="2015-2016">٢٠١٥-٢٠١٦</option>
-                <option value="2016-2017">٢٠١٦-٢٠١٧</option>
-                <option value="2017-2018">٢٠١٧-٢٠١٨</option>
-                <option value="2020-2021">٢٠٢٠-٢٠٢١</option>
-            </select>
+    
+    <!-- لاپەرێ سەرەکی یێ هەلبژارتنا خولان -->
+    <div id="main-menu">
+        <div class="main-title">پەروەردەیا ئیسلامی</div>
+        <div class="sub-title">پرسیارێن ویزاری یێن پۆلا ١٢ (٢٠١٤ - ٢٠٢١)</div>
+        <div class="round-selection">
+            <div class="round-btn" onclick="startQuiz('round1')">📝 خولا ئێکێ (١٠ پرسیار)</div>
+            <div class="round-btn" onclick="startQuiz('round2')">📝 خولا دووێ (١٠ پرسیار)</div>
         </div>
-        <div class="form-group">
-            <label for="round-select">خولێ هەلبژێرە:</label>
-            <select id="round-select">
-                <option value="1">خولا ئێکێ</option>
-                <option value="2">خولا دووێ</option>
-            </select>
-        </div>
-        <button class="btn" onclick="startQuiz()">دەستپێکرنا تاقیکرنێ</button>
+        <center><a href="index.html" class="back-btn">زڤڕین بۆ لاپەرێ سەرەکی</a></center>
     </div>
 
-    <div class="quiz-section" id="quiz-screen">
-        <h3 id="quiz-title">پرسیار</h3>
-        <div id="questions-container"></div>
-        <button class="btn" onclick="submitQuiz()">دوماهیپێهینان و دیتنا ئەنجامی</button>
+    <!-- ================= کاتێ خولا ئێکێ دهێتە هەلبژارتن ================= -->
+    <div id="round1-section" class="quiz-section">
+        <div class="main-title">خولا ئێکێ (١٠ پرسیار)</div>
+        <div class="sub-title">پرسیارێن هاتی ژ ساڵا ٢٠١٤ تا ٢٠٢١</div>
+        
+        <form id="form-round1">
+            <div class="question-card" id="r1_q1-card">
+                <div class="question-text">١. بو جڤاکەک بهێتە ئاڤاکرن و یاسا سەرەوەر بیت و کەس ژ ستەم و نەهەقی و دەست درێژیێ نەترسیت، دڤێت دادپەروەری بهێتە جێبەجێکرن ل:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q1" value="A"> A) تەنها ل ژیانا تاکەکەسی</label>
+                    <label class="option-label"><input type="radio" name="r1_q1" value="B"> B) تەنها دناڤ بنەمالێ دا</label>
+                    <label class="option-label"><input type="radio" name="r1_q1" value="C"> C) تەنها ل ئالیێ سیاسی دا</label>
+                    <label class="option-label"><input type="radio" name="r1_q1" value="D"> D) دڤێت دناڤ هەمی ئالیێن گشتی یێن ژیانێ دا</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q2-card">
+                <div class="question-text">٢. د ناڤەروکا ویدا بەحسێ هەبوونا خودێ و فریشتەیان، و چەوانیا ئافراندنا گەردوون، و ئەرک و کارێن ئێزدیاتیێ دکەت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q2" value="A"> A) موسحەفا ڕەش</label>
+                    <label class="option-label"><input type="radio" name="r1_q2" value="B"> B) جەلوە</label>
+                    <label class="option-label"><input type="radio" name="r1_q2" value="C"> C) قەول</label>
+                    <label class="option-label"><input type="radio" name="r1_q2" value="D"> D) موسحەفا سپی</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q3-card">
+                <div class="question-text">٣. ئەو کەسێ چوویە نک مەزنێ ساسانیان (ڕۆستەم):</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q3" value="A"> A) پێشەوا عەلی</label>
+                    <label class="option-label"><input type="radio" name="r1_q3" value="B"> B) ڕەبیعێ کورێ عامری</label>
+                    <label class="option-label"><input type="radio" name="r1_q3" value="C"> C) ئیبن تەیمیە</label>
+                    <label class="option-label"><input type="radio" name="r1_q3" value="D"> D) خالدێ کورێ وەلید</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q4-card">
+                <div class="question-text">٤. حکومەتا دیموکراتی دڤێت ئێک ژ ڤان سالوخەتان ل نک هەبن:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q4" value="A"> A) وەکهەڤیا یاسایی</label>
+                    <label class="option-label"><input type="radio" name="r1_q4" value="B"> B) بەرسڤدانا حکومەتێ بو داخوازیێن میللەتی</label>
+                    <label class="option-label"><input type="radio" name="r1_q4" value="C"> C) دادپەروەریا دادوەریێ</label>
+                    <label class="option-label"><input type="radio" name="r1_q4" value="D"> D) وەرگرتنا بوچوونا پتران و مافێ کیمتران</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q5-card">
+                <div class="question-text">٥. گەهشتن بۆ دەستەلاتێ د ئیسلامێ دا ب ڕێکا:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q5" value="A"> A) ڕێککەفتن</label>
+                    <label class="option-label"><input type="radio" name="r1_q5" value="B"> B) هەلبژارتن</label>
+                    <label class="option-label"><input type="radio" name="r1_q5" value="C"> C) کودەتا</label>
+                    <label class="option-label"><input type="radio" name="r1_q5" value="D"> D) میراتگری</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q6-card">
+                <div class="question-text">٦. ئانکو دەربازکرنا هەر تشتەکی ژ سنورێن نافنجییە:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q6" value="A"> A) گەندەلی</label>
+                    <label class="option-label"><input type="radio" name="r1_q6" value="B"> B) چاکسازی</label>
+                    <label class="option-label"><input type="radio" name="r1_q6" value="C"> C) توندڕەوی (غلو)</label>
+                    <label class="option-label"><input type="radio" name="r1_q6" value="D"> D) ستەم</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q7-card">
+                <div class="question-text">٧. بنەمایا وەکهەڤیا میللەتان و نەتەوەیان داخوازا سیستەمەکێ دکەت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q7" value="A"> A) عەلمانی</label>
+                    <label class="option-label"><input type="radio" name="r1_q7" value="B"> B) ناوچەگەری</label>
+                    <label class="option-label"><input type="radio" name="r1_q7" value="C"> C) نیڤدەولەتی</label>
+                    <label class="option-label"><input type="radio" name="r1_q7" value="D"> D) ئیسلامی</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q8-card">
+                <div class="question-text">٨. د ئیسلامێ دا کار:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q8" value="A"> A) پەسندە</label>
+                    <label class="option-label"><input type="radio" name="r1_q8" value="B"> B) پێدڤییە (واجبە)</label>
+                    <label class="option-label"><input type="radio" name="r1_q8" value="C"> C) نەهۆکە</label>
+                    <label class="option-label"><input type="radio" name="r1_q8" value="D"> D) پاقژییە</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q9-card">
+                <div class="question-text">٩. ژ نیشانێن لاوازیا کەسایەتیا خودانباوەرە:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q9" value="A"> A) بێزاری</label>
+                    <label class="option-label"><input type="radio" name="r1_q9" value="B"> B) هەژوکی و دودلی</label>
+                    <label class="option-label"><input type="radio" name="r1_q9" value="C"> C) تەمبەڵی</label>
+                    <label class="option-label"><input type="radio" name="r1_q9" value="D"> D) پاشخستنا کاری</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r1_q10-card">
+                <div class="question-text">١٠. ئیرادە یا مروڤی لاواز دکەت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r1_q10" value="A"> A) مەزنایی</label>
+                    <label class="option-label"><input type="radio" name="r1_q10" value="B"> B) ترس و دڵەڕاوکێ</label>
+                    <label class="option-label"><input type="radio" name="r1_q10" value="C"> C) قەلسى</label>
+                    <label class="option-label"><input type="radio" name="r1_q10" value="D"> D) شەرمینی</label>
+                </div>
+            </div>
+
+            <button type="button" class="action-btn" onclick="submitQuiz('round1')">دوماهیکپێهینان و دیتنا ئەنجامی</button>
+        </form>
     </div>
 
-    <div class="result-section" id="result-screen">
-        <h2>ئەنجامێ تاقیکرنێ</h2>
-        <div class="score-display" id="score-text"></div>
-        <div id="results-container"></div>
-        <button class="btn" onclick="resetQuiz()">دووبارە تاقیکردنەوە</button>
+    <!-- ================= کاتێ خولا دووێ دهێتە هەلبژارتن ================= -->
+    <div id="round2-section" class="quiz-section">
+        <div class="main-title">خولا دووێ (١٠ پرسیار)</div>
+        <div class="sub-title">پرسیارێن هاتی ژ ساڵا ٢٠١٤ تا ٢٠٢١</div>
+        
+        <form id="form-round2">
+            <div class="question-card" id="r2_q1-card">
+                <div class="question-text">١. ئیسلام مامەلێ دگەل نە موسلمانان دکەت ل سەر بنیاتێ:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q1" value="A"> A) ئایین</label>
+                    <label class="option-label"><input type="radio" name="r2_q1" value="B"> B) زمان</label>
+                    <label class="option-label"><input type="radio" name="r2_q1" value="C"> C) وەڵاتینبوون</label>
+                    <label class="option-label"><input type="radio" name="r2_q1" value="D"> D) نەتەوە</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q2-card">
+                <div class="question-text">٢. هاریکاریا مروڤی دکەت کو ب سەر کەم و کاسییێن خۆ بکەڤیت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q2" value="A"> A) دادپەروەری</label>
+                    <label class="option-label"><input type="radio" name="r2_q2" value="B"> B) پلەوپایە</label>
+                    <label class="option-label"><input type="radio" name="r2_q2" value="C"> C) سەروەت و سامان</label>
+                    <label class="option-label"><input type="radio" name="r2_q2" value="D"> D) باوەر و ئایین</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q3-card">
+                <div class="question-text">٣. ژ بناغەیێن زانایان ( لهم ما ______ و علیهم ما علینا ) :</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q3" value="A"> A) لهم</label>
+                    <label class="option-label"><input type="radio" name="r2_q3" value="B"> B) علیهم</label>
+                    <label class="option-label"><input type="radio" name="r2_q3" value="C"> C) لنا</label>
+                    <label class="option-label"><input type="radio" name="r2_q3" value="D"> D) علینا</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q4-card">
+                <div class="question-text">٤. خودانێ بنەڕەتی و حەقیقی یێ مۆلک و سامانی ب دیتنا ئیسلامێ یێ:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q4" value="A"> A) خودێیە</label>
+                    <label class="option-label"><input type="radio" name="r2_q4" value="B"> B) دەستەلاتە</label>
+                    <label class="option-label"><input type="radio" name="r2_q4" value="C"> C) گەلە</label>
+                    <label class="option-label"><input type="radio" name="r2_q4" value="D"> D) مروڤایەتییە</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q5-card">
+                <div class="question-text">٥. ب دیتنا ئیسلامێ، گەل و میللەت وەک هەڤن، چونکی ئیسلام پەیامەکا:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q5" value="A"> A) جیهانییە</label>
+                    <label class="option-label"><input type="radio" name="r2_q5" value="B"> B) بۆ گەلەکێ دیارکری کێ هاتیە</label>
+                    <label class="option-label"><input type="radio" name="r2_q5" value="C"> C) بۆ جهەکێ دیارکرییە</label>
+                    <label class="option-label"><input type="radio" name="r2_q5" value="D"> D) بۆ عەشیرەتەکا دیارکرییە</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q6-card">
+                <div class="question-text">٦. جەژنا چلێ زستانی بۆ دەمێ ________ ڕۆژان بەردەوام دبیت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q6" value="A"> A) ٣ ڕۆژان</label>
+                    <label class="option-label"><input type="radio" name="r2_q6" value="B"> B) ٤ ڕۆژان</label>
+                    <label class="option-label"><input type="radio" name="r2_q6" value="C"> C) ٥ ڕۆژان</label>
+                    <label class="option-label"><input type="radio" name="r2_q6" value="D"> D) ٧ ڕۆژان</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q7-card">
+                <div class="question-text">٧. قال تعالى (( يا أيها الذين آمنوا ادخلوا في السلم كافة )) ئەڤ ئایەتە داخوازیێ بۆ کێ دکەت:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q7" value="A"> A) دادپەروەری</label>
+                    <label class="option-label"><input type="radio" name="r2_q7" value="B"> B) ئاشتی</label>
+                    <label class="option-label"><input type="radio" name="r2_q7" value="C"> C) چاکسازی</label>
+                    <label class="option-label"><input type="radio" name="r2_q7" value="D"> D) وەکهەڤی</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q8-card">
+                <div class="question-text">٨. کومەکا قاعدەیێن گشتی نە دڤێت کار پێ بهێتە کرن ل سەر بنیاتێ شەریعەتی بۆ ئاراستەکرنا چالاکییێن کارۆباری:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q8" value="A"> A) شەریعەتێ ئیسلامێ</label>
+                    <label class="option-label"><input type="radio" name="r2_q8" value="B"> B) سیاسی</label>
+                    <label class="option-label"><input type="radio" name="r2_q8" value="C"> C) ڕەوشەنبیری</label>
+                    <label class="option-label"><input type="radio" name="r2_q8" value="D"> D) ئابووری</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q9-card">
+                <div class="question-text">٩. (مۆریس دۆڤەر جێهـ) هزرمەندەکێ:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q9" value="A"> A) ئەلمانی یە</label>
+                    <label class="option-label"><input type="radio" name="r2_q9" value="B"> B) فەڕەنسی یە</label>
+                    <label class="option-label"><input type="radio" name="r2_q9" value="C"> C) نەمسایی یە</label>
+                    <label class="option-label"><input type="radio" name="r2_q9" value="D"> D) بریتانی یە</label>
+                </div>
+            </div>
+
+            <div class="question-card" id="r2_q10-card">
+                <div class="question-text">١٠. د ئیسلامێ دا تشتەکێ تایبەت نینە بۆ ئالییەکێ دیارکری د دەستنیشانکرنا د ژیانێ دا:</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="r2_q10" value="A"> A) ئازادی</label>
+                    <label class="option-label"><input type="radio" name="r2_q10" value="B"> B) کار</label>
+                    <label class="option-label"><input type="radio" name="r2_q10" value="C"> C) شورا</label>
+                    <label class="option-label"><input type="radio" name="r2_q10" value="D"> D) دادپەروەری</label>
+                </div>
+            </div>
+
+            <button type="button" class="action-btn" onclick="submitQuiz('round2')">دوماهیکپێهینان و دیتنا ئەنجامی</button>
+        </form>
     </div>
+
+    <!-- ================= لاپەرێ نیشاندانا ئەنجامی ================= -->
+    <div id="result-section" class="result-box">
+        <div class="main-title" style="color: #d4af37;">ئەنجامێ تە</div>
+        <div class="score-text" id="scoreDisplay">0 / 100</div>
+        <p id="feedbackText" style="color: #e0e0e0; margin-bottom: 20px;"></p>
+        <button class="action-btn" onclick="resetQuiz()">دووبارە ئەزموونکرن</button>
+        <a href="index.html" class="back-btn">زڤڕین بۆ لاپەرێ سەرەکی</a>
+    </div>
+
 </div>
 
 <script>
-    const quizData = {
-        // ٢٠٢٠-٢٠٢١ خولا دووێ
-        "2020-2021_2": [
-            {
-                id: 10,
-                q: "١٠. کۆمەکا (قاعیدەبین) گشتی هەنه دڤێت کار پێ بهێتەکرن، دەمێ یاسادانا شەریعەتی ئیسلامی پەیوەندی ب :",
-                options: { A: "کاروبارێ شەرعی", B: "کاروبارێ سیاسی", C: "کاروبارێ ڕەوشەنبیری", D: "ئاراستەکرنا چالاکییێن ئابۆریڤە هەی" },
-                correct: "D"
-            }
-        ],
-        // ٢٠١٤-٢٠١٥ خولا دووێ
-        "2014-2015_2": [
-            {
-                id: 1,
-                q: "١. پەرتۆکا ( مفردات ألفاظ غریب القرآن ) یا :",
-                options: { A: "پێشەوا عەلی یە", B: "ڕەبیعێ کورێ عامره", C: "ئبن تەیمییە", D: "راغبێ ئەسفەهانییە" },
-                correct: "D"
-            },
-            {
-                id: 2,
-                q: "٢. سالنامەیا زایینی بەری یێن سالنامەیا ڕۆژهەلاتی ئانکو نێردی ب :",
-                options: { A: "١٣ ڕۆژن", B: "١٤ ڕۆژن", C: "١٥ ڕۆژن", D: "١٦ ڕۆژن" },
-                correct: "A"
-            },
-            {
-                id: 3,
-                q: "٣. نیشانا لاوازییا کەسینییا خودانییە :",
-                options: { A: "بێزاری", B: "هەزۆکی و دودلی", C: "تەمبەلی", D: "پاشخستنا کاری" },
-                correct: "B"
-            },
-            {
-                id: 4,
-                q: "٤. هەمی رەنگێن توند و هێزێ و تیژیێ د گەهاندنا ئیسلامێدا بو مروڤان :",
-                options: { A: "پێدڤی یە", B: "قەدەغەیە", C: "رێپێدایە", D: "بانگەوازی بو دکەت" },
-                correct: "B"
-            },
-            {
-                id: 5,
-                q: "٥. (موریس دووڤە ر جیهە) هزرڤانەکی :",
-                options: { A: "ئەلمانییە", B: "فەرەنسییە", C: "نەمساوییە", D: "بریتانییە" },
-                correct: "B"
-            },
-            {
-                id: 6,
-                q: "٦. ژ بهایێن ئیسلامی یێن مەزن، و ئەو باوەردارێن ل دویف خودایی دچن، دڤێت فێری ڤی بهایی بن، و ل سەر بهێتە پەروەردەکرن، هەتا ئەو ببیته پشکەک ژ بیر و رفتارێن وان، پێناسەیا :",
-                options: { A: "دادپەروەری", B: "ئاشتی", C: "چاکسازی", D: "وەفاداری" },
-                correct: "A"
-            },
-            {
-                id: 7,
-                q: "٧. (پێدڤیێن سەرەکی) ئەو تشتن ئەوێن مروڤی هەبوونا وێ پێدڤی بو پاراستنا :",
-                options: { A: "ژیانا ساناهی", B: "ژیانەکا خەملاندی", C: "ژین و ئایین", D: "چ ژوان نینە" },
-                correct: "C"
-            }
-        ],
-        // ٢٠١٥-٢٠١٦ خولا دووێ
-        "2015-2016_2": [
-            {
-                id: 6,
-                q: "٦. خودێ دەولەتا زوردار ناهێلیت ئەگەر خودان چ بیت ؟",
-                options: { A: "دادپەروەربیت", B: "باوەرداربیت", C: "موسلمانبیت", D: "خۆدێ ناس بیت" },
-                correct: "A"
-            },
-            {
-                id: 7,
-                q: "٧. قالى تعالى (( وما على الرسول الا البلاغ المبين )) ئانکو : هەمانی تشتێ ل سەر پێغەمبەری ئه‌وه‌ :",
-                options: { A: "شەرێ کافران بکەت", B: "راکرنا زولم و ستەمێ", C: "دینی ب ئاشکرایی بگەهینت", B: "ب هێزکرنا دادپەروەرییێ" },
-                correct: "C"
-            },
-            {
-                id: 8,
-                q: "٨. ((تەنبەلی کلیلێ بەختەرەشییێ یە)) ئه‌ڤ ئاخفتنە یا :",
-                options: { A: "نەبۆبەکرا", B: "عەلی یە", C: "عوسمانە", D: "عومەرە" },
-                correct: "B"
-            },
-            {
-                id: 9,
-                q: "٩. ئێک ژڤانان ژ ئەگەرێن ڕەشبینیێ نینە :",
-                options: { A: "بێزاری", B: "هەژاری", C: "تەمبەلی", D: "هەزۆکی و دودلی" },
-                correct: "B"
-            },
-            {
-                id: 10,
-                q: "١٠. ژ قاعیدەیێن گشتی یێن شەریعەتی ئیسلامێدا، باوەری ب _____ ناهێتە راکرن .",
-                options: { A: "گومانی", B: "راستییێ", C: "بێدەنگییێ", D: "درەوی" },
-                correct: "A"
-            },
-            {
-                id: 1,
-                q: "١. ئیسلام مامەلێ دگەل نە موسلمانان دکەت ل سەر بنیاتێ :",
-                options: { A: "ئایین", B: "زمان", C: "وەڵاتیبوون", D: "نەتەوە" },
-                correct: "C"
-            },
-            {
-                id: 2,
-                q: "٢. هاریکارییا مروڤی دکەت کۆ ب سەر کـێم و کاسییێن خو بکەڤیت :",
-                options: { A: "دادپەروەری", B: "پله و پایه", C: "سەروەت و سامان", D: "باوەر و ئایین" },
-                correct: "D"
-            },
-            {
-                id: 3,
-                q: "٣. ژ بناخەیێن زانایان ( لهم ما ____ و عليهم ما علينا ) .",
-                options: { A: "لهم", B: "عليهم", C: "لنا", D: "علينا" },
-                correct: "C"
-            }
-        ],
-        // ٢٠١٥-٢٠١٦ خولا ئێکێ
-        "2015-2016_1": [
-            {
-                id: 8,
-                q: "٨. ((ئیسلاح دژی خرابکاری و گەندەڵیێ یە)) ئه‌ڤە گۆتنە یا :",
-                options: { A: "پێشەوا عەلی یە", B: "ڕەبیعێ کورێ عامره", C: "ئبن تەیمییە", D: "راغبێ ئەسفەهانییە" },
-                correct: "C"
-            },
-            {
-                id: 9,
-                q: "٩. زۆری و کوتەکی د وەرگرتنا دانیشێدا :",
-                options: { A: "کریته", B: "قەدەغەیە", C: "دروسته", D: "نە قەدەغەیە" },
-                correct: "B"
-            },
-            {
-                id: 10,
-                q: "١٠. (دگەل هەر مالەکی ب حەرامی هاتییە کۆمکرن، هندەک ماف هەنە هاتینە خوارن) ئەڤە گۆتنە یا :",
-                options: { A: "ئیمام عەلی یە", B: "نەبۆبەکرا", C: "عوسمانە", D: "عومەرە" },
-                correct: "D"
-            },
-            {
-                id: 1,
-                q: "١. قال تعالى ((فأعف عنهم واستغفر لهم وشاورهم في الامر)) ئەڤ ئایەتە پیرۆز هاتییە خوارێ پشتی شەڕێ :",
-                options: { A: "بـەدر", B: "ئۆحـەد", C: "خـەیبەر", D: "خـەندەق" },
-                correct: "B"
-            },
-            {
-                id: 2,
-                q: "٢. پێدڤیین ______ ئەون یێن ژیانا مروڤی خۆشتر دکەت .",
-                options: { A: "سەرەکی", B: "جوانکاری", C: "ساناهی", D: "زێدەهیی" },
-                correct: "B"
-            },
-            {
-                id: 3,
-                q: "٣. پیرۆزترین پەرستگەها ئێزیدییانە، دکەفتە دگەلیەکێدا ل نافبەرا سێ چیایان :",
-                options: { A: "لالش", B: "باعەدرێ", C: "شەنگال", D: "کانییا سپی" },
-                correct: "A"
-            },
-            {
-                id: 4,
-                q: "٤. دادپەروەریا ______ ژ گرنگترین رەنگێن دادپەروەریێ یە کو ئیسلامێ فەرمان پێ دایە .",
-                options: { A: "ئابووری", B: "دادوەری", C: "سیاسی", D: "کومەلایەتی" },
-                correct: "D"
-            },
-            {
-                id: 5,
-                q: "٥. کارکرن ل ئیسلامێدا :",
-                options: { A: "ئەرکه", B: "عیبادەتە و ئەرکە", C: "عیبادەتە", D: "مافه" },
-                correct: "B"
-            }
-        ],
-        // ٢٠١٤-٢٠١٥ خولا ئێکێ
-        "2014-2015_1": [
-            {
-                id: 1,
-                q: "١. ((چالاکبوون و هەستکرنا ب بەرپرسین، و بەرهەڤدوانە کاگەشبین بۆ ژیانی و کارلێکرنا دگەل ئارمانجی)) رامانا :",
-                options: { A: "شوورا", B: "دادپەروەری", C: "ئەرێنیبوون", D: "چاکسازی" },
-                correct: "C"
-            },
-            {
-                id: 2,
-                q: "٢. قال تعالى ((يا أيها الذين امنوا أدخلوا في السلم كافة)) ئەڤ ئایەتە بانگەوازییا مە دکەت بۆ :",
-                options: { A: "دادپەروەری", B: "ئاشتی", C: "چاکسازی", D: "وەفاداری" },
-                correct: "B"
-            },
-            {
-                id: 3,
-                q: "٣. شوورا د ئیسلامێدا بۆ وەڵاتییان :",
-                options: { A: "مافه", B: "ئەرکه", C: "نە مافە و نە ئەرکە", D: "مافە و ئەرکە" },
-                correct: "D"
-            },
-            {
-                id: 4,
-                q: "٤. ((خودێ هاریکاریا حاکمێ دادپەروەر ددانت ئەگەر خۆ یێ کافر بت)) ئەڤە گۆتنە یا :",
-                options: { A: "راغبێ ئەسفەهانی", B: "پێشەوا عەلی یە", C: "ڕەبیعێ کورێ عامره", D: "ئبن تەیمییە" },
-                correct: "D"
-            },
-            {
-                id: 5,
-                q: "٥. دانەرێ پەرتۆکا (جەلوە) :",
-                options: { A: "پیر ڕەشێ حەیران", B: "شێخ ئادی", C: "شێخ حەسەن", D: "شێخ فەخر" },
-                correct: "C"
-            },
-            {
-                id: 6,
-                q: "٦. ژ بۆ جڤاکەکی ببیته ئافاکرن و یاسا سەر‌وەر بیت و کەس ستەم و نەهەقی و دەست درێژی نەترسیت، دڤێت دادپەروەری بهێته جێبەجێکرن ل :",
-                options: { A: "تەنها ل ژیانا تاکەکەسی", B: "تەنها دناف بنەماڵێ", C: "تەنها ل ئالییێ سیاسی", D: "دڤێت لناڤ هەمی ئالییێن گشتی یێن ژیانێ" },
-                correct: "D"
-            },
-            {
-                id: 7,
-                q: "٧. ژ بهایێن گرنگێن ئیسلامییە ژبەر کۆ پەیوەندی ب مافێ جودابوون و پشکدارییا سیاسی هەیه :",
-                options: { A: "وەفاداری", B: "دادپەروەری", C: "شوورا", D: "ئازادی" },
-                correct: "C"
-            },
-            {
-                id: 8,
-                q: "٨. دیموکراسی پەیدابوو کا :",
-                options: { A: "ڕۆمانیه", B: "یۆنانیه", C: "عەرەبیه", D: "صینیه" },
-                correct: "B"
-            },
-            {
-                id: 9,
-                q: "٩. ئەو کەسێ چووایه نەک مەزنی ساسانییان :",
-                options: { A: "پێشەوا عەلی", B: "ڕەبیعێ کورێ عامره", C: "ثبـت تەیمییه", D: "خالدی کوری وەلید" },
-                correct: "B"
-            }
-        ],
-        // ٢٠١٦-٢٠١٧ خولا دووێ
-        "2016-2017_2": [
-            {
-                id: 4,
-                q: "٤. شوورا د ئیسلامێدا بۆ فەرمانڕەوایان :",
-                options: { A: "مافه", B: "ئەرکه", C: "نە مافە و نە ئەرکە", D: "مافە و ئەرکە" },
-                correct: "B"
-            },
-            {
-                id: 5,
-                q: "٥. جەژنا ______ گەشترین و پیرۆزترین جەژنا ئێزیدییانە .",
-                options: { A: "خدر لیاس", B: "سەرسالێ", C: "چەل مایی", D: "قوربانی" },
-                correct: "B"
-            },
-            {
-                id: 6,
-                q: "٦. ئەو بارودۆخە ئەوی مروڤ تێدا هەست نە کەت کو زولم و ستەم لێ دهێته کرن، یان ماف لێ دهێنه خوارن .",
-                options: { A: "شوورا", B: "دادپەروەری", C: "وەفاداری", D: "ستەم" },
-                correct: "B"
-            },
-            {
-                id: 7,
-                q: "٧. گرفتارییەکا جڤاکییە، دڤێت ئامادەبن هەمی پشکدارییێ د چاره‌کرنا وێدا بکەن .",
-                options: { A: "دودلی", B: "شەرمینی", C: "هەژاری", D: "تەمبەلی" },
-                correct: "C"
-            },
-            {
-                id: 8,
-                q: "٨. د فقهێ ئیسلامێدا پێدڤیین مروڤی ل سەر چەند پشکا پێکدهێت پێدڤیین :",
-                options: { A: "سەرەکی", B: "ساناهی", C: "جوانکاری", D: "هەمی راستن" },
-                correct: "D"
-            },
-            {
-                id: 9,
-                q: "٩. هەمی رەنگێن توند و تیژیێ د گەهاندنا ئیسلامێدا بو مروڤان :",
-                options: { A: "پێدڤی یە", B: "قەدەغەیە", C: "رێپێدایە", D: "بانگەوازی بو دکەت" },
-                correct: "B"
-            },
-            {
-                id: 10,
-                q: "١٠. وەکهەڤییا ______ ئانکو دڤێت هەر وەڵاتییەک ب وەکهەڤی و بێ جوداهی، دەلیڤەیا پشکدارییێ ددارێتنا بڕیارا هه‌بیت .",
-                options: { A: "ڕەوشەنبیری", B: "ئابوری", C: "کومەلایەتی", D: "سیاسی" },
-                correct: "D"
-            }
-        ],
-        // ٢٠١٦-٢٠١٧ خولا ئێکێ
-        "2016-2017_1": [
-            {
-                id: 1,
-                q: "١. بو جڤاکەکی ببیته ئافاکرن و یاسا سەر‌وەر بیت و کەس ستەم و نەهەقی و دەست درێژی نەترسیت، دڤێت دادپەروەری بهێته جێبەجێکرن ل :",
-                options: { A: "تەنها ل ژیانا تاکەکەسی", B: "تەنها دناف بنەماڵێ", C: "تەنها ل ئالییێ سیاسی", D: "دڤێت لناڤ هەمی ئالییێن گشتی یێن ژیانێ" },
-                correct: "D"
-            },
-            {
-                id: 2,
-                q: "٢. د نافەروکا ویدا بهەسی هه‌بوونا خودێ و فریشتەیان، و چەوانیا ئافراندنا گەردوونی، و ئەرک و کارێن ئێزدیاتیێ دکەت :",
-                options: { A: "مەسحەفا ڕەش", B: "جەلوە", C: "قەول", D: "مەسحەفا سپی" },
-                correct: "A"
-            },
-            {
-                id: 3,
-                q: "٣. ئەو کەسێ چووایه نەک مەزنی ساسانییان :",
-                options: { A: "پێشەوا عەلی", B: "ڕەبیعێ کورێ عامره", C: "ثبت تەیمییه", D: "خالدی کوری وەلید" },
-                correct: "B"
-            },
-            {
-                id: 4,
-                q: "٤. حکومەتا دیموکراسی دڤێت ئەڤ سالوخەتە ل نک هه‌بن :",
-                options: { A: "وەکهەڤیا سیاسی", B: "وەرگرتنا بوچوونا پتران و مافێ کێمتران", C: "دەلیڤەیا دادوەرییێ", D: "بەرپرسدانا حکومەتی بو داخوازێین مللەتی" },
-                correct: "B"
-            },
-            {
-                id: 5,
-                q: "٥. گەهشتن بو دەستهەڵاتی د ئیسلامێدا ب ڕێکا :",
-                options: { A: "ڕێککەفتن", B: "هەلبژارتن", C: "کودەتا", D: "میراتگری" },
-                correct: "B"
-            },
-            {
-                id: 6,
-                q: "٦. ئانکو دەر‌بازکرنا هەر تشتەکیدا ژ سنورێن نافنجییە :",
-                options: { A: "گەندەڵی", B: "چاکسازی", C: "دادپەروەری", D: "ستەم" },
-                correct: "A"
-            },
-            {
-                id: 7,
-                q: "٧. بنەمایا وەکهەڤیا مللەتان و نەتەوەیان داخوازا سیستەمەکێ :",
-                options: { A: "علمانی", B: "ناوچەگەری", C: "نیڤدەوڵەتی", D: "ئیسلامی" },
-                correct: "C"
-            },
-            {
-                id: 8,
-                q: "٨. د ئیسلامێدا کار :",
-                options: { A: "پەسەندە", B: "دوروستە", C: "ئەرکە", D: "باش نینە" },
-                correct: "C"
-            }
-        ],
-        // ٢٠١٧-٢٠١٨ خولا ئێکێ
-        "2017-2018_1": [
-            {
-                id: 7,
-                q: "٧. د ئیسلامێدا تشتەکی تایبەت نینە بۆ ئالییەکێ د دەستنیشانکری د ژیانێدا .",
-                options: { A: "ئازادی", B: "کار", C: "شور‌ا", D: "دادپەروەری" },
-                correct: "D"
-            },
-            {
-                id: 8,
-                q: "٨. پێغەمبەر (سلاڤ لێ بن) دبیژیت : (( ومن لم يهتم بأمر المسلمين فليس منهم ))، ئەڤ فەرمووده دەربارەی :",
-                options: { A: "خێر و چاکییا دگەل ئێکدو", B: "ئاشتی", C: "دیموکراسی", D: "چاکسازییێ" },
-                correct: "A"
-            },
-            {
-                id: 9,
-                q: "٩. (( ئە‌م هاتینە خەلکی ژ کولەتیا مروڤان ڤەگوهێزینە بەندایەتیا خودایێ مەر‌زن ... ))، ئەڤە گۆتنە یا :",
-                options: { A: "پێشەوا عەلی یە", B: "ئبن تەیمییه", C: "ڕەبیعێ کوری عامری", D: "عومەرێ" },
-                correct: "C"
-            },
-            {
-                id: 10,
-                q: "١٠. چاکسازی دژی ... :",
-                options: { A: "چاکییێ", B: "گەندەڵیێ یە", C: "هاریکاریێ یە", D: "مفایێ گشتییە" },
-                correct: "B"
-            },
-            {
-                id: 1,
-                q: "١. ژ قاعیدەیێن گشتی یێن شەریعەتی ئیسلامێدا : (ساناهیکرن و نەهێلانا .... ) :",
-                options: { A: "زیان", B: "ستەم", C: "تەنگاڤی", D: "شەرمینی" },
-                correct: "C"
-            },
-            {
-                id: 2,
-                q: "٢. ب کارئینانا توندوتیژیێ بو بانگەوازی و گەهاندنا ئیسلامێ :",
-                options: { A: "ئەرکە", B: "قەدەغەیە", C: "دوروستە", D: "رەوایه" },
-                correct: "B"
-            },
-            {
-                id: 3,
-                q: "٣. گەلەک جاران ل نیڤا ڕێکێ مروڤی تووشی شکەستنێ دکەت .",
-                options: { A: "تەمبەلی", B: "هەزۆکی و دودلی", C: "پاشخستنا کاری", D: "بێزاری و بێتاقەتی" },
-                correct: "B"
-            },
-            {
-                id: 4,
-                q: "٤. خودایێ مەزن دبیژیت : (( ولا تجعل يدك مغلولة إلى عنقك ولا تبسطها كل البسط ... ))، ئەڤ ئایەتە داخوازیا بو :",
-                options: { A: "ناڤنجییێ", B: "ئازادیێ", C: "کاری", D: "هاریکاری" },
-                correct: "A"
-            }
-        ],
-        // ٢٠١٧-٢٠١٨ خولا دووێ
-        "2017-2018_2": [
-            {
-                id: 5,
-                q: "٥. ب دیتنا ئیسلامێ، گەل و مللەت وەکهەڤن، و چو مللەتین خودێ یێن هەڵبژارتی نینن، چونکی ئیسلام پەیامەکا :",
-                options: { A: "جیهانییە", B: "بو گەلەکی دیارکری", C: "بو جهەکێ دیارکری", D: "بو عەشیرەتەکا دیارکری" },
-                correct: "A"
-            },
-            {
-                id: 6,
-                q: "٦. حکومەتا دیموکراسی دڤێت ژ ڤان سالوخەتان ل نک هه‌بن :",
-                options: { A: "وەکهەڤیا یاسایی", B: "بەرپرسدانا حکومەتی بو داخوازێین مللەتی", C: "دادپەروەریا دادوەریێ", D: "وەرگرتنا بوچوونا پتران و مافێ کێمتران" },
-                correct: "D"
-            },
-            {
-                id: 7,
-                q: "٧. جەژنا چلی زڤستانی بو دەمێ ______ ڕۆژان بەردەوام دبیت .",
-                options: { A: "٧", B: "٥", C: "٤", D: "٢" },
-                correct: "C"
-            },
-            {
-                id: 8,
-                q: "٨. قال تعالى (( يا أيها الذين امنوا أدخلوا في السلم كافة )) ئەڤ ئایەتە داخوازیێ بو :",
-                options: { A: "دادپەروەری", B: "ئاشتی", C: "چاکسازی", D: "وەفاداری" },
-                correct: "B"
-            },
-            {
-                id: 9,
-                q: "٩. کۆمەکا قاعیدەبین گشتی هه‌نه کار پێ دێته‌کرن، دەمێ شەر‌یعەتی ئیسلامی ئه‌وێ پەیوەندی ب ئاراستەکرنا چالاکییێن کاروباری :",
-                options: { A: "شەرعیقه", B: "سیاسیڤە", C: "رەوشەنبیریڤە", D: "ئابوریڤە" },
-                correct: "D"
-            },
-            {
-                id: 10,
-                q: "١٠. (موریس دووڤە ر جیهە) هزرڤانەکی :",
-                options: { A: "ئەلمانی", B: "فەرەنسی", C: "نەمساوی", D: "بریتانی" },
-                correct: "B"
-            },
-            {
-                id: 1,
-                q: "١. خۆدانی بەنەرەتی و حەقیقی یێ مولک و سامانی ب دیتنا ئیسلامێ یێ :",
-                options: { A: "خۆدیێ", B: "دەستهەلاتە", C: "گەلییه", D: "مروڤییه" },
-                correct: "A"
-            },
-            {
-                id: 9,
-                q: "٩. ژ نیشانا لاوازییا کەسینییا خودانییە :",
-                options: { A: "بێزاری", B: "هەزۆکی و دودلی", C: "تەمبەلی", D: "پاشخستنا کاری" },
-                correct: "B"
-            },
-            {
-                id: 10,
-                q: "١٠. ئیشەکا کـه ئیرادەیا مروڤی لاواز دکەت :",
-                options: { A: "مەزنایی", B: "درەو", C: "قەلسی", D: "شەرمینی" },
-                correct: "D"
-            },
-            {
-                id: 1,
-                q: "١. ( مافێ هەر خۆدان مافەکی بێته‌دان )، پێناسه بۆ ________ .",
-                options: { A: "شور‌ا", B: "چاکسازی", C: "دادپەروەری", D: "دیموکراسی" },
-                correct: "C"
-            },
-            {
-                id: 2,
-                q: "٢. د فقهێ ئیسلامێدا پێدڤیین مروڤی ______ .",
-                options: { A: "دوو پشکن", B: "سێ پشکن", C: "چار پشکن", D: "پێنج پشکن" },
-                correct: "B"
-            },
-            {
-                id: 3,
-                q: "٣. ژ قاعیدەیێن گشتی یێن شەریعەتی ئیسلامێدا، باوەری ب _____ ناهێتە راکرن .",
-                options: { A: "درەوی", B: "فێرکرنێ", C: "بێدەنگییێ", D: "گومانی" },
-                correct: "D"
-            },
-            {
-                id: 4,
-                q: "٤. ب رەنگەکێ گشتی، پەیوەندی د نافبەرا ژن و مێراندا ل سەر بناخەیێ :",
-                options: { A: "نەبوونا وەکهەڤییێ", B: "کەرامەتا مروڤی", C: "جیاوازییا سروشتی", D: "بەر‌بەرەبینین ئێکدو" },
-                correct: "B"
-            },
-            {
-                id: 5,
-                q: "٥. چو مللەتین خودێ یێن هەڵبژارتی نینن، چونکی ئیسلام پەیامەکا :",
-                options: { A: "جیهانییە", B: "بو گەلەکی دیارکری", C: "بو جهەکێ دیارکری", D: "بو عەشیرەتەکا دیارکری" },
-                correct: "A"
-            },
-            {
-                id: 6,
-                q: "٦. جەژنا خدرلیاس ئەڤ جەژنه دکەفیته پێنج شەمبا سیێ ژ هەیڤا :",
-                options: { A: "کانونا ئێکێ", B: "کانونا دووێ", C: "شوباتی", D: "تەباخی" },
-                correct: "C"
-            }
-        ]
+    // کلیلێ وەڵامێن ڕاست یێن فەرمی ژ سەر وێنەیێن ویزاری
+    const answersRound1 = {
+        r1_q1: "D", r1_q2: "B", r1_q3: "B", r1_q4: "B", r1_q5: "B",
+        r1_q6: "C", r1_q7: "C", r1_q8: "B", r1_q9: "B", r1_q10: "B"
     };
 
-    let currentQuestions = [];
-    let userAnswers = {};
+    const answersRound2 = {
+        r2_q1: "C", r2_q2: "D", r2_q3: "C", r2_q4: "A", r2_q5: "A",
+        r2_q6: "A", r2_q7: "B", r2_q8: "D", r2_q9: "B", r2_q10: "D"
+    };
 
-    function startQuiz() {
-        const year = document.getElementById("year-select").value;
-        const round = document.getElementById("round-select").value;
-        const key = `${year}_${round}`;
+    function startQuiz(round) {
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById(round + '-section').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
 
-        if (!quizData[key] || quizData[key].length === 0) {
-            alert("ببورە! بۆ ڤێ ساڵێ یان خولێ داتایەک نینە. تکایە ساڵەکا دی تاقیکە.");
-            return;
+    function submitQuiz(round) {
+        let score = 0;
+        let totalQuestions = 10;
+        let pointsPerQuestion = 10; // ١٠ پرسیار، هەر ئێک ١٠ نمرە دا ببیتە ١٠٠
+        
+        let targetAnswers = (round === 'round1') ? answersRound1 : answersRound2;
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            let qKey = (round === 'round1') ? `r1_q${i}` : `r2_q${i}`;
+            let selected = document.querySelector(`input[name="${qKey}"]:checked`);
+            let card = document.getElementById(`${qKey}-card`);
+            
+            if (card) {
+                card.classList.remove('correct-choice', 'wrong-choice');
+                
+                if (selected) {
+                    if (selected.value === targetAnswers[qKey]) {
+                        score += pointsPerQuestion;
+                        card.classList.add('correct-choice');
+                    } else {
+                        card.classList.add('wrong-choice');
+                    }
+                } else {
+                    card.classList.add('wrong-choice');
+                }
+            }
         }
 
-        currentQuestions = quizData[key];
-        userAnswers = {};
-
-        document.getElementById("quiz-title").innerText = `تاقیکرنا ساڵا ${year} - خولا ${round === '1' ? 'ئێکێ' : 'دووێ'}`;
+        document.getElementById(round + '-section').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+        document.getElementById('scoreDisplay').innerText = score + " / 100";
         
-        const container = document.getElementById("questions-container");
-        container.innerHTML = "";
-
-        currentQuestions.forEach((item, index) => {
-            let optionsHtml = "";
-            for (const [key, value] of Object.entries(item.options)) {
-                optionsHtml += `
-                    <label class="option-item">
-                        <input type="radio" name="q-${index}" value="${key}" onclick="saveAnswer(${index}, '${key}')">
-                        ${key} ) ${value}
-                    </label>
-                `;
-            }
-
-            container.innerHTML += `
-                <div class="question-block">
-                    <div class="question-text">${item.q}</div>
-                    <div class="options-list">${optionsHtml}</div>
-                </div>
-            `;
-        });
-
-        switchScreen("quiz-screen");
-    }
-
-    function saveAnswer(qIndex, selectedOption) {
-        userAnswers[qIndex] = selectedOption;
-    }
-
-    function submitQuiz() {
-        let score = 0;
-        const container = document.getElementById("results-container");
-        container.innerHTML = "";
-
-        currentQuestions.forEach((item, index) => {
-            const userAns = userAnswers[index] || "وەڵام نەداوە";
-            const isCorrect = userAns === item.correct;
-            
-            if (isCorrect) score++;
-
-            let optionsHtml = "";
-            for (const [key, value] of Object.entries(item.options)) {
-                let statusClass = "";
-                let badge = "";
-
-                if (key === item.correct) {
-                    statusClass = "correct-ans";
-                    if (userAns === key) badge = '<span class="badge-correct">✓ وەڵامێ تە ڕاستە</span>';
-                    else badge = '<span class="badge-correct">✓ وەڵامێ ڕاست</span>';
-                } else if (userAns === key && !isCorrect) {
-                    statusClass = "wrong-ans";
-                    badge = '<span class="badge-wrong">✗ وەڵامێ تە خەلەتە</span>';
-                }
-
-                optionsHtml += `
-                    <div class="option-item ${statusClass}">
-                        <span>${key} ) ${value}</span>
-                        ${badge}
-                    </div>
-                `;
-            }
-
-            container.innerHTML += `
-                <div class="question-block">
-                    <div class="question-text">${item.q}</div>
-                    <div class="options-list">${optionsHtml}</div>
-                </div>
-            `;
-        });
-
-        document.getElementById("score-text").innerHTML = `نمرەیا تە: <span>${score}</span> ژ <span>${currentQuestions.length}</span>`;
-        switchScreen("result-screen");
+        if (score >= 50) {
+            document.getElementById('feedbackText').innerText = "🎉 پیرۆزە! تە ئەزموون ب سەرکەفتوویی دەرباز کر.";
+        } else {
+            document.getElementById('feedbackText').innerText = "📚 هێشتا پێدڤی ب خواندنێ هەیە، دووبارە هەوڵ بدە.";
+        }
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     function resetQuiz() {
-        switchScreen("setup-screen");
-    }
-
-    function switchScreen(screenId) {
-        document.getElementById("setup-screen").classList.remove("active");
-        document.getElementById("quiz-screen").classList.remove("active");
-        document.getElementById("result-screen").classList.remove("active");
+        document.getElementById('form-round1').reset();
+        document.getElementById('form-round2').reset();
         
-        document.getElementById(screenId).classList.add("active");
-        window.scrollTo(0, 0);
+        // پاککرنەوەی ڕەنگێن کارتان
+        for (let i = 1; i <= 10; i++) {
+            let card1 = document.getElementById(`r1_q${i}-card`);
+            let card2 = document.getElementById(`r2_q${i}-card`);
+            if(card1) card1.classList.remove('correct-choice', 'wrong-choice');
+            if(card2) card2.classList.remove('correct-choice', 'wrong-choice');
+        }
+
+        document.getElementById('result-section').style.display = 'none';
+        document.getElementById('main-menu').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 </script>
 
