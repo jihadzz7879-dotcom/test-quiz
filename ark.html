@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاقیکردنا ڕێزمانێ - ویزاری</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #16a085;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --correct-color: #2ecc71;
+            --wrong-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 15px;
+        }
+
+        .quiz-info {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: #fafbfc;
+            border: 1px solid #eef2f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 25px; /* دیزاینا هێلکەیی/بازنەیی بۆ پشکۆکان */
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: right;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+            border-color: var(--primary-color);
+        }
+
+        .option-btn.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* ستایلێن ئەنجامان */
+        .option-btn.correct {
+            background: var(--correct-color) !important;
+            color: white !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .option-btn.wrong {
+            background: var(--wrong-color) !important;
+            color: white !important;
+            border-color: var(--wrong-color) !important;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #117a65;
+        }
+
+        #result-card {
+            display: none;
+            background: #e8f8f5;
+            border: 2px solid var(--secondary-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 15px 0;
+        }
+
+        .feedback-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>پرسارێن ویزاری - ئەرکێن جیهانێ نەدیارکری</h1>
+    <div class="quiz-info">تاقیکردنا ڕێزمانا کوردی • ٥٠ پسیار • نمرە ژ ١٠٠</div>
+
+    <div id="result-card">
+        <h2>ئەنجامێ تاقیکردنێ</h2>
+        <div class="score-display" id="score-text">0 / 100</div>
+        <div class="feedback-text" id="feedback-msg"></div>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container"></div>
+
+        <div class="submit-section">
+            <button type="button" class="action-btn" id="submit-btn" onclick="checkAnswers()">دوماهیك ئینان و نیشادانا ئەنجامی</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // لایەنا داتایێن پسیاران و بەرسڤێن دروست ژ وێنەیان
+    const quizData = [
+        { q: "نەرکی جیهانی لکاو ( ین ) د رەستەیا ( وڵاتەکەیان نی دابەشکردین ) چییە ؟", a: "بکەر", b: "بەرکار", c: "تەواوکەری بەڕادە", d: "دیارکەری نیشانی", ans: "d" },
+        { q: "نەرکی جیهانی لکاو ( یت ) د رەستەیا ( پێنوسە سەوزەکەم بردییەت ) چییە ؟", a: "دیارکەری ناشی", b: "بەرکار", c: "تەواوکەری بەڕادە", d: "بکەر", ans: "a" },
+        { q: "د رەستەیا ( جلەکانمان بشۆ ) نەرکی جیهانی لکاو ( مان ) چییە ؟", a: "بکەرە", b: "بەرکارە", c: "تەواوکەری بەڕادەیە", d: "دیارکەری ناشی", ans: "d" },
+        { q: "د رەستەیا ( هەواڵی سەرکەوتنەکەم بۆ ڕاگەهاندیت ) نەرکی جیهانی لکاو ( م ) چییە ؟", a: "تەماکەری بە یاریدە", b: "بکەر", c: "بەرکار", d: "دیارکەری ناشی", ans: "b" },
+        { q: "د رەستەیا ( بانگی کردم بۆ ئاهەنگەکە ) نەرکی جیهانی لکاو ( م ) چییە ؟", a: "بکەر", b: "بەرکار", c: "دیارکەری ناشی", d: "تەماکەری بە یاریدە", ans: "b" },
+        { q: "د رەستەیا ( بۆی چاپکردم ) نەرکی جیهانی لکاو ( ی ) چییە ؟", a: "تەماکەری بە یاریدە", b: "بکەر", c: "بەرکار", d: "دیارکەری ناشی", ans: "b" },
+        { q: "د رەستەیا ( وڵاتەکەیان نی دابەشکردین ) نەرکی جیهانی لکاو ( یان ) چییە ؟", a: "بکەر", b: "تەماکەری بە یاریدە", c: "دیارکەری ناشی", d: "بەرکار", ans: "a" },
+        { q: "د رەستەیا ( بۆت نووسیوم ) نەرکی جیهانی لکاو ( ت ) چییە ؟", a: "بکەرە", b: "بەرکارە", c: "تەماکەری بەڕادەیە", d: "نیهادە", ans: "a" },
+        { q: "د رەستەیا ( دیوانەکانی بۆ چاپکردم ) نەرکی جیهانی لکاو ( ی ) چییە ؟", a: "دیارکەرە", b: "تەماکەری بە یاریدە", c: "بەرکار", d: "بکەر", ans: "d" },
+        { q: "د رەستەیا ( دەتانبات بۆ قوتابخانە ) نەرکی جیهانی لکاو ( تان ) چییە ؟", a: "بکەر", b: "تەماکەری بە یاریدە", c: "دیارکەری ناشی", d: "بەرکار", ans: "d" },
+        { q: "د رەستەیا ( لە بیرى دەکەین ) نەرکی جیهانی لکاو ( ی ) چییە ؟", a: "دیارکەرە", b: "تەماکەری بە یاریدە", c: "بکەرە", d: "بەرکارە", ans: "d" },
+        { q: "د رەستەیا ( خۆزگە بیانسینیریت بۆ ئاهەنگەکە ) نەرکی جیهانی لکاو ( یان ) چییە ؟", a: "بکەرە", b: "بەرکارە", c: "دیارکەری ناشیـیە", d: "تەماکەری بە یاریدەیە", ans: "b" },
+        { q: "د رەستەیا ( دیوانەکانی بۆ چاپکردم ) نەرکی جیهانی لکاو ( م ) چییە ؟", a: "بکەر", b: "تەماکەری بە یاریدە", c: "بەرکار", d: "دیارکەری ناشی", ans: "b" },
+        { q: "نەرکی جیهانی لکاو ( ین ) د رەستەیا ( نامە تازەکەی پی گەیاندین ) چییە ؟", a: "تەماکەری بە یاریدە", b: "بەرکار", c: "دیارکەری ناشی", d: "بکەر", ans: "a" },
+        { q: "د رەستەیا ( ناوی قوتابییەکانمان بۆ تۆماربکەن ) نەرکی جیهانی لکاو ( مان ) چییە ؟", a: "بکەر", b: "بەرکار", c: "تەماکەری بە یاریدە", d: "دیارکەری ناشی", ans: "c" },
+        { q: "درستەیا ( بە جوانی پەروەردەیان کردین ) نەرکی جیهانی لکاو(یان) چییە ؟", a: "بەرکار", b: "دیارکەر", c: "دیارکەر", d: "بکەر", ans: "d" },
+        { q: "نەرکی جیهانی ( مان ) درستەیا ( قوتابخانەکەمان نوژەن دەکەن ) چییە ؟", a: "بکەر", b: "بەرکار", c: "تەماکەری بە یاریدە", d: "دیارکەر", ans: "d" },
+        { q: "درستەیا ( پرسیارەکانم بۆ چاپکردبوون ) نەرکی جیهانی لکاو ( ن ) چییە ؟", a: "بکەر", b: "دیارکەر", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "c" },
+        { q: "نەرکی جیهانی کەسێ لکاو ( م ) درستەیا ( ژوورەکەتان بۆیاغ دەکەم ) چییە ؟", a: "بکەرە", b: "دیارکەرە", c: "بەرکارە", d: "تەماکەکری بە یاریدە", ans: "a" },
+        { q: "درستەیا ( هەواڵی سەرکەوتنەکەم بۆ ڕاگەهاندن ) نەرکی جیهانی لکاو ( ن ) چییە ؟", a: "بکەر", b: "دیارکەرە", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "c" },
+        { q: "درستەیا ( بۆ پیشبرکێکە لایان دەبژێرین ) نەرکی جیهانی لکاو (یان) چییە ؟", a: "بکەر", b: "دیارکەرە", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "d" },
+        { q: "درستەیا ( بۆت نووسیوم ، بۆت بنووسم ئەمن چیم .. ) نەرکی جیهانی لکاو ( م ) ل دوماهییا ( بنووسم ) چییە ؟", a: "بکەر", b: "دیارکەرە", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "a" },
+        { q: "درستەیا ( قەلەمەکەم لێ دەبات ) نەرکی جیهانی لکاو (م) چییە ؟", a: "بکەر", b: "دیارکەرە", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "c" },
+        { q: "درستەیا ( گوندەکەتان ئاودانکرایەوە ) نەرکی جیهانی لکاو ( تان ) چییە ؟", a: "بکەر", b: "دیارکەرە", c: "تەماکەری بە یاریدە", d: "بەرکار", ans: "b" },
+        { q: "درستەیا( فێرت دەکردینەوە) نەرکی جیهانی لکاوێ ( ین ) دێ بیتە :", a: "بکەر", b: "بەرکار", c: "تەماکەری بە یاریدە", d: "دیارکەری ناشی", ans: "b" },
+        { q: "درستەیا( مێژووی وڵاتەکەمان زۆر کۆنە ) نەرکی جیهانی ( مان ) دبیتە :", a: "بەرکار", b: "بکەر", c: "دیارکەری ناشی", d: "نیهاد", ans: "c" },
+        { q: "درستەیا ( هەواڵەکەیان پێ گوتم ) جیهانی لکاوێ ( م ) نەرکی دبیتە :", a: "دیارکەرە", b: "تەماکەری بە یاریدە", c: "بکەرە", d: "بەرکارە", ans: "b" },
+        { q: "درستەیا ( دای مەزراندم لە کارەکە ) جیهانی لکاوێ ( م ) نەرکی دبیتە :", a: "دیارکەرە", b: "تەماکەری بە یاریدە", c: "بکەرە", d: "بەرکارە", ans: "d" },
+        { q: "درستەیا ( لە ژوورەکەم بنوو ) جیهانی لکاو ( م ) ئەرکی وی دبیتە :", a: "دیارکەرە", b: "تەماکەری بە یاریدە", c: "بکەرە", d: "بەرکارە", ans: "a" },
+        { q: "د رەستەیا ( خانووەکەی خۆتم پێ بفرۆشە ) نەرکی جیهانی لکاو ( م ) چییە ؟", a: "تەماکەری بە یاریدە", b: "بکەر", c: "بەرکار", d: "دیارکەری ناشی", ans: "a" },
+        { q: "جیهانی کەسیێ ( م ) دکیژ رەستەیندا بەڕکارە ؟", a: "ڕزگارم دەکردن", b: "ڕزگاریانم کردووە", c: "ڕزگارم بکەن", d: "ڕزگاری دەکەم", ans: "c" },
+        { q: "جیهانی لکاوێ ( ی ) دیارکەری ناشی یە :", a: "کتیبه که می برد", b: "کتیبه که یم برد", c: "کتیبه که ی بردم", d: "ده ی به یت", ans: "b" },
+        { q: "دنێک ژڤان رەستەیاندا جیهانی ( م ) بەڕکارە :", a: "دیارییەکەی گەیاندم", b: "دیارییەکەی بۆ گەیاندم", c: "دەین گەیاندمە خویندگە", d: "دیاریەکەم گەیاند", ans: "c" },
+        { q: "درستەیا ( کتیبه که تم خویندەوە ) نەرکی جیهانی ( ت ) چییە ؟", a: "بکەرە", b: "بەرکارە", c: "دیارکەرە", d: "تەمامکەری بە یاریدەیە", ans: "c" },
+        { q: "د رەستەیا ( بۆ یانی چاپکرد ، نەرکی جیهانی لکاو (یان) چییە ؟", a: "دیارکەرە", b: "تەمامکەری بە یاریدەیە", c: "بکەرە", d: "بەرکارە", ans: "b" },
+        { q: "درستەیا (دەبوو رۆمانەتان بگەڕانایەتەوە) جیهانی لکاوێ(ت) دبیتە :", a: "دیارکەرە", b: "تەمامکەری بە یاریدەیە", c: "بکەرە", d: "بەرکارە", ans: "a" },
+        { q: "نەرکی جیهانی لکاو ( ت ) د درستەیا ( دارشتنەکەتمان خویندبوو ) چییە ؟", a: "تەمامکەری بە یاریدە", b: "بکەر", c: "بەرکار", d: "دیارکەری ناشی", ans: "d" },
+        { q: "درستەیا( بە خێرایی بردمانەوە) نەرکی جیهانیێ ( ن ) چییە ؟", a: "بکەر", b: "بەرکار", c: "تەمامکەری بە یاریدە", d: "دیارکەری ناشی", ans: "b" },
+        { q: "(دیان نیریت بۆم) نەرکی جیهانی لکاو د ڤی رەستەیندا :", a: "بکەر و بەرکار", b: "بکەر و دیارکەر", c: "بکەر و تەمامکەری بە یاریدە", d: "بەرکار و بکەر و تەمامکەری بە یاریدە", ans: "d" },
+        { q: "ئێک ژڤان رستان جیهانی لکاو ( م ) بکەرە :", a: "بۆت نووسیوم", b: "بۆت بنووسم", c: "بۆت نووسیم", d: "بۆمی نووسی", ans: "b" },
+        { q: "(وینەکەم بۆ بنێرە) جیهانی لکاوێ ( م ) نەرکی وی چییە ؟", a: "بەرکار", b: "بکەر", c: "دیارکەری ناشی", d: "تەمامکەری بە یاریدە", ans: "d" },
+        { q: "دکیژ ژ ڤان رەستەیان جیهانی لکاوێ (ین) ئەرکی بکەرە و جیهانی لکاوێ (تان) ئەرکی بەرکارە ؟", a: "ناردتانین", b: "دە تانناردین", c: "فیرتان دەکردین", d: "فیرتانکردین", ans: "d" },
+        { q: "د رستەیا ( دەى نیریت بۆم ) نەرکی جیهانێین کەسی یێن لکاو (ى) ، (م) چنه ؟", a: "(ی) بکەرە ، (م) بەرکارە", b: "(ی) بەرکارە ، (م) تەماکەری بە یاریدەیە", c: "(ی) بکەرە ، (م) بکەرە", d: "(ی) بکەرە ، (م) تەماکەری بە یاریدەیە", ans: "b" },
+        { q: "دکیژ ژ ئه ڤان رسته یاندا جیهانی لکاوێ ( ی ) ئەرکی وی دیارکەری ناشی یە :", a: "وتارەکەی چاپکرد", b: "وتارەکەی چاپدەکەم", c: "وتارەکەی چاپکردم", d: "وتارەکەی بۆ چاپکردم", ans: "b" },
+        { q: "دکیژ رەستەیندا جیهانی لکاوێ (یان) نەرکی وی بەرکارە؟", a: "هەلیان دبژیرین", b: "هەلیان بژاردین", c: "هه لمانیان بژارد", d: "هه لیان دەبژاردین", ans: "a" },
+        { q: "د رستەیا (بینووسە بۆم) نەرکی جیهانێین لکاوین (ی) و (م) چییه ؟", a: "(ی) تەمامکەری بە یاریدەیە (م) بەرکارە", b: "(ی) بەرکارە (م) تەمامکەری بە یاریدەیە", c: "(ی) بکەرە (م) تەمامکەری بە یاریدەیە", d: "(ی) بەرکارە (م) بکەرە", ans: "b" },
+        { q: "دکیژ ژ ڤان رەستەیاندا بکەر جیهانی لکاوە بۆ کەسی دوویێ تاک ؟", a: "بۆیان ناودان بکەنەوە", b: "کتیبه که م بۆ بگەڕینەوە", c: "نەخۆشەکە ببه نە خۆشخانه", d: "هه می دروستن", ans: "b" },
+        { q: "درستەیا ( ئەگەر یارمه تیمان دابان ، کاره که یان تەواودەکرد ) کیژ نە ڤان دبیته بەرکاری رەستە یا کاری مەرجی ؟", a: "جیهانی لکاو (یان)", b: "جیهانی لکاو (مان)", c: "جیهانی لکاو (ن)", d: "پەیڤا (کاره که)", ans: "c" },
+        { q: "ل کیژ ژ ئەڤان رستان جیهانی (م) تە مامکەری بە یاریدە یە؟", a: "پیم فروشتن", b: "پینم فروشت", c: "پینی دەفروشم", d: "پێی دەفروشتم", ans: "c" },
+        { q: "درستەیا ( هاوڕێکەم هات بۆ قوتابخانە هات بۆ قوتابخانەکەمان ) ئەرکی جیهانی لکاو (تان) چییە ؟", a: "دیارکەری ناشی یه", b: "بکەر", c: "بەرکار", d: "تەمامکەری بە یاریدە", ans: "a" }
+    ];
+
+    // ئاڤاکرنا پسیاران د ناڤ پەرپەڕی دا
+    const container = document.getElementById('questions-container');
+    
+    quizData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${index}`;
+        
+        const qText = document.createElement('div');
+        qText.className = 'question-text';
+        qText.innerText = `${index + 1}. ${data.q}`;
+        card.appendChild(qText);
+        
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options-container';
+        
+        ['a', 'b', 'c', 'd'].forEach(option => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'option-btn';
+            btn.id = `btn-${index}-${option}`;
+            btn.innerText = `${option.toUpperCase()}- ${data[option]}`;
+            btn.onclick = () => selectOption(index, option);
+            optionsDiv.appendChild(btn);
+        });
+        
+        card.appendChild(optionsDiv);
+        container.appendChild(card);
+    });
+
+    // پاشکەوتکرنا بەرسڤێن قوتابی
+    let userAnswers = {};
+
+    function selectOption(qIndex, option) {
+        // لادانا رەنگێ دەستنیشانکرنێ ژ پشکۆکێن دی یێن هەمان پسیار
+        ['a', 'b', 'c', 'd'].forEach(opt => {
+            document.getElementById(`btn-${qIndex}-${opt}`).classList.remove('selected');
+        });
+        
+        // دەستنیشانکرنا پشکۆکا نوو
+        document.getElementById(`btn-${qIndex}-${option}`).classList.add('selected');
+        userAnswers[qIndex] = option;
+    }
+
+    // پشکینینا بەرسڤان و نیشادانا ئەنجامی
+    function checkAnswers() {
+        let correctCount = 0;
+        
+        quizData.forEach((data, index) => {
+            const userAnswer = userAnswers[index];
+            const correctAnswer = data.ans;
+            
+            ['a', 'b', 'c', 'd'].forEach(opt => {
+                const btn = document.getElementById(`btn-${index}-${opt}`);
+                btn.disabled = true; // ڕاگرتنا پشکۆکان پاش تاقیکردنێ
+                
+                // ئەگەر ئەڤە بەرسڤا دروست بیت، کەسک بکە
+                if (opt === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+                // ئەگەر قوتابی بەرسڤەکا خەلەت دابیت، سور بکە
+                if (userAnswer === opt && userAnswer !== correctAnswer) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            if (userAnswer === correctAnswer) {
+                correctCount++;
+            }
+        });
+
+        // حسابکرنا نمرێ ژ 100 (هەر پسیارەک 2 نمرە)
+        const finalScore = (correctCount / quizData.length) * 100;
+        
+        // نیشادانا کاردێ ئەنجامان
+        const resultCard = document.getElementById('result-card');
+        const scoreText = document.getElementById('score-text');
+        const feedbackMsg = document.getElementById('feedback-msg');
+        
+        scoreText.innerText = `${finalScore} / 100`;
+        feedbackMsg.innerText = `تە بەرسڤا ${correctCount} پسیاران ژ کۆما ٥٠ پسیاران ب دروستی دایە.`;
+        
+        resultCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // ڤەشارتنا پشکۆکا دوماهیک ئینانێ
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
