@@ -1,70 +1,64 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ئینگلیزی پۆلا ١٢ - خولا دووێ ٢٠٢٥-٢٠٢٦</title>
-
-    <script>
-// سایت ب ڕاستەوخۆ دێ بۆ قوتابییان ڤەبیت
-</script>
-
-
-    <!-- شێوازی دیزاینی لاپەڕەکە (ڕەش و زێڕینی شاهانە) -->
+    <title>ئینگلیزی پۆلا ١٢ - خولا دووێ</title>
     <style>
-        :root {
-            --primary-color: #d4af37;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #121212;
+            color: #ffffff;
             padding: 20px;
-            margin: 0;
+            direction: ltr;
         }
-
         .container {
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-
         .header {
             text-align: center;
-            padding: 20px;
-            border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 30px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
-
         .header h1 {
-            color: var(--primary-color);
-            margin: 0 0 10px 0;
+            color: #d4af37;
             font-size: 24px;
+            margin: 0 0 10px 0;
         }
-
+        .header p {
+            color: #aaaaaa;
+            margin: 5px 0;
+            font-size: 16px;
+        }
         .passage-box {
-            background-color: var(--card-bg);
-            border: 1px solid #333;
-            border-left: 4px solid var(--primary-color);
+            background-color: #161616;
+            border-left: 4px solid #d4af37;
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            direction: ltr;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 16px;
             line-height: 1.6;
+            text-align: left;
         }
-
-        .question-card {
-            background-color: var(--card-bg);
-            border: 1px solid #333;
+        .passage-title {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .question-section {
+            margin-bottom: 25px;
+            background: #1a1a1a;
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            direction: ltr;
+            border: 1px solid #333;
         }
-
         .question-title {
             font-size: 17px;
             font-weight: bold;
@@ -72,554 +66,602 @@
             color: #ffffff;
             line-height: 1.5;
         }
-
-        .options-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .option-item {
-            background-color: #2a2a2a;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
+        .option-label {
+            display: block;
+            background: #2a2a2a;
+            color: white;
+            border: 1px solid #444;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 15px;
             transition: 0.2s;
-            border: 1px solid transparent;
+            text-align: left;
         }
-
-        .option-item:hover {
-            border-color: var(--primary-color);
-            background-color: #333;
+        .option-label:hover {
+            background: #333333;
+            border-color: #d4af37;
         }
-
-        .correct-answer {
-            color: #ff4d4d; 
+        .option-label input {
+            margin-right: 12px;
+            accent-color: #d4af37;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: #d4af37;
+            color: #121212;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
             font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
         }
+        .submit-btn:hover {
+            background-color: #ffffff;
+        }
+        .result-box {
+            display: none;
+            text-align: center;
+        }
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 20px 0;
+        }
+        .review-box {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .review-item {
+            background: #252525;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ff4d4d;
+        }
+        .review-item.correct {
+            border-left-color: #2ec4b6;
+        }
+        .status-badge {
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            float: right;
+        }
+        .status-correct { background: #2ec4b6; color: #121212; }
+        .status-wrong { background: #ff4d4d; color: white; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <!-- بەشی سەرەکی لاپەڕەکە ب ناڤێ نوو -->
         <div class="header">
-            <h1>ئینگلیزی پۆلا ١٢ - خولا دووێ ٢٠٢٥-٢٠٢٦</h1>
-            <p style="color: var(--primary-color); margin: 5px 0 0 0; font-size: 18px; font-weight: bold;">ئامادەکرن: بینفره‌هی</p>
+            <h1>English Ministerial Examination (50 Questions)</h1>
+            <p>Teacher: JEHAD ZEBARI</p>
         </div>
 
-        <!-- بەشی حەفتەی نڤێسینێ (Reading Passage) -->
-        <div class="passage-box">
-            <h3 style="color: var(--primary-color); margin-top: 0; direction: ltr;">Read the passage and then choose the correct answers for (1 - 4).</h3>
-            <p style="font-size: 15px;">Peter didn't have money to pay his bills, so he always owed money to the shopkeepers in his town. Most of them didn't ask for their money, but there was one who was not at all patient. Whenever this man saw Peter, he reminded him of the money that he had not yet paid him, and he <b>argued</b> about it in front of people, which made Peter feel very uncomfortable, as he did not want people to know that he was so poor.</p>
-            <p style="font-size: 15px;">One day, therefore, Peter decided to teach the shopkeeper a lesson. The next time that the man stopped him in the street and began to shame him publicly about his debt to him, Peter said, "Wait a minute. How much money do I owe you?" "You owe me exactly one hundred and twenty-two pounds." answered the shopkeeper. "Well," said Peter, "If I paid forty pounds this month, another forty next month, and forty more the month after, how much would I still owe you?" "You would then owe me two pounds, of course." answered the shopkeeper. "Well, aren't you ashamed of yourself," Peter said, "giving me all this trouble for only two pounds?"</p>
+        <div id="quiz-wrapper">
+            <div class="passage-box">
+                <div class="passage-title">Read the passage and then choose the correct answers for (1 - 4):</div>
+                <p>Peter didn't have money to pay his bills, so he always owed money to the shopkeepers in his town. Most of them didn't ask for their money, but there was one who was not at all patient. Whenever this man saw Peter, he reminded him of the money that he had not yet paid him, and he <b>argued</b> about it in front of people, which made Peter feel very uncomfortable, as he did not want people to know that he was so poor.</p>
+                <p>One day, therefore, Peter decided to teach the shopkeeper a lesson. The next time that the man stopped him in the street and began to shame him publicly about his debt to him, Peter said, "Wait a minute. How much money do I owe you?" "You owe me exactly one hundred and twenty-two pounds." answered the shopkeeper. "Well," said Peter, "If I paid forty pounds this month, another forty next month, and forty more the month after, how much would I still owe you?" "You would then owe me two pounds, of course." answered the shopkeeper. "Well, aren't you ashamed of yourself," Peter said, "giving me all this trouble for only two pounds?"</p>
+            </div>
+
+            <form id="quiz-form">
+                <div class="question-section">
+                    <div class="question-title">1. Peter felt very uncomfortable when he ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q1" value="0"> A. was reminded of the unpaid money in front of people</label>
+                    <label class="option-label"><input type="radio" name="q1" value="1"> B. taught the shopkeeper a lesson</label>
+                    <label class="option-label"><input type="radio" name="q1" value="2"> C. borrowed money from the shopkeepers</label>
+                    <label class="option-label"><input type="radio" name="q1" value="3"> D. met the other shopkeepers in town</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">2. According to the passage, which statement is true?</div>
+                    <label class="option-label"><input type="radio" name="q2" value="0"> A. Peter was waiting for his friends to pay his bills.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="1"> B. Most of the shopkeepers in the town were asking for their money.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="2"> C. The shopkeeper owed Peter a hundred and twenty-two pounds.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="3"> D. Peter was not ready to pay his bills at that time.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">3. What Peter was trying to say about the debt was that the shopkeeper ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q3" value="0"> A. might get most of his money back in three months</label>
+                    <label class="option-label"><input type="radio" name="q3" value="1"> B. should wait for a year to get his money back</label>
+                    <label class="option-label"><input type="radio" name="q3" value="2"> C. would get more than 122 pounds</label>
+                    <label class="option-label"><input type="radio" name="q3" value="3"> D. could only get back two pounds after three months</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">4. The underlined word 'argue' in the story means ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q4" value="0"> A. go back to a place where you were before</label>
+                    <label class="option-label"><input type="radio" name="q4" value="1"> B. succeed in doing something difficult</label>
+                    <label class="option-label"><input type="radio" name="q4" value="2"> C. talk with someone who does not agree with you</label>
+                    <label class="option-label"><input type="radio" name="q4" value="3"> D. find the answer to a problem or puzzle</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">5. New York began growing faster, and by 1830 it was ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q5" value="0"> A. an extremely high-crime area</label>
+                    <label class="option-label"><input type="radio" name="q5" value="1"> B. the main centre of trade in the USA</label>
+                    <label class="option-label"><input type="radio" name="q5" value="2"> C. taken over by some Dutch people</label>
+                    <label class="option-label"><input type="radio" name="q5" value="3"> D. renamed New Amsterdam by the British</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">6. Important developments in ancient human history happened near Erbil. Therefore, the mound ............ .</div>
+                    <label class="option-label"><input type="radio" name="q6" value="0"> A. has properly been investigated by archaeologists</label>
+                    <label class="option-label"><input type="radio" name="q6" value="1"> B. is almost perfectly circular in shape</label>
+                    <label class="option-label"><input type="radio" name="q6" value="2"> C. may hold important secrets about ancient human past</label>
+                    <label class="option-label"><input type="radio" name="q6" value="3"> D. contains lots of buried money</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">7. According to Dr. Sally Dale, a good way to understand complicated ideas and information clearly is to ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q7" value="0"> A. put them off</label>
+                    <label class="option-label"><input type="radio" name="q7" value="1"> B. leave them till the night before the exam</label>
+                    <label class="option-label"><input type="radio" name="q7" value="2"> C. avoid them</label>
+                    <label class="option-label"><input type="radio" name="q7" value="3"> D. organize them by using lists, charts, etc.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">8. To create an automated transport system in Masdar City, ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q8" value="0"> A. all internal combustion engines are cleaned up</label>
+                    <label class="option-label"><input type="radio" name="q8" value="1"> B. solar energy is produced to charge clean cars</label>
+                    <label class="option-label"><input type="radio" name="q8" value="2"> C. driverless electric vehicles are used</label>
+                    <label class="option-label"><input type="radio" name="q8" value="3"> D. people are encouraged to use public transport</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">9. How do some parents feel when they find their kids are better at computers than they are?</div>
+                    <label class="option-label"><input type="radio" name="q9" value="0"> A. Proud and excited</label>
+                    <label class="option-label"><input type="radio" name="q9" value="1"> B. Confused and worried</label>
+                    <label class="option-label"><input type="radio" name="q9" value="2"> C. Disappointed and angry</label>
+                    <label class="option-label"><input type="radio" name="q9" value="3"> D. Threatened and inadequate</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">10. On her way home from the market, Choman saw ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q10" value="0"> A. her cousin Azad waiting for her</label>
+                    <label class="option-label"><input type="radio" name="q10" value="1"> B. Kak Kakal speaking to her father</label>
+                    <label class="option-label"><input type="radio" name="q10" value="2"> C. a crowd of people in front of her house</label>
+                    <label class="option-label"><input type="radio" name="q10" value="3"> D. a group of men standing near the village spring</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">11. In 'The Old Man and the Sea', which statement is true about Santiago?</div>
+                    <label class="option-label"><input type="radio" name="q11" value="0"> A. He lived in a modern house near Havana.</label>
+                    <label class="option-label"><input type="radio" name="q11" value="1"> B. He had gone eighty-four days without catching a fish.</label>
+                    <label class="option-label"><input type="radio" name="q11" value="2"> C. He had a big family to take care of him.</label>
+                    <label class="option-label"><input type="radio" name="q11" value="3"> D. He was young but lacked experience.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">12. Manolin's parents forced him to leave Santiago because the old man was ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q12" value="0"> A. salaao (the worst form of unlucky)</label>
+                    <label class="option-label"><input type="radio" name="q12" value="1"> B. too old to fish</label>
+                    <label class="option-label"><input type="radio" name="q12" value="2"> C. unkind to him</label>
+                    <label class="option-label"><input type="radio" name="q12" value="3"> D. not a professional fisherman</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">13. In 'To Lucy', Wordsworth describes the death of a young girl who lived ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q13" value="0"> A. in a busy city centre</label>
+                    <label class="option-label"><input type="radio" name="q13" value="1"> B. near the springs of Dove</label>
+                    <label class="option-label"><input type="radio" name="q13" value="2"> C. next to a famous school</label>
+                    <label class="option-label"><input type="radio" name="q13" value="3"> D. in an old village churchyard</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">14. 'A violet by a mossy stone / Half hidden from the eye!' is an example of ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q14" value="0"> A. Metaphor</label>
+                    <label class="option-label"><input type="radio" name="q14" value="1"> B. Simile</label>
+                    <label class="option-label"><input type="radio" name="q14" value="2"> C. Personification</label>
+                    <label class="option-label"><input type="radio" name="q14" value="3"> D. Alliteration</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">15. In 'Hard Times', Mr. Thomas Gradgrind is a man of ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q15" value="0"> A. emotions and feelings</label>
+                    <label class="option-label"><input type="radio" name="q15" value="1"> B. facts and calculations</label>
+                    <label class="option-label"><input type="radio" name="q15" value="2"> C. poetry and imagination</label>
+                    <label class="option-label"><input type="radio" name="q15" value="3"> D. art and literature</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">16. The tone of Mr. Gradgrind's speech in the classroom is ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q16" value="0"> A. flexible and gentle</label>
+                    <label class="option-label"><input type="radio" name="q16" value="1"> B. warm and welcoming</label>
+                    <label class="option-label"><input type="radio" name="q16" value="2"> C. dry, hard, and dictatorial</label>
+                    <label class="option-label"><input type="radio" name="q16" value="3"> D. funny and entertaining</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">17. In the word ........................, the letters (th) are not sounded /θ/.</div>
+                    <label class="option-label"><input type="radio" name="q17" value="0"> A. although</label>
+                    <label class="option-label"><input type="radio" name="q17" value="1"> B. thought</label>
+                    <label class="option-label"><input type="radio" name="q17" value="2"> C. through</label>
+                    <label class="option-label"><input type="radio" name="q17" value="3"> D. thousand</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">18. Which of the following words contains a silent letter?</div>
+                    <label class="option-label"><input type="radio" name="q18" value="0"> A. context</label>
+                    <label class="option-label"><input type="radio" name="q18" value="1"> B. fast</label>
+                    <label class="option-label"><input type="radio" name="q18" value="2"> C. dynamic</label>
+                    <label class="option-label"><input type="radio" name="q18" value="3"> D. half</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">19. The sound /dʒ/ is found in the word ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q19" value="0"> A. change</label>
+                    <label class="option-label"><input type="radio" name="q19" value="1"> B. garage</label>
+                    <label class="option-label"><input type="radio" name="q19" value="2"> C. agreement</label>
+                    <label class="option-label"><input type="radio" name="q19" value="3"> D. dynamic</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">20. Choose the word with a different vowel sound:</div>
+                    <label class="option-label"><input type="radio" name="q20" value="0"> A. pool</label>
+                    <label class="option-label"><input type="radio" name="q20" value="1"> B. look</label>
+                    <label class="option-label"><input type="radio" name="q20" value="2"> C. spoon</label>
+                    <label class="option-label"><input type="radio" name="q20" value="3"> D. rule</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">21. If you ........................ harder, you would have passed the exam.</div>
+                    <label class="option-label"><input type="radio" name="q21" value="0"> A. study</label>
+                    <label class="option-label"><input type="radio" name="q21" value="1"> B. studied</label>
+                    <label class="option-label"><input type="radio" name="q21" value="2"> C. have studied</label>
+                    <label class="option-label"><input type="radio" name="q21" value="3"> D. had studied</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">22. By the time the police arrived, the thieves ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q22" value="0"> A. escaped</label>
+                    <label class="option-label"><input type="radio" name="q22" value="1"> B. have escaped</label>
+                    <label class="option-label"><input type="radio" name="q22" value="2"> C. had escaped</label>
+                    <label class="option-label"><input type="radio" name="q22" value="3"> D. are escaping</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">23. This is the house ........................ my grandfather built fifty years ago.</div>
+                    <label class="option-label"><input type="radio" name="q23" value="0"> A. who</label>
+                    <label class="option-label"><input type="radio" name="q23" value="1"> B. whose</label>
+                    <label class="option-label"><input type="radio" name="q23" value="2"> C. which</label>
+                    <label class="option-label"><input type="radio" name="q23" value="3"> D. where</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">24. (<i>Paris, which is known as the City of Light, is a beautiful place to visit.</i>) In the underlined part of the sentence ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q24" value="0"> A. the relative pronoun (which) can't be replaced by (that)</label>
+                    <label class="option-label"><input type="radio" name="q24" value="1"> B. extra information is added about (Paris)</label>
+                    <label class="option-label"><input type="radio" name="q24" value="2"> C. the commas show that the information is not extra</label>
+                    <label class="option-label"><input type="radio" name="q24" value="3"> D. Both ( A and B )</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">25. She asked me where ........................ during the summer vacation.</div>
+                    <label class="option-label"><input type="radio" name="q25" value="0"> A. had I gone</label>
+                    <label class="option-label"><input type="radio" name="q25" value="1"> B. I had gone</label>
+                    <label class="option-label"><input type="radio" name="q25" value="2"> C. did I go</label>
+                    <label class="option-label"><input type="radio" name="q25" value="3"> D. have I gone</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">26. "Don't touch my phone," Azad said to his brother. (Reported Speech)</div>
+                    <label class="option-label"><input type="radio" name="q26" value="0"> A. Azad told his brother not to touch his phone.</label>
+                    <label class="option-label"><input type="radio" name="q26" value="1"> B. Azad told his brother to don't touch his phone.</label>
+                    <label class="option-label"><input type="radio" name="q26" value="2"> C. Azad asked his brother if he touches his phone.</label>
+                    <label class="option-label"><input type="radio" name="q26" value="3"> D. Azad warned his brother that not to touch phone.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">27. The passive form of: (<i>The company is developing a new software.</i>)</div>
+                    <label class="option-label"><input type="radio" name="q27" value="0"> A. A new software was developed by the company.</label>
+                    <label class="option-label"><input type="radio" name="q27" value="1"> B. A new software is developed by the company.</label>
+                    <label class="option-label"><input type="radio" name="q27" value="2"> C. A new software is being developed by the company.</label>
+                    <label class="option-label"><input type="radio" name="q27" value="3"> D. A new software has been developed by the company.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">28. I wish I ........................ so much fast food yesterday. I feel sick now.</div>
+                    <label class="option-label"><input type="radio" name="q28" value="0"> A. didn't eat</label>
+                    <label class="option-label"><input type="radio" name="q28" value="1"> B. wouldn't eat</label>
+                    <label class="option-label"><input type="radio" name="q28" value="2"> C. hadn't eaten</label>
+                    <label class="option-label"><input type="radio" name="q28" value="3"> D. haven't eaten</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">29. We can't go out now because it ........................ heavily.</div>
+                    <label class="option-label"><input type="radio" name="q29" value="0"> A. rains</label>
+                    <label class="option-label"><input type="radio" name="q29" value="1"> B. is raining</label>
+                    <label class="option-label"><input type="radio" name="q29" value="2"> C. rained</label>
+                    <label class="option-label"><input type="radio" name="q29" value="3"> D. has rained</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">30. You .................. weight .................. you eat less and exercise regularly.</div>
+                    <label class="option-label"><input type="radio" name="q30" value="0"> A. wouldn't lose / if</label>
+                    <label class="option-label"><input type="radio" name="q30" value="1"> B. will not lose / unless</label>
+                    <label class="option-label"><input type="radio" name="q30" value="2"> C. will lose / if no</label>
+                    <label class="option-label"><input type="radio" name="q30" value="3"> D. won't lose / as long as</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">31. He went to the bank ........................ get some cash.</div>
+                    <label class="option-label"><input type="radio" name="q31" value="0"> A. so that</label>
+                    <label class="option-label"><input type="radio" name="q31" value="1"> B. in order to</label>
+                    <label class="option-label"><input type="radio" name="q31" value="2"> C. for</label>
+                    <label class="option-label"><input type="radio" name="q31" value="3"> D. because</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">32. Although it was raining, ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q32" value="0"> A. but they went for a walk</label>
+                    <label class="option-label"><input type="radio" name="q32" value="1"> B. they went for a walk</label>
+                    <label class="option-label"><input type="radio" name="q32" value="2"> C. so they stayed home</label>
+                    <label class="option-label"><input type="radio" name="q32" value="3"> D. because they wanted to walk</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">33. That is the laptop ........................ screen was broken.</div>
+                    <label class="option-label"><input type="radio" name="q33" value="0"> A. which</label>
+                    <label class="option-label"><input type="radio" name="q33" value="1"> B. whose</label>
+                    <label class="option-label"><input type="radio" name="q33" value="2"> C. that</label>
+                    <label class="option-label"><input type="radio" name="q33" value="3"> D. who</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">34. I'm looking forward ........................ you soon.</div>
+                    <label class="option-label"><input type="radio" name="q34" value="0"> A. to see</label>
+                    <label class="option-label"><input type="radio" name="q34" value="1"> B. to seeing</label>
+                    <label class="option-label"><input type="radio" name="q34" value="2"> C. seeing</label>
+                    <label class="option-label"><input type="radio" name="q34" value="3"> D. see</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">35. You ........................ formal clothes. It's a casual party.</div>
+                    <label class="option-label"><input type="radio" name="q35" value="0"> A. mustn't wear</label>
+                    <label class="option-label"><input type="radio" name="q35" value="1"> B. don't have to wear</label>
+                    <label class="option-label"><input type="radio" name="q35" value="2"> C. shouldn't wear</label>
+                    <label class="option-label"><input type="radio" name="q35" value="3"> D. can wear</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">36. He ........................ in Erbil since 2015.</div>
+                    <label class="option-label"><input type="radio" name="q36" value="0"> A. lived</label>
+                    <label class="option-label"><input type="radio" name="q36" value="1"> B. is living</label>
+                    <label class="option-label"><input type="radio" name="q36" value="2"> C. has been living</label>
+                    <label class="option-label"><input type="radio" name="q36" value="3"> D. was living</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">37. If it ........................ tomorrow, we won't go to the picnic.</div>
+                    <label class="option-label"><input type="radio" name="q37" value="0"> A. rains</label>
+                    <label class="option-label"><input type="radio" name="q37" value="1"> B. rained</label>
+                    <label class="option-label"><input type="radio" name="q37" value="2"> C. will rain</label>
+                    <label class="option-label"><input type="radio" name="q37" value="3"> D. is raining</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">38. She speaks English ........................ than her sister.</div>
+                    <label class="option-label"><input type="radio" name="q38" value="0"> A. good</label>
+                    <label class="option-label"><input type="radio" name="q38" value="1"> B. well</label>
+                    <label class="option-label"><input type="radio" name="q38" value="2"> C. better</label>
+                    <label class="option-label"><input type="radio" name="q38" value="3"> D. more good</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">39. The car ........................ fixed by the mechanic right now.</div>
+                    <label class="option-label"><input type="radio" name="q39" value="0"> A. is</label>
+                    <label class="option-label"><input type="radio" name="q39" value="1"> B. was fixed</label>
+                    <label class="option-label"><input type="radio" name="q39" value="2"> C. is being</label>
+                    <label class="option-label"><input type="radio" name="q39" value="3"> D. has been</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">40. I don't know the answer. I wish I ........................ it.</div>
+                    <label class="option-label"><input type="radio" name="q40" value="0"> A. know</label>
+                    <label class="option-label"><input type="radio" name="q40" value="1"> B. knew</label>
+                    <label class="option-label"><input type="radio" name="q40" value="2"> C. had known</label>
+                    <label class="option-label"><input type="radio" name="q40" value="3"> D. would know</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">41. Which sentence shows the correct punctuation?</div>
+                    <label class="option-label"><input type="radio" name="q41" value="0"> A. If it rains, we will stay at home.</label>
+                    <label class="option-label"><input type="radio" name="q41" value="1"> B. If it rains we will stay at home.</label>
+                    <label class="option-label"><input type="radio" name="q41" value="2"> C. If it rains; we will stay at home.</label>
+                    <label class="option-label"><input type="radio" name="q41" value="3"> D. If it rains, We will stay at home.</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">42. He is very tired because he ........................ football all afternoon.</div>
+                    <label class="option-label"><input type="radio" name="q42" value="0"> A. played</label>
+                    <label class="option-label"><input type="radio" name="q42" value="1"> B. has been playing</label>
+                    <label class="option-label"><input type="radio" name="q42" value="2"> C. is playing</label>
+                    <label class="option-label"><input type="radio" name="q42" value="3"> D. had played</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">43. You ........................ drive fast near schools. It's dangerous.</div>
+                    <label class="option-label"><input type="radio" name="q43" value="0"> A. don't have to</label>
+                    <label class="option-label"><input type="radio" name="q43" value="1"> B. shouldn't</label>
+                    <label class="option-label"><input type="radio" name="q43" value="2"> C. mustn't</label>
+                    <label class="option-label"><input type="radio" name="q43" value="3"> D. can't</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">44. I am not sure, but he ........................ come to the meeting.</div>
+                    <label class="option-label"><input type="radio" name="q44" value="0"> A. must</label>
+                    <label class="option-label"><input type="radio" name="q44" value="1"> B. may</label>
+                    <label class="option-label"><input type="radio" name="q44" value="2"> C. should</label>
+                    <label class="option-label"><input type="radio" name="q44" value="3"> D. will</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">45. This building is old. It ........................ built in 1920.</div>
+                    <label class="option-label"><input type="radio" name="q45" value="0"> A. is</label>
+                    <label class="option-label"><input type="radio" name="q45" value="1"> B. was</label>
+                    <label class="option-label"><input type="radio" name="q45" value="2"> C. has been</label>
+                    <label class="option-label"><input type="radio" name="q45" value="3"> D. had been</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">46. If they had left earlier, they ........................ the train.</div>
+                    <label class="option-label"><input type="radio" name="q46" value="0"> A. wouldn't miss</label>
+                    <label class="option-label"><input type="radio" name="q46" value="1"> B. won't miss</label>
+                    <label class="option-label"><input type="radio" name="q46" value="2"> C. wouldn't have missed</label>
+                    <label class="option-label"><input type="radio" name="q46" value="3"> D. didn't miss</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">47. That man is an engineer ........................ designed this bridge.</div>
+                    <label class="option-label"><input type="radio" name="q47" value="0"> A. who</label>
+                    <label class="option-label"><input type="radio" name="q47" value="1"> B. which</label>
+                    <label class="option-label"><input type="radio" name="q47" value="2"> C. whose</label>
+                    <label class="option-label"><input type="radio" name="q47" value="3"> D. whom</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">48. She wants to know what time the library ........................ .</div>
+                    <label class="option-label"><input type="radio" name="q48" value="0"> A. does open</label>
+                    <label class="option-label"><input type="radio" name="q48" value="1"> B. opens</label>
+                    <label class="option-label"><input type="radio" name="q48" value="2"> C. did open</label>
+                    <label class="option-label"><input type="radio" name="q48" value="3"> D. opening</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">49. He is the student ........................ project won the first prize.</div>
+                    <label class="option-label"><input type="radio" name="q49" value="0"> A. who</label>
+                    <label class="option-label"><input type="radio" name="q49" value="1"> B. which</label>
+                    <label class="option-label"><input type="radio" name="q49" value="2"> C. whose</label>
+                    <label class="option-label"><input type="radio" name="q49" value="3"> D. that</label>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">50. We had better ........................ now before it gets dark.</div>
+                    <label class="option-label"><input type="radio" name="q50" value="0"> A. leave</label>
+                    <label class="option-label"><input type="radio" name="q50" value="1"> B. to leave</label>
+                    <label class="option-label"><input type="radio" name="q50" value="2"> C. leaving</label>
+                    <label class="option-label"><input type="radio" name="q50" value="3"> D. left</label>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="calculateScore()">Submit & See Results (بینینی ئەنجامی)</button>
+            </form>
         </div>
 
-        <!-- ================= پرسیارێن ١ تا ٥٠ ================= -->
-
-        <div class="question-card">
-            <div class="question-title">1. Peter feel very uncomfortable when he ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. was reminded of the unpaid money in front of people</li>
-                <li class="option-item">B. taught the shopkeeper a lesson</li>
-                <li class="option-item">C. borrowed money from the shopkeepers</li>
-                <li class="option-item">D. met the other shopkeepers in town</li>
-            </ul>
+        <div id="result-wrapper" class="result-box">
+            <h2 style="color: #d4af37;">🎉 ئەنجامێ تاقیکرنێ</h2>
+            <div class="score-display" id="final-score">0 / 100</div>
+            <p style="color: #ccc;">ل خوارێ سەیری خەلەتی و بەرسڤێن دروست بکە:</p>
+            
+            <div class="review-box" id="review-container"></div>
+            <button class="submit-btn" onclick="window.location.reload()">دووبارەکرنا تاقیکرنێ 🔄</button>
         </div>
-
-        <div class="question-card">
-            <div class="question-title">2. According to the passage, which statement is true?</div>
-            <ul class="options-list">
-                <li class="option-item">A. Peter was waiting for his friends to pay his bills.</li>
-                <li class="option-item">B. Most of the shopkeepers in the town were asking for their money.</li>
-                <li class="option-item">C. The shopkeeper owed Peter a hundred and twenty-two pounds.</li>
-                <li class="option-item correct-answer">D. Peter was not ready to pay his bills at that time.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">3. What Peter was trying to say about the debt was that the shopkeeper ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. might get most of his money back in three months</li>
-                <li class="option-item">B. should wait for a year to get his money back</li>
-                <li class="option-item">C. would get more than 122 pounds</li>
-                <li class="option-item">D. could only get back two pounds after three months</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">4. The underlined word 'argue' in the story means ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. go back to a place where you were before</li>
-                <li class="option-item">B. succeed in doing something difficult</li>
-                <li class="option-item correct-answer">C. talk with someone who does not agree with you</li>
-                <li class="option-item">D. find the answer to a problem or puzzle</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">5. New York began growing faster, and by 1830 it was ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. an extremely high-crime area</li>
-                <li class="option-item correct-answer">B. the main centre of trade in the USA</li>
-                <li class="option-item">C. taken over by some Dutch people</li>
-                <li class="option-item">D. renamed New Amsterdam by the British</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">6. Important developments in ancient human history happened near Erbil. Therefore, the mound ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. has properly been investigated by archaeologists</li>
-                <li class="option-item">B. is almost perfectly circular in shape</li>
-                <li class="option-item correct-answer">C. may hold important secrets about ancient human past</li>
-                <li class="option-item">D. contains lots of buried money</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">7. According to Dr. Sally Dale, a good way to understand complicated ideas and information clearly is to ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. put them off</li>
-                <li class="option-item">B. leave them till the night before the exam</li>
-                <li class="option-item">C. avoid them</li>
-                <li class="option-item correct-answer">D. organize them by using lists, charts, etc.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">8. SchoolNet was first developed in Canada and it provided both ......................... and ......................... sites for schools to share.</div>
-            <ul class="options-list">
-                <li class="option-item">A. shopping / information</li>
-                <li class="option-item correct-answer">B. information / interactive</li>
-                <li class="option-item">C. communication / shopping</li>
-                <li class="option-item">D. shopping / social</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">9. Which statement is not true about the Great Pyramid of Khufu?</div>
-            <ul class="options-list">
-                <li class="option-item">A. Its base has a total area of almost 53,000 square metres.</li>
-                <li class="option-item">B. Its triangular sides rise to a height of 146 metres.</li>
-                <li class="option-item correct-answer">C. It is an ancient stone circle roughly 4,500 years old.</li>
-                <li class="option-item">D. It contains 2.5 million stone blocks.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">10. The 'Oklahoma Dust Bowl' disaster shows that ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. GM can not help produce the food we will need</li>
-                <li class="option-item correct-answer">B. creating new farmland can be very dangerous</li>
-                <li class="option-item">C. no danger comes when we create new farmland</li>
-                <li class="option-item">D. plants in ordinary soil grow better and faster</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">11. To save money, people in Guatemala ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. are buying less meat and eating more vegetables</li>
-                <li class="option-item">B. have to go deeper and deeper for groundwater</li>
-                <li class="option-item">C. let their animals move round and feed freely</li>
-                <li class="option-item">D. are growing crops in salt water</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">12. The new leader of the government gave a great ......................... that made the whole country feel he was the right man for the job.</div>
-            <ul class="options-list">
-                <li class="option-item">A. information</li>
-                <li class="option-item correct-answer">B. speech</li>
-                <li class="option-item">C. lectures</li>
-                <li class="option-item">D. conversations</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">13. ......................... is an example of (repairing), but 'using materials again, often to make something different' is ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. Adding new pieces to mend old furniture / reducing</li>
-                <li class="option-item">B. Storing rain water to water garden flowers / reusing</li>
-                <li class="option-item correct-answer">C. Replacing buttons that are missing from clothes / recycling</li>
-                <li class="option-item">D. Planting flowers in old pots and cans / replacing</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">14. Asia has many great rivers - the Tigris and Euphrates, for ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. no things</li>
-                <li class="option-item">B. instance</li>
-                <li class="option-item">C. example</li>
-                <li class="option-item correct-answer">D. Both (B and C)</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">15. Choose the correct option:</div>
-            <ul class="options-list">
-                <li class="option-item">A. The word (environmental) is not an adjective.</li>
-                <li class="option-item">B. The word (civilization) is a noun, but the verb form of (creation) is (creat).</li>
-                <li class="option-item">C. The adjective form of the word (science) is (scientist).</li>
-                <li class="option-item correct-answer">D. The word (immigrant) is a noun for person, but the word (banking) is a noun thing.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">16. At drama schools, young ......................... do all sorts of strange activities and exercises to help them learn to ......................... well.</div>
-            <ul class="options-list">
-                <li class="option-item">A. actions / act</li>
-                <li class="option-item">B. actor / active</li>
-                <li class="option-item">C. activity / action</li>
-                <li class="option-item correct-answer">D. actors / act</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">17. In the word ........................., the letters (th) are not sounded / θ /.</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. although</li>
-                <li class="option-item">B. thought</li>
-                <li class="option-item">C. through</li>
-                <li class="option-item">D. thousand</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">18. There is no silent letter in the word .........................; but in the word ......................... the letter (w) is silent.</div>
-            <ul class="options-list">
-                <li class="option-item">A. gene / weight</li>
-                <li class="option-item correct-answer">B. draft / sword</li>
-                <li class="option-item">C. decade / whole</li>
-                <li class="option-item">D. limit / whistle</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">19. The underlined letters in the word (exhausted) are sounded ......................... and ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. / z /, / ed /</li>
-                <li class="option-item">B. / s /, / t /</li>
-                <li class="option-item">C. / z /, / d /</li>
-                <li class="option-item correct-answer">D. / s /, / ɪd /</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">20. Choose the correct phonetic symbols for the letter (i) in the words (sir) and (sit).</div>
-            <ul class="options-list">
-                <li class="option-item">A. / e /, / ɪ /</li>
-                <li class="option-item">B. / ə /, / iː /</li>
-                <li class="option-item">C. / ɪ /, / iː /</li>
-                <li class="option-item correct-answer">D. / ɜː /, / ɪ /</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">21. The letters (ea) in the word ......................... are pronounced / eə /.</div>
-            <ul class="options-list">
-                <li class="option-item">A. sealed</li>
-                <li class="option-item correct-answer">B. swearing</li>
-                <li class="option-item">C. fear</li>
-                <li class="option-item">D. stream</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">22. ......................... to get a job yet? // Yes, I ......................... for a publisher since I arrived.</div>
-            <ul class="options-list">
-                <li class="option-item">A. Have you able / worked</li>
-                <li class="option-item">B. Have been you able / have worked</li>
-                <li class="option-item correct-answer">C. Have you been able / have been working</li>
-                <li class="option-item">D. Did you able / have been worked</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">23. ......................... that early humans have lived here for 8000 years. (Choose the formal way of introducing the opinion)</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. It is said</li>
-                <li class="option-item">B. They say</li>
-                <li class="option-item">C. A lot of people say</li>
-                <li class="option-item">D. People say</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">24. (Paris, which is known as the City of Light, is a beautiful place to visit.) In the underlined part of the sentence ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. the relative pronoun (which) can't be replaced by (that)</li>
-                <li class="option-item">B. extra information is added about (Paris)</li>
-                <li class="option-item">C. the commas show that the information is not extra</li>
-                <li class="option-item correct-answer">D. Both (A and B)</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">25. ( ......................... ) is equal to (5%).</div>
-            <ul class="options-list">
-                <li class="option-item">A. one twenty</li>
-                <li class="option-item correct-answer">B. a twentieth</li>
-                <li class="option-item">C. an twentieth</li>
-                <li class="option-item">D. a twentieths</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">26. He took a map ......................... get lost in the city.</div>
-            <ul class="options-list">
-                <li class="option-item">A. so that he wouldn't</li>
-                <li class="option-item">B. so as not to</li>
-                <li class="option-item">C. in order to not</li>
-                <li class="option-item correct-answer">D. Both (A and B)</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">27. Steve ......................... his precious time.</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. shouldn't waste</li>
-                <li class="option-item">B. hadn't better waste</li>
-                <li class="option-item">C. need to stop wasting</li>
-                <li class="option-item">D. must not to waste</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">28. Life in little towns like Grass Valley is ......................... than it is in New York.</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. much less busy</li>
-                <li class="option-item">B. a lot more busier</li>
-                <li class="option-item">C. less busier</li>
-                <li class="option-item">D. the least busy</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">29. The workshop and café equipment ......................... It ......................... by the end of next week.</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. hasn't been set up yet / will be finished</li>
-                <li class="option-item">B. are not being set up now / has to be finished</li>
-                <li class="option-item">C. is not been set up this week / will finish</li>
-                <li class="option-item">D. will not set up today / is going to be finish</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">30. You ......................... weight ......................... you eat less and exercise regularly.</div>
-            <ul class="options-list">
-                <li class="option-item">A. wouldn't lose / if</li>
-                <li class="option-item correct-answer">B. will not lose / unless</li>
-                <li class="option-item">C. will lose / if no</li>
-                <li class="option-item">D. won't lose / as long as</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">31. About tomorrow's 'sky dive', how ......................... you .........................?</div>
-            <ul class="options-list">
-                <li class="option-item">A. will high / be going</li>
-                <li class="option-item correct-answer">B. high will / be going</li>
-                <li class="option-item">C. high will be / going</li>
-                <li class="option-item">D. high / will be gone</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">32. Which statement is incorrect?</div>
-            <ul class="options-list">
-                <li class="option-item">A. We only use (must) when we need to give an instruction very strongly.</li>
-                <li class="option-item correct-answer">B. (Fantastic idea!) is used to express disagreement to someone's suggestion.</li>
-                <li class="option-item">C. We use the present perfect continuous to emphasise continuing actions up to the present.</li>
-                <li class="option-item">D. When we change an active sentence to a passive sentence, the object of the active becomes the subject of the passive.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">33. We could have spent the whole weekend at the campsite <u>if only we had brought enough food and water</u>. (The underlined part of the sentence means ......................... )</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. I wish we had brought</li>
-                <li class="option-item">B. I wish we hadn't brought</li>
-                <li class="option-item">C. I don't wish we had brought</li>
-                <li class="option-item">D. None of them</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">34. ......................... her medicine everyday?</div>
-            <ul class="options-list">
-                <li class="option-item">A. Hasn't she had taken</li>
-                <li class="option-item">B. Didn't she have taken</li>
-                <li class="option-item correct-answer">C. Doesn't she have to take</li>
-                <li class="option-item">D. Shouldn't have she taken</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">35. No one knows for sure, but the ancient boat that was carrying the jewellery ......................... up to ten metres long.</div>
-            <ul class="options-list">
-                <li class="option-item">A. must have being</li>
-                <li class="option-item">B. could had been</li>
-                <li class="option-item correct-answer">C. might have been</li>
-                <li class="option-item">D. may have be</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">36. (Your brother is too young to know right from wrong.) If we use (enough) to express the same meaning, we say: (Your brother ......................... to know right from wrong.)</div>
-            <ul class="options-list">
-                <li class="option-item">A. is old enough</li>
-                <li class="option-item">B. isn't enough old</li>
-                <li class="option-item">C. doesn't be old enough</li>
-                <li class="option-item correct-answer">D. isn't old enough</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">37. Which of the underlined preposition was not correctly used?</div>
-            <ul class="options-list">
-                <li class="option-item">A. The flowers bloom beautifully <u>in</u> spring.</li>
-                <li class="option-item correct-answer">B. The fireworks start <u>on</u> midnight.</li>
-                <li class="option-item">C. We will carry out our main research <u>during</u> week 2.</li>
-                <li class="option-item">D. We're going to produce our project outline <u>by</u> Friday the 9th.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">38. What about ......................... in the countryside?</div>
-            <ul class="options-list">
-                <li class="option-item">A. a walk</li>
-                <li class="option-item">B. going for a walk</li>
-                <li class="option-item">C. to going for a walk</li>
-                <li class="option-item correct-answer">D. Both (A and B)</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">39. Tom ......................... his books away after he'd finished his homework, .........................?</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. put / didn't he</li>
-                <li class="option-item">B. puts / doesn't he</li>
-                <li class="option-item">C. won't put / wouldn't he</li>
-                <li class="option-item">D. had to put / hadn't he</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">40. In which of the following sentences, the relative pronoun is the object of the relative clause?</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. She ate the cake that Marry baked.</li>
-                <li class="option-item">B. The receptionist is someone who answers phone calls to the company.</li>
-                <li class="option-item">C. The engineer that designed the bridge is highly respected.</li>
-                <li class="option-item">D. I had a friend who could speak five languages.</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">41. He ......................... to work when he ......................... the accident.</div>
-            <ul class="options-list">
-                <li class="option-item">A. will drive / see</li>
-                <li class="option-item correct-answer">B. was driving / saw</li>
-                <li class="option-item">C. had driven / seen</li>
-                <li class="option-item">D. was driven / had saw</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">42. To learn a new language, it is better to live in a country ......................... the language is spoken.</div>
-            <ul class="options-list">
-                <li class="option-item">A. when</li>
-                <li class="option-item correct-answer">B. where</li>
-                <li class="option-item">C. who</li>
-                <li class="option-item">D. why</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">43. Long John Silver had ........................., so he knew all the sailors in Bristol.</div>
-            <ul class="options-list">
-                <li class="option-item">A. only one leg</li>
-                <li class="option-item correct-answer">B. an inn</li>
-                <li class="option-item">C. a long scar across one cheek</li>
-                <li class="option-item">D. an old parrot</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">44. When Pew sent his men inside the Admiral Benbow, they found ......................... but the ......................... had already been taken.</div>
-            <ul class="options-list">
-                <li class="option-item">A. the sea-chest / whole money</li>
-                <li class="option-item">B. Billy Bones' account book / treasure map</li>
-                <li class="option-item correct-answer">C. the bag of money / Flint's writing</li>
-                <li class="option-item">D. a packet / roll of paper</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">45. Silver's parrot (Captain Flint) was named after ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. a large hill on the island</li>
-                <li class="option-item">B. an inn in Bristol</li>
-                <li class="option-item">C. a blind pirate</li>
-                <li class="option-item correct-answer">D. a famous pirate</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">46. As soon as Ben Gunn saw the flag on the stockade, he asked Jim to ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. bring him some cheese</li>
-                <li class="option-item correct-answer">B. tell the squire or the doctor to come and see him</li>
-                <li class="option-item">C. find the little boat</li>
-                <li class="option-item">D. show him the place of the treasure</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">47. Dr. Livesey was on his way to ......................... at the Admiral Benbow inn when Bill had his first stroke.</div>
-            <ul class="options-list">
-                <li class="option-item correct-answer">A. see Jim's father</li>
-                <li class="option-item">B. have a drink</li>
-                <li class="option-item">C. look after Bill</li>
-                <li class="option-item">D. listen to Bill's sea-songs</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">48. When Tom said 'I'd prefer to lose my hand than turn against my duty.', we understood that ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. Silver couldn't corrupt Tom</li>
-                <li class="option-item">B. Tom refused to join the pirates</li>
-                <li class="option-item">C. Tom was not one of the honest men</li>
-                <li class="option-item correct-answer">D. Both (A and B)</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">49. ......................... was the one who cut the anchor from the ship and ......................... on board her.</div>
-            <ul class="options-list">
-                <li class="option-item">A. Israel Hands / got rid of Jim</li>
-                <li class="option-item">B. Dr Livesey / pulled down the pirates' flag</li>
-                <li class="option-item correct-answer">C. Jim Hawkins / killed Israel Hands</li>
-                <li class="option-item">D. The young cabin-boy / put Israel Hands in irons</li>
-            </ul>
-        </div>
-
-        <div class="question-card">
-            <div class="question-title">50. Captain Smollett said that they should attack the pirates ......................... .</div>
-            <ul class="options-list">
-                <li class="option-item">A. only after they had found the man of the island</li>
-                <li class="option-item">B. and then turn back to England</li>
-                <li class="option-item correct-answer">C. when they had known which sailors were for the pirates and which were not</li>
-                <li class="option-item">D. after they had found the treasure</li>
-            </ul>
-        </div>
-
     </div>
 
+    <script>
+        const correctAnswers = {
+            q1: { ans: 0, text: "A. was reminded of the unpaid money in front of people", title: "1. Peter felt very uncomfortable when he..." },
+            q2: { ans: 3, text: "D. Peter was not ready to pay his bills at that time.", title: "2. According to the passage, which statement is true?" },
+            q3: { ans: 0, text: "A. might get most of his money back in three months", title: "3. What Peter was trying to say about the debt..." },
+            q4: { ans: 2, text: "C. talk with someone who does not agree with you", title: "4. The underlined word 'argue' means..." },
+            q5: { ans: 1, text: "B. the main centre of trade in the USA", title: "5. New York began growing faster, and by 1830..." },
+            q6: { ans: 2, text: "C. may hold important secrets about ancient human past", title: "6. Important developments happened near Erbil..." },
+            q7: { ans: 3, text: "D. organize them by using lists, charts, etc.", title: "7. A good way to understand complicated ideas..." },
+            q8: { ans: 2, text: "C. driverless electric vehicles are used", title: "8. To create an automated transport system in Masdar City..." },
+            q9: { ans: 3, text: "D. Threatened and inadequate", title: "9. How do some parents feel when they find their kids are better..." },
+            q10: { ans: 3, text: "D. a group of men standing near the village spring", title: "10. On her way home from the market, Choman saw..." },
+            q11: { ans: 1, text: "B. He had gone eighty-four days without catching a fish.", title: "11. In 'The Old Man and the Sea', which statement is true about Santiago?" },
+            q12: { ans: 0, text: "A. salaao (the worst form of unlucky)", title: "12. Manolin's parents forced him to leave Santiago because..." },
+            q13: { ans: 1, text: "B. near the springs of Dove", title: "13. In 'To Lucy', Wordsworth describes the death of..." },
+            q14: { ans: 0, text: "A. Metaphor", title: "14. 'A violet by a mossy stone...' is an example of..." },
+            q15: { ans: 1, text: "B. facts and calculations", title: "15. In 'Hard Times', Mr. Thomas Gradgrind is a man of..." },
+            q16: { ans: 2, text: "C. dry, hard, and dictatorial", title: "16. The tone of Mr. Gradgrind's speech in the classroom is..." },
+            q17: { ans: 0, text: "A. although", title: "17. In which word the letters (th) are not sounded /θ/?" },
+            q18: { ans: 3, text: "D. half", title: "18. Which of the following words contains a silent letter?" },
+            q19: { ans: 0, text: "A. change", title: "19. The sound /dʒ/ is found in the word..." },
+            q20: { ans: 1, text: "B. look", title: "20. Choose the word with a different vowel sound:" },
+            q21: { ans: 3, text: "D. had studied", title: "21. If you ................... harder, you would have passed..." },
+            q22: { ans: 2, text: "C. had escaped", title: "22. By the time the police arrived, the thieves..." },
+            q23: { ans: 2, text: "C. which", title: "23. This is the house ................... my grandfather built..." },
+            q24: { ans: 3, text: "D. Both ( A and B )", title: "24. In the sentence (Paris, which is known as...)" },
+            q25: { ans: 1, text: "B. I had gone", title: "25. She asked me where ................... during the summer vacation." },
+            q26: { ans: 0, text: "A. Azad told his brother not to touch his phone.", title: "26. Reported Speech: 'Don't touch my phone,' Azad said..." },
+            q27: { ans: 2, text: "C. A new software is being developed by the company.", title: "27. The passive form of: (The company is developing...)" },
+            q28: { ans: 2, text: "C. hadn't eaten", title: "28. I wish I ................... so much fast food yesterday." },
+            q29: { ans: 1, text: "B. is raining", title: "29. We can't go out now because it ................... heavily." },
+            q30: { ans: 1, text: "B. will not lose / unless", title: "30. You ......... weight ......... you eat less..." },
+            q31: { ans: 1, text: "B. in order to", title: "31. He went to the bank ................... get some cash." },
+            q32: { ans: 1, text: "B. they went for a walk", title: "32. Although it was raining, ..................." },
+            q33: { ans: 1, text: "B. whose", title: "33. That is the laptop ................... screen was broken." },
+            q34: { ans: 1, text: "B. to seeing", title: "34. I'm looking forward ................... you soon." },
+            q35: { ans: 1, text: "B. don't have to wear", title: "35. You ................... formal clothes. It's a casual party." },
+            q36: { ans: 2, text: "C. has been living", title: "36. He ................... in Erbil since 2015." },
+            q37: { ans: 0, text: "A. rains", title: "37. If it ................... tomorrow, we won't go to the picnic." },
+            q38: { ans: 2, text: "C. better", title: "38. She speaks English ................... than her sister." },
+            q39: { ans: 2, text: "C. is being", title: "39. The car ................... fixed by the mechanic right now." },
+            q40: { ans: 1, text: "B. knew", title: "40. I don't know the answer. I wish I ................... it." },
+            q41: { ans: 0, text: "A. If it rains, we will stay at home.", title: "41. Which sentence shows the correct punctuation?" },
+            q42: { ans: 1, text: "B. has been playing", title: "42. He is very tired because he ................... football all afternoon." },
+            q43: { ans: 2, text: "C. mustn't", title: "43. You ................... drive fast near schools. It's dangerous." },
+            q44: { ans: 1, text: "B. may", title: "44. I am not sure, but he ................... come to the meeting." },
+            q45: { ans: 1, text: "B. was", title: "45. This building is old. It ................... built in 1920." },
+            q46: { ans: 2, text: "C. wouldn't have missed", title: "46. If they had left earlier, they ................... the train." },
+            q47: { ans: 0, text: "A. who", title: "47. That man is an engineer ................... designed this bridge." },
+            q48: { ans: 1, text: "B. opens", title: "48. She wants to know what time the library ..................." },
+            q49: { ans: 2, text: "C. whose", title: "49. He is the student ................... project won the first prize." },
+            q50: { ans: 0, text: "A. leave", title: "50. We had better ................... now before it gets dark." }
+        };
+
+        function calculateScore() {
+            const form = document.getElementById('quiz-form');
+            let totalQuestions = Object.keys(correctAnswers).length;
+            let correctCount = 0;
+            let reviewHtml = "";
+
+            for (let key in correctAnswers) {
+                const selected = form.querySelector(`input[name="${key}"]:checked`);
+                let selectedVal = selected ? parseInt(selected.value) : -1;
+                let isCorrect = selectedVal === correctAnswers[key].ans;
+
+                if (isCorrect) correctCount++;
+
+                let itemClass = isCorrect ? "review-item correct" : "review-item";
+                let badge = isCorrect ? '<span class="status-badge status-correct">Correct ✔</span>' : '<span class="status-badge status-wrong">Wrong ❌</span>';
+                
+                let studentAnsText = "تە چو بەرسڤ نەداینە! (No Answer)";
+                if (selected) {
+                    studentAnsText = selected.parentElement.textContent.trim();
+                }
+
+                reviewHtml += `
+                    <div class="${itemClass}">
+                        ${badge}
+                        <h4 style="margin: 0 0 10px 0; color: #d4af37;">${correctAnswers[key].title}</h4>
+                        <p style="margin: 5px 0;"><strong>بەرسڤا قوتابی:</strong> <span style="color: ${isCorrect ? '#2ec4b6' : '#ff4d4d'}">${studentAnsText}</span></p>
+                        ${!isCorrect ? `<p style="margin: 5px 0; color: #2ec4b6;"><strong>بەرسڤا دروست (Correct Answer):</strong> ${correctAnswers[key].text}</p>` : ''}
+                    </div>
+                `;
+            }
+
+            let finalGrade = Math.round((correctCount / totalQuestions) * 100);
+
+            document.getElementById('quiz-wrapper').style.display = 'none';
+            document.getElementById('result-wrapper').style.display = 'block';
+            document.getElementById('final-score').innerText = finalGrade + " / 100";
+            document.getElementById('review-container').innerHTML = reviewHtml;
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
