@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاقیکردنا وزاری یا زینده‌وه‌رزانی - پۆلا ١٢</title>
+    <style>
+        :root {
+            --gold: #dfb76c;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--gold);
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .option-item:hover {
+            border-color: var(--gold);
+            background-color: #333;
+        }
+
+        .option-item.correct {
+            background-color: var(--correct) !important;
+            border-color: #4caf50 !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: var(--wrong) !important;
+            border-color: #f44336 !important;
+            color: white;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .feedback.show-correct {
+            display: block;
+            color: #81c784;
+            background-color: rgba(46, 125, 50, 0.1);
+            border: 1px solid var(--correct);
+        }
+
+        .feedback.show-wrong {
+            display: block;
+            color: #e57373;
+            background-color: rgba(198, 40, 40, 0.1);
+            border: 1px solid var(--wrong);
+        }
+
+        .image-placeholder {
+            background-color: #252525;
+            border: 1px dashed var(--gold);
+            padding: 15px;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 14px;
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <header>
+        <h1>تاقیکردنا وزاری یا زینده‌وه‌رزانی (پۆلا ١٢)</h1>
+        <p class="subtitle">خولا دووێ ٢٠٢٤-٢٠٢٥ — سیسته‌مێ خۆکار بۆ پشکنینا به‌رسڤان</p>
+    </header>
+
+    <!-- 1 -->
+    <div class="question-card">
+        <div class="question-text">١. ئه‌و شانه‌یا تیخا ژده‌رفه‌ یا لووله‌یین خوینێ ژێ پێكدهێت یان جودایه‌ ژ وێ شانه‌یا تیخا ناڤێ یا لووله‌یین خوینێ ڕێ پێكدهێت، ب وی چه‌ندێ كو ئه‌و شانه‌یا تیخا ژده‌رفه‌ یا لووله‌یین خوینێ ژێ پێكدهێت:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 1)">A- شانه‌بین و د برده‌كا زۆرا ماددده‌یێ دناڤبه‌را شانه‌اندا نقوم بووینه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 1)">B- به‌سته‌ره‌شانه‌یه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 1)">C- رووكه‌شه‌ شانه‌یه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 1)">D- (A و B) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-1"></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question-card">
+        <div class="question-text">٢. ماسولكه‌یا حه‌ولی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 2)">A- د ڕێڕه‌بین زاوێزێ یێن مێینه‌دا هه‌نه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 2)">B- ب شێوه‌یێ جووتین هه‌ڤدژ كار دكه‌ت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 2)">C- ڕیشالێن وێ ب به‌سته‌ره‌شانه‌یی نه‌هاتینه‌ ده‌وردان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 2)">D- خالێن بنك و جه‌به‌ست یێن هه‌ین</li>
+        </ul>
+        <div class="feedback" id="feedback-2"></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question-card">
+        <div class="question-text">٣. كێژ ژ ڤان ده‌رباره‌ی لووله‌یان د پێكهاته‌یا هه‌ستیێ درێژدا نه‌یا دروسته؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 3)">A- مه‌ژیێ زه‌ردی هه‌ستی تێدا هه‌ی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 3)">B- ژ په‌ركان پێكد هێت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 3)">C- پشكه‌كه‌ ژ پێكهاته‌یا هه‌ستیێ موكوم</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 3)">D- د نیڤا هه‌ر لووله‌یه‌كێدا جوكه‌كا هاڤه‌رسی یا هه‌یی</li>
+        </ul>
+        <div class="feedback" id="feedback-3"></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question-card">
+        <div class="question-text">٤. هه‌می نه‌خۆشین ل خوارێ ده‌رباره‌ی گه‌لهان ته‌وه‌ره‌یی دروستن، ژبلی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 4)">A- جۆره‌كه‌ ژگه‌هێن لقۆك</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 4)">B- ڕێكێ دده‌ته‌ چه‌میان و وه‌ربادانا له‌شی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 4)">C- د پڕپڕه‌یا په‌شتیدا هه‌یه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 4)">D- د ته‌وه‌ره‌ په‌یکه‌ریدا هه‌یه‌</li>
+        </ul>
+        <div class="feedback" id="feedback-4"></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question-card">
+        <div class="question-text">٥. په‌یكه‌ره‌ ماسولكه‌:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 5)">A- ب به‌رگی هه‌ستیڤه‌ نه‌هاتینه‌ گرێدان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 5)">B- ب شێوه‌یه‌كێ نیكسه‌ر ب به‌رگی هه‌ستیڤه‌ هاتینه‌گرێدان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 5)">C- ب ڕێكا ژێیان ب به‌رگی هه‌ستیڤه‌ هاتینه‌ گرێدان</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 5)">D- (C + B) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-5"></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question-card">
+        <div class="question-text">٦. نه‌ڤه‌هه‌می مه‌شكه ده‌قێ ل هه‌ستیێن لنگ و چنگله‌ پێكد هری، ژبلی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 6)">A- پڕكا ملی</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 6)">B- سه‌رسینگ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 6)">C- چیق</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 6)">D- كه‌لكه‌ك</li>
+        </ul>
+        <div class="feedback" id="feedback-6"></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question-card">
+        <div class="question-text">٧. كێژ ژ ڤان لووله‌یین خوینێ، خوینه‌كا ڕه‌نگ سوورێ تێر تێدایه‌ (ڤه‌دگۆهێزیت):-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 7)">A- خلووله‌ خوینهێنه‌ر</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 7)">B- سیهه‌ خوینهێنه‌ر</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 7)">C- سیهه‌ خوینبه‌ر</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 7)">D- (A و C) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-7"></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question-card">
+        <div class="question-text">٨. كێژ ژ ڤان ده‌رباره‌ی قۆناغا خافبوونا گۆهه‌كه‌ زكۆكه‌ یادرۆسته‌؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 8)">A- ناراڕاسته‌یا ڤه‌گۆهاستنا خوینێ ژ هه‌ردوو گۆهه‌كیان به‌ره‌ڤ هه‌ردوو زكۆكه‌ یان دبیته‌ ئه‌گه‌رێ ده‌ربرینی د هیلكارییا دلیدا</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 8)">B- ب پێلا P دێ هێته‌ ده‌ربرین د هیلکارییا دلیدا</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 8)">C- ئه‌و ده‌مێ ڤه‌دكێشیت زێده‌تره‌ ژوی ده‌مێ قۆناغا گرژبوونا گۆهه‌كه‌یی ڤه‌دكێشیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 8)">D- خوین ڤه‌دگه‌ڕێته‌ڤه‌ هه‌تا هه‌ردوو زكۆكه‌ یان پڕ دكه‌ت</li>
+        </ul>
+        <div class="feedback" id="feedback-8"></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question-card">
+        <div class="question-text">٩. نه‌ڤه‌ هه‌می شله‌یه‌كێ ده‌ردده‌ن بۆ كێمكرنا لیكخشاندنی، ژبلی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 9)">A- پلووره‌</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 9)">B- ناڤپه‌نچك</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 9)">C- ئه‌و شانه‌یا ڕوویێ گه‌هـ چۆكی دادپۆشیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 9)">D- په‌رده‌یێ دلی</li>
+        </ul>
+        <div class="feedback" id="feedback-9"></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question-card">
+        <div class="question-text">١٠. خانه بین سپیین خوینێ ژبه‌ركو ....................... دشین فرمانی خۆ نه‌ ئه‌جامبده‌ن</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 10)">A- شیانا ده‌ردانا نه‌زمێین خوین مه‌ینی هه‌یه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 10)">B- ژ مه‌ژیێ سووری هه‌ستی دروست دبن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 10)">C- دشین ب ڕێیا كونێن دیوارێن لووله‌بین خوینێ بۆ ناڤ شله‌یێ ناڤبه‌را خانه‌ یان بچن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 10)">D- ناڤۆك و نه‌ئه‌ندامۆچكه‌ تێدا ب ڕێژه‌ دبن</li>
+        </ul>
+        <div class="feedback" id="feedback-10"></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="question-card">
+        <div class="question-text">١١. خشته‌یێ به‌رامبه‌ر ئه‌نجامێ تیكه‌لكرنا چه‌ند سامپڵه‌كین خوینێ دیاردكه‌ت، كێژ ژ ڤان نه‌ئه‌نجامان یا دروسته؟ [سەحکە وێنەیێ 11 د په‌ڕتووکێ دا]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 11)">A) سامپڵێ 1 (A+) ، سامپڵێ 2 (A-) -> خشته‌یا A</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 11)">B) سامپڵێ 1 (O+) ، سامپڵێ 2 (AB-) -> خشته‌یا B</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 11)">C) سامپڵێ 1 (AB+) ، سامپڵێ 2 (O-) -> خشته‌یا C</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 11)">D) سامپڵێ 1 (AB-) ، سامپڵێ 2 (B-) -> خشته‌یا D</li>
+        </ul>
+        <div class="feedback" id="feedback-11"></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="question-card">
+        <div class="question-text">١٢. كێژ نه‌ڤان به‌رگرییان جۆره‌كێ تایبه‌ت ژ هۆكارین نه‌ساخیێ دكه‌ته‌ ئارمانج؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 12)">A- په‌رده‌یێن نڤیسه‌ك</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 12)">B- به‌رسڤدانا هه‌ودانی</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 12)">C- به‌رگرییا تایبه‌ت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 12)">D- به‌رسڤدانا گه‌رمیی</li>
+        </ul>
+        <div class="feedback" id="feedback-12"></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="question-card">
+        <div class="question-text">١٣. خانه بین كوژه‌كین سروشتی جودانه‌ ژ خانه بین سپیین خوینێ یێن هه‌فتا ب وێ چه‌ندێ كو خانه بین كوژه‌كین سروشتی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 13)">A- خانه‌بین سپیین خوینینه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 13)">B- د به‌رگرییا گشتیدا پشكداریا دكه‌ن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 13)">C- هێرشی دكه‌نه‌ سه‌ر وان خانه‌بین كو تووشبووین ب هۆكارین نه‌ساخیێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 13)">D- هۆكاری نه‌ساخیێ دادعیرن</li>
+        </ul>
+        <div class="feedback" id="feedback-13"></div>
+    </div>
+
+    <!-- 14 -->
+    <div class="question-card">
+        <div class="question-text">١٤. د كێژ بنه‌ماییدا ژ چوار بنه‌مایین ده‌ستنیشانكردنین كوخی پێدڤیه‌ هۆكاری نه‌ساخیێ د تاقیکه‌هیدا په‌ره پێ بهێته‌دان؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 14)">A- 1 و 3</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 14)">B- 2 و 4</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 14)">C- 1 و 2</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 14)">D- 3 و 4</li>
+        </ul>
+        <div class="feedback" id="feedback-14"></div>
+    </div>
+
+    <!-- 15 -->
+    <div class="question-card">
+        <div class="question-text">١٥. ب پشت به‌ستن ب شێوه‌یێ به‌رامبه‌ر، به‌رسڤا دروست ژ خشته‌یێ ل خوارێ هه‌لبژێره‌:- [سەیری وێنەیێ پرسیارا 15 بکە د فایلێ image_61.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 15)">A) ئۆركۆكه‌یا ڕاستی دهێت / ئۆلگۆهه‌كه‌یا چه‌پی / بكۆب ڕه‌نووسا 1 ئاماژه‌ پێهاتیه‌كرن بۆ سێكلدانۆكێن هه‌وای</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 15)">B) ڤه‌دگه‌ڕێته‌ڤه‌ بۆ گۆهه‌كیا چه‌پی / ئۆركۆكه‌یا ڕاستی دهێت / لقا بۆریا هه‌وای ده‌یته‌ڤه‌گوهاستن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 15)">C) ڤه‌دگه‌ڕێته‌ڤه‌ بۆ گۆهه‌كیا چه‌پی / ئۆركۆكه‌یا ڕاستی دهێت / لقا بۆریا هه‌وای ده‌یته‌ڤه‌گوهاستن (بەرسڤا دروست وەک دیارکری د خشتەی دا)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 15)">D) ڤه‌دگه‌ڕێته‌ڤه‌ بۆ زكۆكه‌یا ڕاستی / گۆهه‌كه‌یا چه‌پی دهێت / سێكلدانۆكێن هه‌وای ده‌یته‌ڤه‌گوهاستن</li>
+        </ul>
+        <div class="feedback" id="feedback-15"></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="question-card">
+        <div class="question-text">١٦. کیژ ڕاستی ده‌رباره‌ی به‌رسڤدانا به‌رگرییا دوویه‌می یا دروسته ده‌مێ كه‌سه‌ك دووباره‌ ب هه‌مان هۆكاری نه‌ساخیێ تووش دبیت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 16)">A- وی كه‌سی دپارێزیت ژ تووشبوونی ب هۆكارەکێ نووی یێ نه‌ساخیێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 16)">B- خانه‌بین بیركه‌ر بۆ جارا نیكێ دهێنه‌ به‌رهه‌مئینان</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 16)">C- خانه‌بین بیركه‌ر وێ هۆكاری نه‌ساخیێ دنیاسن و ده‌ست ب دابه‌شبوونه‌كا خانه بین بله‌ز دكه‌ن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 16)">D- (B و C) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-16"></div>
+    </div>
+
+    <!-- 17 -->
+    <div class="question-card">
+        <div class="question-text">١٧. دژه‌ ته‌ن ب هۆكارین نه‌ساخیڤه‌ ده‌نووسین و چالاكییا وان راده‌وستینن و ژناڤ دبه‌ن بڕێكا؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 17)">A- نه‌ یه‌كسه‌ر ب هاریكارییا به‌رگریین تایبه‌ت</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 17)">B- نه‌هێلانا چۆنا هۆكارین نه‌ساخیێ بۆ دناڤ خانه‌بێدا و ڕێگرتن ل زۆربوونا وان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 17)">C- كۆنكرنا په‌ڕده‌بین خانه‌بین تووشبووی ب هۆكاری نه‌ساخیێ و په‌قاندنا وان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 17)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-17"></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="question-card">
+        <div class="question-text">١٨. كێژ ژنه‌ڤان هه‌رده‌م (به‌رده‌وام) دژه‌ په‌یداكرین نوو ده‌هه‌لگرن؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 18)">A- ڤایرۆسێ په‌رسیڤێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 18)">B- ڤایرۆسێ نه‌نفلۆنزایێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 18)">C- ڤایرۆسێ HIV</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 18)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-18"></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="question-card">
+        <div class="question-text">١٩. شێوه‌یی به‌رامبه‌ر پشكه‌كێ ژ ته‌وه‌ری ده‌ماره‌ خانه‌یه‌كێ دیاردكه‌ت، كێژ ژ ڤان به‌رسفین ده‌هێن یا دروسته ده‌رباره‌ی لقینا نایۆنان د جه‌هێ دیاركریدا د ته‌وه‌رێ ده‌ماره‌ خانه بێدا؟ [سەیری وێنەیێ پرسیارا 19 بکە د فایلێ image_61.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 19)">A- نایۆنین پۆتاسیۆم و سۆدیۆم دچنه‌ ده‌رفه‌ی ده‌ماره‌ خانه‌یێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 19)">B- نایۆنین پۆتاسیۆم و سۆدیۆم دچنه‌ دناڤ ده‌ماره‌ خانه‌بێدا</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 19)">C- نایۆنین سۆدیۆم دچنه‌ دمرڤه‌ی ده‌ماره‌خانه‌یێ و نایۆنین پۆتاسیۆمی دچنه‌ دناڤ ده‌ماره‌خانه‌بێدا</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 19)">D- نایۆنین سۆدیۆم دچنه‌ دناڤ ده‌ماره‌خانه‌بێدا و نایۆنین پۆتاسیۆمی دچنه‌ دمرڤه‌ی ده‌ماره‌خانه‌یێ</li>
+        </ul>
+        <div class="feedback" id="feedback-19"></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="question-card">
+        <div class="question-text">٢٠. جیكلدانه‌ ب په‌رده‌یا خانه‌یا پێش گه‌هینكێوه‌ ده‌نووسین ده‌مێ:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 20)">A- ده‌ماره‌ ڤه‌گوێزه‌ر ب هاریكاریا نه‌زێمان دهێنه‌ هه‌لوه‌شاندن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 20)">B- ئه‌ركێ كاری ده‌گه‌هیته‌ دووماهیین ده‌ماری یێن ته‌وه‌رێ خانه‌یا پێش گه‌هینكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 20)">C- ده‌ماره‌ڤه‌گوێزه‌ر ژ لایێ خانه‌یا پاش گه‌هینكێڤه‌ دووباره‌ دهێنه‌ مێژتن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 20)">D- په‌مپا سۆدیۆم - پۆتاسیۆمی چالاكدبیت</li>
+        </ul>
+        <div class="feedback" id="feedback-20"></div>
+    </div>
+
+    <!-- 21 -->
+    <div class="question-card">
+        <div class="question-text">٢١. لقینه‌ پشكا چیوه كۆنه‌ ئه‌ندامی ده‌ماری كۆنترۆلا ..................... دكه‌ت.</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 21)">A- لقینا په‌یکه‌ره‌ ماسولكه‌یان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 21)">B- كارێ ماسولكه‌یان د لووله‌بین خوینێدا</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 21)">C- ده‌ردانا هه‌می هۆرمۆنین له‌شی ب شێوه‌یه‌كێ نیكسه‌ر</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 21)">D- (A و B) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-21"></div>
+    </div>
+
+    <!-- 22 -->
+    <div class="question-card">
+        <div class="question-text">٢٢. ئه‌و وه‌رگرین كو دندۆكۆكین كاربۆناتی كه‌لسیۆمێ ل سه‌رن ژ جۆری:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 22)">A- میكانیكه‌ وه‌رگرن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 22)">B- نیشانه‌ وه‌رگرن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 22)">C- كیمیكه‌ وه‌رگرن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 22)">D- ڕۆناهییه وه‌رگرن</li>
+        </ul>
+        <div class="feedback" id="feedback-22"></div>
+    </div>
+
+    <!-- 23 -->
+    <div class="question-card">
+        <div class="question-text">٢٣. ئه‌و پشكا ده‌ماخی كێژه‌ كو تیگه‌هشتنا ڕاگه هاندنزین به‌ركه‌فتنێ تێدایه‌؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 23)">A- تیڤكڵێ مه‌ژی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 23)">B- ناڤبه‌ره‌ ده‌ماخ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 23)">C- ناڤه‌راسته‌ ده‌ماخ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 23)">D- ئه‌و پشكا مه‌ژی كو ده‌كه‌ڤیته‌ دبن ڕوویێ تیڤكڵێ مه‌ژیدا</li>
+        </ul>
+        <div class="feedback" id="feedback-23"></div>
+    </div>
+
+    <!-- 24 -->
+    <div class="question-card">
+        <div class="question-text">٢٤. خانه بین چێلكه‌یی دجۆدانه‌ ژ گۆمبه‌ته‌ خانه یان ب وێ چه‌ندێ كو خانه بین چێلكه‌یی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 24)">A- به‌رسڤا ڕۆناهییا گه‌ش دده‌ن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 24)">B- بۆیاغا ڕۆدۆپسین تێدایه</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 24)">C- د به‌رهه‌مئینانا هویره وێنه‌یاندا پشكداریی دكه‌ن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 24)">D- به‌رسڤا ڕه‌نگین جودا دده‌ن</li>
+        </ul>
+        <div class="feedback" id="feedback-24"></div>
+    </div>
+
+    <!-- 25 -->
+    <div class="question-card">
+        <div class="question-text">٢٥. د كه‌سه‌كێ ڕاهاتیدا ده‌مێ كۆكایین داهێته‌ لابرن ژ ده‌ماره‌ تیكه‌له‌چوونی و دووباره‌ ده‌ركرنا دۆپامینی بۆ سروشتی خۆ ڤه‌دگه‌ڕێته‌ڤه‌، خانه یا پاش گه‌هینكێ:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 25)">A- هشیاربوونا وێ زێده‌ دبیت</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 25)">B- هشیاربوونا وێ كێم دبیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 25)">C- هه‌ژمارا وه‌رگرین پرۆتینی د په‌رده‌یا خانه‌یا پاش تیكه‌له‌چوونیدا كێم دبیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 25)">D- (B و C) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-25"></div>
+    </div>
+
+    <!-- 26 -->
+    <div class="question-card">
+        <div class="question-text">٢٦. ................. ئه‌و گه‌رده‌ یا دبیته‌ ئه‌گه‌رێ ده‌ستپێكرنا گۆهرینا دناڤ خانه‌بێدا وه‌ك به‌رسفدانه‌ك بۆ بێڤه‌گرێدانا ماده‌یه‌كێ دیاركری ب وه‌رگره‌كێ دیاركریڤه‌ ل سه‌ر ڕوویێ خانه‌یێ.</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 26)">A- هنارتیێ نیكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 26)">B- وه‌رگرێ پرۆتینی</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 26)">C- هنارتیێ دووهمی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 26)">D- ئاڤێتی هۆرمۆن - وه‌رگر</li>
+        </ul>
+        <div class="feedback" id="feedback-26"></div>
+    </div>
+
+    <!-- 27 -->
+    <div class="question-card">
+        <div class="question-text">٢٧. د كێژ ژ ڤان باراندا هۆرمۆنی ئه‌درینال داهێته‌ ده‌ردان؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 27)">A- كێمبوونا خه‌ستیا گڵۆكۆزێ د خوینێدا</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 27)">B- ده‌مێ كه‌سه‌ك دكه‌ڤێته‌ بن گڤاشتنه‌كێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 27)">C- پشتی نه‌مانا ماوه‌یێ گه‌ڤێ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 27)">D- (A و B) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-27"></div>
+    </div>
+
+    <!-- 28 -->
+    <div class="question-card">
+        <div class="question-text">٢٨. كۆره‌ خانه (ئه‌و خانه‌یێن كو هۆرمۆنی ده‌ردده‌ن) و خانه‌یێن ئارمانج بۆ كێژ ژ ڤان هۆرمۆنین ده‌هێن د هه‌مان ده‌مه‌دا نه‌ ئه‌ندامدا؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 28)">A- سیكریتین</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 28)">B- گاسترین</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 28)">C- پاراثایرۆید</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 28)">D- كالیسیتۆنین</li>
+        </ul>
+        <div class="feedback" id="feedback-28"></div>
+    </div>
+
+    <!-- 29 -->
+    <div class="question-card">
+        <div class="question-text">٢٩. هه‌می ئه‌و كۆمین ده‌هێن هۆرمۆنێ كێ تێدا كو جهێ ده‌ردانا وی سه‌ر ب كۆمێڤه‌ نینه‌، ژبلی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 29)">A- ئه‌نسولین، پرۆستاگلاندین، گلوكاگۆن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 29)">B- ئۆكسیتۆسین، نیپینفرین، هۆرمۆنێ دژه‌میزتنی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 29)">C- ئه‌لدۆستیرۆن، كۆرتیزۆل، گلوكاگۆن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 29)">D- هانده‌رێ ثایرۆده‌ ڕژێنی، هانده‌رێ تیڤكڵێ ئه‌درینالی، هانده‌رێ چێلكدانێ</li>
+        </ul>
+        <div class="feedback" id="feedback-29"></div>
+    </div>
+
+    <!-- 30 -->
+    <div class="question-card">
+        <div class="question-text">٣٠. كێژ ژ ڤان ده‌رباره‌ی جوكا ڤه‌گوهاستنی یا دروسته؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 30)">A- ل دوور میزوێری دزڤڕیت</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 30)">B- د تاكێ نێری ئاساییدا هه‌ژمارا وی دوو دانه‌یه‌</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 30)">C- سپێرمه‌شلی ڤه‌دگۆهێزیت بۆ میزوێری</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 30)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-30"></div>
+    </div>
+
+    <!-- 31 -->
+    <div class="question-card">
+        <div class="question-text">٣١. كێژ ژ ڤان هۆرمۆنێ تێستۆستیرۆنی ده‌ردده‌ت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 31)">A- گۆن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 31)">B- سپێرمه‌ چیكلدانك</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 31)">C- ڕژێنا پرۆستات</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 31)">D- هه‌می به‌رسڤ دخه‌له‌تن</li>
+        </ul>
+        <div class="feedback" id="feedback-31"></div>
+    </div>
+
+    <!-- 32 -->
+    <div class="question-card">
+        <div class="question-text">٣٢. هه‌می ئه‌وه‌ د جوكا فالۆپیدا رووده‌ده‌ن، ژبلی:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 32)">A- دروست بوونا مۆریولایی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 32)">B- دروستبوونا هیكا پیتاندی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 32)">C- دابه‌شبوونا دوویێ یا كیمه‌دابه‌شبوونا هیكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 32)">D- دروستبوونا جه‌مسه‌ره‌ ته‌نێ نیكێ</li>
+        </ul>
+        <div class="feedback" id="feedback-32"></div>
+    </div>
+
+    <!-- 33 -->
+    <div class="question-card">
+        <div class="question-text">٣٣. كێژ ژ ڤان ئیسترۆجینی ده‌ردده‌ت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 33)">A- هیكا پێگهه‌شتی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 33)">B- ته‌نێ زه‌رد</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 33)">C- ناڤكه‌به‌ندكێ گه‌شه‌كری</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 33)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-33"></div>
+    </div>
+
+    <!-- 34 -->
+    <div class="question-card">
+        <div class="question-text">٣٤. ب پشت به‌ستن ب شێوه‌یێ به‌رامبه‌ر كۆ ناقپۆشێ مالبچووكی و پشكا هه‌ڤاڵ بچوویكی یا تایبه‌ت ب دایكیڤه‌ و پشكا هه‌ڤاڵ بچوویكی یا تایبه‌ت ب كۆرپه‌له‌ی دیاردكه‌ت، به‌رسڤا دروست ل خوارێ هه‌لبژێره‌:- [سەیری وێنەیێ پرسیارا 34 بکە د فایلێ image_62.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 34)">A- ڕه‌نووسین 1 و 2 ئاماژێ دكه‌نه‌ دوو خوینهێنه‌رین دایكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 34)">B- ... دوو خوینبه‌رین دایكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 34)">C- ڕه‌نووسا 1 ئاماژێ دكه‌ته‌ ئاڤكه‌ خویبهێنه‌ری و ڕه‌نووسا 2 ئاماژێ دكه‌ته‌ خوینهێنه‌را دایكێ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 34)">D- ڕه‌نووسا 1 ئاماژێ دكه‌ته‌ خوینهێنه‌را دایكێ و ڕه‌نووسا 2 ئاماژێ دكه‌ته‌ نافكه‌ خوینبه‌ری</li>
+        </ul>
+        <div class="feedback" id="feedback-34"></div>
+    </div>
+
+    <!-- 35 -->
+    <div class="question-card">
+        <div class="question-text">٣٥. دمه‌ویێ سیكا نیكێ یا دووگیانیێدا:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 35)">A- تیخێن خانه‌بین دروستكه‌رین یه‌كه‌می دروست دبن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 35)">B- چوارپه‌ڕه‌دبین كۆرپه‌له‌یی دروست دبن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 35)">C- دایك هه‌ست ب لقینا كۆرپه‌له‌ی ناكه‌ت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 35)">D- دل ده‌ست ب لێدانی ناكه‌ت</li>
+        </ul>
+        <div class="feedback" id="feedback-35"></div>
+    </div>
+
+    <!-- 36 -->
+    <div class="question-card">
+        <div class="question-text">٣٦. د كێژ ژ ڤان جووتبوواناندا ڕێژه‌یا باوه‌بوو بابه‌تی یه‌كره‌ بۆ دووڕه‌ دبیته‌ 1:1:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 36)">A- جووتبوونا تاكه‌ دووڕه‌بۆنا تاكه‌ دووڕه‌بوونی (یه‌كره‌ × دوو ڕه‌)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 36)">B- جووتبوونا تاكه‌ دووڕه‌بوونی (دوو ڕه‌ × دوو ڕه‌)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 36)">C- زاڵبوونا نه‌ ته‌مام (دووڕه‌ × دووڕه‌)</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 36)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-36"></div>
+    </div>
+
+    <!-- 37 -->
+    <div class="question-card">
+        <div class="question-text">٣٧. د بواموه‌یا مه‌نده‌لیدا، ئه‌لیله‌ك (هۆكاره‌ك) ب زاڵ دهێته‌ نافكرن ئه‌گه‌ر:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 37)">A- بتنێ دبارێ یه‌كرهدا شیانا ده‌ربڕینی هه‌بیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 37)">B- بتنێ دبارێ دووڕه‌هدا شیانا ده‌ربڕینی هه‌بیت</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 37)">C- دیاری دووڕه‌هیدا كارتێكرنا هۆكاری دی ڤه‌دشێریت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 37)">D- دبارێ دووڕه‌هدا تیكه‌لبوون دناڤبه‌را دوونه‌ لیلاندا روویدهده‌ت</li>
+        </ul>
+        <div class="feedback" id="feedback-37"></div>
+    </div>
+
+    <!-- 38 -->
+    <div class="question-card">
+        <div class="question-text">٣٨. لدوێف وان تاقیکرنین كو مه‌نده‌لی لسه‌ر رووه‌كی به‌زالیا ئه‌نجامداین، كێژ ژ ڤان ده‌ربڕینی ژ تیكه‌له‌ په‌رینی دكه‌ت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 38)">A- Tt x Tt</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 38)">B- tt x TT</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 38)">C- TT x TT</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 38)">D- هه‌می به‌رسڤ دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-38"></div>
+    </div>
+
+    <!-- 39 -->
+    <div class="question-card">
+        <div class="question-text">٣٩. كێژ ژ ڤان ڕیزه‌بندیا نیوكلیۆتایدانه لسه‌ر زنجیره‌یا قالب دا گه‌ردا DNA دا كو كۆپیكرن لێ یشتی هینگی وه‌رگێڕان بۆ ناهێته‌كرن:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 39)">A- TAC</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 39)">B- ACT</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 39)">C- ATC</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 39)">D- (B و C) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-39"></div>
+    </div>
+
+    <!-- 40 -->
+    <div class="question-card">
+        <div class="question-text">٤٠. شێوه‌بین (1 و 2) ل به‌رامبه‌ر ده‌ربڕینی ژ ئه‌نجامێ تاقیکرنین هێرشی و چه‌یسی دكه‌ن، د كێژ تاقیکرنیدا 35S بكارئینان و د كێژ تاقیکرنیدا 32P بكارئینان؟ [سەیری وێنەیێ پرسیارا 40 بکە د فایلێ image_62.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 40)">A- د تاقیکردنا نیكێدا 35S بكارئینان و د تاقیکرنا دووێدا 32P بكارئینان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 40)">B- د تاقیکردنا نیكێدا 32P بكارئینان و د تاقیکرنا دووێدا 35S بكارئینان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 40)">C- د هه‌ردوو تاقیکرناندا 35S بكارئینان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 40)">D- د هه‌ردوو تاقیکرناندا 32P بكارئینان</li>
+        </ul>
+        <div class="feedback" id="feedback-40"></div>
+    </div>
+
+    <!-- 41 -->
+    <div class="question-card">
+        <div class="question-text">٤١. ب پشت به‌ستن ب شێوه‌یێ به‌رامبه‌ر كو كریارا دووهیندبوونا DNA دیاردكه‌ت، پشتی ته‌مابوونا ئه‌ڤ كریاره هه‌لبژاردی دروست ژ خشته‌یێ ل خوارێ ده‌رباری ڕێژه‌یا پریمیدینان و ڕێژه‌یا پیورینان هه‌لبژێره. [سەیری خشتەیا پرسیارا 41 بکە د فایلێ image_62.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 41)">A) زنجیرا 2 ، زنجیرا 4 / زنجیرا 1 ، زنجیرا 3</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 41)">B) زنجیرا 1 ، زنجیرا 4 / زنجیرا 2 ، زنجیرا 4</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 41)">C) زنجیرا 2 ، زنجیرا 3 / زنجیرا 2 ، زنجیرا 3</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 41)">D) زنجیرا 1 ، زنجیرا 3 / زنجیرا 2 ، زنجیرا 3 (بەرسڤا دیارکری D)</li>
+        </ul>
+        <div class="feedback" id="feedback-41"></div>
+    </div>
+
+    <!-- 42 -->
+    <div class="question-card">
+        <div class="question-text">٤٢. كێژ ڤان ده‌رباره‌ی كریارا دروستبوونا پرۆتینی د زینده‌وه‌رین نافك ڕاسته‌قینه‌دا نه‌یا دروسته؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 42)">A- ب پشت به‌ستن ب خشته‌یێ كۆدۆنان GCU ترشێ ئه‌مینی نه‌لاتین د كۆدێ بۆماوه‌ییدا دیاردكه‌ت د هه‌می زینده‌وه‌راندا</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 42)">B- د كۆپیكرنیدا پشكه‌ك ژ زنجیره‌یه‌كا DNA دهێته‌ بكارئینان بۆ كۆپیكرنا tRNA</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 42)">C- وه‌رگێران ده‌ست پێدكه‌ت ب ڕی دووماهی هاتنا كۆپیكرنی (نه‌یا دروستە)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 42)">D- كۆپیكرن د ناڤكێدا رووده‌ده‌ت</li>
+        </ul>
+        <div class="feedback" id="feedback-42"></div>
+    </div>
+
+    <!-- 43 -->
+    <div class="question-card">
+        <div class="question-text">٤٣. د كێژ پێنگاڤا وه‌رگێرانێدا دووماهيك tRNA دێ ڕایبۆسۆمێ بجهد هێلیت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 43)">A- درێژبوون</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 43)">B- ده‌ستپێكرن</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 43)">A- دووماهیهاتن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 43)">D- ژێكجودابوون</li>
+        </ul>
+        <div class="feedback" id="feedback-43"></div>
+    </div>
+
+    <!-- 44 -->
+    <div class="question-card">
+        <div class="question-text">٤٤. نه‌گه‌رد جوتبوونه‌كا تاكه‌ دووڕه‌هبوونیێدا نیڤا تاكێن په‌یدابووی ڕوخسارێ زاڵ دیاربكه‌ن، هینگی بۆماوه‌ بابه‌تی دایبابان:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 44)">A- هه‌ردوو دووڕه‌ بن</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 44)">B- نیك ژوان دووڕه‌ بیت یێ دی یه‌كره‌ و زاڵ بیت</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 44)">C- نیك ژوان دووڕه‌ بیت یێ دی به زێو بیت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 44)">D- هه‌ردوو یه‌كره‌ بن</li>
+        </ul>
+        <div class="feedback" id="feedback-44"></div>
+    </div>
+
+    <!-- 45 -->
+    <div class="question-card">
+        <div class="question-text">٤٥. د جووتبوونه‌كا دووڕه‌هبوونیێدا دناڤبه‌را دوو رووه‌كێن به‌زالیایی دا كو نیك ژوان قه‌د كورت و گۆل كۆت و یادی نه‌دیار بوو بۆ هه‌ردوو ڕوخساران، نه‌ف ڕێژه‌ ڕژی په‌یدابوو ( 1 قه‌د كورت و گۆل وه‌ره‌یی : 1 قه‌د كورت و گۆل گوپیتكه‌یی ) كێژ ژ نه‌فان ڕوخساره‌ بابه‌تێ رووه‌كا نه‌دیار نیشاندده‌ت؟</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 45)">A- قه‌د كورت و گۆل گوپیتكه‌یی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 45)">B- قه‌د درێژ و گۆل گوپیتكه‌یی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 45)">C- قه‌د كورت و گۆل وه‌ره‌یی</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 45)">D- قه‌د درێژ و گۆل ته‌وه‌ره‌یی</li>
+        </ul>
+        <div class="feedback" id="feedback-45"></div>
+    </div>
+
+    <!-- 46 -->
+    <div class="question-card">
+        <div class="question-text">٤٦. كێژ ژ نه‌فین ل خوارێ ده‌رباره‌ی پێكهاتنا گه‌ردا DNA یا DNA دروسته؟ [سەیری خالێن پرسیارا 46 بکە د فایلێ image_63.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 46)">A- 2 , 1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 46)">B- 3 , 1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 46)">C- 3 , 2</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 46)">D- 3 , 2 , 1</li>
+        </ul>
+        <div class="feedback" id="feedback-46"></div>
+    </div>
+
+    <!-- 47 -->
+    <div class="question-card">
+        <div class="question-text">٤٧. جه‌هێ ده‌ستپیكرنێ یێ جودایه ژكۆدۆنى ده‌ستپیكی ب وی چه‌ندی كو جه‌هێ ده‌ستپیكرنێ:-</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 47)">A- ڕێزبه‌نده‌كا دیاركریه‌ ژ نیوكلیۆتایدێن DNA</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 47)">B- نه‌نزێمێ په‌لمه‌ره‌یی DNA پێڤه‌ ده‌یته‌ گرێدان</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 47)">C- كریارا وه‌رگێرانێ ژێ ده‌ستپێدكه‌ت</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 47)">D- (B + A) هه‌ردوو دروستن</li>
+        </ul>
+        <div class="feedback" id="feedback-47"></div>
+    </div>
+
+    <!-- 48 -->
+    <div class="question-card">
+        <div class="question-text">٤٨. ب پشت به‌ستن ب خشته‌یێ كۆدۆنین به‌رامبه‌ر، نه‌گه‌ر نه‌فێ زنجیرا DNA (CTCAAGTGCTTC) ته‌مامكه‌رێ وێ زنجیره‌یێ بیت كو وه‌كی قالب كار دكه‌ت بۆ به‌رهه‌مهینانا mRNA، كێژ ژ فره‌ پپتیدین ل خوارێ ده‌یته‌ به‌رهه‌مهینان؟ [بەکارهێنانا خشتەیا ل سەر وێنەیێ image_63.png]</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 48)">A- لیۆسین - تایرۆسین - نه‌رگنین - فینیل ئه‌لاتین</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 48)">B- ڤالین - ترشێ ئه‌سپارتیك - پرۆلین - هیستیدین</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 48)">C- لیۆسین - لایسین - سستین - فینیل ئه‌لانین</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 48)">D- پرۆلین - ترشێ گلوتامیك - لیۆسین - ڤالین</li>
+        </ul>
+        <div class="feedback" id="feedback-48"></div>
+    </div>
+
+    <!-- 49 -->
+    <div class="question-card">
+        <div class="question-text">٤٩. لیكدانا تاقیکاری بۆماوه‌ بابه‌تی هه‌رتاكه‌كێ دیاریدكه‌ت كو ب .................... دهێت جوداكرن.</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 49)">A- ڕوخساره‌ بابه‌تێ زاڵ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 49)">B- ڕوخساره‌ بابه‌تێ زێو</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 49)">C- ڕوخساره‌ بابه‌تی زاڵ و به‌زێو</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 49)">D- ڕوخساره‌كێ نیڤكی</li>
+        </ul>
+        <div class="feedback" id="feedback-49"></div>
+    </div>
+
+    <!-- 50 -->
+    <div class="question-card">
+        <div class="question-text">٥٠. د ماوه‌یێ 28 ڕوژێن هه‌ڕڤۆكین هیكدانكێ و هه‌ڤڤانه‌دا، كێژ ژنه‌فان ب ڕیزبه‌نده‌كا ته‌مام روویدهده‌ت؟ (خالێن ١ تا ٥ ل سه‌ر وێنه‌یێ 63 هه‌نه‌)</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 50)">1-B) ڕێزبه‌ندا: 1 -> 3 -> 5 -> 4 -> 2</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 50)">2-A) ڕێزبه‌ندا: 1 -> 3 -> 5 -> 4 -> 2</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 50)">1-D) ڕێزبه‌ندا: 1 -> 3 -> 2 -> 5 -> 4</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 50)">3-C) ڕێزبه‌ندا: 1 -> 2 -> 5 -> 4 -> 3</li>
+        </ul>
+        <div class="feedback" id="feedback-50"></div>
+    </div>
+
+</div>
+
+<script>
+    function checkAnswer(element, isCorrect, questionNumber) {
+        // لادانی کلیکێن زێدەتر بۆ وێ پرسیارێ
+        const card = element.closest('.question-card');
+        const options = card.querySelectorAll('.option-item');
+        options.forEach(opt => opt.style.pointerEvents = 'none');
+
+        const feedbackDiv = document.getElementById(`feedback-${questionNumber}`);
+
+        if (isCorrect) {
+            element.classList.add('correct');
+            feedbackDiv.innerHTML = "✓ ئافەرین! به‌رسڤا تە یا دروسته.";
+            feedbackDiv.className = "feedback show-correct";
+        } else {
+            element.classList.add('wrong');
+            feedbackDiv.innerHTML = "✗ خه‌له‌ته‌! به‌رسڤا ڕاست وەک د چوارچۆڤێ وزاری دا هاتی ئه‌ڤه‌ بوو.";
+            feedbackDiv.className = "feedback show-wrong";
+            
+            // نیشاندانا بەرسڤا ڕاست ب ڕەنگێ کەسک
+            options.forEach(opt => {
+                // ئەگەر بەرسڤا ڕاست د ناڤ دەقێ وێ دا یان کلیکا وێ یا ڕاست بیت
+                if (opt.getAttribute('onclick').includes('true')) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
