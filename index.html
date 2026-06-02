@@ -3,124 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ئەزموونێن ویزاری</title>
+    <title>ئەزموونا مێژوویێ - پۆلا ١٢</title>
+    
+    <!-- کۆدێ پاراستنێ بتنێ بۆ پەیجێ مێژوویێ ب ڕەمزا JEHAD78 -->
+    <script>
+        function checkAccess() {
+            const correctCode = "JEHAD78"; 
+            let userCode = prompt("بۆ دۆزینا پسیارێن مێژوویێ، هیڤییە کۆدێ چوونەژوورێ داخل بکە:");
+
+            if (userCode === correctCode) {
+                // ئەگەر ڕەمز ڕاست بوو، پسیارێن مێژوویێ دێ دیار بن
+                document.documentElement.style.display = "block";
+            } else {
+                // ئەگەر خەلت بوو، دێ لاپەرە هێتە گرتن
+                alert("کۆد خەلتە! تو نەشێی ڤێ ئەزموونێ بکەی.");
+                document.write("<h2 style='color:#c62828; text-align:center; margin-top:50px; font-family:sans-serif;'>ڕێپێنەدان! کۆدێ چوونەژوورێ یێ مێژوویێ خەلتە.</h2>");
+            }
+        }
+        
+        // بەری پسیار دیار بن، پەیجێ ڤەشارتی دکەت هەتا کۆد دهێتە دانان
+        document.documentElement.style.display = "none";
+        window.onload = checkAccess;
+    </script>
+
     <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: #161616;
+            --gold-primary: #d4af37;
+            --gold-secondary: #aa841b;
+            --text-color: #ffffff;
+            --text-muted: #b3b3b3;
+            --correct-color: #2e7d32;
+            --wrong-color: #c62828;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #0b0b0b;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             padding: 20px;
+            line-height: 1.6;
         }
 
-        /* ئەڤ بەشە هۆکارێ سەرەکی بوو بۆ ڕاستکرنا کادری دا د ناڤەڕاستێ دا بمینیت */
-        .main-container {
-            width: 100%;
-            max-width: 420px; /* قەبارەکێ گونجای بۆ شاشەیێن موبایلێ */
-            background-color: #111111; /* کادرەکێ کێمەک ڕوونتر ژ باکگراوەندی بۆ جوانیێ */
-            border: 1px solid #1c1c1c;
-            border-radius: 24px;
-            padding: 35px 25px;
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--gold-primary);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--gold-primary);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .quiz-form {
             display: flex;
             flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .question-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 8px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .header-section {
-            margin-bottom: 35px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .main-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #d4af37; /* ڕەنگێ زێڕی */
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .sub-title {
+            gap: 10px;
+            background-color: #202020;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
             font-size: 15px;
-            color: #b3b3b3;
         }
 
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 14px; /* مەسافە د ناڤبەرا دوگمەیان دا */
-            width: 100%;
+        .option-label:hover {
+            border-color: var(--gold-secondary);
+            background-color: #252525;
         }
 
-        /* ستایلێ دوگمەیان ڕێک وەک وێنەی */
-        .subject-btn {
-            display: block;
-            background-color: #161a23; /* شینا تاریک */
-            border: 1px solid #252c3a;
-            border-radius: 50px; /* بازنەیی پڕ تەمام */
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 15px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 100%;
+        .option-label input[type="radio"] {
+            accent-color: var(--gold-primary);
+            width: 18px;
+            height: 18px;
         }
 
-        /* دەما کلیل یان دەست ل سەر دوگمێ دکەڤیت */
-        .subject-btn:hover {
-            border-color: #d4af37; /* گۆهرین بۆ زێڕی */
-            background-color: #1f2635;
-            transform: translateY(-2px); /* کێمەک بلند دبیت ب جوانی */
+        .correct-choice {
+            background-color: var(--correct-color) !important;
+            border-color: #4caf50 !important;
         }
 
-        /* ناڤێ تە ل بن کادری ل ناڤەڕاستێ */
-        .footer-text {
-            color: #444444;
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .wrong-choice {
+            background-color: var(--wrong-color) !important;
+            border-color: #f44336 !important;
+        }
+
+        .feedback-text {
+            margin-top: 10px;
             font-weight: bold;
-            margin-top: 35px;
-            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            color: #000;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
             width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        #result-box {
+            display: none;
+            background-color: var(--card-bg);
+            border: 2px solid var(--gold-primary);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        #result-box h2 {
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #fff;
         }
     </style>
 </head>
 <body>
 
-<div class="main-container">
-    <!-- پشکا سەرەکی -->
-    <div class="header-section">
-        <div class="main-title">تاقیکرنا ویزاری</div>
-        <div class="sub-title">خولا دووێ 2025-2026</div>
+<div class="container">
+    <header>
+        <h1>ئەزموونا گشتی یا مێژوویێ</h1>
+        <p>پۆلا دوازدێ ئامادەیی (پسیارێن ویزاری ٥٠ دانە)</p>
+    </header>
+
+    <div id="result-box">
+        <h2>ئەنجامێ ئەزموونا تە</h2>
+        <div class="score-display" id="score-text">0 / 100</div>
+        <p id="score-details"></p>
     </div>
 
-    <!-- پشکا دوگمەیان دگەل زێدەکرنا مێژوو و زیندەوەر -->
-    <div class="buttons-container">
-        <a href="kurdish.html" class="subject-btn">کوردی</a>
-        <a href="arabic.html" class="subject-btn">عەرەبی</a>
-        <a href="english.html" class="subject-btn">ئینگلیزی</a>
-        <a href="yasa.html" class="subject-btn">یاسا</a>
-        <a href="mejo.html" class="subject-btn">مێژوو</a>
-        <a href="zindawar.html" class="subject-btn">زیندەوەر</a>
-    </div>
+    <form id="quizForm" class="quiz-form">
+        <!-- Questions generated by JS -->
+    </form>
 
-    <!-- ناڤێ تە ل بن لاپەرەی -->
-    <div class="footer-text">GEHAD ZEBARI</div>
+    <button type="button" class="submit-btn" id="submitBtn" onclick="checkAnswers()">ڕەوانەکرن و پشکنینا ئەنجامی</button>
 </div>
+
+<script>
+    // 50 History Questions
+    const questionsData = [
+        { id: 1, q: "ڕەنگڤەدانا چاکسازیێن عوسمانی ل سەردەمێ مێدحەت پاشا پتر هەست پێدهاتە کرن ل...........کوردستانی:", key: "B", choices: { A: "باشووری و ڕۆژهەلاتا", B: "باشووری و ڕۆژئاڤایی", C: "باکووری و ڕۆژهەلاتا", D: "باکووری و ڕۆژئاڤایی" } },
+        { id: 2, q: "ب ئەگەرێ مەترسییا بهێزکەفتنا دەسهەلاتا سەفەوییان سولتان........... لەشکرەکێ مەزن ب سەرۆکاتیا نوری هەنارد:", key: "C", choices: { A: "مرادێ چوارێ", B: "محەمەد فاتێح", C: "سەلیمێ ئێکێ", D: "سەلیمێ سێیێ" } },
+        { id: 3, q: "کیش ژڤان دەقەواژان ڕاستن:", key: "B", choices: { A: "ڕێککەفتنناما ئەماسیە بۆ ماوێ هەشتی سالان جەنگ و کوشتنی دناڤبەرا دەولەتی عوسمانی و ئێرانی ڕاگرت.", B: "ل سالا (١٨٤٩ز) و پشتی هنگێ دەڤەرا شەهرەزوور ئێکەسەر ب ئایستەنبۆلێ ڤە هاتە گریدان.", C: "ماددێ پێنجێ یا ڕێککەفتناما ئەرزەڕۆما دوویێ کارۆبارێن بازرگانیێ بخۆڤە گرتبوو.", D: "ژلایی هەڤبەندیێن ڕامیاریڤە هەرێمێن ڕۆژئافایێن ئیمپراتۆریەتێ تامۆسانی ب ئاڤ ل بن دەسهەلاتا عوسمانیێدا بوون" } },
+        { id: 4, q: "ل سوریا ژی چەند سەرهەلدانەک ل هەمبەر کاربدەستێن عوسمانی سەرهەلدا وەکێ سەرهەلدانا سالا ........... ل ( جەبەلێ عەرەب ):", key: "A", choices: { A: "١٨٨٦ز", B: "١٨٩٩ز", C: "١٧٩٨ز", D: "١٨٥١ز" } },
+        { id: 5, q: "پشتی سەرکەفتنا عوسمانیان جەنگێ چالدێران، باژێرێ (رەقە) ل سالا (١٥١٥ز) ل سوریا ب فەرمانا سولتان سەلیم هاتیە داگیرکرن ژلایی:", key: "B", choices: { A: "داود پاشا", B: "فەرهاد پاشا", C: "عوسمان پاشا", D: "مەدحەت پاشا" } },
+        { id: 6, q: "شاە (تەهماسب) نەچار بوو پایەتەختی سەفەوی ژ........... بۆ ........... ی ڤەگوهێزیتە........... داکو ژدەستێ گەفێن عوسمانیان ڕزگار بیت:", key: "A", choices: { A: "تەفریز - قەزوین", B: "قەزوین - تەفریز", C: "تەفریز - ئەسفەهان", D: "ئەسفەهان - تەفریز" } },
+        { id: 7, q: "پورتوگالییان شیان ب ساناهی بگەهنە کەندافی و گزیرت و بەندەرێن گرنگ داگیر بکەن ب ئەگەرێ:", key: "D", choices: { A: "هاریکاری د ناڤبەرا پورتوگالییان و بوندوقییان", B: "داگیرکرنا (یە مەن و عەدەن) ژ لایی مەمالیکان", C: "نیزیک بوون و ڕێککەفتنا پورتوگالییان دگەل عوسمانییان", D: "ڤەدیتنا ڕێکا (رأس الرجاء الصالح)" } },
+        { id: 8, q: "د سەردەمێ........... میرگەهـا نەردەلان گەلەک زێدەتر بەرفرەهـ بوویه هەتا هەولێری ڤەگرتیە:", key: "C", choices: { A: "بێگە بەگ", B: "سورخاب بەگ", C: "کڵۆژ بەگ", D: "محەمەد بەگ" } },
+        { id: 9, q: "ئێکەمین ڕێبەر د دیرۆکا نوویا کوردیدا کو سەرکردایەتیا بزاڤا ڕزگاریخوازی گەلی کورد بکەت، پشتی ستاندنا دەسهەلاتی ژ میرێن کوردان:", key: "B", choices: { A: "شێخ عەبدولسەلامێ بارزانی", B: "شێخ عوبەیدوڵڵایێ نەهری", C: "قازی محەمەد", D: "مەلا سەلیمێ بەدلیسی" } },
+        { id: 10, q: "پشتی کو (بەدرخان پاشا) سەربەخۆیا کوردستانی ڕاگەهاند ل سالا (١٨٤٢ز) شیا........... بکەتە پشکەکا دەولەتا خۆ:", key: "D", choices: { A: "شنگال و سیرەت", B: "وێران شارو سویرەک", C: "دیاربەکر و شێنوو نورمیه", D: "هەمی بەرسف دروستن" } },
+        { id: 11, q: "ل دەستپێکێ دامه زراندنا دەسه لاتا زەندییان (ئەحمەد خانی ئەفغانی) بنیاتی حکومەتەکا دیتەر ل........... ی ئێرانی دامه زراند:", key: "A", choices: { A: "ئازەربێجان", B: "باکوور", C: "مازەندەران", D: "شیراز و ئەسفەهان" } },
+        { id: 12, q: "کەمالییان پەنا برە بەر حکومەتا ڕەزا شاه پەهلەوی بۆ ژناڤبرنا:", key: "D", choices: { A: "شۆڕەشی دەرسم", B: "سەرهەلدانا کۆچگیری", C: "شۆڕەشا شێخ سەعیدێ پیران", D: "شۆڕەشا ئاگری داغ" } },
+        { id: 13, q: "دامه زراندنا جڤاتا وەزیران ل سەر شێوازی ئەوروپا ئێک ژ کارێن چاکسازیێن سولتان........... بوو:", key: "C", choices: { A: "عەبدولمەجیدێ ئێکێ", B: "عەبدولعەزیز", C: "مەحموودێ دوویێ", D: "سەلیمێ سێیێ" } },
+        { id: 14, q: "کێژ ژڤان دەقەواژان خەلتن:", key: "C", choices: { A: "سەرهەلدانا شۆڕەشا قاهیره یا ئێکێ ل ئەنجاما شکەستنا فەرەنسییان بوو ل شەڕێ (ئەبو قیر).", B: "ژ پەیماناسان ستیفانۆ و کۆنگرێ بەرلین ماددین تایبەت ب مافین گەلی کورد نەهاتبۆن دیارکرن.", C: "پارتیا دیموکراتی کورد ل کۆنگرێ (سێیێ) کۆ ل باژێری (بەغدا) هاته گریدان ناڤێ وێ پارتی بوو (پارتی دیموکراتی کوردستان).", D: "ڕابوونا شۆرش و ڕاپەرینان ل پشکەکا زۆریا هەرێمین ل بن دەسه لاتا عوسمانی، ئەگەرەک بوو بۆ بریاردانا چاکسازی." } },
+        { id: 15, q: "(دادگەهین شەرعی سنورەک بۆ دەسهەڵاتا وان هاتە دانان و بتنی ئەوکێشە بۆ هێلان کو پەیوەندی ب کاروباریزەوقاف و میرات و خەجییان ڤە هەیە) ل دویف:", key: "B", choices: { A: "دەستوورێ سالا ١٨٧٦ز", B: "یاسایا ویلایەتان سالا ١٨٦٤ز", C: "بە یانناما خەتێ هومایۆن", D: "بە یانناما خەتێ شەرێڤی گوڵخانە" } },
+        { id: 16, q: "دامه زراندنا ئێکەتیا نافرەتێن دیموکراتا کوردستانی, ئێک بوو ژ دەستکەفتین:", key: "A", choices: { A: "کۆمارا کوردستان", B: "کۆمەلا تەعالی ژنێن کورد", C: "لیژنا ئازادی", D: "شۆڕەشا ئەیلول" } },
+        { id: 17, q: "هژمارا (٦ و ٢٠) ڕۆژناما کوردستان ل ........... دەرچوون:", key: "C", choices: { A: "لەندەن", B: "قاهیره", C: "جنیف", D: "فۆنکستۆن" } },
+        { id: 18, q: "ل پارت و کۆمەڵ و ڕێکخراوین کوردیینە ل باکوورێ کوردستانی:", key: "D", choices: { A: "نەتەوەی کورد", B: "تەعالی و تەرەقی یا کورد", C: "کۆمەلا کوردستان", D: "(A و B) ڕاستن" } },
+        { id: 19, q: "پارتیا هیوا ل سالا (١٩٣٧ز) هاته دامه زراندن،........... ژ دامه زرینەرێن ڤێژین ئێکی ژی بوون:", key: "C", choices: { A: "مەلا عەبدوللا داوود و کامەران عالی", B: "شەریف پاشایی خەندان و مەمدوح سەلیم", C: "مستەفا عوزیری و یونس رەئووف", D: "عەزیز زەندی و مستەفا پاشایی یامولکی" } },
+        { id: 20, q: "داگیرکاری و بەرفرەهخوازی دەولەتا عوسمانی ل نیشتمانی عەرەبی کو شیا دەست بگرن ب سەر وڵاتی شامی و میسری و حیجازی و یەمەنی و عێراقی و ڕۆژئاڤایا عەرەبی ڤە دگەریت بۆ سەردەمێ سولتان:", key: "D", choices: { A: "سەلیمێ سێیێ", B: "سولێمانی قانونی", C: "سەلیمێ ئێکێ", D: "(B و C) ڕاستن" } },
+        { id: 21, q: "پشتی شەڕێ (ساری قامیش) روسیا پێشڤەچوون بۆ داگیرکرنا دەڤەرێن:", key: "A", choices: { A: "قارس، موکریان، پێنجوێن", B: "دیاربەکر، تەلحەعفەر", C: "موسڵ، ماردین", D: "نورفە، ماردین، کرماشان" } },
+        { id: 22, q: "مێژووییا کیژ نەڤان ڕوودانا یا دروسته:", key: "C", choices: { A: "ل سالا (١٧٧٩ز) لەشکرێ کەریم خانی هێرش کره سەر باژێری بەسره ل باشووری عێراقی.", B: "ل (١٩ تیرمەها ١٩٤٧ز) چوار نەفسەرێن کورد ژلایی ڕژێما پاشایەتی ل سێدارەداین.", C: "ل (٢٣ی تەباخا ١٩٢١ز) ناهەنگا فەرمی (فەرمی) بوونە پاشا بوونا فەیسەل ل عێراقی هاته سازکرن.", D: "ل (١٩٦٨/٧/١٧ز) ل سەر عەبدولڕەزاق نایف کودەتا هاته کرن ژ لایی عەسیان ڤە." } },
+        { id: 23, q: "له سالا (١٥٤٩ ز) بۆ جارا دووێ میری میرگەها نەردەلان سەرهەلدان بەپاکر دژی دەستهەلاتا عوسمانی، بە لێ ب هێزەکا زۆرا ئاگرو ئاسنی سەرهەلدان هاته ڤەمراندن ژلایی:", key: "A", choices: { A: "عوسمان پاشا", B: "عەلی ڕەزا پاشا", C: "مەدحەت پاشا", D: "فەرهاد پاشا" } },
+        { id: 24, q: "پشتی ڕەتکرنا داخوازیێن وی و ڕەوانەکرنا هێزەک ژ لایی عوسمانیان بۆ گرتنا وی، شێخ عەبدولسەلامێ بارزانی دەڤەرا بارزان بۆ ماوێ سالەکێ بجێهێla و چوویە........... ل نک مار شەمعون:", key: "D", choices: { A: "گەنگەچین", B: "گوندی ڕاژان", C: "نۆرمیە", D: "تیاری" } },
+        { id: 25, q: "ژبەر خەبات و تێکۆشینا وی ژ پێخەمەت گەلی کورد مەلا سەلیمێ بەدلیسی ژ لایی سولتان........... دوور ئێخستن بۆ مەدینی:", key: "C", choices: { A: "مەحموودێ دوویێ", B: "مستەفایی سێیێ", C: "عەبدولحەمیدێ دوویێ", D: "عەبدولمەجیدێ ئێکێ" } },
+        { id: 26, q: "(شێخ مەحموود) ب فەرمانەکا حوکمداری کابینا حکومەتا خۆ ل (سلێمانیێ) ڕاگەهاند، خۆ ژی وەکێ مەلیکی کوردستانی دانیاسین:", key: "A", choices: { A: "١٠ی چڕیا ئێکێ ١٩٢٢ز", B: "٢٠ی ئەیلوولا ١٩٢٢ز", C: "٢٢ی شواتا ١٩٢٣ز", D: "٢٥ی چڕیا ئێکێ ١٩٢١ز" } },
+        { id: 27, q: "پارتیا خۆیبوون ل سالا (١٩٣٢ز) ب سەرپەرشتی جەلادەت بەدرخان ڕۆژناما........... دەرکر:", key: "B", choices: { A: "هاوار", B: "ڕۆژا کورد", C: "ڕۆژا نوو", D: "نیشتمان" } },
+        { id: 28, q: "ئێک ژ چالاکییێن کۆمەڵا سەرخۆبوونا کوردان ئێکبوونا هەڤلێن........... بوو دگەل یۆنانییان دژی کەمالییان:", key: "D", choices: { A: "شێخ عەبدولقادرێ نەهری", B: "خەلیل بەدرخان", C: "نەحمەد سورییا بەدرخان", D: "ئەمین عالی بەدرخان" } },
+        { id: 29, q: "گرنگیا جیوپۆلیتیکا یا تایبەت یا هەرێما کوردستانی بوویە ئەگەرێ هەولدان و ژناڤبرنا نەتەوەی کورد و نەگەهـ ڕەدو بوو بۆ نە ئەنجامدانا:", key: "C", choices: { A: "ڕاگوهاستن", B: "وێرانکرنا باژێرو باژێرک و گوندان", C: "هەڵمەتێن ئەنفالان", D: "ب عەرەب کرن" } },
+        { id: 30, q: "له (٣-٨ گولانا ١٩٨٨ز) ئۆفەزێلا زێیی بچویک کەفتە بەر قۆناغا........... هەڵمەتێن ئەنفالی:", key: "B", choices: { A: "دوویێ", B: "چوارێ", C: "شەشێ", D: "دوماهی" } },
+        { id: 31, q: "پەیمان بۆ ماوێ (٢٥) سالان هاتە دانان و هەر دوو بنگەهێن ئاسمانی (بەسڕە و حەبانیە) دێ ل بن دەستی هێزا ئاسمانییا بریتانیادا مینن، دەقێ ڕێککەفتنا دناڤبەرا عێراق و بریتانی بوو ل:", key: "A", choices: { A: "پەیمانا سالا ١٩٣٠", B: "پەیمان سالا ١٩٢٢", C: "پەیمانا لەندەن", D: "پەیمانا پۆرتسمۆث" } },
+        { id: 32, q: "شاهـ عەباسی سەفەوی ب مەرەما داگیرکرنا (میرگەهـا نەردەلان) لەشکرەکێ مەزن و بەرفرەهـ ئینا سەر هێلۆخان ل نێزیک:", key: "A", choices: { A: "هەمەدان", B: "نۆرمیە", C: "سابلاغ", D: "شنو" } },
+        { id: 33, q: "ل سالا (١٥٣٨ز) عوسمانییان عەدەن داگیرکرو دەرگەهێ دەرنەنگی (باب المندب) داخست ل بەرسینگی:", key: "B", choices: { A: "ئێرانییان", B: "پورتوگالییان", C: "مەمالیکان", D: "ئیسپانییان" } },
+        { id: 34, q: "ئێک ژ ئارما نەجین سەرهەدانا سالا (١٩٤٨ز) ژناڤبرنا وەزارەتا........... بوو:", key: "C", choices: { A: "نوری سەعید", B: "محەمەد سەدر", C: "صالح جەبر", D: "فازل الجمالی" } },
+        { id: 35, q: "د هەمان سیاسەتا دیکتاتۆرییانە یا ڕەزا شا هاته دامه زراندن، ل سالا (١٩٤١ز) ب ئێکجاری ل سەر شانۆیا ڕوودانێن سیاسی هه بوونا وێ نەما:", key: "D", choices: { A: "کۆمەلا ئەیستخلاصی کوردستان", B: "ڕێکخراوا نەتەوەی کورد", C: "پارتیا ڕزگاری کورد", D: "پارتیا ئازادانخوازی کوردستانی" } },
+        { id: 36, q: "ئەگەری سەرەکی سولتان........... بۆ چەسپاندنا مەرکەزیەتێ عوسمانی ژناڤبرنا دەستهەلاتا میرگەهێن کوردی بوو:", key: "B", choices: { A: "عەبدولمەجیدێ دوویێ", B: "مەحموودێ دوویێ", C: "عەبدولمەجیدێ ئێکێ", D: "مستەفایی سێیێ" } },
+        { id: 37, q: "هێزێن بریتانیا ل (١٨ چڕیا دوویێ ١٩١٨ز) چوونه باژێرێ مووسڵ، پشتی تەمامیا ویلایەتا مووسڵ کەفته بن دەسهەلاتا بریتانیا ب سەرکردایەتیا:", key: "A", choices: { A: "ولیام مارشاڵ", B: "سۆڵۆمۆن", C: "ستانلی مود", D: "دەبلیو. ئار. های" } },
+        { id: 38, q: "هەندرەک ژ میرێن میرگەها بابان گەلەک ب شیان ژێهاتی بوون، کو شیان سنوورێ میرگەها خۆ ب ڕەفرەهـ بکەن هەتا ژ لایی ڕۆژهەڵاتای ڤە بگەهینە:", key: "C", choices: { A: "هەتا ڕەخی دیێ ڕووبارێ سیروان", B: "هەمی دەڤەرێن بەحرە جەسان", C: "لایی دیێ باژێرێ کفری سەر نەگاو شوان و کەرکوک", D: "دەڤەرا هەولێرو زێی بچووک" } },
+        { id: 39, q: "ئیسپانییان ل هێرشا ڕۆژهەڵاتایا عەرەبی پشکدار بوون باژێرن........... ئێخستنە بن دەسهەلاتا خۆڤە:", key: "B", choices: { A: "سەبتە و تە نجه", B: "تەتوان و مەلیله", C: "نەسیلا و تەتوان", D: "نەزمور و تە نجه" } },
+        { id: 40, q: "پشتی شکەستنا سەرهەلدانا (شێخ عوبەیدوڵڵایێ نەهری) ژلایی (سولتان عەبدولحەمید) بریارا دامه زراندنا (سوارێن حەمیدییە) هاته دان ل سالا:", key: "A", choices: { A: "١٨٩1ز", B: "١٨٧٦ز", C: "١٨٩٤ز", D: "١٨٨٢ز" } },
+        { id: 41, q: "دەستپێکرنا شۆڕەشی بەری ژڤانی خۆیی دیارکری، هۆکارەک بوو بۆ سەرنەکەفتنا شۆڕەشا:", key: "D", choices: { A: "سمکۆیێ شکاک", B: "ئیحسان نوری پاشا", C: "دەرسیم", D: "شێخ سەعیدێ پیران" } },
+        { id: 42, q: "مەرجێ مەلا مستەفا بارزانی بوو بۆ دانوستاندنێ دگەل حکومەتا نوری سەعید:", key: "B", choices: { A: "ناسینا زمانی کوردی ب زمانی فەرمی", B: "دامه زراندنا وەزیرەکێ کورد کو ببیته بەرپرسا ویلایەتا کوردستانی", C: "ڤەگەڕاندنا شێخ ئەحمەدی و سەرجەم دوورئێخستیین دی", D: "ڤەکێشانا لەشکری ژ کوردستانی" } },
+        { id: 43, q: "هەردوو دەولەتێن عوسمانی و سەفەوی هاریکاریا ئێکودوو دکەن دژی هەر بزاڤەکا ڕزگاریخوازی کوردی ل کوردستانی ئەگەر ژ پێخەمەت سەربۆخۆیی هاتیە کرن، ل دویف:", key: "B", choices: { A: "ڕێککەفتنا ئەماسیه", B: "ڕێککەفتنا زەهاو", C: "پەیمانا ئەرزەڕۆما ئێکێ", D: "پەیمانا ئەرزەڕۆما دوویێ" } },
+        { id: 44, q: "(شەڕێ نسیبین) ل............ کوردستانی ل سالا............ ڕوودا کو هێزێن مسرێ ب سەرکردایەتیا (ئیبراهیم پاشا) تێدا سەرکەفتن ب سەر هێزێن عوسمانی:", key: "C", choices: { A: "باکووری - ١٨٢٠ز", B: "باشووری - ١٨٣١ز", C: "ڕۆژئاڤایا - ١٨٣٩ز", D: "ڕۆژهەلاتا - ١٨٤٠ز" } },
+        { id: 45, q: "ل  سەردەمێ سولتان (سەلیمێ سێیێ) کۆمەکا پەیرەو و ئامۆژگاری نوو دەرچوون، چەندین پێنگاڤ بۆ چاکسازیان تێدابوون، وەکێ:", key: "D", choices: { A: "دەرکرنا ڕۆژناما (تقویم الوقائع)", B: "ڤەکرنا خوندنگەهێن سەربازی و پەیادە و دەریایی ل سەر شێوازی ئەوروپی", C: "ڤەکرنا بالیۆزخانەیێن عوسمانی ژی ل وەڵاتێن ئەوروپی", D: "(B و C) ڕاستن" } },
+        { id: 46, q: "زیانێن ماددی ژی بین ئینگلیزان ل ئەنجامی شۆڕەشا سالا (١٩٢٠ز) گەهشتنە زێدەتر ژ............ پاوندێ ئیستەرلینی:", key: "C", choices: { A: "٢٠ ملیۆن", B: "٣٠ ملیۆن", C: "٤٠ ملیۆن", D: "٥٠ ملیۆن" } },
+        { id: 47, q: "ناڤێ دەولەتا سەفەوی بۆ ناڤێ (شێخ صفی الدین) ڤەدگەریت، کو خودانا ڕێکا (سۆفی گەری) بوویە و خەلەکێ زۆر تاگرییا وی کریە ل:", key: "A", choices: { A: "ئازەربێجانێ", B: "شیرازێ", C: "تەورێزێ", D: "ئەسفەهانێ" } },
+        { id: 48, q: "باژێرێ ئورمیه ل ڕۆژهەلاتا کوردستانی ب تەمامەتی نەهاته ئازادکرن د دەمێ:", key: "D", choices: { A: "شۆڕەشا شێخ عوبەیدوڵڵایێ نەهری", B: "شۆڕەشا سمکۆیێ شکاک", C: "حوکمرانیا خان ئەحمەد خان (میری ئەردەلان)", D: "(A و B) ڕاستن" } },
+        { id: 49, q: "ئێک بوو ژ چوار وەزیرێن کوردی د حوکمەتا عەبدولڕەزاق نایف:", key: "D", choices: { A: "بابە عەلی حەفید زادە", B: "خالید نەقشبەندی", C: "مستەفا عەبدوڵڵا", D: "عەبدوڵڵا نەقشبەندی" } },
+        { id: 50, q: "ل دەستپێکا سەدێ شانزدێ کوردستان ناڤبڕەکا ململانا............ هه ردوو دەولەتێن عوسمانی و سەفەوی:", key: "C", choices: { A: "ئابووری و سەربازی", B: "سیاسی و ئابووری", C: "سیاسی و سەربازی", D: "سیاسی و جڤاکی" } }
+    ];
+
+    const form = document.getElementById('quizForm');
+    questionsData.forEach((q) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${q.id}`;
+
+        let optionsHTML = '';
+        for (const [letter, text] of Object.entries(q.choices)) {
+            optionsHTML += `
+                <label class="option-label" id="label-${q.id}-${letter}">
+                    <input type="radio" name="question-${q.id}" value="${letter}">
+                    <span>${letter} ) ${text}</span>
+                </label>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="question-title">${q.id}. ${q.q}</div>
+            <div class="options-container">
+                ${optionsHTML}
+            </div>
+            <div class="feedback-text" id="feedback-${q.id}"></div>
+        `;
+        form.appendChild(card);
+    });
+
+    function checkAnswers() {
+        let correctCount = 0;
+        const totalQuestions = questionsData.length;
+
+        questionsData.forEach(q => {
+            const selectedInput = document.querySelector(`input[name="question-${q.id}"]:checked`);
+            const feedbackText = document.getElementById(`feedback-${q.id}`);
+            
+            for (const letter of Object.keys(q.choices)) {
+                const lbl = document.getElementById(`label-${q.id}-${letter}`);
+                if (lbl) lbl.classList.remove('correct-choice', 'wrong-choice');
+            }
+
+            if (selectedInput) {
+                const userAns = selectedInput.value;
+                if (userAns === q.key) {
+                    correctCount++;
+                    document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
+                    feedbackText.style.display = 'block';
+                    feedbackText.style.color = '#4caf50';
+                    feedbackText.innerText = '✓ بەرسفا تە ڕاستە!';
+                } else {
+                    document.getElementById(`label-${q.id}-${userAns}`).classList.add('wrong-choice');
+                    document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
+                    feedbackText.style.display = 'block';
+                    feedbackText.style.color = '#f44336';
+                    feedbackText.innerText = `✗ خەلتە! بەرسفا ڕاست: (${q.key})`;
+                }
+            } else {
+                document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
+                feedbackText.style.display = 'block';
+                feedbackText.style.color = '#ff9800';
+                feedbackText.innerText = `تە بەرسف نەدایە! بەرسفا ڕاست: (${q.key})`;
+            }
+        });
+
+        const finalScore = Math.round((correctCount / totalQuestions) * 100);
+        
+        const resultBox = document.getElementById('result-box');
+        const scoreText = document.getElementById('score-text');
+        const scoreDetails = document.getElementById('score-details');
+
+        resultBox.style.display = 'block';
+        scoreText.innerText = `${finalScore} / 100`;
+        scoreDetails.innerText = `تە بەرسفا ${correctCount} پسیاران ژ کۆما ${totalQuestions} پسیاران ب دروستی دایە.`;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
