@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاقیکردنا نیشتمانی</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            margin-top: 0;
+        }
+        #result-box {
+            display: none;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            background: #fafafa;
+            border-right: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options-list li {
+            margin-bottom: 8px;
+        }
+        .options-list label {
+            display: block;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options-list label:hover {
+            background: #eef7fc;
+        }
+        .options-list input {
+            margin-left: 10px;
+            transform: scale(1.1);
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .submit-btn:hover {
+            background: #219653;
+        }
+        
+        /* ڕەنگێن ئەنجامان پشتی کلیککرنێ */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.85em;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .status-correct { background-color: #27ae60; }
+        .status-wrong { background-color: #e74c3c; }
+
+        .correct-choice {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+            font-weight: bold;
+        }
+        .wrong-choice {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+        .feedback-text {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #c0392b;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>ئەزموونا زمانێ عەرەبی و پەروەردا ئیسلامی</h1>
+    
+    <!-- شوێنا نیشاندانا نمرێ ژ 100 ل سەرێ پەیجێ -->
+    <div id="result-box"></div>
+
+    <form id="quizForm">
+        <div id="questions-wrapper"></div>
+        <button type="button" class="submit-btn" onclick="evaluateQuiz()">دیتنا ئەنجامان</button>
+    </form>
+</div>
+
+<script>
+    // لێرەدا پسیارێن د ناڤ وێنەیاندا د هێنە دانان (بۆ نموونە هاتیە دروستکرن)
+    const quizData = [
+        {
+            id: 1,
+            question: "تنتمي القصيدة (النفس) إلى المذهب الأدبي الرومانسي لأنها تقوم على:",
+            options: { A: "الموضوعية المعتدلة", B: "تحقيق التوازن", C: "العاطفة والخيال", D: "التهذيب الخُلقي احتراماً للأعراف" },
+            correct: "C"
+        },
+        {
+            id: 2,
+            question: "ولد مرسل النفس سنة:",
+            options: { A: "١٩٨٠م", B: "١٨٩٠م", C: "١٨٨٠م", D: "١٠٨٩م" },
+            correct: "B"
+        },
+        {
+            id: 3,
+            question: "طالعتُ الرواية ما عدا ............. :",
+            options: { A: "الخاتمةَ", B: "الخاتمةِ", C: "الخاتمةُ", D: "كلّ ما ورد صحيح" },
+            correct: "A"
+        },
+        {
+            id: 4,
+            question: "معنى كلمة (شمّ العرانين) في قول كعب بن زهير: (شمّ العرانين أبطالٌ لبوسهم):",
+            options: { A: "بخلاء حريصون", B: "جبناء أذلاء", C: "أعزّة أباة", D: "كرماء أسخياء" },
+            correct: "C"
+        },
+        {
+            id: 5,
+            question: "وشەی (ئێزیدی) زۆر کۆنە ولە نووسینی بزماریدا لە سەردەمی سۆمەریەکان و بابلیەکان ڕامانەکەی..........:",
+            options: { A: "لیبوردن", B: "گیانی پاک و پیرۆز", C: "دلپاکی", D: "خۆشەویستی" },
+            correct: "B"
+        }
+        // تە دشێی لێرە پسیارێن دی زێدە بکەی تا دبنە 50 پسیار
+    ];
+
+    function loadQuiz() {
+        const wrapper = document.getElementById('questions-wrapper');
+        wrapper.innerHTML = "";
+        
+        quizData.forEach((q, index) => {
+            let optionsHtml = '';
+            for (let key in q.options) {
+                optionsHtml += `
+                    <li>
+                        <label id="label-${index}-${key}">
+                            <input type="radio" name="q${index}" value="${key}">
+                            <strong>${key}.</strong> ${q.options[key]}
+                        </label>
+                    </li>
+                `;
+            }
+            
+            wrapper.innerHTML += `
+                <div class="question-block" id="block-${index}">
+                    <div id="badge-container-${index}"></div>
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <ul class="options-list">${optionsHtml}</ul>
+                    <div class="feedback-text" id="feedback-${index}">ئەگەر نه بەرسفا راست دبیته ئەڤە: (${q.correct}) - ${q.options[q.correct]}</div>
+                </div>
+            `;
+        });
+    }
+
+    function evaluateQuiz() {
+        let correctCount = 0;
+        const totalQuestions = quizData.length;
+
+        quizData.forEach((q, index) => {
+            const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+            const block = document.getElementById(`block-${index}`);
+            const feedbackText = document.getElementById(`feedback-${index}`);
+            const badgeContainer = document.getElementById(`badge-container-${index}`);
+            
+            // لادانا ڕەنگ و ستایلێن کۆن ئەگەر هەبن
+            for (let key in q.options) {
+                document.getElementById(`label-${index}-${key}`).className = '';
+            }
+            feedbackText.style.display = 'none';
+            badgeContainer.innerHTML = '';
+            block.style.borderRight = "5px solid #3498db";
+
+            if (selectedOption) {
+                const userAns = selectedOption.value;
+                
+                if (userAns === q.correct) {
+                    // ئەگەر بەرسڤا قوتابی درست بوو
+                    correctCount++;
+                    document.getElementById(`label-${index}-${userAns}`).className = 'correct-choice';
+                    badgeContainer.innerHTML = `<span class="status-badge status-correct">✓ یا دروستە</span>`;
+                    block.style.borderRight = "5px solid #27ae60";
+                } else {
+                    // ئەگەر بەرسڤا قوتابی خەڵەت بوو
+                    document.getElementById(`label-${index}-${userAns}`).className = 'wrong-choice';
+                    document.getElementById(`label-${index}-${q.correct}`).className = 'correct-choice';
+                    badgeContainer.innerHTML = `<span class="status-badge status-wrong">✗ یا خەڵەتە</span>`;
+                    feedbackText.style.display = 'block';
+                    block.style.borderRight = "5px solid #e74c3c";
+                }
+            } else {
+                // ئەگەر قوتابی چ بژاردە هەڵنەبژاردبن
+                document.getElementById(`label-${index}-${q.correct}`).className = 'correct-choice';
+                badgeContainer.innerHTML = `<span class="status-badge status-wrong">✗ بەرسڤ نەدایە</span>`;
+                feedbackText.style.display = 'block';
+                block.style.borderRight = "5px solid #f39c12";
+            }
+        });
+
+        // ئەژمارکرنا نمرێ ژ 100
+        const finalScore = Math.round((correctCount / totalQuestions) * 100);
+        const resultBox = document.getElementById('result-box');
+        
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `ئەنجامێ تە: ${finalScore} ژ 100 <br> <span style="font-size: 0.7em;">(تە ب دروستی بەرسڤا ${correctCount} پسیاران دایە ژ کۆما ${totalQuestions} پسیاران)</span>`;
+        
+        if (finalScore >= 50) {
+            resultBox.style.backgroundColor = '#d4edda';
+            resultBox.style.color = '#155724';
+            resultBox.style.border = '2px solid #c3e6cb';
+        } else {
+            resultBox.style.backgroundColor = '#f8d7da';
+            resultBox.style.color = '#721c24';
+            resultBox.style.border = '2px solid #f5c6cb';
+        }
+
+        // سکرۆل دکەتە سەرێ لاپەرەی دا کو قوتابی نمرێ خۆ ببێنێت و پاشان یەک ب یەک تەماشا بکەت
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // ل دەستپێکرنا لاپەرەی پسیار دکارکەون
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
