@@ -1,60 +1,94 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تاقیکرنا نیشتمانی یا فیزیایێ</title>
+    <title>تاقیکرنا زیندەزانی</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #2d3436; color: #2d3436; display: flex; justify-content: center; padding: 20px; }
-        .main-box { background: white; padding: 40px; border-radius: 30px; width: 100%; max-width: 700px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .progress-bar { height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; }
-        .progress-fill { height: 100%; background: #6c5ce7; width: 0%; border-radius: 5px; transition: 0.5s; }
-        .q-text { font-size: 20px; font-weight: bold; margin-bottom: 20px; }
-        .opt-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #f1f1f1; border-radius: 12px; cursor: pointer; text-align: right; background: #fff; transition: 0.2s; }
-        .opt-btn:hover { border-color: #6c5ce7; }
-        .opt-btn.active { background: #6c5ce7; color: white; }
+        body { background-color: #121212; color: #fff; font-family: Tahoma; padding: 20px; }
+        .box { background: #1e1e1e; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #333; }
+        .opt { display: block; padding: 8px; border-bottom: 1px solid #333; cursor: pointer; }
+        button { background: #007bff; color: white; padding: 15px; border: none; border-radius: 8px; width: 100%; font-size: 18px; cursor: pointer; }
+        #res { text-align: center; font-size: 22px; margin-top: 20px; color: #00ff00; }
     </style>
 </head>
 <body>
 
-<div class="main-box" id="app">
-    <div id="login-view">
-        <h1 style="text-align:center;">تاقیکرنا فیزیایێ 2026</h1>
-        <input type="text" id="stuName" placeholder="ناڤێ تە" style="width:100%; padding:15px; margin:10px 0; border-radius:10px; border:1px solid #ccc;">
-        <input type="number" id="stuAge" placeholder="تەمەن" style="width:100%; padding:15px; margin:10px 0; border-radius:10px; border:1px solid #ccc;">
-        <select id="stuGender" style="width:100%; padding:15px; margin:10px 0; border-radius:10px;">
-            <option value="کور">کور</option><option value="کچ">کچ</option>
-        </select>
-        <button onclick="begin()" style="width:100%; padding:15px; background:#6c5ce7; color:white; border:none; border-radius:10px; cursor:pointer;">دەستپێکرنا تاقیکرنێ</button>
-    </div>
-
-    <div id="quiz-view" style="display:none;">
-        <div class="progress-bar"><div class="progress-fill" id="pBar"></div></div>
-        <div id="qArea"></div>
-    </div>
-</div>
+<div id="quiz"></div>
+<button onclick="calc()">نیشاندانا ئه‌نجامی</button>
+<div id="res"></div>
 
 <script>
-    let p = { name: "", age: 0, gender: "" };
-    
-    function begin() {
-        p.name = document.getElementById("stuName").value;
-        p.age = document.getElementById("stuAge").value;
-        p.gender = document.getElementById("stuGender").value;
-        
-        if(!p.name) return alert("ناڤێ خۆ بنڤیسە!");
-        
-        document.getElementById("login-view").style.display = "none";
-        document.getElementById("quiz-view").style.display = "block";
-        loadQ(0);
-    }
+    const questions = [
+        "١. ئه‌و شانه‌یا تیژا ژ ده‌رفه‌ یا لووله‌یێن خوینێ ژێ پێکدهێت یا جودایه‌ ژ:",
+        "٢. ماسولکه‌یا حولی:",
+        "٣. کیژ ژڤان ده‌رباره‌ی لووله‌یان د پێکاته یان دا هه‌ستی دێ ئه‌و یا دروسته:",
+        "٤. هه‌می ئه‌ڤین ده‌رباره‌ی گه‌هـ و ته‌وه‌ره‌یی دروستن ژبلی:",
+        "٥. په‌یكه‌ره‌ ماسولکه‌:",
+        "٦. نه‌فته‌ هه‌می پشکێن ژه‌هستین لنگ و چنگله‌ په‌یكه‌ری، ژبلی:",
+        "٧. کیژ ژڤان لووله‌یێن خوینێ کارێ ره‌نگ سوری تێر تیدایه (ڤه‌گوهاستن):",
+        "٨. کیژ ژڤان ده‌رباره‌ی قۆناغا خاڤبوونا زۆکه‌کێ یاده‌روسته‌:",
+        "٩. نه‌فته‌ هه‌می شه‌له‌كێ ده‌ردده‌ن بۆ کیکه‌رنا لێکخساندنی، ژبلی:",
+        "١٠. خانه‌ یێن سپی خوینێ ژبه‌رکو ........... ده‌شێن فرمانێ خو ئه‌نجام ده‌ن:",
+        "١١. خشته‌یا ل به‌رامبه‌ر ئه‌و نه‌جامی تێکه لکرنا چه‌ند سامپله‌کین خوینێ دیار دکه‌ت، کیژ ژڤان نه‌جاما یا دروسته:",
+        "١٢. کیژ ژڤان به‌رگریان ژ جۆرێ تایبه‌ت ده‌ستنیشان دکه‌ت:",
+        "١٣. خانه‌ یێن سروشتی جودانه‌ ژ خانه‌یێن سپی خوینێ بین ب ڤێ چه‌ندێ:",
+        "١٤. د کیژ ژڤان دا ٤ جوار بنه‌مایێن ده‌ستپێتی کو تاقیکرنێ هه‌ڤ به‌رێ ب ده‌ن:",
+        "١٥. ب پشت به‌ستن ب شێوه‌یێ ل به‌رامبه‌ر، به‌رێ سه‌رێ دروست:",
+        "١٦. کیژ ژڤان ده‌رباره‌ی ره‌سدانا دوویێ یه‌ یا دروسته‌ ده‌مێ که‌سه‌ک دووباره‌ ب هه‌مان هوکاری نه‌ساخی تووش دبی:",
+        "١٧. دژه‌ته‌نێن ب هاریکاریا به‌رگریان تایبه‌ت:",
+        "١٨. کیژ ژڤان هه‌رده‌م (به‌رده‌وام) دژه‌ به‌ره‌دایێن نه‌فلۆنزایێ:",
+        "١٩. شێوه‌یێ ل به‌رامبه‌ر پشکێ ژ ته‌وه‌ری ده‌مارێ خانه‌یێن ئاماژه‌ کرین د جهێ دیارکرین دا:",
+        "٢٠. جیکلدانه‌ ب په‌رده‌یا خانه‌ یا پیشگه‌هین که‌ڤنه:",
+        "٢١. لقینه‌ هه‌می کیژ ژڤانێ ده‌مارێ که‌ به‌رگی ده‌مێ ده‌ماری کۆنتڕۆل:",
+        "٢٢. ئه‌و وه‌رگر کو ده‌ندۆکێن کاربۆناتی کلسێیومی ل سه‌رن ژ جۆرێ:",
+        "٢٣. نه‌ وه‌شکا ده‌ماخی کو تیگه‌هشتنا راگه‌هاندنین به‌ر که‌فتنی تیدایه:",
+        "٢٤. خانه‌ یێن جودانه‌ ژ گۆمه‌ته‌ خانه‌یێن په‌یكه‌ری:",
+        "٢٥. د که‌سی راهاتیدا ده‌می کوکایین ده‌می کوکایین ده‌مێ ئه‌وا:",
+        "٢٦. ده‌رباره‌ی ئه‌و گه‌رده‌یا دیته‌ ئه‌گه‌ر: ....................",
+        "٢٧. د کیژ ژڤان باراندا هۆرمۆنی ده‌رنال دهینه‌ ده‌ر:",
+        "٢٨. کوره خانه‌ یێن هۆرمۆنی ده‌رده‌دێن و خانه‌ یێن ئارمانج ب کیژ ژڤان هۆرمۆنین ده‌ڤه‌ ده‌ڤه‌:",
+        "٢٩. هه‌می ئه‌و کومێن دهین هۆرمۆنی، ژبلی:",
+        "٣٠. کیژ ژڤان ده‌رباره‌ی جوکا ڤه‌گۆهاستنی یا دروسته‌:",
+        "٣١. کیژ ژڤان هۆرمۆنی ته‌ستۆسترۆنی ده‌رده‌ت:",
+        "٣٢. هه‌می ئه‌و د جوکا فالۆپیدا روویده‌ن، ژبلی:",
+        "٣٣. کیژ ژڤان ئیستڕۆجینی ده‌رده‌ت:",
+        "٣٤. ب پشت به‌ستن ب شێوه‌یێ ل به‌رامبه‌ر ده‌رده‌ن د کورپه‌له‌ی:",
+        "٣٥. د ماوه‌یێ سیکا نیکی یا دوگیانیدا:",
+        "٣٦. د کیژ ژڤان جووت بووناندا رێژه‌یێن بوماوه‌یی:",
+        "٣٧. د بومه‌ویا مه‌ندلدا، نه‌ لێله‌ک:",
+        "٣٨. ل دویڤ ئه‌و تاقیکرنین کو مه‌ندلی ل سه‌ر رووه کێ ئه‌نجام دای:",
+        "٣٩. کیژ ژڤان رێزه‌ندانا نیوکلیوتایدانه‌ ل سه‌ر زنجیره‌یا قالی:",
+        "٤٠. شێوه‌یێن (١ و ٢) ل به‌رامبه‌ر ده‌ربڕینێ ژ ئه‌نجامی تاقیکرنین هیرشی و که‌یسێ:",
+        "٤١. ب پشت به‌ستن ب شێوه‌یێ ب به‌رامبه‌ر DNA دوو هێند بوون:",
+        "٤٢. کیژ ژڤان ده‌رباره‌ی کریارا دروست بوونا پرۆتینی د زینده‌وه‌ران:",
+        "٤٣. د کیژ پینگاڤا وه‌رگرینا دۆماهیێ دا ده‌ری ڕابۆسۆمی:",
+        "٤٤. ئه‌گه‌ر د جودابوونا تاکێ تاکێن نێڤا ده‌ربڕینا زال دیار بکن:",
+        "٤٥. د جودابوونا تاکێ تاکێن دوو رۆوه‌کین دناڤبه‌رنا:",
+        "٤٦. کیژ ژڤان ده‌رباره‌ی پێکاتنا DNA یا دروسته‌:",
+        "٤٧. جهێ ده‌ستپێکرنێ یا جودایه‌ ژ کۆدۆنی ده‌ستپێکی ب وێ چه‌ندێ کو:",
+        "٤٨. ب پشت به‌ستن ب خشته‌یا به‌رامبه‌ر، DNA (CTCAAGTGCTTC):",
+        "٤٩. لینکدانا تاقیکاری بوماوه‌ بابه‌تی هه‌ر تاکه‌کی دیار دکه‌ت:",
+        "٥٠. د ماوه‌یێ ٢٨ رۆژین هه‌ر دوو زڤروکێن هیکدانکی:"
+    ];
+    const correct = ["D","A","A","B","D","B","D","C","B","C","C","C","C","B","C","C","B","D","A","B","D","A","A","B","C","C","D","B","D","D","A","D","C","D","C","D","C","B","D","A","B","C","C","C","A","A","D","C","A","B"];
 
-    function loadQ(idx) {
-        let q = quizData[idx];
-        document.getElementById("pBar").style.width = ((idx/quizData.length)*100) + "%";
-        document.getElementById("qArea").innerHTML = `
-            <div class="q-text">${q.id}. ${q.q}</div>
-            ${q.options.map((o, i) => `<button class="opt-btn" onclick="select(${i})">${o}</button>`).join('')}
-        `;
+    let html = "";
+    for(let i=0; i<50; i++) {
+        html += `<div class="box"><p>${questions[i]}</p>
+        <label class="opt"><input type="radio" name="q${i}" value="A"> A</label>
+        <label class="opt"><input type="radio" name="q${i}" value="B"> B</label>
+        <label class="opt"><input type="radio" name="q${i}" value="C"> C</label>
+        <label class="opt"><input type="radio" name="q${i}" value="D"> D</label></div>`;
+    }
+    document.getElementById("quiz").innerHTML = html;
+
+    function calc() {
+        let s = 0;
+        for(let i=0; i<50; i++) {
+            let r = document.querySelector(`input[name="q${i}"]:checked`);
+            if(r && r.value === correct[i]) s += 2;
+        }
+        document.getElementById("res").innerText = "ئه‌نجامێ ته‌: " + s + " ژ ١٠٠";
     }
 </script>
 </body>
