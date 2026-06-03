@@ -1,59 +1,57 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html dir="rtl" lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاقیکرنا ویزاری 2025-2026</title>
+    <title>تاقیکرنێن ویزاری</title>
     <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 { color: #d4af37; } /* رەنگێ زێڕی */
-        .container { max-width: 400px; margin: auto; }
-        .box {
-            border: 2px dashed #d4af37;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 15px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #1e1e1e;
-            color: white;
-            border: 1px solid #333;
-            border-radius: 50px; /* دوگمەی شێوە بازنەیی */
-            text-decoration: none;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        .btn:hover { background-color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: white; text-align: center; margin: 0; padding: 20px; }
+        h2 { color: #f1c40f; margin-bottom: 20px; }
+        
+        #timer { font-size: 20px; color: gold; padding: 15px; border: 2px dashed gold; border-radius: 15px; margin: 0 auto 30px; width: 90%; max-width: 400px; }
+        
+        .btn-container { display: flex; flex-direction: column; align-items: center; }
+        .btn { display: block; width: 90%; max-width: 350px; padding: 15px; margin: 8px 0; background-color: #1e1e1e; color: #fff; text-decoration: none; border-radius: 25px; border: 1px solid #333; transition: 0.3s; font-weight: bold; }
+        .btn:hover { background-color: #333; border-color: gold; color: gold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>تاقیکرنا ویزاری</h1>
-    <p>خولا دووی 2025-2026</p>
+    <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
 
-    <div class="box">
-        <p>⭐ "هیچ تشتەک مەحال نینە کاتێ تو بریاری بدەی بگەهیه خەونا خو..."</p>
-        <p>ماوە بۆ ئەزموونێ: <b>11 ڕۆژ و 8 دژ و 54 دەقە و 18 چرکه</b></p>
+    <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
+
+    <div class="btn-container">
+        <a href="fizya.html" class="btn">فیزیا</a>
+        <a href="mejo.html" class="btn">مێژوو</a>
+        <a href="kurdish.html" class="btn">کوردی</a>
+        <a href="arabic.html" class="btn">عەرەبی</a>
+        <a href="english.html" class="btn">ئینگلیزی</a>
+        <a href="yasa.html" class="btn">یاسا</a>
+        <a href="ark.html" class="btn">ئارک (ARK)</a>
+        <a href="eslame.html" class="btn">ئیسلامی</a>
+        <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
+        <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
     </div>
 
-    <a href="kurdish.html" class="btn">کوردی</a>
-    <a href="arabic.html" class="btn">عەرەبی</a>
-    <a href="english.html" class="btn">ئینگلیزی</a>
-    <a href="yasa.html" class="btn">یاسا</a>
-    <a href="mejo.html" class="btn">مێژوو</a>
-    <a href="zindawar.html" class="btn">زیندەوەر</a>
-</div>
+    <script>
+        const examDate = new Date("June 14, 2026 07:30:00").getTime();
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = examDate - now;
 
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
