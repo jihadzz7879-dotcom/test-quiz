@@ -1,14 +1,3 @@
-<div class="container">
-    <header style="text-align:center;">
-        <h1>تاقيكرنا قوتابیان</h1>
-        <select id="subject-select" onchange="loadQuiz()">
-            <option value="">-- بابەتی هەلبژێرە --</option>
-            <option value="kurdish">ڕێزمانا کوردی</option>
-            <option value="yasa">یاسا</option>
-        </select>
-    </header>
-    <div id="quizForm"></div>
-</div>
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -27,156 +16,25 @@
             --wrong-color: #c62828;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--gold-primary);
-            padding-bottom: 15px;
-        }
-
-        header h1 {
-            color: var(--gold-primary);
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .quiz-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .question-card {
-            background-color: var(--card-bg);
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: border-color 0.3s;
-        }
-
-        .question-title {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #fff;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 8px;
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #202020;
-            padding: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-            font-size: 15px;
-        }
-
-        .option-label:hover {
-            border-color: var(--gold-secondary);
-            background-color: #252525;
-        }
-
-        .option-label input[type="radio"] {
-            accent-color: var(--gold-primary);
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Result Styles */
-        .correct-choice {
-            background-color: var(--correct-color) !important;
-            border-color: #4caf50 !important;
-        }
-
-        .wrong-choice {
-            background-color: var(--wrong-color) !important;
-            border-color: #f44336 !important;
-        }
-
-        .feedback-text {
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 14px;
-            display: none;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
-            color: #000;
-            border: none;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s, opacity 0.2s;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        #result-box {
-            display: none;
-            background-color: var(--card-bg);
-            border: 2px solid var(--gold-primary);
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
-        }
-
-        #result-box h2 {
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-        }
-
-        .score-display {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #fff;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--gold-primary); padding-bottom: 15px; }
+        header h1 { color: var(--gold-primary); font-size: 24px; margin-bottom: 5px; }
+        header p { color: var(--text-muted); font-size: 14px; }
+        .quiz-form { display: flex; flex-direction: column; gap: 20px; }
+        .question-card { background-color: var(--card-bg); border: 1px solid #2a2a2a; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .question-title { font-size: 17px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #2a2a2a; padding-bottom: 8px; }
+        .options-container { display: flex; flex-direction: column; gap: 12px; }
+        .option-label { display: flex; align-items: center; gap: 10px; background-color: #202020; padding: 12px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+        .option-label:hover { border-color: var(--gold-secondary); background-color: #252525; }
+        .option-label input[type="radio"] { accent-color: var(--gold-primary); width: 18px; height: 18px; }
+        .correct-choice { background-color: var(--correct-color) !important; border-color: #4caf50 !important; }
+        .wrong-choice { background-color: var(--wrong-color) !important; border-color: #f44336 !important; }
+        .feedback-text { margin-top: 10px; font-weight: bold; font-size: 14px; display: none; }
+        .submit-btn { background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary)); color: #000; border: none; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; }
+        #result-box { display: none; background-color: var(--card-bg); border: 2px solid var(--gold-primary); border-radius: 8px; padding: 25px; text-align: center; margin-bottom: 30px; }
+        .score-display { font-size: 36px; font-weight: bold; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -193,14 +51,12 @@
         <p id="score-details"></p>
     </div>
 
-    <form id="quizForm" class="quiz-form">
-        </form>
+    <form id="quizForm" class="quiz-form"></form>
 
     <button type="button" class="submit-btn" id="submitBtn" onclick="checkAnswers()">ڕەوانەکرن و دیتنا ئەنجامی</button>
 </div>
 
 <script>
-    // 50 Questions data with keys answers
     const questionsData = [
         { id: 1, q: "هەڤالناڤێ ( زۆرە دەولەمەند ) ب چ دەستوورەکێ دروست بوویە ؟", key: "A", choices: { A: "هەڤالناڤ + ئامراز + هەڤالکار", B: "ناڤ + ئامراز + ناڤ", C: "ناڤ + هەڤالناڤ", D: "ناڤ + ئامراز + هەڤالناڤ" } },
         { id: 2, q: "هەڤالناڤێ ( خەباتکەر ) ب چ دەستوورەکێ دروست بوویە ؟", key: "B", choices: { A: "هەڤالناڤ + ناڤ", B: "ناڤ + ڕەگ + پاشگر", C: "ناڤ + هەڤالناڤ", D: "ناڤ + ناڤ" } },
@@ -217,119 +73,90 @@
         { id: 13, q: "د ڕستەیا ( نیڤەی بهەردار گەشبینن ) پەیڤا ( بهەردار ) دبیته ؟", key: "A", choices: { A: "ناڤ + پاشگر", B: "ناڤ + ناڤ", C: "هەڤالناڤ + پاشگر", D: "هەڤالناڤ + ناڤ" } },
         { id: 14, q: "ئێک ژ ڤان هەڤالناڤان پێکهاتییە ژ ( ناڤ + ڕەگ + پاشگر ) ؟", key: "D", choices: { A: "کەم خۆر", B: "ڕۆژنامەنووس", C: "ڕۆژنامەڤان", D: "مووچەخۆر" } },
         { id: 15, q: "هەڤالناڤێ ( زانا ) ب کیژ یاسا دروستبوویه ؟", key: "D", choices: { A: "هەڤالناڤ + پاشگر", B: "قەدێ چاوگی + پاشگر", C: "ناڤ + پاشگر", D: "ڕەگێ کار + پاشگر" } },
-        { id: 16, q: "ئێک ژڤان هەڤالکاران ب دەستوورێ ( هەڤالناڤ + پاشگر ) دروست بوویە ؟", choices: { A: "شەڤێ", B: "سالانە", C: "چالاکانە", D: "ل هاڤینان" }, key: "C" },
-        { id: 17, q: "هەڤالکارێ ( بهێمنی ) ب چ دەستوورەکێ دروست بوویە ؟", choices: { A: "پێشگر + هەڤالکار + پاشگر", B: "پێشگر + هەڤالناڤ + پاشگر", C: "پێشگر + ناڤ + پاشگر", D: "پێشگر + هەڤالناڤ" }, key: "B" },
-        { id: 18, q: "ئێک ژڤان هەڤالکارێن خوارێ پێکهاتییە ژ ( پێشگر + هەڤالکار )", choices: { A: "ژدل", B: "ژدویر", C: "بەناز", D: "ب شەڤ" }, key: "B" },
-        { id: 19, q: "د ڕستەیا ( پێشمەرگەکان دلێرانە بەرگری لە کوردستان دەکەن ) هەڤالکارێ ( دلێرانە ) چەوا دروست بوویە ؟", choices: { A: "ناڤ + پاشگر", B: "هەڤالناڤ + پاشگر", C: "هەڤالکار + پاشگر", D: "پێشگر + هەڤالناڤ" }, key: "B" },
-        { id: 20, q: "کیژ هەڤالکار ب نەڤێ یاسایێ دروست بوویە ( هەڤالناڤ + ئامراز + هەڤالناڤ ) ؟", choices: { A: "دەڤ و دەڤ", B: "کز و مەلول", C: "سەر و سەر", D: "دول و دول" }, key: "B" },
-        { id: 21, q: "ئێک ژڤان هەڤالکاران ب دەستوورێ ( هەڤالناڤێ نیشانە + ناڤ ) دروست بوویە :", choices: { A: "ئەوسا", B: "ئەڤڕۆ", C: "ئەم سالە", D: "هەمی دروستن" }, key: "D" },
-        { id: 22, q: "هەڤالکارێ لێکدایە :", choices: { A: "دلێرانە", B: "ئارداوی", C: "فڕۆشیار", D: "ئەوسا" }, key: "D" },
-        { id: 23, q: "هەڤالکارێ ( ب نەزایەتی ) ب چ دەستوورەکێ دروست بوویە ؟", choices: { A: "پێشگر + ناڤ + پاشگر", B: "پێشگر + هەڤالناڤ + پاشگر", C: "پێشگر + پێشگر + هەڤالناڤ", D: "پێشگر + هەڤالناڤ + ناڤ" }, key: "B" },
-        { id: 24, q: "هەڤالکارێ ( ئەمشەو ) پێکهاتییە ژ :", choices: { A: "هەڤالناڤێ ژمارەیی + ناڤ", B: "هەڤالناڤێ نیشانە + ناڤ", C: "هەڤالناڤ + هەڤالکار", D: "جێناڤ + ناڤ" }, key: "B" },
-        { id: 25, q: "هەڤالکارێ ( ڕۆژانە ) پێکهاتییە ژ :", choices: { A: "هەڤالکار + پاشگر", B: "هەڤالناڤ + پاشگر", C: "ناڤ + پاشگر", D: "ڕەگێ کار + پاشگر" }, key: "C" },
-        { id: 26, q: "د ڕستەیا ( کوردستانمان پڕبەدل خۆش دەوێت ) پەیڤا ( پڕبەدل ) پێکهاتییە ژ", choices: { A: "ناڤ + بە + ناڤ", B: "هەڤالناڤ + بە + ناڤ", C: "هەڤالناڤ + بە + هەڤالناڤ", D: "هەڤالکار + بە + ناڤ" }, key: "B" },
-        { id: 27, q: "هەڤالکارێ ( ئەڤسالە ) ب کیژ یاسا دروستبوویە ؟", choices: { A: "هەڤالناڤ + هەڤالکار", B: "هەڤالکار + ناڤ", C: "هەڤالناڤێ نیشانە + ناڤ", D: "ناڤ + ناڤ" }, key: "C" },
-        { id: 28, q: "د ڕستەیا ( من دالانه بیرناکه مه وه ) پەیڤا ( مندالانه ) :", choices: { A: "هەڤالکاره", B: "هەڤالناڤه", C: "ناڤه", D: "جهناڤه" }, key: "A" },
-        { id: 29, q: "د ڕستەیا ( له وڵاتی خۆم به سه ربه رزی ده ژیم ) هەڤالکاری ڤی ڕستەیێ ژ دروستبوویە ؟", choices: { A: "پێشگر + ناڤ + هەڤالناڤ", B: "پێشگر + هەڤالناڤێ لێکدای + پاشگر", C: "پێشگر + ناڤێ لێکدای + پاشگر" }, key: "B" },
-        { id: 30, q: "د دێڕا ( پڕبەدل بانگ دەکەم سەربەستیم دەوێ کوردستانم جیی شێرانە دەبێ سەرکەوی ) هەڤالکارەک هەیە پێکهاتییە", choices: { A: "ناڤ + پاشگری ( انه )", B: "هەڤالناڤ + بە + ناڤ", C: "هەڤالناڤ + انه", D: "ناڤ + انه + هەڤالناڤ" }, key: "B" },
-        { id: 31, q: "( نووسەری بە توانا بەرهەمی زۆرە ) هەڤالناڤێ ( بەتوانا ) دروستبوویە ب :", choices: { A: "پێشگر + ڕەگ", B: "پێشگر + هەڤالناڤ", C: "پێشگر + ڕەگ + پاشگر", D: "پێشگر + ناڤ" }, key: "C" },
-        { id: 32, q: "هەڤالناڤێ ( شیاندار ) ب یاسایا کیژ ژ ڤان هەڤالناڤان دروستبوویە ؟", choices: { A: "زێرین", B: "فرۆشیار", C: "خوێنەر", D: "بەجەرگ" }, key: "A" },
-        { id: 33, q: "د ڕستەیا ( هوینین خۆش میر داستانی تۆمارکەن ) ئەرکێ پەیڤا (خۆش میر) دبیته :", choices: { A: "دیارکەرێ ناڤی", B: "دیارکەرێ جێناڤی", C: "تمامکەرێ کاری نە تمام", D: "دیارکەرێ هەڤالناڤی" }, key: "B" },
-        { id: 34, q: "د ڕستەیا ( ژنانی لێهاتوو ڕووشن کەرەوەی ڕێگای دوارۆژن ) پەیڤا ( لێهاتوو ) دبیته ؟", choices: { A: "هەڤالناڤێ دارێژڕاو", B: "هەڤالناڤێ لێکدای", C: "هەڤالکاری دارێژڕاو", D: "هەڤالکاری لێکدای" }, key: "A" },
-        { id: 35, q: "کیژ ژڤان هەڤالکاران پێکهاتییە ژ ( ناڤ + پاشگر ) ؟", choices: { A: "ئازادانه", B: "شەوانه", C: "مەردانه", D: "بێباکانه" }, key: "B" },
-        { id: 36, q: "د ڕستەیا ( ڕوویەکێ گەڕۆک ژ شێرەکی نفستی چێترە ) هەڤالناڤێ ( گەڕۆک ) پێکهاتییە ژ ؟", choices: { A: "ڕەگێ کار + پاشگر", B: "هەڤالناڤ + پاشگر", C: "قەدێ چاوگی + پاشگر", D: "ناڤ + پاشگر" }, key: "A" },
-        { id: 37, q: "کیژ ژڤان هەڤالکاران پێکهاتییە ژ ( هەڤالناڤ + ئامراز + هەڤالناڤ ) :", choices: { A: "پشتاوپشت", B: "تێروپڕ", C: "پڕبەدل", D: "ڕووبەڕوو" }, key: "B" },
-        { id: 38, q: "د ڕستەیا ( پێشمەرگەکان بەچەرگانە ولات دەپارێزن ) کیژ ژڤانان ب هەمان دەستوورێ هەڤالکارێ ڕستەیێ دروستبوویە ؟", choices: { A: "بەتمام", B: "شێرانە", C: "بێهێز", D: "ژیرانه" }, key: "D" },
-        { id: 39, q: "کیژ ژڤان هەڤالکاران ب یاسایا ( پێشگر + ناڤ + پاشگر ) دروستنه بوویە ؟", choices: { A: "بێ باکانه", B: "بێسەرەوبەرە", C: "ب هێمنی", D: "ل هاڤینێ" }, key: "C" },
-        { id: 40, q: "د ڕستەیا ( مرۆڤێ گەشبین هەر دەم سەر دەکەڤێت ) هەڤالناڤێ ( گەشبین ) دروست بوویە ب دەستوورێ :", choices: { A: "هەڤالناڤ + ڕەگ", B: "هەڤالناڤ + ناڤ", C: "ناڤ + ڕەگ", D: "هەڤالناڤ + پاشگر" }, key: "A" },
-        { id: 41, q: "هەڤالناڤێ ( زمانزان ) ب دەستوورێ کیژ ئۆ ڤان هەڤالناڤان دروست بوویە :", choices: { A: "سترانبێژ", B: "دلپاک", C: "ڕاستبێژ", D: "خۆشنڤیس" }, key: "A" },
-        { id: 42, q: "هەڤالناڤێ ( شۆڕەسوار ) ب چ دەستوور دروستبوویە ؟", choices: { A: "هەڤالناڤ + ئامراز + ناڤ", B: "هەڤالناڤ + ئامراز + هەڤالناڤ", C: "ناڤ + ئامراز + ناڤ", D: "ناڤ + ئامراز + هەڤالناڤ" }, key: "A" },
-        { id: 43, q: "کیژ ژ ڤان هەڤالکاران دروست بوویە ب دەستوورێ ( پێشگر + هەڤالکار ) :", choices: { A: "بەشەو", B: "بەزۆر", C: "بەمآل", D: "بەهاوین" }, key: "B" },
-        { id: 44, q: "کیژ هەڤالکار ب هەمان یاسایا ( هێمنانه ) دروستبوویە ؟", choices: { A: "دلێرانه", B: "شێرانە", C: "سالانە", D: "هەمی ڕاستن" }, key: "A" },
-        { id: 45, q: "کیژ هەڤالناڤ ب یاسایا ( ناڤ + ڕەگێ کار + پاشگر ) درست نەبوویە ؟", choices: { A: "تێکۆشەر", B: "ڕاوکەر", C: "جل شۆر", D: "ڕەنجدەر" }, key: "A" },
-        { id: 46, q: "د ڕستەیا ( گەلێ کورد ئاشتیخوازە ) هەڤالناڤێ ( ئاشتیخواز ) دروستبوویە ب دەستووری :", choices: { A: "ناڤ + ناڤ", B: "هەڤالناڤ + ڕەگێ کاری", C: "ناڤ + پاشگر", D: "ناڤ + ڕەگێ کاری" }, key: "D" },
-        { id: 47, q: "کیژ نەڤان هەڤالناڤان ب دەستوورێ ( ناڤ + پاشگر ) دروست نە بوویە ؟", choices: { A: "بەختیار", B: "ڕەنجدەر", C: "بریندار", D: "چ ژوان نینن" }, key: "B" },
-        { id: 48, q: "کیژ هەڤالناڤ ب هەمان یاسایا ( نەگۆڕ ) دروستبوویە ؟", choices: { A: "بۆێر", B: "بێهێز", C: "بێ شەرم", D: "هەمی دروستن" }, key: "A" },
-        { id: 49, q: "د کیژ ڕستەیا ( کارێ مەهەج ) دا هەڤالکار ب دەستوورێ ( ناڤ + پاشگر ) دروستبوویە ؟", choices: { A: "ئەگەر چالاکانە کاربکەین، دێ سەرکەڤین", B: "هەرکە ب دلسۆزی خەباتی بکەی، مەهانە دێ تە خەلاتکەم", C: "تا ڕۆژانە نە خوینی ، دەرناچی", D: "هەمی دروستن" }, key: "C" },
-        { id: 50, q: "( خەباتی کۆڵنەدەرانە ئاسۆکە ) هەڤالناڤێ ( کۆڵنەدەر ) ب چ دەستوورێ دروست بوویە ؟", choices: { A: "ناڤ + ناڤ + هەڤالناڤ", B: "هەڤالناڤ + ناڤ + ناڤ", C: "ناڤ + ناڤ + ناڤ", D: "هەڤالناڤ + ناڤ + هەڤالناڤ" }, key: "C" }
+        { id: 16, q: "ئێک ژڤان هەڤالکاران ب دەستوورێ ( هەڤالناڤ + پاشگر ) دروست بوویە ؟", key: "C", choices: { A: "شەڤێ", B: "سالانە", C: "چالاکانە", D: "ل هاڤینان" } },
+        { id: 17, q: "هەڤالکارێ ( بهێمنی ) ب چ دەستوورەکێ دروست بوویە ؟", key: "B", choices: { A: "پێشگر + هەڤالکار + پاشگر", B: "پێشگر + هەڤالناڤ + پاشگر", C: "پێشگر + ناڤ + پاشگر", D: "پێشگر + هەڤالناڤ" } },
+        { id: 18, q: "ئێک ژڤان هەڤالکارێن خوارێ پێکهاتییە ژ ( پێشگر + هەڤالکار )", key: "B", choices: { A: "ژدل", B: "ژدویر", C: "بەناز", D: "ب شەڤ" } },
+        { id: 19, q: "د ڕستەیا ( پێشمەرگەکان دلێرانە بەرگری لە کوردستان دەکەن ) هەڤالکارێ ( دلێرانە ) چەوا دروست بوویە ؟", key: "B", choices: { A: "ناڤ + پاشگر", B: "هەڤالناڤ + پاشگر", C: "هەڤالکار + پاشگر", D: "پێشگر + هەڤالناڤ" } },
+        { id: 20, q: "کیژ هەڤالکار ب نەڤێ یاسایێ دروست بوویە ( هەڤالناڤ + ئامراز + هەڤالناڤ ) ؟", key: "B", choices: { A: "دەڤ و دەڤ", B: "کز و مەلول", C: "سەر و سەر", D: "دول و دول" } },
+        { id: 21, q: "ئێک ژڤان هەڤالکاران ب دەستوورێ ( هەڤالناڤێ نیشانە + ناڤ ) دروست بوویە :", key: "D", choices: { A: "ئەوسا", B: "ئەڤڕۆ", C: "ئەم سالە", D: "هەمی دروستن" } },
+        { id: 22, q: "هەڤالکارێ لێکدایە :", key: "D", choices: { A: "دلێرانە", B: "ئارداوی", C: "فڕۆشیار", D: "ئەوسا" } },
+        { id: 23, q: "هەڤالکارێ ( ب نەزایەتی ) ب چ دەستوورەکێ دروست بوویە ؟", key: "B", choices: { A: "پێشگر + ناڤ + پاشگر", B: "پێشگر + هەڤالناڤ + پاشگر", C: "پێشگر + پێشگر + هەڤالناڤ", D: "پێشگر + هەڤالناڤ + ناڤ" } },
+        { id: 24, q: "هەڤالکارێ ( ئەمشەو ) پێکهاتییە ژ :", key: "B", choices: { A: "هەڤالناڤێ ژمارەیی + ناڤ", B: "هەڤالناڤێ نیشانە + ناڤ", C: "هەڤالناڤ + هەڤالکار", D: "جێناڤ + ناڤ" } },
+        { id: 25, q: "هەڤالکارێ ( ڕۆژانە ) پێکهاتییە ژ :", key: "C", choices: { A: "هەڤالکار + پاشگر", B: "هەڤالناڤ + پاشگر", C: "ناڤ + پاشگر", D: "ڕەگێ کار + پاشگر" } },
+        { id: 26, q: "د ڕستەیا ( کوردستانمان پڕبەدل خۆش دەوێت ) پەیڤا ( پڕبەدل ) پێکهاتییە ژ", key: "B", choices: { A: "ناڤ + بە + ناڤ", B: "هەڤالناڤ + بە + ناڤ", C: "هەڤالناڤ + بە + هەڤالناڤ", D: "هەڤالکار + بە + ناڤ" } },
+        { id: 27, q: "هەڤالکارێ ( ئەڤسالە ) ب کیژ یاسا دروستبوویە ؟", key: "C", choices: { A: "هەڤالناڤ + هەڤالکار", B: "هەڤالکار + ناڤ", C: "هەڤالناڤێ نیشانە + ناڤ", D: "ناڤ + ناڤ" } },
+        { id: 28, q: "د ڕستەیا ( من دالانه بیرناکه مه وه ) پەیڤا ( مندالانه ) :", key: "A", choices: { A: "هەڤالکاره", B: "هەڤالناڤه", C: "ناڤه", D: "جهناڤه" } },
+        { id: 29, q: "د ڕستەیا ( له وڵاتی خۆم به سه ربه رزی ده ژیم ) هەڤالکاری ڤی ڕستەیێ ژ دروستبوویە ؟", key: "B", choices: { A: "پێشگر + ناڤ + هەڤالناڤ", B: "پێشگر + هەڤالناڤێ لێکدای + پاشگر", C: "پێشگر + ناڤێ لێکدای + پاشگر" } },
+        { id: 30, q: "د دێڕا ( پڕبەدل بانگ دەکەم سەربەستیم دەوێ کوردستانم جیی شێرانە دەبێ سەرکەوی ) هەڤالکارەک هەیە پێکهاتییە", key: "B", choices: { A: "ناڤ + پاشگری ( انه )", B: "هەڤالناڤ + بە + ناڤ", C: "هەڤالناڤ + انه", D: "ناڤ + انه + هەڤالناڤ" } },
+        { id: 31, q: "( نووسەری بە توانا بەرهەمی زۆرە ) هەڤالناڤێ ( بەتوانا ) دروستبوویە ب :", key: "C", choices: { A: "پێشگر + ڕەگ", B: "پێشگر + هەڤالناڤ", C: "پێشگر + ڕەگ + پاشگر", D: "پێشگر + ناڤ" } },
+        { id: 32, q: "هەڤالناڤێ ( شیاندار ) ب یاسایا کیژ ژ ڤان هەڤالناڤان دروستبوویە ؟", key: "A", choices: { A: "زێرین", B: "فرۆشیار", C: "خوێنەر", D: "بەجەرگ" } },
+        { id: 33, q: "د ڕستەیا ( هوینین خۆش میر داستانی تۆمارکەن ) ئەرکێ پەیڤا (خۆش میر) دبیته :", key: "B", choices: { A: "دیارکەرێ ناڤی", B: "دیارکەرێ جێناڤی", C: "تمامکەرێ کاری نە تمام", D: "دیارکەرێ هەڤالناڤی" } },
+        { id: 34, q: "د ڕستەیا ( ژنانی لێهاتوو ڕووشن کەرەوەی ڕێگای دوارۆژن ) پەیڤا ( لێهاتوو ) دبیته ؟", key: "A", choices: { A: "هەڤالناڤێ دارێژڕاو", B: "هەڤالناڤێ لێکدای", C: "هەڤالکاری دارێژڕاو", D: "هەڤالکاری لێکدای" } },
+        { id: 35, q: "کیژ ژڤان هەڤالکاران پێکهاتییە ژ ( ناڤ + پاشگر ) ؟", key: "B", choices: { A: "ئازادانه", B: "شەوانه", C: "مەردانه", D: "بێباکانه" } },
+        { id: 36, q: "د ڕستەیا ( ڕوویەکێ گەڕۆک ژ شێرەکی نفستی چێترە ) هەڤالناڤێ ( گەڕۆک ) پێکهاتییە ژ ؟", key: "A", choices: { A: "ڕەگێ کار + پاشگر", B: "هەڤالناڤ + پاشگر", C: "قەدێ چاوگی + پاشگر", D: "ناڤ + پاشگر" } },
+        { id: 37, q: "کیژ ژڤان هەڤالکاران پێکهاتییە ژ ( هەڤالناڤ + ئامراز + هەڤالناڤ ) :", key: "B", choices: { A: "پشتاوپشت", B: "تێروپڕ", C: "پڕبەدل", D: "ڕووبەڕوو" } },
+        { id: 38, q: "د ڕستەیا ( پێشمەرگەکان بەچەرگانە ولات دەپارێزن ) کیژ ژڤانان ب هەمان دەستوورێ هەڤالکارێ ڕستەیێ دروستبوویە ؟", key: "D", choices: { A: "بەتمام", B: "شێرانە", C: "بێهێز", D: "ژیرانه" } },
+        { id: 39, q: "کیژ ژڤان هەڤالکاران ب یاسایا ( پێشگر + ناڤ + پاشگر ) دروستنه بوویە ؟", key: "C", choices: { A: "بێ باکانه", B: "بێسەرەوبەرە", C: "ب هێمنی", D: "ل هاڤینێ" } },
+        { id: 40, q: "د ڕستەیا ( مرۆڤێ گەشبین هەر دەم سەر دەکەڤێت ) هەڤالناڤێ ( گەشبین ) دروست بوویە ب دەستوورێ :", key: "A", choices: { A: "هەڤالناڤ + ڕەگ", B: "هەڤالناڤ + ناڤ", C: "ناڤ + ڕەگ", D: "هەڤالناڤ + پاشگر" } },
+        { id: 41, q: "هەڤالناڤێ ( زمانزان ) ب دەستوورێ کیژ ئۆ ڤان هەڤالناڤان دروست بوویە :", key: "A", choices: { A: "سترانبێژ", B: "دلپاک", C: "ڕاستبێژ", D: "خۆشنڤیس" } },
+        { id: 42, q: "هەڤالناڤێ ( شۆڕەسوار ) ب چ دەستوور دروستبوویە ؟", key: "A", choices: { A: "هەڤالناڤ + ئامراز + ناڤ", B: "هەڤالناڤ + ئامراز + هەڤالناڤ", C: "ناڤ + ئامراز + ناڤ", D: "ناڤ + ئامراز + هەڤالناڤ" } },
+        { id: 43, q: "کیژ ژ ڤان هەڤالکاران دروست بوویە ب دەستوورێ ( پێشگر + هەڤالکار ) :", key: "B", choices: { A: "بەشەو", B: "بەزۆر", C: "بەمآل", D: "بەهاوین" } },
+        { id: 44, q: "کیژ هەڤالکار ب هەمان یاسایا ( هێمنانه ) دروستبوویە ؟", key: "A", choices: { A: "دلێرانه", B: "شێرانە", C: "سالانە", D: "هەمی ڕاستن" } },
+        { id: 45, q: "کیژ هەڤالناڤ ب یاسایا ( ناڤ + ڕەگێ کار + پاشگر ) درست نەبوویە ؟", key: "A", choices: { A: "تێکۆشەر", B: "ڕاوکەر", C: "جل شۆر", D: "ڕەنجدەر" } },
+        { id: 46, q: "د ڕستەیا ( گەلێ کورد ئاشتیخوازە ) هەڤالناڤێ ( ئاشتیخواز ) دروستبوویە ب دەستووری :", key: "D", choices: { A: "ناڤ + ناڤ", B: "هەڤالناڤ + ڕەگێ کاری", C: "ناڤ + پاشگر", D: "ناڤ + ڕەگێ کاری" } },
+        { id: 47, q: "کیژ نەڤان هەڤالناڤان ب دەستوورێ ( ناڤ + پاشگر ) دروست نە بوویە ؟", key: "B", choices: { A: "بەختیار", B: "ڕەنجدەر", C: "بریندار", D: "چ ژوان نینن" } },
+        { id: 48, q: "کیژ هەڤالناڤ ب هەمان یاسایا ( نەگۆڕ ) دروستبوویە ؟", key: "A", choices: { A: "بۆێر", B: "بێهێز", C: "بێ شەرم", D: "هەمی دروستن" } },
+        { id: 49, q: "د کیژ ڕستەیا ( کارێ مەهەج ) دا هەڤالکار ب دەستوورێ ( ناڤ + پاشگر ) دروستبوویە ؟", key: "C", choices: { A: "ئەگەر چالاکانە کاربکەین، دێ سەرکەڤین", B: "هەرکە ب دلسۆزی خەباتی بکەی، مەهانە دێ تە خەلاتکەم", C: "تا ڕۆژانە نە خوینی ، دەرناچی", D: "هەمی دروستن" } },
+        { id: 50, q: "( خەباتی کۆڵنەدەرانە ئاسۆکە ) هەڤالناڤێ ( کۆڵنەدەر ) ب چ دەستوورێ دروست بوویە ؟", key: "C", choices: { A: "ناڤ + ناڤ + هەڤالناڤ", B: "هەڤالناڤ + ناڤ + ناڤ", C: "ناڤ + ناڤ + ناڤ", D: "هەڤالناڤ + ناڤ + هەڤالناڤ" } }
     ];
 
-    // Generate HTML for Questions dynamically
     const form = document.getElementById('quizForm');
-    questionsData.forEach((q, index) => {
+    questionsData.forEach((q) => {
         const card = document.createElement('div');
         card.className = 'question-card';
-        card.id = `q-card-${q.id}`;
+        let optionsHTML = Object.entries(q.choices).map(([letter, text]) => `
+            <label class="option-label" id="label-${q.id}-${letter}">
+                <input type="radio" name="question-${q.id}" value="${letter}">
+                <span>${letter} ) ${text}</span>
+            </label>
+        `).join('');
 
-        let optionsHTML = '';
-        for (const [letter, text] of Object.entries(q.choices)) {
-            optionsHTML += `
-                <label class="option-label" id="label-${q.id}-${letter}">
-                    <input type="radio" name="question-${q.id}" value="${letter}">
-                    <span>${letter} ) ${text}</span>
-                </label>
-            `;
-        }
-
-        card.innerHTML = `
-            <div class="question-title">${q.id}. ${q.q}</div>
-            <div class="options-container">
-                ${optionsHTML}
-            </div>
-            <div class="feedback-text" id="feedback-${q.id}"></div>
-        `;
+        card.innerHTML = `<div class="question-title">${q.id}. ${q.q}</div><div class="options-container">${optionsHTML}</div><div class="feedback-text" id="feedback-${q.id}"></div>`;
         form.appendChild(card);
     });
 
     function checkAnswers() {
         let correctCount = 0;
-        const totalQuestions = questionsData.length;
-
         questionsData.forEach(q => {
             const selectedInput = document.querySelector(`input[name="question-${q.id}"]:checked`);
             const feedbackText = document.getElementById(`feedback-${q.id}`);
             
-            // Reset background for all options in this question
-            for (const letter of Object.keys(q.choices)) {
-                const lbl = document.getElementById(`label-${q.id}-${letter}`);
+            // پاککرنا رەنگێن کەڤن
+            Object.keys(q.choices).forEach(l => {
+                const lbl = document.getElementById(`label-${q.id}-${l}`);
                 if(lbl) lbl.classList.remove('correct-choice', 'wrong-choice');
-            }
+            });
 
             if (selectedInput) {
-                const userAns = document.querySelector(`input[name="question-${q.id}"]:checked`).value;
-                if (userAns === q.key) {
+                if (selectedInput.value === q.key) {
                     correctCount++;
-                    document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
-                    feedbackText.style.display = 'block';
-                    feedbackText.style.color = '#4caf50';
-                    feedbackText.innerText = '✓ بەرسفا تە ڕاستە!';
+                    document.getElementById(`label-${q.id}-${selectedInput.value}`).classList.add('correct-choice');
+                    feedbackText.style.display = 'block'; feedbackText.style.color = '#4caf50'; feedbackText.innerText = '✓ بەرسفا تە ڕاستە!';
                 } else {
-                    document.getElementById(`label-${q.id}-${userAns}`).classList.add('wrong-choice');
+                    document.getElementById(`label-${q.id}-${selectedInput.value}`).classList.add('wrong-choice');
                     document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
-                    feedbackText.style.display = 'block';
-                    feedbackText.style.color = '#f44336';
-                    feedbackText.innerText = `✗ خەلتە! بەرسفا ڕاست دێ بیتە: ${q.key}`;
+                    feedbackText.style.display = 'block'; feedbackText.style.color = '#f44336'; feedbackText.innerText = `✗ خەلتە! بەرسفا ڕاست دێ بیتە: ${q.key}`;
                 }
             } else {
                 document.getElementById(`label-${q.id}-${q.key}`).classList.add('correct-choice');
-                feedbackText.style.display = 'block';
-                feedbackText.style.color = '#ff9800';
-                feedbackText.innerText = `تە بەرسف نەدایە! بەرسفا ڕاست: ${q.key}`;
+                feedbackText.style.display = 'block'; feedbackText.style.color = '#ff9800'; feedbackText.innerText = `تە بەرسف نەدایە! بەرسفا ڕاست: ${q.key}`;
             }
         });
-
-        // Calculate score out of 100
-        const finalScore = Math.round((correctCount / totalQuestions) * 100);
-        
-        // Show Results
+        const finalScore = Math.round((correctCount / questionsData.length) * 100);
         const resultBox = document.getElementById('result-box');
-        const scoreText = document.getElementById('score-text');
-        const scoreDetails = document.getElementById('score-details');
-
         resultBox.style.display = 'block';
-        scoreText.innerText = `${finalScore} / 100`;
-        scoreDetails.innerText = `تە بەرسفا ${correctCount} پرسیاران ژ کۆما ${totalQuestions} پرسیاران ب دروستی دایە.`;
-
+        document.getElementById('score-text').innerText = `${finalScore} / 100`;
+        document.getElementById('score-details').innerText = `تە بەرسفا ${correctCount} پرسیاران ژ کۆما ${questionsData.length} پرسیاران ب دروستی دایە.`;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
