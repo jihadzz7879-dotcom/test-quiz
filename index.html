@@ -1,52 +1,59 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاقیکرنا ڤیزاری</title>
+    <title>تاقیکرنا ویزاری 2025-2026</title>
     <style>
-        :root { --bg: #121212; --text: #ffffff; --card: #1e1e1e; --accent: #f1c40f; }
-        .light-mode { --bg: #f4f4f4; --text: #121212; --card: #ffffff; }
-
-        body { background-color: var(--bg); color: var(--text); font-family: sans-serif; transition: 0.3s; padding: 20px; text-align: center; margin: 0; }
-        .container { max-width: 500px; margin: auto; }
-        .box { background: var(--card); padding: 20px; border-radius: 20px; border: 2px dashed var(--accent); margin: 20px 0; }
-        .btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #1a2a6c; color: white; border-radius: 12px; text-decoration: none; font-weight: bold; }
-        .mode-toggle { cursor: pointer; padding: 10px; background: var(--accent); border-radius: 10px; border: none; font-weight: bold; }
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 { color: #d4af37; } /* رەنگێ زێڕی */
+        .container { max-width: 400px; margin: auto; }
+        .box {
+            border: 2px dashed #d4af37;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 15px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #1e1e1e;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 50px; /* دوگمەی شێوە بازنەیی */
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .btn:hover { background-color: #333; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <button class="mode-toggle" onclick="document.body.classList.toggle('light-mode')">تاریک / ڕوون</button>
-    <h1>تاقیکرنا ئیسلامی</h1>
-    
+    <h1>تاقیکرنا ویزاری</h1>
+    <p>خولا دووی 2025-2026</p>
+
     <div class="box">
-        <p style="font-size: 14px;">⭐ "هیچ تشتەک مەحال نینە... هێشتا دەم یێ ل پێشیا تە!"</p>
-        <hr style="border: 0; border-top: 1px solid #444;">
-        <h3 id="timer" style="color: var(--accent);">دەم دهێتە بارکرن...</h3>
+        <p>⭐ "هیچ تشتەک مەحال نینە کاتێ تو بریاری بدەی بگەهیه خەونا خو..."</p>
+        <p>ماوە بۆ ئەزموونێ: <b>11 ڕۆژ و 8 دژ و 54 دەقە و 18 چرکه</b></p>
     </div>
 
-    <a href="eslame.html" class="btn">ئیسلامی</a>
-    <a href="fizya.html" class="btn">فیزیا</a>
-    <a href="english.html" class="btn">ئینگلیزی</a>
-    <a href="arabic.html" class="btn">عەرەبی</a>
     <a href="kurdish.html" class="btn">کوردی</a>
+    <a href="arabic.html" class="btn">عەرەبی</a>
+    <a href="english.html" class="btn">ئینگلیزی</a>
     <a href="yasa.html" class="btn">یاسا</a>
-    <a href="ark.html" class="btn">ئەرک</a>
+    <a href="mejo.html" class="btn">مێژوو</a>
+    <a href="zindawar.html" class="btn">زیندەوەر</a>
 </div>
 
-<script>
-    const target = new Date("June 14, 2026 07:30:00").getTime();
-    setInterval(() => {
-        let now = new Date().getTime();
-        let diff = target - now;
-        let d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("timer").innerHTML = `${d} ڕۆژ و ${h} سەعات و ${m} دەقە و ${s} چرکە`;
-    }, 1000);
-</script>
 </body>
 </html>
