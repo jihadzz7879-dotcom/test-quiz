@@ -2,56 +2,66 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تاقیکردنەوەیا فیزیایێ</title>
     <style>
-        :root { --primary: #6c5ce7; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
-        .box { background: white; padding: 40px; border-radius: 25px; width: 100%; max-width: 500px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        h2 { color: var(--primary); text-align: center; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; margin-top: 20px; }
+        body { 
+            background-color: #121212; /* ڕەش */
+            color: #ffffff; /* سپی */
+            font-family: sans-serif; 
+            padding: 20px; 
+            margin: 0;
+        }
+        .container { max-width: 500px; margin: auto; }
+        
+        /* بەشی هێدەر و بۆکسێ زێڕین */
+        .header-section { text-align: center; margin-bottom: 20px; }
+        .golden-box { 
+            border: 2px dashed #f1c40f; 
+            padding: 15px; 
+            border-radius: 20px; 
+            background: #1e1e1e; 
+            margin: 20px auto; 
+        }
+
+        /* دوگمەیێن بابەتان (شینی تاری) */
+        .subject-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #1a2a6c; /* شینی تاری */
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #2d3e8e;
+        }
+        .subject-btn:hover { background: #2d3e8e; }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <h2>بەخێر بێن بۆ تاقیکرنا فیزیایێ</h2>
-    <div id="form-section">
-        <input type="text" id="name" placeholder="ناڤێ تە یێ تەمام">
-        <input type="number" id="age" placeholder="تەمەنێ تە">
-        
-        <select id="gender">
-            <option value="">ڕەگەزێ خۆ دیار بکە</option>
-            <option value="کور">کور</option>
-            <option value="کچ">کچ</option>
-        </select>
+<div class="container">
+    <!-- کۆدێ تە ل ڤێرێ -->
+    <div class="header-section">
+        <h1 style="color: #f1c40f; font-size: 28px;">تاقیکرنا ڤیزاری</h1>
+        <p style="color: #ccc;">خولا دووی 2026-2025</p>
 
-        <select id="round">
-            <option value="">خولا تاقیکرنێ</option>
-            <option value="خولا ئێکێ">خولا ئێکێ</option>
-            <option value="خولا دووێ">خولا دووێ</option>
-        </select>
-
-        <button onclick="startQuiz()">دەستپێکرنا تاقیکرنێ</button>
+        <div class="golden-box">
+            <p style="margin: 0; font-size: 14px;">⭐ "هیچ تشتەک مەحال نینە کاتێ تو بریاری بدەی بگەهییە خەونا خۆ... هێشتا دەم یێ ل پێشیا تە، ب هێز بە!"</p>
+            <hr style="border: 0; border-top: 1px solid #444; margin: 10px 0;">
+            <p style="margin: 0; font-weight: bold;">ماوە بۆ ئەزموونێ: 11 رۆژ و 8 دژ و 54 دەقە و 18 چرکە</p>
+        </div>
     </div>
+
+    <!-- لیستەی بابەتا -->
+    <a href="kurdish.html" class="subject-btn">کوردی</a>
+    <a href="arabic.html" class="subject-btn">عەرەبی</a>
+    <a href="english.html" class="subject-btn">ئینگلیزی</a>
+    <a href="yasa.html" class="subject-btn">یاسا</a>
+    <a href="mejo.html" class="subject-btn">مێژوو</a>
+    <a href="zindawar.html" class="subject-btn">زیندەوەر</a>
 </div>
 
-<script>
-function startQuiz() {
-    const data = {
-        name: document.getElementById('name').value,
-        age: document.getElementById('age').value,
-        gender: document.getElementById('gender').value,
-        round: document.getElementById('round').value
-    };
-
-    if(!data.name || !data.age || !data.gender || !data.round) {
-        return alert("تکایە هەمی زانیارییان پڕ بکە!");
-    }
-
-    alert(`سلاڤ ${data.name}، تو ${data.gender}ی و تەمەنێ تە ${data.age} سالە، تو دێ پشکداری د ${data.round} دا کەی. بەرهەڤی؟`);
-    // ل ڤێرێ دێ شاشێ نەخشەیێ تاقیکرنێ نیشان دەی
-}
-</script>
 </body>
 </html>
