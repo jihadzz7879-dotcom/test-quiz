@@ -3,7 +3,110 @@
         <h1>تاقيكرنا قوتابیان</h1>
         <select id="subject-select" onchange="loadQuiz()">
             <option value="">-- بابەتی هەلبژێرە --</option>
-            <option value="kurdish">ڕێزمانا کوردی</option>
+            <option value="kurdish">ڕێزمانا کوردی</option><!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تاقيكرنا زمانى - ٩٢ نمرە</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; padding: 20px; background-color: #f4f4f9; max-width: 700px; margin: auto; }
+        .question { background: white; padding: 15px; margin-bottom: 10px; border-radius: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .options { margin-top: 10px; display: flex; flex-direction: column; }
+        .correct { color: green; font-weight: bold; }
+        .wrong { color: red; font-weight: bold; }
+        button { padding: 15px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 25px; font-size: 18px; width: 100%; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>تاقيكرنا زمانى</h1>
+    <div id="quiz-container"></div>
+    <button onclick="calculateScore()">نیشاندانا ئەنجامی</button>
+    <h2 id="result"></h2>
+
+    <script>
+        const questions = [
+            // ڕاهێنان ٣
+            { q: "١. بایه كى زۆر توند هه ليكرد ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢. مێهقان پيچه ك دره نگ چوو ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٣. ياريزانه كه گوله كه ى زۆر جوان تۆماركرد ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 2 },
+            { q: "٤. په يقا ( درسته يا ) ژووره كه گه ليك سارده؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٥. كه ميك له دوور دانيشه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            // تاقیکرنا ویزاری (١-٤١)
+            { q: "٦. ئه و هه ڤالكارى راديا ده رديخين چنه؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٧. ئه و هه ڤالكارى راديا هه ڤالناڤى ده رديخيت چيبه؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٨. درسته يا ( پيشمه رگه ى سنوورى وه لاتى گه له ك باش پاراستييه)؟", options: ["A", "B", "C", "D"], answer: 2 },
+            { q: "٩. له وانه كان زوريان تێگه يشتووه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "١٠. من دارشتنه كا گه له ك باش د ئينم ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١١. من ناميلكه زوريان خاند ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "١٢. دارشتنه كا گه له ك باش د ئينم ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١٣. گه ليك ( په يقا ) له دوور هاتوویت دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١٤. كه وگه ى زۆر باش د خوينيت ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "١٥. تاقيكرنه وه كه گه ليك زوو بوو ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١٦. زۆر به ژيرانه ره فتار بكه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "١٧. ده بيت حكومه تى هه ريمى كوردستان پاريزيت ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١٨. خويندكاره كه ميك دره نگ هات ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "١٩. ديارييه كى زۆر جوانم ديت ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٢٠. پياوه كه زۆر به په په وو ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢١. تاقيكردنه وه كه يان كه له ك دره نگ بوو ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٢٢. به يانيان كه ميك زوو له خه و هه ستن ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٢٣. ل كيز نه ڤان رستاندا په يقا راديا هه ڤالناڤى؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢٤. چيروكه كى زۆر باش زۆر باش خويندووه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٢٥. ياريزانه كه گوليكى زۆر جوانى تۆماركرد ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢٦. منداله كه ى زۆر جوان په روه رده كردووه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢٧. خانى له پ زييرين كه له ك ئاسا دروستكرد ( گه له ك ئاسا ) چييه؟", options: ["A", "B", "C", "D"], answer: 3 },
+            { q: "٢٨. ميوانه كان زۆر دانيشتن ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٢٩. نه كه ر په يقا ( دوزيك ) درسته بيدا كه فيته به رى په يقا ( يه باشى ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٠. ئه گه ر كارى تاقيكردنه وه كه زۆر قوورسه بگه هورين بو كار مه كى د په يقا دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣١. د گه ل ئيك نيڤ ژڤان رسته ياندا دبيته هه ڤالناڤى نه ديار؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٢. ئاروكى گه له ك جوان ڤه خوا، ئاروكى گه له ك بجوانى خوارن خوار؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٣٣. وانه كه ى زۆر باش ئاماده كردووه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٤. ئالان گه له ك دره نگ گهشت ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 2 },
+            { q: "٣٥. بايه كى زۆر توند هه ليكرد ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٦. كيز ژ ڤان رسته ياندا په يقا راديا هه ڤالكارى نييه؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٧. ميژووييا كه لها هه ولير زۆر كه ڤنه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٣٨. ياريزانه كه گوله كه ى زۆر جوان تۆماركرد؟", options: ["A", "B", "C", "D"], answer: 3 },
+            { q: "٣٩. مێهقان پيچه ك دره نگ چوو ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 1 },
+            { q: "٤٠. كه ميك له دوور دانيشه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٤١. كيز نه ڤان رسته ياندا ( راديا هه ڤالكارى ) نييه؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٤٢. هوتراوه كه ى زۆر جوان خويندووه ( په يقا ) دبيته؟", options: ["A", "B", "C", "D"], answer: 0 },
+            { q: "٤٣. په يقين ( زۆر، گه ليك، توزييك ) راديا كيه هه ڤالكارى ده رديخن؟", options: ["A", "B", "C", "D"], answer: 3 },
+            { q: "٤٤. ياريزانه كه گه ليك به توانا؟", options: ["A", "B", "C", "D"], answer: 2 },
+            { q: "٤٥. په يقا ( گه ليك ) د رسته يا ( منداله كه ى زۆر جوان په روه رده كردووه )؟", options: ["A", "B", "C", "D"], answer: 3 },
+            { q: "٤٦. پرسیارا داوی (ل گور جەدوەلی ٤٠-C)؟", options: ["A", "B", "C", "D"], answer: 2 }
+        ];
+
+        function loadQuiz() {
+            const container = document.getElementById('quiz-container');
+            questions.forEach((item, index) => {
+                let html = `<div class="question"><p>${item.q}</p><div class="options">`;
+                item.options.forEach((opt, i) => {
+                    html += `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`;
+                });
+                html += `</div><div id="feedback${index}"></div></div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const feedback = document.getElementById(`feedback${index}`);
+                if (selected && parseInt(selected.value) === item.answer) {
+                    score += 2;
+                    feedback.innerHTML = `<span class="correct">دروستە!</span>`;
+                } else {
+                    feedback.innerHTML = `<span class="wrong">هەلەیە، وەڵاما دروست: ${item.options[item.answer]}</span>`;
+                }
+            });
+            document.getElementById('result').innerText = `نمرێن تە: ${score} ژ ٩٢`;
+        }
+        loadQuiz();
+    </script>
+</body>
+</html>
+
             <option value="yasa">یاسا</option>
         </select>
     </header>
