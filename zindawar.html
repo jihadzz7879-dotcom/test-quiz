@@ -2,18 +2,68 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تاقیکرنا قوتابیان</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پلاتفۆرمێ تاقیکرنێ</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { color: #2c3e50; text-align: center; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        button { background-color: #27ae60; color: white; padding: 10px; border: none; width: 100%; cursor: pointer; border-radius: 5px; }
-        .result { margin-top: 20px; font-weight: bold; color: #e74c3c; text-align: center; font-size: 1.2em; }
+        :root { --primary: #6c5ce7; --secondary: #a29bfe; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #74b9ff, #a29bfe); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .card { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 100%; max-width: 450px; text-align: center; }
+        h2 { color: #2d3436; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #dfe6e9; border-radius: 25px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); }
+        button { background: var(--primary); color: white; padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #5b4bc4; transform: scale(1.05); }
+        .result { margin-top: 20px; padding: 15px; border-radius: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>🧠 پسیارێن عنتیکە</h2>
-    <p>چ ت
+<div class="card">
+    <h2>🧠 پسیارا عنتیکە</h2>
+    <p>ئەو چییە دبیتە سێبەر و ناهێتە تەرکرن؟</p>
+    <input type="text" id="answer1" placeholder="نڤێسە...">
+    <button onclick="checkAnswer()">پشکنین</button>
+    <div id="result1" class="result"></div>
+
+    <hr style="margin: 25px 0;">
+
+    <h2>📊 حسابکرنا نمرەیان</h2>
+    <div id="inputs">
+        <input type="number" id="sub1" placeholder="بابه تێ ١">
+        <input type="number" id="sub2" placeholder="بابه تێ ٢">
+        <input type="number" id="sub3" placeholder="بابه تێ ٣">
+        <input type="number" id="sub4" placeholder="بابه تێ ٤">
+        <input type="number" id="sub5" placeholder="بابه تێ ٥">
+        <input type="number" id="sub6" placeholder="بابه تێ ٦">
+        <button onclick="calculateAverage()">تێکڕایا گشتی</button>
+    </div>
+    <div id="avgResult" class="result"></div>
+</div>
+
+<script>
+    function checkAnswer() {
+        let ans = document.getElementById('answer1').value;
+        let res = document.getElementById('result1');
+        if(ans.includes('سایه') || ans.includes('سێبەر')) {
+            res.innerHTML = "✅ دروستە! تۆ زیرەکی!";
+            res.style.background = "#dff9fb"; res.style.color = "#009432";
+        } else {
+            res.innerHTML = "❌ نەخێر، دیسان هەولا بدە.";
+            res.style.background = "#ffeaa7"; res.style.color = "#d63031";
+        }
+    }
+
+    function calculateAverage() {
+        let sum = 0, count = 0;
+        for(let i=1; i<=6; i++) {
+            let val = document.getElementById('sub'+i).value;
+            if(val !== "") { sum += parseFloat(val); count++; }
+        }
+        let avg = sum / count;
+        document.getElementById('avgResult').innerHTML = "تێکڕایا تە: " + avg.toFixed(2) + " ژ ١٠٠";
+        document.getElementById('avgResult').style.background = "#e1f5fe";
+    }
+</script>
+
+</body>
+</html>
