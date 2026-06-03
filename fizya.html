@@ -2,56 +2,65 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تاقیکردنەوەی فیزیای پۆلی ١٢</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #eef2f3; padding: 20px; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .hidden { display: none; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
-        .option-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; text-align: right; }
-        .selected { background: #3498db !important; color: white; }
+        :root { --main: #6c5ce7; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        .quiz-card { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 600px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .option-btn { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #e1e1e1; border-radius: 12px; cursor: pointer; transition: 0.3s; background: white; }
+        .option-btn:hover { border-color: var(--main); background: #f9f9ff; }
+        .option-btn.selected { border-color: var(--main); background: var(--main); color: white; }
+        .btn-next { width: 100%; padding: 15px; background: var(--main); color: white; border: none; border-radius: 12px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="login-section">
+<div class="quiz-card" id="app">
+    <div id="start-screen">
         <h2>تاقیکردنەوەی فیزیا</h2>
-        <input type="text" id="student-name" placeholder="ناڤێ خۆ ل ڤێرێ بنڤیسە">
-        <button onclick="startQuiz()">دەستپێکرنا تاقیکرنێ</button>
+        <input type="text" id="name" placeholder="ناڤێ خۆ بنڤیسە" style="width: 100%; padding: 12px; margin: 10px 0;">
+        <button class="btn-next" onclick="start()">دەستپێکردن</button>
     </div>
-
-    <div id="quiz-section" class="hidden">
-        <div id="timer" style="color: red; font-weight: bold;">دەم: 60:00</div>
-        <div id="quiz-container"></div>
-        <button onclick="submitQuiz()">ناردنی تاقیکردنەوە</button>
+    
+    <div id="quiz-screen" style="display:none;">
+        <div id="q-container"></div>
+        <button class="btn-next" onclick="nextQuestion()">پرسیاری داهاتوو</button>
     </div>
 </div>
 
 <script>
-let studentName = "";
-let timeLeft = 3600; // 60 خولەک
+let currentQ = 0;
+let userAnswers = {};
 
-function startQuiz() {
-    studentName = document.getElementById('student-name').value;
-    if(!studentName) return alert("تکایە ناڤێ خۆ بنڤیسە");
-    
-    document.getElementById('login-section').classList.add('hidden');
-    document.getElementById('quiz-section').classList.remove('hidden');
-    
-    // تایمەر
-    setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').innerText = "دەم: " + Math.floor(timeLeft/60) + ":" + (timeLeft%60);
-    }, 1000);
+function start() {
+    const name = document.getElementById('name').value;
+    if(!name) return alert("ناڤێ خۆ بنڤیسە!");
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    renderQuestion();
 }
 
-function submitQuiz() {
-    // ل ڤێرێ دەتوانیت کۆدێ ناردنا ئەنجامان بۆ Database یان Email لێ زێدە بکەی
-    alert("سلاڤ " + studentName + "، تاقیکرنا تە هاتە ناردن!");
+function renderQuestion() {
+    const q = quizData[currentQ];
+    document.getElementById('q-container').innerHTML = `
+        <h3>${q.id}. ${q.q}</h3>
+        ${q.options.map((opt, i) => `<button class="option-btn" onclick="select(${i}, this)">${opt}</button>`).join('')}
+    `;
+}
+
+function select(idx, btn) {
+    userAnswers[currentQ] = idx;
+    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+
+function nextQuestion() {
+    if(currentQ < quizData.length - 1) {
+        currentQ++;
+        renderQuestion();
+    } else {
+        alert("تاقیکرن تەمام بوو!");
+    }
 }
 </script>
-
 </body>
 </html>
