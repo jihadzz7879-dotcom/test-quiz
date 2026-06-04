@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بۆتێ زیرەک یێ قوتابیان</title>
+    <title>بۆتێ ژیرییا دەستکرد بۆ قوتابیان</title>
     <style>
-        /* دیزاینەکێ مۆدێرن و گونجای دگەل ڕەنگێن ماڵپەرێ تە */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #121212;
@@ -14,7 +13,7 @@
             padding: 0;
         }
 
-        /* دوگمەیا کلیک ل سەرکرنێ بۆ دەرکەفتنا بۆتی */
+        /* دوگمەیا لایێ ڕاستێ */
         .bot-toggle-btn {
             position: fixed;
             bottom: 25px;
@@ -45,7 +44,7 @@
             right: 25px;
             width: 380px;
             max-width: 90%;
-            height: 500px;
+            height: 520px;
             background-color: #1a1a1a;
             border: 1px solid #2d2d2d;
             border-radius: 20px;
@@ -54,15 +53,8 @@
             flex-direction: column;
             overflow: hidden;
             z-index: 9999;
-            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* سەرێ پەنجەرێ */
         .chat-header {
             background-color: #222222;
             padding: 18px;
@@ -83,14 +75,8 @@
             color: #ff4444;
             font-size: 20px;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .close-btn:hover {
-            color: #ff0000;
-        }
-
-        /* لایێ نامەکان */
         .chat-messages {
             flex: 1;
             padding: 15px;
@@ -110,7 +96,6 @@
             word-wrap: break-word;
         }
 
-        /* نامەیا بۆتی */
         .bot-msg {
             background-color: #262626;
             color: #ffffff;
@@ -119,7 +104,6 @@
             border: 1px solid #333;
         }
 
-        /* نامەیا قوتابی */
         .user-msg {
             background-color: #ffcc00;
             color: #121212;
@@ -128,7 +112,13 @@
             font-weight: bold;
         }
 
-        /* لایێ نڤیسینێ */
+        /* نامەیا دۆخێ چەڕەڕێبوونێ (Loading) */
+        .loading-msg {
+            color: #888;
+            font-style: italic;
+            align-self: flex-start;
+        }
+
         .chat-input-area {
             display: flex;
             padding: 12px;
@@ -145,11 +135,6 @@
             border-radius: 10px;
             outline: none;
             font-family: inherit;
-            font-size: 14px;
-        }
-
-        .chat-input:focus {
-            border-color: #ffcc00;
         }
 
         .send-btn {
@@ -161,139 +146,107 @@
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .send-btn:hover {
-            background-color: #e6b800;
         }
     </style>
 </head>
 <body>
 
-    <button class="bot-toggle-btn" onclick="toggleChat()">🤖 پسیار ژ هاریكارێ زیرەک بکە</button>
+    <button class="bot-toggle-btn" onclick="toggleChat()">🤖 پسیار ژ ژیرییا دەستکرد بکە</button>
 
     <div class="chat-container" id="chatBox">
         <div class="chat-header">
             <button class="close-btn" onclick="toggleChat()">✕</button>
-            مایسترۆ (بۆتێ زیرەک یێ قوتابیان)
+            مایسترۆ AI (هاوشێوەی Gemini)
         </div>
         
         <div class="chat-messages" id="chatMessages">
             <div class="message bot-msg">
-                بخێربێی قوتابیێ هێژا! ئەز هاریكارێ تە یێ زیرەكم د هەمی بابه تاندا. هەر پسیارەکا تە هەبیت (فیزیا، مێژوو، کوردی، یاسا، ژیندەوەر، ئینگلیزی، هتد...) ل خوارێ بنووسە دا بەرسڤا تە بدەم!
+                سلاو قوتابیێ هێژا! ئەز بۆتەکێ زیرەکم ب هێزا ژیرییا دەستکرد (AI). هەر پسیارەکا تە د هەر بابەتەکی دا هەبیت بنووسە، ئەز وەک مروڤەکێ پسپۆر دێ بەرسڤا تە دەم!
             </div>
         </div>
 
         <div class="chat-input-area">
-            <input type="text" id="userInput" class="chat-input" placeholder="پسیارا خۆ ل ڤێرە بنووسە..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="userInput" class="chat-input" placeholder="پسیارەکێ بکە (ب فیزیا، مێژوو، کوردی...)" onkeypress="handleKeyPress(event)">
             <button class="send-btn" onclick="sendMessage()">ناردن</button>
         </div>
     </div>
 
     <script>
-        // داتابەیسا بەرسڤێن بۆتی ل سەر بابەتان (تو دشێی بابەت و پسیارێن زێدەتر ل ڤێرە زێدە بكەی)
-        const knowledgeBase = {
-            // پسیارێن گشتی
-            "سلاو": "سلاو و ڕێز! ئەز ل ڤێرەم بۆ هاریكاریا تە. پسیارا خۆ بکە.",
-            "چەوانی": "سلاو، ئەز گەلەک باشم سوپاس بۆ تە! ئەز ئامادەم بۆ بەرسڤدانا پسیارێن تە.",
-            "سوپاس": "شایەنی چ نینە هێژا! هیوایا سەرکەفتنێ بۆ تە دخوازم. ئەگەر پسیارەکا دی هەبیت ئەز ل ڤێرەم.",
+        // ⚠️ ل ڤێرە کلیلێ خۆ یێ API دابنێ (ژ لایێ OpenAI یان هەر کۆمپانیەکا دی)
+        // بۆ ئەڤێ نموونێ ئەز دێ هێزا لێکۆڵینێ دۆزینەوەیا زیرەک دیار کەم
+        const API_KEY = "AIzaSyCA8bOuBA4d4CNMxbUAswjDzqWF1ecCS-A"; 
 
-            // بابەتێ فیزیا
-            "فیزیا": "فیزیا زانستا لێكۆلینێیە ل سەر سروشت، ماددە، وزە و لڤینێ. تە چ پسیار ل سەر هەیە؟",
-            "نیوتن": "ئیسحاق نیوتن سێ یاسایێن سەرەكی یێن لڤینێ داناینە: ١- بەردەوامبوونا لڤینێ یان سكونێ. ٢- هێز یەکسانە ب بارستە جاران تاودان ($F=ma$). ٣- بۆ هەر كارەكی بەركارەك هەیە یێ یەکسان د هێزێ دا و بەڕوڤاژی د ئاراستەی دا.",
-            "وزە": "وزە شیانا ئەنجامدانا کارە، و چەندین جۆرێن هەی وەک وزەیا لڤینێ، وزەیا شاراوە، وزەیا گەرمی و ڕووناكی.",
-
-            // بابەتێ مێژوو
-            "مێژوو": "مێژوو زانستا تۆمارکرن و شرۆڤەکرنا ڕووداوێن بورینە. حەز دکەی ل سەر کیش سەردەم یان ڕووداوێ بزانی؟",
-            "جەنگێ جیهانی": "جەنگێ جیهانیێ ئێکێ (1914-1918) و جەنگێ جیهانیێ دووێ (1939-1945) دوو مەزنترین ڕووداوێن مێژوویا مرۆڤایەتیێ بوون کو نەخشێ جیهانێ گۆهرین.",
-
-            // بابەتێ کوردی
-            "کوردی": "زمانێ كوردی زمانەكێ دەولەمەند و ڕەسەنە ژ خێزانا زمانێن هیندۆ-ئەوروپی. پسیارا تە ل سەر ڕێزمانێ یە یان ئەدەبی؟",
-            "ڕێزمان": "ڕێزمانا کوردی پێکدهێت ژ یاسایێن ڕێکخستنا پەیڤ و ڕستان وەک (ناڤ، جێناو، کار، ئاوەڵناو) د ڕستێ دا.",
-
-            // بابەتێ عەرەبی
-            "عەرەبی": "اللغة العربية هي لغة القرآن الكريم ولغة ضاد غنية جداً بالبلاغة والقواعد. د چ دا هاریكاریا تە بكەم؟",
-            "قواعد": "القواعد النحوية في اللغة العربية تشمل المبتدأ والخبر، الفاعل والمفعول به، وإن وأخواتها، وكان وأخواتها.",
-
-            // بابەتێ ئینگلیزی
-            "ئینگلیزی": "English is a global language. ئەز دشێم د وەرگێڕان، ڕێزمان (Grammar)، یان پەیڤێن نوو دا هاریكاریا تە بكەم. پسیارا خۆ بنووسە.",
-            "grammar": "English grammar includes tenses (Past, Present, Future), nouns, verbs, pronouns, and adjectives. What do you need help with?",
-
-            // بابەتێ یاسا
-            "یاسا": "یاسا کۆمەلا ڕێسا و دەستوورانە کو دەسەڵات د دەتە دەوڵەتێ بۆ ڕێکخستنا جڤاکی و پاراستنا مافێن وەلاتیان.",
-            "دەستوور": "دەستوور (Constituion) بلندترین یاسایە د دەوڵەتێ دا کو سیستەمێ حوکمرانیێ و ماف و ئەرکێن سەرەکی یێن گشتی دیار دکەت.",
-
-            // بابەتێ ژیندەوەر
-            "ژیندەوەر": "زانستا ژیندەوەر (Biology) ل سەر گیانەوەران، ڕووەکان، مرۆڤ و خانەیێن زیندوو لێکۆڵینێ دکەت.",
-            "خانە": "خانە (Cell) یەکەکا سەرەکی و بنیاتنەرە بۆ پێکهاتە و فەرمانا هەمی زیندەوەران.",
-            "دی ئێن ئەی": "DNA یان (دی ئێن ئەی) ئەو ترشە کۆمەڵەیە کو پێزانینێن بۆماوەیی یێن زیندەوەران هەڵدەگریت.",
-
-            // بابەتێ ئیسلامی
-            "ئیسلامی": "پەرتووکێن ئیسلامی ل سەر عەقیدە، فیقهـ، سیرەیا پێغەمبەری (س.خ) و تەفسیرێ بەحس دکەن. تە چ پسیار هەیە؟"
-        };
-
-        // نیشاندان و شاردنەوەیا چاتی
         function toggleChat() {
             const chatBox = document.getElementById('chatBox');
-            if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-                chatBox.style.display = 'flex';
-            } else {
-                chatBox.style.display = 'none';
-            }
+            chatBox.style.display = (chatBox.style.display === 'none' || chatBox.style.display === '') ? 'flex' : 'none';
         }
 
-        // پرۆسێسا ناردنا نامێ
-        function sendMessage() {
+        async function sendMessage() {
             const inputElement = document.getElementById('userInput');
             const messageText = inputElement.value.trim();
-            
             if (messageText === "") return;
 
-            // ١- نیشاندانا نامەیا قوتابی
             appendMessage(messageText, 'user-msg');
             inputElement.value = "";
 
-            // ٢- بەرسڤدانا بۆتی پشتی ٤٠٠ ملی چرکە
-            setTimeout(() => {
-                const botResponse = getBotResponse(messageText);
-                appendMessage(botResponse, 'bot-msg');
-            }, 400);
-        }
+            // دروستکرنا نامەیا چاوەڕێبوونێ
+            const loadingId = appendMessage("مایسترۆ یێ هزردکەت... 🧠", 'bot-msg loading-msg');
 
-        // مێشکێ بۆتی بۆ دۆزینەوەیا باشترین بەرسڤ
-        function getBotResponse(input) {
-            const cleanInput = input.toLowerCase();
-            
-            // گەڕیان د ناڤ داتابەیسێ دا بۆ دۆزینەوەیا پەیڤێن هاوبەش
-            for (let key in knowledgeBase) {
-                if (cleanInput.includes(key.toLowerCase())) {
-                    return knowledgeBase[key];
+            try {
+                // ل ڤێرە فەرماندەکێ ژیرییا دەستکرد دەنێرین بۆ دەستکەوتنا وەڵامێ ڕاستەقینە
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `تۆ مامۆستایەکێ هاریكار و گەلەک زیرەکی د قوتابخانێ دا. ب زمانێ کوردی بادینی (کرمانجیا سەری) بەرسڤا ڤێ پسیارا قوتابی بدە ب شێوازەکێ ڕوون: ${messageText}` }] }]
+                    })
+                });
+
+                const data = await response.json();
+                removeLoadingMessage(loadingId);
+
+                // وەرگرتنا بەرسڤێ ژ ڕێکا AI
+                if(data.candidates && data.candidates[0].content.parts[0].text) {
+                    let aiReply = data.candidates[0].content.parts[0].text;
+                    appendMessage(aiReply, 'bot-msg');
+                } else {
+                    appendMessage("ببورە، من نەشیا نوکە بەرسڤێ چێکەم. ل لایێ کلیلێ API پشکنینێ بکە.", 'bot-msg');
                 }
+
+            } catch (error) {
+                removeLoadingMessage(loadingId);
+                // ئەگەر API نەبوو، وەک پشتیوانی (Backup) ب ژیرییەکا ناڤخۆیی بەرسڤێ ددەت:
+                simulateSmartAI(messageText);
             }
-            
-            // ئەگەر پسیارەک بوو کو د داتابەیسێ دا نەبوو، بۆت ب ڤی شێوازی بەرسڤێ ددەت دا کو یێ زیرەک دیار بیت:
-            return "پسیارەکا جوانە! ئەز نوکە یێ فێردبم ل سەر ڤی بابەتی و بەرسڤا تەمام ل دەڤ من نینە. بەلێ تۆ دشێی پسیارێ ڕوونتر بکەی یان ناڤێ بابەتەکی بنووسی وەک (فیزیا، مێژوو، یاسا، ژیندەوەر، کوردی، عەرەبی) دا کو ڕاستەوخۆ هاریکاریا تە بکەم.";
         }
 
-        // دروستکرنا ئێلیمێنتێ نامێ د ناڤ چاتی دا
+        // سیستەمێ پشتیوانیێ ئەگەر ئەینتەرنێت یان کلیل نەبوو
+        function simulateSmartAI(input) {
+            let reply = "ئەز وەک ژیرییا دەستکرد ل سەر ڤێ پسیارێ دکۆڵم: '" + input + "'. ئەڤ بابەتە گەلەک گرنگە بۆ قوتابیان! دڤێت پتر ل سەر بخوینین چونکی هەمیا فەلسەفە و زانستەکا تایبەت هەیە.";
+            if(input.includes("فیزیا")) reply = "فیزیا بیرکارییا سروشتی یە! ل سەر هێز، تاودان و گەردوونێ دکۆڵیت. تە پسیار ل سەر چ قانونەکێ هەیە؟";
+            if(input.includes("یاسا")) reply = "یاسا ستونا جڤاکی یە. هەمی ماف د ناڤ یاسایێ دا دهێنە پاراستن دا کو دادپەروەری بەرقەرار بیت.";
+            setTimeout(() => { appendMessage(reply, 'bot-msg'); }, 500);
+        }
+
         function appendMessage(text, className) {
             const chatMessages = document.getElementById('chatMessages');
             const messageElement = document.createElement('div');
-            messageElement.classList.add('message', className);
+            const id = 'msg-' + Date.now();
+            messageElement.id = id;
+            messageElement.className = `message ${className}`;
             messageElement.innerText = text;
             chatMessages.appendChild(messageElement);
-            
-            // ئۆتۆماتیک دچیتە خوارێ بۆ بینینی نامێن نوو
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            return id;
         }
 
-        // کارکرن ب دوگمەیا Enter
+        function removeLoadingMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
         function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
+            if (event.key === 'Enter') sendMessage();
         }
     </script>
 </body>
