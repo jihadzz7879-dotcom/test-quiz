@@ -3,65 +3,845 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمێ تاقیکرنێ</title>
+    <title>تاقیکرنا گشتی یا زیندەزانی - پۆلا 12</title>
     <style>
-        :root { --primary: #6c5ce7; --secondary: #a29bfe; --bg: #f0f2f5; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #74b9ff, #a29bfe); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
-        .card { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 100%; max-width: 450px; text-align: center; }
-        h2 { color: #2d3436; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #dfe6e9; border-radius: 25px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--primary); }
-        button { background: var(--primary); color: white; padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; margin-top: 10px; transition: 0.3s; }
-        button:hover { background: #5b4bc4; transform: scale(1.05); }
-        .result { margin-top: 20px; padding: 15px; border-radius: 15px; font-weight: bold; }
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-size: 24px; }
+        p.subtitle { margin: 10px 0 0 0; opacity: 0.9; }
+
+        .quiz-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--accent);
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background: #edf2f7;
+            border-color: var(--accent);
+        }
+
+        input[type="radio"] {
+            margin-left: 12px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .result-box {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px auto;
+        }
+
+        .correct-card { border-right-color: var(--success) !important; background: #f0fff4; }
+        .wrong-card { border-right-color: var(--danger) !important; background: #fff5f5; }
+        
+        .feedback { margin-top: 10px; font-weight: bold; }
+        .feedback.correct { color: var(--success); }
+        .feedback.wrong { color: var(--danger); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        th { background-color: #f1f5f9; }
+        
+        .img-placeholder {
+            background: #e2e8f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-style: italic;
+            color: #4a5568;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>🧠 پسیارا عنتیکە</h2>
-    <p>ئەو چییە دبیتە سێبەر و ناهێتە تەرکرن؟</p>
-    <input type="text" id="answer1" placeholder="نڤێسە...">
-    <button onclick="checkAnswer()">پشکنین</button>
-    <div id="result1" class="result"></div>
+<div class="container">
+    <header>
+        <h1>ئەزموونا تیۆری یا گشتی: زیندەزانی پۆلا 12 (50 پسیار)</h1>
+        <p class="subtitle">تکایە بەرسڤا هەمی پسیاران بدە (هەر پسیارەک 2 نمرەن)</p>
+    </header>
 
-    <hr style="margin: 25px 0;">
-
-    <h2>📊 حسابکرنا نمرەیان</h2>
-    <div id="inputs">
-        <input type="number" id="sub1" placeholder="بابه تێ ١">
-        <input type="number" id="sub2" placeholder="بابه تێ ٢">
-        <input type="number" id="sub3" placeholder="بابه تێ ٣">
-        <input type="number" id="sub4" placeholder="بابه تێ ٤">
-        <input type="number" id="sub5" placeholder="بابه تێ ٥">
-        <input type="number" id="sub6" placeholder="بابه تێ ٦">
-        <button onclick="calculateAverage()">تێکڕایا گشتی</button>
+    <div id="result-area" class="result-box">
+        <h2>ئەنجامێ دوماهییێ</h2>
+        <div class="score-circle" id="score-display">0/100</div>
+        <p id="result-message" style="font-size: 18px; font-weight: bold;"></p>
     </div>
-    <div id="avgResult" class="result"></div>
+
+    <form id="quiz-form">
+        
+        <!-- ل خوارێ لیستا هەمی 50 پسیاران هاتیە ڕێزبەندکرن ژ وێنەیێن تە شیاین -->
+        
+        <!-- Q1 -->
+        <div class="quiz-card" id="q1">
+            <div class="question-text">1. ئەو شانەیا تیخا زەدەرفە یا لوولەیێن خوێنێ ژێ پێکدهێت یان خودان شانەیا تیخا ناڤی یا لوولەیێن خوێنێ ڕێ پێکدهێت، ب وێ چەندێ کو ئەو شانەیا تیخا زەدەرفە یا لوولەیێن خوێنێ ژێ پێکدهێت:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A- خانەیێن وێ د بربەکا زۆرا ماددەیێ دناڤبەرا خانەیاندا نقوم بووینە</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B- بەستەرەشانەیە</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C- ڕووکەشە شانەیە</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D- (A و B) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-card" id="q2">
+            <div class="question-text">2. ماسوولکەیا حەولی:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A- د ڕێبارێن زاوزێ یێن مێینەدا هەیە</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B- ب شێوەیێ جووتێن هەڤدژ کار دکەت</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C- ڕیشالێن وێ ب بەستەرەشانەیێن نەهاتینە دەوردان</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D- خالێن بنک و جەبهەست دەریا نینن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-card" id="q3">
+            <div class="question-text">3. کیژ ژ ڤان دەربارەی لوولەیا یان پێکهاتەیا هەستی دریژدا نەیا دروستە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A- مەغزێ زەردی هەستی یێ تێدا هەی</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B- ژ پەرەکان پێکدهێت</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C- پشکەکە ژ پێکهاتەیا هەستییێ موکوم</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D- د نیڤا هەر لوولەیەکێدا جۆکەکا هاڤێرسی هەیە</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-card" id="q4">
+            <div class="question-text">4. هەمی نەڤین ل خوارێ دەربارەی گەها تەوەرەیی دروستن، ژبلی:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A- جۆرەکە ژگەهێن لڤۆک</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B- ڕێکێ ددەتە چەمیان و وەرپۆدانا لەشی</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C- د بربرەیا پشتا دا هەیە</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D- د تەوەرە پەیکەریدا هەیە</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-card" id="q5">
+            <div class="question-text">5. پەیکەرە ماسوولکە:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A- ب بەڕگی هەستیڤە نەهاتینە گڕێدان</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B- ب شێوەیەکێ نیوکسەر ب بەڕگی هەستیڤە هاتینە گڕێدان</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C- ب ڕێکا ژێیان ب بەڕگی هەستیڤە هاتینە گڕێدان</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D- (C + B) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="quiz-card" id="q6">
+            <div class="question-text">6. نەڤە هەمى پشکەکەن ژ هەستیێن لنگ و چنگلەک پێکهاتى نە، ژبلى:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A- پرکا ملی</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B- سەرسینگ</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C- چیق</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D- کەلەکەک</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="quiz-card" id="q7">
+            <div class="question-text">7. کیژ ژ ڤان لوولەبین خوێنێ خوێنەکا ب ڕەنگ سوورێ تیر تێدایە (فە دگووهێزیت):-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A- خلوڵە خوێنهێنەر</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B- سیهە خوێنهێنەر</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C- سیهە خوێنبەر</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D- (A و C) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="quiz-card" id="q8">
+            <div class="question-text">8. کیژ ژڤان دەربارەی قۆناغا خافبوونا گوهۆکە زکوکە یادروستە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A- ئاراستەیا ڤەگوهاستنا خوێنێ ژ هەردوو گوهۆکە یان بەرف هەردوو زکوکە یان دبیت</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B- پێلا P دهێتە دەربڕین د هێلکارییا دلیدا</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C- ئەودەمێ ڤە دکێشیت زێدەترە ژ وی دەمێ قۆناغا گرژبوونا گوهۆکەیێ ڤە دکێشیت</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D- خوێن ڤە دگەڕیتەڤە هەتا هەردوو زکوکەیان پر دکەت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="quiz-card" id="q9">
+            <div class="question-text">9. نەڤە هەمی شلەیەکێ دەرددەن بۆ کیمکرنا لێکخشانادنی، ژبلى:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A- پلۆرە</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B- ئاڤنەپچک</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C- ئەو شانەیا ڕوویێ گەها چوکی دادپۆشیت</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D- پەردەیا دلی</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="quiz-card" id="q10">
+            <div class="question-text">10. خانەبین سپیین خوینی ژبەرکو ...................... دشین فەرمانی خۆ نە نجامبدەن</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A- شیانا دەرۆدانا نەزیمین خوین مەبینی هەیە</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B- ژ مەغزی سووری هەستی دروست دبن</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C- دشین ب رێیا کونین دیوارین لوولەبین خوینی بۆ ناڤ شلەیی نافبەرا خانەبان بچن</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D- نافك و نەندامۆچکە تێدا ب بەرزە دبن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="quiz-card" id="q11">
+            <div class="question-text">11. خشتەیێ بەرامبەر نەجامی تێکه لکرنا چەند سامپلەکێن خوێنێ دیاردکەت (ل دەرڤە هاتیە وێناکرن):</div>
+            <div class="img-placeholder">[Image: Refer to image_2.png for blood sample grid]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q11" value="A"> A- سامپلێ 1 ئەرێنی و ٢ نەرێنی (A)</label>
+                <label class="option-label"><input type="radio" name="q11" value="B"> B- سامپلێ 1 ئەرێنی و ٢ نەرێنی (B)</label>
+                <label class="option-label"><input type="radio" name="q11" value="C"> C- سامپلێ 1 نەرێنی (O) و ٢ ئەرێنی (AB) - چ تێکچوون نینە</label>
+                <label class="option-label"><input type="radio" name="q11" value="D"> D- سامپلێ 1 نەرێنی و ٢ نەرێنی (D)</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="quiz-card" id="q12">
+            <div class="question-text">12. کیژ ژ ڤان بەرگرییان جۆرەکی تایبەت ژ هۆکارین نەساخیێ دکەتە ئامانج؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q12" value="A"> A- پەردەبین نۆیسەک</label>
+                <label class="option-label"><input type="radio" name="q12" value="B"> B- بەرگرییا هەودانی</label>
+                <label class="option-label"><input type="radio" name="q12" value="C"> C- بەرگرییا تایبەتمەند</label>
+                <label class="option-label"><input type="radio" name="q12" value="D"> D- بەرستدانا گەرمیێ</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="quiz-card" id="q13">
+            <div class="question-text">13. خانەبین کۆژەکێن سروشتی جۆدانە ژ خانەبین سپیین خوینی بین وێ چەندێ کو خانەبین کۆژەکێن سروشتی :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q13" value="A"> A- خانەبین سپیین خوێنینە</label>
+                <label class="option-label"><input type="radio" name="q13" value="B"> B- د بەرگرییا گشتیدا پشکداری دکەن</label>
+                <label class="option-label"><input type="radio" name="q13" value="C"> C- هێرشی دکەنە سەر وان خانەبین کو تووشبووین ب هۆکارین نەساخیێ</label>
+                <label class="option-label"><input type="radio" name="q13" value="D"> D- هۆکاری نەساخیێ دادعیرن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="quiz-card" id="q14">
+            <div class="question-text">14. د کیژ بنەماییدا ژ چوار بنەمایین دەستکەفتیین کۆخی پێدڤیە هۆکاری د تاقیکەهیدا پەڕە پێ بهێتەدان؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q14" value="A"> A- 1 و 3</label>
+                <label class="option-label"><input type="radio" name="q14" value="B"> B- 2 و 4</label>
+                <label class="option-label"><input type="radio" name="q14" value="C"> C- 1 و 2</label>
+                <label class="option-label"><input type="radio" name="q14" value="D"> D- 3 و 4</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="quiz-card" id="q15">
+            <div class="question-text">15. ب پشت بەستن ب شێوەیێ بەرامبەر (سیستەمێ هەناسەدانێ)، بەرسڤا دروست ژ خشتەیێ ل خوارێ هەلبژێره:-</div>
+            <div class="img-placeholder">[Image: Refer to image_3.png for Alveoli model]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q15" value="A"> A- ئەوا خوێنا دناڤ وێدا بەر ب ڕێنووسا 2 دچیت، ئۆکسجین کری خاست</label>
+                <label class="option-label"><input type="radio" name="q15" value="B"> B- ئەوا خوێنا ژ ڕێنووسا 1 دهێت، بەر ب لایێ چەپێ یێ دل دچیت</label>
+                <label class="option-label"><input type="radio" name="q15" value="C"> C- ئەوا خوێنا دناڤ ڕێنووسا 1 دا، یا دەولەمەندە ب دۆبەک لایێ ڕاستێ</label>
+                <label class="option-label"><input type="radio" name="q15" value="D"> D- ئەوا خوێنا دناڤ ڕێنووسا 2 دا، بەر ب گۆهۆکەکا چەپێ دچیت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q16 -->
+        <div class="quiz-card" id="q16">
+            <div class="question-text">16. کیژ ژڤان دەربارەی بەرستدانا بەرگرییا دوویەمی دەمێ کەسەک دووبارە ب هەمان هۆکاری نەساخیێ تووش دبیت ؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q16" value="A"> A- وی کەسی دپارێزیت ژ تووشبوونی ب هۆکارەکی نۆیی یێ نەساخیێ</label>
+                <label class="option-label"><input type="radio" name="q16" value="B"> B- خانەبین بیرکەر بۆ جارا ئێکی دهێنە بەرهەمهێنان</label>
+                <label class="option-label"><input type="radio" name="q16" value="C"> C- خانەبین بیرکەر وی هۆکاری نەساخیێ دنیاسن و دەست ب دابەشبوونکا خانه بیا بلەز دکەن</label>
+                <label class="option-label"><input type="radio" name="q16" value="D"> D- (B و C) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="quiz-card" id="q17">
+            <div class="question-text">17. دژە تەن ب هۆکارین نەساخیێ دنویسینە و چالاکییا وان رادوەستینن و ژناف دبه ن برێکا ؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q17" value="A"> A- نە یەک سەر ب هاریکارییا بەرگریین تایبەت</label>
+                <label class="option-label"><input type="radio" name="q17" value="B"> B- ئەنهێلانا چوونا هۆکارین نەساخیێ بو دناڤ خانیێدا و ڕێگرتن ل زۆربوونا وان</label>
+                <label class="option-label"><input type="radio" name="q17" value="C"> C- کۆنکرنا پەردەبین خانه بین تووشبووی ب هۆکاری نەساخیێ و پەکاندنا وان</label>
+                <label class="option-label"><input type="radio" name="q17" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q18 -->
+        <div class="quiz-card" id="q18">
+            <div class="question-text">18. کیژ ژڤان هۆکارن (بەرەدوام) دژە پەیداکەرین نوی دەه لگرن؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q18" value="A"> A- ڤایرۆسێ پەڕسیفێ</label>
+                <label class="option-label"><input type="radio" name="q18" value="B"> B- ڤایرۆسێ ئەنفلوەنزایێ</label>
+                <label class="option-label"><input type="radio" name="q18" value="C"> C- ڤایرۆسێ HIV</label>
+                <label class="option-label"><input type="radio" name="q18" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q19 -->
+        <div class="quiz-card" id="q19">
+            <div class="question-text">19. شێوەیی بەرامبەر پشکەکێ ژ تەوەرێ دەماره خانەیەکێ دیاردکەت، کیژ ژڤان بەرسڤین دەربارەی لڤینا نایۆنان د جهی دیارکریدا د تەوەرێ دەماره خانەیێدا؟</div>
+            <div class="img-placeholder">[Image: Refer to image_3.png for Axon Potential K+/Na+ graph]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q19" value="A"> A- نایۆنین پۆتاسیۆم و سۆدیۆم دچنە دەرڤەی دەماره خانەیێ</label>
+                <label class="option-label"><input type="radio" name="q19" value="B"> B- نایۆنین پۆتاسیۆم و سۆدیۆم دچنە دناڤ دەماره خانەیێدا</label>
+                <label class="option-label"><input type="radio" name="q19" value="C"> C- نایۆنین سۆدیۆم دچنە دەرڤەی دەماره خانەیێ و نایۆنین پۆتاسیۆم دچنە دناڤ دەماره خانەیێدا</label>
+                <label class="option-label"><input type="radio" name="q19" value="D"> D- نایۆنین سۆدیۆم دچنە دناڤ دەماره خانەیێدا و نایۆنین پۆتاسیۆم دچنە دەرڤەی دەماره خانەیێ</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q20 -->
+        <div class="quiz-card" id="q20">
+            <div class="question-text">20. جیکلدانە ب پەردەیا خانەیا پێش گەهینگێڤە دنویسینە و دەتەقنە دەرگەهێ فۆسفاتی د بن لاد چ بیت ؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q20" value="A"> A- دەماره گۆهێزەر ب هاریکاریا ئەنزیمان دهێنە هەلوشاندن</label>
+                <label class="option-label"><input type="radio" name="q20" value="B"> B- ئەرکی کاری دگەهیتە دووماهییێ دەماری یێن تەوەرێ خانەیا پێش گەهینکی</label>
+                <label class="option-label"><input type="radio" name="q20" value="C"> C- دەماره گۆهێزەر ژ لایێ خانەیا پاش گەهینگێڤە دووبارە دهێنە مێژتن</label>
+                <label class="option-label"><input type="radio" name="q20" value="D"> D- پەمپا سۆدیۆم - پۆتاسیۆم چالاکبیت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q21 -->
+        <div class="quiz-card" id="q21">
+            <div class="question-text">21. لقین پشکا چێوە کۆنترۆلا دەماری دکەت .................... دکەت:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q21" value="A"> A- لقێ پێکهاتەیا ماسوولکەیان</label>
+                <label class="option-label"><input type="radio" name="q21" value="B"> B- کاری ماسوولکەیان د لوولەبین خوێنێدا</label>
+                <label class="option-label"><input type="radio" name="q21" value="C"> C- دەردانا هەمی هۆرمۆنین لەشی ب شێوەیەکێ نیوکسەر</label>
+                <label class="option-label"><input type="radio" name="q21" value="D"> D- (A و B) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q22 -->
+        <div class="quiz-card" id="q22">
+            <div class="question-text">22. ئەو وەرگرێن کو دندۆکۆکێن کالسیۆمێ ل سەرن ژ جۆری:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q22" value="A"> A- میکانیکە وەرگرن</label>
+                <label class="option-label"><input type="radio" name="q22" value="B"> B- نیشانە وەرگرن</label>
+                <label class="option-label"><input type="radio" name="q22" value="C"> C- کیمیکە وەرگرن</label>
+                <label class="option-label"><input type="radio" name="q22" value="D"> D- ڕۆناهییە وەرگرن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q23 -->
+        <div class="quiz-card" id="q23">
+            <div class="question-text">23. ئەو پشکا دەماخی کیژکە کو تیگەهشتنا ڕاگەهاندنزین بابه کتنێ تێدایه؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q23" value="A"> A- تیڤکلا مەژی</label>
+                <label class="option-label"><input type="radio" name="q23" value="B"> B- ئاڤبەرە دەماخ</label>
+                <label class="option-label"><input type="radio" name="q23" value="C"> C- ئاڤبەرە ڕاستە دەماخ</label>
+                <label class="option-label"><input type="radio" name="q23" value="D"> D- ئەو پشکا مەژی کو دهەکەڤیتە دبن ڕوویێ تیفکلا مەژیدا</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q24 -->
+        <div class="quiz-card" id="q24">
+            <div class="question-text">24. خانه بین چیلکەیی جۆدانە ژ گۆمبەتە خانه یان ب وێ چەندێ کو خانه بین چیلکەیی:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q24" value="A"> A- بەرسڤا ڕۆناهییا گەش ددەن</label>
+                <label class="option-label"><input type="radio" name="q24" value="B"> B- بۆیاغا ڕۆدۆپسین تێدایه</label>
+                <label class="option-label"><input type="radio" name="q24" value="C"> C- د بەرهەمهێنانا هوویرە وێنەیاندا پشکداری دکەن</label>
+                <label class="option-label"><input type="radio" name="q24" value="D"> D- بەرسڤا ڕەنگین جۆدا ددەن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q25 -->
+        <div class="quiz-card" id="q25">
+            <div class="question-text">25. د کەسەکێ ڕاهاتیودا دەمێ کۆکایین دهێتە لابرن ژدەمارە تیکهەڵچوونی و دووبارە دەڕکرنا دۆپامینی بۆ سروشتی خۆ ڤە دگەڕیتەڤە، خانه یا پاش گەهینکی :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q25" value="A"> A- هشیاربوونا وێ زێدە دبیت</label>
+                <label class="option-label"><input type="radio" name="q25" value="B"> B- هشیاربوونا وێ کیم دبیت</label>
+                <label class="option-label"><input type="radio" name="q25" value="C"> C- هەژمارا وەرگرێن پرۆتینی د پەردەیا خانه یا پاش تیکهەڵچوونێدا کیم دبیت</label>
+                <label class="option-label"><input type="radio" name="q25" value="D"> D- (B و C) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q26 -->
+        <div class="quiz-card" id="q26">
+            <div class="question-text">26. .................... ئەو گەردە یا دبیتە ئەگەری دەستپێکرنا گۆهورینا دناڤ خانه یێدا وەک بەرسڤدانەک بۆ بێغەگریدانا ماددەکێ دیارکری ب وەرگرەکی دیارکریفە ل سەر ڕوویێ خانه یێ:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q26" value="A"> A- هنارتیێ ئێکی</label>
+                <label class="option-label"><input type="radio" name="q26" value="B"> B- وەرگرێ پرۆتینی</label>
+                <label class="option-label"><input type="radio" name="q26" value="C"> C- هنارتیێ دووهمی</label>
+                <label class="option-label"><input type="radio" name="q26" value="D"> D- ئاڤێتی هۆرمۆن وەرگر</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q27 -->
+        <div class="quiz-card" id="q27">
+            <div class="question-text">27. د کیژ ژڤان باراندا هۆرمۆنی ئه‌درینالین دهێته ده‌ردان؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q27" value="A"> A- کیمبوونا خەستیا گلوکۆزی د خوێنێدا</label>
+                <label class="option-label"><input type="radio" name="q27" value="B"> B- دەمێ کەسەک دکەڤیتە بن گفشارەکێدا</label>
+                <label class="option-label"><input type="radio" name="q27" value="C"> C- پشتی نەمانا ماوێ گەفێ</label>
+                <label class="option-label"><input type="radio" name="q27" value="D"> D- (A و B) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q28 -->
+        <div class="quiz-card" id="q28">
+            <div class="question-text">28. کورە خانه (نە و خانه بین کۆ هۆرمۆنی دەرددەن) و خانه بین ئارمانج بۆ کیژ ژڤان هۆرمۆنین دهێنە دەه گفنه دەهمان نەندامدا؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q28" value="A"> A- سیکریتین</label>
+                <label class="option-label"><input type="radio" name="q28" value="B"> B- گاسترین</label>
+                <label class="option-label"><input type="radio" name="q28" value="C"> C- پاراثایرۆید</label>
+                <label class="option-label"><input type="radio" name="q28" value="D"> D- کالسیتۆنین</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q29 -->
+        <div class="quiz-card" id="q29">
+            <div class="question-text">29. هەمی نەف کۆمەلین دهین هۆرمۆنه کێ تێدا کو جهێ دەرۆدانا وی سەر ب کۆمیڤە نینه، ژبلى :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q29" value="A"> A- ئەنسولین، پروستاگلاندین، گلوکاگون</label>
+                <label class="option-label"><input type="radio" name="q29" value="B"> B- ئوکسیتۆسین، نیپینفرین، هۆرمۆنی دژەمێزتنی</label>
+                <label class="option-label"><input type="radio" name="q29" value="C"> C- ئەلدۆستیرۆن، کورتیزول، گلوکاگون</label>
+                <label class="option-label"><input type="radio" name="q29" value="D"> D- هاندەرێ ثایرۆیدا مێژوولی، هاندەرێ تیڤکلا ئه‌درینالی، هاندەرێ چیلکدانی</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q30 -->
+        <div class="quiz-card" id="q30">
+            <div class="question-text">30. کیژ ژڤان دەربارەی جۆکا ڤەگوهاستنی یا دروسته؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q30" value="A"> A- ل دوور میزەڕی دزڤڕیت</label>
+                <label class="option-label"><input type="radio" name="q30" value="B"> B- د تاکی نێری ئاساییدا هەژمارا وی دوو دانەیە</label>
+                <label class="option-label"><input type="radio" name="q30" value="C"> C- سپێرمە شلی ڤە دگوهێزیت بۆ میزەڕی</label>
+                <label class="option-label"><input type="radio" name="q30" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q31 -->
+        <div class="quiz-card" id="q31">
+            <div class="question-text">31. کیژ ژڤان هۆرمۆنی تستۆستیرۆنی دەرددەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q31" value="A"> A- گۆن</label>
+                <label class="option-label"><input type="radio" name="q31" value="B"> B- سپێرمە چیلکدانك</label>
+                <label class="option-label"><input type="radio" name="q31" value="C"> C- ڕژێنا پرۆستات</label>
+                <label class="option-label"><input type="radio" name="q31" value="D"> D- هەمی بەرسڤ دگەلەن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q32 -->
+        <div class="quiz-card" id="q32">
+            <div class="question-text">32. هەمی نەڤە د جۆکا فالۆپیدا رووددەن، ژبلى :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q32" value="A"> A- دروست بوونا مۆریۆلایێ</label>
+                <label class="option-label"><input type="radio" name="q32" value="B"> B- دروستبوونا هێکا پیتاندی</label>
+                <label class="option-label"><input type="radio" name="q32" value="C"> C- دابەشبوونا دوویێ یا کیمە دابەشبوونا هێکی</label>
+                <label class="option-label"><input type="radio" name="q32" value="D"> D- دروستبوونا جەمسەرە تەنی ئێکی</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q33 -->
+        <div class="quiz-card" id="q33">
+            <div class="question-text">33. کیژ ژڤان ئۆستۆجینی دەرددەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q33" value="A"> A- هێکا پێگەهشتی</label>
+                <label class="option-label"><input type="radio" name="q33" value="B"> B- تەنی زەرد</label>
+                <label class="option-label"><input type="radio" name="q33" value="C"> C- نافکەبەندکێ گەشەکری</label>
+                <label class="option-label"><input type="radio" name="q33" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q34 -->
+        <div class="quiz-card" id="q34">
+            <div class="question-text">34. ب پشت بەستن ب شێوەیێ ل خوارێ (دیوارێ منداڵدانێ و کۆرپەلەی)، بەرسڤا دروست ل خوارێ هەلبژێره:-</div>
+            <div class="img-placeholder">[Image: Refer to image_4.png for Placenta diagram]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q34" value="A"> A- ڕێنووسێن 1 و 2 ئاڤاهی دکەنە دوو خوێنهێنەرێن دایکی</label>
+                <label class="option-label"><input type="radio" name="q34" value="B"> B- ڕێنووسێن 1 و 2 ئاڤاهی دکەنە دوو خوێنبەرێن دایکی</label>
+                <label class="option-label"><input type="radio" name="q34" value="C"> C- ڕێنووسا 1 ئاماژێ دکەتە نافکە خوێنهێنەرێ و ڕێنووسا 2 ئاماژێ دکەتە خوێنهێنەرا دایکی</label>
+                <label class="option-label"><input type="radio" name="q34" value="D"> D- ڕێنووسا 1 ئاماژێ دکەتە خوێنبەرێ دایکی و ڕێنووسا 2 ئاماژێ دکەتە نافکە خوێنهێنەرێ</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q35 -->
+        <div class="quiz-card" id="q35">
+            <div class="question-text">35. دماوەیی سیکا ئێکی یا دووگیانیێدا :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q35" value="A"> A- تیخین خانه بین دروستکەرین یەکەمین دروست دبن</label>
+                <label class="option-label"><input type="radio" name="q35" value="B"> B- چوار پەرەدۆبین کۆرپەلەیی دروست دبن</label>
+                <label class="option-label"><input type="radio" name="q35" value="C"> C- دایک هەست ب لڤینا کۆرپەلەی ناکەت</label>
+                <label class="option-label"><input type="radio" name="q35" value="D"> D- دل دەست ب لێدانی ناکەت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q36 -->
+        <div class="quiz-card" id="q36">
+            <div class="question-text">36. د کیژ ژڤان جۆتکبووناندا ڕێژەیا پۆماوە بابه تی یەکورە بۆ دووڕە دبیتە 1:1 :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q36" value="A"> A- جووتبوونا تاکە دووڕەبوونی (یەکڕە × دوو ڕە)</label>
+                <label class="option-label"><input type="radio" name="q36" value="B"> B- جووتبوونا تاکە دووڕەبوونی (دوو ڕە × دوو ڕە)</label>
+                <label class="option-label"><input type="radio" name="q36" value="C"> C- زاڵبوونا نە تەماام (دووڕە × دووڕە)</label>
+                <label class="option-label"><input type="radio" name="q36" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q37 -->
+        <div class="quiz-card" id="q37">
+            <div class="question-text">37. د بۆماوەیا مێندلیدا ، ئە لیله ك ( هۆکارەک ) ب زاڵ دهێته ناڤکرن ئەگەر:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q37" value="A"> A- بتنێ دیاری یەکڕەدا شیانا دەربڕینی هەبیت</label>
+                <label class="option-label"><input type="radio" name="q37" value="B"> B- بتنێ دیاری دووڕەدا شیانا دەربڕینی هەبیت</label>
+                <label class="option-label"><input type="radio" name="q37" value="C"> C- دیاری دووڕه بێدا کارتیکرنا هۆکاری دی ڤە د شێریت</label>
+                <label class="option-label"><input type="radio" name="q37" value="D"> D- دیاری دووڕهدا تیکه لبوون دناڤبەرا دوونه لیلاندا روودەدەت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q38 -->
+        <div class="quiz-card" id="q38">
+            <div class="question-text">38. لدوێف وان تاقیکرنین کو مێندلی ل سەر رووەکی بەزالیا نەنجامداین، کیژ ژڤان دەربڕینی ژ تیکه له پە ڕینی دکەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q38" value="A"> A- Tt x Tt</label>
+                <label class="option-label"><input type="radio" name="q38" value="B"> B- tt x tt</label>
+                <label class="option-label"><input type="radio" name="q38" value="C"> C- TT x TT</label>
+                <label class="option-label"><input type="radio" name="q38" value="D"> D- هەمی بەرسڤ دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q39 -->
+        <div class="quiz-card" id="q39">
+            <div class="question-text">39. کیژ ژڤان ڕیزبەندیا نیوکلیۆتایدانە ل سەر زنجیرا قالب دگەردێ DNA دا کۆ کۆپیکرن لێ پشتی هینگی وەرگێران بۆ ناهێته کرن:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q39" value="A"> A- TAC</label>
+                <label class="option-label"><input type="radio" name="q39" value="B"> B- ACT</label>
+                <label class="option-label"><input type="radio" name="q39" value="C"> C- ATC</label>
+                <label class="option-label"><input type="radio" name="q39" value="D"> D- (B و C) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q40 -->
+        <div class="quiz-card" id="q40">
+            <div class="question-text">40. شێوەیین (1 و 2) ل بەرامبەر دەربڕینی ژنە نجامی تاقیکرنین هێرشی و چەیسی دکەن، د کیژ تاقیکردنێدا 35S بکارئینیا و د کیژ تاقیکردنێدا 32P بکارئینیا؟</div>
+            <div class="img-placeholder">[Image: Refer to image_4.png for Hershey-Chase tubes]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q40" value="A"> A- تاقیکردنا ئێکێدا 35S بکارئینیا و د تاقیکرنا دووێدا 32P بکارئینیا</label>
+                <label class="option-label"><input type="radio" name="q40" value="B"> B- تاقیکردنا ئێکێدا 32P بکارئینیا و د تاقیکرنا دووێدا 35S بکارئینیا</label>
+                <label class="option-label"><input type="radio" name="q40" value="C"> C- د هەردوو تاقیکرناندا 35S بکارئینیا</label>
+                <label class="option-label"><input type="radio" name="q40" value="D"> D- د هەردوو تاقیکرناندا 32P بکارئینیا</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q41 -->
+        <div class="quiz-card" id="q41">
+            <div class="question-text">41. ب پشت بەستن ب شێوەیێ بەرامبەر کۆ کریارا دووهێندبوونا DNA دیاردکەت، پشتی تەماامبوونا نەڤێ کریاره هەلبژاردەی دروست ژ خشتەیێ ل خوارێ دەربارەی ڕێژەیا پریمیدینان و ڕێژەیا پیورینان هەلبژێره.</div>
+            <div class="img-placeholder">[Image: Refer to image_4.png for DNA strand split]</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q41" value="A"> A- زنجیرا 2، زنجیرا 4</label>
+                <label class="option-label"><input type="radio" name="q41" value="B"> B- زنجیرا 1، زنجیرا 4</label>
+                <label class="option-label"><input type="radio" name="q41" value="C"> C- زنجیرا 2، زنجیرا 3</label>
+                <label class="option-label"><input type="radio" name="q41" value="D"> D- زنجیرا 1، زنجیرا 3</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q42 -->
+        <div class="quiz-card" id="q42">
+            <div class="question-text">42. کیژ ژڤان دەربارەی کریارا دروستبوونا پرۆتینی د زیندەوەرین نافك ڕاستەقینەدا نەیا دروسته؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q42" value="A"> A- ب پشت بەستن ب خشتەیێ کۆدونان GCU ترشێ نە مینیێ نە لانیین دکۆدێ پۆماوەبیدا دیاردکەت د هەمی زیندەوەراندا</label>
+                <label class="option-label"><input type="radio" name="q42" value="B"> B- د کۆپیکرنیدا پشکەک ژ زنجیرەکا DNA دهێته بکارئینان بۆ کۆپیکرنا tRNA</label>
+                <label class="option-label"><input type="radio" name="q42" value="C"> C- وەرگێران دەست پێدکەت بەری دووماهی هاتنا کۆپیکرنی</label>
+                <label class="option-label"><input type="radio" name="q42" value="D"> D- کۆپیکرن د نافکێدا روودەدەت</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q43 -->
+        <div class="quiz-card" id="q43">
+            <div class="question-text">43. د کیژ پێنگاڤا وەرگێرانێدا دووماهیك tRNA دێ رایبۆسۆمێ بجهدێلیت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q43" value="A"> A- دریژبوون</label>
+                <label class="option-label"><input type="radio" name="q43" value="B"> B- دەستپێکرن</label>
+                <label class="option-label"><input type="radio" name="q43" value="C"> C- دووماهی هاتن</label>
+                <label class="option-label"><input type="radio" name="q43" value="D"> D- ژێکجودابوون</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q44 -->
+        <div class="quiz-card" id="q44">
+            <div class="question-text">44. ئەگەر د جوتبوونەکا تاکە دووڕەبوونیدا نیڤا تاکیێن پەیدابووی ڕوخساری زاڵ دیارکەن، هینگی بۆماوە بابه تی دایبابان :-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q44" value="A"> A- هەردوو دووڕە بن</label>
+                <label class="option-label"><input type="radio" name="q44" value="B"> B- ئێک ژوان دووڕە بیت یێ دی یەکڕە و زاڵ بیت</label>
+                <label class="option-label"><input type="radio" name="q44" value="C"> C- ئێک ژوان دووڕە بیت یێ دی بەزیو بیت</label>
+                <label class="option-label"><input type="radio" name="q44" value="D"> D- هەردوو یەکڕە بن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q45 -->
+        <div class="quiz-card" id="q45">
+            <div class="question-text">45. د جووتبوونەکا جووتە دووڕەبوونیدا دناڤبەرا دوو رووەکێن بەزالیایی کۆ ئێک ژوان قەد کورت و گول تەوەرەیی و یادی نەدیار بوو بۆ هەردوو ڕوخساران، نە ڤێ ڕێژە ڕژی پەیدابوو (1 قەد کورت و گول تەوەرەیی : 1 قەد کورت و گول کۆپیتکەیی) کیژ ژ نە ڤان ڕوخسارە بابه تی رووەکا نەدیار نیشاندەدەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q45" value="A"> A- قەد کورت و گول کۆپیتکەیی</label>
+                <label class="option-label"><input type="radio" name="q45" value="B"> B- قەد درێژ و گول کۆپیتکەیی</label>
+                <label class="option-label"><input type="radio" name="q45" value="C"> C- قەد کورت و گول تەوەرەیی</label>
+                <label class="option-label"><input type="radio" name="q45" value="D"> D- قەد درێژ و گول تەوەرەیی</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q46 -->
+        <div class="quiz-card" id="q46">
+            <div class="question-text">46. کیژ ژ نەڤین ل خوارێ دەربارەی پیکهاتنا گەردێ DNA یا دروسته؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q46" value="A"> A- هەژمارا گەردین شەکرێ یەکسانە ب هەژمارا گەردین کۆما فۆسفاتی</label>
+                <label class="option-label"><input type="radio" name="q46" value="B"> B- جۆداهیا هەر نیوکلیۆتایدەکی دگەل نیوکلیۆتایدەکی دی دبیت بتنێ د تفتی نایترۆجینیدا بیت</label>
+                <label class="option-label"><input type="radio" name="q46" value="C"> C- تفتی نایترۆجینی ئێکەسەر ب کۆما فۆسفاتیڤە دهێته گڕێدان ب بەندا هەکۆشگ</label>
+                <label class="option-label"><input type="radio" name="q46" value="D"> D- بەرسڤێن A و B هەردوو ڕاستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q47 -->
+        <div class="quiz-card" id="q47">
+            <div class="question-text">47. جهێ دەستپێکرنی یێ جۆدایه ژ کۆدۆنی دەستپێکی ب وێ چەندێ کو جهێ دەستپێکرنی:-</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q47" value="A"> A- ڕێزبەندەکا دیارکریە ژ نیوکلیۆتایدین DNA</label>
+                <label class="option-label"><input type="radio" name="q47" value="B"> B- ئەنزیمی پەلمەرەیی DNA پێڤە دهێته گڕێدان</label>
+                <label class="option-label"><input type="radio" name="q47" value="C"> C- کریارا وەرگێڕانی ژێ دەستپێدکەت</label>
+                <label class="option-label"><input type="radio" name="q47" value="D"> D- (A + B) هەردوو دروستن</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q48 -->
+        <div class="quiz-card" id="q48">
+            <div class="question-text">48. ب پشت بەستن ب خشتەیێ کۆدونین ل وێنەی، ئەگەر نە ڤێ زنجیرا DNA (CTCAAGTGCTTC) قالب کارکەت بۆ بەرهەمهێنانا mRNA، کیژ ترشێن ئەمینی دێ بەرهەم هێن؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q48" value="A"> A- لیوسین - تایرۆسین - ئەرگنین - فینێل ئەلانین</label>
+                <label class="option-label"><input type="radio" name="q48" value="B"> B- ڤالین - ترشێ ئەسپارتیک - پرۆلین - هیستیدین</label>
+                <label class="option-label"><input type="radio" name="q48" value="C"> C- لیوسین - لایسین - سستین - فینێل ئەلانین</label>
+                <label class="option-label"><input type="radio" name="q48" value="D"> D- پرۆلین - ترشێ گلوتامیک - لیوسین - ڤالین</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q49 -->
+        <div class="quiz-card" id="q49">
+            <div class="question-text">49. لێکدانا تاقیکاری بۆماوه بابه تی هەرتاکەکی دیاریدکەت کۆ ب ...................... دهیت جوداکرن.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q49" value="A"> A- ڕوخسارە بابه تی زاڵ</label>
+                <label class="option-label"><input type="radio" name="q49" value="B"> B- ڕوخسارە بابه تی بەزیو</label>
+                <label class="option-label"><input type="radio" name="q49" value="C"> C- ڕوخسارە بابه تی زاڵ و بەزیو</label>
+                <label class="option-label"><input type="radio" name="q49" value="D"> D- ڕوخسارەکی نیڤکی</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <!-- Q50 -->
+        <div class="quiz-card" id="q50">
+            <div class="question-text">50. د ماوێ 28 ڕۆژێن هەرۆژێن زڤرۆکین هێکدانکێ و هێڵقانەدا، کیژ ژنە ڤان ب ڕێزبەندەکا تەماام روودەدەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q50" value="A"> A- 2 ← 4 ← 5 ← 3 ← 1</label>
+                <label class="option-label"><input type="radio" name="q50" value="B"> B- 4 ← 5 ← 3 ← 1 ← 2</label>
+                <label class="option-label"><input type="radio" name="q50" value="C"> C- 2 ← 4 behavior ← 1 ← 3 ← 5</label>
+                <label class="option-label"><input type="radio" name="q50" value="D"> D- 4 ← 5 ← 2 ← 1 ← 3</label>
+            </div>
+            <div class="feedback-container"></div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">ناردنا تاقیکرنێ و ئەنجام</button>
+    </form>
 </div>
 
 <script>
-    function checkAnswer() {
-        let ans = document.getElementById('answer1').value;
-        let res = document.getElementById('result1');
-        if(ans.includes('سایه') || ans.includes('سێبەر')) {
-            res.innerHTML = "✅ دروستە! تۆ زیرەکی!";
-            res.style.background = "#dff9fb"; res.style.color = "#009432";
-        } else {
-            res.innerHTML = "❌ نەخێر، دیسان هەولا بدە.";
-            res.style.background = "#ffeaa7"; res.style.color = "#d63031";
-        }
-    }
+    // هێمایێن بەرسڤێن ڕاست یێن هەمی 50 پسیاران ژ دەقێ فەرمی یێ تاقیکرنێ
+    const correctAnswers = {
+        q1: 'C', q2: 'A', q3: 'A', q4: 'B', q5: 'C', q6: 'B', q7: 'D', q8: 'C', q9: 'B', q10: 'C',
+        q11: 'C', q12: 'C', q13: 'C', q14: 'B', q15: 'D', q16: 'C', q17: 'B', q18: 'D', q19: 'D', q20: 'B',
+        q21: 'D', q22: 'A', q23: 'A', q24: 'B', q25: 'D', q26: 'C', q27: 'D', q28: 'B', q29: 'D', q30: 'B',
+        q31: 'A', q32: 'C', q33: 'B', q34: 'D', q35: 'C', q36: 'A', q37: 'C', q38: 'B', q39: 'D', q40: 'A',
+        q41: 'A', q42: 'C', q43: 'C', q44: 'C', q45: 'A', q46: 'D', q47: 'A', q48: 'C', q49: 'A', q50: 'B'
+    };
 
-    function calculateAverage() {
-        let sum = 0, count = 0;
-        for(let i=1; i<=6; i++) {
-            let val = document.getElementById('sub'+i).value;
-            if(val !== "") { sum += parseFloat(val); count++; }
+    function checkAnswers() {
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+
+        for (let q in correctAnswers) {
+            const card = document.getElementById(q);
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            const feedbackContainer = card.querySelector('.feedback-container');
+            
+            feedbackContainer.innerHTML = '';
+            card.classList.remove('correct-card', 'wrong-card');
+
+            if (selected) {
+                if (selected.value === correctAnswers[q]) {
+                    score++;
+                    card.classList.add('correct-card');
+                    feedbackContainer.innerHTML = `<div class="feedback correct">✓ بەرسڤ ڕاستە! (+2 نمرە)</div>`;
+                } else {
+                    card.classList.add('wrong-card');
+                    feedbackContainer.innerHTML = `<div class="feedback wrong">✗ خەلەتە! بەرسڤا ڕاستە: ${correctAnswers[q]} یە.</div>`;
+                }
+            } else {
+                card.classList.add('wrong-card');
+                feedbackContainer.innerHTML = `<div class="feedback wrong">✗ بەرسڤ نەداینە! بەرسڤا ڕاستە: ${correctAnswers[q]} یە.</div>`;
+            }
         }
-        let avg = sum / count;
-        document.getElementById('avgResult').innerHTML = "تێکڕایا تە: " + avg.toFixed(2) + " ژ ١٠٠";
-        document.getElementById('avgResult').style.background = "#e1f5fe";
+
+        // کۆمکرنا نمرێ ژ 100
+        let finalScore = (score / totalQuestions) * 100;
+        
+        const resultArea = document.getElementById('result-area');
+        const scoreDisplay = document.getElementById('score-display');
+        const resultMessage = document.getElementById('result-message');
+        
+        resultArea.style.display = 'block';
+        scoreDisplay.innerText = finalScore + "/100";
+        
+        if(finalScore >= 75) {
+            resultMessage.innerText = "پیرۆزە! نمرەکا نایاب و سەرکەفتنەکا مەزن. 🎉";
+            resultMessage.style.color = "#2ecc71";
+        } else if(finalScore >= 50) {
+            resultMessage.innerText = "دەرچووی! بەس پێدڤی ب پێداچوونەکا زێدەتر هەیە. 👍";
+            resultMessage.style.color = "#3498db";
+        } else {
+            resultMessage.innerText = "نمرە یا کێمە! پێدڤیە پتر بخوینی و دووبارە تاقی بکەی. 📚";
+            resultMessage.style.color = "#e74c3c";
+        }
+
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 </script>
 
