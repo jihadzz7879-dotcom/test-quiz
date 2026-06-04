@@ -1,6 +1,6 @@
 <script>
-    // کلیلێ تە یێ API (ئەگەر کار نەکرد، ئۆتۆماتیکی مێشکێ ناڤخۆیی دێ خەبتیت)
-    const API_KEY = "AlzaSyCA8bOuBA4d4CNMxbUAswjDzq-WF1ecCS-A"; 
+    // 🔑 کلیلێ خۆ یێ نوو یێ Gemini API ل ڤێرێ د ناڤ کەوانان دا دابنێ
+    const API_KEY = "AQ.Ab8RN6K9oGZtVwxSiNo6Q7M5la37e9L6xcF9UzI_DNThfLL38w"; 
 
     function toggleChat() {
         const chatBox = document.getElementById('chatBox');
@@ -23,7 +23,14 @@
         // ٢. نیشاندانا نامەیا چاوەڕێبوونێ
         const loadingId = appendMessage("مایسترۆ یێ هزردکەت... 🧠", 'bot-msg');
 
+        // پشکنین ئەگەر کلیل نەهاتبێتە گۆهرین، ڕاستەوخۆ دچێتە سەر مێشکێ ناڤخۆیی
+        if (!API_KEY || API_KEY === "" || API_KEY.includes("کلیلێ")) {
+            setTimeout(() => { simulateSmartAI(messageText, loadingId); }, 400);
+            return;
+        }
+
         try {
+            // گرێدان دگەل سێرڤەرێ سەرەکی یێ Gemini بۆ بەرسڤدانا هەر پسیارەکێ
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -32,11 +39,16 @@
                 })
             });
 
+            if (!response.ok) {
+                throw new Error("API_Error");
+            }
+
             const data = await response.json();
             
             const loadingEl = document.getElementById(loadingId);
             if (loadingEl) loadingEl.remove();
 
+            // ئەگەر وەڵام ژ لایێ کلیلێ ڕاستەقینە هات، ل ڤێرە نیشان دە
             if (data.candidates && data.candidates[0].content.parts[0].text) {
                 let aiReply = data.candidates[0].content.parts[0].text;
                 appendMessage(aiReply, 'bot-msg');
@@ -45,57 +57,45 @@
             }
 
         } catch (error) {
-            // ئەگەر کلیل ل سەر گیت هاب بلۆک بوو، ڕاستەوخۆ مێشکێ ناڤخۆیی دێ کار کەت
+            // ئەگەر کلیل ل سەر GitHub کار نەکرد، مێشکێ ناڤخۆیی دێ پاراستنێ کەت
             simulateSmartAI(messageText, loadingId);
         }
     }
 
-    // 🧠 مێشکێ پێشکەفتی یێ ناڤخۆیی - بۆ وەڵامدان د ناڤ گیت هاب دا
+    // 🧠 مێشکێ ناڤخۆیی (بۆ حالەتێ کۆمەکێ یان کێشەیا کلیلی)
     function simulateSmartAI(input, loadingId) {
         const loadingEl = document.getElementById(loadingId);
         if (loadingEl) loadingEl.remove();
 
         const cleanInput = input.trim().toLowerCase();
-        
-        // بەرسڤا گشتی ئەگەر چ بابەت نەهاتنە دۆزینەوە
-        let reply = "پسیارەکا سەرنجڕاکێشە قوتابیێ هێژا! وەک بۆتێ مایسترۆ، ئەز پێشنیار دکەم تۆ سەیری پشکا بابەتێن ناڤبری بکەی د ماڵپەری دا، چونکی ل وێرێ زانیاریێن تەمام یێن پێدڤی بۆ تاقیکردنەوەیان هاتینە ڕێکخستن.";
+        let reply = "پسیارەکا جوانە قوتابیێ هێژا! وەک بۆتێ مایسترۆ، ئەز پێشنیار دکەم تۆ سەیری پشکا بابەتێن ناڤبری بکەی د ماڵپەری دا، چونکی ل وێرێ زانیاریێن تەمام یێن پێدڤی بۆ تاقیکردنەوەیان هاتینە ڕێکخستن.";
 
-        // لێرە پشکنینا پیت ب پیت دکەین دا کو ۱۰۰٪ کار بکەت
-        if (cleanInput.includes("سلاو") || cleanInput.includes("سلاف") || cleanInput.includes("سڵاو")) {
+        if (cleanInput.includes("سلاو") || cleanInput.includes("سلاف")) {
             reply = "سلاو و ڕێز قوتابیێ خۆشەویست! ئەز مایسترۆ مە، هاریكارێ تە یێ زیرەک. د چ بابەت دا پسیارا تە هەیە؟ ناڤێ بابەتەکی بنووسە (وەک فیزیا، مێژوو، کوردی، یاسا، ئیسلامی، ژیندەوەر) دا وەڵامێ بدەم.";
         } 
-        else if (cleanInput.includes("فیزیا") || cleanInput.includes("فێزیا")) {
-            reply = "فیزیا زانستا لێکۆڵینێ یا ل سەر سروشت، وزە، و لڤینێ یە. یاسایا سەرەکی یا لڤینێ (یاسایا دووێ یا نیوتنی) دبێژیت کو هێز یەکسانە ب بارستە جاران تاودان، واتە: $$F=ma$$.";
+        else if (cleanInput.includes("فیزیا")) {
+            reply = "فیزیا زانستا لێکۆڵینێ یا ل سەر سروشت، وزە، و لڤینێ یە. یاسایا سەرەکی یا لڤینێ (یاسایا دووێ یا نیوتنی) دبێژیت کو هێز یەکسانە ب بارستە جاران تاودان: $F=ma$.";
         } 
-        else if (cleanInput.includes("مێژوو") || cleanInput.includes("میژوو")) {
-            reply = "مێژوو تۆمارا مەزنترین ڕووداوێن مرۆڤایەتیێ یە. خواندنا مێژوویێ مە فێری وانەیێن مەزن دکەت بۆ پاشەڕۆژێ دا کو دەرسان ژ ڕووداوێن بۆری وەربگرین.";
+        else if (cleanInput.includes("مێژوو")) {
+            reply = "مێژوو تۆمارا مەزنترین ڕووداوێن مرۆڤایەتیێ یە. خواندنا مێژوویێ مە فێری وانەیێن مەزن دکەت بۆ پاشەڕۆژێ.";
         } 
-        else if (cleanInput.includes("کوردی") || cleanInput.includes("کۆردی")) {
-            reply = "زمانێ کوردی (کرمانجیا سەری / بادینی) زمانێ مە یێ ڕەسەن و نازکە. د ڕێزمانا کوردی دا پەیڤ دابەش دبن ل سەر (ناڤ، کار، ئاوەڵناڤ، و جێناو) کو ڕستەیان پێک دئینن.";
+        else if (cleanInput.includes("کوردی")) {
+            reply = "زمانێ کوردی (بادینی) زمانێ مە یێ ڕەسەن و نازکە. پێکدهێت ژ ناڤ، کار، و ئاوەڵناڤ د ڕێزمانێ دا.";
         } 
-        else if (cleanInput.includes("عەرەبی") || cleanInput.includes("عەره‌بی")) {
-            reply = "اللغة العربية هي لغة غنية جداً بالقواعد والبلاغة. د بابەتێن قوتابخانێ دا پتر ل سەر ڕێزمانێ (النحو والصرف) وەک المبتدأ والخبر و الفاعل بەحس دکەت.";
-        }
-        else if (cleanInput.includes("ئینگلیزی") || cleanInput.includes("ئێنگلیزی") || cleanInput.includes("english")) {
-            reply = "Welcome student! English is wonderful. زمانێ ئینگلیزی دەرگەهێ سەرەکی یێ زانستێن جیهانی یە نوکە. ئەگەر تە پێدڤی ب ڕێزمانێ (Grammar) وەک دەمەکان (Tenses) هەبیت، تەنها پرسیار بکە.";
+        else if (cleanInput.includes("ئینگلیزی") || cleanInput.includes("english")) {
+            reply = "Welcome! English is wonderful. ئەگەر تە پێدڤی ب ڕێزمانێ (Grammar) یان ڕامانا پەیڤان هەبیت، تەنها پرسیار بکە.";
         }
         else if (cleanInput.includes("یاسا")) {
-            reply = "یاسا کۆمەڵە ڕێسایەکا دەستووری و جڤاکی یە بۆ پاراستنا مافێن گشتی، ڕێزگرتن ل دەسەڵاتێ، و بەرقەرارکرنا دادپەروەریێ د ناڤبەرا هەمی مرۆڤان دا بێ جوداهی.";
+            reply = "یاسا کۆمەڵە ڕێسایەکا دەستووری یە بۆ پاراستنا مافێن گشتی و بەرقەرارکرنا دادپەروەریێ د ناڤبەرا هەمی مرۆڤان دا.";
         } 
-        else if (cleanInput.includes("ئارک") || cleanInput.includes("ark")) {
-            reply = "پشکا ئارک (ARK) تایبەتە ب بابەت، مەلزەمە، و تاقیکردنەوەیێن پێشکەفتی یێن قوتابیان کو هاریکاریا تە دکەت نمرێن بەرز بەدەست بێنی.";
-        }
         else if (cleanInput.includes("ئیسلامی")) {
-            reply = "بابەتێن پەروەردەیا ئیسلامی باسی قورئانا پیرۆز، تەفسیر، فەرموودەیێن پێغەمبەری (س.خ)، فقهـ و ئەخلاقێ جوان دکەن کو مرۆڤی بەرەو چاکی و ڕاستیێ دڕێژ دکەن.";
+            reply = "بابەتێن پەروەردەیا ئیسلامی باسی قورئانێ، فەرموودەیێن پێغەمبەری (س.خ) و ئەخلاقێ جوان دکەن.";
         }
-        else if (cleanInput.includes("ژیندەوەر") || cleanInput.includes("زیندەزانی") || cleanInput.includes("بایۆلۆجی")) {
-            reply = "زیندەزانی (Biology) ل سەر پێکهاتەیا گیانەوەر، ڕووەک و زیندەوەرێن ورد دکۆڵیت. خانە ($Cell$) یەکەکا بنەڕەتی یا ژیانێ یە و مێشکێ خانێ ژی دکەوێتە ناو DNA پیتان.";
+        else if (cleanInput.includes("ژیندەوەر") || cleanInput.includes("زیندەزانی")) {
+            reply = "زیندەزانی (Biology) ل سەر پێکهاتەیا گیانەوەر و ڕووەکان دکۆڵیت. خانە ($Cell$) یەکەکا بنەڕەتی یا ژیانێ یە.";
         }
-        else if (cleanInput.includes("چەوان") || cleanInput.includes("بۆچی")) {
-            reply = "ئەز یێ ل ڤێرێ مە دا کو هاریكاریا تە بکەم! هەر پسیارەکا تە د ناڤ بابەتێن ماڵپەری دا هەبیت بنووسە دا گەنگەشێ ل سەر بکەین.";
-        }
-        else if (cleanInput.includes("سوپاس") || cleanInput.includes("سۆپاس")) {
-            reply = "شایەنی چ نینە قوتابیێ هێژا و سەرکەفتی! هیوادارەم هەمیشە نمرێن بەرز د تاقیکردنەوەیان دا بزانی و پاشەڕۆژەکا گەش بۆ خۆ و وڵاتی ئاوا بکەی. 👍";
+        else if (cleanInput.includes("سوپاس")) {
+            reply = "شایەنی چ نینە قوتابیێ هێژا و سەرکەفتی! هیمی د سەرکەفتنێ دا بی. 👍";
         }
 
         appendMessage(reply, 'bot-msg');
