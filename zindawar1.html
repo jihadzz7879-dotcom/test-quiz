@@ -1,61 +1,114 @@
-// لێرەدا پاسوۆرد هاتییە دیارکرن
-const CORRECT_PASSWORD = "JEKO78";
-
-// فەرمان بۆ پشکنینا پاسوۆردێ
-function checkPassword() {
-    const userInput = document.getElementById("password-input").value;
-    const errorMsg = document.getElementById("error-message");
-
-    if (userInput === CORRECT_PASSWORD) {
-        document.getElementById("password-section").classList.add("hidden");
-        document.getElementById("download-section").classList.remove("hidden");
-    } else {
-        errorMsg.style.display = "block";
-    }
-}
-
-// فەرمانا ڕاستەقینە بۆ داونلۆدکرنا ڤیدیۆیا تیک تۆکێ ب بێ لۆگۆ
-async function startDownload() {
-    const tiktokUrl = document.getElementById("tiktok-url").value;
-    const downloadButton = document.querySelector("#download-section button");
-
-    if (tiktokUrl.trim() === "") {
-        alert("هیڤییە بەستەرەکێ دروست یێ تیک تۆکێ بنووسە!");
-        return;
-    }
-
-    // گۆڕینی دەقێ دوگمێ بۆ دۆخی چاوەڕێکرنێ
-    downloadButton.innerText = "...چاوەڕێبە";
-    downloadButton.disabled = true;
-
-    try {
-        // بەکارئینانا API یەکێ خێرا و بێبەرامبەر بۆ داونلۆدکرنێ
-        const apiEndpoint = `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}`;
-        const response = await fetch(apiEndpoint);
-        const result = await response.json();
-
-        if (result.code === 0 && result.data.play) {
-            // وەرگرتنا بەستەرێ ڤیدیۆیێ ب بێ لۆگۆ
-            const videoLink = result.data.play;
-            
-            // دروستکرنا لایەنەکێ کاتی بۆ داونلۆدکرنا ئۆتۆماتیکی
-            const a = document.createElement("a");
-            a.href = videoLink;
-            a.download = "tiktok_video.mp4";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            alert("پڕۆسە ب سەرکەفتینە ئەنجامدا! ڤیدیۆ دۆخی داونلۆدێ د دۆلپەڕێ تە دا گرت.");
-        } else {
-            alert("ببوورە! کێشەیەک د بەستەری دا هەیە یان ڤیدیۆ یا تایبەتە (Private).");
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEKO787 - تیک تۆک داونلۆدەر</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("کێشەیەک د هێڵێ دا هەیە، فەرموو دووبارە تاقی بکەوە.");
-    } finally {
-        // گەڕاندنەوا دوگمێ بۆ دۆخی ئاسایی
-        downloadButton.innerText = "داونلۆدکرن";
-        downloadButton.disabled = false;
-    }
-}
+
+        body {
+            background-color: #0b0b0e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #16161a;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid #24242b;
+        }
+
+        .logo-area {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #24242b;
+            border-radius: 12px;
+            background-color: #1f1f24;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #fe2c55;
+            background-color: #24242b;
+            box-shadow: 0 0 10px rgba(254, 44, 85, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #fe2c55 0%, #ee1d52 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(254, 44, 85, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(254, 44, 85, 0.4);
+        }
+
+        button:disabled {
+            background: #475569;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .error-msg {
+            color: #f87171;
+            font-size: 14px;
+            margin-bottom: 15px;
+            background-color: rgba(248, 113, 113, 0.1);
+            padding:
