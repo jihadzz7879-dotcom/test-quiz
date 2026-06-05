@@ -111,4 +111,101 @@
             font-size: 14px;
             margin-bottom: 15px;
             background-color: rgba(248, 113, 113, 0.1);
-            padding:
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="password-section">
+        <div class="logo-area">🔒</div>
+        <h2>پێویستە لۆگین ببی</h2>
+        <p>بۆ چوونە ناڤ داونلۆدکەری، هیڤییە پاسوۆردی بنووسە</p>
+        <div id="error-message" class="error-msg">پاسوۆرد خەڵتە! دووبارە تاقی بکەوە.</div>
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="پاسوۆرد لێرە بنووسە...">
+        </div>
+        <button onclick="checkPassword()">چوونە ژوورێ</button>
+    </div>
+
+    <div id="download-section" class="hidden">
+        <div class="logo-area">📥</div>
+        <h2>تیک تۆک داونلۆدەر بێ لۆگۆ</h2>
+        <p>بەستەرێ (Link) ڤیدیۆیا تیک تۆکێ لێرە پەیست بکە بۆ داونلۆدکرنێ</p>
+        <div class="input-group">
+            <input type="text" id="tiktok-url" placeholder="https://www.tiktok.com/...">
+        </div>
+        <button id="dl-btn" onclick="startDownload()">داونلۆدکرن</button>
+    </div>
+
+</div>
+
+<script>
+    // نوێکردنەوەی پاسوۆرد بۆ ئەوەی جەنابەت ویستووتە
+    const CORRECT_PASSWORD = "JEKO787";
+
+    // پشکنینی پاسوۆرد
+    function checkPassword() {
+        const userInput = document.getElementById("password-input").value;
+        const errorMsg = document.getElementById("error-message");
+
+        if (userInput === CORRECT_PASSWORD) {
+            document.getElementById("password-section").classList.add("hidden");
+            document.getElementById("download-section").classList.remove("hidden");
+        } else {
+            errorMsg.style.display = "block";
+        }
+    }
+
+    // داونلۆدکردنی ڕاستەقینەی ڤیدیۆ بێ ئاڕم و لۆگۆ
+    async function startDownload() {
+        const tiktokUrl = document.getElementById("tiktok-url").value;
+        const downloadButton = document.getElementById("dl-btn");
+
+        if (tiktokUrl.trim() === "") {
+            alert("هیڤییە بەستەرەکێ دروست یێ تیک تۆکێ بنووسە!");
+            return;
+        }
+
+        downloadButton.innerText = "چاوەڕێبە... لۆد دەبێت";
+        downloadButton.disabled = true;
+
+        try {
+            // بەکارهێنانی سێرڤەری خێرا بۆ گەڕاندنەوەی فایلی MP4
+            const apiEndpoint = `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}`;
+            const response = await fetch(apiEndpoint);
+            const result = await response.json();
+
+            if (result.code === 0 && result.data.play) {
+                const videoLink = result.data.play;
+                
+                // دروستکردنی لایەنێکی کاتی بۆ داونلۆدکردنی ڕاستەقینە
+                const linkContainer = document.createElement("a");
+                linkContainer.href = videoLink;
+                linkContainer.download = "tiktok_video.mp4";
+                linkContainer.target = "_blank"; 
+                document.body.appendChild(linkContainer);
+                linkContainer.click();
+                document.body.removeChild(linkContainer);
+
+                alert("ڤیدیۆ بە سەرکەوتوویی ئامادەکرا و داونلۆد بوو!");
+            } else {
+                alert("ببوورە! کێشەیەک د بەستەری دا هەیە یان ڤیدیۆ یا تایبەتە (Private).");
+            }
+        } catch (error) {
+            console.error("Error downloading video:", error);
+            alert("کێشەیەک د هێڵێ دا هەیە، هیڤییە دووبارە تاقی بکەوە.");
+        } finally {
+            downloadButton.innerText = "داونلۆدکرن";
+            downloadButton.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
