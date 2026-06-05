@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEKO787 - تیک تۆک داونلۆدەر</title>
+    <title>JEKO78 - VIP مێدیا داونلۆدەر</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #0b0b0e;
+            background: radial-gradient(circle at center, #1a1a24 0%, #08080c 100%);
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -23,27 +23,36 @@
         }
 
         .container {
-            background-color: #16161a;
-            padding: 35px 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            background-color: rgba(22, 22, 26, 0.95);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
             width: 100%;
-            max-width: 420px;
+            max-width: 480px;
             text-align: center;
-            border: 1px solid #24242b;
+            border: 1px solid #2d2d3d;
+            backdrop-filter: blur(10px);
         }
 
         .logo-area {
-            font-size: 45px;
-            margin-bottom: 10px;
+            font-size: 55px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         h2 {
-            margin-bottom: 15px;
-            font-size: 22px;
+            margin-bottom: 10px;
+            font-size: 24px;
             font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ff007f 0%, #7f00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         p {
@@ -53,16 +62,36 @@
             line-height: 1.6;
         }
 
+        /* بەشا هەڵبژاردنا پلاتفۆرمی */
+        .platform-select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #2d2d3d;
+            border-radius: 14px;
+            background-color: #1f1f29;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .platform-select:focus {
+            border-color: #7f00ff;
+            box-shadow: 0 0 12px rgba(127, 0, 255, 0.3);
+        }
+
         .input-group {
             margin-bottom: 20px;
         }
 
         input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #24242b;
-            border-radius: 12px;
-            background-color: #1f1f24;
+            padding: 15px 18px;
+            border: 2px solid #2d2d3d;
+            border-radius: 14px;
+            background-color: #1f1f29;
             color: #fff;
             font-size: 16px;
             text-align: center;
@@ -71,28 +100,28 @@
         }
 
         input:focus {
-            border-color: #fe2c55;
-            background-color: #24242b;
-            box-shadow: 0 0 10px rgba(254, 44, 85, 0.2);
+            border-color: #ff007f;
+            background-color: #242433;
+            box-shadow: 0 0 12px rgba(255, 0, 127, 0.2);
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #fe2c55 0%, #ee1d52 100%);
+            padding: 15px;
+            background: linear-gradient(135deg, #7f00ff 0%, #ff007f 100%);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(254, 44, 85, 0.3);
+            box-shadow: 0 4px 20px rgba(127, 0, 255, 0.4);
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(254, 44, 85, 0.4);
+            box-shadow: 0 6px 25px rgba(255, 0, 127, 0.5);
         }
 
         button:disabled {
@@ -111,8 +140,8 @@
             font-size: 14px;
             margin-bottom: 15px;
             background-color: rgba(248, 113, 113, 0.1);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             border: 1px solid rgba(248, 113, 113, 0.2);
             display: none;
         }
@@ -123,33 +152,42 @@
 <div class="container">
     
     <div id="password-section">
-        <div class="logo-area">🔒</div>
-        <h2>پێویستە لۆگین ببی</h2>
-        <p>بۆ چوونە ناڤ داونلۆدکەری، هیڤییە پاسوۆردی بنووسە</p>
+        <div class="logo-area">🔑</div>
+        <h2>سیستەمێ پاراستی یێ JEKO</h2>
+        <p>بۆ چوونە ناڤ پەنێلێ داونلۆدکەری، هیڤییە پاسوۆردی بنووسە</p>
         <div id="error-message" class="error-msg">پاسوۆرد خەڵتە! دووبارە تاقی بکەوە.</div>
         <div class="input-group">
-            <input type="password" id="password-input" placeholder="پاسوۆرد لێرە بنووسە...">
+            <input type="password" id="password-input" placeholder="پاسوۆردێ لێرە بنووسە...">
         </div>
         <button onclick="checkPassword()">چوونە ژوورێ</button>
     </div>
 
     <div id="download-section" class="hidden">
-        <div class="logo-area">📥</div>
-        <h2>تیک تۆک داونلۆدەر بێ لۆگۆ</h2>
-        <p>بەستەرێ (Link) ڤیدیۆیا تیک تۆکێ لێرە پەیست بکە بۆ داونلۆدکرنێ</p>
+        <div class="logo-area">⚡</div>
+        <h2>هەموو ل یەک داونلۆدەر</h2>
+        <p>پلاتفۆرمی هەڵبژێره و بەستەرێ ڤیدیۆیێ پەیست بکە</p>
+        
+        <select id="platform-choice" class="platform-select">
+            <option value="tiktok">🎵 تیک تۆک (TikTok)</option>
+            <option value="instagram">📸 ئینستاگرام (Instagram)</option>
+            <option value="youtube">📺 یوتیوب (YouTube)</option>
+            <option value="snapchat">👻 سناپچات (Snapchat)</option>
+            <option value="telegram">✈️ تێلێگرام (Telegram)</option>
+        </select>
+
         <div class="input-group">
-            <input type="text" id="tiktok-url" placeholder="https://www.tiktok.com/...">
+            <input type="text" id="media-url" placeholder="بەستەرێ ڤیدیۆیێ لێرە پەیست بکە...">
         </div>
-        <button id="dl-btn" onclick="startDownload()">داونلۆدکرن</button>
+        <button id="dl-btn" onclick="processDownload()">دەستپێکرنا داونلۆدێ</button>
     </div>
 
 </div>
 
 <script>
-    // نوێکردنەوەی پاسوۆرد بۆ ئەوەی جەنابەت ویستووتە
-    const CORRECT_PASSWORD = "JEKO787";
+    // ڕێکخستنی پاسوۆردێ تە
+    const CORRECT_PASSWORD = "JEKO78";
 
-    // پشکنینی پاسوۆرد
+    // پشکنینی پاسوۆردێ
     function checkPassword() {
         const userInput = document.getElementById("password-input").value;
         const errorMsg = document.getElementById("error-message");
@@ -162,48 +200,60 @@
         }
     }
 
-    // داونلۆدکردنی ڕاستەقینەی ڤیدیۆ بێ ئاڕم و لۆگۆ
-    async function startDownload() {
-        const tiktokUrl = document.getElementById("tiktok-url").value;
+    // پڕۆسەیا داونلۆدکرنێ بۆ هەمی پلاتفۆرمان
+    async function processDownload() {
+        const urlInput = document.getElementById("media-url").value;
+        const platform = document.getElementById("platform-choice").value;
         const downloadButton = document.getElementById("dl-btn");
 
-        if (tiktokUrl.trim() === "") {
-            alert("هیڤییە بەستەرەکێ دروست یێ تیک تۆکێ بنووسە!");
+        if (urlInput.trim() === "") {
+            alert("هیڤییە بەستەرەکێ دروست بنووسە!");
             return;
         }
 
-        downloadButton.innerText = "چاوەڕێبە... لۆد دەبێت";
+        downloadButton.innerText = "...لۆد دەبێت";
         downloadButton.disabled = true;
 
         try {
-            // بەکارهێنانی سێرڤەری خێرا بۆ گەڕاندنەوەی فایلی MP4
-            const apiEndpoint = `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}`;
-            const response = await fetch(apiEndpoint);
-            const result = await response.json();
+            // ئەگەر تیک تۆک بوو، ب ڕێیا API فەرمی یا بێ لۆگۆ داونلۆد دکەت
+            if (platform === "tiktok") {
+                const apiEndpoint = `https://www.tikwm.com/api/?url=${encodeURIComponent(urlInput)}`;
+                const response = await fetch(apiEndpoint);
+                const result = await response.json();
 
-            if (result.code === 0 && result.data.play) {
-                const videoLink = result.data.play;
-                
-                // دروستکردنی لایەنێکی کاتی بۆ داونلۆدکردنی ڕاستەقینە
-                const linkContainer = document.createElement("a");
-                linkContainer.href = videoLink;
-                linkContainer.download = "tiktok_video.mp4";
-                linkContainer.target = "_blank"; 
-                document.body.appendChild(linkContainer);
-                linkContainer.click();
-                document.body.removeChild(linkContainer);
-
-                alert("ڤیدیۆ بە سەرکەوتوویی ئامادەکرا و داونلۆد بوو!");
-            } else {
-                alert("ببوورە! کێشەیەک د بەستەری دا هەیە یان ڤیدیۆ یا تایبەتە (Private).");
+                if (result.code === 0 && result.data.play) {
+                    triggerDownload(result.data.play, "tiktok_video.mp4");
+                } else {
+                    alert("ببوورە کێشەیەک د ڤیدیۆیا تیک تۆکێ دا هەیە!");
+                }
+            } 
+            // بۆ پلاتفۆرمێن دی (ئینستا، یوتیوب، سناپ، تێلێگرام) چونکە د پێویست ب سێرڤەرێن گران یان پرۆکسی نە، ڕێڕەوێ داونلۆدێ ئاراستەی خزمەتگوزاریا خێرا دکەت
+            else {
+                alert(`پڕۆسەیا داونلۆدکرنێ بۆ پلاتفۆرمێ (${platform}) دەستپێکر. نوکە دێ هێیە گواستنەوە بۆ لاپەڕێ داونلۆدێ...`);
+                // گواستنەوە بۆ سێرڤەرەکێ گشتی یێ داونلۆدێ ب بێ کێشە
+                const universalDownloader = `https://9download.com/query?url=${encodeURIComponent(urlInput)}`;
+                window.open(universalDownloader, '_blank');
             }
+
         } catch (error) {
-            console.error("Error downloading video:", error);
+            console.error("Error:", error);
             alert("کێشەیەک د هێڵێ دا هەیە، هیڤییە دووبارە تاقی بکەوە.");
         } finally {
-            downloadButton.innerText = "داونلۆدکرن";
+            downloadButton.innerText = "دەستپێکرنا داونلۆدێ";
             downloadButton.disabled = false;
         }
+    }
+
+    // فەرمانا جێبەجێکرنا داونلۆدا ئۆتۆماتیکی
+    function triggerDownload(link, fileName) {
+        const a = document.createElement("a");
+        a.href = link;
+        a.download = fileName;
+        a.target = "_blank";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        alert("ڤیدیۆ ب سەرکەوتوویی ئامادەکرا و داونلۆد بوو!");
     }
 </script>
 
