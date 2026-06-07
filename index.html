@@ -14,34 +14,51 @@
         .btn { display: block; width: 90%; max-width: 350px; padding: 15px; margin: 8px 0; background-color: #1e1e1e; color: #fff; text-decoration: none; border-radius: 25px; border: 1px solid #333; transition: 0.3s; font-weight: bold; }
         .btn:hover { background-color: #333; border-color: gold; color: gold; }
         
-        /* شاردنەوەی هەموو تشتان د ناڤ لاپەرەی دا پێش لێدانا کۆدێ */
+        /* کلاسێ ڤەشارتنا ناوەڕۆکێ */
         .hidden { display: none !important; }
+
+        /* شاشەیا پاراستنێ یا مۆدێرن */
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121212; display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .login-box { background: #1e1e1e; padding: 35px 30px; border-radius: 24px; border: 2px solid gold; box-shadow: 0 0 25px rgba(241, 196, 15, 0.25); width: 90%; max-width: 380px; box-sizing: border-box; transition: all 0.4s ease; }
+        
+        /* نیشاندەری قۆناغان */
+        .steps-indicator { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; }
+        .step-dot { width: 12px; height: 12px; border-radius: 50%; background: #444; transition: 0.3s; }
+        .step-dot.active { background: gold; box-shadow: 0 0 8px gold; }
+
+        .login-box h3 { color: gold; margin-top: 0; font-size: 22px; margin-bottom: 10px; }
+        .login-box p { color: #aaa; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+        .login-box input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 25px; border: 1px solid #444; background: #262626; color: white; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 2px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: gold; box-shadow: 0 0 12px rgba(241, 196, 15, 0.4); background: #2d2d2d; }
+        
+        .login-box button { width: 100%; padding: 14px; border-radius: 25px; border: none; background: linear-gradient(135deg, #f1c40f, #f39c12); color: #121212; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.2); }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(241, 196, 15, 0.4); }
+        
+        #error-msg { color: #e74c3c; font-size: 13px; margin-top: 15px; font-weight: bold; min-height: 20px; }
     </style>
-
-    <script>
-        // د دەستپێکا باربوونا لاپەرەی دا ئێکسەر پشکنینا کۆدی دکەت
-        document.addEventListener("DOMContentLoaded", function() {
-            checkPassword();
-        });
-
-        function checkPassword() {
-            let password = prompt("بۆ دیتنا بابەتان، تکایە کۆدێ چوونە ژوورێ بنڤیسە:");
-            
-            if (password === "JEKO88") {
-                alert("کۆد ڕاستە! بخێرهاتی.");
-                // ئەگەر کۆد ڕاست بوو، هەموو بابەت دێ دیار بن
-                document.getElementById("main-content").classList.remove("hidden");
-                startTimer();
-            } else {
-                alert("کۆدێ خەلەتە! تۆ نەشێی بابەتان ببینی.");
-                checkPassword(); // دووبارە پرسیارکرن تا کۆدی ڕاست لێدەدات
-            }
-        }
-    </script>
 </head>
 <body>
 
-    <!-- د ناڤ ڤێ Containerێ دا هەموو تشت د دەرەوەی دیتنێ نە تا کۆد نەهێتە لێدان -->
+    <!-- شاشەیا داخوازکرنا کۆدان (دوو پێنگاڤی) -->
+    <div id="login-screen" class="login-overlay">
+        <div class="login-box">
+            <!-- نیشاندەری بازنەیی بۆ دیارکرنا پێنگاڤێ -->
+            <div class="steps-indicator">
+                <div id="dot1" class="step-dot active"></div>
+                <div id="dot2" class="step-dot"></div>
+            </div>
+            
+            <h3 id="login-title">قۆناغی یەکەم: کۆدی ئێکێ</h3>
+            <p id="login-desc">تکایە کۆدێ سەرەکی یێ یەکەم بنڤیسە بۆ دەستپێکرن</p>
+            
+            <input type="password" id="code-input" placeholder="کۆدی یەکەم لێرە بنووسە..." onkeypress="handleKeyPress(event)">
+            <button id="login-btn" onclick="processVerification()">پشکنیـن و بەردەوامبوون</button>
+            
+            <div id="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- ناڤەڕۆکا سەرەکی کو یا ڤەشارتتیە تا هەردوو کۆد ڕاست نەبن -->
     <div id="main-content" class="hidden">
         <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
 
@@ -62,6 +79,54 @@
     </div>
 
     <script>
+        let currentStep = 1; // ل دەستپێکێ ل سەر پێنگاڤا ١ یە
+
+        function processVerification() {
+            const inputField = document.getElementById("code-input");
+            const inputVal = inputField.value;
+            const errorElement = document.getElementById("error-msg");
+
+            if (currentStep === 1) {
+                // پشکنینا کۆدێ یەکەم
+                if (inputVal === "JEKO88") {
+                    currentStep = 2; // چوون بۆ پێنگاڤا دووێ
+                    errorElement.innerHTML = ""; // لادانا نامێن خەلەت
+                    inputField.value = ""; // پاقژکرنا خانێ
+                    
+                    // گۆڕینی تێکست و ستایلێ شاشێ بۆ پێنگاڤا دووێ
+                    document.getElementById("dot2").classList.add("active");
+                    document.getElementById("login-title").innerHTML = "قۆناغی دووەم: کۆدی دووێ";
+                    document.getElementById("login-desc").innerHTML = "کۆدێ یەکەم ڕاست بوو! نوکە تکایە کۆدێ دووێ بنڤیسە";
+                    inputField.placeholder = "کۆدی دووێ لێرە بنووسە...";
+                    inputField.focus();
+                } else {
+                    errorElement.innerHTML = "کۆدێ یەکەم خەلەتە! دووبارە تاقیکەرەوە.";
+                    inputField.value = "";
+                    inputField.focus();
+                }
+            } else if (currentStep === 2) {
+                // پشکنینا کۆدێ دووێ
+                if (inputVal === "JEKO77") {
+                    // ئەگەر هەردوو ڕاست بوون، سایت دێ ڤەبیت
+                    document.getElementById("login-screen").classList.add("hidden");
+                    document.getElementById("main-content").classList.remove("hidden");
+                    startTimer(); // دەستپێکرنا کاتژمێرێ
+                } else {
+                    errorElement.innerHTML = "کۆدێ دووێ خەلەتە! دووبارە تاقیکەرەوە.";
+                    inputField.value = "";
+                    inputField.focus();
+                }
+            }
+        }
+
+        // پشتگیرییا کتبوونا Enter ل سەر کیبۆردێ
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                processVerification();
+            }
+        }
+
+        // بەشێ کاتژمێرێ
         function startTimer() {
             const examDate = new Date("June 14, 2026 07:30:00").getTime();
             const timerInterval = setInterval(function() {
