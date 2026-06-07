@@ -69,7 +69,7 @@
             text-decoration: none; 
             border-radius: 50px; 
             border: 1px solid #2a2a2a; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: all 0.4s ease; 
             font-weight: bold; 
             font-size: 16px; 
             box-shadow: 0 6px 15px rgba(0,0,0,0.4); 
@@ -85,7 +85,6 @@
         
         .hidden { display: none !important; }
 
-        /* شاشەیا لۆگینێ یا نوو و ئێجگار پرۆفیشناڵ */
         .login-overlay { 
             position: fixed; 
             top: 0; left: 0; 
@@ -108,70 +107,12 @@
             box-sizing: border-box; 
         }
 
-        .login-box h3 { 
-            color: var(--primary); 
-            margin-top: 0; 
-            font-size: 26px; 
-            margin-bottom: 12px; 
-            font-weight: bold; 
-        }
-
-        .login-box p { 
-            color: var(--text-muted); 
-            font-size: 14px; 
-            margin-bottom: 30px; 
-            line-height: 1.6; 
-        }
-
-        .login-box input { 
-            width: 100%; 
-            padding: 16px; 
-            margin-bottom: 20px; 
-            border-radius: 50px; 
-            border: 1px solid #333; 
-            background: #1a1a1a; 
-            color: white; 
-            text-align: center; 
-            font-size: 18px; 
-            font-weight: bold; 
-            letter-spacing: 2px; 
-            box-sizing: border-box; 
-            outline: none; 
-            transition: 0.3s ease; 
-        }
-
-        .login-box input:focus { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 18px rgba(241, 196, 15, 0.4); 
-            background: #202020; 
-        }
-
-        .login-box button { 
-            width: 100%; 
-            padding: 16px; 
-            border-radius: 50px; 
-            border: none; 
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
-            color: #000; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: 0.3s ease; 
-            box-shadow: 0 6px 20px rgba(241, 196, 15, 0.25); 
-        }
-
-        .login-box button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(241, 196, 15, 0.4); 
-        }
-
-        #error-msg { 
-            font-size: 14px; 
-            margin-top: 20px; 
-            font-weight: bold; 
-            min-height: 22px; 
-            transition: 0.3s;
-        }
+        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; }
+        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
+        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #333; background: #1a1a1a; color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; }
+        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 18px rgba(241, 196, 15, 0.4); }
+        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; }
+        #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; }
     </style>
 </head>
 <body>
@@ -179,7 +120,7 @@
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
             <h3>سیستەمێ پاراستنا ئەزموونان</h3>
-            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(--error);">تێبینی:</b> هەر کۆدەک تەنها ل سەر ئێک مۆبایل قفل دبیت و چ مۆبایلێن دی نەشێن بەکاربئینن.</p>
+            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(--error);">تێبینی:</b> پشکنین ب ئۆنڵاین دهێتەکرن، هەر کۆدەک تەنها ل سەر ئێک مۆبایل قفل دبیت.</p>
             <input type="text" id="code-input" placeholder="کۆدی لێرە بنووسە..." onkeypress="handleKeyPress(event)">
             <button id="submit-btn" onclick="validateDeviceCode()">پشکنیـن و دەروازە</button>
             <div id="error-msg"></div>
@@ -188,9 +129,7 @@
 
     <div id="main-content" class="hidden">
         <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
-        
         <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
-        
         <div class="btn-container">
             <a href="fizya.html" class="btn">فیزیا</a>
             <a href="mejo.html" class="btn">مێژوو</a>
@@ -206,54 +145,63 @@
     </div>
 
     <script>
-        // لایستەیا ئەو ٧ کۆدێن سەرەکی
-        const allowedCodes = ["JEKO01", "JEKO02", "JEKO03", "JEKO04", "JEKO05", "JEKO06", "JEKO07"];
+        // !!! لێرە ل شوونا ئەڤی لینکێ خوارێ، دەمێ برە سەر هۆستێ، لینکی خۆ یێ KVDB دابنێ !!!
+        const SERVER_URL = "https://kvdb.io/YOUR_SECRET_BUCKET_ID_HERE/";
 
-        // دروستکرنا مۆرەکا تایبەت بۆ ناسنامەیا ڤێ مۆبایلێ (Hardware Fingerprint Simulation)
-        if (!localStorage.getItem("dev_secure_token")) {
-            localStorage.setItem("dev_secure_token", "TOKEN-" + Math.floor(Date.now() / 1000) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
+        // لایستەیا کۆدێن نوو یێن کو تە داخوازی کرین (٧ کۆد)
+        const allowedCodes = ["JEKO88", "JEKO77", "JEKO66", "JEKO55", "JEKO44", "JEKO33", "JEKO22"];
+
+        // دروستکرنا ناسنامەکا جیهانی بۆ مۆبایلێ
+        if (!localStorage.getItem("device_real_token")) {
+            localStorage.setItem("device_real_token", "DEVICE-" + Math.random().toString(36).substr(2, 10).toUpperCase() + Date.now().toString().substr(-4));
         }
-        const currentDeviceToken = localStorage.getItem("dev_secure_token");
+        const myToken = localStorage.getItem("device_real_token");
 
+        // پشکنین د دەستپێکێ دا
         document.addEventListener("DOMContentLoaded", function() {
-            // ئەگەر مۆبایل بەری نوکە ب سەرکەفتوویی هاتبیتە قفلکرن
-            if (localStorage.getItem("is_auth_success") === "true") {
+            if (localStorage.getItem("is_allowed_access") === "true") {
                 showSiteContent();
             }
         });
 
-        function validateDeviceCode() {
+        async function validateDeviceCode() {
             const inputField = document.getElementById("code-input");
+            const btn = document.getElementById("submit-btn");
             const code = inputField.value.trim().toUpperCase();
-            const errorElement = document.getElementById("error-msg");
 
-            if (!code) {
-                showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)");
-                return;
+            if (!code) { showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); return; }
+            if (!allowedCodes.includes(code)) { showMsg("ئەڤ کۆدە خەلەتە و بوو شت نینە!", "var(--error)"); inputField.value = ""; return; }
+
+            btn.disabled = true;
+            showMsg("پشکنینا سێرڤەرێ سەرەکی دکەت... چاوەڕێبە...", "var(--primary)");
+
+            try {
+                // پشکنینا پێگەیێ کۆدی ل سەر ئەنتەرنێتێ
+                const response = await fetch(`${SERVER_URL}${code}`);
+                
+                if (response.status === 404) {
+                    // ئەگەر کۆد یێ پاقژ و نوو بوو، بۆ ڤێ مۆبایلێ پاشەکەوت بکە د سێرڤەری دا
+                    await fetch(`${SERVER_URL}${code}`, { method: 'POST', body: myToken });
+                    saveAndOpen();
+                } else {
+                    // ئەگەر پێشتر هاتبیتە لێدان، سەیر دکەت کا هی ڤێ مۆبایلێ یە یان لایەکێ دی؟
+                    const serverToken = await response.text();
+                    if (serverToken.trim() === myToken) {
+                        saveAndOpen();
+                    } else {
+                        showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە قفلکرن و ناتوانی لێرە لێبدی!", "var(--error)");
+                        inputField.value = "";
+                        btn.disabled = false;
+                    }
+                }
+            } catch (err) {
+                showMsg("تکایە هێڵا ئینتەرنێتێ کۆنترۆل بکە و دووبارە تاقی بکەوە!", "var(--error)");
+                btn.disabled = false;
             }
+        }
 
-            if (!allowedCodes.includes(code)) {
-                showMsg("ئەڤ کۆدە د سیستەمێ مە دا بوو شت نینە!", "var(--error)");
-                inputField.value = "";
-                return;
-            }
-
-            // لێرەدا قفلکرنا توند دەستپێدەکات:
-            // پشکنین دکەین کا ئەرێ ئەڤ کۆدە د "مۆبایلەکا دی" دا بەری نوکە هاتییە مۆرکرن؟
-            let lockRegistry = JSON.parse(localStorage.getItem("global_lock_registry")) || {};
-
-            if (lockRegistry[code] && lockRegistry[code] !== currentDeviceToken) {
-                showMsg("ئامیری دووەم بلۆک بوو! ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە کاراکرن.", "var(--error)");
-                inputField.value = "";
-                return;
-            }
-
-            // ئەگەر کۆد یێ پاقژ بوو، ڤێ مۆبایلێ ب فەرمی پێ گرێدە و کۆدێ قفل بکە
-            lockRegistry[code] = currentDeviceToken;
-            localStorage.setItem("global_lock_registry", JSON.stringify(lockRegistry));
-            
-            // تۆمارکرنا دۆخێ سەرکەفتنێ
-            localStorage.setItem("is_auth_success", "true");
+        function saveAndOpen() {
+            localStorage.setItem("is_allowed_access", "true");
             showSiteContent();
         }
 
@@ -269,28 +217,19 @@
             msg.style.color = color;
         }
 
-        function handleKeyPress(event) {
-            if (event.key === "Enter") { validateDeviceCode(); }
-        }
+        function handleKeyPress(event) { if (event.key === "Enter") { validateDeviceCode(); } }
 
-        // بەشێ کاتژمێرێ
         function startTimer() {
             const examDate = new Date("June 14, 2026 07:30:00").getTime();
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
                 const distance = examDate - now;
-                
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
                 document.getElementById("timer").innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
-                
-                if (distance < 0) { 
-                    clearInterval(timerInterval); 
-                    document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!"; 
-                }
+                if (distance < 0) { clearInterval(timerInterval); document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!"; }
             }, 1000);
         }
     </script>
