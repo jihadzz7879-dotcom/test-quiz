@@ -1,4 +1,4 @@
-OCTYPE html>
+<!DOCTYPE html>
 <html dir="rtl" lang="ku">
 <head>
     <meta charset="UTF-8">
@@ -13,45 +13,92 @@ OCTYPE html>
         .btn-container { display: flex; flex-direction: column; align-items: center; }
         .btn { display: block; width: 90%; max-width: 350px; padding: 15px; margin: 8px 0; background-color: #1e1e1e; color: #fff; text-decoration: none; border-radius: 25px; border: 1px solid #333; transition: 0.3s; font-weight: bold; }
         .btn:hover { background-color: #333; border-color: gold; color: gold; }
+        
+        /* شاردنەوەی ناوەڕۆک تا کۆد لێدەدرێت */
+        .hidden { display: none !important; }
     </style>
+
+    <script>
+        // پشکنین ل دەستپێکێ خێرا دکەین بەری لاپەرە بارببیت
+        document.addEventListener("DOMContentLoaded", function() {
+            const examDate = new Date("June 14, 2026 07:30:00").getTime();
+            const lockDate = examDate + (20 * 24 * 60 * 60 * 1000); // ٢٠ ڕۆژ پشتی ئەزموونێ
+            const now = new Date().getTime();
+
+            // ئەگەر کات گەهشتبووە پاش ٢٠ ڕۆژان
+            if (now > lockDate) {
+                // شاردنەوەی هەموو ناوەڕۆکی سەرەکی بۆ پاراستن
+                document.getElementById("main-content").classList.add("hidden");
+                
+                // داخوازکرنا کۆدی د خولەکێ دا
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            let password = prompt("بۆ چوونە ژوورێ، تکایە کۆدێ تایبەت بنڤیسە:");
+            
+            if (password === "JEKO88") {
+                alert("کۆد ڕاستە! بخێرهاتی.");
+                // نیشاندانی ناوەڕۆک ئەگەر کۆد ڕاست بوو
+                document.getElementById("main-content").classList.remove("hidden");
+                startTimer();
+            } else {
+                alert("کۆدێ خەلەتە! تو نەشێی بچی د ناڤ پەیجێ دا.");
+                checkPassword(); // دووبارە پرسیارکرن ئەگەر خەلەت بوو
+            }
+        }
+    </script>
 </head>
 <body>
 
-    <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
+    <!-- کۆمکرنا هەموو تشتان د ناڤ یەک دەفر دا بۆ کۆنترۆلکرنا ئاسان -->
+    <div id="main-content">
+        <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
 
-    <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
+        <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
 
-    <div class="btn-container">
-        <a href="fizya.html" class="btn">فیزیا</a>
-        <a href="mejo.html" class="btn">مێژوو</a>
-        <a href="kurdish.html" class="btn">کوردی</a>
-        <a href="arabic.html" class="btn">عەرەبی</a>
-        <a href="english.html" class="btn">ئینگلیزی</a>
-        <a href="yasa.html" class="btn">یاسا</a>
-        <a href="ark.html" class="btn">ئارک (ARK)</a>
-        <a href="eslame.html" class="btn">ئیسلامی</a>
-        <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
-        <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
+        <div class="btn-container">
+            <a href="fizya.html" class="btn">فیزیا</a>
+            <a href="mejo.html" class="btn">مێژوو</a>
+            <a href="kurdish.html" class="btn">کوردی</a>
+            <a href="arabic.html" class="btn">عەرەبی</a>
+            <a href="english.html" class="btn">ئینگلیزی</a>
+            <a href="yasa.html" class="btn">یاسا</a>
+            <a href="ark.html" class="btn">ئارک (ARK)</a>
+            <a href="eslame.html" class="btn">ئیسلامی</a>
+            <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
+            <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
+        </div>
     </div>
 
     <script>
         const examDate = new Date("June 14, 2026 07:30:00").getTime();
-        const timerInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = examDate - now;
+        
+        function startTimer() {
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = examDate - now;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("timer").innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
+                document.getElementById("timer").innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
 
-            if (distance < 0) {
-                clearInterval(timerInterval);
-                document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!";
-            }
-        }, 1000);
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!";
+                }
+            }, 1000);
+        }
+
+        // دەستپێکرنا دەمژمێرێ ئەگەر لاپەرە هێشتا نەهاتبێتە قفلکرن
+        const lockDate = examDate + (20 * 24 * 60 * 60 * 1000);
+        if (new Date().getTime() <= lockDate) {
+            startTimer();
+        }
     </script>
 </body>
 </html>
