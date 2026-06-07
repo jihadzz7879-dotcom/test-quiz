@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+
+        <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمێ ئەزموونێ: ئەرکێن جێناوێ لکاو</title>
+    <title>ئەزموونا ڕێزمانێ: ئەرکێن جێناوێ لکاو</title>
     <style>
         :root {
             --primary-color: #2c3e50;
-            --accent-color: #7e57c2;
+            --accent-color: #6c5ce7;
             --success-color: #2ecc71;
             --error-color: #e74c3c;
-            --bg-color: #f5f6fa;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
-            --text-color: #333333;
+            --text-color: #2d3436;
         }
 
         * {
@@ -30,18 +31,18 @@
         }
 
         .container {
-            max-width: 750px;
+            max-width: 800px;
             margin: 10px auto;
             background: var(--card-bg);
-            padding: 25px;
+            padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
         }
 
         h1 {
             text-align: center;
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 26px;
+            margin-bottom: 10px;
             color: var(--primary-color);
         }
 
@@ -49,13 +50,13 @@
             text-align: center;
             font-size: 16px;
             color: #7f8c8d;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 15px;
             margin-top: 20px;
         }
 
@@ -69,8 +70,8 @@
             background-color: #ffffff;
             color: var(--primary-color);
             border: 2px solid #e2e8f0;
-            padding: 18px 20px;
-            font-size: 15px;
+            padding: 18px;
+            font-size: 16px;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -80,8 +81,8 @@
 
         .btn:hover {
             border-color: var(--accent-color);
-            background-color: #fcfaff;
-            transform: translateY(-1px);
+            background-color: #f9f8ff;
+            transform: translateY(-2px);
         }
 
         .btn-main {
@@ -93,7 +94,7 @@
         }
 
         .btn-main:hover {
-            background-color: #6a45b3;
+            background-color: #5b4cc4;
             color: white;
         }
 
@@ -102,18 +103,19 @@
         }
 
         .question-card {
-            margin-bottom: 20px;
-            padding: 20px;
+            margin-bottom: 25px;
+            padding: 22px;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 14px;
             background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .question-text {
             font-size: 16px;
             font-weight: bold;
             color: var(--primary-color);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .options-list {
@@ -124,7 +126,7 @@
             background: #ffffff;
             border: 1px solid #cbd5e1;
             padding: 14px 16px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -137,12 +139,11 @@
         }
 
         .option-item.selected {
-            background-color: #f3e8ff !important;
+            background-color: #eef2ff !important;
             border-color: var(--accent-color) !important;
             font-weight: bold;
         }
 
-        /* ستایلێن دوماهیا تاقیکردنێ */
         .option-item.correct-reveal {
             background-color: #d4edda !important;
             border-color: var(--success-color) !important;
@@ -160,8 +161,8 @@
             margin-top: 12px;
             font-weight: bold;
             font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 10px 15px;
+            border-radius: 8px;
         }
         .feedback.correct { background: #e8f5e9; color: var(--success-color); }
         .feedback.wrong { background: #ffebee; color: var(--error-color); }
@@ -172,51 +173,51 @@
         }
 
         .percentage {
-            font-size: 56px;
+            font-size: 60px;
             font-weight: 800;
             color: var(--accent-color);
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         .btn-back {
-            background-color: #94a3b8;
+            background-color: #64748b;
             color: white;
-            margin-top: 20px;
+            margin-top: 30px;
             width: 100%;
             text-align: center;
         }
-        .btn-back:hover { background-color: #64748b; }
+        .btn-back:hover { background-color: #475569; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="main-menu">
-        <h1>ئەزموونا ڕێزمانا کوردی</h1>
-        <h3>بابەتێ سەرەکی: ئەرکێن جێناوێ لکاو</h3>
+        <h1>سیستەمێ ئەزموونێن ڕێزمانێ</h1>
+        <h3>بابەت: ئەرکێن جێناوێ لکاو (ب تێروتەسەلی ژ هەر ١0 وێنەیان)</h3>
         
         <div class="menu-grid">
-            <button class="btn" onclick="startQuiz('بکەر')">١. جێناوێ لکاو وەکو بکەر (هەموو پسیار)</button>
-            <button class="btn" onclick="startQuiz('بەرکار')">٢. جێناوێ لکاو وەکو بەرکار (هەموو پسیار)</button>
+            <button class="btn" onclick="startQuiz('بکەر')">١. جێناوێ لکاو وەکو بکەر (پرسیارێن فەرمی)</button>
+            <button class="btn" onclick="startQuiz('بەرکار')">٢. جێناوێ لکاو وەکو بەرکار (وزاری + ڕاهێنان)</button>
             <button class="btn" onclick="startQuiz('تەمامکەر')">٣. جێناوێ لکاو وەکو تەمامکەرێ بەدیاریدە</button>
             <button class="btn" onclick="startQuiz('دیارکەر')">٤. جێناوێ لکاو وەکو دیارکەرێ ناڤی</button>
-            <button class="btn btn-main" onclick="startQuiz('گشتی')">تاقیکردنا گشتی (هەمی بابەت پێکەوە)</button>
+            <button class="btn btn-main" onclick="startQuiz('گشتی')">تاقیکردنا گشتی (هەموو پسیارێن هەر ١٠ وێنەیان پێکەوە)</button>
         </div>
     </div>
 
     <div id="quiz-section" class="hidden">
-        <h2 id="quiz-title" style="text-align: center; margin-bottom: 20px;"></h2>
+        <h2 id="quiz-title" style="text-align: center; margin-bottom: 25px; color: var(--primary-color);"></h2>
         <div id="questions-container"></div>
-        <button class="btn btn-main" style="width: 100%; margin-top: 15px;" onclick="calculateResults()">دوماهی هێنان و دەرخستنا ئەنجامی</button>
+        <button class="btn btn-main" style="width: 100%; margin-top: 20px;" onclick="calculateResults()">دوماهی هێنان و دەرخستنا ئەنجامی</button>
     </div>
 
     <div id="result-section" class="hidden score-section">
-        <h2>ئەنجامێ ئەزموونا تە</h2>
+        <h2>ئەنجامێ کۆتایی یێ تاقیکردنێ</h2>
         <div class="percentage" id="result-percent">0%</div>
-        <p id="score-text" style="font-size: 20px; margin-bottom: 8px; font-weight: bold;"></p>
-        <p id="total-questions-text" style="font-size: 15px; margin-bottom: 25px; color: #64748b;"></p>
+        <p id="score-text" style="font-size: 22px; margin-bottom: 10px; font-weight: bold;"></p>
+        <p id="total-questions-text" style="font-size: 16px; margin-bottom: 30px; color: #64748b;"></p>
         
-        <h3 style="text-align: right; color: var(--primary-color); border-top: 2px solid #e2e8f0; padding-top: 20px;">پێداچوونەوا بەرسڤان:</h3>
+        <h3 style="text-align: right; color: var(--primary-color); border-top: 2px solid #e2e8f0; padding-top: 25px; font-size: 18px;">پێداچوونەوا پسیار و بەرسڤێن دروست:</h3>
         <div id="review-container"></div>
 
         <button class="btn btn-back" onclick="goToMenu()">زڤڕین بۆ لاپەرێ سەرەکی</button>
@@ -224,42 +225,72 @@
 </div>
 
 <script>
-    // بانکەکا پڕ و تەواو ژ هەمی پسیارێن د ناڤ ١٠ وێنەیێن تە دا هەی
+    // کۆمکرنا تەواوا پسیارێن د ناڤ ١٠ وێنەیێن تە دا هەی ب پۆڵێنکرن
     const allQuestions = {
         'بکەر': [
-            { q: "د ڕستەیا (نامەکەم نووسی) دا، جێناوێ لکاو (م) چ ئەرکەک هەیە؟", a: ["بکەر", "بەرکار", "دیارکەرێ ناڤی", "تەمامکەر"], correct: 0 },
-            { q: "جێناوێن لکاو د ڕستەیا لێکدراوێ تێپەڕی دەمێ بۆری دا، دەبنە چ؟", a: ["بەرکار", "بکەر", "جێناوێ لکاوێ دۆند", "هیچ کام"], correct: 1 }
+            { q: "د ڕستەیا (نامەکەم نووسی) دا، جێناوێ لکاو (م) چ ئەرکەک هەیە؟", a: ["A - بکەر", "B - بەرکار", "C - دیارکەرێ ناڤی", "D - تەمامکەر"], correct: 0 },
+            { q: "جێناوێن لکاو د ڕستەیا لێکدراوێ تێپەڕی دەمێ بۆری دا، دەبنە چ؟", a: ["A - بەرکار", "B - بکەر", "C - جێناوێ لکاوێ دۆند", "D - هیچ کام"], correct: 1 }
         ],
         'بەرکار': [
-            { q: "جێناوێن لکاو ( م ، یت ، ــ ، ین ، ون ، ن ) دبنە بەرکار دگەل کیش جۆری کارێ؟", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - بێژیێ تێنەپەڕ"], correct: 0 },
+            // وێنەیێ ١
+            { q: "جێناوێن لکاو ( م، یت، ــ ، ین، ون، n ) دبنە بەرکار دگەل کیش جۆری کارێ؟", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - بێژیێ تێنەپەڕ"], correct: 0 },
             { q: "جێناوێن لکاو ( ین ) دبیته بەرکار دگەل کارێ:", a: ["A - داخوازیێ تێپەڕ", "B - بۆریێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - نەبۆریێ تێنەپەڕ"], correct: 1 },
             { q: "جێناوێ لکاوێ ( ین ) نەشێت ببیته بەرکار دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - داخوازیێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - داخوازیێ تێپەڕ (تایبەت)"], correct: 3 },
             { q: "د ڕستەیا ( هاتی بژاردین ) ئەڤ دۆخی کێ هەیە؟", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - داخوازیێ تێپەڕ", "D - نەبۆریێ تێپەڕ"], correct: 2 },
             { q: "د ڕستەیا ( وەرەتان گرتین ) ئەڤ دۆخی کێ هەیە؟", a: ["A - نەبۆریێ تێپەڕ", "B - بۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - ئەڕێنیێ تێپەڕ"], correct: 1 },
             { q: "د ڕستەیا ( بانگمان دکەردیت ) ئەڤ دۆخی کێ هەیە؟", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - داخوازیێ تێپەڕ", "D - نەبۆریێ تێپەڕ"], correct: 0 },
+            // وێنەیێ ٢
             { q: "جێناوێ لکاوێ ( تان ) نەشێت ببیته بەرکار دگەل کارێ:", a: ["A - داخوازیێ تێپەڕ", "B - ئەڕێنیێ تێپەڕ", "C - تێپەڕ و داخوازی", "D - نەبۆریێ ڕاگەیاندن"], correct: 3 },
             { q: "جێناوێن لکاو ( ت ، تان ) تایبەتە ب بەرکارێ دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - داخوازیێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - نەبۆریێ ڕاگەیاندن"], correct: 1 },
             { q: "کێش جێناوێ لکاوێ کارێ ( بکڕە ) دبیته بەرکار:", a: ["A - ی", "B - ت", "C - تان", "D - وەرگرتن"], correct: 0 },
-            { q: "ئەگەر جێناوێ لکاوێ بەرکاری دا بۆ کەسی ئێکی کۆم ل گەل کارێ ( هاتی ) دێ ببیته:", a: ["A - هان داین", "B - هاتمان دای", "C - هاتی دامان", "D - هاتی داین"], correct: 3 },
-            { q: "جێناوێ کەسیێ لکاو ( ین ) دگەل کێش ئەڤان دێ ببیته بەرکار:", a: ["A - وەرگرت", "B - وەرگرتبا", "C - دەبوو وەرگرتبا", "D - وەرگرتبێت"], correct: 0 }
+            // وێنەیێ ٣
+            { q: "ئەگەر جێناوێ لکاوێ بەرکاری دا بۆ کەسی ئێکی کۆم ل گەل کارێ ( هاتی ) دا بەکاربهێندرێت، دێ ببیته:", a: ["A - هان داین", "B - هاتمان دای", "C - هاتی دامان", "D - هاتی داین"], correct: 3 },
+            { q: "درستەیا ( بانگیانکردبووین بۆ ئاهەنگەکە ) ئەگەر جێناوێ لکاوێ ( تان ) وەک بەرکار بەکاربهێنین دێ بیتە:", a: ["A - بانگیانکردبوو بۆ ئاهەنگەکە تان", "B - بانگیانکردبوو بۆ ئاهەنگەکە", "C - بانگیانکردبووتان بۆ ئاهەنگەکە", "D - بانگیانکردبوو بۆ ناهەنگەکە"], correct: 2 },
+            { q: "دکرمادەیا ژوورێدا کێش ڕستە دەبێتە بەرکار یان بۆ مەرجەکێ دۆزراو بێت؟", a: ["A - ت", "B - ین", "C - مان", "D - هەمی دروستن"], correct: 1 },
+            { q: "جێناوێ کەسیێ لکاو ( ین ) دگەل کێش ئەڤان دێ ببیته بەرکار:", a: ["A - وەرى دگرت", "B - وەرگرتبا", "C - دەبوو وەرگرم گرت با", "D - وەرگرتبێت"], correct: 0 },
+            // وێنەیێ ٤ (ڕاهێنانا ٣)
+            { q: "جێناوێ لکاوێ ( ن ) دبیته بەرکار دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - نەبۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - هەمییان"], correct: 3 },
+            { q: "(بانگمان دکەردیت) ئەگەر کارێ ڕستەیێ بگۆڕین بۆ نەبۆریێ ڕاگەیاندن دێ بیتە:", a: ["A - بانگمان دەکەن", "B - بانگمان دەکردیت", "C - بانگت دەکەین", "D - بانگت دەکەین"], correct: 3 },
+            { q: "د ڕستەیا (وەرەتان گرتین) ئەگەر دگەل کارێ نەبۆریێ تێپەڕ بەکاربهێندرێت دێ بیتە:", a: ["A - دەتانگرین", "B - نەبۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - بۆریێ تێپەڕ"], correct: 0 },
+            { q: "( ههڵت بژارد ) ئەگەر کارێ ڕستەیێ بکەینە داخوازی دێ بیتە:", a: ["A - هەڵبژێره", "B - هەڵیان بژێره", "C - هەڵی بژێره", "D - هەڵت بژێرن"], correct: 2 },
+            { q: "( بانگی کردم بۆ ئاهەنگەکە ) ئەرکێ جێناوێ لکاوێ ( م ) چییە؟", a: ["A - بکەر", "B - بەرکار", "C - ت. بەدیاریدە", "D - دیارکەرێ ناڤی"], correct: 1 }
         ],
         'تەمامکەر': [
+            // وێنەیێ ٥
             { q: "جێناوێن لکاو ( ین ) دبنە تەمامکەرێ بەدیاریدە دگەل کیش جۆری کارێ؟", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - هەمی بەرسڤ دروستن"], correct: 3 },
-            { q: "جێناوێن لکاو ( ین ) تایبەتە تەمامکەرێ بەدیاریدە دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - داخوازیێ تێپەڕ"], correct: 3 },
+            { q: "جێناوێن لکاو ( ین ) تایبەتە بە تەمامکەرێ بەدیاریدە دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - داخوازیێ تێپەڕ"], correct: 3 },
+            // وێنەیێ ٦
             { q: "دڕستەیا ( زەوییەکەی بۆ فرۆشتم ) جێناوێ ( مان ) وەکی تەمامکەرێ بەدیاریدە دچیته دوماهیا:", a: ["A - ئامرازێ پەیوەندیێ", "B - بکەر", "C - دوماهیا کارێ", "D - بەرکار"], correct: 2 },
             { q: "دڕستەیا ( جانتاکەی بۆم داگرت ) ئەگەر ( بەرکار ) بهێته لادان ڕستە دێ ببیته:", a: ["A - بۆی داگرت", "B - بۆم داگرت", "C - بۆمی داگرت", "D - بۆیم داگرت"], correct: 2 },
-            { q: "دڕستەیا ( گۆژەکانی بۆ تان ئاودان نەکرد ) ئەگەر بەرکاری لادەین ڕستە دێ ببیته:", a: ["A - بۆتانی ئاودان نەکرد", "B - بۆ تان ئاودان نەکرد", "C - بۆ تان ئاودان نەکردی", "D - بۆ تانی ئاودان نەکردتان"], correct: 0 },
-            { q: "دڕستەیا ( کتێبێکی پێم بەخشی ) دڕستەیا کارێ مەرجیدا جێناوێ لکاوێ تەمامکەرێ بەدیاریدە کەوتبێتە:", a: ["A - پێشی بەشێن کار", "B - پێم بەخشی (ناڤەڕۆک)", "C - پاش کۆتا", "D - هیچ کام"], correct: 1 },
-            { q: "دڕستەیا ( دیاردیەکمان بۆ ناردیت ) ئەرکێ جێناوێ لکاوێ ( یت ) چییە؟", a: ["A - بکەر", "B - بەرکار", "C - تەمامکەرێ بەدیاریدە", "D - دیارکەرێ ناڤی"], correct: 2 }
+            { q: "دڕستەیا ( گۆژەکانی بۆ تان ئاودان نەکرد ) ئەگەر بەرکاری لادەین ڕستە دێ ببیته:", a: ["A - بۆتانی ئاودان نەکرد", "B - بۆ تان ئاودان نەکرد", "C - بۆ تان ئاودان نەکردی", "D - بۆ نیشاندانی کاری"], correct: 0 },
+            { q: "دڕستەیا ( کتێبێکی پێم بەخشی ) دڕستەیا کارێ مەرجیدا جێناوێ لکاوێ تەمامکەرێ بەدیاریدە کەوتبێتە:", a: ["A - پێشی بەشێن کار", "B - پێم بەخشی", "C - ئامرازی پەیوەندی", "D - پێم بە خۆشی"], correct: 1 },
+            { q: "دڕستەیا ( تێگەیشتن نێوانمان پەرە پێدەدات ) جێناوێ لکاو ( مان ) وەک تەمامکەرێ بەدیاریدە کەوتیتە پستی:", a: ["A - بەرکاری", "B - بکەری", "C - دوماهیا کارێ", "D - پشتی ناڤی"], correct: 0 },
+            // وێنەیێ ٧ (ڕاهێنانا ٣)
+            { q: "دڕستەیا ( دیاردیەکمان بۆ ناردیت ) ئەرکێ جێناوێ لکاوێ ( یت ) چییە؟", a: ["A - بکەر", "B - بەرکار", "C - ت. بەدیاریدە", "D - دیارکەرێ ناڤی"], correct: 2 },
+            { q: "( قەڵەمەکەم لێ وندا بوو ) ئەگەر کارێ ڕستەیێ بگۆڕین بۆ نەبۆریێ ڕاگەیاندن دێ بیتە:", a: ["A - قەڵەمەکەم لێ وندا دەبێت", "B - قەڵەمەکەم لێی وندابوو", "C - قەڵەمەکەم لێ دەبێت", "D - قەڵەمەکەی لێ بەردەبێت"], correct: 0 },
+            { q: "جێناوێ لکاوێ ( ین ) دبیته تەمامکەرێ بەدیاریدە دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - نەبۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - قەڵەمەکەی بردی"], correct: 2 },
+            { q: "( شیعرەکەی بۆ نووسیم ) ئەگەر ( م ) بکەینە ( ت ) دێ بیتە:", a: ["A - شیعرەکەی بۆ نووسی", "B - شیعرەکەت بۆ نووسی", "C - شیعرەکەی بۆت نووسی", "D - ت. بەدیاریدە"], correct: 2 },
+            { q: "( کارەکەم لێ وردەکار بوو ) ئەرکێ جێناوێ لکاوێ ( م ) چییە؟", a: ["A - بکەر", "B - بەرکار", "C - ت. بەدیاریدە", "D - دیارکەرێ ناڤی"], correct: 2 }
         ],
         'دیارکەر': [
+            // وێنەیێ ٨
             { q: "جێناوێ لکاوێ ( ین ) دبیته دیارکەرێ ناڤی دگەل کارێ:", a: ["A - داخوازی", "B - نەبۆری", "C - بۆریێ تێپەڕ", "D - دگەل هەموویان"], correct: 2 },
             { q: "جێناوێ لکاوێ ( یت ) دبیته دیارکەرێ ناڤی دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - نەبۆریێ تێپەڕ", "C - تەمامکەر", "D - دگەل هەموویان"], correct: 0 },
-            { q: "ئەگەر جێناوێ کەسیێ لکاو ببیته دیارکەرێ ناڤی، پشت بە چی دەبەستێت؟", a: ["A - ئامرازی لکاو", "B - ئامرازی پێشگر", "C - ئامرازی دانەپاڵێ ( هـ ) هەیە", "D - چوونەپاڵ"], correct: 2 },
+            { q: "دگەل کیش جۆرێن کاران جێناوێ لکاو ( یت ) نەشێت ببیته دیارکەرێ ناڤی؟", a: ["A - بۆریێ تێپەڕ", "B - نەبۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - دگەل هەموویان"], correct: 1 },
+            { q: "ئەگەر جێناوێ کەسیێ لکاو ببیته دیارکەرێ ناڤی، پشت بە چی دەبەستێت؟", a: ["A - ئامرازی لکاو", "B - ئامرازی دانەپاڵێ ( هـ ) هەیە", "C - ئامرازی پێشگر", "D - دگەل هەموویان"], correct: 1 },
+            { q: "جێناوێ کەسیێ لکاو ( یت ) نەشێت ببیته دیارکەرێ ناڤی دگەل کارێ:", a: ["A - بۆریێ تێپەڕ", "B - نەبۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - ئەلگۆڕینی فەرمی"], correct: 2 },
+            // وێنەیێ ٩
             { q: "د ڕستەیا ( سروودە نوێیەکەمان تۆمارکرد ) ئەرکێ ( مان ) چییە؟", a: ["A - دیارکەرێ پێشگر", "B - بکەر", "C - بەرکار", "D - دیارکەرێ ناڤی"], correct: 3 },
             { q: "نەشێین بێژین ( قەڵەمەکەت نەسرین شکا ) چونکی:", a: ["A - قەڵەمەکە ناسیاوە", "B - پشت پێ بەستراوە", "C - تێکچوونی ڕستەیە", "D - قەڵەمەکە ناڤەکێ ناسراوە دگەل دوو دیارکەران"], correct: 3 },
+            { q: "جێناوێ کەسیێ لکاو دەورێ دیارکەرێ ناڤی دا دکەوێتە دوماهیا چ نەگەڕاوەک؟", a: ["A - پشتی وێنەکە", "B - دوماهیا کارێ", "C - پشتی ( ن ) وەک دیارکەر بەکاردێت", "D - پشتی ( م )"], correct: 1 },
             { q: "د ڕستەیا ( کتێبەکەم ئازاد جوانە ) بۆچی یا خەلەتە؟", a: ["A - کار نەهاتیە", "B - جێناوێ لکاو دیارکەرێ ناڤی یە و دیارکەرێ دی نابێت", "C - بکەر نەهاتیە", "D - چوانا ڕستێ"], correct: 1 },
-            { q: "ئەگەر جێناوێ لکاو ( ت ) وەک دیارکەر بەکاربهێنین د ( میوانەکانمان گەیاندبوو ) دا دێ ببیته:", a: ["A - میوانەکانتان گەیاندبوو", "B - میوانەکەتان", "C - میوانەکان گەیاندبووتان", "D - گەیاندبووتان میوانەکە"], correct: 0 }
+            { q: "ئەگەر جێناوێ لکاو ( مان ) وەک دیارکەر کەم بکەینەوە ( ڕوومانی تازەکەمان چاپکرد ) لادانی دێ دەرکەویت:", a: ["A - دەرکەوتنی تازە", "B - بکەر نەهاتییە", "C - بەرکار هاتییە", "D - ب چ جۆر چاپی کردیا"], correct: 0 },
+            // وێنەیێ ١٠ (ڕاهێنانا ٣)
+            { q: "ئەگەر جێناوێ لکاو ( ت ) وەک دیارکەر بەکاربهێنین د ( میوانەکانمان گەیاندبوو ) دا دێ ببیته:", a: ["A - میوانەکانتان گەیاندبوو", "B - میوانەکەتان", "C - میوانەکان گەیاندبووتان", "D - پشتی ( بوو )"], correct: 0 },
+            { q: "( گوندەکانتان ئاودانکردبووەوە ) ئەگەر ( تان ) کەم بکەینەوە بۆ ( م ) دێ بیتە:", a: ["A - گوندەکانمان ئاودانکردبووەوە", "B - پشتی ( مان )", "C - بێ دەنگ بن", "D - پشتی بۆو"], correct: 0 },
+            { q: "( نامەکەی گەیاندبووت ) ئەرکێ ( ت ) چییە؟", a: ["A - بکەر", "B - بەرکار", "C - تەمامکەر", "D - دیارکەرێ ناڤی"], correct: 3 },
+            { q: "( پێنوسی سەورەکەتان نەبڕە ) ئەگەر ( تان ) بکەینە ( م ) دێ بیتە:", a: ["A - پێنوسی سەورەکەم", "B - پشتی ( م )", "C - پشتی قەڵەم", "D - پشتی نیشانە"], correct: 0 },
+            { q: "( خانوە کۆنەکەمانیان نۆژەنکردبووەوە ) ئەرکێ جێناوێ ( مان ) چییە؟", a: ["A - دیارکەرێ ناڤی", "B - بکەر", "C - بەرکار", "D - تەمامکەر"], correct: 0 }
         ]
     };
 
@@ -273,7 +304,7 @@
         selectedAnswers = {};
         
         if (category === 'گشتی') {
-            document.getElementById('quiz-title').innerText = "تاقیکردنا گشتی (هەمی پسیارێن د ناڤ وێنەیاندا پێکەوە)";
+            document.getElementById('quiz-title').innerText = "تاقیکردنا گشتی (هەموو پسیارێن د ناڤ ١٠ وێنەیاندا)";
             activeQuestions = [
                 ...allQuestions['بکەر'],
                 ...allQuestions['بەرکار'],
@@ -319,21 +350,18 @@
     }
 
     function selectOption(qIdx, oIdx) {
-        // لادانی ستایلێ هەلبژاردنێن کۆن یێن وێ پسیارێ
         activeQuestions[qIdx].a.forEach((_, id) => {
             document.getElementById(`q-${qIdx}-o-${id}`).classList.remove('selected');
         });
         
-        // جێگیرکرنا هەلبژاردنا نوو
         selectedAnswers[qIdx] = oIdx;
         document.getElementById(`q-${qIdx}-o-${oIdx}`).classList.add('selected');
     }
 
     function calculateResults() {
-        // پشکنین کا ئەرێ هەموو پسیار بەرسڤ دراون؟
         let answeredCount = Object.keys(selectedAnswers).length;
         if (answeredCount < activeQuestions.length) {
-            alert("تکایە بەرسڤا هەمی پسیاران بدە پێش وێ چەندێ ئەنجامی ببینی!");
+            alert("تکایە بەرسڤا هەموو پسیاران بدە پێش وێ چەندێ ئەنجامی ببینی!");
             return;
         }
 
@@ -355,7 +383,7 @@
 
         document.getElementById('result-percent').innerText = percent + "%";
         document.getElementById('score-text').innerText = `نمرەیا تە: ${userScore} ژ کۆی ${totalScore} نمرەیان`;
-        document.getElementById('total-questions-text').innerText = `تە بەرسڤا (${correctCount}) پسیاران داوە ب دروستی ژ کۆی (${totalQuestions}) پسیارێن تاقیکردنێ.`;
+        document.getElementById('total-questions-text').innerText = `تە بەرسڤا (${correctCount}) پسیاران داوە ب دروستی ژ کۆی (${totalQuestions}) پسیاران.`;
 
         renderReview();
     }
@@ -381,7 +409,6 @@
                 li.className = 'option-item';
                 li.innerText = opt;
 
-                // دیارکرنا دۆخێ بەرسڤدانێ ل دوماهییێ
                 if (oIdx === qObj.correct) {
                     li.classList.add('correct-reveal');
                 } else if (selectedAnswers[qIdx] === oIdx && selectedAnswers[qIdx] !== qObj.correct) {
