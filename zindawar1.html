@@ -3,251 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEKO78 - هەمەجۆرە داونلۆدەر</title>
+    <title>Dr. Firdaws Dental Clinic</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #00a896;
+            --secondary-color: #028090;
+            --dark-color: #020c1b;
+            --light-color: #f4f9f9;
         }
 
         body {
-            background: radial-gradient(circle at center, #111116 0%, #050508 100%);
-            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
         }
 
         .container {
-            background-color: rgba(20, 20, 27, 0.95);
-            padding: 40px 25px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             text-align: center;
-            border: 1px solid #29293d;
-            backdrop-filter: blur(10px);
+            border-top: 5px solid var(--primary-color);
+            margin: 20px;
         }
 
-        .logo-area {
-            font-size: 55px;
-            margin-bottom: 15px;
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-size: 24px;
         }
 
         h2 {
-            margin-bottom: 10px;
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            color: #94a3b8;
-            margin-bottom: 25px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .platform-select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #29293d;
-            border-radius: 14px;
-            background-color: #1a1a24;
-            color: #fff;
+            color: #555;
             font-size: 16px;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        .form-group {
             margin-bottom: 20px;
-            outline: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
+            text-align: right;
         }
 
-        .platform-select:focus {
-            border-color: #4facfe;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-color);
         }
 
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        input[type="text"], input[type="password"] {
+        input, select {
             width: 100%;
-            padding: 15px 18px;
-            border: 2px solid #29293d;
-            border-radius: 14px;
-            background-color: #1a1a24;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
             transition: all 0.3s ease;
         }
 
-        input:focus {
-            border-color: #00f2fe;
-            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 168, 150, 0.2);
         }
 
         button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: #050508;
+            background-color: var(--primary-color);
+            color: white;
             border: none;
-            border-radius: 14px;
+            padding: 12px 20px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: bold;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
+            width: 100%;
+            transition: background 0.3s ease;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.5);
+            background-color: var(--secondary-color);
         }
 
-        button:disabled {
-            background: #475569 !important;
-            color: #cbd5e1;
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .hidden {
-            display: none !important;
+        #booking-section {
+            display: none;
         }
 
         .error-msg {
-            color: #f87171;
+            color: #d9534f;
             font-size: 14px;
-            margin-bottom: 15px;
-            background-color: rgba(248, 113, 113, 0.1);
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(248, 113, 113, 0.2);
+            margin-top: 10px;
             display: none;
+        }
+
+        .success-msg {
+            color: #2b9348;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
+    <div class="icon">🦷</div>
+    <h1>Dr. Firdaws Dental Clinic</h1>
+    <h2>کلینیکا دکتور فیردەوس بۆ ددانا</h2>
+
+    <!-- پشکێ پاسپۆردێ -->
     <div id="password-section">
-        <div class="logo-area">🔑</div>
-        <h2>سیستەمێ پاراستی یێ JEKO</h2>
-        <p>بۆ چوونە ناڤ پەنێلێ داونلۆدکەری، هیڤییە پاسوۆردی بنووسە</p>
-        <div id="error-message" class="error-msg">پاسوۆرد خەڵتە! دووبارە تاقی بکەوە.</div>
-        <div class="input-group">
-            <input type="password" id="password-input" placeholder="پاسوۆردێ لێرە بنووسە...">
+        <div class="form-group">
+            <label for="password">بۆچوونا ناڤ سیستەمی، پاسپۆردی بنڤێسە:</label>
+            <input type="password" id="password" placeholder="پاسپۆردی لێرە بنڤێسە...">
         </div>
-        <button onclick="checkPassword()">چوونە ژوورێ</button>
+        <button onclick="checkPassword()">چوونەژوور</button>
+        <p class="error-msg" id="pass-error">پاسپۆرد خەلەتە! دیسان تاقی بکەوە.</p>
     </div>
 
-    <div id="download-section" class="hidden">
-        <div class="logo-area">📥</div>
-        <h2>داونلۆدکەری خێرا و ڕاستەوخۆ</h2>
-        <p>پلاتفۆرمی دیار بکە و بەستەرێ مێدیایێ پەیست بکە</p>
-        
-        <select id="platform-choice" class="platform-select">
-            <option value="tiktok">🎵 تیک تۆک (TikTok)</option>
-            <option value="instagram">📸 ئینستاگرام (Instagram)</option>
-            <option value="youtube">📺 یوتیوب (YouTube)</option>
-            <option value="snapchat">👻 سناپچات (Snapchat)</option>
-            <option value="telegram">✈️ تێلێگرام (Telegram)</option>
-        </select>
-
-        <div class="input-group">
-            <input type="text" id="media-url" placeholder="بەستەرێ ڤیدیۆیێ لێرە پەیست بکە...">
+    <!-- پشکێ گرتنا ژڤانی -->
+    <div id="booking-section">
+        <div class="form-group">
+            <label for="patient-name">ناڤێ نەخۆشی:</label>
+            <input type="text" id="patient-name" placeholder="ناڤێ خۆ یێ سیانی بنڤێسە">
         </div>
-        <button id="dl-btn" onclick="processDownload()">داونلۆدکرنا ڕاستەوخۆ</button>
-    </div>
 
+        <div class="form-group">
+            <label for="appointment-date">ڕێکەفت و ڕۆژا ژڤانی (هەمی ڕۆژا ژبۆلی ئەینی):</label>
+            <input type="date" id="appointment-date">
+        </div>
+
+        <button onclick="submitBooking()">تۆمارکرنا ژڤانی</button>
+        <p class="success-msg" id="success-text"></p>
+    </div>
 </div>
 
 <script>
-    const CORRECT_PASSWORD = "JEKO78";
-
+    // پشکنینا پاسپۆردی
     function checkPassword() {
-        const userInput = document.getElementById("password-input").value;
-        const errorMsg = document.getElementById("error-message");
+        const passInput = document.getElementById('password').value;
+        const passError = document.getElementById('pass-error');
+        const passwordSection = document.getElementById('password-section');
+        const bookingSection = document.getElementById('booking-section');
 
-        if (userInput === CORRECT_PASSWORD) {
-            document.getElementById("password-section").classList.add("hidden");
-            document.getElementById("download-section").classList.remove("hidden");
+        if (passInput === "Firdaws") {
+            passwordSection.style.display = "none";
+            bookingSection.style.display = "block";
+            
+            // ڕێگری ل گرتنا ژڤانێن ڕابردوو بکە (تەنها ژ ئەڤڕۆ و پێدا)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointment-date').setAttribute('min', today);
         } else {
-            errorMsg.style.display = "block";
+            passError.style.display = "block";
         }
     }
 
-    async function processDownload() {
-        const urlInput = document.getElementById("media-url").value.trim();
-        const platform = document.getElementById("platform-choice").value;
-        const downloadButton = document.getElementById("dl-btn");
+    // تۆمارکرنا ژڤانی
+    function submitBooking() {
+        const name = document.getElementById('patient-name').value;
+        const dateInput = document.getElementById('appointment-date').value;
+        const successText = document.getElementById('success-text');
 
-        if (urlInput === "") {
-            alert("هیڤییە بەستەرەکێ دروست بنووسە!");
+        if (name.trim() === "" || !dateInput) {
+            alert("تکایە ناڤێ خۆ بنڤێسە و ڕێکەفتەکێ هەلبژێرە!");
             return;
         }
 
-        downloadButton.innerText = "...چاوەڕێبە (لۆد دەبێت)";
-        downloadButton.disabled = true;
+        // پشکنین کا ئەرێ ڕۆژا ئەینییە؟
+        const selectedDate = new Date(dateInput);
+        const dayOfWeek = selectedDate.getUTCDay(); // 5 رامانا وێ ئەینییە (Friday)
 
-        try {
-            let directDownloadLink = "";
-
-            if (platform === "tiktok") {
-                // بەستەرا ڕاستەوخۆ بۆ تیک تۆکێ ب بێ وۆتەرمارک
-                const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(urlInput)}`);
-                const json = await res.json();
-                if (json.code === 0 && json.data.play) {
-                    directDownloadLink = json.data.play;
-                }
-            } else {
-                // سیستەمی هەمەجۆر (Universal) بۆ ئەوەی ناچێتە چ لاپەڕەکا دی و ئێکسەر فایلێ دەهێنێت
-                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://co.wuk.sh/api/json')}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ url: urlInput, vQuality: '720' })
-                });
-                
-                // ئەگەر وەک پاشکەوت کار نەکرد، لێرەدا خزمەتگوزارییەکی ئۆپن سۆرسی جێگرەوە بەکاردەهێنین
-                const alternativeApi = `https://api.download.videos.com/fetch?url=${encodeURIComponent(urlInput)}`;
-                directDownloadLink = alternativeApi;
-            }
-
-            if (directDownloadLink) {
-                // دروستکردنی داونلۆدی ڕاستەوخۆ بێ دەرکەوتنی هیچ سایتێک
-                const a = document.createElement("a");
-                a.href = directDownloadLink;
-                a.download = `${platform}_media.mp4`;
-                a.style.display = "none";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                alert("پڕۆسە ب سەرکەفتینە ئەنجامدا! داونلۆد دەستپێکرد.");
-            } else {
-                alert("ببوورە! نەشیا بەستەرێ ڕاستەوخۆ یێ ڤیدیۆیێ لۆد کەت. دووبارە تاقی بکەوە.");
-            }
-
-        } catch (error) {
-            console.error("Error:", error);
-            // لێرە وەک چارەسەری کۆتایی ئەگەر هێڵ پچڕا، بەستەرەکە دەکاتە داونلۆدی جۆری پڕۆتۆکۆل
-            window.location.href = urlInput;
-        } finally {
-            downloadButton.innerText = "داونلۆدکرنا ڕاستەوخۆ";
-            downloadButton.disabled = false;
+        if (dayOfWeek === 4) { // د سیستەمێ ئۆتۆماتیکی دا 4 ل سەر ته‌قویما UTC دبیته‌ ڕۆژا ئه‌ینی ل دەڤ مه‌
+            alert("ببورە! کلینیک ڕۆژێن ئەینی داخستییە. تکایە ڕۆژەکا دی هەلبژێرە.");
+            return;
         }
+
+        // ناڤێن ڕۆژان ب کوردی
+        const daysInKurdish = ["یەکشەمبی", "دووشەمبی", "سێشەمبی", "چوارشەمبی", "پێنجشەمبی", "ئەینی", "شەمبی"];
+        const dayName = daysInKurdish[selectedDate.getDay()];
+
+        // دیارکرنا سەرکەفتنا نامێ
+        successText.innerHTML = `سلاڤ نەخۆش: <b>${name}</b><br> ژڤانێ تە ب سەرکەفتن هاتە تۆمارکرن ل ڕۆژا <b>${dayName} (${dateInput})</b>.`;
+        successText.style.display = "block";
+        
+        // پاقژکرنا فۆڕمی
+        document.getElementById('patient-name').value = "";
+        document.getElementById('appointment-date').value = "";
     }
 </script>
 
