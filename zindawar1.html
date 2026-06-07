@@ -1,55 +1,59 @@
-<div class="main-container">
-    <h2 class="title">فێرکاریێن مینیستەری</h2>
 
-    <!-- تابلۆ یێن زمانان -->
-    <div class="tabs">
-        <button class="tab-btn active" onclick="openVideo(event, 'badini')">بادینی</button>
-        <button class="tab-btn" onclick="openVideo(event, 'sorani')">سۆرانی</button>
-        <button class="tab-btn" onclick="openVideo(event, 'kurmanji')">کرمانجی</button>
+<div class="video-player-card">
+    <h2 class="header-title">فێرکاریێن ب زمانێ کوردی</h2>
+    
+    <div class="lang-selector">
+        <button class="lang-btn active" onclick="switchVideo('badini', this)">بادینی</button>
+        <button class="lang-btn" onclick="switchVideo('sorani', this)">سۆرانی</button>
+        <button class="lang-btn" onclick="switchVideo('kurmanji', this)">کرمانجی</button>
     </div>
 
-    <!-- ڤیدیۆ -->
-    <div id="video-box" class="video-content">
-        <video id="myVideo" controls>
-            <source id="videoSource" src="video-badini.mp4" type="video/mp4">
+    <div class="video-box">
+        <video id="mainVideo" controls poster="background.jpg">
+            <source id="videoSrc" src="badini.mp4" type="video/mp4">
         </video>
-        <!-- دوگمەیا دابەزاندنێ -->
-        <a id="downloadBtn" href="video-badini.mp4" download class="dl-btn">📥 دابەزاندنا ڤیدیۆیێ</a>
     </div>
 
-    <!-- بۆکسێ ئینستگرامێ -->
-    <div class="footer-social">
-        <p>ژبۆ زانیاریێن پتر، مێڤانییا تە دکەین ل:</p>
-        <a href="https://www.instagram.com/gehad.zebare78" target="_blank" class="ig-link">
-            <i class="fab fa-instagram"></i> جیھاد زێباری - Instagram
+    <div class="footer-actions">
+        <a id="downloadLink" href="badini.mp4" download class="btn-download">📥 دابەزاندنا ڤیدیۆیێ</a>
+        <a href="https://www.instagram.com/gehad.zebare78" target="_blank" class="btn-ig">
+            📸 سەرەدانا ئینستگرامێ بکە
         </a>
     </div>
 </div>
 
 <style>
-    .main-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; font-family: 'Segoe UI', sans-serif; }
-    .tabs { margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; }
-    .tab-btn { padding: 8px 20px; border: none; cursor: pointer; border-radius: 30px; background: #f0f0f0; transition: 0.3s; }
-    .tab-btn.active { background: #3498db; color: #fff; }
-    .video-content video { width: 100%; border-radius: 15px; margin-bottom: 15px; }
-    .dl-btn { display: inline-block; padding: 10px 25px; background: #27ae60; color: #fff; text-decoration: none; border-radius: 50px; font-weight: bold; }
-    .footer-social { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-    .ig-link { color: #e1306c; font-weight: bold; text-decoration: none; font-size: 1.1em; }
+    .video-player-card { max-width: 900px; margin: 50px auto; background: #ffffff; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; }
+    .header-title { color: #2c3e50; font-size: 24px; margin-bottom: 20px; font-weight: 700; }
+    
+    /* ستایلێ زمانان */
+    .lang-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+    .lang-btn { padding: 10px 25px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; transition: all 0.3s; background: #e1e8ed; color: #555; }
+    .lang-btn.active { background: #007bff; color: white; transform: scale(1.05); }
+
+    .video-box { width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #f4f4f4; }
+    video { width: 100%; display: block; }
+
+    /* ستایلێ دوگمەیان */
+    .footer-actions { display: flex; justify-content: center; gap: 20px; margin-top: 25px; }
+    .btn-download { padding: 12px 30px; background: #28a745; color: white; border-radius: 50px; text-decoration: none; font-weight: bold; }
+    .btn-ig { padding: 12px 30px; background: #e1306c; color: white; border-radius: 50px; text-decoration: none; font-weight: bold; }
 </style>
 
 <script>
-    function openVideo(evt, lang) {
-        let video = document.getElementById("myVideo");
-        let source = document.getElementById("videoSource");
-        let dl = document.getElementById("downloadBtn");
+    function switchVideo(lang, btn) {
+        // گۆهرینا سەرچاوەیا ڤیدیۆیێ
+        const video = document.getElementById("mainVideo");
+        const source = document.getElementById("videoSrc");
+        const download = document.getElementById("downloadLink");
         
-        // ڤیدیۆیا هەر زمانەکی دیار بکە
-        source.src = "video-" + lang + ".mp4";
-        dl.href = source.src;
+        source.src = lang + ".mp4";
+        download.href = lang + ".mp4";
         video.load();
-        
-        let btns = document.getElementsByClassName("tab-btn");
-        for (let b of btns) b.classList.remove("active");
-        evt.currentTarget.classList.add("active");
+        video.play();
+
+        // گۆهرینا رەنگێ دوگمەیان
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     }
 </script>
