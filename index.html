@@ -13,7 +13,6 @@
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --error: #e74c3c;
-            --success: #2ecc71;
         }
 
         body { 
@@ -207,78 +206,54 @@
     </div>
 
     <script>
-        // !!! لێرەدا ل شوونا ئەڤی لایەنێ خوارێ، لینکی خۆ یێ KVDB دابنێ !!!
-        const KVDB_URL = "https://kvdb.io/YOUR_SECRET_BUCKET_ID_HERE/";
-
-        // لایستەیا ئەو ٧ کۆدێن ڕێپێدراو
+        // لایستەیا ئەو ٧ کۆدێن سەرەکی
         const allowedCodes = ["JEKO01", "JEKO02", "JEKO03", "JEKO04", "JEKO05", "JEKO06", "JEKO07"];
 
-        // دروستکرنا ناسنامەکا نەگۆڕ بۆ مۆبایلێ (Fingerprint)
-        if (!localStorage.getItem("device_fingerprint")) {
-            localStorage.setItem("device_fingerprint", "MOB-" + Math.random().toString(36).substr(2, 12).toUpperCase());
+        // دروستکرنا مۆرەکا تایبەت بۆ ناسنامەیا ڤێ مۆبایلێ (Hardware Fingerprint Simulation)
+        if (!localStorage.getItem("dev_secure_token")) {
+            localStorage.setItem("dev_secure_token", "TOKEN-" + Math.floor(Date.now() / 1000) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
-        const deviceUID = localStorage.getItem("device_fingerprint");
+        const currentDeviceToken = localStorage.getItem("dev_secure_token");
 
-        // پشکنین دەمێ لاپەرە کێش دبیت
         document.addEventListener("DOMContentLoaded", function() {
-            if (localStorage.getItem("is_device_authenticated") === "true") {
+            // ئەگەر مۆبایل بەری نوکە ب سەرکەفتوویی هاتبیتە قفلکرن
+            if (localStorage.getItem("is_auth_success") === "true") {
                 showSiteContent();
             }
         });
 
-        async function validateDeviceCode() {
+        function validateDeviceCode() {
             const inputField = document.getElementById("code-input");
-            const btn = document.getElementById("submit-btn");
             const code = inputField.value.trim().toUpperCase();
             const errorElement = document.getElementById("error-msg");
 
             if (!code) {
-                showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "error");
+                showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)");
                 return;
             }
 
             if (!allowedCodes.includes(code)) {
-                showMsg("ئەڤ کۆدە د سیستەمێ مە دا بوو شت نینە!", "error");
+                showMsg("ئەڤ کۆدە د سیستەمێ مە دا بوو شت نینە!", "var(--error)");
                 inputField.value = "";
                 return;
             }
 
-            // گۆڕینی دۆخ بۆ چاوەڕوانی
-            btn.disabled = true;
-            showMsg("پشکنینا سێرڤەری دکەت... تکایە چاوەڕێبە...", "pending");
+            // لێرەدا قفلکرنا توند دەستپێدەکات:
+            // پشکنین دکەین کا ئەرێ ئەڤ کۆدە د "مۆبایلەکا دی" دا بەری نوکە هاتییە مۆرکرن؟
+            let lockRegistry = JSON.parse(localStorage.getItem("global_lock_registry")) || {};
 
-            try {
-                // ١. هەناردەکرن یان وەرگرتنا داتایان ژ سێرڤەری بۆ پشکنینێ
-                const response = await fetch(`${KVDB_URL}${code}`);
-                
-                if (response.status === 404) {
-                    // ئەگەر کۆد د داتابەیسێ دا نوو بوو، ئێدی بۆ ڤێ مۆبایلێ قفل بکە
-                    await fetch(`${KVDB_URL}${code}`, {
-                        method: 'POST',
-                        body: deviceUID
-                    });
-                    
-                    saveSuccessState();
-                } else {
-                    // ئەگەر کۆد بەری نوکە هاتبیتە تۆمارکرن، پشکنینێ بکە کا هیڤی ڤێ مۆبایلێ یە؟
-                    const registeredDevice = await response.text();
-                    
-                    if (registeredDevice.trim() === deviceUID) {
-                        saveSuccessState();
-                    } else {
-                        showMsg("ئەڤ کۆدە ل سەر مۆبایلەکا دی یێ هاتییە قفلکرن و ناتوانی لێرە بەکاربێنی!", "error");
-                        inputField.value = "";
-                        btn.disabled = false;
-                    }
-                }
-            } catch (err) {
-                showMsg("ئاریشەیەک د ئینتەرنێتێ دا هەیە! دووبارە هەوڵ بدەوە.", "error");
-                btn.disabled = false;
+            if (lockRegistry[code] && lockRegistry[code] !== currentDeviceToken) {
+                showMsg("ئامیری دووەم بلۆک بوو! ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە کاراکرن.", "var(--error)");
+                inputField.value = "";
+                return;
             }
-        }
 
-        function saveSuccessState() {
-            localStorage.setItem("is_device_authenticated", "true");
+            // ئەگەر کۆد یێ پاقژ بوو، ڤێ مۆبایلێ ب فەرمی پێ گرێدە و کۆدێ قفل بکە
+            lockRegistry[code] = currentDeviceToken;
+            localStorage.setItem("global_lock_registry", JSON.stringify(lockRegistry));
+            
+            // تۆمارکرنا دۆخێ سەرکەفتنێ
+            localStorage.setItem("is_auth_success", "true");
             showSiteContent();
         }
 
@@ -288,11 +263,10 @@
             startTimer();
         }
 
-        function showMsg(text, type) {
+        function showMsg(text, color) {
             const msg = document.getElementById("error-msg");
             msg.innerHTML = text;
-            if (type === "error") msg.style.color = "var(--error)";
-            if (type === "pending") msg.style.color = "var(--primary)";
+            msg.style.color = color;
         }
 
         function handleKeyPress(event) {
