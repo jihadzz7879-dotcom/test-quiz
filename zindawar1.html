@@ -145,6 +145,22 @@
         </div>
 
         <div class="form-group">
+            <label for="patient-phone">ڕەقەما مۆبایلێ:</label>
+            <input type="tel" id="patient-phone" placeholder="نموونە: 0750XXXXXXX" style="text-align: left; direction: ltr;">
+        </div>
+
+        <div class="form-group">
+            <label for="treatment-type">جۆرێ چەسەرکرنێ (خزمەتگوزاری):</label>
+            <select id="treatment-type">
+                <option value="" disabled selected>خزمەتگوزاریەکێ هەلبژێرە...</option>
+                <option value="شوشتنا ددانا">شوشتنا ددانا (Cleaning)</option>
+                <option value="حەشۆکرنا ددانا">حەشۆکرنا ددانا (Filling)</option>
+                <option value="کێشانا ددانی">کێشانا ددانی (Extraction)</option>
+                <option value="ڕاستکرنەوا ددانا">ڕاستکرنەوا ددانا (Orthodontics)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="appointment-date">ڕێکەفت و ڕۆژا ژڤانی (هەمی ڕۆژا ژبۆلی ئەینی):</label>
             <input type="date" id="appointment-date">
         </div>
@@ -166,7 +182,6 @@
             passwordSection.style.display = "none";
             bookingSection.style.display = "block";
             
-            // ڕێگری ل گرتنا ژڤانێن ڕابردوو بکە (تەنها ژ ئەڤڕۆ و پێدا)
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('appointment-date').setAttribute('min', today);
         } else {
@@ -177,33 +192,49 @@
     // تۆمارکرنا ژڤانی
     function submitBooking() {
         const name = document.getElementById('patient-name').value;
+        const phone = document.getElementById('patient-phone').value;
+        const treatment = document.getElementById('treatment-type').value;
         const dateInput = document.getElementById('appointment-date').value;
         const successText = document.getElementById('success-text');
 
-        if (name.trim() === "" || !dateInput) {
-            alert("تکایە ناڤێ خۆ بنڤێسە و ڕێکەفتەکێ هەلبژێرە!");
+        // پشکنینا تژی کرنا داتایان
+        if (name.trim() === "" || phone.trim() === "" || !treatment || !dateInput) {
+            alert("تکایە هەمی زانیاریان تژی بکە!");
             return;
         }
 
-        // پشکنین کا ئەرێ ڕۆژا ئەینییە؟
-        const selectedDate = new Date(dateInput);
-        const dayOfWeek = selectedDate.getUTCDay(); // 5 رامانا وێ ئەینییە (Friday)
+        // ڕێگری ل ناڤێ قەدەغەکری (کچ خال / Kch Khal)
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes("kch khal") || lowerName.includes("کچ خال") || lowerName.includes("کچ خاڵ")) {
+            alert("بۆچوون ب ڤی ناڤی ڕێپێدراو نینە! تکایە ناڤەکێ دروست بنڤێسە.");
+            return;
+        }
 
-        if (dayOfWeek === 4) { // د سیستەمێ ئۆتۆماتیکی دا 4 ل سەر ته‌قویما UTC دبیته‌ ڕۆژا ئه‌ینی ل دەڤ مه‌
+        // پشکنین بۆ ڕۆژا ئەینی
+        const selectedDate = new Date(dateInput);
+        const dayOfWeek = selectedDate.getUTCDay(); 
+
+        if (dayOfWeek === 4) { 
             alert("ببورە! کلینیک ڕۆژێن ئەینی داخستییە. تکایە ڕۆژەکا دی هەلبژێرە.");
             return;
         }
 
-        // ناڤێن ڕۆژان ب کوردی
         const daysInKurdish = ["یەکشەمبی", "دووشەمبی", "سێشەمبی", "چوارشەمبی", "پێنجشەمبی", "ئەینی", "شەمبی"];
         const dayName = daysInKurdish[selectedDate.getDay()];
 
-        // دیارکرنا سەرکەفتنا نامێ
-        successText.innerHTML = `سلاڤ نەخۆش: <b>${name}</b><br> ژڤانێ تە ب سەرکەفتن هاتە تۆمارکرن ل ڕۆژا <b>${dayName} (${dateInput})</b>.`;
+        // سەرکەفتنا نامێ
+        successText.innerHTML = `
+            سلاڤ نەخۆش: <b>${name}</b><br>
+            ڕەقەما مۆبایلێ: <b>${phone}</b><br>
+            خزمەتگوزاری: <b>${treatment}</b><br>
+            ژڤانێ تە هاتە تۆمارکرن ل ڕۆژا <b>${dayName} (${dateInput})</b>.
+        `;
         successText.style.display = "block";
         
         // پاقژکرنا فۆڕمی
         document.getElementById('patient-name').value = "";
+        document.getElementById('patient-phone').value = "";
+        document.getElementById('treatment-type').selectedIndex = 0;
         document.getElementById('appointment-date').value = "";
     }
 </script>
