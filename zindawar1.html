@@ -3,239 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Firdaws Dental Clinic</title>
+    <title>سیستەمێ تاقیکردنێ: ئەرکێن جێناوێ لکاو</title>
     <style>
         :root {
-            --primary-color: #00a896;
-            --secondary-color: #028090;
-            --dark-color: #020c1b;
-            --light-color: #f4f9f9;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            background: white;
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 450px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
             text-align: center;
-            border-top: 5px solid var(--primary-color);
-            margin: 20px;
-        }
-
-        h1 {
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-            font-size: 24px;
-        }
-
-        h2 {
-            color: #555;
-            font-size: 16px;
-            margin-bottom: 25px;
-            font-weight: normal;
-        }
-
-        .form-group {
             margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-main {
+            grid-column: 1 / -1;
+            background-color: #9b59b6;
+        }
+
+        .btn-main:hover {
+            background-color: #8e44ad;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            padding: 22px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+
+        .options-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .option-item {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
             text-align: right;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
+        .option-item:hover {
+            background: #f1f5f9;
+            border-color: var(--accent-color);
+        }
+
+        .option-item.correct {
+            background-color: #d4edda !important;
+            border-color: var(--success-color) !important;
+            color: #155724;
             font-weight: bold;
-            color: var(--dark-color);
         }
 
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 15px;
-            transition: all 0.3s ease;
+        .option-item.wrong {
+            background-color: #f8d7da !important;
+            border-color: var(--error-color) !important;
+            color: #721c24;
         }
 
-        input:focus, select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 8px rgba(0, 168, 150, 0.2);
-        }
-
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        #booking-section {
-            display: none;
-        }
-
-        .error-msg {
-            color: #d9534f;
-            font-size: 14px;
+        .feedback {
             margin-top: 10px;
-            display: none;
+            font-weight: bold;
+            font-size: 15px;
         }
 
-        .success-msg {
-            color: #2b9348;
-            font-size: 16px;
+        .feedback.correct { color: var(--success-color); }
+        .feedback.wrong { color: var(--error-color); }
+
+        .score-section {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .percentage {
+            font-size: 52px;
             font-weight: bold;
-            margin-top: 15px;
-            display: none;
+            color: #27ae60;
+            margin: 20px 0;
         }
-        
-        .icon {
-            font-size: 40px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
+
+        .btn-back {
+            background-color: #7f8c8d;
+            margin-top: 20px;
+            width: 100%;
         }
+        .btn-back:hover { background-color: #95a5a6; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="icon">🦷</div>
-    <h1>Dr. Firdaws Dental Clinic</h1>
-    <h2>کلینیکا دکتور فیردەوس بۆ ددانا</h2>
-
-    <!-- پشکێ پاسپۆردێ -->
-    <div id="password-section">
-        <div class="form-group">
-            <label for="password">بۆچوونا ناڤ سیستەمی، پاسپۆردی بنڤێسە:</label>
-            <input type="password" id="password" placeholder="پاسپۆردی لێرە بنڤێسە...">
+    <div id="main-menu">
+        <h1>سیستەمێ تاقیکردنا ڕێزمانێ</h1>
+        <h3 style="color: #7f8c8d;">بابەت: ئەرکێن جێناوێ لکاو (هەمی وێنە و پسیار)</h3>
+        <p style="text-align: center; margin-top: 10px; color: #555;">تکایە جۆرێ تاقیکردنێ هەلبژێره:</p>
+        
+        <div class="menu-grid">
+            <button class="btn" onclick="startQuiz('بکەر')">١. جێناوێ لکاو وەکو بکەر</button>
+            <button class="btn" onclick="startQuiz('بەرکار')">٢. جێناوێ لکاو وەکو بەرکار</button>
+            <button class="btn" onclick="startQuiz('تەمامکەر')">٣. جێناوێ لکاو وەکو تەمامکەرێ بەدیاریدە</button>
+            <button class="btn" onclick="startQuiz('دیارکەر')">٤. جێناوێ لکاو وەکو دیارکەرێ ناڤی</button>
+            <button class="btn btn-main" onclick="startQuiz('گشتی')">تاقیکردنا گشتی (هەمی بابەت پێکەوە ژ کۆی وێنەیان)</button>
         </div>
-        <button onclick="checkPassword()">چوونەژوور</button>
-        <p class="error-msg" id="pass-error">پاسپۆرد خەلەتە! دیسان تاقی بکەوە.</p>
     </div>
 
-    <!-- پشکێ گرتنا ژڤانی -->
-    <div id="booking-section">
-        <div class="form-group">
-            <label for="patient-name">ناڤێ نەخۆشی:</label>
-            <input type="text" id="patient-name" placeholder="ناڤێ خۆ یێ سیانی بنڤێسە">
-        </div>
+    <div id="quiz-section" class="hidden">
+        <h2 id="quiz-title">ناڤێ تاقیکردنێ</h2>
+        <hr style="margin-bottom: 20px; border: 1px solid #e2e8f0;">
+        <div id="questions-container"></div>
+        <button class="btn btn-main" style="width: 100%; margin-top: 20px;" onclick="calculateResults()">دوماهی هێنان و دەرخستنا ئەنجامی</button>
+    </div>
 
-        <div class="form-group">
-            <label for="patient-phone">ڕەقەما مۆبایلێ:</label>
-            <input type="tel" id="patient-phone" placeholder="نموونە: 0750XXXXXXX" style="text-align: left; direction: ltr;">
-        </div>
-
-        <div class="form-group">
-            <label for="treatment-type">جۆرێ چەسەرکرنێ (خزمەتگوزاری):</label>
-            <select id="treatment-type">
-                <option value="" disabled selected>خزمەتگوزاریەکێ هەلبژێرە...</option>
-                <option value="شوشتنا ددانا">شوشتنا ددانا (Cleaning)</option>
-                <option value="حەشۆکرنا ددانا">حەشۆکرنا ددانا (Filling)</option>
-                <option value="کێشانا ددانی">کێشانا ددانی (Extraction)</option>
-                <option value="ڕاستکرنەوا ددانا">ڕاستکرنەوا ددانا (Orthodontics)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="appointment-date">ڕێکەفت و ڕۆژا ژڤانی (هەمی ڕۆژا ژبۆلی ئەینی):</label>
-            <input type="date" id="appointment-date">
-        </div>
-
-        <button onclick="submitBooking()">تۆمارکرنا ژڤانی</button>
-        <p class="success-msg" id="success-text"></p>
+    <div id="result-section" class="hidden" class="score-section">
+        <h2 style="text-align: center;">ئەنجامێ تاقیکردنا تە</h2>
+        <div class="percentage" id="result-percent" style="text-align: center;">0%</div>
+        <p id="score-text" style="font-size: 20px; margin-bottom: 10px; text-align: center; font-weight: bold;"></p>
+        <p id="total-questions-text" style="font-size: 16px; margin-bottom: 20px; text-align: center; color: #555;"></p>
+        <button class="btn btn-back" onclick="goToMenu()">زڤڕین بۆ لاپەرێ سەرەکی</button>
     </div>
 </div>
 
 <script>
-    // پشکنینا پاسپۆردی
-    function checkPassword() {
-        const passInput = document.getElementById('password').value;
-        const passError = document.getElementById('pass-error');
-        const passwordSection = document.getElementById('password-section');
-        const bookingSection = document.getElementById('booking-section');
+    // بانکا زانیاری یا هەمی پسیارێن د ناڤ وێنەیاندا هەی
+    const allQuestions = {
+        'بکەر': [
+            { q: "د ڕستەیا (نامەکەم نووسی) دا، جێناوێ لکاو (م) چ ئەرکەک هەیە؟", a: ["بکەر", "بەرکار", "دیارکەرێ ناڤی", "تەمامکەر"], correct: 0 },
+            { q: "جێناوێن لکاو د ڕستەیا لێکدراوێ تێپەڕی دەمێ بۆری دا، دەبنە چ؟", a: ["بەرکار", "بکەر", "جێناوێ لکاوێ دۆند", "هیچ کام"], correct: 1 }
+        ],
+        'بەرکار': [
+            { q: "جێناوێن لکاو ( م، یت، ــ ، ین، ون، ن ) دبنە بەرکار دگەل کیش جۆری کار؟ (وێنەیێ ١)", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - بێژیێ تێنەپەڕ"], correct: 0 },
+            { q: "جێناوێن لکاو ( ین ) دبیته بەرکار دگەل کارێ: (وێنەیێ ١)", a: ["A - داخوازیێ تێپەڕ", "B - بۆریێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - نەبۆریێ تێنەپەڕ"], correct: 1 },
+            { q: "جێناوێ لکاوێ ( ین ) نەشێت ببیته بەرکار دگەل کارێ: (وێنەیێ ١)", a: ["A - بۆریێ تێپەڕ", "B - داخوازیێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - داخوازیێ تێپەڕ (تایبەت)"], correct: 3 },
+            { q: "د ڕستەیا ( هاتی بژاردین ) ئەڤ دۆخی کێ هەیە؟ (وێنەیێ ١)", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - داخوازیێ تێپەڕ", "D - نەبۆریێ تێپەڕ"], correct: 2 },
+            { q: "د ڕستەیا ( وەرەتان گرتین ) ئەڤ دۆخی کێ هەیە؟ (وێنەیێ ١)", a: ["A - نەبۆریێ تێپەڕ", "B - بۆریێ تێپەڕ", "C - داخوازیێ تێپەڕ", "D - ئەڕێنیێ تێپەڕ"], correct: 1 },
+            { q: "د ڕستەیا ( بانگمان دکەردیت ) ئەڤ دۆخی کێ هەیە؟ (وێنەیێ ١)", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - داخوازیێ تێپەڕ", "D - نەبۆریێ تێپەڕ"], correct: 0 },
+            { q: "جێناوێ لکاوێ ( تان ) نەشێت ببیته بەرکار دگەل کارێ: (وێنەیێ ٢)", a: ["A - داخوازیێ تێپەڕ", "B - ئەڕێنیێ تێپەڕ", "C - تێپەڕ و داخوازی", "D - نەبۆریێ ڕاگەیاندن"], correct: 3 },
+            { q: "جێناوێن لکاو ( ت ، تان ) تایبەتە ب بەرکارێ دگەل کارێ: (وێنەیێ ٢)", a: ["A - بۆریێ تێپەڕ", "B - داخوازیێ تێپەڕ", "C - نەبۆریێ تێپەڕ", "D - نەبۆریێ ڕاگەیاندن"], correct: 1 },
+            { q: "کێش جێناوێ لکاوێ کارێ ( بکڕە ) دبیته بەرکار: (وێنەیێ ٢)", a: ["A - ی", "B - ت", "C - تان", "D - وەرگرتن"], correct: 0 },
+            { q: "ئەگەر جێناوێ لکاوێ بەرکاری دا بۆ کەسی ئێکی کۆم ل گەل کارێ ( هاتی ) دێ ببیته: (وێنەیێ ٣)", a: ["A - هان داین", "B - هاتمان دای", "C - هاتی دامان", "D - هاتی داین"], correct: 3 },
+            { q: "جێناوێ کەسیێ لکاو ( ین ) دگەل کێش ئەڤان دێ ببیته بەرکار: (وێنەیێ ٣)", a: ["A - وەرگرت", "B - وەرگرتبا", "C - دەبوو وەرگرتبا", "D - وەرگرتبێت"], correct: 0 }
+        ],
+        'تەمامکەر': [
+            { q: "جێناوێن لکاو ( ین ) دبنە تەمامکەرێ بەدیاریدە دگەل کیش جۆری کارێ؟ (وێنەیێ ٥)", a: ["A - بۆریێ تێپەڕ", "B - بۆریێ تێنەپەڕ", "C - نەبۆریێ تێپەڕ", "D - هەمی بەرسڤ دروستن"], correct: 3 },
+            { q: "دڕستەیا ( زەوییەکەی بۆ فرۆشتم ) جێناوێ ( مان ) وەکی تەمامکەرێ بەدیاریدە دچیته دوماهیا: (وێنەیێ ٦)", a: ["A - ئامرازێ پەیوەندیێ", "B - بکەر", "C - دوماهیا کارێ", "D - بەرکار"], correct: 2 },
+            { q: "دڕستەیا ( جانتاکەی بۆم داگرت ) ئەگەر ( بەرکار ) بهێته لادان ڕستە دێ ببیته: (وێنەیێ ٦)", a: ["A - بۆی داگرت", "B - بۆم داگرت", "C - بۆمی داگرت", "D - بۆیم داگرت"], correct: 2 },
+            { q: "دڕستەیا ( گۆژەکانی بۆ تان ئاودان نەکرد ) ئەگەر بەرکاری لادەین ڕستە دێ ببیته: (وێنەیێ ٦)", a: ["A - بۆتانی ئاودان نەکرد", "B - بۆ تان ئاودان نەکرد", "C - بۆ تان ئاودان نەکردی", "D - بۆ تانی ئاودان نەکردتان"], correct: 0 },
+            { q: "دڕستەیا ( دیاردیەکمان بۆ ناردیت ) ئەرکێ جێناوێ لکاوێ ( یت ) چییە؟ (وێنەیێ ٧)", a: ["A - بکەر", "B - بەرکار", "C - تەمامکەرێ بەدیاریدە", "D - دیارکەرێ ناڤی"], correct: 2 }
+        ],
+        'دیارکەر': [
+            { q: "جێناوێ لکاوێ ( ین ) دبیته دیارکەرێ ناڤی دگەل کارێ: (وێنەیێ ٨)", a: ["A - داخوازی", "B - نەبۆری", "C - بۆریێ تێپەڕ", "D - دگەل هەموویان"], correct: 2 },
+            { q: "ئەگەر جێناوێ کەسیێ لکاو ببیته دیارکەرێ ناڤی، پشت بە چی دەبەستێت؟ (وێنەیێ ٨)", a: ["A - ئامرازی لکاو", "B - ئامرازی پێشگر", "C - ئامرازی دانەپاڵێ ( هـ ) هەیە", "D - چوونەپاڵ"], correct: 3 },
+            { q: "د ڕستەیا ( سروودە نوێیەکەمان تۆمارکرد ) ئەرکێ ( مان ) چییە؟ (وێنەیێ ٩)", a: ["A - دیارکەرێ پێشگر", "B - بکەر", "C - بەرکار", "D - دیارکەرێ ناڤی"], correct: 3 },
+            { q: "نەشێین بێژین ( قەڵەمەکەت نەسرین شکا ) چونکی: (وێنەیێ ٩)", a: ["A - قەڵەمەکە ناسیاوە", "B - پشت پێ بەستراوە", "C - تێکچوونی ڕستەیە", "D - قەڵەمەکە ناڤەکێ ناسراوە دگەل دوو دیارکەران"], correct: 3 },
+            { q: "د ڕستەیا ( کتێبەکەم ئازاد جوانە ) بۆچی یا خەلەتە؟ (وێنەیێ ٩)", a: ["A - کار نەهاتیە", "B - جێناوێ لکاو دیارکەرێ ناڤی یە و دیارکەرێ دی نابێت", "C - بکەر نەهاتیە", "D - چوانا ڕستێ"], correct: 1 },
+            { q: "ئەگەر جێناوێ لکاو ( ت ) وەک دیارکەر بەکاربهێنین د ( میوانەکانمان گەیاندبوو ) دا دێ ببیته: (وێنەیێ ١٠)", a: ["A - میوانەکانتان گەیاندبوو", "B - میوانەکەتان", "C - میوانەکان گەیاندبووتان", "D - گەیاندبووتان میوانەکە"], correct: 0 }
+        ]
+    };
 
-        if (passInput === "Firdaws") {
-            passwordSection.style.display = "none";
-            bookingSection.style.display = "block";
-            
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('appointment-date').setAttribute('min', today);
+    let activeQuestions = [];
+    let selectedAnswers = {};
+
+    function startQuiz(category) {
+        document.getElementById('main-menu').classList.add('hidden');
+        document.getElementById('quiz-section').classList.remove('hidden');
+        
+        selectedAnswers = {};
+        
+        if (category === 'گشتی') {
+            document.getElementById('quiz-title').innerText = "تاقیکردنا گشتی (هەمی پسیارێن د ناڤ وێنەیاندا)";
+            activeQuestions = [
+                ...allQuestions['بکەر'],
+                ...allQuestions['بەرکار'],
+                ...allQuestions['تەمامکەر'],
+                ...allQuestions['دیارکەر']
+            ];
         } else {
-            passError.style.display = "block";
+            document.getElementById('quiz-title').innerText = "تاقیکردنا: جێناوێ لکاو وەکو " + category;
+            activeQuestions = [...allQuestions[category]];
+        }
+
+        renderQuestions();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+
+        activeQuestions.forEach((qObj, qIdx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const qTitle = document.createElement('h4');
+            qTitle.style.marginBottom = '12px';
+            qTitle.innerText = `پسیارا ${qIdx + 1}: ${qObj.q} (٢ نمرە)`;
+            card.appendChild(qTitle);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            qObj.a.forEach((opt, oIdx) => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+                li.id = `q-${qIdx}-o-${oIdx}`;
+                li.innerText = opt;
+                li.onclick = () => selectOption(qIdx, oIdx, qObj.correct);
+                optionsList.appendChild(li);
+            });
+
+            card.appendChild(optionsList);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback hidden';
+            feedback.id = `feedback-${qIdx}`;
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx, correctIdx) {
+        if (selectedAnswers[qIdx] !== undefined) return; // ڕێگری ژ دووبارە بەرسڤدانێ دکەت
+
+        selectedAnswers[qIdx] = oIdx;
+        const feedbackEl = document.getElementById(`feedback-${qIdx}`);
+        feedbackEl.classList.remove('hidden');
+
+        if (oIdx === correctIdx) {
+            document.getElementById(`q-${qIdx}-o-${oIdx}`).classList.add('correct');
+            feedbackEl.innerText = "✓ بەرسڤا تە دروسته!";
+            feedbackEl.className = "feedback correct";
+        } else {
+            document.getElementById(`q-${qIdx}-o-${oIdx}`).classList.add('wrong');
+            document.getElementById(`q-${qIdx}-o-${correctIdx}`).classList.add('correct');
+            feedbackEl.innerText = "✗ بەرسڤا تە خەلەتە! بەرسڤا دروست ب ڕەنگێ سەوز دیارە.";
+            feedbackEl.className = "feedback wrong";
         }
     }
 
-    // تۆمارکرنا ژڤانی
-    function submitBooking() {
-        const name = document.getElementById('patient-name').value;
-        const phone = document.getElementById('patient-phone').value;
-        const treatment = document.getElementById('treatment-type').value;
-        const dateInput = document.getElementById('appointment-date').value;
-        const successText = document.getElementById('success-text');
+    function calculateResults() {
+        let correctCount = 0;
+        let totalQuestions = activeQuestions.length;
 
-        // پشکنینا تژی کرنا داتایان
-        if (name.trim() === "" || phone.trim() === "" || !treatment || !dateInput) {
-            alert("تکایە هەمی زانیاریان تژی بکە!");
-            return;
-        }
+        activeQuestions.forEach((qObj, qIdx) => {
+            if (selectedAnswers[qIdx] === qObj.correct) {
+                correctCount++;
+            }
+        });
 
-        // ڕێگری ل ناڤێ قەدەغەکری (کچ خال / Kch Khal)
-        const lowerName = name.toLowerCase();
-        if (lowerName.includes("kch khal") || lowerName.includes("کچ خال") || lowerName.includes("کچ خاڵ")) {
-            alert("بۆچوون ب ڤی ناڤی ڕێپێدراو نینە! تکایە ناڤەکێ دروست بنڤێسە.");
-            return;
-        }
+        let totalScore = totalQuestions * 2;
+        let userScore = correctCount * 2;
+        let percent = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
-        // پشکنین بۆ ڕۆژا ئەینی
-        const selectedDate = new Date(dateInput);
-        const dayOfWeek = selectedDate.getUTCDay(); 
+        document.getElementById('quiz-section').classList.add('hidden');
+        const resSection = document.getElementById('result-section');
+        resSection.classList.remove('hidden');
+        resSection.style.display = 'block';
 
-        if (dayOfWeek === 4) { 
-            alert("ببورە! کلینیک ڕۆژێن ئەینی داخستییە. تکایە ڕۆژەکا دی هەلبژێرە.");
-            return;
-        }
+        document.getElementById('result-percent').innerText = percent + "%";
+        document.getElementById('score-text').innerText = `نمرەیا تە: ${userScore} ژ کۆی ${totalScore} نمرەیان.`;
+        document.getElementById('total-questions-text').innerText = `تە بەرسڤا (${correctCount}) پسیاران داوە ب دروستی ژ کۆی (${totalQuestions}) پسیارێن ڤی بەشی.`;
+    }
 
-        const daysInKurdish = ["یەکشەمبی", "دووشەمبی", "سێشەمبی", "چوارشەمبی", "پێنجشەمبی", "ئەینی", "شەمبی"];
-        const dayName = daysInKurdish[selectedDate.getDay()];
-
-        // سەرکەفتنا نامێ
-        successText.innerHTML = `
-            سلاڤ نەخۆش: <b>${name}</b><br>
-            ڕەقەما مۆبایلێ: <b>${phone}</b><br>
-            خزمەتگوزاری: <b>${treatment}</b><br>
-            ژڤانێ تە هاتە تۆمارکرن ل ڕۆژا <b>${dayName} (${dateInput})</b>.
-        `;
-        successText.style.display = "block";
-        
-        // پاقژکرنا فۆڕمی
-        document.getElementById('patient-name').value = "";
-        document.getElementById('patient-phone').value = "";
-        document.getElementById('treatment-type').selectedIndex = 0;
-        document.getElementById('appointment-date').value = "";
+    function goToMenu() {
+        document.getElementById('result-section').style.display = 'none';
+        document.getElementById('result-section').classList.add('hidden');
+        document.getElementById('main-menu').classList.remove('hidden');
     }
 </script>
 
