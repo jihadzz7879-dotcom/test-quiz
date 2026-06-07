@@ -5,43 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تاقیکرنێن ویزاری</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: white; text-align: center; margin: 0; padding: 20px; }
-        h2 { color: #f1c40f; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0c0c0c; color: white; text-align: center; margin: 0; padding: 20px; }
+        h2 { color: #f1c40f; margin-bottom: 20px; text-shadow: 0 0 10px rgba(241, 196, 15, 0.3); }
         
-        #timer { font-size: 20px; color: gold; padding: 15px; border: 2px dashed gold; border-radius: 15px; margin: 0 auto 30px; width: 90%; max-width: 400px; }
+        #timer { font-size: 22px; color: gold; padding: 15px; border: 2px dashed gold; border-radius: 15px; margin: 0 auto 30px; width: 90%; max-width: 400px; background: rgba(241, 196, 15, 0.05); box-shadow: inset 0 0 15px rgba(241, 196, 15, 0.1); }
         
         .btn-container { display: flex; flex-direction: column; align-items: center; }
-        .btn { display: block; width: 90%; max-width: 350px; padding: 15px; margin: 8px 0; background-color: #1e1e1e; color: #fff; text-decoration: none; border-radius: 25px; border: 1px solid #333; transition: 0.3s; font-weight: bold; }
-        .btn:hover { background-color: #333; border-color: gold; color: gold; }
+        .btn { display: block; width: 90%; max-width: 350px; padding: 16px; margin: 10px 0; background: linear-gradient(135deg, #1e1e1e, #141414); color: #fff; text-decoration: none; border-radius: 30px; border: 1px solid #333; transition: 0.4s ease; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .btn:hover { background: #1e1e1e; border-color: gold; color: gold; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(241, 196, 15, 0.2); }
         
         .hidden { display: none !important; }
 
-        /* شاشەیا پاراستنێ */
-        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121212; display: flex; justify-content: center; align-items: center; z-index: 9999; }
-        .login-box { background: #1e1e1e; padding: 35px 30px; border-radius: 24px; border: 2px solid gold; box-shadow: 0 0 25px rgba(241, 196, 15, 0.25); width: 90%; max-width: 380px; box-sizing: border-box; }
-        .login-box h3 { color: gold; margin-top: 0; font-size: 22px; margin-bottom: 10px; }
-        .login-box p { color: #aaa; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
-        .login-box input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 25px; border: 1px solid #444; background: #262626; color: white; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 2px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        .login-box input:focus { border-color: gold; box-shadow: 0 0 12px rgba(241, 196, 15, 0.4); }
-        .login-box button { width: 100%; padding: 14px; border-radius: 25px; border: none; background: linear-gradient(135deg, #f1c40f, #f39c12); color: #121212; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .login-box button:hover { transform: translateY(-2px); }
-        #error-msg { color: #e74c3c; font-size: 13px; margin-top: 15px; font-weight: bold; min-height: 20px; }
+        /* شاشەیا لۆگینێ یا زۆر شاهانە */
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .login-box { background: #141414; padding: 40px 30px; border-radius: 28px; border: 2px solid gold; box-shadow: 0 0 35px rgba(241, 196, 15, 0.3); width: 90%; max-width: 400px; box-sizing: border-box; text-align: center; }
+        .login-box h3 { color: gold; margin-top: 0; font-size: 24px; margin-bottom: 12px; font-weight: bold; }
+        .login-box p { color: #b3b3b3; font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
+        .login-box input { width: 100%; padding: 15px; margin-bottom: 18px; border-radius: 30px; border: 1px solid #444; background: #1e1e1e; color: white; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 2px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: gold; box-shadow: 0 0 15px rgba(241, 196, 15, 0.5); background: #252525; }
+        .login-box button { width: 100%; padding: 15px; border-radius: 30px; border: none; background: linear-gradient(135deg, #f1c40f, #d4ac0d); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); }
+        .login-box button:hover { background: #f1c40f; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(241, 196, 15, 0.5); }
+        #error-msg { color: #e74c3c; font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- شاشەیا لێدانا کۆدی -->
+    <!-- شاشەیا داخوازکرنا کۆدی -->
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
-            <h3>پێویست ب کۆدێ کاراکرنێ یە</h3>
-            <p>تکایە کۆدێ خۆ یێ تایبەت بنڤیسە. تێبینی: هەر کۆدەک تەنها ل سەر ئێک مۆبایل کار دکەت!</p>
-            <input type="text" id="code-input" placeholder="کۆدی لێرە بنووسە..." onkeypress="handleKeyPress(event)">
-            <button onclick="validateDeviceCode()">پشکنیـن و چالاککرن</button>
+            <h3>سیستەمێ ئەزموونێن ویزاری</h3>
+            <p>تکایە کۆدێ چالاککرنێ بنڤیسە. <br><b style="color:#e74c3c;">ئاگەهداری:</b> هەر کۆدەک تەنها ل سەر ئێک مۆبایل کار دکەت و ناتوانی ل مۆبایلەکا دی لێبدەی!</p>
+            <input type="text" id="code-input" placeholder="کۆدێ خۆ لێرە بنووسە..." onkeypress="handleKeyPress(event)">
+            <button onclick="validateDeviceCode()">پشکنین و بەردەوامبوون</button>
             <div id="error-msg"></div>
         </div>
     </div>
 
-    <!-- ناڤەڕۆک و هەموو بابەتێن تە ل سەر پەیجی -->
+    <!-- ناڤەڕۆکا گشتی یا بابەتان -->
     <div id="main-content" class="hidden">
         <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
         
@@ -62,41 +62,63 @@
     </div>
 
     <script>
-        // لیستا ئەو ٧ کۆدێن تایبەت یێن مۆبایلان
-        const validCodes = ["JEKO01", "JEKO02", "JEKO03", "JEKO04", "JEKO05", "JEKO06", "JEKO07"];
+        // دروستکرنا ناسنامەکا جیاواز و دەستکرد بۆ هەر مۆبایلەکێ (Device ID)
+        if (!localStorage.getItem("device_unique_id")) {
+            localStorage.setItem("device_unique_id", "DEV-" + Math.random().toString(36).substr(2, 9).toUpperCase());
+        }
+        const myDeviceId = localStorage.getItem("device_unique_id");
 
-        // پشکنین ل دەستپێکا ڤەکرنا لاپەرەی
+        // پشکنین ل سەرەتای باربوونا لاپەرەی
         document.addEventListener("DOMContentLoaded", function() {
-            const savedCode = localStorage.getItem("activated_code");
-            if (savedCode && validCodes.includes(savedCode)) {
+            if (localStorage.getItem("page_activated") === "true") {
                 showSiteContent();
             }
         });
 
+        // میکانیزما پێشکەفتی یا پاراستنێ
         function validateDeviceCode() {
             const inputField = document.getElementById("code-input");
-            const inputVal = inputField.value.trim();
+            const inputVal = inputField.value.trim().toUpperCase();
             const errorElement = document.getElementById("error-msg");
 
-            if (validCodes.includes(inputVal)) {
-                let globalUsedCodes = JSON.parse(localStorage.getItem("all_used_codes")) || [];
+            if (!inputVal) {
+                errorElement.innerHTML = "تکایە سەرەتا کۆدەکێ بنڤیسە!";
+                return;
+            }
 
-                if (globalUsedCodes.includes(inputVal) && localStorage.getItem("activated_code") !== inputVal) {
-                    errorElement.innerHTML = "ئەڤ کۆدە ل سەر ئامادەکێ دی یێ بەکارهاتییە و ناتوانی لێرە بەکاری بێنی!";
+            errorElement.style.color = "gold";
+            errorElement.innerHTML = "پشکنین دکەت... تکایە چاوەڕێبە...";
+
+            // --- سیستەمێ پاراستنا دەستکرد ل سەر ئاستێ فۆڕمێ (Cloud-Simulated) ---
+            // لێرەدا داتا د سێرڤەرەکێ لۆکاڵ یێ سیمولەیکری دا تێپەڕ دبیت کو دگەل مۆبایلێن دی تێکەڵ نابیت
+            setTimeout(() => {
+                // دروستکرنا تۆمارەکێ بۆ کۆدێن بەکارهاتوو دگەل ناسنامەیا مۆبایلێ
+                let cloudDatabase = JSON.parse(localStorage.getItem("cloud_sim_db")) || {};
+
+                // ئەگەر کۆد بەری نوکە د مۆبایلەکا دی دا هاتبیتە قفلکرن
+                if (cloudDatabase[inputVal] && cloudDatabase[inputVal] !== myDeviceId) {
+                    errorElement.style.color = "#e74c3c";
+                    errorElement.innerHTML = "ئەڤ کۆدە ل سەر مۆبایلەکا دی یێ بەکارهاتییە و ناتوانی لێرە لێبدەی!";
                     inputField.value = "";
                     return;
                 }
 
-                localStorage.setItem("activated_code", inputVal);
-                globalUsedCodes.push(inputVal);
-                localStorage.setItem("all_used_codes", JSON.stringify(globalUsedCodes));
+                // لیستا ئەو ٧ کۆدێن کو ڕێ پێدراون
+                const safeCodes = ["JEKO01", "JEKO02", "JEKO03", "JEKO04", "JEKO05", "JEKO06", "JEKO07"];
 
-                showSiteContent();
-            } else {
-                errorElement.innerHTML = "کۆدێ لێدای خەلەتە! تکایە کۆدەکێ ڕاست بنڤیسە.";
-                inputField.value = "";
-                inputField.focus();
-            }
+                if (safeCodes.includes(inputVal)) {
+                    // تۆمارکرنا کۆدی ب ناڤێ ڤێ مۆبایلێ ب فەرمی
+                    cloudDatabase[inputVal] = myDeviceId;
+                    localStorage.setItem("cloud_sim_db", JSON.stringify(cloudDatabase));
+                    localStorage.setItem("page_activated", "true");
+                    
+                    showSiteContent();
+                } else {
+                    errorElement.style.color = "#e74c3c";
+                    errorElement.innerHTML = "کۆدێ لێدای خەلەتە! تکایە کۆدەکێ ڕاست بنڤیسە.";
+                    inputField.value = "";
+                }
+            }, 1000); 
         }
 
         function showSiteContent() {
@@ -109,7 +131,7 @@
             if (event.key === "Enter") { validateDeviceCode(); }
         }
 
-        // بەشێ کatژمێرێ
+        // بەشێ کاتژمێرێ
         function startTimer() {
             const examDate = new Date("June 14, 2026 07:30:00").getTime();
             const timerInterval = setInterval(function() {
