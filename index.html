@@ -14,46 +14,35 @@
         .btn { display: block; width: 90%; max-width: 350px; padding: 15px; margin: 8px 0; background-color: #1e1e1e; color: #fff; text-decoration: none; border-radius: 25px; border: 1px solid #333; transition: 0.3s; font-weight: bold; }
         .btn:hover { background-color: #333; border-color: gold; color: gold; }
         
-        /* شاردنەوەی ناوەڕۆک تا کۆد لێدەدرێت */
+        /* شاردنەوەی هەموو تشتان د ناڤ لاپەرەی دا پێش لێدانا کۆدێ */
         .hidden { display: none !important; }
     </style>
 
     <script>
-        // پشکنین ل دەستپێکێ خێرا دکەین بەری لاپەرە بارببیت
+        // د دەستپێکا باربوونا لاپەرەی دا ئێکسەر پشکنینا کۆدی دکەت
         document.addEventListener("DOMContentLoaded", function() {
-            const examDate = new Date("June 14, 2026 07:30:00").getTime();
-            const lockDate = examDate + (20 * 24 * 60 * 60 * 1000); // ٢٠ ڕۆژ پشتی ئەزموونێ
-            const now = new Date().getTime();
-
-            // ئەگەر کات گەهشتبووە پاش ٢٠ ڕۆژان
-            if (now > lockDate) {
-                // شاردنەوەی هەموو ناوەڕۆکی سەرەکی بۆ پاراستن
-                document.getElementById("main-content").classList.add("hidden");
-                
-                // داخوازکرنا کۆدی د خولەکێ دا
-                checkPassword();
-            }
+            checkPassword();
         });
 
         function checkPassword() {
-            let password = prompt("بۆ چوونە ژوورێ، تکایە کۆدێ تایبەت بنڤیسە:");
+            let password = prompt("بۆ دیتنا بابەتان، تکایە کۆدێ چوونە ژوورێ بنڤیسە:");
             
             if (password === "JEKO88") {
                 alert("کۆد ڕاستە! بخێرهاتی.");
-                // نیشاندانی ناوەڕۆک ئەگەر کۆد ڕاست بوو
+                // ئەگەر کۆد ڕاست بوو، هەموو بابەت دێ دیار بن
                 document.getElementById("main-content").classList.remove("hidden");
                 startTimer();
             } else {
-                alert("کۆدێ خەلەتە! تو نەشێی بچی د ناڤ پەیجێ دا.");
-                checkPassword(); // دووبارە پرسیارکرن ئەگەر خەلەت بوو
+                alert("کۆدێ خەلەتە! تۆ نەشێی بابەتان ببینی.");
+                checkPassword(); // دووبارە پرسیارکرن تا کۆدی ڕاست لێدەدات
             }
         }
     </script>
 </head>
 <body>
 
-    <!-- کۆمکرنا هەموو تشتان د ناڤ یەک دەفر دا بۆ کۆنترۆلکرنا ئاسان -->
-    <div id="main-content">
+    <!-- د ناڤ ڤێ Containerێ دا هەموو تشت د دەرەوەی دیتنێ نە تا کۆد نەهێتە لێدان -->
+    <div id="main-content" class="hidden">
         <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
 
         <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
@@ -73,9 +62,8 @@
     </div>
 
     <script>
-        const examDate = new Date("June 14, 2026 07:30:00").getTime();
-        
         function startTimer() {
+            const examDate = new Date("June 14, 2026 07:30:00").getTime();
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
                 const distance = examDate - now;
@@ -92,12 +80,6 @@
                     document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!";
                 }
             }, 1000);
-        }
-
-        // دەستپێکرنا دەمژمێرێ ئەگەر لاپەرە هێشتا نەهاتبێتە قفلکرن
-        const lockDate = examDate + (20 * 24 * 60 * 60 * 1000);
-        if (new Date().getTime() <= lockDate) {
-            startTimer();
         }
     </script>
 </body>
