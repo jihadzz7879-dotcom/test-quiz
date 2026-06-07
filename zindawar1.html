@@ -1,66 +1,55 @@
-<!DOCTYPE html>
-<html lang="ku-ckb" dir="rtl">
-<head>
-    <style>
-        body { margin: 0; background: #000; overflow: hidden; }
-        canvas { display: block; cursor: crosshair; }
-        #hud { position: absolute; top: 20px; left: 20px; color: #00ffcc; font-family: 'Arial'; font-size: 24px; pointer-events: none; text-shadow: 0 0 10px #00ffcc; }
-    </style>
-</head>
-<body>
-    <div id="hud">خال: 0 | ژیان: 100% | ئاست: 1</div>
-    <canvas id="gameCanvas"></canvas>
+<div class="main-container">
+    <h2 class="title">فێرکاریێن مینیستەری</h2>
 
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    <!-- تابلۆ یێن زمانان -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openVideo(event, 'badini')">بادینی</button>
+        <button class="tab-btn" onclick="openVideo(event, 'sorani')">سۆرانی</button>
+        <button class="tab-btn" onclick="openVideo(event, 'kurmanji')">کرمانجی</button>
+    </div>
 
-        let player = { x: 100, y: 100, score: 0, hp: 100 };
-        let particles = [];
-        let enemies = [];
+    <!-- ڤیدیۆ -->
+    <div id="video-box" class="video-content">
+        <video id="myVideo" controls>
+            <source id="videoSource" src="video-badini.mp4" type="video/mp4">
+        </video>
+        <!-- دوگمەیا دابەزاندنێ -->
+        <a id="downloadBtn" href="video-badini.mp4" download class="dl-btn">📥 دابەزاندنا ڤیدیۆیێ</a>
+    </div>
 
-        class Enemy {
-            constructor() {
-                this.x = canvas.width + 50;
-                this.y = Math.random() * canvas.height;
-                this.speed = Math.random() * 3 + 2;
-                this.size = 30;
-            }
-            update() { this.x -= this.speed; }
-            draw() {
-                ctx.fillStyle = "#ff0055";
-                ctx.shadowBlur = 15; ctx.shadowColor = "red";
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-            }
-        }
+    <!-- بۆکسێ ئینستگرامێ -->
+    <div class="footer-social">
+        <p>ژبۆ زانیاریێن پتر، مێڤانییا تە دکەین ل:</p>
+        <a href="https://www.instagram.com/gehad.zebare78" target="_blank" class="ig-link">
+            <i class="fab fa-instagram"></i> جیھاد زێباری - Instagram
+        </a>
+    </div>
+</div>
 
-        window.addEventListener("mousemove", (e) => { player.x = e.clientX; player.y = e.clientY; });
+<style>
+    .main-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; font-family: 'Segoe UI', sans-serif; }
+    .tabs { margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; }
+    .tab-btn { padding: 8px 20px; border: none; cursor: pointer; border-radius: 30px; background: #f0f0f0; transition: 0.3s; }
+    .tab-btn.active { background: #3498db; color: #fff; }
+    .video-content video { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+    .dl-btn { display: inline-block; padding: 10px 25px; background: #27ae60; color: #fff; text-decoration: none; border-radius: 50px; font-weight: bold; }
+    .footer-social { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+    .ig-link { color: #e1306c; font-weight: bold; text-decoration: none; font-size: 1.1em; }
+</style>
 
-        function animate() {
-            ctx.fillStyle = "rgba(0,0,0,0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // یاریکەر
-            ctx.fillStyle = "#00ffcc";
-            ctx.fillRect(player.x, player.y, 20, 20);
-
-            // دژبەر
-            if(Math.random() < 0.03) enemies.push(new Enemy());
-            enemies.forEach((e, i) => {
-                e.update(); e.draw();
-                if(Math.hypot(e.x - player.x, e.y - player.y) < 30) {
-                    player.hp -= 0.5;
-                    // ئەفێکتێ تەقینێ
-                    ctx.fillStyle = "white"; ctx.fillRect(player.x, player.y, 40, 40);
-                }
-                if(e.x < -50) { enemies.splice(i, 1); player.score += 10; }
-            });
-
-            document.getElementById("hud").innerText = `خال: ${player.score} | ژیان: ${Math.floor(player.hp)}%`;
-            if(player.hp <= 0) { alert("Game Over! خالێن تە: " + player.score); location.reload(); }
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
-</body>
-</html>
+<script>
+    function openVideo(evt, lang) {
+        let video = document.getElementById("myVideo");
+        let source = document.getElementById("videoSource");
+        let dl = document.getElementById("downloadBtn");
+        
+        // ڤیدیۆیا هەر زمانەکی دیار بکە
+        source.src = "video-" + lang + ".mp4";
+        dl.href = source.src;
+        video.load();
+        
+        let btns = document.getElementsByClassName("tab-btn");
+        for (let b of btns) b.classList.remove("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
