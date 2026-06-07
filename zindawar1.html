@@ -1,37 +1,66 @@
-
-       <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="ku-ckb" dir="rtl">
 <head>
-    <title>یاریا فیزیايی</title>
     <style>
-        canvas { background: #f0f0f0; display: block; margin: 0 auto; border: 2px solid #333; }
+        body { margin: 0; background: #000; overflow: hidden; }
+        canvas { display: block; cursor: crosshair; }
+        #hud { position: absolute; top: 20px; left: 20px; color: #00ffcc; font-family: 'Arial'; font-size: 24px; pointer-events: none; text-shadow: 0 0 10px #00ffcc; }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="hud">خال: 0 | ژیان: 100% | ئاست: 1</div>
+    <canvas id="gameCanvas"></canvas>
+
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
-        let y = 50, dy = 0, gravity = 0.5;
+        let player = { x: 100, y: 100, score: 0, hp: 100 };
+        let particles = [];
+        let enemies = [];
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.arc(200, y, 20, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
-            ctx.fill();
-            ctx.closePath();
-
-            dy += gravity;
-            y += dy;
-
-            if (y + 20 > canvas.height) { y = canvas.height - 20; dy *= -0.7; }
-            requestAnimationFrame(draw);
+        class Enemy {
+            constructor() {
+                this.x = canvas.width + 50;
+                this.y = Math.random() * canvas.height;
+                this.speed = Math.random() * 3 + 2;
+                this.size = 30;
+            }
+            update() { this.x -= this.speed; }
+            draw() {
+                ctx.fillStyle = "#ff0055";
+                ctx.shadowBlur = 15; ctx.shadowColor = "red";
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+            }
         }
 
-        window.addEventListener("keydown", () => { dy = -10; });
-        draw();
+        window.addEventListener("mousemove", (e) => { player.x = e.clientX; player.y = e.clientY; });
+
+        function animate() {
+            ctx.fillStyle = "rgba(0,0,0,0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // یاریکەر
+            ctx.fillStyle = "#00ffcc";
+            ctx.fillRect(player.x, player.y, 20, 20);
+
+            // دژبەر
+            if(Math.random() < 0.03) enemies.push(new Enemy());
+            enemies.forEach((e, i) => {
+                e.update(); e.draw();
+                if(Math.hypot(e.x - player.x, e.y - player.y) < 30) {
+                    player.hp -= 0.5;
+                    // ئەفێکتێ تەقینێ
+                    ctx.fillStyle = "white"; ctx.fillRect(player.x, player.y, 40, 40);
+                }
+                if(e.x < -50) { enemies.splice(i, 1); player.score += 10; }
+            });
+
+            document.getElementById("hud").innerText = `خال: ${player.score} | ژیان: ${Math.floor(player.hp)}%`;
+            if(player.hp <= 0) { alert("Game Over! خالێن تە: " + player.score); location.reload(); }
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
