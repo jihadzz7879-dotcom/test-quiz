@@ -96,6 +96,14 @@
             box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
         }
 
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+            text-align: right;
+        }
+
         button {
             background-color: #f1c40f;
             color: #121212;
@@ -128,7 +136,6 @@
 
 <div class="container">
     <div class="logo-container">
-        <!-- Vê wêneya ku te şandî li vir zêde bike -->
         <img src="image.png" alt="ESAM BARBER Akre">
         <div class="location-tag">Akre, Iraq</div>
         <div class="phone-display">📞 07503062183</div>
@@ -136,7 +143,7 @@
 
     <h1>سرا گرتن</h1>
 
-    <form id="barberForm">
+    <form id="barberForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
         <div class="form-group">
             <label for="naum">ناو:</label>
             <input type="text" id="naum" placeholder="ناوی خۆت بنووسە" required>
@@ -144,7 +151,9 @@
 
         <div class="form-group">
             <label for="mobayl">ژمارەی مۆبایل:</label>
-            <input type="tel" id="mobayl" placeholder="07XX XXX XXXX" required>
+            <!-- لێرەدا فلتەر دانراوە تەنها ژمارە وەردەگرێت و دەبێت بە 07 دەستپێبکات و 11 ژمارە بێت -->
+            <input type="tel" id="mobayl" placeholder="07XXXXXXXXX" pattern="^07[0-9]{9}$" maxlength="11" required>
+            <div id="phoneError" class="error-message">تکایە ژمارەیەکی دروستی عێراقی بنووسە کە بە 07 دەستپێبکات و 11 ژمارە بێت (نموونە: 07503062183)</div>
         </div>
 
         <div class="form-group">
@@ -157,7 +166,7 @@
             <input type="time" id="kat" required>
         </div>
 
-        <button type="button" onclick="sendToWhatsApp()">ناردنی داواکاری بۆ واتسئاپ</button>
+        <button type="submit">ناردنی داواکاری بۆ واتسئاپ</button>
     </form>
 </div>
 
@@ -167,16 +176,23 @@
         var phone = document.getElementById('mobayl').value;
         var date = document.getElementById('betek').value;
         var time = document.getElementById('kat').value;
+        var phoneError = document.getElementById('phoneError');
 
-        if(name == "" || phone == "" || date == "" || time == ""){
-            alert("تکایە هەمی خانەکان پڕ بکە!");
+        // پشکنینی دروستی ژمارەی مۆبایل بە ڕێگای RegExp
+        var phonePattern = /^07[0-9]{9}$/;
+
+        if(!phonePattern.test(phone)) {
+            phoneError.style.display = 'block';
+            document.getElementById('mobayl').focus();
             return;
+        } else {
+            phoneError.style.display = 'none';
         }
 
-        // ژمارا حەلاقی یا تە
+        // ژمارەیا تە یا واتسئاپێ
         var myPhoneNumber = "9647503062183"; 
 
-        // ناما کۆ کڕیار بۆ تە دهنێریت
+        // ناما کو کڕیار بۆ تە دهنێریت
         var message = "سڵاو کاک عیسام، من دکەم سرا بگرم:\n\n" +
                       "👤 ناو: " + name + "\n" +
                       "📱 مۆبایل: " + phone + "\n" +
