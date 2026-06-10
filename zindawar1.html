@@ -3,207 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESAM BARBER - گرتنی سرا</title>
+    <title>پلاتفۆرمی فێربوون و تاقیکردنەوەی پۆلی 12</title>
+    <!-- Google Fonts بۆ فۆنتەکێ جوان یێ کوردی -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #fff;
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #3b82f6;
+            --accent-success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            background-color: #1e1e1e;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* بەشێ گۆڕینی مۆد (پۆلێن و تاقیکردنەوە) */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-tab {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 2px solid var(--accent-color);
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-tab.active, .btn-tab:hover {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        /* بەشێ په‌یڤ و فێربوونێ */
+        .section-panel {
+            display: none;
+        }
+
+        .section-panel.active {
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .vocab-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border-right: 5px solid var(--accent-color);
+            transition: transform 0.2s;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vocab-word {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #60a5fa;
+            margin-bottom: 5px;
+        }
+
+        .vocab-meaning {
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .vocab-tag {
+            display: inline-block;
+            background-color: #334155;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* بەشێ تاقیکردنەوەی کویز */
+        .quiz-card {
+            background-color: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .logo-container {
+        .quiz-question {
+            font-size: 1.4rem;
             margin-bottom: 25px;
-            position: relative;
-        }
-
-        .logo-container img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .location-tag {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #e0e0e0;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .phone-display {
-            color: #f1c40f;
-            font-size: 1.1em;
-            margin-top: 10px;
             font-weight: bold;
-            letter-spacing: 1px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
         }
 
-        h1 {
-            color: #f1c40f;
-            margin-top: 15px;
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #bbb;
-        }
-
-        input[type="text"],
-        input[type="tel"],
-        input[type="date"],
-        input[type="time"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #444;
-            border-radius: 8px;
-            background-color: #2c2c2c;
-            color: #fff;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #f1c40f;
-            box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.9em;
-            margin-top: 5px;
-            display: none;
-            text-align: right;
-        }
-
-        button {
-            background-color: #f1c40f;
-            color: #121212;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #34af23;
+        .option-btn {
+            background-color: #334155;
             color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 1.6em;
-            }
+        .option-btn:hover {
+            background-color: #475569;
+        }
+
+        .quiz-footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .score-board {
+            font-size: 1.1rem;
+            color: var(--accent-success);
+            font-weight: bold;
+        }
+
+        .next-btn {
+            background-color: var(--accent-success);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* لایەنی ژمارەی پەیڤەکان */
+        .counter-badge {
+            background-color: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            vertical-align: middle;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="logo-container">
-        <img src="image.png" alt="ESAM BARBER Akre">
-        <div class="location-tag">Akre, Iraq</div>
-        <div class="phone-display">📞 07503062183</div>
+    <header>
+        <h1>سه‌رپه‌ڕێ قوتابیێن پۆلا 12 زانستی و وێژەیی</h1>
+        <p>سیسته‌مێ تاقیكرنێ و په‌ڕتووكخانا په‌یڤێن هۆشمه‌ند</p>
+    </header>
+
+    <!-- دوگمێن سەرەکی بۆ گۆڕینی بەشان -->
+    <div class="nav-tabs">
+        <button class="btn-tab active" onclick="switchTab('vocab')">فێربوونا په‌یڤان <span class="counter-badge" id="vocab-count">0</span></button>
+        <button class="btn-tab" onclick="switchTab('quiz')">دەستپێکرنا تاقیکردنێ 📝</button>
     </div>
 
-    <h1>سرا گرتن</h1>
-
-    <form id="barberForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
-        <div class="form-group">
-            <label for="naum">ناو:</label>
-            <input type="text" id="naum" placeholder="ناوی خۆت بنووسە" required>
+    <!-- بەشێ یەکێ: پەیڤ گەران -->
+    <div id="vocab-panel" class="section-panel active">
+        <input type="text" class="search-box" id="searchInput" onkeyup="filterVocab()" placeholder="ل په‌یڤێ یان ل چه‌مکه‌کی بگه‌ڕه... (ب کوردی، عەرەبی یان ئینگلیزی)">
+        <div class="vocab-grid" id="vocabGrid">
+            <!-- پەیڤ ب رێکا فۆنکشنی خوارێ لێرە زێدە دبن -->
         </div>
+    </div>
 
-        <div class="form-group">
-            <label for="mobayl">ژمارەی مۆبایل:</label>
-            <!-- لێرەدا فلتەر دانراوە تەنها ژمارە وەردەگرێت و دەبێت بە 07 دەستپێبکات و 11 ژمارە بێت -->
-            <input type="tel" id="mobayl" placeholder="07XXXXXXXXX" pattern="^07[0-9]{9}$" maxlength="11" required>
-            <div id="phoneError" class="error-message">تکایە ژمارەیەکی دروستی عێراقی بنووسە کە بە 07 دەستپێبکات و 11 ژمارە بێت (نموونە: 07503062183)</div>
+    <!-- بەشێ دووێ: کویز و تاقیکردنەوە -->
+    <div id="quiz-panel" class="section-panel">
+        <div class="quiz-card">
+            <div class="quiz-question" id="questionText">پسیار دێ ل لێره‌ دیار بیت؟</div>
+            <div class="options-list" id="optionsContainer">
+                <!-- بژاردەکان لێرە دیار دبن -->
+            </div>
+            <div class="quiz-footer">
+                <div class="score-board" id="scoreBoard">نمرە: 0 / 0</div>
+                <button class="next-btn" id="nextBtn" onclick="nextQuestion()">پسیارا پاشتر ➔</button>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="betek">بەروار (ساڵ/مانگ/ڕۆژ):</label>
-            <input type="date" id="betek" required>
-        </div>
-
-        <div class="form-group">
-            <label for="kat">کاتژمێر:</label>
-            <input type="time" id="kat" required>
-        </div>
-
-        <button type="submit">ناردنی داواکاری بۆ واتسئاپ</button>
-    </form>
+    </div>
 </div>
 
 <script>
-    function sendToWhatsApp() {
-        var name = document.getElementById('naum').value;
-        var phone = document.getElementById('mobayl').value;
-        var date = document.getElementById('betek').value;
-        var time = document.getElementById('kat').value;
-        var phoneError = document.getElementById('phoneError');
+    // لێرەدا بانکەکا مەزن ژ پەیڤ و چەمکان هەیە (تو دشێی هەتا ١٠ هزار زێدە بکەی)
+    // من ل لێرە نموونەیێن گرنگ یێن بابەتێن د ناڤ وێنەیێ ته‌ دا (بایۆلۆژی، فیزیا، زمان) داناون
+    const wordsDatabase = [
+        { word: "Photosynthesis (رووەکەپێکهاتن)", meaning: "پرۆسەیەکە ڕووەک تیشکی خۆر دەگۆڕێت بۆ وزەی کیمیایی", tag: "زیندەوەر (Zindawar)" },
+        { word: "Friction (لێکخشاندن)", meaning: "هێزێکە دژی جووڵەی تەنەکان دەوەستێتەوە لەسەر ڕووەکان", tag: "فیزیا (Fizya)" },
+        { word: "Ecosystem (سیستەمی ژینگەیی)", meaning: "کۆمەڵگەیەکە لە زیندەوەران و پێکهاتە بێگیانەکان پێکدێت", tag: "زیندەوەر (Zindawar)" },
+        { word: "Velocity (خێرایی ئاڕاستەکراو)", meaning: "بڕی دووربوونی تەنێک لە کاتێکی دیاریکراودا بە ئاڕاستەیەکی ڕاست", tag: "فیزیا (Fizya)" },
+        { word: "Adverb (ئاوەڵکار)", meaning: "وشەیەکە کە وەسفی کار (فێڵ) یان ئاوەڵناوێک دەکات لە ڕستەدا", tag: "ئینگلیزی (English)" },
+        { word: "Metaphor (خواhandling / کنایە)", meaning: "بەکار هێنانی وشەیەک لە شوێنێکی تر بۆ جوانی زمانەوانی", tag: "کوردی (Kurdish)" },
+        { word: "Balkans (بەڵکان)", meaning: "ناوچەیەکی مێژوویی و جوگرافییە لە باشووری ڕۆژهەڵاتی ئەوروپا", tag: "مێژوو (Mejo)" },
+        { word: "Metabolism (میتابۆلیزم)", meaning: "کۆی گشتی کارلێکە کیمیاییەکان لەناو لەشی زیندەوەراندا", tag: "زیندەوەر (Zindawar)" },
+        { word: "Gravity (کێشکردن)", meaning: "هێزێکی سروشتییە کە هەموو تەنە خاوەن بارستاییەکان ڕادەکێشێتە خوارەوە", tag: "فیزیا (Fizya)" },
+        { word: "Syntax (ڕستەسازی)", meaning: "یاساکانی ڕێکخستنی وشەکان بۆ دروستکردنی ڕستەی دروست", tag: "ئینگلیزی (English)" }
+    ];
 
-        // پشکنینی دروستی ژمارەی مۆبایل بە ڕێگای RegExp
-        var phonePattern = /^07[0-9]{9}$/;
+    // لێرەدا پسیارێن تاقیکردنێ هەنە
+    const quizDatabase = [
+        {
+            question: "کیش هێز دژی جووڵەی تەنەکان دەوەستێتەوە لەسەر ڕووەکان؟",
+            options: ["هێزی کێشکردن", "هێزی لێکخشاندن (Friction)", "خێرایی", "میتابۆلیزم"],
+            correct: 1
+        },
+        {
+            question: "پرۆسەی گۆڕینی تیشکی خۆر بۆ وزەی کیمیایی لە ڕووەکدا چی پێ دەوترێت؟",
+            options: ["میتابۆلیزم", "هەناسەدانی خانەیی", "رووەکەپێکهاتن (Photosynthesis)", "زیندەوەر زانی"],
+            correct: 2
+        },
+        {
+            question: "وشەی 'Syntax' لە زمانی ئینگلیزیدا بە چ واتا دێت؟",
+            options: ["ڕستەسازی / یاسای ڕستە", "ئاوەڵکار", "مێژووی کۆن", "یاسای فیزیا"],
+            correct: 0
+        }
+    ];
 
-        if(!phonePattern.test(phone)) {
-            phoneError.style.display = 'block';
-            document.getElementById('mobayl').focus();
-            return;
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    // ده‌ستپێكرنا لاپه‌ڕی
+    window.onload = function() {
+        document.getElementById('vocab-count').innerText = wordsDatabase.length;
+        loadVocabulary();
+        loadQuestion();
+    };
+
+    // نیشاندانی په‌یڤان
+    function loadVocabulary() {
+        const grid = document.getElementById('vocabGrid');
+        grid.innerHTML = '';
+        wordsDatabase.forEach(item => {
+            grid.innerHTML += `
+                <div class="vocab-card">
+                    <div class="vocab-word">${item.word}</div>
+                    <div class="vocab-meaning">${item.meaning}</div>
+                    <div class="vocab-tag">${item.tag}</div>
+                </div>
+            `;
+        });
+    }
+
+    // فلتەرکردن و گەڕان د پەیڤان دا
+    function filterVocab() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('vocab-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let txtValue = cards[i].textContent || cards[i].innerText;
+            if (txtValue.toLowerCase().indexOf(input) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+
+    // گۆڕینی بەشەکان (فێربوون / تاقیکردنەوە)
+    function switchTab(tabName) {
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
+        
+        if(tabName === 'vocab') {
+            document.getElementById('vocab-panel').classList.add('active');
+            event.target.classList.add('active');
         } else {
-            phoneError.style.display = 'none';
+            document.getElementById('quiz-panel').classList.add('active');
+            event.target.classList.add('active');
+        }
+    }
+
+    // بارکرنا پسیارێن تاقیکردنێ
+    function loadQuestion() {
+        const currentQuiz = quizDatabase[currentQuestionIndex];
+        document.getElementById('questionText').innerText = currentQuiz.question;
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = '';
+        document.getElementById('nextBtn').style.display = 'none';
+
+        currentQuiz.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.innerText = option;
+            button.onclick = () => checkAnswer(index, button);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    // پشکنینی وەڵامی ڕاست
+    function checkAnswer(selectedIndex, clickedButton) {
+        const currentQuiz = quizDatabase[currentQuestionIndex];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        buttons.forEach(btn => btn.disabled = true); // ڕاگرتنی کلیک ل سەر دوگمێن دی
+
+        if(selectedIndex === currentQuiz.correct) {
+            clickedButton.style.backgroundColor = 'var(--accent-success)';
+            score++;
+        } else {
+            clickedButton.style.backgroundColor = '#ef4444';
+            buttons[currentQuiz.correct].style.backgroundColor = 'var(--accent-success)'; // نیشاندانی بەدیلی ڕاست
         }
 
-        // ژمارەیا تە یا واتسئاپێ
-        var myPhoneNumber = "9647503062183"; 
+        document.getElementById('scoreBoard').innerText = `نمرە: ${score} / ${quizDatabase.length}`;
+        document.getElementById('nextBtn').style.display = 'block';
+    }
 
-        // ناما کو کڕیار بۆ تە دهنێریت
-        var message = "سڵاو کاک عیسام، من دکەم سرا بگرم:\n\n" +
-                      "👤 ناو: " + name + "\n" +
-                      "📱 مۆبایل: " + phone + "\n" +
-                      "📅 ڕۆژ: " + date + "\n" +
-                      "⏰ کاتژمێر: " + time + "\n\n" +
-                      "تکایە پشتڕاست بکەوە (لایک بکە) ئەگەر گونجاوە.";
-
-        var encodedMessage = encodeURIComponent(message);
-        var whatsappUrl = "https://wa.me/" + myPhoneNumber + "?text=" + encodedMessage;
-
-        window.open(whatsappUrl, '_blank');
+    // پسیارا بهێت
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if(currentQuestionIndex < quizDatabase.length) {
+            loadQuestion();
+        } else {
+            document.getElementById('questionText').innerText = `تاقیکردنەوە ب دوماهی هات! ئه‌نجامێ ته‌: ${score} ژ ${quizDatabase.length}`;
+            document.getElementById('optionsContainer').innerHTML = '';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
     }
 </script>
 
