@@ -1,120 +1,531 @@
 <!DOCTYPE html>
-<html lang="ku-ckb" dir="rtl">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تاقیكرنا ئەدەبی - گۆتار</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاقیکردنەوەیا کوردی یا گشتی - م. هشیار حەسەن</title>
     <style>
-        body { font-family: 'Tahoma', sans-serif; padding: 20px; background: #f4f4f4; line-height: 1.6; }
-        .question { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        button { background: #28a745; color: white; padding: 15px 30px; border: none; cursor: pointer; font-size: 18px; border-radius: 5px; }
-        #result { margin-top: 20px; padding: 20px; background: #fff; border-radius: 8px; border: 2px solid #28a745; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        header h2 {
+            color: var(--accent-color);
+            font-size: 18px;
+        }
+
+        .section-title {
+            margin: 20px 0 10px 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .filter-section {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .checkbox-label input {
+            margin-left: 10px;
+            transform: scale(1.3);
+        }
+
+        .checkbox-label:hover {
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #1a252f;
+        }
+
+        .quiz-area {
+            display: none;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .options-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+
+        .option-label:hover {
+            background: #edf2f7;
+            border-color: #a0aec0;
+        }
+
+        .option-label input {
+            margin-left: 10px;
+            transform: scale(1.1);
+        }
+
+        .feedback {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+            font-size: 15px;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+            border: 1px solid #f5c6cb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #cbd5e0;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-right: 10px;
+            color: #2d3748;
+            font-weight: bold;
+        }
+
+        #result-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: #ebf8ff;
+            border-radius: 10px;
+            border: 2px dashed #3182ce;
+            margin-top: 25px;
+        }
+
+        .score-text {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 15px;
+            color: #4a5568;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>تاقیكرنا ئەدەبی (٦٧ پسیار)</h1>
-    <div id="quiz-container"></div>
-    <button onclick="calculateResult()">دەرئەنجامێ ببینە</button>
-    <div id="result"></div>
+<div class="container">
+    <header>
+        <h1>سیستەمێ ئەلەکترۆنی یێ تاقیکردنەوەیێن کوردی</h1>
+        <h2>بەسەرپەرشتیا مامۆستایێ شارەزا: HSHYAR HASAN</h2>
+    </header>
 
-    <script>
-        const quizData = [
-            {q: "١. پێکاتییە ژ وان دەربڕین و نڤیسینان کو هەست و سۆزا مرۆڤی نیشاددەت، ب گشتی گرنگی ب کیش و سەرپێی نادەت؟", a: "B"},
-            {q: "٢. ب شێوەیەکی پەخشان دبیته چەند جور؟", a: "A"},
-            {q: "٣. ئەو پەخشانەیه کو به حسی بابه تێ کی زانستی دکه ت و گرنگیێ ب هەست و سۆزی نادەت؟", a: "A"},
-            {q: "٤. ئەو پەخشانەیه کو پتر گرنگی ب هەست و سۆزی دده ت بو هندی کارتیکرنی ل به رامبه ری خو بکه ت و تامه کی ب دەتێ؟", a: "B"},
-            {q: "٥. هونه ره کی ئەده بیه ب شێوه یه کی لایه نه کی ژیانی به حس دکه ت و پیروبوچوونێن خو دەرباره‌ی بابه تی به‌رچاڤ دکه ت؟", a: "C"},
-            {q: "٦. چ جۆری ئەدەبییە ژ نێزیک ژ تەمه‌ن نەدبین و نەهێت چەند ب ڕێڤەکان پتر نەبیت؟", a: "D"},
-            {q: "٧. نیک ژ تایبەتمەندیێن گۆتارییە؟", a: "A"},
-            {q: "٨. نیک ژ تایبەتمەندیێن گۆتارییە؟", a: "B"},
-            {q: "٩. کیژ بابه ت ره نگڤەدانا بیر و هزر و هەست و سۆزا خودانی وێ یه؟", a: "B"},
-            {q: "١٠. گۆتارا (هەڤالە) دەرکەفتییە ل سەر دەمی:", a: "A"},
-            {q: "١١. دامەزراندنا (کۆمارا کوردستان) ل مەهابادی ل ساڵا چەندی بوو ئەڤەگەهری ب رەهێ پێشچوونا ئەدەبی کوردی؟", a: "A"},
-            {q: "١٢. ل ساڵا (١٩٤٦) ل مەهابادی دەرکەفتییە؟", a: "D"},
-            {q: "١٣. نیک ژ دیارترین گۆتارنڤیسێن قۆناغا (١٩٣٩ - ١٩٥٨) یە؟", a: "B"},
-            {q: "١٤. نیک ژ ڤان گۆتارا و روژناما لساڵا (١٩٤٨) دەرکەفتییە؟", a: "C"},
-            {q: "١٥. هیوا ل ساڵ چەندی هاتییە بەلاڤکرن؟", a: "A"},
-            {q: "١٦. رۆناهی ل ساڵا چەندی هاتییە بەلاڤکرن؟", a: "C"},
-            {q: "١٧. د گۆتارێن کیژ قۆناغێدا هنده ک جاران دەق و دەق به قینا عەرەبی هاتینە بکارئینان؟", a: "B"},
-            {q: "١٨. ژ تایبەتمەندیێن گۆتارا کیژ قۆناغێیە کو پتر گرنگی ب نیشانێن خالبه‌ندیێ دان؟", a: "A"},
-            {q: "١٩. پالدانا ژنا کورد بۆ خواندن و خویندەواریێ ب خامی (کامەران موکری) د ساڵا (١٩٤٦) دا هاتییە بەلاڤکرن؟", a: "A"},
-            {q: "٢٠. گۆتارا (شەونمە به رێ به یان) دکیژ گۆڤارێ دا و هه‌ر دگه ل چه‌ند گۆڤار و روژنامێن دن؟", a: "C"},
-            {q: "٢١. کیژ گۆڤار ل ساڵا (١٩٥٩) پەیدابوو؟", a: "B"},
-            {q: "٢٢. بالیسە ل ساڵا چەندی هاتییە بەلاڤکرن؟", a: "B"},
-            {q: "٢٣. شەفەق ل ساڵا چەندی هاتییە بەلاڤکرن؟", a: "A"},
-            {q: "٢٤. دەستپێکا سالێن شێستاد، ژ ئه‌گه‌رێ دەستپێکرنا شۆڕشا ئەیلولی بابه تی گۆتاری بەرەف چ چوویە؟", a: "C"},
-            {q: "٢٥. کیژ گۆڤار ل ساڵا (١٩٦٨) پەیدابوو؟", a: "B"},
-            {q: "٢٦. کیژسالی گۆڤارا بەرایی دەرچوو؟", a: "A"},
-            {q: "٢٧. نیک ژ گۆتارنڤیسێن قۆناغا (١٩٥٨ - ١٩٧٠) یە؟", a: "B"},
-            {q: "٢٨. که‌نگی بێی بوو گەشە و وەرەرا گۆتاری؟", a: "B"},
-            {q: "٢٩. دکیژ ماوەیدا زمانی نڤیسینا گۆتاری ب دیالەکتا خوارێ بوو هاتییە تێگەلکرن ب په یف و زارافێن دیالەکتی دی؟", a: "A"},
-            {q: "٣٠. نیک ژ تایبەتمەندیێن گۆتاری یێن هەفشک دناڤبەرا قۆناغا نیکی و دووی دا، گۆتارا:", a: "C"},
-            {q: "٣١. دکیژ قۆناغێ دا گۆتار نڤیسان بژاکرینە راست و دروست په یره و بکه ن؟", a: "B"},
-            {q: "٣٢. سەره‌کیترین بابه تی نڤیسینا گۆتاری د قۆناغا (١٩٥٨ - ١٩٧٠)؟", a: "A"},
-            {q: "٣٣. ل دەستپێکا سالێن حەفتییا نڤیسەران ب ترس و خودانە پاش هەست و سۆز و هزریت خو دەربڕین چونکو وی کاروانی:", a: "C"},
-            {q: "٣٤. ناڤەرۆکا گۆتارا قۆناغا چەندی هەست هەژرا ئازادیخوازی و پیشکەفتنخوازی هاتییە کرن؟", a: "B"},
-            {q: "٣٥. گۆتارا (رەمزی قەزاز) ل ساڵا چەندی د ژمارەیا (٢٩) یا رۆژنامەیا (برای) دا هاتییە بەلاڤکرن؟", a: "C"},
-            {q: "٣٦. گۆتارا (رەمزی قەزاز) ل ساڵا (١٩٦٧) یێ د ژمارەیا (٢٩) یا کیژ رۆژنامەیا دا هاتییە بەلاڤکرن؟", a: "B"},
-            {q: "٣٧. ب دەرکەفتنا چ و هەتا رادیۆیا سەر به خویا کوردستانی بۆچی دد سالەکین کین پینگافەکا دی ب بزاڤا ئەدەبی هافتییە؟", a: "A"},
-            {q: "٣٨. (زانیاری) ل ساڵا چەندی دەرچوویە؟", a: "B"},
-            {q: "٣٩. کیژ گۆڤار لساڵا (١٩٧١) دەرکەفتییە؟", a: "A"},
-            {q: "٤٠. گۆڤارا (کوری زانیاری کورد) ل ساڵا چەندی دەرچوویە؟", a: "A"},
-            {q: "٤١. رویی بەرەف پێشچوونا گۆتاری حەتا که‌نگێیا؟", a: "B"},
-            {q: "٤٢. ژ بەلاڤکرن دناڤ بازیراندا؟", a: "D"},
-            {q: "٤٣. که‌نگی جوداهی که‌فته دناڤبەرا نڤیسەرێن بازێری و چیای دا ژلایێن به‌ره‌ڤاکرنا بابه تیڤە؟", a: "D"},
-            {q: "٤٤. نڤیسەرێن چیای د به لافکرن دناڤ شورەشیدا چالاکانە گرنگی ب گۆتاری دایە ب تایبەتی گۆتارا:", a: "A"},
-            {q: "٤٥. ژ بەلاڤکرن چیایە؟", a: "A"},
-            {q: "٤٦. ل قۆناغا (١٩٥٨-١٩٧٠) که‌له‌ک گۆتار ژ زمانێن بیانی هاتینە وەرگێران بۆ سەر زمانی کوردی ل هه‌می بابه تێن ئەدەبی و:", a: "B"},
-            {q: "٤٧. دەرکەفتنا گۆتارا (نووسەری کورد) ژ ئه‌گه‌ری کارتیکرنا", a: "B"},
-            {q: "٤٨. ل قۆناغا (١٩٥٨-١٩٧٠) زمانی گۆتاری:", a: "C"},
-            {q: "٤٩. نڤیسەرێن بازێران ب ئه‌گه‌ر ذکر ب رێکا چ جۆره‌ گۆتاران بیرو بۆچوون و هەست و سۆزێن نه‌ته‌ویی نیشاددەت؟", a: "A"},
-            {q: "٥٠. زمانی گۆتاری د بەلاڤکرن ناڤ بازێریدا ل پشتی (١٩٧٥) چەوا بوو؟", a: "A"},
-            {q: "٥١. د قۆناغا چەندی دا گۆتار وەکی هۆکارەکی بۆ پاراستنا زمانی کوردی دهاتە بکارئینان؟", a: "C"},
-            {q: "٥٢. نیک ژ گۆتارنڤیسێن ناڤدارێن قۆناغا (١٩٧٠ - ١٩٩١) یە؟", a: "B"},
-            {q: "٥٣. سالێن چەندی بوری نڤیسەرێن کورد ب رێکا بەرەهمێن ئەدەبی یا سیاسەتا بنبرکرنا نەتەوەیا کورد دکر؟", a: "D"},
-            {q: "٥٤. گۆتارێن قۆناغا چەندی دەربڕینا نەراستەوخۆ نانکو هیما و نیشانە هاتییە بکارئینان؟", a: "B"},
-            {q: "٥٥. دیارەدەیا دەربڕینا نەراستەوخۆ تانکو (هیما و نیشان) ژ گۆتارێن ناڤبازێریدا هه‌ستپێکرن ب تایبەتی ب سالا:", a: "D"},
-            {q: "٥٦. دماوی دەرکەفتنا ........ هه‌می به‌رهه‌مێن ئەدەبی ب تایبەتی گۆتاری گەشە و وەرەرە دباش بخۆڤە دیتنە ژ لایێ رۆخسارو ناڤەرۆکیڤە:", a: "C"},
-            {q: "٥٧. کیژ ژ ڤان ژ بەلاڤکرن چیایە:", a: "A"},
-            {q: "٥٨. د ماوەیی دامەزراندنا کومارا کوردستانی دا چەندین گۆڤار و رۆژنامەیین هەمەجور دەرکەفتییە زوان:", a: "A"},
-            {q: "٥٩. دەربارەی گرنگترین تایبەتمەندیێن گۆتاری د قۆناغا (١٩٧٠-١٩٩١) کیژ نەفان دروستە؟", a: "D"},
-            {q: "٦٠. زمانی نڤیسینا کیژ ژ ڤان هونەرێن ئەدەبییە وەکو هۆکارەکی بۆ پاراستنا زمانی کوردی بکار هاتییە چونکە رژیمی هه‌می بزافێن زمانی کوردی کربوو بەره‌", a: "C"},
-            {q: "٦١. نیک ژ نڤیسەرێن ناڤدارین گۆتاری ل قۆناغا (١٩٧٠-١٩٥٨)؟", a: "D"},
-            {q: "٦٢. (شەونمى بەری بەیان) نموونەیا چ جورین بەرهەمێن ئەدەبییە:", a: "C"},
-            {q: "٦٣. ل پشتی ........ گەلەک یانە و کومەلە دەرکەفتن، هەروەکی ژیانا بۆ گەهاندنا هزر و بیرا خۆ چەند گۆڤار و رۆژنامە دەرکەفتن بوویە نەکه ڤن چۆنا گۆتاری:", a: "B"},
-            {q: "٦٤. نیک ژ تایبەتمەندیێن گۆتاری ل قۆناغا (١٩٣٩-١٩٥٨):", a: "A"},
-            {q: "٦٥. گرنگترین تایبەتمەندیێن گۆتاری د قۆناغا (١٩٣٩-١٩٥٨) :", a: "A"},
-            {q: "٦٦. کیژ نەفان ژ بەلاڤکرن چیایە؟", a: "C"},
-            {q: "٦٧. نیک ژ گۆتارنڤیسێن دیارین قۆناغا (١٩٣٩-١٩٥٨) :", a: "A"}
-        ];
+    <div id="setup-screen">
+        <div class="filter-section">
+            <p class="section-title">قوتابیێ هێژا، ئەو بابەتێن دلی تە هەی هەلبژێرە بۆ تاقیکردنەوەیێ:</p>
+            <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" value="ragahandn" checked> شێوازێ ڕاگەهاندنێ</label>
+                <label class="checkbox-label"><input type="checkbox" value="danani" checked> شێوازێ دانانی</label>
+                <label class="checkbox-label"><input type="checkbox" value="daxwazi" checked> شێوازێ داخوازیێ</label>
+                <label class="checkbox-label"><input type="checkbox" value="merci" checked> شێوازێ مەرجی</label>
+                <label class="checkbox-label"><input type="checkbox" value="wazari" checked> پرسیارێن وزاری</label>
+            </div>
+            <button class="btn" onclick="startQuiz()">دەستپێکرنا تاقیکردنەوەیێ</button>
+        </div>
+    </div>
 
-        const container = document.getElementById('quiz-container');
-        quizData.forEach((item, index) => {
-            let i = index + 1;
-            container.innerHTML += `<div class="question">
-                <p>${i}. ${item.q}</p>
-                <input type="radio" name="q${i}" value="A"> A
-                <input type="radio" name="q${i}" value="B"> B
-                <input type="radio" name="q${i}" value="C"> C
-                <input type="radio" name="q${i}" value="D"> D
-            </div>`;
+    <div id="quiz-screen" class="quiz-area">
+        <div id="questions-container"></div>
+        <button class="btn" style="background:#e74c3c;" onclick="submitQuiz()">پیتاندن و دیتنا ئەنجامان</button>
+    </div>
+
+    <div id="result-screen">
+        <h2>ئەنجامێ تاقیکردنەوا تە یا گشتی</h2>
+        <p class="score-text" id="score-display"></p>
+        <p id="percentage-display" style="font-size: 20px; font-weight: bold; color: #2c3e50;"></p>
+        <p style="margin-top: 15px; font-weight: bold; color: #2c3e50;">م. HSHYAR HASAN: سەحکە بەرسڤێن خۆ یێن ل سەرى دا فێرببى</p>
+        <button class="btn" onclick="resetQuiz()">تاقیکردنەوەیەکا نوو</button>
+    </div>
+
+    <footer>
+         هەمی مافێن ڤێ بەرهەمهێنانێ دپاراستینە بۆ مامۆستا <strong>HSHYAR HASAN</strong> &copy; 2026
+    </footer>
+</div>
+
+<script>
+    // ل ڤێرە هەموو ٢٢ پرسیارێن د ناڤ ١٠ وێنەیاندا هەی ب دروستی جێگیر بووینە
+    const questionBank = [
+        // === وێنەیێ ١ و ٢: شێوازێ ڕاگەهاندنێ ===
+        {
+            category: "ragahandn",
+            question: "کار ژ لایێ ناڤەڕۆکی ڤە دبیته چەند شێواز؟",
+            options: ["A- یەک", "B- دوو", "C- سێ", "D- چار"],
+            correct: 3
+        },
+        {
+            category: "ragahandn",
+            question: "د شێوازێ ڕاگەهاندنێ دا چەند ڕێژە هەنە؟",
+            options: ["A- دوو", "B- سێ", "C- چار", "D- پێنج"],
+            correct: 0
+        },
+        {
+            category: "ragahandn",
+            question: "ڕێژەیا بۆریێ ڕاگەهاندنێ ژ لایێ دەمی ڤە دبیته چەند جۆر؟",
+            options: ["A- دوو", "B- سێ", "C- چار", "D- پێنج"],
+            correct: 2
+        },
+        {
+            category: "ragahandn",
+            question: "کاری ڕستا (ئازاد وانه کەی خویندبۆوە) چ ڕێژەیا بۆریێ ڕاگەهاندنێ یە؟",
+            options: ["A- نزیک", "B- دوور", "C- بەردەوام", "D- تەمام"],
+            correct: 1
+        },
+        {
+            category: "ragahandn",
+            question: "ڕێژەیا بۆریێ ڕاگەهاندن ب چ نیشانە دهێتە نەرێکرن؟",
+            options: ["A- نە", "B- نا", "C- نی", "D- مە"],
+            correct: 0
+        },
+        {
+            category: "ragahandn",
+            question: "ڕێژەیا بۆریێ بەردەوام د کرمانجیا خوارێدا چ نیشان دگەل قەدی چاوگی دهێت؟",
+            options: ["A- د", "B- دێ", "C- دە", "D- وە"],
+            correct: 0
+        },
+        {
+            category: "ragahandn",
+            question: "دگەل کیژ کاری بۆری دەمێ پاشگری جێناڤێ لکاو پێڤەبیت دێ پیتەکا ناڤبەر (ت) زێدە بیت؟",
+            options: ["A- نزیک", "B- دوور", "C- بەردەوام", "D- تەمام"],
+            correct: 1
+        },
+        {
+            category: "ragahandn",
+            question: "(ئازاد قوتابییەکی زیرەکە) ئەڤ ڕستە چ شێوازە؟",
+            options: ["A- دانانی", "B- داخوازی", "C- ڕاگەهاندن", "D- مەرجی"],
+            correct: 2
+        },
+
+        // === وێنەیێ ٣ و ٤: شێوازێ دانانی ===
+        {
+            category: "danani",
+            question: "ئەو شێوازێ کو کار ئێکەسەر ئەنجام نەدەت بەلکو ب شێوەیێ گۆمان، ئارەزوو، هیڤی و ئاوات بیت دێ بێژنێ؟",
+            options: ["A- شێوازێ دانانی", "B- شێوازێ ڕاگەهاندن", "C- شێوازێ داخوازی", "D- شێوازێ مەرجی"],
+            correct: 0
+        },
+        {
+            category: "danani",
+            question: "د شێوازی دانانی دا چەند ڕێژە هەنە؟",
+            options: ["A- یەک", "B- دوو", "C- سێ", "D- چار"],
+            correct: 1
+        },
+        {
+            category: "danani",
+            question: "ڕێژەیا بۆریێ دانانی ژ لایێ دەمی ڤە دبیته چەند جۆر؟",
+            options: ["A- یەک", "B- دوو", "C- سێ", "D- چار"],
+            correct: 1
+        },
+        {
+            category: "danani",
+            question: "کاری بۆریێ دانانی ب چ نیشانه دهێته نەرێکرن؟",
+            options: ["A- نا", "B- نە", "C- نی", "D- مە"],
+            correct: 1
+        },
+        {
+            category: "danani",
+            question: "د ڕستەیا (خۆزی من وانه خواندبا) پەیڤا (خۆزی) چ دگەهینیت؟",
+            options: ["A- دوعا پاراستنێ", "B- شک و گۆمان", "C- حەز و ئارەزوو", "D- پێویستی"],
+            correct: 2
+        },
+
+        // === وێنەیێ ٥ و ٦: شێوازێ داخوازیێ ===
+        {
+            category: "daxwazi",
+            question: "جێناڤێ لکاو بۆ کەسێ دووێ تاک وەک بکەر دەرناکەفێت دگەل کاری چ شێواز؟",
+            options: ["A- داخوازی", "B- ڕاگەهاندن", "C- دانانی", "D- چ دروست نینە"],
+            correct: 0
+        },
+        {
+            category: "daxwazi",
+            question: "(نانەکەت بە جوانی بخۆ) د ڤێ ڕستێ دا چ دەرنەکەفتییە؟",
+            options: ["A- ئامرازی دانه پاڵ", "B- ئامرازی لێکدەر", "C- بکەر", "D- کاری نەتمام"],
+            correct: 2
+        },
+        {
+            category: "daxwazi",
+            question: "د ڕستەیا (فێری زانست بن) چ دەرنەکەفتییە؟",
+            options: ["A- بکەر", "B- نیشانەدەر", "C- جێناڤێ لکاو", "D- نیشانەیا کاری"],
+            correct: 0
+        },
+        {
+            category: "daxwazi",
+            question: "د ڕستەیا (پەنجەرەکە داخەوە) چ دەرنەکەفتییە؟",
+            options: ["A- جێناڤێ لکاوێ بکەر", "B- (هـ) یا پاشگر", "C- نیشانەیا کاری", "D- هەمی درستن"],
+            correct: 3
+        },
+        {
+            category: "daxwazi",
+            question: "نیشانەیا کاری داخوازی (ب) دهێتە لادان ئەگەر کار یێ چ بیت؟",
+            options: ["A- ساده بیت", "B- دارێژتی ب پاشگری بیت", "C- دارێژتی ب پێشگری بیت", "D- ساده و دارێژتی بیت"],
+            correct: 3
+        },
+
+        // === وێنەیێ ٧ و ٨: شێوازێ مەرجی ===
+        {
+            category: "merci",
+            question: "دەمی د ڕستەکا ئاوێتەدا دوو کار هۆکار و ئەنجام بن و ڕویدانا ئێک ژوان مەرج بیت بۆ ڕویدانا یێ دی دێ بێژنێ؟",
+            options: ["A- ڕستەیا ئاوێتەیا مەرجی", "B- ڕستەیا ڕاگەهاندنێ", "C- ڕستەیا داخوازیێ", "D- ڕستەیا دانانی"],
+            correct: 0
+        },
+        {
+            category: "merci",
+            question: "ل دویڤ پێکهاتەی، ڕستەیا ئاوێتەیا مەرجی دابەش دبیتە سەر چی؟",
+            options: ["A- ئامرازی لێکدەر + ڕستا مەرج", "B- ڕستا مەرج و وەڵامێ مەرج", "C- ڕستا سەرەکی و لاوەکی", "D- دانانی و داخوازی"],
+            correct: 1
+        },
+        {
+            category: "merci",
+            question: "د ڕستەیا (ئەگەر باران ببارێت، کانییاوکان دەبووژێنەوە) کاری (وڵامێ مەرج) د چ ڕێژە دایە؟",
+            options: ["A- بۆریێ بەردەوامێ ڕاگەهاندنێ", "B- ئەمر", "C- نەبۆریێ دانانی", "D- بۆریێ مەرجی"],
+            correct: 0
+        },
+
+        // === وێنەیێ ٩ و ١٠: پرسیارێن وزاری (میکۆس) ===
+        {
+            category: "wazari",
+            question: "ئەگەر ڕستا (پڕۆژەکە تەواوبکە) بگۆڕین بۆ شێوازێ دانانی دێ بیتە چ؟ (وزاری ٢٠١٩)",
+            options: ["A- دبێت پڕۆژەکە تەواوبکەیت", "B- خۆزگە پڕۆژەکە تەواوبکەیت", "C- دبێت پڕۆژەکە تەواوبکەن", "D- دبێت پڕۆژە دەکەم تەواو"],
+            correct: 0
+        },
+        {
+            category: "wazari",
+            question: "ئەگەر ڕستا (پێویسته وانه که بخوێنیت) بگۆڕین بۆ شێوازێ داخوازی دێ بیتە چ؟",
+            options: ["A- دبێت وانه که بخوێنیت", "B- وانه که بخوێنه", "C- وانه که بخوێنن", "D- پێویسته وانه که بخوێنن"],
+            correct: 1
+        },
+        {
+            category: "wazari",
+            question: "کیژ ژ ڤان کارێن داخوازی نیشانا کاری تێدا دەرنەکەفتییە؟ (وزاری ٢٠٢٠)",
+            options: ["A- هەڵبژێره", "B- دابه", "C- ڕابخه", "D- (B و C) دروستن"],
+            correct: 3
+        },
+        {
+            category: "wazari",
+            question: "د کیژ ژ ڤان ڕستاندا جێناڤێ لکاوێ کەسێ دوویێ تاک (ت) دەرکەفتییە؟",
+            options: ["A- دەرگاکه دابخه", "B- ببه به مامۆستا", "C- فێری زانست بە", "D- چ ژوان نینە"],
+            correct: 3
+        },
+        {
+            category: "wazari",
+            question: "د کیژ ڕێژەیا کاریدا، ئەگەر کار نەساده بیت، دگونجیت نیشانەیا کاری بهێتە لادان؟ (وزاری ٢٠٢٠)",
+            options: ["A- نەبۆریێ دانانی", "B- داخوازی", "C- نەبۆریێ ڕاگەهاندن", "D- (A و B) دروستن"],
+            correct: 1
+        }
+    ];
+
+    let currentQuestions = [];
+
+    function startQuiz() {
+        const selectedCategories = Array.from(document.querySelectorAll('#setup-screen input[type="checkbox"]:checked'))
+                                        .map(cb => cb.value);
+
+        if (selectedCategories.length === 0) {
+            alert("تکایە ل کێمتر پشکەکێ هەلبژێره بۆ ئەنجامدانا تاقیکردنەوەیێ!");
+            return;
+        }
+
+        currentQuestions = questionBank.filter(q => selectedCategories.includes(q.category));
+
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+
+        currentQuestions.forEach((q, index) => {
+            let categoryLabel = "";
+            switch(q.category) {
+                case 'ragahandn': categoryLabel = "شێوازێ ڕاگەهاندنێ"; break;
+                case 'danani': categoryLabel = "شێوازێ دانانی"; break;
+                case 'daxwazi': categoryLabel = "شێوازێ داخوازیێ"; break;
+                case 'merci': categoryLabel = "شێوازێ مەرجی"; break;
+                case 'wazari': categoryLabel = "پرسیارێن وزاری"; break;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">
+                    <span class="badge">${categoryLabel}</span>
+                    پرسیارا ${index + 1}: ${q.question}
+                    <span style="float:left; font-size:13px; color:var(--accent-color); font-weight:bold;">[2 نمرە]</span>
+                </div>
+                <div class="options-group" id="q-${index}">
+                    ${q.options.map((opt, i) => `
+                        <label class="option-label">
+                            <input type="radio" name="question-${index}" value="${i}">
+                            ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+                <div class="feedback" id="feedback-${index}"></div>
+            `;
+            container.appendChild(card);
         });
 
-        function calculateResult() {
-            let score = 0;
-            quizData.forEach((item, index) => {
-                let i = index + 1;
-                let selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected && selected.value === item.a) score++;
-            });
-            document.getElementById('result').innerHTML = `
-                <h3>ئەنجام:</h3>
-                نمرێن تە: <strong>${score * 2}</strong> ژ 134 <br>
-                رێژا سەدی: <strong>${((score/67)*100).toFixed(1)}%</strong> <br>
-                ژمارا وەڵامێن دروست: ${score} ژ 67
-            `;
-        }
-    </script>
+        document.getElementById('setup-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        const totalScore = currentQuestions.length * 2;
+
+        currentQuestions.forEach((q, index) => {
+            const selectedInput = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+            
+            if (selectedInput && parseInt(selectedInput.value) === q.correct) {
+                score += 2;
+                feedbackDiv.className = "feedback correct";
+                feedbackDiv.innerText = "✓ بەرسڤا تە ڕاستە! | م. HSHYAR HASAN";
+            } else {
+                feedbackDiv.className = "feedback incorrect";
+                feedbackDiv.innerText = `✗ بەرسڤا تە خەلەتە! بەرسڤا دروست: ${q.options[q.correct]} | مامۆستا: HSHYAR HASAN`;
+            }
+        });
+
+        document.getElementById('score-display').innerText = `نمرێن تە: ${score} ژ کۆما ${totalScore} نمران`;
+        const percentage = Math.round((score / totalScore) * 100);
+        document.getElementById('percentage-display').innerText = `ڕێژەیا سەرکەفتنێ: %${percentage}`;
+
+        document.getElementById('result-screen').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('result-screen').offsetTop, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('setup-screen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
 </body>
 </html>
-
