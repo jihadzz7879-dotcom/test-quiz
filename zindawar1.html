@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی فێربوون و تاقیکردنەوەی پۆلی 12</title>
-    <!-- Google Fonts بۆ فۆنتەکێ جوان یێ کوردی -->
+    <title>پۆلی 12 - سیستەمی تاقیکردنەوە و چاتی ژیر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap" rel="stylesheet">
@@ -34,25 +34,19 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding: 20px;
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        /* بەشێ گۆڕینی مۆد (پۆلێن و تاقیکردنەوە) */
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -77,7 +71,6 @@
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
 
-        /* بەشێ په‌یڤ و فێربوونێ */
         .section-panel {
             display: none;
         }
@@ -86,55 +79,78 @@
             display: block;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 15px;
+        /* دیزاینی بەشێ چاتی بۆت */
+        .chat-container {
             background-color: var(--card-bg);
-            border: 1px solid #334155;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 1.05rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.bot {
+            background-color: #334155;
+            color: var(--text-main);
+            align-self: flex-start;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.user {
+            background-color: var(--accent-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            background-color: #0f172a;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px;
             border-radius: 10px;
+            border: 1px solid #334155;
+            background-color: var(--card-bg);
             color: white;
             font-size: 1rem;
-            margin-bottom: 20px;
         }
 
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        .btn-send {
+            background-color: var(--accent-success);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .vocab-card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border-right: 5px solid var(--accent-color);
-            transition: transform 0.2s;
-        }
-
-        .vocab-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .vocab-word {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #60a5fa;
-            margin-bottom: 5px;
-        }
-
-        .vocab-meaning {
-            font-size: 1.05rem;
-            color: var(--text-main);
-        }
-
-        .vocab-tag {
-            display: inline-block;
-            background-color: #334155;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            padding: 2px 8px;
-            border-radius: 5px;
-            margin-top: 10px;
+        .btn-send:hover {
+            background-color: #059669;
         }
 
         /* بەشێ تاقیکردنەوەی کویز */
@@ -142,15 +158,12 @@
             background-color: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .quiz-question {
             font-size: 1.4rem;
             margin-bottom: 25px;
             font-weight: bold;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 10px;
         }
 
         .options-list {
@@ -168,11 +181,6 @@
             text-align: right;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .option-btn:hover {
-            background-color: #475569;
         }
 
         .quiz-footer {
@@ -182,32 +190,19 @@
             align-items: center;
         }
 
-        .score-board {
-            font-size: 1.1rem;
-            color: var(--accent-success);
-            font-weight: bold;
-        }
-
         .next-btn {
             background-color: var(--accent-success);
             color: white;
             border: none;
             padding: 10px 25px;
             border-radius: 8px;
-            font-size: 1rem;
             cursor: pointer;
             display: none;
         }
 
-        /* لایەنی ژمارەی پەیڤەکان */
-        .counter-badge {
-            background-color: #ef4444;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            vertical-align: middle;
-            margin-right: 5px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -215,33 +210,33 @@
 
 <div class="container">
     <header>
-        <h1>سه‌رپه‌ڕێ قوتابیێن پۆلا 12 زانستی و وێژەیی</h1>
-        <p>سیسته‌مێ تاقیكرنێ و په‌ڕتووكخانا په‌یڤێن هۆشمه‌ند</p>
+        <h1>پلاتفۆرمی پێشکەوتووی پۆلی 12</h1>
+        <p>تاقیکردنەوەی خێرا و چاتی هۆشمەند دگەل مامۆستای بۆت</p>
     </header>
 
-    <!-- دوگمێن سەرەکی بۆ گۆڕینی بەشان -->
     <div class="nav-tabs">
-        <button class="btn-tab active" onclick="switchTab('vocab')">فێربوونا په‌یڤان <span class="counter-badge" id="vocab-count">0</span></button>
-        <button class="btn-tab" onclick="switchTab('quiz')">دەستپێکرنا تاقیکردنێ 📝</button>
+        <button class="btn-tab active" onclick="switchTab('chat')">💬 چات دگەل بۆتی</button>
+        <button class="btn-tab" onclick="switchTab('quiz')">📝 دەستپێکرنا تاقیکردنێ</button>
     </div>
 
-    <!-- بەشێ یەکێ: پەیڤ گەران -->
-    <div id="vocab-panel" class="section-panel active">
-        <input type="text" class="search-box" id="searchInput" onkeyup="filterVocab()" placeholder="ل په‌یڤێ یان ل چه‌مکه‌کی بگه‌ڕه... (ب کوردی، عەرەبی یان ئینگلیزی)">
-        <div class="vocab-grid" id="vocabGrid">
-            <!-- پەیڤ ب رێکا فۆنکشنی خوارێ لێرە زێدە دبن -->
+    <div id="chat-panel" class="section-panel active">
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">سلاڤ قوتابیێ هێژا! ئەز ل ڤێرەم بۆ هاریکاریکردنا تە. هەر پرسیارەکا تە د بابەتێن پۆلا 12 دا هەبیت (فیزیا، زیندەوەر، مێژوو، کوردی، ئینگلیزی)، بۆ من بنووسە دا بەرسڤا تە بدەم! 🎯</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="پەیام یان پرسیارا خۆ لێرە بنووسە..." onkeypress="handleKeyPress(event)">
+                <button class="btn-send" onclick="sendMessage()">ناردن</button>
+            </div>
         </div>
     </div>
 
-    <!-- بەشێ دووێ: کویز و تاقیکردنەوە -->
     <div id="quiz-panel" class="section-panel">
         <div class="quiz-card">
-            <div class="quiz-question" id="questionText">پسیار دێ ل لێره‌ دیار بیت؟</div>
-            <div class="options-list" id="optionsContainer">
-                <!-- بژاردەکان لێرە دیار دبن -->
-            </div>
+            <div class="quiz-question" id="questionText">پسیار لێرە دیار دەبێت؟</div>
+            <div class="options-list" id="optionsContainer"></div>
             <div class="quiz-footer">
-                <div class="score-board" id="scoreBoard">نمرە: 0 / 0</div>
+                <div id="scoreBoard" style="color: var(--accent-success); font-weight: bold;">نمرە: 0 / 0</div>
                 <button class="next-btn" id="nextBtn" onclick="nextQuestion()">پسیارا پاشتر ➔</button>
             </div>
         </div>
@@ -249,87 +244,72 @@
 </div>
 
 <script>
-    // لێرەدا بانکەکا مەزن ژ پەیڤ و چەمکان هەیە (تو دشێی هەتا ١٠ هزار زێدە بکەی)
-    // من ل لێرە نموونەیێن گرنگ یێن بابەتێن د ناڤ وێنەیێ ته‌ دا (بایۆلۆژی، فیزیا، زمان) داناون
-    const wordsDatabase = [
-        { word: "Photosynthesis (رووەکەپێکهاتن)", meaning: "پرۆسەیەکە ڕووەک تیشکی خۆر دەگۆڕێت بۆ وزەی کیمیایی", tag: "زیندەوەر (Zindawar)" },
-        { word: "Friction (لێکخشاندن)", meaning: "هێزێکە دژی جووڵەی تەنەکان دەوەستێتەوە لەسەر ڕووەکان", tag: "فیزیا (Fizya)" },
-        { word: "Ecosystem (سیستەمی ژینگەیی)", meaning: "کۆمەڵگەیەکە لە زیندەوەران و پێکهاتە بێگیانەکان پێکدێت", tag: "زیندەوەر (Zindawar)" },
-        { word: "Velocity (خێرایی ئاڕاستەکراو)", meaning: "بڕی دووربوونی تەنێک لە کاتێکی دیاریکراودا بە ئاڕاستەیەکی ڕاست", tag: "فیزیا (Fizya)" },
-        { word: "Adverb (ئاوەڵکار)", meaning: "وشەیەکە کە وەسفی کار (فێڵ) یان ئاوەڵناوێک دەکات لە ڕستەدا", tag: "ئینگلیزی (English)" },
-        { word: "Metaphor (خواhandling / کنایە)", meaning: "بەکار هێنانی وشەیەک لە شوێنێکی تر بۆ جوانی زمانەوانی", tag: "کوردی (Kurdish)" },
-        { word: "Balkans (بەڵکان)", meaning: "ناوچەیەکی مێژوویی و جوگرافییە لە باشووری ڕۆژهەڵاتی ئەوروپا", tag: "مێژوو (Mejo)" },
-        { word: "Metabolism (میتابۆلیزم)", meaning: "کۆی گشتی کارلێکە کیمیاییەکان لەناو لەشی زیندەوەراندا", tag: "زیندەوەر (Zindawar)" },
-        { word: "Gravity (کێشکردن)", meaning: "هێزێکی سروشتییە کە هەموو تەنە خاوەن بارستاییەکان ڕادەکێشێتە خوارەوە", tag: "فیزیا (Fizya)" },
-        { word: "Syntax (ڕستەسازی)", meaning: "یاساکانی ڕێکخستنی وشەکان بۆ دروستکردنی ڕستەی دروست", tag: "ئینگلیزی (English)" }
-    ];
+    // لیستا بەرسڤێن بۆتی (تو دشێی بەرسڤێن زێدەتر دابنێی بۆ ئەوەی وەڵامی هەموو شتێک بداتەوە)
+    const botResponses = {
+        "سلاو": "سلاڤ و ڕێز چاوانم؟ هیواخوازم د دڵخۆش بی. د چ بابەتەکێدا پێویستیا تە ب هاریکاریێ هەیە؟",
+        "فیزیا": "فیزیا پۆلا 12 زۆر یا سەرنجڕاکێشە! بابەتێن کێشکردن، تاودان، و وزە زۆر گرنگن. پرسیارەکا تە هەیە تێدا؟",
+        "زیندەوەر": "د زیندەوەرێدا، بابەتێ خانە، مۆلیکول، هۆرمۆن و زانستی بۆماوەیی (Genetics) گەلەک پسیار ل سەر دهێن.",
+        "مێژوو": "مێژووی پۆلا 12 باسی شەڕێن جیهانی و پەیماننامێن گرنگ وەک بەڵکان و لۆزان دکەت.",
+        "ئینگلیزی": "د زمانی ئینگلیزیدا گرنگیێ بدە بە ڕێزمان (Grammar) و ناسینی ئاوەڵکار و ناوان د ڕستەدا.",
+        "تاقیکردنەوە": "دشێی ژ بەشێ سەرەوە دوگمەیا 'دەستپێکرنا تاقیکردنێ' لێبدەی دا کو بزانی ئاستێ تە چەندە!",
+        "سوپاس": "سەرچاوان، ئەرکا منە! سەرکەوتووبیت د بەدەستهێنانی بەرزترین نمرەدا."
+    };
 
-    // لێرەدا پسیارێن تاقیکردنێ هەنە
+    // بەشی کویز
     const quizDatabase = [
-        {
-            question: "کیش هێز دژی جووڵەی تەنەکان دەوەستێتەوە لەسەر ڕووەکان؟",
-            options: ["هێزی کێشکردن", "هێزی لێکخشاندن (Friction)", "خێرایی", "میتابۆلیزم"],
-            correct: 1
-        },
-        {
-            question: "پرۆسەی گۆڕینی تیشکی خۆر بۆ وزەی کیمیایی لە ڕووەکدا چی پێ دەوترێت؟",
-            options: ["میتابۆلیزم", "هەناسەدانی خانەیی", "رووەکەپێکهاتن (Photosynthesis)", "زیندەوەر زانی"],
-            correct: 2
-        },
-        {
-            question: "وشەی 'Syntax' لە زمانی ئینگلیزیدا بە چ واتا دێت؟",
-            options: ["ڕستەسازی / یاسای ڕستە", "ئاوەڵکار", "مێژووی کۆن", "یاسای فیزیا"],
-            correct: 0
-        }
+        { question: "کیش هێز دژی جووڵەی تەنەکان دەوەستێتەوە لەسەر ڕووەکان؟", options: ["هێزی کێشکردن", "هێزی لێکخشاندن", "خێرایی", "تاودان"], correct: 1 },
+        { question: "پرۆسەی گۆڕینی تیشکی خۆر بۆ وزەی کیمیایی لە ڕووەکدا چی پێ دەوترێت؟", options: ["میتابۆلیزم", "هەناسەدان", "رووەکەپێکهاتن (Photosynthesis)", "ئەنزیم"], correct: 2 }
     ];
 
     let currentQuestionIndex = 0;
     let score = 0;
 
-    // ده‌ستپێكرنا لاپه‌ڕی
     window.onload = function() {
-        document.getElementById('vocab-count').innerText = wordsDatabase.length;
-        loadVocabulary();
         loadQuestion();
     };
 
-    // نیشاندانی په‌یڤان
-    function loadVocabulary() {
-        const grid = document.getElementById('vocabGrid');
-        grid.innerHTML = '';
-        wordsDatabase.forEach(item => {
-            grid.innerHTML += `
-                <div class="vocab-card">
-                    <div class="vocab-word">${item.word}</div>
-                    <div class="vocab-meaning">${item.meaning}</div>
-                    <div class="vocab-tag">${item.tag}</div>
-                </div>
-            `;
-        });
-    }
+    // ناردنی نامە د چاتێدا
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if(!text) return;
 
-    // فلتەرکردن و گەڕان د پەیڤان دا
-    function filterVocab() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('vocab-card');
-        
-        for (let i = 0; i < cards.length; i++) {
-            let txtValue = cards[i].textContent || cards[i].innerText;
-            if (txtValue.toLowerCase().indexOf(input) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
+        appendMessage(text, 'user');
+        input.value = '';
+
+        // وەڵامی بۆت
+        setTimeout(() => {
+            let reply = "ببورە، من وەک بۆت تەنیا لە بابەتەکانی (فیزیا، زیندەوەر، مێژوو، کوردی، ئینگلیزی) تێدەگەم. وشەیەکی سەرەکی بنووسە!";
+            
+            for (let key in botResponses) {
+                if(text.toLowerCase().includes(key)) {
+                    reply = botResponses[key];
+                    break;
+                }
             }
-        }
+            appendMessage(reply, 'bot');
+        }, 600);
     }
 
-    // گۆڕینی بەشەکان (فێربوون / تاقیکردنەوە)
+    function appendMessage(text, sender) {
+        const container = document.getElementById('chatMessages');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender}`;
+        msgDiv.innerText = text;
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function handleKeyPress(e) {
+        if(e.key === 'Enter') sendMessage();
+    }
+
     function switchTab(tabName) {
         document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
         
-        if(tabName === 'vocab') {
-            document.getElementById('vocab-panel').classList.add('active');
+        if(tabName === 'chat') {
+            document.getElementById('chat-panel').classList.add('active');
             event.target.classList.add('active');
         } else {
             document.getElementById('quiz-panel').classList.add('active');
@@ -337,7 +317,7 @@
         }
     }
 
-    // بارکرنا پسیارێن تاقیکردنێ
+    // سیستەمی کویز
     function loadQuestion() {
         const currentQuiz = quizDatabase[currentQuestionIndex];
         document.getElementById('questionText').innerText = currentQuiz.question;
@@ -354,37 +334,33 @@
         });
     }
 
-    // پشکنینی وەڵامی ڕاست
     function checkAnswer(selectedIndex, clickedButton) {
         const currentQuiz = quizDatabase[currentQuestionIndex];
         const buttons = document.querySelectorAll('.option-btn');
-        
-        buttons.forEach(btn => btn.disabled = true); // ڕاگرتنی کلیک ل سەر دوگمێن دی
+        buttons.forEach(btn => btn.disabled = true);
 
         if(selectedIndex === currentQuiz.correct) {
             clickedButton.style.backgroundColor = 'var(--accent-success)';
             score++;
         } else {
             clickedButton.style.backgroundColor = '#ef4444';
-            buttons[currentQuiz.correct].style.backgroundColor = 'var(--accent-success)'; // نیشاندانی بەدیلی ڕاست
+            buttons[currentQuiz.correct].style.backgroundColor = 'var(--accent-success)';
         }
 
         document.getElementById('scoreBoard').innerText = `نمرە: ${score} / ${quizDatabase.length}`;
         document.getElementById('nextBtn').style.display = 'block';
     }
 
-    // پسیارا بهێت
     function nextQuestion() {
         currentQuestionIndex++;
         if(currentQuestionIndex < quizDatabase.length) {
             loadQuestion();
         } else {
-            document.getElementById('questionText').innerText = `تاقیکردنەوە ب دوماهی هات! ئه‌نجامێ ته‌: ${score} ژ ${quizDatabase.length}`;
+            document.getElementById('questionText').innerText = `تاقیکردنەوە تەواو بوو! نمرەکەت: ${score} ژ ${quizDatabase.length}`;
             document.getElementById('optionsContainer').innerHTML = '';
             document.getElementById('nextBtn').style.display = 'none';
         }
     }
 </script>
-
 </body>
 </html>
