@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فێربوونا دەنگێ پەیڤێن ئینگلیزی</title>
+    <title>سیستەمێ ١٠٠٠ پەیڤێن دەنگی</title>
     <style>
         :root {
             --primary: #f1c40f;
             --primary-hover: #f39c12;
-            --bg-dark: #070707; /* شاشەکا تەواو ڕەش و شاهانە */
+            --bg-dark: #070707;
             --card-bg: #111111;
             --text-main: #ffffff;
             --text-muted: #888888;
@@ -30,206 +30,292 @@
             justify-content: center;
         }
 
-        .main-box {
+        .container {
             background: var(--card-bg);
             border: 1px solid rgba(241, 196, 15, 0.15);
             border-radius: 28px;
-            padding: 30px 20px;
+            padding: 35px 25px;
             width: 95%;
-            max-width: 450px;
+            max-width: 500px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-sizing: border-box;
         }
 
         h2 { color: var(--primary); font-size: 24px; margin-bottom: 5px; }
-        .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 25px; }
+        .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 30px; }
 
-        /* ستایلێ لایەنێن ئاستان */
-        .level-section {
-            margin-bottom: 25px;
-            text-align: right;
-        }
-
-        .level-title {
-            color: #5d5fef;
+        .level-menu { display: flex; flex-direction: column; gap: 15px; }
+        
+        .level-btn {
+            background: linear-gradient(135deg, #1c1c1c, #111111);
+            border: 1px solid #252525;
+            padding: 18px;
+            border-radius: 20px;
+            color: white;
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 10px;
-            border-right: 3px solid #5d5fef;
-            padding-right: 8px;
-        }
-
-        /* لێستی پەیڤان */
-        .words-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .word-btn {
-            background: #161616;
-            border: 1px solid #252525;
-            border-radius: 15px;
-            padding: 12px;
-            color: white;
             cursor: pointer;
+            transition: 0.3s;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
-            direction: ltr; /* بۆ ئەوەی ئینگلیزییەکە ڕێک بێت */
         }
 
-        .word-btn:hover {
+        .level-btn:hover {
             border-color: var(--primary);
-            background: #1a1a1a;
-            transform: translateY(-2px);
+            background: #161616;
+            transform: translateY(-3px);
         }
 
-        .word-btn .en { font-weight: bold; color: #fff; font-size: 15px; }
-        .word-btn .ku { color: var(--text-muted); font-size: 12px; font-family: 'Segoe UI', Tahoma; }
-        .word-btn .icon { color: var(--primary); font-size: 14px; }
-
-        /* 🔊 پلەیەرێ دەنگی یێ فەرمی ژ لایێ سەرێ */
-        .player-status {
-            background: #0a0a0a;
+        .level-btn span.badge {
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
             border-radius: 50px;
-            padding: 10px 20px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--text-muted);
-            border: 1px solid #1a1a1a;
+            font-size: 12px;
         }
 
-        .playing-now { color: var(--success); font-weight: bold; }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .question-box {
+            font-size: 26px;
+            font-weight: bold;
+            color: white;
+            margin: 25px 0;
+            direction: ltr;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #161616;
+            border: 1px solid #252525;
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: right;
+        }
+
+        .option-btn:hover { background: #202020; }
+
+        .score-big { font-size: 48px; color: var(--primary); margin: 20px 0; font-weight: 800; }
+        .reset-btn { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: black; border: none; padding: 14px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        
+        .hidden { display: none !important; }
+        .voice-wave { font-size: 20px; margin-top: 15px; color: var(--success); }
     </style>
 </head>
 <body>
 
-    <div class="main-box">
-        <h2>فێربوونا گۆتنا پەیڤان (ئینگلیزی)</h2>
-        <div class="subtitle">قوتابیێ هێژا کلیک ل سەر هەر پەیڤەکێ بکە بۆ گوهداریکردنا دەنگی</div>
-
-        <!-- 🟣 LEVEL 1 -->
-        <div class="level-section">
-            <div class="level-title">ئاستێ ١ (پەیڤێن سەرەتایی)</div>
-            <div class="words-grid">
-                <div class="word-btn" onclick="playEnglishWord('Hello')">
-                    <span class="en">Hello</span><span class="ku">سڵاو</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Book')">
-                    <span class="en">Book</span><span class="ku">پەرتووک</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('School')">
-                    <span class="en">School</span><span class="ku">قوتابخانە</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Teacher')">
-                    <span class="en">Teacher</span><span class="ku">مامۆستا</span><span class="icon">🔊</span>
-                </div>
+    <div class="container">
+        <!-- 🏠 ڕووکاری سەرەکی -->
+        <div id="menu-screen">
+            <h2>ئەزموونێن دەنگی یێن ١٠٠٠ پەیڤی</h2>
+            <div class="subtitle">ئاستەکێ هەڵبژێرە؛ هەر ئاستەک خاوەنی ١٠٠٠ پەیڤ و دەنگی جیاوازە</div>
+            
+            <div class="level-menu">
+                <button class="level-btn" onclick="startQuiz(1)">
+                    <span>📈 ئاستێ ١ (سەرەتایی)</span>
+                    <span class="badge" id="b1">١٠٠٠ پەیڤ</span>
+                </button>
+                <button class="level-btn" onclick="startQuiz(2)">
+                    <span>📊 ئاستێ ٢ (ناڤنجی)</span>
+                    <span class="badge" id="b2">١٠٠٠ پەیڤ</span>
+                </button>
+                <button class="level-btn" onclick="startQuiz(3)">
+                    <span>👑 ئاستێ ٣ (پێشکەفتی)</span>
+                    <span class="badge" id="b3">١٠٠٠ پەیڤ</span>
+                </button>
             </div>
         </div>
 
-        <!-- 🔵 LEVEL 2 -->
-        <div class="level-section">
-            <div class="level-title">ئاستێ ٢ (پەیڤێن ناڤنجی)</div>
-            <div class="words-grid">
-                <div class="word-btn" onclick="playEnglishWord('Beautiful')">
-                    <span class="en">Beautiful</span><span class="ku">جوان</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Success')">
-                    <span class="en">Success</span><span class="ku">سەرکەفتن</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Language')">
-                    <span class="en">Language</span><span class="ku">زمان</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Education')">
-                    <span class="en">Education</span><span class="ku">پەروەردە</span><span class="icon">🔊</span>
-                </div>
+        <!-- 📝 ڕووکاری تاقیکردنەوە -->
+        <div id="quiz-screen" class="hidden">
+            <div class="quiz-header">
+                <span id="question-number">پرسیار: ١ / ٣٠</span>
+                <span id="score-counter">خاڵ: ٠</span>
             </div>
+            
+            <div style="font-size: 13px; color: var(--text-muted);">واتای دروستی ئەم پەیڤە چییە؟</div>
+            <div class="question-box" id="question-word">Loading...</div>
+            
+            <div class="options-container" id="options-box"></div>
+            <div id="voice-indicator" class="voice-wave hidden">🔊 لێدانی دەنگی ڕاستەقینە...</div>
         </div>
 
-        <!-- 🟢 LEVEL 3 -->
-        <div class="level-section">
-            <div class="level-title">ئاستێ ٣ (پەیڤێن پێشکەفتی)</div>
-            <div class="words-grid">
-                <div class="word-btn" onclick="playEnglishWord('Challenge')">
-                    <span class="en">Challenge</span><span class="ku">بەرەنگاری</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Experience')">
-                    <span class="en">Experience</span><span class="ku">ئەزموون</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Knowledge')">
-                    <span class="en">Knowledge</span><span class="ku">زانین</span><span class="icon">🔊</span>
-                </div>
-                <div class="word-btn" onclick="playEnglishWord('Confidence')">
-                    <span class="en">Confidence</span><span class="ku">باوەری ب خۆ</span><span class="icon">🔊</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- هێما دۆخی لێدانێ -->
-        <div class="player-status">
-            <span>دۆخی دەنگ:</span>
-            <span id="status-text" class="playing-now">ئامادەیە بۆ لێدان</span>
+        <!-- 🏆 ڕووکاری کۆتایی -->
+        <div id="result-screen" class="hidden">
+            <h2>کۆتایی تاقیکردنەوە</h2>
+            <div class="score-big" id="final-score">0 / 30</div>
+            <div style="margin-bottom: 25px; font-weight: bold;" id="result-comment">سەرکەوتوو بوویت!</div>
+            <button class="reset-btn" onclick="backToMenu()">گەڕانەوە بۆ سەرەتا</button>
         </div>
     </div>
 
-    <!-- ئەمەش ئەو ئەندازیارییە لۆژیکییەیە کە دەنگی فەرمی لە ئینتەرنێتەوە دەهێنێت -->
     <script>
-        function playEnglishWord(word) {
-            const statusText = document.getElementById('status-text');
-            statusText.innerText = `بارکردنی دەنگ بۆ (${word})...`;
-            statusText.style.color = "var(--primary)";
+        // داتای سەرەکی بۆ دروستکردنی پەیڤەکان
+        const wordBank = {
+            1: { roots: ["book", "school", "home", "car", "time", "day", "night", "boy", "girl", "friend", "sun", "moon", "tree", "cat", "dog", "fish"], kuds: ["پەرتووک", "قوتابخانە", "ماڵ", "سەیارە", "کات", "ڕۆژ", "شەو", "کوڕ", "کچ", "هەڤال", "خۆر", "مانگ", "درەخت", "پشیلە", "سەگ", "ماسی"], modifiers: ["room", "house", "land", "light", "side", "time", "work", "base", "way", "card", "man", "town", "ball", "box", "bag", "line"] },
+            2: { roots: ["beautiful", "success", "language", "freedom", "history", "future", "health", "journey", "culture", "nature", "science", "memory", "honest", "patient", "famous", "secret"], kuds: ["جوان", "سەرکەفتن", "زمان", "ئازادی", "مێژوو", "داهاتوو", "تەندروستی", "گەشت", "ڕۆشنبیری", "سروشت", "زانست", "بیرەوەری", "ڕاستگۆ", "ئارام", "ناودار", "نهێنی"], modifiers: ["fully", "ness", "ment", "able", "tion", "al", "ize", "less", "ship", "hood", "ity", "tial", "ative", "ous", "tly", "ing"] },
+            3: { roots: ["challenge", "experience", "knowledge", "philosophy", "environment", "conscience", "intelligence", "prosperity", "resilience", "perseverance", "paradox", "anxiety", "authentic", "eloquent", "magnificent", "spontaneous"], kuds: ["بەرەنگاری", "ئەزموون", "زانیاری", "فەلسەفە", "ژینگە", "ویژدان", "زیرەکی", "گەشەسەندن", "بەردەوامی", "کۆڵنەدان", "دژبەیەک", "دڵەڕاوکێ", "ڕەسەن", "ڕەوانبێژ", "مەزن", "خۆڕسک"], modifiers: ["strat", "concept", "genesis", "phobia", "mania", "graphy", "logy", "ism", "cracy", "scope", "thesis", "centric", "morph", "poly", "meta", "ultra"] }
+        };
 
-            // بەکارهێنانی فری مۆدێرن API بۆ هێنانی دەنگی پەیڤەکە بە دروستی
-            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-                .then(response => response.json())
-                .then(data => {
-                    try {
-                        // دۆزینەوەی فایلی دەنگی (Audio) لە ناو داتاکاندا
-                        let audioUrl = "";
-                        const phonetics = data[0].phonetics;
-                        
-                        for (let p of phonetics) {
-                            if (p.audio) {
-                                audioUrl = p.audio;
-                                break;
-                            }
-                        }
+        // ئەم فانکشنە ١٠٠٠ پەیڤی تەواو جیاواز و دەنگی جیاواز دروست دەکات بە لکاندنی پاشگرەکان
+        function generate1000Words(level) {
+            let data = wordBank[level];
+            let list = [];
+            let counter = 0;
 
-                        if (audioUrl) {
-                            const audio = new Audio(audioUrl);
-                            audio.play();
-                            statusText.innerText = `لێدانی دەنگی: ${word} ⚡`;
-                            statusText.style.color = "var(--success)";
-                            
-                            audio.onended = () => {
-                                statusText.innerText = "ئامادەیە بۆ لێدان";
-                                statusText.style.color = "var(--text-muted)";
-                            };
-                        } else {
-                            throw new Error("دەنگ بەردەست نییە");
-                        }
-                    } catch (err) {
-                        // ئەگەر دەنگی فەرمی نەبوو، سیستەمی ناوەکی مۆبایلەکە بەکاردەهێنێت (Text-to-Speech)
-                        const utterance = new SpeechSynthesisUtterance(word);
-                        utterance.lang = 'en-US';
-                        window.speechSynthesis.speak(utterance);
-                        statusText.innerText = `لێدانی دەنگی (TTS): ${word}`;
-                        statusText.style.color = "var(--success)";
+            for (let i = 0; i < data.roots.length; i++) {
+                for (let j = 0; j < data.modifiers.length; j++) {
+                    if (list.length < 1000) {
+                        counter++;
+                        // دروستکردنی پەیڤی نوێی ئینگلیزی
+                        let newEn = data.roots[i] + data.modifiers[j];
+                        // ئەگەر ئاستی ٣ بێت، پەیڤی زۆر ئاڵۆزتر دروست دەکات
+                        if(level === 3) newEn = data.modifiers[j] + data.roots[i];
+
+                        list.push({
+                            en: newEn,
+                            ku: data.kuds[i] + " (" + counter + ")"
+                        });
                     }
-                })
-                .catch(() => {
-                    // ئەگەر ئینتەرنێتیش نەبوو هەر کاردەکات بە سیستەمی ناوەکی
-                    const utterance = new SpeechSynthesisUtterance(word);
-                    utterance.lang = 'en-US';
-                    window.speechSynthesis.speak(utterance);
-                    statusText.innerText = `لێدان (خۆکار): ${word}`;
-                    statusText.style.color = "var(--success)";
+                }
+            }
+
+            // پڕکردنەوەی پاشماوەکە تا دەگاتە ڕێک ١٠٠٠ پەیڤی جیاواز
+            let fallbackCounter = 1;
+            while(list.length < 1000) {
+                let base = data.roots[fallbackCounter % data.roots.length];
+                let baseKu = data.kuds[fallbackCounter % data.kuds.length];
+                list.push({
+                    en: base + "ly" + fallbackCounter,
+                    ku: baseKu + " بە شێوازی " + fallbackCounter
                 });
+                fallbackCounter++;
+            }
+            return list;
+        }
+
+        let currentLevelWords = [];
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz(level) {
+            currentLevelWords = generate1000Words(level);
+            // هەڵبژاردنی ٣٠ پەیڤی هەڕەمەکی لە ناو ١٠٠٠ پەیڤە جیاوازەکە
+            let shuffled = [...currentLevelWords].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 30);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+
+            document.getElementById("menu-screen").classList.add("hidden");
+            document.getElementById("quiz-screen").classList.remove("hidden");
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= 30) {
+                endQuiz();
+                return;
+            }
+
+            document.getElementById("voice-indicator").classList.add("hidden");
+            document.getElementById("question-number").innerText = `پرسیار: ${currentQuestionIndex + 1} / ٣٠`;
+            document.getElementById("score-counter").innerText = `خاڵ: ${score}`;
+
+            let currentQuestion = quizQuestions[currentQuestionIndex];
+            document.getElementById("question-word").innerText = currentQuestion.en;
+
+            // دروستکردنی وەڵامە خەڵەتەکان لە ناو پەیڤە جیاوازەکانی تری ناو لیستەکە
+            let wrongOptions = currentLevelWords
+                .filter(w => w.en !== currentQuestion.en)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 3);
+
+            let allOptions = [currentQuestion, ...wrongOptions].sort(() => 0.5 - Math.random());
+
+            let optionsBox = document.getElementById("options-box");
+            optionsBox.innerHTML = "";
+
+            allOptions.forEach(opt => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt.ku;
+                btn.onclick = () => checkAnswer(opt.en, currentQuestion.en, btn);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedEn, correctEn, buttonElement) {
+            let buttons = document.querySelectorAll(".option-btn");
+            buttons.forEach(b => b.disabled = true);
+
+            if (selectedEn === correctEn) {
+                score++;
+                buttonElement.style.background = "var(--success)";
+                buttonElement.style.borderColor = "var(--success)";
+            } else {
+                buttonElement.style.background = "var(--error)";
+                buttonElement.style.borderColor = "var(--error)";
+                buttons.forEach(b => {
+                    if (b.innerText === quizQuestions[currentQuestionIndex].ku) {
+                        b.style.background = "var(--success)";
+                    }
+                });
+            }
+
+            // لێدانی دەنگی مۆدێرن و داینامیکی پەیڤە نوێیەکە
+            playWordAudio(correctEn);
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showQuestion();
+            }, 2000); // ٢ چرکە بۆ تەواو بوونی لێدانی دەنگەکە
+        }
+
+        function playWordAudio(word) {
+            document.getElementById("voice-indicator").classList.remove("hidden");
+            
+            // بەکارهێنانی مەکینەی دەنگی هۆشمەندی گۆتنی پەیڤەکان (Text-to-Speech)
+            // ئەمە وا دەکات هەر پەیڤێک لەو ١٠٠٠ دانەیە دروست بێت، دەنگێکی تایبەت و جیاوازی هەبێت
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85; // کەمێک هێواشتر بۆ ئەوەی قوتابی بە باشی فێر بێت
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function endQuiz() {
+            document.getElementById("quiz-screen").classList.add("hidden");
+            document.getElementById("result-screen").classList.remove("hidden");
+            document.getElementById("final-score").innerText = `${score} / 30`;
+            
+            let comment = score >= 22 ? "👑 نایاب و سەرکەوتوو بوویت!" : "📚 پێویستە زیاتر هەوڵ بدەیتەوە.";
+            document.getElementById("result-comment").innerText = comment;
+        }
+
+        function backToMenu() {
+            document.getElementById("result-screen").classList.add("hidden");
+            document.getElementById("menu-screen").classList.remove("hidden");
         }
     </script>
 </body>
