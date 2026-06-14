@@ -46,7 +46,7 @@
             padding: 0 20px;
         }
 
-        /* Level Tabs */
+        /* Tabs setup */
         .tabs {
             display: flex;
             justify-content: center;
@@ -72,7 +72,6 @@
             box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
         }
 
-        /* Level Content */
         .level-panel {
             display: none;
         }
@@ -115,14 +114,7 @@
             border-color: var(--primary);
         }
 
-        .lesson-card i {
-            display: block;
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        /* Quiz Section */
+        /* Quiz */
         .quiz-section {
             background-color: white;
             padding: 30px;
@@ -169,11 +161,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: background 0.2s;
-        }
-
-        .option-label:hover {
-            background-color: #e2e8f0;
         }
 
         .option-label input {
@@ -191,10 +178,6 @@
             width: 100%;
             font-weight: bold;
             margin-top: 15px;
-        }
-
-        .submit-btn:hover {
-            opacity: 0.9;
         }
 
         .result-box {
@@ -217,47 +200,28 @@
 
     <div class="container">
         
-        <!-- Tabs بۆ گۆڕینی ئاستان -->
+        <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchLevel(1)">ئاستێ ١</button>
-            <button class="tab-btn" onclick="switchLevel(2)">ئاستێ ٢</button>
-            <button class="tab-btn" onclick="switchLevel(3)">ئاستێ ٣</button>
+            <button id="btn-l1" class="tab-btn active" onclick="switchLevel(1)">ئاستێ ١</button>
+            <button id="btn-l2" class="tab-btn" onclick="switchLevel(2)">ئاستێ ٢</button>
+            <button id="btn-l3" class="tab-btn" onclick="switchLevel(3)">ئاستێ ٣</button>
         </div>
 
         <!-- ================= ئاستێ ١ ================= -->
         <div id="level1" class="level-panel active">
             <div class="level-header">
                 <h2>ئاستێ ئێکێ (دەستپێکەر)</h2>
-                <p>ئەڤ ئاستە پێکهاتییە ژ ١٠ وانەیان بۆ فێربوونا بنەمایان.</p>
+                <p>ئەڤ ئاستە پێکهاتییە ژ ١٠ وانەیان و ٢٠ پسیارێن تاقیکردنێ.</p>
             </div>
             
-            <div class="lessons-grid" id="grid-l1">
-                <!-- وانە ب رێکا کودی خوارێ دێ هێنە دروستکرن -->
-            </div>
+            <div class="lessons-grid" id="grid-l1"></div>
 
             <div class="quiz-section">
-                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ١</h3>
+                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ١ (٢٠ پسیار)</h3>
                 <div id="quiz-l1-questions">
-                    <div class="question-box">
-                        <p class="question-text">١. رامانا پەیڤا "Apple" چییە؟</p>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="q1" value="correct"> سێڤ</label>
-                            <label class="option-label"><input type="radio" name="q1" value="wrong"> پرتەقال</label>
-                            <label class="option-label"><input type="radio" name="q1" value="wrong"> مۆز</label>
-                            <label class="option-label"><input type="radio" name="q1" value="wrong"> هەنار</label>
-                        </div>
-                    </div>
-                    <div class="question-box">
-                        <p class="question-text">٢. کیشک رۆژ دکەڤیتە شەمبیێ؟</p>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="q2" value="wrong"> Sunday</label>
-                            <label class="option-label"><input type="radio" name="q2" value="correct"> Saturday</label>
-                            <label class="option-label"><input type="radio" name="q2" value="wrong"> Friday</label>
-                            <label class="option-label"><input type="radio" name="q2" value="wrong"> Monday</label>
-                        </div>
-                    </div>
+                    <!-- پسیار ب رێکا JS دێ لێرە لۆد بن -->
                 </div>
-                <button class="submit-btn" onclick="checkQuiz('level1')">پشکشکرنا بەرسڤان</button>
+                <button class="submit-btn" onclick="checkQuiz('level1')">پشکنینا ئەنجامی</button>
                 <div id="result-level1" class="result-box"></div>
             </div>
         </div>
@@ -266,25 +230,17 @@
         <div id="level2" class="level-panel">
             <div class="level-header">
                 <h2>ئاستێ دووێ (ناڤنجی)</h2>
-                <p>ئەڤ ئاستە پێکهاتییە ژ ٢٠ وانەیان بۆ رستەسازی و ئاخافتنێ.</p>
+                <p>ئەڤ ئاستە پێکهاتییە ژ ٢٠ وانەیان و ٢٠ پسیارێن تاقیکردنێ.</p>
             </div>
             
             <div class="lessons-grid" id="grid-l2"></div>
 
             <div class="quiz-section">
-                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ٢</h3>
+                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ٢ (٢٠ پسیار)</h3>
                 <div id="quiz-l2-questions">
-                    <div class="question-box">
-                        <p class="question-text">١. ڕستەکا دروست هەلبژێرە:</p>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="l2q1" value="wrong"> He like football.</label>
-                            <label class="option-label"><input type="radio" name="l2q1" value="correct"> He likes football.</label>
-                            <label class="option-label"><input type="radio" name="l2q1" value="wrong"> He liking football.</label>
-                            <label class="option-label"><input type="radio" name="l2q1" value="wrong"> He to like football.</label>
-                        </div>
-                    </div>
+                    <!-- پسیار ب رێکا JS دێ لێرە لۆد بن -->
                 </div>
-                <button class="submit-btn" onclick="checkQuiz('level2')">پشکشکرنا بەرسڤان</button>
+                <button class="submit-btn" onclick="checkQuiz('level2')">پشکنینا ئەنجامی</button>
                 <div id="result-level2" class="result-box"></div>
             </div>
         </div>
@@ -293,25 +249,17 @@
         <div id="level3" class="level-panel">
             <div class="level-header">
                 <h2>ئاستێ سیێ (پێشکەفتی)</h2>
-                <p>ئەڤ ئاستە پێکهاتییە ژ ٣٠ وانەیان بۆ رێزمانا کوور و نڤیسینێ.</p>
+                <p>ئەڤ ئاستە پێکهاتییە ژ ٣٠ وانەیان و ٢٠ پسیارێن تاقیکردنێ.</p>
             </div>
             
             <div class="lessons-grid" id="grid-l3"></div>
 
             <div class="quiz-section">
-                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ٣</h3>
+                <h3 class="quiz-title">📝 تاقیکردنەوا ئاستێ ٣ (٢٠ پسیار)</h3>
                 <div id="quiz-l3-questions">
-                    <div class="question-box">
-                        <p class="question-text">١. دەمێ ڕابردوویێ پەیڤا "Go" چییە؟</p>
-                        <div class="options-group">
-                            <label class="option-label"><input type="radio" name="l3q1" value="wrong"> Gone</label>
-                            <label class="option-label"><input type="radio" name="l3q1" value="wrong"> Goes</label>
-                            <label class="option-label"><input type="radio" name="l3q1" value="correct"> Went</label>
-                            <label class="option-label"><input type="radio" name="l3q1" value="wrong"> Going</label>
-                        </div>
-                    </div>
+                    <!-- پسیار ب رێکا JS دێ لێرە لۆد بن -->
                 </div>
-                <button class="submit-btn" onclick="checkQuiz('level3')">پشکشکرنا بەرسڤان</button>
+                <button class="submit-btn" onclick="checkQuiz('level3')">پشکنینا ئەنجامی</button>
                 <div id="result-level3" class="result-box"></div>
             </div>
         </div>
@@ -319,46 +267,154 @@
     </div>
 
     <script>
-        // گۆڕینی ئاستان (Tabs)
+        // گۆڕینی ئەکتیڤ بوونا تاب و پانێلان ب دروستی
         function switchLevel(levelNum) {
+            // ڤەشارتنا هەمی پانێلان
             document.querySelectorAll('.level-panel').forEach(panel => panel.classList.remove('active'));
+            // لادانا ستاینلێ ئەکتیڤ ژ هەمی دوگمەیان
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             
+            // نیشاندانا پانێلا دروست و ئەکتیڤکرنا دوگمەیێ
             document.getElementById('level' + levelNum).classList.add('active');
-            event.target.classList.add('active');
+            document.getElementById('btn-l1').classList.toggle('active', levelNum === 1);
+            document.getElementById('btn-l2').classList.toggle('active', levelNum === 2);
+            document.getElementById('btn-l3').classList.toggle('active', levelNum === 3);
         }
 
-        // دروستکرنا کارتا وانەیان ب شێوەکێ ئۆتۆماتیکی
+        // دروستکرنا کارتا وانەیان
         function generateLessons(gridId, count) {
             const grid = document.getElementById(gridId);
+            grid.innerHTML = '';
             for (let i = 1; i <= count; i++) {
                 const card = document.createElement('div');
                 card.className = 'lesson-card';
                 card.innerHTML = `
-                    <span>📖</span>
+                    <span style="font-size:1.5rem">📖</span>
                     <h4 style="margin-top:8px;">وانەیا ${i}</h4>
-                    <p style="font-size:0.85rem; color:var(--gray); margin-top:5px;">کریک بکە بۆ خویندنێ</p>
+                    <p style="font-size:0.85rem; color:var(--gray); margin-top:5px;">بۆ خویندنێ لێدە</p>
                 `;
                 card.onclick = function() {
-                    alert('خۆشحاڵین! دێ د داهاتی دا بابەتێ کورت یێ وانەیا ' + i + ' ل ڤێرە هێتە زێدەکرن.');
+                    alert('بابەتێ کورت یێ وانەیا ' + i + ' دێ د داهاتی دا هێتە زێدەکرن.');
                 };
                 grid.appendChild(card);
             }
         }
 
-        // لۆدکرنا وانەیان بۆ هەر سێ ئاستان
+        // داتایێ پسیارێن تاقیکردنێ (٢٠ پسیار بۆ هەر ئاستەکێ)
+        const quizData = {
+            level1: [
+                { q: "رامانا پەیڤا 'Apple' چییە؟", o: ["سێڤ", "مۆز", "پرتەقال", "هەنار"], a: 0 },
+                { q: "کیش پەیڤ رامانا 'سە' ددەت؟", o: ["Cat", "Dog", "Bird", "Fish"], a: 1 },
+                { q: "واتایا 'Hello' چییە؟", o: ["خاترخوازیا", "بای", "سڵاو / سلاڤ", "سپاس"], a: 2 },
+                { q: "رەنگێ 'Red' دکەتە چ؟", o: ["شین", "کەسک", "زەرد", "سۆر"], a: 3 },
+                { q: "پەیڤا 'Book' واتە چ؟", o: ["پێنووس", "پەرتۆک", "دەرگەهـ", "مێز"], a: 1 },
+                { q: "رۆژا 'Saturday' دکەتە چ رۆژ؟", o: ["ئەینی", "شەمبی", "دوشەمبی", "سێشەمبی"], a: 1 },
+                { q: "ژمارە 'Five' دکەتە چەند؟", o: ["3", "4", "5", "6"], a: 2 },
+                { q: "رامانا 'Water' چییە؟", o: ["نان", "ئاڤ", "شیر", "شەربەت"], a: 1 },
+                { q: "کیش پەیڤ رامانا 'دایک' ددەت؟", o: ["Father", "Mother", "Brother", "Sister"], a: 1 },
+                { q: "رامانا پەیڤا 'School' چییە؟", o: ["قوتابخانە", "بازار", "مال", "نەخۆشخانە"], a: 0 },
+                { q: "پەیڤا 'Boy' رامانا وێ چییە؟", o: ["کچ", "کوڕ", "پیاو", "ژن"], a: 1 },
+                { q: "رامانا 'Milk' چییە؟", o: ["ئاو", "شیر", "چای", "قاوە"], a: 1 },
+                { q: "ژمارە 'Ten' کالهۆ دبیتە چەند؟", o: ["١", "٥", "١٠", "٢٠"], a: 2 },
+                { q: "واتایا 'Car' چییە؟", o: ["فرۆکە", "ترۆمبێل", "پایسکل", "شەمەندەفەر"], a: 1 },
+                { q: "پەیڤا 'Pen' دکەتە چی؟", o: ["دەفتەر", "پێنووس", "کۆمپیوتەر", "مێز"], a: 1 },
+                { q: "رامانا 'Good morning' چییە؟", o: ["سپێدە باش", "شەڤ باش", "رۆژ باش", "خاتر دۆعا"], a: 0 },
+                { q: "رەنگێ 'White' دکەتە چ؟", o: ["رەش", "سپی", "خۆڵەمێشی", "قاوەیی"], a: 1 },
+                { q: "پەیڤا 'Sun' رامانا وێ چییە؟", o: ["هەیڤ", "ستێرک", "رۆژ (خۆر)", "ئەرد"], a: 2 },
+                { q: "رامانا 'Cat' چییە؟", o: ["پشیک", "سە", "کەروێشک", "شێر"], a: 0 },
+                { q: "ژمارە 'One' دکەتە چەند؟", o: ["١", "٢", "٣", "٠"], a: 0 }
+            ],
+            level2: [
+                { q: "کیشک ڕستە یا دروستە؟", o: ["He like milk.", "He likes milk.", "He liking milk.", "He to like milk."], a: 1 },
+                { q: "دەمێ نۆکە یێ بەردەوام (Present Continuous): 'I ___ reading a book.'", o: ["is", "am", "are", "be"], a: 1 },
+                { q: "دەمێ ڕابردوو بۆ پەیڤا 'Watch' دبیتە چ؟", o: ["Watches", "Watching", "Watched", "Watchedy"], a: 2 },
+                { q: "پێچەوانەیا پەیڤا 'Big' چییە؟", o: ["Large", "Small", "Tall", "Heavy"], a: 1 },
+                { q: "کۆما پەیڤا 'Child' چییە؟", o: ["Childs", "Childrens", "Children", "Childes"], a: 2 },
+                { q: "رامانا پەیڤا 'Beautiful' چییە؟", o: ["ناشیرین", "جوان", "مەزن", "بچووک"], a: 1 },
+                { q: "واتایا 'Doctor' چییە؟", o: ["مامۆستا", "پزیشک / نۆژدار", "ئەندازیار", "پۆلیس"], a: 1 },
+                { q: "کیش پەیڤ ناڤەکێ (Noun) دروستە؟", o: ["Run", "Beautiful", "London", "Quickly"], a: 2 },
+                { q: "ڕستەکا پرسیاری دەستپێدکت ب: '___ are you?' 'I am fine.'", o: ["What", "Where", "How", "Why"], a: 2 },
+                { q: "پەیڤا گونجاو دانینە جهێ بەتاڵ: 'They ___ going to the market.'", o: ["is", "am", "are", "was"], a: 2 },
+                { q: "رامانا پەیڤا 'Key' چییە؟", o: ["قوفڵ", "مفتاح / کلیل", "دەرگەهـ", "پەنجەرە"], a: 1 },
+                { q: "دەمێ ل داهاتووی باسی تشتەکێ دکەی چ بکاردهینی؟", o: ["will", "was", "did", "have"], a: 0 },
+                { q: "پێچەوانەیا پەیڤا 'Hot' چییە؟", o: ["Warm", "Cold", "Dry", "Wet"], a: 1 },
+                { q: "واتایا 'Family' چییە؟", o: ["هەڤال", "خێزان", "جیران", "قوتابی"], a: 1 },
+                { q: "کیش لێکدەر (Pronoun) بۆ کچێ بکاردێت؟", o: ["He", "She", "It", "They"], a: 1 },
+                { q: "رامانا 'Thank you' چییە؟", o: ["ببورە", "سوپاس بۆ تە", "سلاڤ", "ئەرێ"], a: 1 },
+                { q: "پەیڤا 'Window' چییە؟", o: ["پەنجەرە", "دەرگەهـ", "دیوار", "سەقف"], a: 0 },
+                { q: "دەمێ ڕابردوو بۆ 'Play' دبیتە چ؟", o: ["Playing", "Plays", "Played", "Playen"], a: 2 },
+                { q: "واتایا 'Happy' چییە؟", o: ["دلگران", "دلخۆش / کەیفخۆش", "تۆرە", "ماندی"], a: 1 },
+                { q: "کیش پەیڤ کارە (Verb)؟", o: ["Apple", "Sleep", "Happy", "Fast"], a: 1 }
+            ],
+            level3: [
+                { q: "دەمێ ڕابردوویێ پەیڤا 'Go' چییە؟", o: ["Gone", "Goes", "Went", "Going"], a: 2 },
+                { q: "کیش لێکدەر یێ دروستە: 'If it rains, we ___ stay at home.'", o: ["would", "will", "did", "have"], a: 1 },
+                { q: "واتایا پەیڤا 'Accept' چییە؟", o: ["رەتکرن", "قبوولکرن", "گۆڕین", "شیکارکرن"], a: 1 },
+                { q: "ڕستەکا دروست د دنتانسا (Present Perfect) دا هەلبژێرە:", o: ["I have saw him.", "I have seen him.", "I seen him.", "I have see him."], a: 1 },
+                { q: "پێچەوانەیا پەیڤا 'Generous' (بەخشندە/دەستڤەکری) چییە؟", o: ["Kind", "Mean / Stingy", "Happy", "Rich"], a: 1 },
+                { q: "پەیڤا گونجاو: 'She is looking forward to ___ you.'", o: ["see", "seeing", "seen", "saw"], a: 1 },
+                { q: "واتایا پەیڤا 'Challenge' چییە؟", o: ["هەڤرکی / ئالۆنگاری", "ئاشتی", "سەرکەفتن", "شکست"], a: 0 },
+                { q: "دەمێ ڕابردوویێ 'Take' چییە؟", o: ["Taken", "Took", "Takes", "Taking"], a: 1 },
+                { q: "پەیڤا گونجاو دانینە: 'By the time you arrive, I ___ completed the work.'", o: ["will have", "will", "have", "had"], a: 0 },
+                { q: "رامانا 'Experience' چییە؟", o: ["زانست", "ئەزموون / شارەزایی", "پەرتۆک", "تاقیکردنەوە"], a: 1 },
+                { q: "کیش لێکدەر (Adverb) دروستە بۆ ڕستەیێ؟", o: ["Quick", "Quickly", "Quicker", "Quickest"], a: 1 },
+                { q: "کۆما پەیڤا 'Mouse' دبیتە چ؟", o: ["Mouses", "Mice", "Mices", "Micees"], a: 1 },
+                { q: "واتایا 'Success' چییە؟", o: ["سەرکەفتن", "بێهێزی", "خوێندن", "کارکرن"], a: 0 },
+                { q: "دەمێ ڕابردوویێ پەیڤا 'Speak' چییە؟", o: ["Spoke", "Spoken", "Speaks", "Speaking"], a: 0 },
+                { q: "رامانا 'Education' چییە؟", o: ["وەرزش", "پەروەردە و فێرکرن", "تەندروستی", "گەشتوگوزار"], a: 1 },
+                { q: "کیشک گرێدەر دروستە: 'I likes tea, ___ I don't like coffee.'", o: ["because", "but", "so", "or"], a: 1 },
+                { q: "پێچەوانەیا 'Success' چییە؟", o: ["Winner", "Failure", "Victory", "Progress"], a: 1 },
+                { q: "واتایا پەیڤا 'Ancient' چییە؟", o: ["کۆن / کەڤنار", "نوو", "خێرا", "جوان"], a: 0 },
+                { q: "ڕستەکا دروست ل سەر (Passive Voice) هەلبژێرە:", o: ["The cake was eaten.", "The cake ate.", "The cake was eat.", "The cake eating."], a: 0 },
+                { q: "واتایا 'Independent' چییە؟", o: ["سەربەخۆ", "پەیوەست", "هەژار", "زەنگین"], a: 0 }
+            ]
+        };
+
+        // لۆدکرنا پسیارێن تاقیکردنێ ب دینامیکی
+        function loadQuiz(levelKey, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            quizData[levelKey].forEach((item, index) => {
+                const qBox = document.createElement('div');
+                qBox.className = 'question-box';
+                
+                let optionsHtml = '';
+                item.o.forEach((opt, optIndex) => {
+                    const isCorrect = (optIndex === item.a) ? 'correct' : 'wrong';
+                    optionsHtml += `
+                        <label class="option-label">
+                            <input type="radio" name="${levelKey}_q${index}" value="${isCorrect}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                qBox.innerHTML = `
+                    <p class="question-text">${index + 1}. ${item.q}</p>
+                    <div class="options-group">${optionsHtml}</div>
+                `;
+                container.appendChild(qBox);
+            });
+        }
+
+        // دەستپێکرنا لاپەرەی
         generateLessons('grid-l1', 10);
         generateLessons('grid-l2', 20);
         generateLessons('grid-l3', 30);
 
-        // پشکشکرن و پشکنینا ئەنجامێ تاقیکردنێ
+        loadQuiz('level1', 'quiz-l1-questions');
+        loadQuiz('level2', 'quiz-l2-questions');
+        loadQuiz('level3', 'quiz-l3-questions');
+
+        // پشکنینا تاقیکردنێ و نیشاندانا نمرەیان
         function checkQuiz(levelId) {
-            const quizContainer = document.getElementById(levelId);
-            const inputs = quizContainer.querySelectorAll('input[type="radio"]:checked');
-            const totalQuestions = quizContainer.querySelectorAll('.question-box').length;
+            const panel = document.getElementById(levelId);
+            const checkedInputs = panel.querySelectorAll('input[type="radio"]:checked');
+            const totalQuestions = panel.querySelectorAll('.question-box').length;
             
             let correctCount = 0;
-            inputs.forEach(input => {
+            checkedInputs.forEach(input => {
                 if (input.value === 'correct') {
                     correctCount++;
                 }
