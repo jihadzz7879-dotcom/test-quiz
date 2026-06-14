@@ -8,8 +8,8 @@
         :root {
             --primary: #f1c40f;
             --primary-hover: #f39c12;
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
+            --bg-dark: #070707;
+            --card-bg: rgba(20, 20, 20, 0.85);
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --error: #e74c3c;
@@ -28,6 +28,7 @@
             align-items: center;
             min-height: 100vh;
             justify-content: center;
+            overflow-x: hidden;
         }
 
         h2 { 
@@ -103,35 +104,67 @@
         
         .hidden { display: none !important; }
 
-        /* شاشەیا لۆگینێ یا ئێجگار شاهانە */
+        /* شاشەیا لۆگینێ یا ئێجگار شاهانە دگەل خەتێن جوڵاو */
         .login-overlay { 
             position: fixed; 
             top: 0; left: 0; 
             width: 100%; height: 100%; 
-            background: radial-gradient(circle at center, #1c1c1c 0%, #050505 100%); 
+            background: linear-gradient(125deg, #0a0a0a, #151515, #050505);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             display: flex; 
             justify-content: center; 
             align-items: center; 
             z-index: 9999; 
         }
 
+        /* دروستکردنی هێڵە لێکئاڵاوە ڕووناکەکان لە پشتەوە */
+        .login-overlay::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(rgba(241, 196, 15, 0.15) 1px, transparent 0),
+                radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            animation: meshMove 20s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes meshMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-40px, -40px) rotate(4deg); }
+        }
+
         .login-box { 
             background: var(--card-bg); 
             padding: 45px 35px; 
             border-radius: 32px; 
-            border: 1px solid rgba(241, 196, 15, 0.3); 
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(241, 196, 15, 0.1); 
+            border: 1px solid rgba(241, 196, 15, 0.25); 
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(241, 196, 15, 0.08); 
             width: 90%; 
             max-width: 420px; 
             box-sizing: border-box; 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: relative;
+            z-index: 2;
         }
 
-        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; }
+        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; text-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
         .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
-        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #333; background: #1a1a1a; color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
-        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 18px rgba(241, 196, 15, 0.4); }
-        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; }
-        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(241, 196, 15, 0.3); }
+        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #333; background: rgba(26, 26, 26, 0.8); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 18px rgba(241, 196, 15, 0.4); background: #1a1a1a; }
+        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.2); }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.4); }
         #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; }
     </style>
 </head>
@@ -171,7 +204,8 @@
     </div>
 
     <script>
-        const allowedCodes = ["JEKO88", "JEKO77", "JEKO66", "JEKO55", "JEKO44", "JEKO33", "JEKO22"];
+        // داتابەیسا نوو یا هەر ٥ کۆدێن فەرمی یێن تە
+        const allowedCodes = ["JEKO22", "JEKO33", "JEKO21", "JEKO77", "JEKO09"];
 
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
@@ -240,7 +274,6 @@
                 let targetDate = exam1Date;
                 titleElement.innerHTML = "⏱️ ماوەی ماو بۆ دەستپێکرنا تاقیکرنا ئێکێ:";
 
-                // ئەگەر تاقیکردنەوەی یەکەم تێپەڕ بوو، با ژماردنەکە بگۆڕێت بۆ تاقیکردنەوەی کوردی
                 if (now > exam1Date) {
                     targetDate = kurdishExamDate;
                     titleElement.innerHTML = "📚 ماوەی ماو بۆ تاقیکرنا زمانێ کوردی (١٧ی حوزەیران):";
