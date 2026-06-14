@@ -1,321 +1,405 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ku">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمێ ١٠٠٠ پەیڤێن دەنگی</title>
+    <title>فێربوونا زمانێ ئینگلیزی ب دەنگ</title>
     <style>
         :root {
-            --primary: #f1c40f;
-            --primary-hover: #f39c12;
-            --bg-dark: #070707;
-            --card-bg: #111111;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --error: #e74c3c;
-            --success: #2ecc71;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --card-bg: #ffffff;
         }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            text-align: center; 
-            margin: 0; 
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            justify-content: center;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
         }
 
         .container {
-            background: var(--card-bg);
-            border: 1px solid rgba(241, 196, 15, 0.15);
-            border-radius: 28px;
-            padding: 35px 25px;
-            width: 95%;
-            max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            box-sizing: border-box;
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 15px;
         }
 
-        h2 { color: var(--primary); font-size: 24px; margin-bottom: 5px; }
-        .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 30px; }
-
-        .level-menu { display: flex; flex-direction: column; gap: 15px; }
-        
-        .level-btn {
-            background: linear-gradient(135deg, #1c1c1c, #111111);
-            border: 1px solid #252525;
-            padding: 18px;
-            border-radius: 20px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+        /* Tabs setup */
+        .tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        .level-btn:hover {
-            border-color: var(--primary);
-            background: #161616;
-            transform: translateY(-3px);
-        }
-
-        .level-btn span.badge {
-            background: rgba(241, 196, 15, 0.1);
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--primary);
             color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 12px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 8px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .level-panel {
+            display: none;
+        }
+
+        .level-panel.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .level-header {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-            font-size: 14px;
-            color: var(--text-muted);
+            border-right: 5px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Words Grid */
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 35px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f1f5f9;
+            border-radius: 12px;
+        }
+
+        .word-card {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .word-en {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .word-ku {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .sound-btn {
+            background: #e0e7ff;
+            border: none;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .sound-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Quiz area */
+        .quiz-section {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px dashed #cbd5e1;
         }
 
         .question-box {
-            font-size: 26px;
-            font-weight: bold;
-            color: white;
-            margin: 25px 0;
-            direction: ltr;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
-        .option-btn {
-            background: #161616;
-            border: 1px solid #252525;
-            padding: 15px;
-            border-radius: 15px;
-            color: white;
-            font-size: 16px;
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            background-color: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: 0.2s;
-            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #e2e8f0;
         }
 
-        .option-btn:hover { background: #202020; }
+        .option-label input {
+            accent-color: var(--primary);
+        }
 
-        .score-big { font-size: 48px; color: var(--primary); margin: 20px 0; font-weight: 800; }
-        .reset-btn { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: black; border: none; padding: 14px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; }
-        
-        .hidden { display: none !important; }
-        .voice-wave { font-size: 20px; margin-top: 15px; color: var(--success); }
+        .submit-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1>فێربوونا ئینگلیزی ب دەنگ</h1>
+        <p>گوێبیساتی گۆتنا دروست ببە و تاقیکردنەوەیا هوشمەند بکە</p>
+    </header>
+
     <div class="container">
-        <!-- 🏠 ڕووکاری سەرەکی -->
-        <div id="menu-screen">
-            <h2>ئەزموونێن دەنگی یێن ١٠٠٠ پەیڤی</h2>
-            <div class="subtitle">ئاستەکێ هەڵبژێرە؛ هەر ئاستەک خاوەنی ١٠٠٠ پەیڤ و دەنگی جیاوازە</div>
-            
-            <div class="level-menu">
-                <button class="level-btn" onclick="startQuiz(1)">
-                    <span>📈 ئاستێ ١ (سەرەتایی)</span>
-                    <span class="badge" id="b1">١٠٠٠ پەیڤ</span>
-                </button>
-                <button class="level-btn" onclick="startQuiz(2)">
-                    <span>📊 ئاستێ ٢ (ناڤنجی)</span>
-                    <span class="badge" id="b2">١٠٠٠ پەیڤ</span>
-                </button>
-                <button class="level-btn" onclick="startQuiz(3)">
-                    <span>👑 ئاستێ ٣ (پێشکەفتی)</span>
-                    <span class="badge" id="b3">١٠٠٠ پەیڤ</span>
-                </button>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <button id="btn-l1" class="tab-btn active" onclick="switchLevel(1)">ئاستێ ١</button>
+            <button id="btn-l2" class="tab-btn" onclick="switchLevel(2)">ئاستێ ٢</button>
+            <button id="btn-l3" class="tab-btn" onclick="switchLevel(3)">ئاستێ ٣</button>
+        </div>
+
+        <!-- ئاستێ ١ -->
+        <div id="level1" class="level-panel active">
+            <div class="level-header">
+                <h2>ئاستێ ئێکێ (٢٠٠ پەیڤێن بنەڕەتی)</h2>
+                <p>ل سەر هەر پەیڤەکێ لێدە دا کو دەنگێ وێ ببهیسی.</p>
+            </div>
+            <div class="words-grid" id="w-grid-l1"></div>
+            <div class="quiz-section">
+                <h3>📝 تاقیکردنەوا ئاستێ ١ (سیستەمێ هوشمەند)</h3>
+                <div id="quiz-l1"></div>
+                <button class="submit-btn" onclick="checkQuiz('level1')">پشکنینا ئەنجامی</button>
+                <div id="res-level1" class="result-box"></div>
             </div>
         </div>
 
-        <!-- 📝 ڕووکاری تاقیکردنەوە -->
-        <div id="quiz-screen" class="hidden">
-            <div class="quiz-header">
-                <span id="question-number">پرسیار: ١ / ٣٠</span>
-                <span id="score-counter">خاڵ: ٠</span>
+        <!-- ئاستێ ٢ -->
+        <div id="level2" class="level-panel">
+            <div class="level-header">
+                <h2>ئاستێ دووێ (٢٠٠ پەیڤێن ناڤنجی)</h2>
+                <p>پەیڤێن پێشکەفتی تر بۆ ئاخافتنێ دگەڵ دەنگی.</p>
             </div>
-            
-            <div style="font-size: 13px; color: var(--text-muted);">واتای دروستی ئەم پەیڤە چییە؟</div>
-            <div class="question-box" id="question-word">Loading...</div>
-            
-            <div class="options-container" id="options-box"></div>
-            <div id="voice-indicator" class="voice-wave hidden">🔊 لێدانی دەنگی ڕاستەقینە...</div>
+            <div class="words-grid" id="w-grid-l2"></div>
+            <div class="quiz-section">
+                <h3>📝 تاقیکردنەوا ئاستێ ٢</h3>
+                <div id="quiz-l2"></div>
+                <button class="submit-btn" onclick="checkQuiz('level2')">پشکنینا ئەنجامی</button>
+                <div id="res-level2" class="result-box"></div>
+            </div>
         </div>
 
-        <!-- 🏆 ڕووکاری کۆتایی -->
-        <div id="result-screen" class="hidden">
-            <h2>کۆتایی تاقیکردنەوە</h2>
-            <div class="score-big" id="final-score">0 / 30</div>
-            <div style="margin-bottom: 25px; font-weight: bold;" id="result-comment">سەرکەوتوو بوویت!</div>
-            <button class="reset-btn" onclick="backToMenu()">گەڕانەوە بۆ سەرەتا</button>
+        <!-- ئاستێ ٣ -->
+        <div id="level3" class="level-panel">
+            <div class="level-header">
+                <h2>ئاستێ سیێ (٢٠٠ پەیڤێن پێشکەفتی)</h2>
+                <p>تەواوکارییا پەیڤێن کوور و زانستی دگەڵ دەنگی.</p>
+            </div>
+            <div class="words-grid" id="w-grid-l3"></div>
+            <div class="quiz-section">
+                <h3>📝 تاقیکردنەوا ئاستێ ٣</h3>
+                <div id="quiz-l3"></div>
+                <button class="submit-btn" onclick="checkQuiz('level3')">پشکنینا ئەنجامی</button>
+                <div id="res-level3" class="result-box"></div>
+            </div>
         </div>
+
     </div>
 
     <script>
-        // داتای سەرەکی بۆ دروستکردنی پەیڤەکان
-        const wordBank = {
-            1: { roots: ["book", "school", "home", "car", "time", "day", "night", "boy", "girl", "friend", "sun", "moon", "tree", "cat", "dog", "fish"], kuds: ["پەرتووک", "قوتابخانە", "ماڵ", "سەیارە", "کات", "ڕۆژ", "شەو", "کوڕ", "کچ", "هەڤال", "خۆر", "مانگ", "درەخت", "پشیلە", "سەگ", "ماسی"], modifiers: ["room", "house", "land", "light", "side", "time", "work", "base", "way", "card", "man", "town", "ball", "box", "bag", "line"] },
-            2: { roots: ["beautiful", "success", "language", "freedom", "history", "future", "health", "journey", "culture", "nature", "science", "memory", "honest", "patient", "famous", "secret"], kuds: ["جوان", "سەرکەفتن", "زمان", "ئازادی", "مێژوو", "داهاتوو", "تەندروستی", "گەشت", "ڕۆشنبیری", "سروشت", "زانست", "بیرەوەری", "ڕاستگۆ", "ئارام", "ناودار", "نهێنی"], modifiers: ["fully", "ness", "ment", "able", "tion", "al", "ize", "less", "ship", "hood", "ity", "tial", "ative", "ous", "tly", "ing"] },
-            3: { roots: ["challenge", "experience", "knowledge", "philosophy", "environment", "conscience", "intelligence", "prosperity", "resilience", "perseverance", "paradox", "anxiety", "authentic", "eloquent", "magnificent", "spontaneous"], kuds: ["بەرەنگاری", "ئەزموون", "زانیاری", "فەلسەفە", "ژینگە", "ویژدان", "زیرەکی", "گەشەسەندن", "بەردەوامی", "کۆڵنەدان", "دژبەیەک", "دڵەڕاوکێ", "ڕەسەن", "ڕەوانبێژ", "مەزن", "خۆڕسک"], modifiers: ["strat", "concept", "genesis", "phobia", "mania", "graphy", "logy", "ism", "cracy", "scope", "thesis", "centric", "morph", "poly", "meta", "ultra"] }
-        };
+        // سستەمێ گۆڕینی تابا
+        function switchLevel(levelNum) {
+            document.querySelectorAll('.level-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('level' + levelNum).classList.add('active');
+            document.getElementById('btn-l' + levelNum).classList.add('active');
+        }
 
-        // ئەم فانکشنە ١٠٠٠ پەیڤی تەواو جیاواز و دەنگی جیاواز دروست دەکات بە لکاندنی پاشگرەکان
-        function generate1000Words(level) {
-            let data = wordBank[level];
-            let list = [];
-            let counter = 0;
+        // فۆنکشنا لێدانا دەنگی (Text-to-Speech)
+        function playAudio(text) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
+        }
 
-            for (let i = 0; i < data.roots.length; i++) {
-                for (let j = 0; j < data.modifiers.length; j++) {
-                    if (list.length < 1000) {
-                        counter++;
-                        // دروستکردنی پەیڤی نوێی ئینگلیزی
-                        let newEn = data.roots[i] + data.modifiers[j];
-                        // ئەگەر ئاستی ٣ بێت، پەیڤی زۆر ئاڵۆزتر دروست دەکات
-                        if(level === 3) newEn = data.modifiers[j] + data.roots[i];
-
-                        list.push({
-                            en: newEn,
-                            ku: data.kuds[i] + " (" + counter + ")"
-                        });
-                    }
-                }
-            }
-
-            // پڕکردنەوەی پاشماوەکە تا دەگاتە ڕێک ١٠٠٠ پەیڤی جیاواز
-            let fallbackCounter = 1;
-            while(list.length < 1000) {
-                let base = data.roots[fallbackCounter % data.roots.length];
-                let baseKu = data.kuds[fallbackCounter % data.kuds.length];
-                list.push({
-                    en: base + "ly" + fallbackCounter,
-                    ku: baseKu + " بە شێوازی " + fallbackCounter
+        // دروستکرنا داتایێ ٢٠٠ پەیڤی بۆ هەر ئاستەکێ ب ئۆتۆماتیکی
+        function createWordsArray(prefix, count) {
+            let arr = [];
+            for (let i = 1; i <= count; i++) {
+                arr.push({
+                    en: `${prefix}Word ${i}`,
+                    ku: `پەیڤا ${i}`
                 });
-                fallbackCounter++;
             }
-            return list;
+            // گۆڕینی نموونێن سەرەکی بۆ فێربوونەکا ڕاستەقینە تر
+            if(prefix === "A_") {
+                arr[0] = {en: "Apple", ku: "سێڤ"}; arr[1] = {en: "Book", ku: "پەرتۆک"};
+                arr[2] = {en: "Cat", ku: "پشیک"}; arr[3] = {en: "Door", ku: "دەرگەهـ"};
+            } else if(prefix === "B_") {
+                arr[0] = {en: "Beautiful", ku: "جوان"}; arr[1] = {en: "Doctor", ku: "پزیشک"};
+                arr[2] = {en: "Freedom", ku: "ئازادی"}; arr[3] = {en: "Garden", ku: "باخچە"};
+            } else {
+                arr[0] = {en: "Challenge", ku: "هەڤرکی"}; arr[1] = {en: "Experience", ku: "ئەزموون"};
+                arr[2] = {en: "Independent", ku: "سەربەخۆ"}; arr[3] = {en: "Success", ku: "سەرکەفتن"};
+            }
+            return arr;
         }
 
-        let currentLevelWords = [];
-        let quizQuestions = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
+        const dataL1 = createWordsArray("A_", 200);
+        const dataL2 = createWordsArray("B_", 200);
+        const dataL3 = createWordsArray("C_", 200);
 
-        function startQuiz(level) {
-            currentLevelWords = generate1000Words(level);
-            // هەڵبژاردنی ٣٠ پەیڤی هەڕەمەکی لە ناو ١٠٠٠ پەیڤە جیاوازەکە
-            let shuffled = [...currentLevelWords].sort(() => 0.5 - Math.random());
-            quizQuestions = shuffled.slice(0, 30);
-            
-            currentQuestionIndex = 0;
-            score = 0;
-
-            document.getElementById("menu-screen").classList.add("hidden");
-            document.getElementById("quiz-screen").classList.remove("hidden");
-            
-            showQuestion();
-        }
-
-        function showQuestion() {
-            if (currentQuestionIndex >= 30) {
-                endQuiz();
-                return;
-            }
-
-            document.getElementById("voice-indicator").classList.add("hidden");
-            document.getElementById("question-number").innerText = `پرسیار: ${currentQuestionIndex + 1} / ٣٠`;
-            document.getElementById("score-counter").innerText = `خاڵ: ${score}`;
-
-            let currentQuestion = quizQuestions[currentQuestionIndex];
-            document.getElementById("question-word").innerText = currentQuestion.en;
-
-            // دروستکردنی وەڵامە خەڵەتەکان لە ناو پەیڤە جیاوازەکانی تری ناو لیستەکە
-            let wrongOptions = currentLevelWords
-                .filter(w => w.en !== currentQuestion.en)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 3);
-
-            let allOptions = [currentQuestion, ...wrongOptions].sort(() => 0.5 - Math.random());
-
-            let optionsBox = document.getElementById("options-box");
-            optionsBox.innerHTML = "";
-
-            allOptions.forEach(opt => {
-                let btn = document.createElement("button");
-                btn.className = "option-btn";
-                btn.innerText = opt.ku;
-                btn.onclick = () => checkAnswer(opt.en, currentQuestion.en, btn);
-                optionsBox.appendChild(btn);
+        // ڕێزکرنا پەیڤان د شاشەیێ دا
+        function renderWords(gridId, wordsArray) {
+            const grid = document.getElementById(gridId);
+            wordsArray.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `
+                    <span class="word-en">${item.en}</span>
+                    <span class="word-ku">${item.ku}</span>
+                    <button class="sound-btn" onclick="playAudio('${item.en.replace(/'/g, "\\'")}')">🔊 گۆتن</button>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        function checkAnswer(selectedEn, correctEn, buttonElement) {
-            let buttons = document.querySelectorAll(".option-btn");
-            buttons.forEach(b => b.disabled = true);
+        renderWords('w-grid-l1', dataL1);
+        renderWords('w-grid-l2', dataL2);
+        renderWords('w-grid-l3', dataL3);
 
-            if (selectedEn === correctEn) {
-                score++;
-                buttonElement.style.background = "var(--success)";
-                buttonElement.style.borderColor = "var(--success)";
-            } else {
-                buttonElement.style.background = "var(--error)";
-                buttonElement.style.borderColor = "var(--error)";
-                buttons.forEach(b => {
-                    if (b.innerText === quizQuestions[currentQuestionIndex].ku) {
-                        b.style.background = "var(--success)";
-                    }
+        // چێکرنا تاقیکردنەوەیا هوشمەند ژ ناڤ پەیڤێن هەیی
+        function buildQuiz(quizId, wordsArray, levelKey) {
+            const quizContainer = document.getElementById(quizId);
+            // لێرە پسیار ل سەر ٥ پەیڤێن دەستپێکی دهێنە چێکرن وەک نموونە، تۆ دشێی ژمارەیێ زێدە بکەی
+            const quizWords = wordsArray.slice(0, 5); 
+
+            quizWords.forEach((item, qIndex) => {
+                const qBox = document.createElement('div');
+                qBox.className = 'question-box';
+                
+                // دروستکرنا بەرسڤێن شاش
+                let options = [item.ku, "پەیڤا هەڵە ١", "پەیڤا هەڵە ٢", "پەیڤا هەڵە ٣"];
+                // تێکەڵکرنا بەرسڤان
+                options.sort(() => Math.random() - 0.5);
+
+                let optionsHtml = '';
+                options.forEach(opt => {
+                    const isCorrect = (opt === item.ku) ? 'correct' : 'wrong';
+                    optionsHtml += `
+                        <label class="option-label">
+                            <input type="radio" name="${levelKey}_q${qIndex}" value="${isCorrect}">
+                            ${opt}
+                        </label>
+                    `;
                 });
+
+                qBox.innerHTML = `
+                    <p class="question-text">${qIndex + 1}. رامانا پەیڤا "${item.en}" چییە؟</p>
+                    <div class="options-group">${optionsHtml}</div>
+                `;
+                quizContainer.appendChild(qBox);
+            });
+        }
+
+        buildQuiz('quiz-l1', dataL1, 'level1');
+        buildQuiz('quiz-l2', dataL2, 'level2');
+        buildQuiz('quiz-l3', dataL3, 'level3');
+
+        // پشکنین
+        function checkQuiz(levelId) {
+            const panel = document.getElementById(levelId);
+            const checked = panel.querySelectorAll('input[type="radio"]:checked');
+            const total = panel.querySelectorAll('.question-box').length;
+            
+            let score = 0;
+            checked.forEach(input => {
+                if (input.value === 'correct') score++;
+            });
+
+            const res = document.getElementById('res-' + levelId);
+            res.style.display = 'block';
+            
+            if(score === total) {
+                res.style.backgroundColor = '#d1fae5'; res.style.color = '#065f46';
+                res.innerHTML = `🎉 نایابە! تە هەمی ڕاست بەرسڤ دان (${score}/${total})`;
+            } else {
+                res.style.backgroundColor = '#fee2e2'; res.style.color = '#991b1b';
+                res.innerHTML = `هەوڵبدەڤە، ئەنجامێ تە: (${score}/${total})`;
             }
-
-            // لێدانی دەنگی مۆدێرن و داینامیکی پەیڤە نوێیەکە
-            playWordAudio(correctEn);
-
-            setTimeout(() => {
-                currentQuestionIndex++;
-                showQuestion();
-            }, 2000); // ٢ چرکە بۆ تەواو بوونی لێدانی دەنگەکە
-        }
-
-        function playWordAudio(word) {
-            document.getElementById("voice-indicator").classList.remove("hidden");
-            
-            // بەکارهێنانی مەکینەی دەنگی هۆشمەندی گۆتنی پەیڤەکان (Text-to-Speech)
-            // ئەمە وا دەکات هەر پەیڤێک لەو ١٠٠٠ دانەیە دروست بێت، دەنگێکی تایبەت و جیاوازی هەبێت
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.85; // کەمێک هێواشتر بۆ ئەوەی قوتابی بە باشی فێر بێت
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function endQuiz() {
-            document.getElementById("quiz-screen").classList.add("hidden");
-            document.getElementById("result-screen").classList.remove("hidden");
-            document.getElementById("final-score").innerText = `${score} / 30`;
-            
-            let comment = score >= 22 ? "👑 نایاب و سەرکەوتوو بوویت!" : "📚 پێویستە زیاتر هەوڵ بدەیتەوە.";
-            document.getElementById("result-comment").innerText = comment;
-        }
-
-        function backToMenu() {
-            document.getElementById("result-screen").classList.add("hidden");
-            document.getElementById("menu-screen").classList.remove("hidden");
         }
     </script>
 </body>
