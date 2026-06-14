@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html dir="rtl" lang="ku">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,7 @@
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --error: #e74c3c;
+            --success: #2ecc71;
         }
 
         body { 
@@ -31,24 +32,41 @@
 
         h2 { 
             color: var(--primary); 
-            margin-bottom: 25px; 
+            margin-bottom: 5px; 
             font-size: 28px;
             font-weight: 800;
             text-shadow: 0 0 15px rgba(241, 196, 15, 0.3); 
         }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
         
-        #timer { 
-            font-size: 22px; 
-            color: var(--primary); 
-            padding: 18px; 
+        #timer-container {
+            background: rgba(241, 196, 15, 0.03); 
             border: 2px dashed var(--primary); 
             border-radius: 20px; 
+            padding: 20px;
             margin: 0 auto 35px; 
             width: 90%; 
-            max-width: 420px; 
-            background: rgba(241, 196, 15, 0.03); 
+            max-width: 440px; 
             box-shadow: inset 0 0 20px rgba(241, 196, 15, 0.05);
+        }
+
+        .timer-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
             font-weight: bold;
+        }
+
+        #timer { 
+            font-size: 20px; 
+            color: var(--primary); 
+            font-weight: bold;
+            line-height: 1.6;
         }
         
         .btn-container { 
@@ -131,7 +149,13 @@
 
     <div id="main-content" class="hidden">
         <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
-        <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
+        <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان</div>
+        
+        <div id="timer-container">
+            <div id="timer-title" class="timer-title">مەنبەهێ دەمژمێرێ</div>
+            <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
+        </div>
+
         <div class="btn-container">
             <a href="fizya.html" class="btn">فیزیا</a>
             <a href="mejo.html" class="btn">مێژوو</a>
@@ -147,16 +171,13 @@
     </div>
 
     <script>
-        // لیستا ئەو ٧ کۆدێن سەرەکی و فەرمی یێن تە
         const allowedCodes = ["JEKO88", "JEKO77", "JEKO66", "JEKO55", "JEKO44", "JEKO33", "JEKO22"];
 
-        // دروستکرنا مۆرەکا Hardware ناوازە بۆ هەر مۆبایلەکێ کو ناهێتە گۆڕین
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
         const hardwareID = localStorage.getItem("secure_hardware_id");
 
-        // پشکنین د دەستپێکا لاپەرەی دا
         document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("app_device_locked") === "true") {
                 showSiteContent();
@@ -175,10 +196,8 @@
             showMsg("پشکنینا ئەلیکترۆنی دکەت...", "var(--primary)");
 
             setTimeout(() => {
-                // دروستکرنا تۆمارا جیهانی د ناڤ مۆبایلێ دا
                 let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
 
-                // قۆناغا قفلکردنێ: ئەگەر کۆد د داتایەکا دی دا ب ناڤێ مۆبایلەکا دی هاتبیتە مۆرکرن
                 if (syncStorage[code] && syncStorage[code] !== hardwareID) {
                     showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن و بلۆک بوو!", "var(--error)");
                     inputField.value = "";
@@ -186,7 +205,6 @@
                     return;
                 }
 
-                // مۆرکرنا فەرمی ب ناڤێ ڤێ مۆبایلێ
                 syncStorage[code] = hardwareID;
                 localStorage.setItem("local_sync_manifest", JSON.stringify(syncStorage));
                 localStorage.setItem("app_device_locked", "true");
@@ -210,16 +228,40 @@
         function handleKeyPress(event) { if (event.key === "Enter") { validateDeviceCode(); } }
 
         function startTimer() {
-            const examDate = new Date("June 14, 2026 07:30:00").getTime();
+            const exam1Date = new Date("June 14, 2026 07:30:00").getTime();
+            const kurdishExamDate = new Date("June 17, 2026 07:30:00").getTime();
+            
+            const timerElement = document.getElementById("timer");
+            const titleElement = document.getElementById("timer-title");
+
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
-                const distance = examDate - now;
+                
+                let targetDate = exam1Date;
+                titleElement.innerHTML = "⏱️ ماوەی ماو بۆ دەستپێکرنا تاقیکرنا ئێکێ:";
+
+                // ئەگەر تاقیکردنەوەی یەکەم تێپەڕ بوو، با ژماردنەکە بگۆڕێت بۆ تاقیکردنەوەی کوردی
+                if (now > exam1Date) {
+                    targetDate = kurdishExamDate;
+                    titleElement.innerHTML = "📚 ماوەی ماو بۆ تاقیکرنا زمانێ کوردی (١٧ی حوزەیران):";
+                }
+
+                const distance = targetDate - now;
+
+                if (distance < 0 && targetDate === kurdishExamDate) {
+                    clearInterval(timerInterval);
+                    titleElement.innerHTML = "✨ ڕاگەیاندن";
+                    timerElement.innerHTML = "تاقیکرنا کوردی دەستپێکر! سەرکەفتن بۆ هەموو لایەک.";
+                    timerElement.style.color = "var(--success)";
+                    return;
+                }
+
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById("timer").innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
-                if (distance < 0) { clearInterval(timerInterval); document.getElementById("timer").innerHTML = "تاقیکرن دەستپێکر!"; }
+
+                timerElement.innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
             }, 1000);
         }
     </script>
