@@ -255,7 +255,7 @@
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
             <h3>سیستەمێ پاراستنا ئەزموونان</h3>
-            <p id="login-instruction">قۆناغا [1 ژ 3]: تکایە <b>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە.</p>
+            <p id="login-instruction">قۆناغا [1 ژ 3]: تکایە <b>کۆدێ ئێکێ</b> بنڤیسە.</p>
             <input type="text" id="code-input" placeholder="کۆدێ لێرە بنووسە..." onkeypress="handleKeyPress(event)">
             <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
@@ -298,12 +298,14 @@
     </div>
 
     <script>
-        // لیستا کۆدێن تە یێن دروست
+        // کـۆدێ تایبەت یێ خودانی (Owner Key)
+        const ownerCode = "sktiri294939Kdkdk@293";
+
+        // لیستا کۆدێن خەلکی بۆ سێ ئاستان
         const step1Codes = ["JEKO22", "JEKO23"];
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        // ل دەستپێکێ هەمیشە قۆناغێ ب ١ دابنێ
         let currentStep = 1;
 
         if (!localStorage.getItem("secure_hardware_id")) {
@@ -311,7 +313,6 @@
         }
         const hardwareID = localStorage.getItem("secure_hardware_id");
 
-        // پشکنین: تەنها ئەگەر ل سەر ڤێ مۆبایلێ پێشتر هەر ٣ قۆناغ ب سەرکەفتیانە بڕیبن، بلا بچیتە ژوورێ
         document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("app_device_locked") === "true") {
                 showSiteContent();
@@ -320,7 +321,6 @@
             }
         });
 
-        // گۆهرینا دەقێن لاپەرەی ب پێی قۆناغان
         function updateLoginUI() {
             const instruction = document.getElementById("login-instruction");
             const btn = document.getElementById("submit-btn");
@@ -343,12 +343,26 @@
         function validateStepCode() {
             const inputField = document.getElementById("code-input");
             const btn = document.getElementById("submit-btn");
-            const code = inputField.value.trim().toUpperCase();
+            const inputVal = inputField.value.trim(); // ل ڤێرێ هەستیارە بەامبەر پیتێن مەزن و بچوک بۆ کۆدێ تە
 
-            if (!code) { 
-                showMsg("تکایە سەرەتا کۆدێ ئەڤێ قۆناغێ بنڤیسە!", "var(--error)"); 
+            if (!inputVal) { 
+                showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); 
                 return; 
             }
+
+            // ١. ئەگەر کـۆدێ خودانی هاتە لێدان، ڕاستەوخۆ تێپەڕ ببە
+            if (inputVal === ownerCode) {
+                btn.disabled = true;
+                showMsg("بەخێرهاتی خودانێ سیستەمی! دەروازە کرایەوە...", "var(--success)");
+                localStorage.setItem("app_device_locked", "true");
+                setTimeout(() => {
+                    showSiteContent();
+                }, 800);
+                return;
+            }
+
+            // بۆ کۆدێن خەلکی، با هەمی ببنە پیتێن مەزن (Uppercase) بۆ کارئاسانیێ
+            const code = inputVal.toUpperCase();
 
             let isValid = false;
             if (currentStep === 1 && step1Codes.includes(code)) isValid = true;
@@ -367,7 +381,6 @@
             setTimeout(() => {
                 let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
 
-                // ئەگەر کۆد پێشتر ل سەر مۆبایلەکا دی هاتبیتە لێدان
                 if (syncStorage[code] && syncStorage[code] !== hardwareID) {
                     showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن!", "var(--error)");
                     inputField.value = "";
@@ -381,14 +394,12 @@
                 if (currentStep < 3) {
                     currentStep++;
                     showMsg("کۆد ڕاستە! دچیتە قۆناغا داهاتی...", "var(--success)");
-                    
                     setTimeout(() => {
                         btn.disabled = false;
                         updateLoginUI();
                         showMsg("", "");
                     }, 1000);
                 } else {
-                    // ئەگەر هەر سێ قۆناغ ب سەرکەفتیانە بڕین
                     localStorage.setItem("app_device_locked", "true");
                     showMsg("سەرکەفتوو بوو! دەروازە کرایەوه...", "var(--success)");
                     setTimeout(() => {
