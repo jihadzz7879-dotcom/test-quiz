@@ -97,14 +97,11 @@
             height: 200%;
             background: conic-gradient(transparent, transparent, transparent, var(--primary));
             transform-origin: center;
-            transition: opacity 0.4s;
             opacity: 0.3; 
         }
 
         .timer-gradient-box:hover::before {
-            background: conic-gradient(
-                #f09433, #dc2743, var(--primary), transparent, transparent, var(--primary)
-            );
+            background: conic-gradient(#f09433, #dc2743, var(--primary), transparent, transparent, var(--primary));
             animation: rotateLine 3s linear infinite;
             opacity: 1;
         }
@@ -129,14 +126,12 @@
             color: var(--text-muted);
             margin-bottom: 12px;
             font-weight: 600;
-            line-height: 1.7;
         }
 
         #timer { 
             font-size: 22px; 
             color: var(--primary); 
             font-weight: 800;
-            line-height: 1.5;
             text-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
         }
         
@@ -182,8 +177,6 @@
             top: 0; left: 0; 
             width: 100%; height: 100%; 
             background: linear-gradient(135deg, #040405, #0f0f13, #020203);
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -203,8 +196,6 @@
             box-sizing: border-box; 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            position: relative;
-            z-index: 2;
         }
 
         .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; }
@@ -215,7 +206,6 @@
         .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5); }
         #error-msg { font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 22px; line-height: 1.5; }
         
-        /* شێوازێ دوگمە و پەنەلا پۆستەیا نوو یا کڕینا کۆدی */
         .buy-code-link {
             display: block;
             margin-top: 15px;
@@ -234,19 +224,18 @@
             margin-top: 20px;
             text-align: right;
         }
-        .payment-box h4 { color: white; margin: 0 0 10px 0; font-size: 16px; text-align: center; }
-        .payment-box select { width: 100%; padding: 12px; border-radius: 10px; background: #070709; color: white; border: 1px solid #2d2d35; margin-bottom: 12px; outline: none; font-weight: bold; }
-        .info-pay { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; direction: ltr; text-align: center; background: #1a1a22; padding: 8px; border-radius: 8px; }
+        .payment-box h4 { color: white; margin: 0 0 10px 0; font-size: 15px; text-align: center; }
+        .payment-box select { width: 100%; padding: 12px; border-radius: 10px; background: #070709; color: white; border: 1px solid #2d2d35; margin-bottom: 12px; font-weight: bold; outline: none; }
+        .info-pay { font-size: 13px; color: var(--primary); margin-bottom: 12px; text-align: center; background: #1a1a22; padding: 10px; border-radius: 8px; font-weight: bold; }
         
-        .success-code-display {
-            background: rgba(46, 213, 115, 0.1);
-            border: 1px dashed var(--success);
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 10px;
+        .whatsapp-alert {
+            font-size: 11px;
+            color: #2ed573;
             text-align: center;
+            margin-top: 8px;
+            font-weight: 600;
+            line-height: 1.4;
         }
-        .success-code-display code { font-size: 18px; color: var(--success); font-weight: bold; letter-spacing: 1px; }
 
         .inst-login-btn {
             display: inline-flex;
@@ -257,7 +246,6 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            transition: 0.3s;
         }
         .inst-login-btn:hover { color: #ff6b81; }
     </style>
@@ -272,7 +260,6 @@
             <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
             
-            <!-- لێرە قوتابی دشێت کۆدی ب ٢ هزاران بکڕیت ئۆتۆماتیکی -->
             <span class="buy-code-link" onclick="togglePaymentBox()">🛒 کۆد ل دەڤ تە نینە؟ کڕینا کۆدی ب (٢,٠٠٠ دینار)</span>
             
             <div id="payment-panel" class="payment-box hidden">
@@ -284,12 +271,13 @@
                     <option value="fastpay">FastPay (فاست پەی)</option>
                 </select>
                 
-                <div id="pay-info-text" class="info-pay">تکایە باڵانسی بنێرە بۆ: 0750XXXXXXX</div>
+                <div id="pay-info-text" class="info-pay">تکایە باڵانسی فرێکە بۆ: 07517145721</div>
                 
-                <input type="number" id="pay-card-number" placeholder="کۆدێ کارتی یان ژمارەیا برینێ بنڤیسە...">
-                <button style="background:var(--success); color:black;" onclick="processPayment()">پشتڕاستکرنا ناردنێ و کڕین</button>
+                <input type="text" id="student-phone" placeholder="ژمارەیا تەلەفۆنا خۆ بنڤیسە...">
+                <input type="text" id="pay-card-number" placeholder="کۆدێ کارتی یان ناسنامەیا حەوالێ...">
                 
-                <div id="payment-result"></div>
+                <button style="background:#2ed573; color:black;" onclick="processPayment()">پشتڕاستکرن و فرێکرن بۆ ووتسۆپێ</button>
+                <div class="whatsapp-alert">⚠️ پاش کلیککرنێ دێ چیتە ووتسۆپێ، کاتێ کاک جیهاد پشکنینا باڵانسی کر دێ کۆدێ چوونەژوورێ دەتە تە.</div>
             </div>
             
             <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
@@ -335,10 +323,8 @@
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        // لێرە ژمارە تەلەفونێن خۆ بنڤیسە دا کۆ کڕیار باڵانسی بۆ فرێکەت
-        const myKorekNum = "07501234567"; 
-        const myAsiaNum = "07701234567";
-        const myFastPayNum = "07501234567";
+        // ژمارە تەلەفۆنا تە یا ووتسۆپێ
+        const targetPhone = "9647517145721"; 
 
         let currentStep = 1;
 
@@ -352,7 +338,6 @@
                 showSiteContent();
             } else {
                 updateLoginUI();
-                changePayMethod();
             }
         });
 
@@ -360,38 +345,26 @@
             document.getElementById("payment-panel").classList.toggle("hidden");
         }
 
-        // گۆهرینا ژمارە تەلەفۆنا خودانی ل سەر بنەمایێ جۆرێ پارەدانێ
         function changePayMethod() {
             const method = document.getElementById("pay-method").value;
             const infoText = document.getElementById("pay-info-text");
-            if(method === "korek") infoText.innerHTML = "باڵانسی فرێکە بۆ ڤێ ژمارێ: " + myKorekNum;
-            if(method === "asiacell") infoText.innerHTML = "باڵانسی فرێکە بۆ ڤێ ژمارێ: " + myAsiaNum;
-            if(method === "fastpay") infoText.innerHTML = "٢,٠٠٠ دینار فرێکە بۆ ژمارەیا فاست پەی: " + myFastPayNum;
+            infoText.innerHTML = "تکایە ٢,٠٠٠ دیناران فرێکە بۆ: 07517145721";
         }
 
-        // پڕۆسێسکرنا کڕینا کۆدی
         function processPayment() {
+            const studentPhone = document.getElementById("student-phone").value.trim();
             const cardInput = document.getElementById("pay-card-number").value.trim();
-            const resultDiv = document.getElementById("payment-result");
+            const method = document.getElementById("pay-method").value;
 
-            if(!cardInput || cardInput.length < 5) {
-                resultDiv.innerHTML = "<span style='color:var(--error); font-size:12px;'>تکایە ژمارەیا کارتێ یان برینێ ب دروستی بنڤیسە!</span>";
+            if(!studentPhone || !cardInput) {
+                alert("تکایە هەردوو خانان پڕ بکەرەوە!");
                 return;
             }
 
-            resultDiv.innerHTML = "<span style='color:var(--primary); font-size:12px;'>پشکنینا باڵانسی دکەت...</span>";
-
-            // سیستەم لێرەدا پاش 1.5 چرکە کۆدێن فەرمی پێشکەشی قوتابی دکەت
-            setTimeout(() => {
-                resultDiv.innerHTML = `
-                    <div class="success-code-display">
-                        <span style="color:white; font-size:12px; display:block; margin-bottom:5px;">کڕین سەرکەفتوو بوو! ئەڤە کۆدێن تە نە:</span>
-                        <code>JEKO22</code> ➔ <code>JEKO77</code> ➔ <code>JEKO9293</code>
-                        <small style="display:block; color:var(--text-muted); font-size:11px; margin-top:5px;">(ڤان کۆدان ل سەرى د سێ قۆناغان دا لێدە)</small>
-                    </div>
-                `;
-                document.getElementById("pay-card-number").value = "";
-            }, 1500);
+            const messageText = `سڵاو کاک جیهاد، من بڕی ٢,٠٠٠ دینارم نارد بە ڕێگای (${method}).\nژمارەی من: ${studentPhone}\nکۆدی کارت یان ناسنامەی حەواڵە: ${cardInput}\nتکایە کۆدی چوونەژوورەوەم بۆ بنێرە.`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(messageText)}`;
+            
+            window.open(whatsappUrl, '_blank');
         }
 
         function updateLoginUI() {
@@ -419,6 +392,7 @@
 
             if (!inputVal) { showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); return; }
 
+            // ئەگەر کۆدێ خودانی لێدرا
             if (inputVal === ownerCode) {
                 btn.disabled = true;
                 showMsg("بەخێرهاتی خودانێ سیستەمی! دەروازە کرایەوە...", "var(--success)");
