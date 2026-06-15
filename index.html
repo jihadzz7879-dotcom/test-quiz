@@ -9,7 +9,7 @@
             --primary: #f1c40f;
             --primary-hover: #f39c12;
             --bg-dark: #070709;
-            --card-bg: rgba(15, 15, 18, 0.85);
+            --card-bg: rgba(15, 15, 18, 0.95);
             --btn-bg: rgba(28, 28, 34, 0.65);
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
@@ -28,226 +28,37 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        .header-container {
-            margin-top: 15px;
-            margin-bottom: 25px;
-            width: 100%;
-            max-width: 440px;
-        }
-
-        h2 { 
-            color: var(--primary); 
-            margin: 0 0 6px 0; 
-            font-size: 34px;
-            font-weight: 900;
-            text-shadow: 0 0 25px rgba(241, 196, 15, 0.4); 
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .instagram-header-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: #fff;
-            text-decoration: none;
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 20px rgba(221, 42, 123, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .instagram-header-btn:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 8px 25px rgba(221, 42, 123, 0.6);
-            filter: brightness(1.1);
-        }
+        .header-container { margin-top: 15px; margin-bottom: 25px; width: 100%; max-width: 440px; }
+        h2 { color: var(--primary); margin: 0 0 6px 0; font-size: 34px; font-weight: 900; text-shadow: 0 0 25px rgba(241, 196, 15, 0.4); }
+        .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
         
-        .timer-gradient-box {
-            position: relative;
-            width: 90%; 
-            max-width: 440px; 
-            margin: 0 auto 30px;
-            border-radius: 24px;
-            padding: 2px; 
-            background: rgba(241, 196, 15, 0.2); 
-            box-sizing: border-box;
-            overflow: hidden;
-            transition: background 0.4s;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-        }
-
-        .timer-gradient-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, var(--primary));
-            transform-origin: center;
-            opacity: 0.3; 
-        }
-
-        .timer-gradient-box:hover::before {
-            background: conic-gradient(#f09433, #dc2743, var(--primary), transparent, transparent, var(--primary));
-            animation: rotateLine 3s linear infinite;
-            opacity: 1;
-        }
-
-        @keyframes rotateLine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #timer-container {
-            position: relative;
-            background: #0d0d11; 
-            border-radius: 22px; 
-            padding: 22px 16px;
-            width: 100%;
-            box-sizing: border-box;
-            z-index: 1;
-        }
-
-        .timer-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        #timer { 
-            font-size: 22px; 
-            color: var(--primary); 
-            font-weight: 800;
-            text-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
-        }
-        
-        .btn-container { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%;
-        }
-
-        .btn { 
-            display: block; 
-            width: 90%; 
-            max-width: 400px; 
-            padding: 18px; 
-            margin: 9px 0; 
-            background: var(--btn-bg); 
-            color: var(--text-main); 
-            text-decoration: none; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            font-weight: 700; 
-            font-size: 16px; 
-            box-sizing: border-box;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .btn:hover { 
-            background: rgba(241, 196, 15, 0.07); 
-            border-color: rgba(241, 196, 15, 0.6); 
-            color: var(--primary); 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 24px rgba(241, 196, 15, 0.2); 
-        }
+        .btn-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .btn { display: block; width: 90%; max-width: 400px; padding: 18px; margin: 9px 0; background: var(--btn-bg); color: var(--text-main); text-decoration: none; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); font-weight: 700; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .btn:hover { background: rgba(241, 196, 15, 0.07); border-color: rgba(241, 196, 15, 0.6); color: var(--primary); transform: translateY(-5px); }
         
         .hidden { display: none !important; }
 
-        .login-overlay { 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: linear-gradient(135deg, #040405, #0f0f13, #020203);
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 9999; 
-            overflow-y: auto;
-            padding: 20px 0;
-        }
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040405; display: flex; justify-content: center; align-items: center; z-index: 9999; overflow-y: auto; padding: 20px 0; }
+        .login-box { background: var(--card-bg); padding: 40px 25px; border-radius: 32px; border: 1px solid rgba(241, 196, 15, 0.15); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 420px; box-sizing: border-box; }
 
-        .login-box { 
-            background: rgba(15, 15, 18, 0.95); 
-            padding: 40px 25px; 
-            border-radius: 32px; 
-            border: 1px solid rgba(241, 196, 15, 0.15); 
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
-            width: 90%; 
-            max-width: 420px; 
-            box-sizing: border-box; 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; }
+        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 24px; font-weight: bold; }
         .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
-        .login-box input { width: 100%; padding: 16px; margin-bottom: 15px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
-        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(241, 196, 15, 0.3); }
-        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; }
-        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5); }
-        #error-msg { font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 22px; line-height: 1.5; }
+        .login-box input { width: 100%; padding: 16px; margin-bottom: 15px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; }
+        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; }
+        #error-msg { font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 22px; }
         
-        .buy-code-link {
-            display: block;
-            margin-top: 15px;
-            color: var(--primary);
-            text-decoration: underline;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        /* شێوازێ پرسیارێن ئەزموونێ */
+        .quiz-link { display: block; margin-top: 15px; color: var(--primary); text-decoration: underline; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .quiz-box { background: #121216; border: 1px solid #2d2d35; border-radius: 20px; padding: 20px; margin-top: 20px; text-align: right; }
+        .question-text { color: #fff; font-size: 15px; font-weight: bold; margin-bottom: 15px; line-height: 1.5; }
+        .option-label { display: block; background: #1a1a22; padding: 12px; margin-bottom: 8px; border-radius: 12px; border: 1px solid #2d2d35; cursor: pointer; font-size: 13px; color: var(--text-muted); transition: 0.2s; }
+        .option-label:hover { border-color: var(--primary); color: #fff; }
+        .option-label input { width: auto !important; margin-left: 10px; display: inline-block; margin-bottom: 0 !important; }
         
-        .payment-box {
-            background: #121216;
-            border: 1px solid #2d2d35;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: right;
-        }
-        .payment-box h4 { color: white; margin: 0 0 10px 0; font-size: 15px; text-align: center; }
-        .payment-box select { width: 100%; padding: 12px; border-radius: 10px; background: #070709; color: white; border: 1px solid #2d2d35; margin-bottom: 12px; font-weight: bold; outline: none; }
-        .info-pay { font-size: 13px; color: var(--primary); margin-bottom: 12px; text-align: center; background: #1a1a22; padding: 10px; border-radius: 8px; font-weight: bold; }
-        
-        .whatsapp-alert {
-            font-size: 11px;
-            color: #2ed573;
-            text-align: center;
-            margin-top: 8px;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .inst-login-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .inst-login-btn:hover { color: #ff6b81; }
+        .result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--success); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
+        .result-box code { font-size: 18px; color: var(--success); font-weight: bold; display: block; margin: 5px 0; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -260,29 +71,36 @@
             <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
             
-            <span class="buy-code-link" onclick="togglePaymentBox()">🛒 کۆد ل دەڤ تە نینە؟ کڕینا کۆدی ب (٢,٠٠٠ دینار)</span>
+            <span id="quiz-toggle-btn" class="buy-code-link" onclick="toggleQuizBox()">🧠 کۆد نینە؟ بەشداریێ د ٣ پرسیارێن زەحمەت دا بکە بۆ وەرگرتنا کۆدی</span>
             
-            <div id="payment-panel" class="payment-box hidden">
-                <h4>سیستەمێ کڕینا بلەز یا کۆدی</h4>
-                <label style="font-size:12px; color:var(--text-muted);">ڕێکارێ پارەدانێ هەلبژێرە:</label>
-                <select id="pay-method" onchange="changePayMethod()">
-                    <option value="korek">کۆرەک (ناردنی باڵانس)</option>
-                    <option value="asiacell">ئاسیاسێل (ناردنی باڵانس)</option>
-                    <option value="fastpay">FastPay (فاست پەی)</option>
-                </select>
-                
-                <div id="pay-info-text" class="info-pay">تکایە باڵانسی فرێکە بۆ: 07517145721</div>
-                
-                <input type="text" id="student-phone" placeholder="ژمارەیا تەلەفۆنا خۆ بنڤیسە...">
-                <input type="text" id="pay-card-number" placeholder="کۆدێ کارتی یان ناسنامەیا حەوالێ...">
-                
-                <button style="background:#2ed573; color:black;" onclick="processPayment()">پشتڕاستکرن و فرێکرن بۆ ووتسۆپێ</button>
-                <div class="whatsapp-alert">⚠️ پاش کلیککرنێ دێ چیتە ووتسۆپێ، کاتێ کاک جیهاد پشکنینا باڵانسی کر دێ کۆدێ چوونەژوورێ دەتە تە.</div>
+            <div id="quiz-panel" class="quiz-box hidden">
+                <div id="quiz-content">
+                    <div class="quiz-step" id="q-step-1">
+                        <div class="question-text">پرسیارا ١: ئەگەر هاوکێشەیا $x^2 - 5x + 6 = 0$ بیت، بەهایێ $x$ چەندە؟</div>
+                        <label class="option-label"><input type="radio" name="q1" value="A"> 1 یان 5</label>
+                        <label class="option-label"><input type="radio" name="q1" value="B"> 2 یان 3</label>
+                        <label class="option-label"><input type="radio" name="q1" value="C"> 0 یان -6</label>
+                        <button onclick="nextQuestion(1)">پرسیارا داهاتی ➔</button>
+                    </div>
+
+                    <div class="quiz-step hidden" id="q-step-2">
+                        <div class="question-text">پرسیارا ٢: کاتێک تیشکەکا ڕووناهییێ ژ هەوای دچیتە د ناڤ ئاڤێ دا، چ گۆڕانکاری ب سەر پەرپەدا وێ (Frequency) دا دهێت؟</div>
+                        <label class="option-label"><input type="radio" name="q2" value="A"> زێدە دبیت</label>
+                        <label class="option-label"><input type="radio" name="q2" value="B"> کێم دبیت</label>
+                        <label class="option-label"><input type="radio" name="q2" value="C"> ناگۆڕێت (جێگیر دەمێنیت)</label>
+                        <button onclick="nextQuestion(2)">پرسیارا داهاتی ➔</button>
+                    </div>
+
+                    <div class="quiz-step hidden" id="q-step-3">
+                        <div class="question-text">پرسیارا ٣: ل دونیایێ دا چ تشت هەیە کو د گەشەکرنێ دا یێ بەردەوامە بەڵام چو گیان تێدا نینە؟</div>
+                        <label class="option-label"><input type="radio" name="q3" value="A"> ئاگر</label>
+                        <label class="option-label"><input type="radio" name="q3" value="B"> بەرد</label>
+                        <label class="option-label"><input type="radio" name="q3" value="C"> ئاڤ</label>
+                        <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و وەرگرتنا کۆدی</button>
+                    </div>
+                </div>
+                <div id="quiz-result"></div>
             </div>
-            
-            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
-                📸 گەشەپێدەر: جهاد زێباری د ئینستاگرامێ دا
-            </a>
         </div>
     </div>
 
@@ -290,30 +108,11 @@
         <div class="header-container">
             <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
             <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان</div>
-            
-            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="instagram-header-btn">
-                📸 جهاد زێباری د ئینستاگرامێ دا
-            </a>
         </div>
-        
-        <div class="timer-gradient-box">
-            <div id="timer-container">
-                <div id="timer-title" class="timer-title">مەنبەهێ دەمژمێرێ</div>
-                <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
-            </div>
-        </div>
-
         <div class="btn-container">
             <a href="fizya.html" class="btn">فیزیا</a>
             <a href="mejo.html" class="btn">مێژوو</a>
             <a href="kurdish.html" class="btn">کوردی</a>
-            <a href="arabic.html" class="btn">عەرەبی</a>
-            <a href="english.html" class="btn">ئینگلیزی</a>
-            <a href="yasa.html" class="btn">یاسا</a>
-            <a href="ark.html" class="btn">ئارک (ARK)</a>
-            <a href="eslame.html" class="btn">ئیسلامی</a>
-            <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
-            <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
         </div>
     </div>
 
@@ -323,8 +122,8 @@
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        // ژمارە تەلەفۆنا تە یا ووتسۆپێ
-        const targetPhone = "9647517145721"; 
+        // وەڵامێن ڕاست یێن سێ پرسیاران
+        const correctAnswers = { q1: "B", q2: "C", q3: "A" };
 
         let currentStep = 1;
 
@@ -338,51 +137,89 @@
                 showSiteContent();
             } else {
                 updateLoginUI();
+                checkIfQuizTaken();
             }
         });
 
-        function togglePaymentBox() {
-            document.getElementById("payment-panel").classList.toggle("hidden");
+        function toggleQuizBox() {
+            document.getElementById("quiz-panel").classList.toggle("hidden");
         }
 
-        function changePayMethod() {
-            const method = document.getElementById("pay-method").value;
-            const infoText = document.getElementById("pay-info-text");
-            infoText.innerHTML = "تکایە ٢,٠٠٠ دیناران فرێکە بۆ: 07517145721";
-        }
-
-        function processPayment() {
-            const studentPhone = document.getElementById("student-phone").value.trim();
-            const cardInput = document.getElementById("pay-card-number").value.trim();
-            const method = document.getElementById("pay-method").value;
-
-            if(!studentPhone || !cardInput) {
-                alert("تکایە هەردوو خانان پڕ بکەرەوە!");
-                return;
+        // پشکنین کا ئایا پێشتر ئەڤ مۆبایلە پشکدار بوویە یان نە
+        function checkIfQuizTaken() {
+            if (localStorage.getItem("quiz_taken") === "true") {
+                document.getElementById("quiz-toggle-btn").style.display = "none";
+                document.getElementById("quiz-panel").classList.remove("hidden");
+                document.getElementById("quiz-content").innerHTML = `<p style="color:var(--error); text-align:center; font-weight:bold;">⚠️ تۆ پێشتر بەژداریت کریە! بۆ هەر تەلەفۆنەکێ تەنها ئێک جار ڕێ پێدراوە.</p>`;
             }
+        }
 
-            const messageText = `سڵاو کاک جیهاد، من بڕی ٢,٠٠٠ دینارم نارد بە ڕێگای (${method}).\nژمارەی من: ${studentPhone}\nکۆدی کارت یان ناسنامەی حەواڵە: ${cardInput}\nتکایە کۆدی چوونەژوورەوەم بۆ بنێرە.`;
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(messageText)}`;
-            
-            window.open(whatsappUrl, '_blank');
+        function nextQuestion(currentQ) {
+            // پشکنین دکەت کا بژاردەیەک هاتیە دیارکرن یان نە
+            const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
+            if (!selected) { alert("تکایە سەرەتا وەڵامێک هەڵبژێره!"); return; }
+
+            document.getElementById(`q-step-${currentQ}`).classList.add("hidden");
+            document.getElementById(`q-step-${currentQ + 1}`).classList.remove("hidden");
+        }
+
+        function finishQuiz() {
+            const selectedQ3 = document.querySelector('input[name="q3"]:checked');
+            if (!selectedQ3) { alert("تکایە وەڵامی پرسیاری سێیەم بدەوە!"); return; }
+
+            // تۆمارکرنا وێ چەندێ کو ئەڤ مۆبایلە ئێدی قفڵ بوو و نەشێت دووبارە تاقی کەتەوە
+            localStorage.setItem("quiz_taken", "true");
+
+            const ans1 = document.querySelector('input[name="q1"]:checked').value;
+            const ans2 = document.querySelector('input[name="q2"]:checked').value;
+            const ans3 = document.querySelector('input[name="q3"]:checked').value;
+
+            let correctCount = 0;
+            if (ans1 === correctAnswers.q1) correctCount++;
+            if (ans2 === correctAnswers.q2) correctCount++;
+            if (ans3 === correctAnswers.q3) correctCount++;
+
+            document.getElementById("quiz-content").classList.add("hidden");
+            const resultDiv = document.getElementById("quiz-result");
+
+            if (correctCount === 3) {
+                // ئەگەر هەر سێ ڕاست بوون ➔ هەمی کۆدان ددەتێ
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <span style="color:white; font-size:13px; font-weight:bold;"> پیرۆزە! هەر سێ وەڵام ڕاست بوون 🌟</span>
+                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">ئەڤە هەمی کۆدێن چوونەژوورێ نە:</p>
+                        <code>قۆناغا ١: JEKO22</code>
+                        <code>قۆناغا ٢: JEKO77</code>
+                        <code>قۆناغا ٣: JEKO9293</code>
+                    </div>
+                `;
+            } else if (correctCount >= 1) {
+                // ئەگەر تنێ ئێک یان دوو ڕاست بوون ➔ تنێ کۆدێ ئێکێ ددەتێ
+                resultDiv.innerHTML = `
+                    <div class="result-box" style="border-color:var(--primary); background:rgba(241,196,15,0.1);">
+                        <span style="color:var(--primary); font-size:13px; font-weight:bold;">تۆ تنێ ${correctCount} وەڵامێن ڕاستت زانین!</span>
+                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">تەنها کـۆدێ قۆناغا ئێکێ بۆ تە دیار بوو:</p>
+                        <code style="color:var(--primary);">قۆناغا ١: JEKO22</code>
+                        <small style="color:var(--error); font-size:11px; display:block; margin-top:5px;">(بۆ کۆدێن دی دڤێت پرسیار بکەی یان ب کڕینی دەستکەڤی)</small>
+                    </div>
+                `;
+            } else {
+                // ئەگەر چو لێ ڕاست نەبوو
+                resultDiv.innerHTML = `
+                    <div class="result-box" style="border-color:var(--error); background:rgba(255,71,87,0.1);">
+                        <span style="color:var(--error); font-size:13px; font-weight:bold;">داخۆبارین! چو وەڵامەک ڕاست نەبوو.</span>
+                        <p style="font-size:12px; color:var(--text-muted); margin:5px 0;">چو کۆد بۆ تە نەهاتنە دیارکرن.</p>
+                    </div>
+                `;
+            }
         }
 
         function updateLoginUI() {
             const instruction = document.getElementById("login-instruction");
             const btn = document.getElementById("submit-btn");
-            const inputField = document.getElementById("code-input");
-            inputField.value = "";
-            
-            if (currentStep === 1) {
-                instruction.innerHTML = "قۆناغا [1 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ ئێکێ</b> بنڤیسە.";
-                btn.innerHTML = "پشکنین و کۆدێ دووێ";
-            } else if (currentStep === 2) {
-                instruction.innerHTML = "قۆناغا [2 ژ 3]: نوکا تکایە <b style='color:var(--primary);'>کۆدێ دووێ</b> بنڤیسە.";
-                btn.innerHTML = "پشکنین و کۆدێ سێیێ";
-            } else if (currentStep === 3) {
-                instruction.innerHTML = "قۆناغا [3 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ سێیێ و کۆتایی</b> بنڤیسە.";
-                btn.innerHTML = "پشکنین و دەروازەیا سەرەکی";
-            }
+            if (currentStep === 1) { instruction.innerHTML = "قۆناغا [1 ژ 3]: تکایە <b>کۆدێ ئێکێ</b> بنڤیسە."; btn.innerHTML = "پشکنین و کۆدێ دووێ"; }
+            else if (currentStep === 2) { instruction.innerHTML = "قۆناغا [2 ژ 3]: نوکا تکایە <b>کۆدێ دووێ</b> بنڤیسە."; btn.innerHTML = "پشکنین و کۆدێ سێیێ"; }
+            else if (currentStep === 3) { instruction.innerHTML = "قۆناغا [3 ژ 3]: تکایە <b>کۆدێ سێیێ و کۆتایی</b> بنڤیسە."; btn.innerHTML = "پشکنین و دەروازەیا سەرەکی"; }
         }
 
         function validateStepCode() {
@@ -392,12 +229,9 @@
 
             if (!inputVal) { showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); return; }
 
-            // ئەگەر کۆدێ خودانی لێدرا
             if (inputVal === ownerCode) {
-                btn.disabled = true;
-                showMsg("بەخێرهاتی خودانێ سیستەمی! دەروازە کرایەوە...", "var(--success)");
                 localStorage.setItem("app_device_locked", "true");
-                setTimeout(() => { showSiteContent(); }, 800);
+                showSiteContent();
                 return;
             }
 
@@ -407,93 +241,42 @@
             if (currentStep === 2 && step2Codes.includes(code)) isValid = true;
             if (currentStep === 3 && step3Codes.includes(code)) isValid = true;
 
-            if (!isValid) { 
-                showMsg("ئەڤ کۆدە خەلەتە یان یێ ئەڤێ قۆناغێ نینە!", "var(--error)"); 
-                inputField.value = ""; 
-                return; 
-            }
+            if (!isValid) { showMsg("ئەڤ کۆدە خەلەتە!", "var(--error)"); return; }
 
             btn.disabled = true;
-            showMsg("پشکنینا ئەلیکترۆنی دکەت...", "var(--primary)");
-
             setTimeout(() => {
                 let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
-
                 if (syncStorage[code] && syncStorage[code] !== hardwareID) {
-                    showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن!", "var(--error)");
-                    inputField.value = "";
+                    showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی لێدراوە!", "var(--error)");
                     btn.disabled = false;
                     return;
                 }
-
                 syncStorage[code] = hardwareID;
                 localStorage.setItem("local_sync_manifest", JSON.stringify(syncStorage));
 
                 if (currentStep < 3) {
                     currentStep++;
-                    showMsg("کۆد ڕاستە! دچیتە قۆناغا داهاتی...", "var(--success)");
-                    setTimeout(() => {
-                        btn.disabled = false;
-                        updateLoginUI();
-                        showMsg("", "");
-                    }, 1000);
+                    btn.disabled = false;
+                    updateLoginUI();
+                    showMsg("", "");
                 } else {
                     localStorage.setItem("app_device_locked", "true");
-                    showMsg("سەرکەفتوو بوو! دەروازە کرایەوه...", "var(--success)");
-                    setTimeout(() => { showSiteContent(); }, 1000);
+                    showSiteContent();
                 }
-            }, 800);
+            }, 500);
         }
 
         function showSiteContent() {
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("main-content").classList.remove("hidden");
-            startTimer();
         }
 
         function showMsg(text, color) {
             const msg = document.getElementById("error-msg");
-            msg.innerHTML = text;
-            msg.style.color = color;
+            msg.innerHTML = text; msg.style.color = color;
         }
 
         function handleKeyPress(event) { if (event.key === "Enter") { validateStepCode(); } }
-
-        function startTimer() {
-            const exam1Date = new Date("June 14, 2026 07:30:00").getTime();
-            const kurdishExamDate = new Date("June 17, 2026 07:30:00").getTime();
-            
-            const timerElement = document.getElementById("timer");
-            const titleElement = document.getElementById("timer-title");
-
-            const timerInterval = setInterval(function() {
-                const now = new Date().getTime();
-                let targetDate = exam1Date;
-                titleElement.innerHTML = "⏱️ ماوەی ماو بۆ دەستپێکرنا تاقیکرنا ئێکێ:";
-
-                if (now > exam1Date) {
-                    targetDate = kurdishExamDate;
-                    titleElement.innerHTML = "📚 ب خو بخينن گه لي قوتابيان ماوەی ماو بۆ تاقیکرنا زمانێ کوردی (١٧ی حوزەیران):";
-                }
-
-                const distance = targetDate - now;
-
-                if (distance < 0 && targetDate === kurdishExamDate) {
-                    clearInterval(timerInterval);
-                    titleElement.innerHTML = "✨ ڕاگەیاندن";
-                    timerElement.innerHTML = "تاقیکرنا کوردی دەستپێکر! سەرکەفتن بۆ هەموو لایەک.";
-                    timerElement.style.color = "var(--success)";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                timerElement.innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
-            }, 1000);
-        }
     </script>
 </body>
 </html>
