@@ -255,9 +255,9 @@
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
             <h3>سیستەمێ پاراستنا ئەزموونان</h3>
-            <p id="login-instruction">تکایە <b>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە بۆ دەستپێکرنێ.</p>
+            <p id="login-instruction">قۆناغا [1 ژ 3]: تکایە <b>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە.</p>
             <input type="text" id="code-input" placeholder="کۆدێ لێرە بنووسە..." onkeypress="handleKeyPress(event)">
-            <button id="submit-btn" onclick="validateStepCode()">پشکنیـن و قۆناغا داهاتی</button>
+            <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
             
             <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
@@ -298,19 +298,20 @@
     </div>
 
     <script>
-        // پێناسەکرنا کۆدێن هەر سێ قۆناغان
+        // لیستا کۆدێن تە یێن دروست
         const step1Codes = ["JEKO22", "JEKO23"];
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        // لێگەڕیان ل سەر دۆخێ نووکا یێ قۆناغێ (Step) د مۆبایلێ دا
-        let currentStep = parseInt(localStorage.getItem("login_current_step")) || 1;
+        // ل دەستپێکێ هەمیشە قۆناغێ ب ١ دابنێ
+        let currentStep = 1;
 
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
         const hardwareID = localStorage.getItem("secure_hardware_id");
 
+        // پشکنین: تەنها ئەگەر ل سەر ڤێ مۆبایلێ پێشتر هەر ٣ قۆناغ ب سەرکەفتیانە بڕیبن، بلا بچیتە ژوورێ
         document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("app_device_locked") === "true") {
                 showSiteContent();
@@ -319,7 +320,7 @@
             }
         });
 
-        // نووکرنەوەیا دەق و شێوازێ لاپەرەیێ چوونەژوورێ بەپێی قۆناغێ
+        // گۆهرینا دەقێن لاپەرەی ب پێی قۆناغان
         function updateLoginUI() {
             const instruction = document.getElementById("login-instruction");
             const btn = document.getElementById("submit-btn");
@@ -328,13 +329,13 @@
             inputField.value = "";
             
             if (currentStep === 1) {
-                instruction.innerHTML = "قۆناغا [1 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە.";
+                instruction.innerHTML = "قۆناغا [1 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ ئێکێ</b> بنڤیسە.";
                 btn.innerHTML = "پشکنین و کۆدێ دووێ";
             } else if (currentStep === 2) {
-                instruction.innerHTML = "قۆناغا [2 ژ 3]: سەرکەفتوو بوو! نوکا تکایە <b style='color:var(--primary);'>کۆدێ دووێ</b> بنڤیسە.";
+                instruction.innerHTML = "قۆناغا [2 ژ 3]: نوکا تکایە <b style='color:var(--primary);'>کۆدێ دووێ</b> بنڤیسە.";
                 btn.innerHTML = "پشکنین و کۆدێ سێیێ";
             } else if (currentStep === 3) {
-                instruction.innerHTML = "قۆناغا کۆتایی [3 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ سێیێ و کۆتایی</b> بنڤیسە بۆ چوونەژوورێ.";
+                instruction.innerHTML = "قۆناغا [3 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ سێیێ و کۆتایی</b> بنڤیسە.";
                 btn.innerHTML = "پشکنین و دەروازەیا سەرەکی";
             }
         }
@@ -366,7 +367,7 @@
             setTimeout(() => {
                 let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
 
-                // پاراستنا کۆدان دا کو د چەندین مۆبایلان دا کار نەکەن
+                // ئەگەر کۆد پێشتر ل سەر مۆبایلەکا دی هاتبیتە لێدان
                 if (syncStorage[code] && syncStorage[code] !== hardwareID) {
                     showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن!", "var(--error)");
                     inputField.value = "";
@@ -377,10 +378,8 @@
                 syncStorage[code] = hardwareID;
                 localStorage.setItem("local_sync_manifest", JSON.stringify(syncStorage));
 
-                // ئەگەر قۆناغا لۆگینێ نەگەهشتبیتە ٣، با بچیتە قۆناغا داهاتی
                 if (currentStep < 3) {
                     currentStep++;
-                    localStorage.setItem("login_current_step", currentStep);
                     showMsg("کۆد ڕاستە! دچیتە قۆناغا داهاتی...", "var(--success)");
                     
                     setTimeout(() => {
@@ -400,7 +399,7 @@
         }
 
         function showSiteContent() {
-            document.getElementById("login-screen").classList.add("hidden");
+            document.getElementById("login-screen").style.display = "none";
             document.getElementById("main-content").classList.remove("hidden");
             startTimer();
         }
