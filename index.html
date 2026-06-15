@@ -1,311 +1,401 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html dir="rtl" lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پەرتووکخانا پێشکەفتی یا زانینی</title>
+    <title>تاقیکرنێن ویزاری</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #333333;
+            --primary: #f1c40f;
+            --primary-hover: #f39c12;
+            --bg-dark: #070709;
+            --card-bg: rgba(15, 15, 18, 0.85);
+            --btn-bg: rgba(28, 28, 34, 0.65);
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --error: #ff4757;
+            --success: #2ed573;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* Header Design */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        /* Search & Filter Section */
-        .controls {
-            max-width: 800px;
-            margin: -25px auto 30px auto;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 2;
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .search-box:focus {
-            border-color: var(--secondary-color);
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: none;
-            background-color: #eee;
-            color: var(--text-color);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        /* Main Content Grid */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* Advanced Card Design */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            text-align: center; 
+            margin: 0; 
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
-            border-top: 5px solid var(--secondary-color);
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        .header-container {
+            margin-top: 15px;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 440px;
         }
 
-        .card-body {
-            padding: 20px;
-            flex-grow: 1;
+        h2 { 
+            color: var(--primary); 
+            margin: 0 0 6px 0; 
+            font-size: 34px;
+            font-weight: 900;
+            text-shadow: 0 0 25px rgba(241, 196, 15, 0.4); 
         }
 
-        .badge {
-            background-color: #e1f5fe;
-            color: var(--secondary-color);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 10px;
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
-        .card-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .card-text {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .card-footer {
-            padding: 15px 20px;
-            background: #f9f9f9;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        .read-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        .instagram-header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #fff;
             text-decoration: none;
-            font-size: 0.9rem;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(221, 42, 123, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .instagram-header-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(221, 42, 123, 0.6);
+            filter: brightness(1.1);
+        }
+        
+        /* چوارگۆشەیا نوو دگەل خەتێ لێزەری یێ زڤرۆک ل سەر هۆڤەری */
+        .timer-gradient-box {
+            position: relative;
+            width: 90%; 
+            max-width: 440px; 
+            margin: 0 auto 30px;
+            border-radius: 24px;
+            padding: 2px; /* فەزایەک بۆ دیاربوونا خەتێ لێزەری */
+            background: rgba(241, 196, 15, 0.2); 
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: background 0.4s;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+        }
+
+        /* دروستکرنا ئەنیمەیشنا خەتێ زڤرۆک لە پشتەوە */
+        .timer-gradient-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, var(--primary));
+            transform-origin: center;
+            transition: opacity 0.4s;
+            opacity: 0.3; /* د دۆخێ ئاسایی دا هێدی کار دکەت */
+        }
+
+        /* دەمێ مشک دچیتە د ناڤ چوارگۆشەی دا خەت خێرا دزڤریت و ڕەنگ گەش دبیت */
+        .timer-gradient-box:hover::before {
+            background: conic-gradient(
+                #f09433, #dc2743, var(--primary), transparent, transparent, var(--primary)
+            );
+            animation: rotateLine 3s linear infinite;
+            opacity: 1;
+        }
+
+        @keyframes rotateLine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ناڤەڕۆکا دڵێ چارگۆشێ */
+        #timer-container {
+            position: relative;
+            background: #0d0d11; 
+            border-radius: 22px; 
+            padding: 22px 16px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        .timer-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        #timer { 
+            font-size: 22px; 
+            color: var(--primary); 
+            font-weight: 800;
+            line-height: 1.5;
+            text-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
+        }
+        
+        .btn-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%;
+        }
+
+        /* دوگمەیێن مۆدێرن و شووشەیی (Glassmorphism) */
+        .btn { 
+            display: block; 
+            width: 90%; 
+            max-width: 400px; 
+            padding: 18px; 
+            margin: 9px 0; 
+            background: var(--btn-bg); 
+            color: var(--text-main); 
+            text-decoration: none; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            font-weight: 700; 
+            font-size: 16px; 
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .btn:hover { 
+            background: rgba(241, 196, 15, 0.07); 
+            border-color: rgba(241, 196, 15, 0.6); 
+            color: var(--primary); 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 24px rgba(241, 196, 15, 0.2); 
+        }
+        
+        .hidden { display: none !important; }
+
+        /* شاشەیا لۆگینێ یا مۆدێرن */
+        .login-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #040405, #0f0f13, #020203);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 9999; 
+        }
+
+        .login-overlay::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(rgba(241, 196, 15, 0.06) 1px, transparent 0),
+                radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 0);
+            background-size: 40px 40px;
+            animation: meshMove 25s linear infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes meshMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-40px, -40px); }
+        }
+
+        .login-box { 
+            background: rgba(15, 15, 18, 0.95); 
+            padding: 45px 30px; 
+            border-radius: 32px; 
+            border: 1px solid rgba(241, 196, 15, 0.15); 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
+            width: 90%; 
+            max-width: 420px; 
+            box-sizing: border-box; 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; }
+        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
+        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(241, 196, 15, 0.3); }
+        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5); }
+        #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; }
+        
+        .inst-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
             transition: 0.3s;
         }
-
-        .read-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                margin-top: 10px;
-            }
-        }
+        .inst-login-btn:hover { color: #ff6b81; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>پەرتووکخانا زانیاریێن ب مفای</h1>
-        <p>مەزنترین ژێدەر بۆ خواندنا بابەتێن جۆراوجۆر (تەکنەلۆژیا، تەندروستی، مێژوو، زانست)</p>
-    </header>
-
-    <div class="container">
-        <!-- گەڕیان و فلتەرکرن -->
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-box" placeholder="ل بابەتەکێ ب مفای بگەڕێ...">
-            <button class="filter-btn active" onclick="filterCategory('all')">هەمی</button>
-            <button class="filter-btn" onclick="filterCategory('تەکنەلۆژیا')">تەکنەلۆژیا</button>
-            <button class="filter-btn" onclick="filterCategory('تەندروستی')">تەندروستی</button>
-            <button class="filter-btn" onclick="filterCategory('زانست')">زانست</button>
+    <div id="login-screen" class="login-overlay">
+        <div class="login-box">
+            <h3>سیستەمێ پاراستنا ئەزموونان</h3>
+            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(--primary);">تێبینی:</b> سیستەم ڕێ نادەت ئێک کۆد بۆ دوو مۆبایلان کاربکات.</p>
+            <input type="text" id="code-input" placeholder="کۆدی لێرە بنووسە..." onkeypress="handleKeyPress(event)">
+            <button id="submit-btn" onclick="validateDeviceCode()">پشکنیـن و دەروازە</button>
+            <div id="error-msg"></div>
+            
+            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
+                📸 گەشەپێدەر: جهاد زێباری د ئینستاگرامێ دا
+            </a>
         </div>
-
-        <!-- جهێ نیشاندانا بابەتان -->
-        <main class="grid" id="contentGrid">
-            <!-- بابەت دێ ب ڕێکا جاڤاسکڕێپت ل خوارێ زێدە بن بۆ ئەوەی کۆد سادە بمینیت -->
-        </main>
     </div>
 
-    <footer>
-        <p>مافێن پاراستینە © 2026 - پەیجێ خواندنا هزار مفا</p>
-    </footer>
+    <div id="main-content" class="hidden">
+        <div class="header-container">
+            <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
+            <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان</div>
+            
+            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="instagram-header-btn">
+                📸 جهاد زێباری د ئینستاگرامێ دا
+            </a>
+        </div>
+        
+        <div class="timer-gradient-box">
+            <div id="timer-container">
+                <div id="timer-title" class="timer-title">مەنبەهێ دەمژمێرێ</div>
+                <div id="timer">دەستپێکرنا دەمژمێرێ...</div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="fizya.html" class="btn">فیزیا</a>
+            <a href="mejo.html" class="btn">مێژوو</a>
+            <a href="kurdish.html" class="btn">کوردی</a>
+            <a href="arabic.html" class="btn">عەرەبی</a>
+            <a href="english.html" class="btn">ئینگلیزی</a>
+            <a href="yasa.html" class="btn">یاسا</a>
+            <a href="ark.html" class="btn">ئارک (ARK)</a>
+            <a href="eslame.html" class="btn">ئیسلامی</a>
+            <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
+            <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
+        </div>
+    </div>
 
     <script>
-        // ل ڤێرە ئەڤە داتا بیسا پەیجێ تەیە، تۆ دشێی ب هزاران بابەتان ل ڤێرە زێدە بکەی!
-        const articles = [
-            {
-                title: "ژیڕیا دەستکرد (AI) چایە؟",
-                category: "تەکنەلۆژیا",
-                desc: "لەسەردەمێ نوو دا ژیڕیا دەستکرد شۆڕشەک د هەمی بواراندا دروستکریە، ل ڤێرە فێری بنەمایێن وێ ببە...",
-                link: "#"
-            },
-            {
-                title: "گرنگییا خوارنا ساخلەم",
-                category: "تەندروستی",
-                desc: "خوارنا تەندروست کاریگەریەکا ڕاستەوخۆ ل سەر دەروون و لەشێ مرۆڤی هەیە. ئەڤ بابەتە دێ ژیانا تە هۆڕ کەت.",
-                link: "#"
-            },
-            {
-                title: "نهێنیێن گەردوونێ مەزن",
-                category: "زانست",
-                desc: "ستێرە، هەسارە و کونێن ڕەش... گەشتەک د ناخێ گەردوونی دا بۆ زانینا تشتێن سەیر و سەمەر.",
-                link: "#"
-            },
-            {
-                title: "فێربوونا زمانێ پڕۆگرامسازیێ Python",
-                category: "تەکنەلۆژیا",
-                desc: "بۆچی پایسۆن ئێکەم هەڵبژاردنە بۆ دەستپێکاران؟ ڕێبەرەکێ خێرا بۆ فێربوونێ.",
-                link: "#"
-            },
-            {
-                title: "چەوانیا پاراستنا چاڤان ژ شاشان",
-                category: "تەندروستی",
-                desc: "ئەگەر تۆ زۆر ل بەر کۆمپیۆتەر یان مۆبایلێ د روونی، ئەڤان ڕێنمایان جێبەجێ بکە بۆ پاراستنا بیناهیا خۆ.",
-                link: "#"
-            },
-            {
-                title: "تیۆرا ڕێژەیی یا ئەینشتاین",
-                category: "زانست",
-                desc: "ب زمانەکێ سادە و خۆش، بزۆران کا دەم و جهـ چەوا پێکڤە گرێداینە د زانستێ فیزیا دا.",
-                link: "#"
-            }
-            // تۆ دشێی ل ڤێرە ب هزاران بابەتێن دی زێدە بکەی ب هەمان شێواز...
-        ];
+        const allowedCodes = ["JEKO205", "JEKO293"];
 
-        const grid = document.getElementById('contentGrid');
-        const searchInput = document.getElementById('searchInput');
-
-        // نەخشێ نیشاندانا بابەتان
-        function displayArticles(data) {
-            grid.innerHTML = "";
-            if(data.length === 0) {
-                grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:#999;'>چ بابەت نەهاتنە دیتن!</p>";
-                return;
-            }
-            
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-body">
-                        <span class="badge">${item.category}</span>
-                        <h3 class="card-title">${item.title}</h3>
-                        <p class="card-text">${item.desc}</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="${item.link}" class="read-btn">پتر بخوێنە</a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+        if (!localStorage.getItem("secure_hardware_id")) {
+            localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
+        const hardwareID = localStorage.getItem("secure_hardware_id");
 
-        // فلتەرکرن ب کەتەگۆری
-        function filterCategory(cat) {
-            // گۆڕینی ڕەنگێ دوگمێ چالاک
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if(cat === 'all') {
-                displayArticles(articles);
-            } else {
-                const filtered = articles.filter(a => a.category === cat);
-                displayArticles(filtered);
+        document.addEventListener("DOMContentLoaded", function() {
+            if (localStorage.getItem("app_device_locked") === "true") {
+                showSiteContent();
             }
-        }
-
-        // سیستەمێ گەڕیانێ (Search)
-        searchInput.addEventListener('input', (e) => {
-            const text = e.target.value.toLowerCase();
-            const filtered = articles.filter(a => 
-                a.title.toLowerCase().includes(text) || 
-                a.desc.toLowerCase().includes(text)
-            );
-            displayArticles(filtered);
         });
 
-        // ل دەستپێکێ هەمی بابەتان نیشان بدە
-        displayArticles(articles);
+        function validateDeviceCode() {
+            const inputField = document.getElementById("code-input");
+            const btn = document.getElementById("submit-btn");
+            const code = inputField.value.trim().toUpperCase();
+
+            if (!code) { showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); return; }
+            if (!allowedCodes.includes(code)) { showMsg("ئەڤ کۆدە خەلەتە و د سیستەمی دا نینە!", "var(--error)"); inputField.value = ""; return; }
+
+            btn.disabled = true;
+            showMsg("پشکنینا ئەلیکترۆنی دکەت...", "var(--primary)");
+
+            setTimeout(() => {
+                let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
+
+                if (syncStorage[code] && syncStorage[code] !== hardwareID) {
+                    showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن و بلۆک بوو!", "var(--error)");
+                    inputField.value = "";
+                    btn.disabled = false;
+                    return;
+                }
+
+                syncStorage[code] = hardwareID;
+                localStorage.setItem("local_sync_manifest", JSON.stringify(syncStorage));
+                localStorage.setItem("app_device_locked", "true");
+                
+                showSiteContent();
+            }, 800);
+        }
+
+        function showSiteContent() {
+            document.getElementById("login-screen").classList.add("hidden");
+            document.getElementById("main-content").classList.remove("hidden");
+            startTimer();
+        }
+
+        function showMsg(text, color) {
+            const msg = document.getElementById("error-msg");
+            msg.innerHTML = text;
+            msg.style.color = color;
+        }
+
+        function handleKeyPress(event) { if (event.key === "Enter") { validateDeviceCode(); } }
+
+        function startTimer() {
+            const exam1Date = new Date("June 14, 2026 07:30:00").getTime();
+            const kurdishExamDate = new Date("June 17, 2026 07:30:00").getTime();
+            
+            const timerElement = document.getElementById("timer");
+            const titleElement = document.getElementById("timer-title");
+
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                
+                let targetDate = exam1Date;
+                titleElement.innerHTML = "⏱️ ماوەی ماو بۆ دەستپێکرنا تاقیکرنا ئێکێ:";
+
+                if (now > exam1Date) {
+                    targetDate = kurdishExamDate;
+                    titleElement.innerHTML = "📚 ب خو بخينن گه لي قوتابيان ماوەی ماو بۆ تاقیکرنا زمانێ کوردی (١٧ی حوزەیران):";
+                }
+
+                const distance = targetDate - now;
+
+                if (distance < 0 && targetDate === kurdishExamDate) {
+                    clearInterval(timerInterval);
+                    titleElement.innerHTML = "✨ ڕاگەیاندن";
+                    timerElement.innerHTML = "تاقیکرنا کوردی دەستپێکر! سەرکەفتن بۆ هەموو لایەک.";
+                    timerElement.style.color = "var(--success)";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = days + " ڕۆژ و " + hours + " دەمژمێر و " + minutes + " خولەک و " + seconds + " چرکە ";
+            }, 1000);
+        }
     </script>
 </body>
 </html>
