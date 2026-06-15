@@ -8,12 +8,13 @@
         :root {
             --primary: #f1c40f;
             --primary-hover: #f39c12;
-            --bg-dark: #070707;
-            --card-bg: rgba(20, 20, 20, 0.85);
+            --bg-dark: #0a0a0b;
+            --card-bg: rgba(18, 18, 18, 0.9);
             --text-main: #ffffff;
-            --text-muted: #b3b3b3;
-            --error: #e74c3c;
-            --success: #2ecc71;
+            --text-muted: #aaaaaa;
+            --error: #ff4757;
+            --success: #2ed573;
+            --instagram-color: #e1306c;
         }
 
         body { 
@@ -34,9 +35,9 @@
         h2 { 
             color: var(--primary); 
             margin-bottom: 5px; 
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 800;
-            text-shadow: 0 0 15px rgba(241, 196, 15, 0.3); 
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.4); 
         }
 
         .subtitle {
@@ -46,14 +47,14 @@
         }
         
         #timer-container {
-            background: rgba(241, 196, 15, 0.03); 
+            background: rgba(241, 196, 15, 0.02); 
             border: 2px dashed var(--primary); 
             border-radius: 20px; 
             padding: 20px;
             margin: 0 auto 35px; 
             width: 90%; 
             max-width: 440px; 
-            box-shadow: inset 0 0 20px rgba(241, 196, 15, 0.05);
+            box-shadow: inset 0 0 20px rgba(241, 196, 15, 0.05), 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .timer-title {
@@ -83,54 +84,66 @@
             max-width: 380px; 
             padding: 16px; 
             margin: 10px 0; 
-            background: linear-gradient(135deg, #1c1c1c, #111111); 
+            background: linear-gradient(135deg, #1f1f22, #141416); 
             color: var(--text-main); 
             text-decoration: none; 
             border-radius: 50px; 
-            border: 1px solid #2a2a2a; 
-            transition: all 0.4s ease; 
+            border: 1px solid #2d2d30; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             font-weight: bold; 
             font-size: 16px; 
             box-shadow: 0 6px 15px rgba(0,0,0,0.4); 
         }
 
         .btn:hover { 
-            background: #181818; 
+            background: #18181a; 
             border-color: var(--primary); 
             color: var(--primary); 
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.15); 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(241, 196, 15, 0.2); 
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+            border: none !important;
+            color: white !important;
+            margin-top: 25px !important;
+        }
+
+        .btn-instagram:hover {
+            color: white !important;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(221, 42, 123, 0.4) !important;
         }
         
         .hidden { display: none !important; }
 
-        /* شاشەیا لۆگینێ یا ئێجگار شاهانە دگەل خەتێن جوڵاو */
+        /* شاشەیا لۆگینێ یا ئێجگار شاهانە */
         .login-overlay { 
             position: fixed; 
             top: 0; left: 0; 
             width: 100%; height: 100%; 
-            background: linear-gradient(125deg, #0a0a0a, #151515, #050505);
+            background: linear-gradient(135deg, #050506, #121216, #020203);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 12s ease infinite;
             display: flex; 
             justify-content: center; 
             align-items: center; 
             z-index: 9999; 
         }
 
-        /* دروستکردنی هێڵە لێکئاڵاوە ڕووناکەکان لە پشتەوە */
         .login-overlay::before {
             content: "";
             position: absolute;
             width: 200%;
             height: 200%;
             background-image: 
-                radial-gradient(rgba(241, 196, 15, 0.15) 1px, transparent 0),
-                radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+                radial-gradient(rgba(241, 196, 15, 0.1) 1px, transparent 0),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
-            animation: meshMove 20s linear infinite;
-            opacity: 0.6;
+            animation: meshMove 25s linear infinite;
+            opacity: 0.7;
         }
 
         @keyframes gradientBG {
@@ -141,31 +154,46 @@
 
         @keyframes meshMove {
             0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-40px, -40px) rotate(4deg); }
+            100% { transform: translate(-40px, -40px) rotate(3deg); }
         }
 
         .login-box { 
             background: var(--card-bg); 
             padding: 45px 35px; 
             border-radius: 32px; 
-            border: 1px solid rgba(241, 196, 15, 0.25); 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(241, 196, 15, 0.08); 
+            border: 1px solid rgba(241, 196, 15, 0.2); 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(241, 196, 15, 0.05); 
             width: 90%; 
             max-width: 420px; 
             box-sizing: border-box; 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: relative;
             z-index: 2;
         }
 
-        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; text-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
+        .login-box h3 { color: var(--primary); margin-top: 0; font-size: 26px; font-weight: bold; margin-bottom: 12px; text-shadow: 0 0 15px rgba(241, 196, 15, 0.3); }
         .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
-        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #333; background: rgba(26, 26, 26, 0.8); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
-        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 18px rgba(241, 196, 15, 0.4); background: #1a1a1a; }
-        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.2); }
-        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.4); }
+        .login-box input { width: 100%; padding: 16px; margin-bottom: 20px; border-radius: 50px; border: 1px solid #333; background: rgba(20, 20, 22, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(241, 196, 15, 0.35); background: #151518; }
+        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5); }
         #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; }
+        
+        .inst-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .inst-login-btn:hover {
+            color: #ff6b81;
+        }
     </style>
 </head>
 <body>
@@ -173,10 +201,14 @@
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
             <h3>سیستەمێ پاراستنا ئەزموونان</h3>
-            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(JEKO77);">تێبینی:</b> سیستەم ڕێ نادەت ئێک کۆد بۆ دوو مۆبایلان کاربکات.</p>
+            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(--primary);">تێبینی:</b> سیستەم ڕێ نادەت ئێک کۆد بۆ دوو مۆبایلان کاربکات.</p>
             <input type="text" id="code-input" placeholder="کۆدی لێرە بنووسە..." onkeypress="handleKeyPress(event)">
             <button id="submit-btn" onclick="validateDeviceCode()">پشکنیـن و دەروازە</button>
             <div id="error-msg"></div>
+            
+            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
+                📸 گەشەپێدەر: جهاد زێباری لە ئینستاگرام
+            </a>
         </div>
     </div>
 
@@ -200,12 +232,15 @@
             <a href="eslame.html" class="btn">ئیسلامی</a>
             <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
             <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
+            
+            <!-- دوگمەی ئینستاگرام لە ناوەوەی پەیجەکە -->
+            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="btn btn-instagram">📸 پەیجێ مە یێ ئینستاگرامێ</a>
         </div>
     </div>
 
     <script>
-        // داتابەیسا نوو یا هەر ٥ کۆدێن فەرمی یێن تە
-        const allowedCodes = ["JEKO22", "JEKO33", "JEKO21", "JEKO77", "JEKO09"];
+        // کۆدە نوێیەکانی تۆ لێرە دەستنیشان کراون
+        const allowedCodes = ["JEKO205", "JEKO293"];
 
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
