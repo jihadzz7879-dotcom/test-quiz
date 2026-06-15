@@ -74,14 +74,13 @@
             filter: brightness(1.1);
         }
         
-        /* چوارگۆشەیا نوو دگەل خەتێ لێزەری یێ زڤرۆک ل سەر هۆڤەری */
         .timer-gradient-box {
             position: relative;
             width: 90%; 
             max-width: 440px; 
             margin: 0 auto 30px;
             border-radius: 24px;
-            padding: 2px; /* فەزایەک بۆ دیاربوونا خەتێ لێزەری */
+            padding: 2px; 
             background: rgba(241, 196, 15, 0.2); 
             box-sizing: border-box;
             overflow: hidden;
@@ -89,7 +88,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
-        /* دروستکرنا ئەنیمەیشنا خەتێ زڤرۆک لە پشتەوە */
         .timer-gradient-box::before {
             content: '';
             position: absolute;
@@ -100,10 +98,9 @@
             background: conic-gradient(transparent, transparent, transparent, var(--primary));
             transform-origin: center;
             transition: opacity 0.4s;
-            opacity: 0.3; /* د دۆخێ ئاسایی دا هێدی کار دکەت */
+            opacity: 0.3; 
         }
 
-        /* دەمێ مشک دچیتە د ناڤ چوارگۆشەی دا خەت خێرا دزڤریت و ڕەنگ گەش دبیت */
         .timer-gradient-box:hover::before {
             background: conic-gradient(
                 #f09433, #dc2743, var(--primary), transparent, transparent, var(--primary)
@@ -117,7 +114,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ناڤەڕۆکا دڵێ چارگۆشێ */
         #timer-container {
             position: relative;
             background: #0d0d11; 
@@ -151,7 +147,6 @@
             width: 100%;
         }
 
-        /* دوگمەیێن مۆدێرن و شووشەیی (Glassmorphism) */
         .btn { 
             display: block; 
             width: 90%; 
@@ -182,7 +177,6 @@
         
         .hidden { display: none !important; }
 
-        /* شاشەیا لۆگینێ یا مۆدێرن */
         .login-overlay { 
             position: fixed; 
             top: 0; left: 0; 
@@ -240,7 +234,7 @@
         .login-box input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(241, 196, 15, 0.3); }
         .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s ease; }
         .login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5); }
-        #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; }
+        #error-msg { font-size: 14px; margin-top: 20px; font-weight: bold; min-height: 22px; line-height: 1.5; }
         
         .inst-login-btn {
             display: inline-flex;
@@ -261,9 +255,9 @@
     <div id="login-screen" class="login-overlay">
         <div class="login-box">
             <h3>سیستەمێ پاراستنا ئەزموونان</h3>
-            <p>تکایە کۆدێ تایبەت یێ چالاککرنێ بنڤیسە. <br><b style="color:var(--primary);">تێبینی:</b> سیستەم ڕێ نادەت ئێک کۆد بۆ دوو مۆبایلان کاربکات.</p>
-            <input type="text" id="code-input" placeholder="کۆدی لێرە بنووسە..." onkeypress="handleKeyPress(event)">
-            <button id="submit-btn" onclick="validateDeviceCode()">پشکنیـن و دەروازە</button>
+            <p id="login-instruction">تکایە <b>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە بۆ دەستپێکرنێ.</p>
+            <input type="text" id="code-input" placeholder="کۆدێ لێرە بنووسە..." onkeypress="handleKeyPress(event)">
+            <button id="submit-btn" onclick="validateStepCode()">پشکنیـن و قۆناغا داهاتی</button>
             <div id="error-msg"></div>
             
             <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="inst-login-btn">
@@ -304,7 +298,13 @@
     </div>
 
     <script>
-        const allowedCodes = ["JEKO205", "JEKO293"];
+        // پێناسەکرنا کۆدێن هەر سێ قۆناغان
+        const step1Codes = ["JEKO22", "JEKO23"];
+        const step2Codes = ["JEKO77", "JEKO88"];
+        const step3Codes = ["JEKO9293", "JEKO0"];
+
+        // لێگەڕیان ل سەر دۆخێ نووکا یێ قۆناغێ (Step) د مۆبایلێ دا
+        let currentStep = parseInt(localStorage.getItem("login_current_step")) || 1;
 
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
@@ -314,16 +314,51 @@
         document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("app_device_locked") === "true") {
                 showSiteContent();
+            } else {
+                updateLoginUI();
             }
         });
 
-        function validateDeviceCode() {
+        // نووکرنەوەیا دەق و شێوازێ لاپەرەیێ چوونەژوورێ بەپێی قۆناغێ
+        function updateLoginUI() {
+            const instruction = document.getElementById("login-instruction");
+            const btn = document.getElementById("submit-btn");
+            const inputField = document.getElementById("code-input");
+            
+            inputField.value = "";
+            
+            if (currentStep === 1) {
+                instruction.innerHTML = "قۆناغا [1 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ ئێکێ</b> یێ چالاککرنێ بنڤیسە.";
+                btn.innerHTML = "پشکنین و کۆدێ دووێ";
+            } else if (currentStep === 2) {
+                instruction.innerHTML = "قۆناغا [2 ژ 3]: سەرکەفتوو بوو! نوکا تکایە <b style='color:var(--primary);'>کۆدێ دووێ</b> بنڤیسە.";
+                btn.innerHTML = "پشکنین و کۆدێ سێیێ";
+            } else if (currentStep === 3) {
+                instruction.innerHTML = "قۆناغا کۆتایی [3 ژ 3]: تکایە <b style='color:var(--primary);'>کۆدێ سێیێ و کۆتایی</b> بنڤیسە بۆ چوونەژوورێ.";
+                btn.innerHTML = "پشکنین و دەروازەیا سەرەکی";
+            }
+        }
+
+        function validateStepCode() {
             const inputField = document.getElementById("code-input");
             const btn = document.getElementById("submit-btn");
             const code = inputField.value.trim().toUpperCase();
 
-            if (!code) { showMsg("تکایە سەرەتا کۆدەکێ بنڤیسە!", "var(--error)"); return; }
-            if (!allowedCodes.includes(code)) { showMsg("ئەڤ کۆدە خەلەتە و د سیستەمی دا نینە!", "var(--error)"); inputField.value = ""; return; }
+            if (!code) { 
+                showMsg("تکایە سەرەتا کۆدێ ئەڤێ قۆناغێ بنڤیسە!", "var(--error)"); 
+                return; 
+            }
+
+            let isValid = false;
+            if (currentStep === 1 && step1Codes.includes(code)) isValid = true;
+            if (currentStep === 2 && step2Codes.includes(code)) isValid = true;
+            if (currentStep === 3 && step3Codes.includes(code)) isValid = true;
+
+            if (!isValid) { 
+                showMsg("ئەڤ کۆدە خەلەتە یان یێ ئەڤێ قۆناغێ نینە!", "var(--error)"); 
+                inputField.value = ""; 
+                return; 
+            }
 
             btn.disabled = true;
             showMsg("پشکنینا ئەلیکترۆنی دکەت...", "var(--primary)");
@@ -331,8 +366,9 @@
             setTimeout(() => {
                 let syncStorage = JSON.parse(localStorage.getItem("local_sync_manifest")) || {};
 
+                // پاراستنا کۆدان دا کو د چەندین مۆبایلان دا کار نەکەن
                 if (syncStorage[code] && syncStorage[code] !== hardwareID) {
-                    showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن و بلۆک بوو!", "var(--error)");
+                    showMsg("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکا دی هاتییە چالاککرن!", "var(--error)");
                     inputField.value = "";
                     btn.disabled = false;
                     return;
@@ -340,9 +376,26 @@
 
                 syncStorage[code] = hardwareID;
                 localStorage.setItem("local_sync_manifest", JSON.stringify(syncStorage));
-                localStorage.setItem("app_device_locked", "true");
-                
-                showSiteContent();
+
+                // ئەگەر قۆناغا لۆگینێ نەگەهشتبیتە ٣، با بچیتە قۆناغا داهاتی
+                if (currentStep < 3) {
+                    currentStep++;
+                    localStorage.setItem("login_current_step", currentStep);
+                    showMsg("کۆد ڕاستە! دچیتە قۆناغا داهاتی...", "var(--success)");
+                    
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        updateLoginUI();
+                        showMsg("", "");
+                    }, 1000);
+                } else {
+                    // ئەگەر هەر سێ قۆناغ ب سەرکەفتیانە بڕین
+                    localStorage.setItem("app_device_locked", "true");
+                    showMsg("سەرکەفتوو بوو! دەروازە کرایەوه...", "var(--success)");
+                    setTimeout(() => {
+                        showSiteContent();
+                    }, 1000);
+                }
             }, 800);
         }
 
@@ -358,7 +411,7 @@
             msg.style.color = color;
         }
 
-        function handleKeyPress(event) { if (event.key === "Enter") { validateDeviceCode(); } }
+        function handleKeyPress(event) { if (event.key === "Enter") { validateStepCode(); } }
 
         function startTimer() {
             const exam1Date = new Date("June 14, 2026 07:30:00").getTime();
