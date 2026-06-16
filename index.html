@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاقیکرنێن ویزاری</title>
+    <title>تاقیکرنێن ویزاری پۆلا ١٢</title>
     <style>
         :root {
             --primary: #f1c40f;
             --primary-hover: #f39c12;
             --bg-dark: #070709;
-            --card-bg: rgba(15, 15, 18, 0.95);
+            --card-bg: rgba(15, 15, 18, 0.96);
             --btn-bg: rgba(28, 28, 34, 0.65);
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --error: #ff4757;
             --success: #2ed573;
+            --ai-color: #9b59b6;
         }
 
         body { 
@@ -31,32 +32,36 @@
         }
 
         .header-container { margin-top: 15px; margin-bottom: 25px; width: 100%; max-width: 440px; }
-        h2 { color: var(--primary); margin: 0 0 6px 0; font-size: 34px; font-weight: 900; text-shadow: 0 0 25px rgba(241, 196, 15, 0.4); }
+        h2 { color: var(--primary); margin: 0 0 6px 0; font-size: 30px; font-weight: 900; text-shadow: 0 0 25px rgba(241, 196, 15, 0.4); }
         .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
         
         .btn-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .btn { display: block; width: 90%; max-width: 400px; padding: 18px; margin: 9px 0; background: var(--btn-bg); color: var(--text-main); text-decoration: none; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); font-weight: 700; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .btn:hover { background: rgba(241, 196, 15, 0.07); border-color: rgba(241, 196, 15, 0.6); color: var(--primary); transform: translateY(-5px); }
+        .btn { display: block; width: 90%; max-width: 400px; padding: 16px; margin: 8px 0; background: var(--btn-bg); color: var(--text-main); text-decoration: none; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); font-weight: 700; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: 0.3s; }
+        .btn:hover { background: rgba(241, 196, 15, 0.07); border-color: rgba(241, 196, 15, 0.6); color: var(--primary); transform: translateY(-3px); }
         
         .hidden { display: none !important; }
 
         .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040405; display: flex; justify-content: center; align-items: center; z-index: 9999; overflow-y: auto; padding: 20px 0; }
-        .login-box { background: var(--card-bg); padding: 40px 25px; border-radius: 32px; border: 1px solid rgba(241, 196, 15, 0.15); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 420px; box-sizing: border-box; }
+        .login-box { background: var(--card-bg); padding: 35px 22px; border-radius: 32px; border: 1px solid rgba(241, 196, 15, 0.15); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 430px; box-sizing: border-box; }
 
         .login-box h3 { color: var(--primary); margin-top: 0; font-size: 24px; font-weight: bold; }
-        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
-        .login-box input { width: 100%; padding: 16px; margin-bottom: 15px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; }
-        .login-box button { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
+        .login-box input { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 18px; font-weight: bold; box-sizing: border-box; outline: none; }
+        .login-box button { width: 100%; padding: 15px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 5px; }
         #error-msg { font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 22px; }
         
-        /* شێوازێ پرسیارێن ئەزموونێ */
-        .quiz-link { display: block; margin-top: 15px; color: var(--primary); text-decoration: underline; font-size: 14px; font-weight: 600; cursor: pointer; }
+        /* پەنەلا پرسیارێن ئاینی */
+        .buy-code-link { display: block; margin-top: 15px; color: var(--primary); text-decoration: underline; font-size: 14px; font-weight: 600; cursor: pointer; }
         .quiz-box { background: #121216; border: 1px solid #2d2d35; border-radius: 20px; padding: 20px; margin-top: 20px; text-align: right; }
-        .question-text { color: #fff; font-size: 15px; font-weight: bold; margin-bottom: 15px; line-height: 1.5; }
+        .question-text { color: #fff; font-size: 15px; font-weight: bold; margin-bottom: 15px; line-height: 1.6; border-right: 3px solid var(--primary); padding-right: 8px; }
         .option-label { display: block; background: #1a1a22; padding: 12px; margin-bottom: 8px; border-radius: 12px; border: 1px solid #2d2d35; cursor: pointer; font-size: 13px; color: var(--text-muted); transition: 0.2s; }
         .option-label:hover { border-color: var(--primary); color: #fff; }
         .option-label input { width: auto !important; margin-left: 10px; display: inline-block; margin-bottom: 0 !important; }
         
+        /* دوگمەیا مەیدانی یا AI */
+        .ai-btn { background: linear-gradient(135deg, #8e44ad, #9b59b6) !important; color: white !important; margin-bottom: 10px; font-size: 13px !important; padding: 10px !important; }
+        .ai-response { background: rgba(155, 89, 182, 0.1); border: 1px solid var(--ai-color); padding: 12px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; color: #e0b0ff; text-align: center; line-height: 1.5; display: none; }
+
         .result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--success); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
         .result-box code { font-size: 18px; color: var(--success); font-weight: bold; display: block; margin: 5px 0; letter-spacing: 1px; }
     </style>
@@ -71,32 +76,41 @@
             <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
             
-            <span id="quiz-toggle-btn" class="buy-code-link" onclick="toggleQuizBox()">🧠 کۆد نینە؟ بەشداریێ د ٣ پرسیارێن زەحمەت دا بکە بۆ وەرگرتنا کۆدی</span>
+            <span id="quiz-toggle-btn" class="buy-code-link" onclick="toggleQuizBox()">🧠 کۆد نینە؟ بەشداریێ د ٣ پرسیارێن زەحمەت یێن ئاینی دا بکە بۆ وەرگرتنا کۆدان</span>
             
             <div id="quiz-panel" class="quiz-box hidden">
                 <div id="quiz-content">
+                    <!-- پرسیارا ئێکێ -->
                     <div class="quiz-step" id="q-step-1">
-                        <div class="question-text">پرسیارا ١: ئەگەر هاوکێشەیا $x^2 - 5x + 6 = 0$ بیت، بەهایێ $x$ چەندە؟</div>
-                        <label class="option-label"><input type="radio" name="q1" value="A"> 1 یان 5</label>
-                        <label class="option-label"><input type="radio" name="q1" value="B"> 2 یان 3</label>
-                        <label class="option-label"><input type="radio" name="q1" value="C"> 0 یان -6</label>
+                        <div class="question-text">پرسیارا ١: کیژان پێغەمبەر بوو کو قەومێ وی ب هۆکارێ کێمکرنا کێشان و پێڤانێ (تطفیف المکیال والمیزان) هاتنە هیلاککرن؟</div>
+                        <label class="option-label"><input type="radio" name="q1" value="A"> پێغەمبەر صاڵح (ع.س)</label>
+                        <label class="option-label"><input type="radio" name="q1" value="B"> پێغەمبەر شوعەیب (ع.س)</label>
+                        <label class="option-label"><input type="radio" name="q1" value="C"> پێغەمبەر هوود (ع.س)</label>
+                        <button class="ai-btn" onclick="askAI(1)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
+                        <div id="ai-res-1" class="ai-response"></div>
                         <button onclick="nextQuestion(1)">پرسیارا داهاتی ➔</button>
                     </div>
 
+                    <!-- پرسیارا دووێ -->
                     <div class="quiz-step hidden" id="q-step-2">
-                        <div class="question-text">پرسیارا ٢: کاتێک تیشکەکا ڕووناهییێ ژ هەوای دچیتە د ناڤ ئاڤێ دا، چ گۆڕانکاری ب سەر پەرپەدا وێ (Frequency) دا دهێت؟</div>
-                        <label class="option-label"><input type="radio" name="q2" value="A"> زێدە دبیت</label>
-                        <label class="option-label"><input type="radio" name="q2" value="B"> کێم دبیت</label>
-                        <label class="option-label"><input type="radio" name="q2" value="C"> ناگۆڕێت (جێگیر دەمێنیت)</label>
+                        <div class="question-text">پرسیارا ٢: یەکەمین غەزا (جەنگ) کو موسڵمانان تێدا جەنگ کر بەبێ هندێ پێغەمبەر (د.خ) ل سەر بنڤیسیت یان بەشدار بیت (یانی سَرِیَّة بوو نەک غَزْوَة) کیژان بوو؟</div>
+                        <label class="option-label"><input type="radio" name="q2" value="A"> سَریَّة سێفولبەحر (حەمزە کوڕێ عەبدولموتەلیب)</label>
+                        <label class="option-label"><input type="radio" name="q2" value="B"> سَریَّة ڕابیغ (عوبەیدە کوڕێ حارس)</label>
+                        <label class="option-label"><input type="radio" name="q2" value="C"> سَریَّة نەخلە (عەبدوڵڵا کوڕێ جەحش)</label>
+                        <button class="ai-btn" onclick="askAI(2)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
+                        <div id="ai-res-2" class="ai-response"></div>
                         <button onclick="nextQuestion(2)">پرسیارا داهاتی ➔</button>
                     </div>
 
+                    <!-- پرسیارا سێیێ -->
                     <div class="quiz-step hidden" id="q-step-3">
-                        <div class="question-text">پرسیارا ٣: ل دونیایێ دا چ تشت هەیە کو د گەشەکرنێ دا یێ بەردەوامە بەڵام چو گیان تێدا نینە؟</div>
-                        <label class="option-label"><input type="radio" name="q3" value="A"> ئاگر</label>
-                        <label class="option-label"><input type="radio" name="q3" value="B"> بەرد</label>
-                        <label class="option-label"><input type="radio" name="q3" value="C"> ئاڤ</label>
-                        <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و وەرگرتنا کۆدی</button>
+                        <div class="question-text">پرسیارا ٣: کیژان هاوەڵ (صَحابی) بوو کو مەلائیکەتان شەرم ژێ دکر و پێغەمبەر (د.خ) فەرموویە کو مەلائیکەت ب ڕاستی شەرم ژێ دکەن؟</div>
+                        <label class="option-label"><input type="radio" name="q3" value="A"> عوسمان کوڕێ عەفان (ڕ.خ)</label>
+                        <label class="option-label"><input type="radio" name="q3" value="B"> عەبووبەکرێ سدیق (ڕ.خ)</label>
+                        <label class="option-label"><input type="radio" name="q3" value="C"> عومەر کوڕێ خەتاب (ڕ.خ)</label>
+                        <button class="ai-btn" onclick="askAI(3)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
+                        <div id="ai-res-3" class="ai-response"></div>
+                        <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و دەرخستنا کۆدان</button>
                     </div>
                 </div>
                 <div id="quiz-result"></div>
@@ -104,15 +118,23 @@
         </div>
     </div>
 
+    <!-- ئەڤە هەمی بابەتێن تە نە کو ل سەر گیت هێب دابوون -->
     <div id="main-content" class="hidden">
         <div class="header-container">
-            <h2>تاقیکرنێن ویزاری ٢٠٢٦</h2>
-            <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان</div>
+            <h2>تاقیکرنێن ویزاری ٢٠٢٥-٢٠٢٦</h2>
+            <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان - خولا دووێ</div>
         </div>
         <div class="btn-container">
             <a href="fizya.html" class="btn">فیزیا</a>
             <a href="mejo.html" class="btn">مێژوو</a>
             <a href="kurdish.html" class="btn">کوردی</a>
+            <a href="arabic.html" class="btn">عەرەبی</a>
+            <a href="english.html" class="btn">ئینگلیزی</a>
+            <a href="yasa.html" class="btn">یاسا</a>
+            <a href="ark.html" class="btn">ئارک (ARK)</a>
+            <a href="eslame.html" class="btn">ئیسلامی</a>
+            <a href="zindawar.html" class="btn">ژیندەوار (زیندەزانی)</a>
+            <a href="zindawar1.html" class="btn">ژیندەوار ١</a>
         </div>
     </div>
 
@@ -122,8 +144,13 @@
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        // وەڵامێن ڕاست یێن سێ پرسیاران
-        const correctAnswers = { q1: "B", q2: "C", q3: "A" };
+        const correctAnswers = { q1: "B", q2: "A", q3: "A" };
+
+        const aiHints = {
+            1: "🤖 ڕێنوونیا AI: ئەڤ پێغەمبەرە ل دەڤەرا مەدیەن ژیاوە، و د قورئانێ دا زۆر باسی ڕاستگۆیی د بازرگانیێ دا دکەت.",
+            2: "🤖 ڕێنوونیا AI: ئەڤ جەنگە بچووکە تێدا ئاڵایا سپی یا ئێکێ دروست بوو و فەرماندێ وێ مامێ پێغەمبەری بوو.",
+            3: "🤖 ڕێنوونیا AI: ئەڤ صەحابییە خاوەنێ دوو ڕووناهییان بوو (ذو النورين) و زۆر یێ شەرمۆک بوو."
+        };
 
         let currentStep = 1;
 
@@ -145,17 +172,21 @@
             document.getElementById("quiz-panel").classList.toggle("hidden");
         }
 
-        // پشکنین کا ئایا پێشتر ئەڤ مۆبایلە پشکدار بوویە یان نە
+        function askAI(qNum) {
+            const aiBox = document.getElementById(`ai-res-${qNum}`);
+            aiBox.innerHTML = aiHints[qNum];
+            aiBox.style.display = "block";
+        }
+
         function checkIfQuizTaken() {
             if (localStorage.getItem("quiz_taken") === "true") {
                 document.getElementById("quiz-toggle-btn").style.display = "none";
                 document.getElementById("quiz-panel").classList.remove("hidden");
-                document.getElementById("quiz-content").innerHTML = `<p style="color:var(--error); text-align:center; font-weight:bold;">⚠️ تۆ پێشتر بەژداریت کریە! بۆ هەر تەلەفۆنەکێ تەنها ئێک جار ڕێ پێدراوە.</p>`;
+                document.getElementById("quiz-content").innerHTML = `<p style="color:var(--error); text-align:center; font-weight:bold;">⚠️ ئەڤ مۆبایلە پێشتر بەژداری کرییە! تنێ ئێک جار ڕێ پێدراوە.</p>`;
             }
         }
 
         function nextQuestion(currentQ) {
-            // پشکنین دکەت کا بژاردەیەک هاتیە دیارکرن یان نە
             const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
             if (!selected) { alert("تکایە سەرەتا وەڵامێک هەڵبژێره!"); return; }
 
@@ -165,9 +196,8 @@
 
         function finishQuiz() {
             const selectedQ3 = document.querySelector('input[name="q3"]:checked');
-            if (!selectedQ3) { alert("تکایە وەڵامی پرسیاری سێیەم بدەوە!"); return; }
+            if (!selectedQ3) { alert("تکایە وەڵامی پرسیارێ بدە!"); return; }
 
-            // تۆمارکرنا وێ چەندێ کو ئەڤ مۆبایلە ئێدی قفڵ بوو و نەشێت دووبارە تاقی کەتەوە
             localStorage.setItem("quiz_taken", "true");
 
             const ans1 = document.querySelector('input[name="q1"]:checked').value;
@@ -183,31 +213,36 @@
             const resultDiv = document.getElementById("quiz-result");
 
             if (correctCount === 3) {
-                // ئەگەر هەر سێ ڕاست بوون ➔ هەمی کۆدان ددەتێ
                 resultDiv.innerHTML = `
                     <div class="result-box">
-                        <span style="color:white; font-size:13px; font-weight:bold;"> پیرۆزە! هەر سێ وەڵام ڕاست بوون 🌟</span>
-                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">ئەڤە هەمی کۆدێن چوونەژوورێ نە:</p>
-                        <code>قۆناغا ١: JEKO22</code>
-                        <code>قۆناغا ٢: JEKO77</code>
-                        <code>قۆناغا ٣: JEKO9293</code>
+                        <span style="color:var(--success); font-size:14px; font-weight:bold;">ماشاالله! هەر سێ وەڵام زۆر ڕاست بوون 🌟</span>
+                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">ئەڤە هەر سێ کۆدێن تە نە:</p>
+                        <code>کۆدێ ئێکێ: JEKO22</code>
+                        <code>کۆدێ دووێ: JEKO77</code>
+                        <code>کۆدێ سێیێ: JEKO9293</code>
                     </div>
                 `;
-            } else if (correctCount >= 1) {
-                // ئەگەر تنێ ئێک یان دوو ڕاست بوون ➔ تنێ کۆدێ ئێکێ ددەتێ
+            } else if (correctCount === 2) {
                 resultDiv.innerHTML = `
                     <div class="result-box" style="border-color:var(--primary); background:rgba(241,196,15,0.1);">
-                        <span style="color:var(--primary); font-size:13px; font-weight:bold;">تۆ تنێ ${correctCount} وەڵامێن ڕاستت زانین!</span>
+                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">زۆر باشە! دوو وەڵامێن ڕاستت زانین.</span>
+                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">تەنها دوو کۆد بۆ تە دیار بوون:</p>
+                        <code>کۆدێ ئێکێ: JEKO22</code>
+                        <code>کۆدێ دووێ: JEKO77</code>
+                    </div>
+                `;
+            } else if (correctCount === 1) {
+                resultDiv.innerHTML = `
+                    <div class="result-box" style="border-color:var(--primary); background:rgba(241,196,15,0.1);">
+                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">تۆ تەنها ئێک وەڵامێ ڕاستت زانی.</span>
                         <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">تەنها کـۆدێ قۆناغا ئێکێ بۆ تە دیار بوو:</p>
-                        <code style="color:var(--primary);">قۆناغا ١: JEKO22</code>
-                        <small style="color:var(--error); font-size:11px; display:block; margin-top:5px;">(بۆ کۆدێن دی دڤێت پرسیار بکەی یان ب کڕینی دەستکەڤی)</small>
+                        <code>کۆدێ ئێکێ: JEKO22</code>
                     </div>
                 `;
             } else {
-                // ئەگەر چو لێ ڕاست نەبوو
                 resultDiv.innerHTML = `
                     <div class="result-box" style="border-color:var(--error); background:rgba(255,71,87,0.1);">
-                        <span style="color:var(--error); font-size:13px; font-weight:bold;">داخۆبارین! چو وەڵامەک ڕاست نەبوو.</span>
+                        <span style="color:var(--error); font-size:14px; font-weight:bold;">داخۆبارین! چو وەڵامەک ڕاست نەبوو.</span>
                         <p style="font-size:12px; color:var(--text-muted); margin:5px 0;">چو کۆد بۆ تە نەهاتنە دیارکرن.</p>
                     </div>
                 `;
@@ -263,7 +298,7 @@
                     localStorage.setItem("app_device_locked", "true");
                     showSiteContent();
                 }
-            }, 500);
+            }, 400);
         }
 
         function showSiteContent() {
