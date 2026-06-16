@@ -58,8 +58,8 @@
         .option-label:hover { border-color: var(--primary); color: #fff; }
         .option-label input { width: auto !important; margin-left: 10px; display: inline-block; margin-bottom: 0 !important; }
         
-        /* دوگمەیا مەیدانی یا AI */
-        .ai-btn { background: linear-gradient(135deg, #8e44ad, #9b59b6) !important; color: white !important; margin-bottom: 10px; font-size: 13px !important; padding: 10px !important; }
+        /* دوگمەیا AI */
+        .ai-btn { background: linear-gradient(135deg, #8e44ad, #9b59b6) !important; color: white !important; margin-bottom: 12px; font-size: 13px !important; padding: 10px !important; }
         .ai-response { background: rgba(155, 89, 182, 0.1); border: 1px solid var(--ai-color); padding: 12px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; color: #e0b0ff; text-align: center; line-height: 1.5; display: none; }
 
         .result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--success); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
@@ -80,34 +80,37 @@
             
             <div id="quiz-panel" class="quiz-box hidden">
                 <div id="quiz-content">
-                    <!-- پرسیارا ئێکێ -->
+                    <!-- پرسیارا ئێکێ (٤ هەڵبژارتن) -->
                     <div class="quiz-step" id="q-step-1">
                         <div class="question-text">پرسیارا ١: کیژان پێغەمبەر بوو کو قەومێ وی ب هۆکارێ کێمکرنا کێشان و پێڤانێ (تطفیف المکیال والمیزان) هاتنە هیلاککرن؟</div>
                         <label class="option-label"><input type="radio" name="q1" value="A"> پێغەمبەر صاڵح (ع.س)</label>
                         <label class="option-label"><input type="radio" name="q1" value="B"> پێغەمبەر شوعەیب (ع.س)</label>
                         <label class="option-label"><input type="radio" name="q1" value="C"> پێغەمبەر هوود (ع.س)</label>
+                        <label class="option-label"><input type="radio" name="q1" value="D"> پێغەمبەر ساڵح (ع.س)</label>
                         <button class="ai-btn" onclick="askAI(1)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
                         <div id="ai-res-1" class="ai-response"></div>
                         <button onclick="nextQuestion(1)">پرسیارا داهاتی ➔</button>
                     </div>
 
-                    <!-- پرسیارا دووێ -->
+                    <!-- پرسیارا دووێ (٤ هەڵبژارتن) -->
                     <div class="quiz-step hidden" id="q-step-2">
-                        <div class="question-text">پرسیارا ٢: یەکەمین غەزا (جەنگ) کو موسڵمانان تێدا جەنگ کر بەبێ هندێ پێغەمبەر (د.خ) ل سەر بنڤیسیت یان بەشدار بیت (یانی سَرِیَّة بوو نەک غَزْوَة) کیژان بوو؟</div>
+                        <div class="question-text">پرسیارا ٢: یەکەمین غەزا (جەنگ) کو موسڵمانان تێدا جەنگ کر بەبێ هندێ پێغەمبەر (د.خ) ل سەر بنڤیسیت یان بەشدار بیت (یانی سَرِیَّة بوو) کیژان بوو؟</div>
                         <label class="option-label"><input type="radio" name="q2" value="A"> سَریَّة سێفولبەحر (حەمزە کوڕێ عەبدولموتەلیب)</label>
                         <label class="option-label"><input type="radio" name="q2" value="B"> سَریَّة ڕابیغ (عوبەیدە کوڕێ حارس)</label>
                         <label class="option-label"><input type="radio" name="q2" value="C"> سَریَّة نەخلە (عەبدوڵڵا کوڕێ جەحش)</label>
+                        <label class="option-label"><input type="radio" name="q2" value="D"> سَریَّة ئەبوا (ودان)</label>
                         <button class="ai-btn" onclick="askAI(2)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
                         <div id="ai-res-2" class="ai-response"></div>
                         <button onclick="nextQuestion(2)">پرسیارا داهاتی ➔</button>
                     </div>
 
-                    <!-- پرسیارا سێیێ -->
+                    <!-- پرسیارا سێیێ (٤ هەڵبژارتن) -->
                     <div class="quiz-step hidden" id="q-step-3">
                         <div class="question-text">پرسیارا ٣: کیژان هاوەڵ (صَحابی) بوو کو مەلائیکەتان شەرم ژێ دکر و پێغەمبەر (د.خ) فەرموویە کو مەلائیکەت ب ڕاستی شەرم ژێ دکەن؟</div>
                         <label class="option-label"><input type="radio" name="q3" value="A"> عوسمان کوڕێ عەفان (ڕ.خ)</label>
                         <label class="option-label"><input type="radio" name="q3" value="B"> عەبووبەکرێ سدیق (ڕ.خ)</label>
                         <label class="option-label"><input type="radio" name="q3" value="C"> عومەر کوڕێ خەتاب (ڕ.خ)</label>
+                        <label class="option-label"><input type="radio" name="q3" value="D"> عەلی کوڕێ ئەبو تالیب (ڕ.خ)</label>
                         <button class="ai-btn" onclick="askAI(3)">✨ پسیارکرن ژ ڕێنوونیا AI</button>
                         <div id="ai-res-3" class="ai-response"></div>
                         <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و دەرخستنا کۆدان</button>
@@ -118,7 +121,7 @@
         </div>
     </div>
 
-    <!-- ئەڤە هەمی بابەتێن تە نە کو ل سەر گیت هێب دابوون -->
+    <!-- گرتنا ناڤێ پەلێن تە ژ سەر گیت هێب -->
     <div id="main-content" class="hidden">
         <div class="header-container">
             <h2>تاقیکرنێن ویزاری ٢٠٢٥-٢٠٢٦</h2>
@@ -144,12 +147,14 @@
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
+        // وەڵامێن ڕاست یێن سێ پرسیاران
         const correctAnswers = { q1: "B", q2: "A", q3: "A" };
 
+        // دەقێ تایبەت یێ هاریکاریا AI بۆ هەر پرسیارەکێ ب جیاوازی
         const aiHints = {
-            1: "🤖 ڕێنوونیا AI: ئەڤ پێغەمبەرە ل دەڤەرا مەدیەن ژیاوە، و د قورئانێ دا زۆر باسی ڕاستگۆیی د بازرگانیێ دا دکەت.",
-            2: "🤖 ڕێنوونیا AI: ئەڤ جەنگە بچووکە تێدا ئاڵایا سپی یا ئێکێ دروست بوو و فەرماندێ وێ مامێ پێغەمبەری بوو.",
-            3: "🤖 ڕێنوونیا AI: ئەڤ صەحابییە خاوەنێ دوو ڕووناهییان بوو (ذو النورين) و زۆر یێ شەرمۆک بوو."
+            1: "🤖 ڕێنوونیا AI بۆ تە دبێژیت: ئەڤ پێغەمبەرە هاتییە ناردن بۆ خەڵکێ مەدیەن و ئەسحابولئەیکە، و د سۆرەتا هود دا زۆر باسی کرییە.",
+            2: "🤖 ڕێنوونیا AI بۆ تە دبێژیت: ئەڤ سەرئیەیە ل نێزیک دەریایا سوور بوو و د ناڤبەرا مەککە و مەدینە دا ڕوودا، فەرماندێ وێ مەمێ پێغەمبەری بوو.",
+            3: "🤖 ڕێنوونیا AI بۆ تە دبێژیت: ئەڤ هاوەڵە زۆر یێ شەرمۆک بوو و کچێن پێغەمبەری (د.خ) مەیژوو ل سەر هەڤ کڕینە شوو پێ کرییە."
         };
 
         let currentStep = 1;
