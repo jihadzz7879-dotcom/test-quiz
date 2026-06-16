@@ -59,12 +59,11 @@
         .option-label:hover { border-color: var(--primary); color: #fff; }
         .option-label input { width: auto !important; margin-left: 10px; display: inline-block; margin-bottom: 0 !important; }
         
-        /* پەنەلا دوگمەیێن هاریکاریێ */
         .help-container { display: flex; gap: 8px; margin-bottom: 15px; }
-        .help-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; color: white; }
+        .help-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; color: white; }
         .btn-5050 { background: linear-gradient(135deg, #2980b9, var(--help-color)); }
         .btn-ai { background: linear-gradient(135deg, #8e44ad, var(--ai-color)); }
-        .help-btn:disabled { opacity: 0.2 !important; cursor: not-allowed !important; background: #222 !important; color: #555 !important; }
+        .help-btn:disabled { opacity: 0.15 !important; cursor: not-allowed !important; background: #222 !important; color: #555 !important; }
 
         .ai-response { background: rgba(155, 89, 182, 0.15); border: 1px dashed var(--ai-color); padding: 12px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; color: #e0b0ff; text-align: center; line-height: 1.5; display: none; }
         .result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--success); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
@@ -81,18 +80,17 @@
             <button id="submit-btn" onclick="validateStepCode()">پشکنین و کۆدێ دووێ</button>
             <div id="error-msg"></div>
             
-            <span id="quiz-toggle-btn" class="buy-code-link" onclick="toggleQuizBox()">🧠 کۆد نینە؟ بەشداریێ د ٣ پرسیارێن زەحمەت یێن ئاینی دا بکە بۆ وەرگرتنا کۆدان</span>
+            <span id="quiz-toggle-btn" class="buy-code-link" onclick="toggleQuizBox()">🧠 کۆد نینە؟ بەشداریێ د ٦ پرسیارێن زەحمەت یێن ئاینی دا بکە بۆ وەرگرتنا کۆدان</span>
             
             <div id="quiz-panel" class="quiz-box hidden">
                 <div id="quiz-content">
                     <div class="quiz-step" id="q-step-1">
-                        <div class="question-text">پرسیارا ١: کیژان پێغەمبەر بوو کو قەومێ وی ب هۆکارێ کێمکرنا کێشان و پێڤانێ (تطفیف المکیال والمیزان) هاتنە هیلاککرن؟</div>
+                        <div class="question-text">پرسیارا ١: کیژان پێغەمبەر بوو کو قەومێ وی ب هۆکارێ کێمکرنا کێشان و پێڤانێ (تطفیف) هاتنە هیلاککرن؟</div>
                         <div class="help-container">
-                            <button class="help-btn btn-5050" id="btn-50-q1" onclick="use5050(1, ['A', 'C'])">❌ لادانا ٢ بژاردان</button>
-                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-q1" onclick="useAI(1, 'بژاردا (B) پێغەمبەر شوعەیب (ع.س) وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-1" onclick="use5050(1, ['A', 'C'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-1" onclick="useAI(1, 'بژاردا (B) پێغەمبەر شوعەیب (ع.س) وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
                         </div>
                         <div id="ai-res-1" class="ai-response"></div>
-
                         <label class="option-label" id="opt-1-A"><input type="radio" name="q1" value="A"> پێغەمبەر صاڵح (ع.س)</label>
                         <label class="option-label" id="opt-1-B"><input type="radio" name="q1" value="B"> پێغەمبەر شوعەیب (ع.س)</label>
                         <label class="option-label" id="opt-1-C"><input type="radio" name="q1" value="C"> پێغەمبەر هوود (ع.س)</label>
@@ -103,30 +101,70 @@
                     <div class="quiz-step hidden" id="q-step-2">
                         <div class="question-text">پرسیارا ٢: یەکەمین غەزا (جەنگ) کو موسڵمانان تێدا جەنگ کر بەبێ هندێ پێغەمبەر (د.خ) ل سەر بنڤیسیت یان بەشدار بیت (یانی سَرِیَّة بوو) کیژان بوو؟</div>
                         <div class="help-container">
-                            <button class="help-btn btn-5050" id="btn-50-q2" onclick="use5050(2, ['C', 'D'])">❌ لادانا ٢ بژاردان</button>
-                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-q2" onclick="useAI(2, 'بژاردا (A) سَریَّة سێفولبەحر وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-2" onclick="use5050(2, ['C', 'D'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-2" onclick="useAI(2, 'بژاردا (A) سَریَّة سێفولبەحر وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
                         </div>
                         <div id="ai-res-2" class="ai-response"></div>
-
-                        <label class="option-label" id="opt-2-A"><input type="radio" name="q2" value="A"> سَریَّة سێفولبەحر (حەمزە کوڕێ عەبدولموتەلیب)</label>
-                        <label class="option-label" id="opt-2-B"><input type="radio" name="q2" value="B"> سَریَّة ڕابیغ (عوبەیدە کوڕێ حارس)</label>
-                        <label class="option-label" id="opt-2-C"><input type="radio" name="q2" value="C"> سَریَّة نەخلە (عەبدوڵڵا کوڕێ جەحش)</label>
-                        <label class="option-label" id="opt-2-D"><input type="radio" name="q2" value="D"> سَریَّة ئەبوا (ودان)</label>
+                        <label class="option-label" id="opt-2-A"><input type="radio" name="q2" value="A"> سَریَّة سێفولبەحر</label>
+                        <label class="option-label" id="opt-2-B"><input type="radio" name="q2" value="B"> سَریَّة ڕابیغ</label>
+                        <label class="option-label" id="opt-2-C"><input type="radio" name="q2" value="C"> سَریَّة نەخلە</label>
+                        <label class="option-label" id="opt-2-D"><input type="radio" name="q2" value="D"> سَریَّة ئەبوا</label>
                         <button onclick="nextQuestion(2)">پرسیارا داهاتی ➔</button>
                     </div>
 
                     <div class="quiz-step hidden" id="q-step-3">
-                        <div class="question-text">پرسیارا ٣: کیژان هاوەڵ (صَحابی) بوو کو مەلائیکەتان شەرم ژێ دکر و پێغەمبەر (د.خ) فەرموویە کو مەلائیکەت ب ڕاستی شەرم ژێ دکەن؟</div>
+                        <div class="question-text">پرسیارا ٣: کیژان هاوەڵ (صَحابی) بوو کو مەلائیکەتان شەرم ژێ دکر؟</div>
                         <div class="help-container">
-                            <button class="help-btn btn-5050" id="btn-50-q3" onclick="use5050(3, ['B', 'D'])">❌ لادانا ٢ بژاردان</button>
-                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-q3" onclick="useAI(3, 'بژاردا (A) عوسمان کوڕێ عەفان وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-3" onclick="use5050(3, ['B', 'D'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-3" onclick="useAI(3, 'بژاردا (A) عوسمان کوڕێ عەفان وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
                         </div>
                         <div id="ai-res-3" class="ai-response"></div>
-
                         <label class="option-label" id="opt-3-A"><input type="radio" name="q3" value="A"> عوسمان کوڕێ عەفان (ڕ.خ)</label>
                         <label class="option-label" id="opt-3-B"><input type="radio" name="q3" value="B"> عەبووبەکرێ سدیق (ڕ.خ)</label>
                         <label class="option-label" id="opt-3-C"><input type="radio" name="q3" value="C"> عومەر کوڕێ خەتاب (ڕ.خ)</label>
                         <label class="option-label" id="opt-3-D"><input type="radio" name="q3" value="D"> عەلی کوڕێ ئەبو تالیب (ڕ.خ)</label>
+                        <button onclick="nextQuestion(3)">پرسیارا داهاتی ➔</button>
+                    </div>
+
+                    <div class="quiz-step hidden" id="q-step-4">
+                        <div class="question-text">پرسیارا ٤: یەکەمین کۆچکرنا موسڵمانان (الهجرة الأولى) بۆ کیژان وڵات بوو؟</div>
+                        <div class="help-container">
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-4" onclick="use5050(4, ['A', 'B'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-4" onclick="useAI(4, 'بژاردا (C) حەبەشە (الحبشة) وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                        </div>
+                        <div id="ai-res-4" class="ai-response"></div>
+                        <label class="option-label" id="opt-4-A"><input type="radio" name="q4" value="A"> شام</label>
+                        <label class="option-label" id="opt-4-B"><input type="radio" name="q4" value="B"> یەمەن</label>
+                        <label class="option-label" id="opt-4-C"><input type="radio" name="q4" value="C"> حەبەشە (الحبشة)</label>
+                        <label class="option-label" id="opt-4-D"><input type="radio" name="q4" value="D"> مەدینە</label>
+                        <button onclick="nextQuestion(4)">پرسیارا داهاتی ➔</button>
+                    </div>
+
+                    <div class="quiz-step hidden" id="q-step-5">
+                        <div class="question-text">پرسیارا ٥: کیژان سۆرەت د قورئانێ دا ب ناڤێ (سورة بني إسرائيل) ژی دهێتە ناسین؟</div>
+                        <div class="help-container">
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-5" onclick="use5050(5, ['B', 'D'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-5" onclick="useAI(5, 'بژاردا (A) سۆرەتا الإسراء وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                        </div>
+                        <div id="ai-res-5" class="ai-response"></div>
+                        <label class="option-label" id="opt-5-A"><input type="radio" name="q5" value="A"> سورة الإسراء</label>
+                        <label class="option-label" id="opt-5-B"><input type="radio" name="q5" value="B"> سورة الكهف</label>
+                        <label class="option-label" id="opt-5-C"><input type="radio" name="q5" value="C"> سورة النمل</label>
+                        <label class="option-label" id="opt-5-D"><input type="radio" name="q5" value="D"> سورة القصص</label>
+                        <button onclick="nextQuestion(5)">پرسیارا داهاتی ➔</button>
+                    </div>
+
+                    <div class="quiz-step hidden" id="q-step-6">
+                        <div class="question-text">پرسیارا ٦: ماوەیێ دابەزینا قورئانا پیرۆز ل سەر پێغەمبەری (د.خ) چەند ساڵ بوو ب گشتی؟</div>
+                        <div class="help-container">
+                            <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-6" onclick="use5050(6, ['A', 'C'])">❌ 50:50 (تنێ ١ جار)</button>
+                            <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-6" onclick="useAI(6, 'بژاردا (D) ٢٣ ساڵ وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI (تنێ ١ جار)</button>
+                        </div>
+                        <div id="ai-res-6" class="ai-response"></div>
+                        <label class="option-label" id="opt-6-A"><input type="radio" name="q6" value="A"> ١٠ ساڵ</label>
+                        <label class="option-label" id="opt-6-B"><input type="radio" name="q6" value="B"> ١٣ ساڵ</label>
+                        <label class="option-label" id="opt-6-C"><input type="radio" name="q6" value="C"> ٢0 ساڵ</label>
+                        <label class="option-label" id="opt-6-D"><input type="radio" name="q6" value="D"> ٢٣ ساڵ</label>
                         <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و دەرخستنا کۆدان</button>
                     </div>
                 </div>
@@ -160,9 +198,11 @@
         const step2Codes = ["JEKO77", "JEKO88"];
         const step3Codes = ["JEKO9293", "JEKO0"];
 
-        const correctAnswers = { q1: "B", q2: "A", q3: "A" };
+        const correctAnswers = { q1: "B", q2: "A", q3: "A", q4: "C", q5: "A", q6: "D" };
         let currentStep = 1;
-        let aiUsedGlobal = false; // کۆنترۆڵکرنا وێ چەندێ کو ئایا AI هاتییە بەکارئینان یان نە
+        
+        let aiUsedGlobal = false;
+        let fiftyUsedGlobal = false;
 
         if (!localStorage.getItem("secure_hardware_id")) {
             localStorage.setItem("secure_hardware_id", "ID-" + btoa(navigator.userAgent).substr(10, 15) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase());
@@ -182,37 +222,35 @@
             document.getElementById("quiz-panel").classList.toggle("hidden");
         }
 
-        // هاریکاریا 50:50 بۆ هەر پرسیارەکێ جودا کار دکەت
         function use5050(qNum, badOptions) {
+            if (fiftyUsedGlobal) return;
+            fiftyUsedGlobal = true;
+
             badOptions.forEach(opt => {
                 const targetLabel = document.getElementById(`opt-${qNum}-${opt}`);
                 if(targetLabel) targetLabel.classList.add("half-hidden");
             });
-            document.getElementById(`btn-50-q${qNum}`).disabled = true;
+            
+            document.querySelectorAll('.class-5050-nodes').forEach(btn => btn.disabled = true);
         }
 
-        // کارپێکرنا زیرەکیا دەستکرد AI (تەنها ئێک جار بۆ هەمی ئەزموونێ)
         function useAI(qNum, answerText) {
-            if (aiUsedGlobal) return; // ئەگەر پێشتر بەکار هاتبییت، چو ناکەت
-
-            aiUsedGlobal = true; // لێرە قفل دبیت
+            if (aiUsedGlobal) return;
+            aiUsedGlobal = true;
 
             const aiBox = document.getElementById(`ai-res-${qNum}`);
             aiBox.innerHTML = `🤖 وەڵامێ ڕاست یێ AI: ${answerText}`;
             aiBox.style.display = "block";
             
-            // نەهێلانا کلیککرنێ ل سەر هەمی دوگمەیێن AI یێن دی یێن ماین
-            const allAiBtns = document.querySelectorAll('.class-ai-nodes');
-            allAiBtns.forEach(btn => {
-                btn.disabled = true;
-            });
+            document.querySelectorAll('.class-ai-nodes').forEach(btn => btn.disabled = true);
         }
 
         function checkIfQuizTaken() {
-            if (localStorage.getItem("quiz_taken") === "true") {
+            let attempts = parseInt(localStorage.getItem("quiz_attempts") || "0");
+            if (attempts >= 2) {
                 document.getElementById("quiz-toggle-btn").style.display = "none";
                 document.getElementById("quiz-panel").classList.remove("hidden");
-                document.getElementById("quiz-content").innerHTML = `<p style="color:var(--error); text-align:center; font-weight:bold;">⚠️ ئەڤ مۆبایلە پێشتر بەژداری کرییە! تنێ ئێک جار ڕێ پێدراوە.</p>`;
+                document.getElementById("quiz-content").innerHTML = `<p style="color:var(--error); text-align:center; font-weight:bold;">⚠️ ئەڤ مۆبایلە ٢ جاران بەشداربوویە! ئێدی ڕێگە پێدراو نینە.</p>`;
             }
         }
 
@@ -225,55 +263,57 @@
         }
 
         function finishQuiz() {
-            const selectedQ3 = document.querySelector('input[name="q3"]:checked');
-            if (!selectedQ3) { alert("تکایە وەڵامی پرسیارێ بدە!"); return; }
+            const selectedQ6 = document.querySelector('input[name="q6"]:checked');
+            if (!selectedQ6) { alert("تکایە وەڵامی پرسیارێ بدە!"); return; }
 
-            localStorage.setItem("quiz_taken", "true");
-
-            const ans1 = document.querySelector('input[name="q1"]:checked').value;
-            const ans2 = document.querySelector('input[name="q2"]:checked').value;
-            const ans3 = document.querySelector('input[name="q3"]:checked').value;
+            let attempts = parseInt(localStorage.getItem("quiz_attempts") || "0");
+            attempts++;
+            localStorage.setItem("quiz_attempts", attempts.toString());
 
             let correctCount = 0;
-            if (ans1 === correctAnswers.q1) correctCount++;
-            if (ans2 === correctAnswers.q2) correctCount++;
-            if (ans3 === correctAnswers.q3) correctCount++;
+            for (let i = 1; i <= 6; i++) {
+                const ans = document.querySelector(`input[name="q${i}"]:checked`).value;
+                if (ans === correctAnswers[`q${i}`]) correctCount++;
+            }
 
             document.getElementById("quiz-content").classList.add("hidden");
             const resultDiv = document.getElementById("quiz-result");
 
-            if (correctCount === 3) {
+            let remainingText = attempts < 2 ? `<p style="color:var(--primary); font-size:12px;">🔄 تۆ هێشتا ١ دەلیڤەیا دی یا مای بۆ تاقیکرنێ.</p>` : `<p style="color:var(--error); font-size:12px;">⛔ هەمی دەلیڤەیێن تە تەمام بوون.</p>`;
+
+            if (correctCount === 6) {
                 resultDiv.innerHTML = `
                     <div class="result-box">
-                        <span style="color:var(--success); font-size:14px; font-weight:bold;">ماشاالله! هەر سێ وەڵام زۆر ڕاست بوون 🌟</span>
-                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">ئەڤە هەر سێ کۆدێن تە نە:</p>
+                        <span style="color:var(--success); font-size:14px; font-weight:bold;">ماشاالله! هەر ٦ وەڵام زۆر ڕاست بوون 🌟</span>
                         <code>کۆدێ ئێکێ: JEKO22</code>
                         <code>کۆدێ دووێ: JEKO77</code>
                         <code>کۆدێ سێیێ: JEKO9293</code>
+                        ${remainingText}
                     </div>
                 `;
-            } else if (correctCount === 2) {
+            } else if (correctCount >= 4) {
                 resultDiv.innerHTML = `
                     <div class="result-box" style="border-color:var(--primary); background:rgba(241,196,15,0.1);">
-                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">زۆر باشە! دوو وەڵامێن ڕاستت زانین.</span>
-                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">تەنها دوو کۆد بۆ تە دیار بوون:</p>
+                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">زۆر باشە! ${correctCount} وەڵامێن ڕاستت زانین.</span>
                         <code>کۆدێ ئێکێ: JEKO22</code>
                         <code>کۆدێ دووێ: JEKO77</code>
+                        ${remainingText}
                     </div>
                 `;
-            } else if (correctCount === 1) {
+            } else if (correctCount >= 2) {
                 resultDiv.innerHTML = `
                     <div class="result-box" style="border-color:var(--primary); background:rgba(241,196,15,0.1);">
-                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">تۆ تەنها ئێک وەڵامێ ڕاستت زانی.</span>
-                        <p style="font-size:12px; color:var(--text-muted); margin: 5px 0;">تەنها کـۆدێ قۆناغا ئێکێ بۆ تە دیار بوو:</p>
+                        <span style="color:var(--primary); font-size:14px; font-weight:bold;">تۆ ${correctCount} وەڵامێن ڕاست زانین.</span>
                         <code>کۆدێ ئێکێ: JEKO22</code>
+                        ${remainingText}
                     </div>
                 `;
             } else {
                 resultDiv.innerHTML = `
                     <div class="result-box" style="border-color:var(--error); background:rgba(255,71,87,0.1);">
-                        <span style="color:var(--error); font-size:14px; font-weight:bold;">داخۆبارین! چو وەڵامەک ڕاست نەبوو.</span>
-                        <p style="font-size:12px; color:var(--text-muted); margin:5px 0;">چو کۆد بۆ تە نەهاتنە دیارکرن.</p>
+                        <span style="color:var(--error); font-size:14px; font-weight:bold;">داخۆبارین! تەنها ${correctCount} وەڵام ڕاست بوون (کێمتر ژ ٢).</span>
+                        <p style="font-size:12px; color:var(--text-muted);">چو کۆد بۆ تە نەهاتنە دیارکرن.</p>
+                        ${remainingText}
                     </div>
                 `;
             }
