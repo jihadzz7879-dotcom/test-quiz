@@ -16,8 +16,8 @@
             --text-muted: #a0a0be;
             --error: #ff4757;
             --success: #2ed573;
-            --ai-color: #9b59b6;
-            --help-color: #3498db;
+            --warning-bg: rgba(230, 126, 34, 0.15);
+            --warning-border: #e67e22;
         }
 
         body { 
@@ -48,7 +48,7 @@
         h2 { color: var(--primary); margin: 0 0 8px 0; font-size: 28px; font-weight: 900; text-shadow: 0 0 20px rgba(255, 204, 0, 0.3); }
         .subtitle { color: var(--text-muted); font-size: 13px; font-weight: 500; }
         
-        /* شێوازێ نوو و پێشکەفتی یێ دوگمەیێن ماددەیان */
+        /* دوگمەیێن ماددەیان */
         .btn-container { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -76,17 +76,13 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            transition: 0.5s;
+        .btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
-        .btn:hover::before { left: 100%; }
-        .btn:hover { 
+        .btn:not(.disabled):hover { 
             background: linear-gradient(135deg, rgba(255, 204, 0, 0.15) 0%, rgba(20, 20, 35, 0.9) 100%);
             border-color: var(--primary); 
             color: var(--primary); 
@@ -96,9 +92,8 @@
         .btn span { font-size: 24px; margin-bottom: 8px; }
         
         .hidden { display: none !important; }
-        .half-hidden { opacity: 0.15; pointer-events: none; text-decoration: line-through; }
 
-        /* پەنەلێ ئەزموونێ و چووناژوورێ */
+        /* سیستەمێ قفلکرنێ و چووناژوورێ */
         .section-box {
             width: 100%;
             max-width: 500px;
@@ -111,45 +106,28 @@
             margin-top: 10px;
         }
 
-        .quiz-toggle-btn { 
-            display: inline-block; 
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            color: white;
+        .warning-box {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            color: #f39c12;
+            padding: 15px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(230,126,34,0.4);
-            transition: 0.3s;
-            border: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .quiz-toggle-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,126,34,0.6); }
 
-        .account-link { display: block; margin-top: 15px; color: var(--primary); text-decoration: underline; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .account-link { display: block; margin-bottom: 15px; color: var(--primary); text-decoration: underline; font-size: 14px; font-weight: 600; cursor: pointer; }
         
         .login-box input { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 50px; border: 1px solid #2d2d35; background: rgba(10, 10, 12, 0.9); color: white; text-align: center; font-size: 15px; font-weight: bold; box-sizing: border-box; outline: none; }
         .login-box button { width: 100%; padding: 14px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; font-size: 15px; font-weight: bold; cursor: pointer; }
         
-        .quiz-box { background: rgba(10, 10, 15, 0.9); border: 1px solid #2d2d35; border-radius: 20px; padding: 20px; margin-top: 20px; text-align: right; }
-        .question-text { color: #fff; font-size: 15px; font-weight: bold; margin-bottom: 15px; line-height: 1.6; border-right: 3px solid var(--primary); padding-right: 8px; }
-        .option-label { display: block; background: #1a1a22; padding: 12px; margin-bottom: 8px; border-radius: 12px; border: 1px solid #2d2d35; cursor: pointer; font-size: 13px; color: var(--text-muted); transition: 0.2s; }
-        .option-label:hover { border-color: var(--primary); color: #fff; }
-        .option-label input { width: auto !important; margin-left: 10px; display: inline-block; margin-bottom: 0 !important; }
-        
-        .help-container { display: flex; gap: 8px; margin-bottom: 15px; }
-        .help-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; color: white; }
-        .btn-5050 { background: linear-gradient(135deg, #2980b9, var(--help-color)); }
-        .btn-ai { background: linear-gradient(135deg, #8e44ad, var(--ai-color)); }
-        .help-btn:disabled { opacity: 0.15 !important; cursor: not-allowed !important; background: #222 !important; color: #555 !important; }
-
-        .ai-response { background: rgba(155, 89, 182, 0.15); border: 1px dashed var(--ai-color); padding: 12px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; color: #e0b0ff; text-align: center; line-height: 1.5; display: none; }
-        .result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--success); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
-        .result-box code { font-size: 18px; color: var(--success); font-weight: bold; display: block; margin: 5px 0; letter-spacing: 1px; }
-        .quiz-step button { width: 100%; padding: 12px; border-radius: 12px; border: none; background: #e67e22; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; }
         #error-msg { font-size: 14px; margin-top: 12px; font-weight: bold; min-height: 20px; text-align: center; }
-        .status-badge { background: rgba(46, 213, 115, 0.2); color: var(--success); border: 1px solid var(--success); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        .status-badge { background: rgba(46, 213, 115, 0.2); color: var(--success); border: 1px solid var(--success); padding: 8px 15px; border-radius: 50px; font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -160,181 +138,116 @@
             <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان - خولا دووێ</div>
         </div>
 
+        <!-- دوگمەیێن بابەتان -->
         <div class="btn-container">
-            <a href="fizya.html" class="btn"><span>⚛️</span>فیزیا</a>
-            <a href="mejo.html" class="btn"><span>📜</span>مێژوو</a>
-            <a href="kurdish.html" class="btn"><span>✒️</span>کوردی</a>
-            <a href="arabic.html" class="btn"><span>🕌</span>عەرەبی</a>
-            <a href="english.html" class="btn"><span>🇬🇧</span>ئینگلیزی</a>
-            <a href="yasa.html" class="btn"><span>⚖️</span>یاسا</a>
-            <a href="ark.html" class="btn"><span>🌐</span>ئارک (ARK)</a>
-            <a href="eslame.html" class="btn"><span>📖</span>ئیسلامی</a>
-            <a href="zindawar.html" class="btn"><span>🧬</span>ژیندەوار</a>
-            <a href="zindawar1.html" class="btn"><span>🔬</span>ژیندەوار ١</a>
+            <div onclick="navigateTo('fizya.html')" class="btn" id="m-fizya"><span>⚛️</span>فیزیا</div>
+            <div onclick="navigateTo('mejo.html')" class="btn" id="m-mejo"><span>📜</span>مێژوو</div>
+            <div onclick="navigateTo('kurdish.html')" class="btn" id="m-kurdish"><span>✒️</span>کوردی</div>
+            <div onclick="navigateTo('arabic.html')" class="btn" id="m-arabic"><span>🕌</span>عەرەبی</div>
+            <div onclick="navigateTo('english.html')" class="btn" id="m-english"><span>🇬🇧</span>ئینگلیزی</div>
+            <div onclick="navigateTo('yasa.html')" class="btn" id="m-yasa"><span>⚖️</span>یاسا</div>
+            <div onclick="navigateTo('ark.html')" class="btn" id="m-ark"><span>🌐</span>ئارک (ARK)</div>
+            <div onclick="navigateTo('eslame.html')" class="btn" id="m-eslame"><span>📖</span>ئیسلامی</div>
+            <div onclick="navigateTo('zindawar.html')" class="btn" id="m-zindawar"><span>🧬</span>ژیندەوار</div>
+            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span>🔬</span>ژیندەوار ١</div>
         </div>
     </div>
 
+    <!-- پەنەلێ ڕێکخستنا رووژانە و ئەکاونتان -->
     <div class="section-box">
         <div id="status-container" class="hidden"></div>
         
-        <button id="quiz-toggle-btn" class="quiz-toggle-btn" onclick="toggleQuizBox()">🧠 بەشداریێ د ٦ پرسیارێن زەحمەت یێن ئاینی دا بکە</button>
+        <div id="limit-msg" class="warning-box hidden">
+            ⚠️ تە ئەڤرۆ پشکداری کریە! (بۆ دووبارەکرنی حسابی داخل کە)
+        </div>
         
         <span id="account-link-btn" class="account-link" onclick="toggleLoginBox()">🔐 چووناژوورێ ب حسابی (بۆ ئەزموونکرنا بێ سنوور)</span>
 
-        <div id="login-panel" class="login-box hidden" style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px;">
+        <!-- فۆڕما چووناژوورێ -->
+        <div id="login-panel" class="login-box hidden">
             <input type="text" id="username-input" placeholder="ناڤێ بەکارهێنەر (Username)">
             <input type="password" id="password-input" placeholder="پێپەیڤ (Password)">
-            <button onclick="validateUserAccount()">پشکچنین و بەستن ➔</button>
+            <button onclick="validateUserAccount()">پشکنین و بەستن ➔</button>
         </div>
 
         <div id="error-msg"></div>
-
-        <div id="quiz-panel" class="quiz-box hidden">
-            <div id="quiz-content">
-                <div class="quiz-step" id="q-step-1">
-                    <div class="question-text">پرسیارا ١: کیژان پێغەمبەر بوو کو قەومێ وی ب هۆکارێ کێمکرنا کێشان و پێڤانێ (تطفیف) هاتنە هیلاککرن؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-1" onclick="use5050(1, ['A', 'C'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-1" onclick="useAI(1, 'بژاردا (B) پێغەمبەر شوعەیب (ع.س) وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-1" class="ai-response"></div>
-                    <label class="option-label" id="opt-1-A"><input type="radio" name="q1" value="A"> پێغەمبەر صاڵح (ع.س)</label>
-                    <label class="option-label" id="opt-1-B"><input type="radio" name="q1" value="B"> پێغەمبەر شوعەیب (ع.س)</label>
-                    <label class="option-label" id="opt-1-C"><input type="radio" name="q1" value="C"> پێغەمبەر هوود (ع.س)</label>
-                    <label class="option-label" id="opt-1-D"><input type="radio" name="q1" value="D"> پێغەمبەر نووح (ع.س)</label>
-                    <button onclick="nextQuestion(1)">پرسیارا داهاتی ➔</button>
-                </div>
-
-                <div class="quiz-step hidden" id="q-step-2">
-                    <div class="question-text">پرسیارا ٢: یەکەمین غەزا (جەنگ) کو موسڵمانان تێدا جەنگ کر بەبێ هندێ پێغەمبەر (د.خ) ل سەر بنڤیسیت یان بەشدار بیت؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-2" onclick="use5050(2, ['C', 'D'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-2" onclick="useAI(2, 'بژاردا (A) سێفولبەحر وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-2" class="ai-response"></div>
-                    <label class="option-label" id="opt-2-A"><input type="radio" name="q2" value="A"> سَریَّة سێفولبەحر</label>
-                    <label class="option-label" id="opt-2-B"><input type="radio" name="q2" value="B"> سَریَّة ڕابیغ</label>
-                    <label class="option-label" id="opt-2-C"><input type="radio" name="q2" value="C"> سَریَّة نەخلە</label>
-                    <label class="option-label" id="opt-2-D"><input type="radio" name="q2" value="D"> سَریَّة ئەبوا</label>
-                    <button onclick="nextQuestion(2)">پرسیارا داهاتی ➔</button>
-                </div>
-
-                <div class="quiz-step hidden" id="q-step-3">
-                    <div class="question-text">پرسیارا ٣: کیژان هاوەڵ (صَحابی) بوو کو مەلائیکەتان شەرم ژێ دکر؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-3" onclick="use5050(3, ['B', 'D'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-3" onclick="useAI(3, 'بژاردا (A) عوسمان کوڕێ عەفان وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-3" class="ai-response"></div>
-                    <label class="option-label" id="opt-3-A"><input type="radio" name="q3" value="A"> عوسمان کوڕێ عەفان (ڕ.خ)</label>
-                    <label class="option-label" id="opt-3-B"><input type="radio" name="q3" value="B"> عەبووبەکرێ سدیق (ڕ.خ)</label>
-                    <label class="option-label" id="opt-3-C"><input type="radio" name="q3" value="C"> عومەر کوڕێ خەتاب (ڕ.خ)</label>
-                    <label class="option-label" id="opt-3-D"><input type="radio" name="q3" value="D"> عەلی کوڕێ ئەبو تالیب (ڕ.خ)</label>
-                    <button onclick="nextQuestion(3)">پرسیارا داهاتی ➔</button>
-                </div>
-
-                <div class="quiz-step hidden" id="q-step-4">
-                    <div class="question-text">پرسیارا ٤: یەکەمین کۆچکرنا موسڵمانان (الهجرة الأولى) بۆ کیژان وڵات بوو؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-4" onclick="use5050(4, ['A', 'B'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-4" onclick="useAI(4, 'بژاردا (C) حەبەشە وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-4" class="ai-response"></div>
-                    <label class="option-label" id="opt-4-A"><input type="radio" name="q4" value="A"> شام</label>
-                    <label class="option-label" id="opt-4-B"><input type="radio" name="q4" value="B"> یەمەن</label>
-                    <label class="option-label" id="opt-4-C"><input type="radio" name="q4" value="C"> حەبەشە (الحبشة)</label>
-                    <label class="option-label" id="opt-4-D"><input type="radio" name="q4" value="D"> مەدینە</label>
-                    <button onclick="nextQuestion(4)">پرسیارا داهاتی ➔</button>
-                </div>
-
-                <div class="quiz-step hidden" id="q-step-5">
-                    <div class="question-text">پرسیارا ٥: کیژان سۆرەت د قورئانێ دا ب ناڤێ (سورة بني إسرائيل) ژی دهێتە ناسین؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-5" onclick="use5050(5, ['B', 'D'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-5" onclick="useAI(5, 'بژاردا (A) سۆرەتا الإسراء وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-5" class="ai-response"></div>
-                    <label class="option-label" id="opt-5-A"><input type="radio" name="q5" value="A"> سورة الإسراء</label>
-                    <label class="option-label" id="opt-5-B"><input type="radio" name="q5" value="B"> سورة الكهف</label>
-                    <label class="option-label" id="opt-5-C"><input type="radio" name="q5" value="C"> سورة النمل</label>
-                    <label class="option-label" id="opt-5-D"><input type="radio" name="q5" value="D"> سورة القصص</label>
-                    <button onclick="nextQuestion(5)">پرسیارا داهاتی ➔</button>
-                </div>
-
-                <div class="quiz-step hidden" id="q-step-6">
-                    <div class="question-text">پرسیارا ٦: ماوەیێ دابەزینا قورئانا پیرۆز ل سەر پێغەمبەری (د.خ) چەند ساڵ بوو ب گشتی؟</div>
-                    <div class="help-container">
-                        <button class="help-btn btn-5050 class-5050-nodes" id="btn-50-6" onclick="use5050(6, ['A', 'C'])">❌ 50:50</button>
-                        <button class="help-btn btn-ai class-ai-nodes" id="btn-ai-6" onclick="useAI(6, 'بژاردا (D) ٢٣ ساڵ وەڵامێ ڕاستە.')">🤖 وەڵامێ ڕاست ژ AI</button>
-                    </div>
-                    <div id="ai-res-6" class="ai-response"></div>
-                    <label class="option-label" id="opt-6-A"><input type="radio" name="q6" value="A"> ١٠ ساڵ</label>
-                    <label class="option-label" id="opt-6-B"><input type="radio" name="q6" value="B"> ١٣ ساڵ</label>
-                    <label class="option-label" id="opt-6-C"><input type="radio" name="q6" value="C"> ٢0 ساڵ</label>
-                    <label class="option-label" id="opt-6-D"><input type="radio" name="q6" value="D"> ٢٣ ساڵ</label>
-                    <button style="background:var(--success); color:black;" onclick="finishQuiz()">تەمامکرن و دەرخستنا کۆدان</button>
-                </div>
-            </div>
-            <div id="quiz-result"></div>
-        </div>
     </div>
 
     <script>
+        // لیستا ١٠ حسابێن کارا
         const studentAccounts = {
             "student1": "pass123", "student2": "pass456", "student3": "pass789",
             "student4": "pass2026", "student5": "user555", "student6": "user666",
             "student7": "user777", "student8": "user888", "student9": "user999", "student10": "vip2026"
         };
 
-        const correctAnswers = { q1: "B", q2: "A", q3: "A", q4: "C", q5: "A", q6: "D" };
-        let aiUsedGlobal = false;
-        let fiftyUsedGlobal = false;
-
         document.addEventListener("DOMContentLoaded", function() {
-            checkUserStatus();
+            checkAccessLock();
         });
 
-        function checkUserStatus() {
+        // پشکنینا بارێ قفلێ یان حسابێ
+        function checkAccessLock() {
             const isVIP = localStorage.getItem("is_vip_account") === "true";
-            const badge = document.getElementById("status-container");
+            const lastClickDate = localStorage.getItem("last_exam_click_date");
+            const todayStr = new Date().toDateString();
             
+            const limitMsg = document.getElementById("limit-msg");
+            const badge = document.getElementById("status-container");
+            const accountBtn = document.getElementById("account-link-btn");
+
             if (isVIP) {
                 badge.className = "status-badge";
-                badge.innerHTML = "👑 حسابی تایبەت کارایە (ئەزموونکرنا بێ سنوور)";
-                document.getElementById("account-link-btn").style.display = "none";
-                document.getElementById("login-panel").classList.add("hidden");
-                // لادانی قفلێ
-                document.getElementById("quiz-toggle-btn").removeAttribute("disabled");
-                document.getElementById("quiz-toggle-btn").style.opacity = "1";
+                badge.innerHTML = "👑 حسابی تایبەت کارایە (هەمی گاڤا بێ سنوور)";
+                badge.classList.remove("hidden");
+                limitMsg.classList.add("hidden");
+                accountBtn.style.display = "none";
+                enableButtons();
             } else {
-                // پشکنینا مەرجێ روژانە بۆ میوانان
-                const lastQuizDate = localStorage.getItem("last_quiz_date");
-                const todayStr = new Date().toDateString();
-
-                if (lastQuizDate === todayStr) {
-                    document.getElementById("quiz-toggle-btn").setAttribute("disabled", "true");
-                    document.getElementById("quiz-toggle-btn").style.opacity = "0.4";
-                    document.getElementById("quiz-toggle-btn").innerText = "⚠️ تە ئەڤرۆ پشکداری کریە! (بۆ دووبارەکرنێ حسابێ داخل کە)";
+                if (lastClickDate === todayStr) {
+                    limitMsg.classList.remove("hidden");
+                    disableButtons();
+                } else {
+                    limitMsg.classList.add("hidden");
+                    enableButtons();
                 }
             }
         }
 
-        function toggleQuizBox() {
+        // کارپێکرنا دوگمەیان
+        function enableButtons() {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('disabled'));
+        }
+
+        // قفلکرنا دوگمەیان
+        function disableButtons() {
+            document.querySelectorAll('.btn').forEach(b => b.classList.add('disabled'));
+        }
+
+        // چوونە د ناڤ لێنکێ بابەتان دا
+        function navigateTo(url) {
             const isVIP = localStorage.getItem("is_vip_account") === "true";
-            const lastQuizDate = localStorage.getItem("last_quiz_date");
+            const lastClickDate = localStorage.getItem("last_exam_click_date");
             const todayStr = new Date().toDateString();
 
-            if (!isVIP && lastQuizDate === todayStr) {
+            if (!isVIP && lastClickDate === todayStr) {
                 alert("تە ئەڤرۆ ئەزموون کریە! ناتوانیت پشکداری کەیە ڤە ئیلا حسابی داخل کەی.");
                 return;
             }
-            document.getElementById("quiz-panel").classList.toggle("hidden");
+
+            // ئەگەر میوان بیت، سیستەم دێ هێتە قفلکرن بۆ پاشەڕۆژێ
+            if (!isVIP) {
+                localStorage.setItem("last_exam_click_date", todayStr);
+            }
+
+            // دەرپەڕین بۆ لاپەڕێ بابەتی
+            window.location.href = url;
         }
 
         function toggleLoginBox() {
             document.getElementById("login-panel").classList.toggle("hidden");
         }
 
+        // پشکنینا حسابێ
         function validateUserAccount() {
             const user = document.getElementById("username-input").value.trim();
             const pass = document.getElementById("password-input").value.trim();
@@ -348,61 +261,6 @@
             } else {
                 showMsg("ناڤ یان پێپەیڤ خەلەتە!", "var(--error)");
             }
-        }
-
-        function use5050(qNum, badOptions) {
-            if (fiftyUsedGlobal) return;
-            fiftyUsedGlobal = true;
-            badOptions.forEach(opt => {
-                const targetLabel = document.getElementById(`opt-${qNum}-${opt}`);
-                if(targetLabel) targetLabel.classList.add("half-hidden");
-            });
-            document.querySelectorAll('.class-5050-nodes').forEach(btn => btn.disabled = true);
-        }
-
-        function useAI(qNum, answerText) {
-            if (aiUsedGlobal) return;
-            aiUsedGlobal = true;
-            const aiBox = document.getElementById(`ai-res-${qNum}`);
-            aiBox.innerHTML = `🤖 وەڵامێ ڕاست یێ AI: ${answerText}`;
-            aiBox.style.display = "block";
-            document.querySelectorAll('.class-ai-nodes').forEach(btn => btn.disabled = true);
-        }
-
-        function nextQuestion(currentQ) {
-            const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
-            if (!selected) { alert("تکایە سەرەتا وەڵامێک هەڵبژێره!"); return; }
-            document.getElementById(`q-step-${currentQ}`).classList.add("hidden");
-            document.getElementById(`q-step-${currentQ + 1}`).classList.remove("hidden");
-        }
-
-        function finishQuiz() {
-            const selectedQ6 = document.querySelector('input[name="q6"]:checked');
-            if (!selectedQ6) { alert("تکایە وەڵامی پرسیارێ بدە!"); return; }
-
-            const isVIP = localStorage.getItem("is_vip_account") === "true";
-            if (!isVIP) {
-                const todayStr = new Date().toDateString();
-                localStorage.setItem("last_quiz_date", todayStr);
-            }
-
-            let correctCount = 0;
-            for (let i = 1; i <= 6; i++) {
-                const ans = document.querySelector(`input[name="q${i}"]:checked`).value;
-                if (ans === correctAnswers[`q${i}`]) correctCount++;
-            }
-
-            document.getElementById("quiz-content").classList.add("hidden");
-            const resultDiv = document.getElementById("quiz-result");
-
-            resultDiv.innerHTML = `
-                <div class="result-box">
-                    <span style="color:var(--success); font-size:16px; font-weight:bold;">ئەزموون ب سەرکەفتویی ب دوماهی هات! 🎉</span>
-                    <p style="margin: 10px 0; font-size:15px;">نمریا تە: <b>${correctCount} ژ 6</b></p>
-                    ${!isVIP ? `<p style="color:var(--error); font-size:12px;">🔒 ئەڤە بتنێ دەلیڤەیا تە یا ئەڤرۆ بوو. ئەگەر دڤێت دووبارە بکەیەوە دڤێت حسابێ بکاربینی.</p>` : ''}
-                    <button onclick="location.reload()" style="background:var(--primary); color:black; padding:8px 15px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; margin-top:5px;">دووبارەبوونەوە / زڤڕین</button>
-                </div>
-            `;
         }
 
         function showMsg(text, color) {
