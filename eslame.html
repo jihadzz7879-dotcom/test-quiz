@@ -324,8 +324,9 @@
         ]}
     };
 
-    let currentQuizKey = "";
-
+       ]},
+        "2017_2": { title: "ئەزموونا ٢٠١٨ - ٢٠١٩ (خولا دووێ)", answers: 
+ل ده مه كي نيزيك 
     //ئاڤاکرنا لیستا پرسیاران ل دویف ساڵ و خولێ
     function buildQuiz() {
         let year = document.getElementById('yearSelect').value;
@@ -370,7 +371,7 @@
     function gradeQuiz() {
         let quizData = quizDatabase[currentQuizKey];
         let score = 0;
-        let pointsPerQuestion = 10; // هەر پرسیارەک ١٠ نمرەیە بۆ کۆمکرنا ١٠٠ نمرەیان
+        let pointsPerQuestion = 2; // هەر پرسیارەک ١٠ نمرەیە بۆ کۆمکرنا ١٠٠ نمرەیان
 
         for (let i = 1; i <= 10; i++) {
             let selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -392,7 +393,7 @@
                     feedbackDiv.innerHTML = `✅ وەڵامێ تە دروستە! (وەڵامێ ڕاست: ${correctAnswer} - ${correctText})`;
                 } else {
                     feedbackDiv.className = "answer-feedback feedback-wrong";
-                    feedbackDiv.innerHTML = `❌ وەڵامێ تە شفت بوو! (وەڵامێ ڕاست: ${correctAnswer} - ${correctText})`;
+                    feedbackDiv.innerHTML = `❌ وەڵامێ تە يا درست نيه بوو! (وەڵامێ ڕاست: ${correctAnswer} - ${correctText})`;
                 }
             } else {
                 feedbackDiv.className = "answer-feedback feedback-wrong";
