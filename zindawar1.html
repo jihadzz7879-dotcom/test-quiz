@@ -3,173 +3,872 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لاپەرەکێ مۆدێرن و جوان</title>
+    <title>تاقیکرنا بیرکاریێ - پۆلا دوازدێ وێژەیی</title>
     <style>
-        /* ڕێکخستنا گشتی یا لاپەرەی */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #2ecc71;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 40px 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+            line-height: 1.6;
         }
 
-        /* ناڤ و نیشانێ سەرەکی */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         header {
             text-align: center;
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: #38bdf8;
+            font-size: 24px;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
         header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
-
-        /* کانتینەرێ سەرەکی یێ کارت و تشتان */
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* ستایلێ کارتێن جوان */
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 25px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #38bdf8;
-            box-shadow: 0 12px 40px 0 rgba(56, 189, 248, 0.15);
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
-            color: #f1f5f9;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h2::before {
-            content: "✦";
-            color: #38bdf8;
-        }
-
-        .card p {
-            color: #cbd5e1;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* ستایلێ دوگمە (Buttons) د ناڤ کارتان دا */
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: opacity 0.2s;
-        }
-
-        .btn:hover {
+            font-size: 14px;
             opacity: 0.9;
         }
 
-        /* ستایلێ لیستێ (List) */
-        .list-items {
-            list-style: none;
-            margin-top: 10px;
-        }
-
-        .list-items li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            color: #cbd5e1;
-        }
-
-        .list-items li:last-child {
-            border-bottom: none;
-        }
-
-        .badge {
-            background-color: rgba(56, 189, 248, 0.2);
-            color: #38bdf8;
-            padding: 2px 8px;
+        .question-card {
+            background: var(--card-bg);
             border-radius: 12px;
-            font-size: 0.8rem;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--secondary-color);
+            transition: transform 0.2s;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .option-label:hover {
+            background: #eef5fc;
+            border-color: var(--secondary-color);
+        }
+
+        .option-label input[type="radio"] {
+            margin-left: 10px;
+            accent-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        .q-image {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .math-box {
+            background: #f1f3f5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: Courier, monospace;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .matrix {
+            display: inline-flex;
+            align-items: center;
+            border-left: 2px solid #000;
+            border-right: 2px solid #000;
+            padding: 0 4px;
+            margin: 0 5px;
+            font-family: Cambria, Georgia, serif;
+            direction: ltr;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: background 0.2s;
+            margin-top: 30px;
+        }
+
+        .btn-submit:hover {
+            background: #27ae60;
+        }
+
+        #result-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 8px solid var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px auto;
+            color: var(--primary-color);
+        }
+
+        .btn-close {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- سەرێ لاپەرەی -->
+<div class="container">
     <header>
-        <h1>ب خێر بێی بۆ پلاتفۆڕما مە</h1>
-        <p>لاپەرەکێ نموونەیی ب دیزاینەکێ مۆدێرن و ڕێکخستی</p>
+        <h1>تاقیکرنا ئەزموونی یا بیرکاریێ</h1>
+        <p>پۆلا دوازدێ ئامادەیی (وێژەیی) - خولا دووێ 2024-2025</p>
+        <p>وەخت: 3:30 دەمژمێر | ژمارا پرسیاران: 50 پرسیار</p>
     </header>
 
-    <!-- جهێ تشت و کارتان -->
-    <div class="container">
-
-        <!-- کارتا ئێکێ: دەربارە -->
-        <div class="card">
-            <h2>دەربارەی پڕۆژەی</h2>
-            <p>ئەڤە لاپەرەکێ تاقیكارییە هاتیە چێکرن دا کو نیشان بدەت کا چەوان دشێی تشتان ب جوانترین شێوازی مۆدێرن ڕێکبێخی. ل ئێرە دشێی گۆتار یان کورتەباسان بنڤیسی.</p>
-            <a href="#" class="btn">زێدەتر بخوینە</a>
+    <form id="quiz-form">
+        <div class="question-card">
+            <span class="question-number">پرسیارا 1</span>
+            <div class="question-text">ناڤەراستی بۆ کۆمەلا پێدایین {8, 13, 16, 4, 11, 14, 13, 9, 15} بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. 8</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. 13</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. 17</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. هەمی نەڤێن بۆری</label>
+            </div>
         </div>
 
-        <!-- کارتا دووێ: لیستەکا تشتان -->
-        <div class="card">
-            <h2>لیستا خزمەتگوزاریان</h2>
-            <ul class="list-items">
-                <li><span>گەشەپێدانا وێبێ</span> <span class="badge">پڕۆ</span></li>
-                <li><span>دروستکرنا بۆتان (Bots)</span> <span class="badge">خێرا</span></li>
-                <li><span>دیزاینکرنا ناڤبەران (UI/UX)</span> <span class="badge">نوو</span></li>
-                <li><span>پاراستن و سیکیورتی</span> <span class="badge">بێبەرامبەر</span></li>
-            </ul>
+        <div class="question-card">
+            <span class="question-number">پرسیارا 2</span>
+            <div class="question-text">چوارێکی ئێکی بۆ کۆمەلا پێدایین {22, 77, 93, 27, 86, 14} بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. 57</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. 27</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. 77</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. 22</label>
+            </div>
         </div>
 
-        <!-- کارتا سێیێ: ئامار یان تشتەکێ بلەز -->
-        <div class="card">
-            <h2>ئامارێن گشتی</h2>
-            <p>تۆ دشێی د ڤێ کارتێ دا هندەک ژمارە یان دەستکەفتێن پڕۆژێن خۆ نیشان بدەی، یان وەک بەشەکێ پەیوەندیێ بکاربینی.</p>
-            <a href="#" class="btn" style="background: linear-gradient(135deg, #10b981, #059669);">پەیوەندی دۆمینی</a>
+        <div class="question-card">
+            <span class="question-number">پرسیارا 3</span>
+            <div class="question-text">هاوکێشەیا ڕاستەهێلا باشترین نواندن بینەدەر کو د خالا (2,5) ڕادبۆریت و لارییا وێ m = -3.5 بیت.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. y = -3.5x - 2</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. y = 3.5x - 2</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. y = -3.5x + 12</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. y = 3.5x + 12</label>
+            </div>
         </div>
 
+        <div class="question-card">
+            <span class="question-number">پرسیارا 4</span>
+            <div class="question-text">پێکڤەگرێدان دناڤبەرا هەر دوو گۆڕاواندا نینە ئەگەر هاوکۆلکەیێ پێکڤەگرێدانێ بکەتە:</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. r = 0</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. r = 1</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. r = -1</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. r = ∓1</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 5</span>
+            <div class="question-text">بکارئینانا وێنێ ڕوونکردنا سندوقی یێ بەرامبەر، چوارێکی سێی چەندە؟</div>
+            <svg class="q-image" width="100%" height="100" viewBox="0 0 400 100" style="background:#fff;">
+                <line x1="40" y1="50" x2="340" y2="50" stroke="#000" stroke-width="2"/>
+                <line x1="40" y1="40" x2="40" y2="60" stroke="#000" stroke-width="2"/>
+                <line x1="340" y1="40" x2="340" y2="60" stroke="#000" stroke-width="2"/>
+                <rect x="120" y="30" width="140" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                <line x1="200" y1="30" x2="200" y2="70" stroke="#000" stroke-width="2"/>
+                <text x="115" y="85" font-size="12">18</text>
+                <text x="195" y="85" font-size="12">22</text>
+                <text x="255" y="85" font-size="12">26</text>
+            </svg>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A. 18</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B. 12</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C. 8</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D. 26</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 6</span>
+            <div class="question-text">لارییا ڕاستەهێلا باشترین نواندن یێ کو ب هەر دوو خالانرا (9,2) و (4,7) د بۆریت چەندە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A. m = 1</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B. m = -1</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C. m = 0</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D. m = 2</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 7</span>
+            <div class="question-text">ترومبێلەک ب لەزەکا نەگوڕ ل سەر ڕێیا بلەز ژ سلێمانیێ بۆ بەسرە 750 کیلومەتر چوو، ئازاد ئەو دوورییا ب لەزا 125km/h بڕی. گەشتەیا ئازاد چەند دەمژمێر کێشا؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A. 4 دەمژمێر</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B. 5 دەمژمێر</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C. 6 دەمژمێر</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D. 7 دەمژمێر</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 8</span>
+            <div class="question-text">کیش ژڤان خالێن ل خوارێ دبیته شیکار بۆ سیستەمێ: <br><span class="math-box">4x - 2y + 4z = 8 \\ -3x + y - z = -4 \\ -2x + 2y - 6z = 4</span></div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A. (1, 0, 1)</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B. (0, -2, 1)</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C. (1, -2, 0)</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D. چ ژڤان نینە</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 9</span>
+            <div class="question-text">دەڤەرا گونجای نەوا ل شێوێ بەرامبەر دیاردبیت بۆ کیژ ژڤان مەرجێن ل خوارێ دگونجیت؟</div>
+            <div style="text-align:center; padding:10px;">
+                <span style="font-weight:bold; color:#777;">[وێنەیێ دەڤەرا شیکارێ ل سەر تەوەران (250, 150)]</span>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A. مەرجێن کۆمەلا A (کێمتر یان یەکسان)</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B. مەرجێن کۆمەلا B</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C. مەرجێن کۆمەلا C</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. مەرجێن کۆمەلا D</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 10</span>
+            <div class="question-text">هەکە د دوو ڕێزکەریان دا یا گونجای بیت، بهایێ x چەندە؟ <span class="matrix">6x &nbsp; 4x \\ 24 &nbsp; 8</span> = <span class="matrix">48 &nbsp; 32 \\ 3x &nbsp; 8</span></div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A. 0.25</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B. 2</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C. 4</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D. 8</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 11</span>
+            <div class="question-text">هەکە f(x) = 2x / (2x + 1) بیت، ئەنجامێ f(2) چەندە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q11" value="A"> A. 4/5</label>
+                <label class="option-label"><input type="radio" name="q11" value="B"> B. 1/2</label>
+                <label class="option-label"><input type="radio" name="q11" value="C"> C. 1/5</label>
+                <label class="option-label"><input type="radio" name="q11" value="D"> D. 2</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 12</span>
+            <div class="question-text">هەکە A_5x2 و B_5x3 دوو ڕێزکەری بن، دێ لێکدانا BA ڕیزکریەکێ چ جۆری بیت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q12" value="A"> A. 5 x 2</label>
+                <label class="option-label"><input type="radio" name="q12" value="B"> B. 5 x 5</label>
+                <label class="option-label"><input type="radio" name="q12" value="C"> C. 3 x 2</label>
+                <label class="option-label"><input type="radio" name="q12" value="D"> D. پێناسە نەکرییە</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 13</span>
+            <div class="question-text">هەکە A = <span class="matrix">-4 &nbsp; 4 \\ -8 &nbsp; 20</span> ڕێزکەری بیت، ئەنجامێ 1/2 A کیشکە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q13" value="A"> A. <span class="matrix">-2 &nbsp; 2 \\ -4 &nbsp; 10</span></label>
+                <label class="option-label"><input type="radio" name="q13" value="B"> B. <span class="matrix">-2 &nbsp; -2 \\ 0 &nbsp; -10</span></label>
+                <label class="option-label"><input type="radio" name="q13" value="C"> C. <span class="matrix">2 &nbsp; -2 \\ -4 &nbsp; 10</span></label>
+                <label class="option-label"><input type="radio" name="q13" value="D"> D. <span class="matrix">-2 &nbsp; -2 \\ 0 &nbsp; 10</span></label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 14</span>
+            <div class="question-text">ڕادەیێ حەفتێ بۆ ئێک ژ دووڤچوونێن ئەندازەیی چەندە ئەگەر بنچینە 3 بیت و a4 = 19 بیت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q14" value="A"> A. 25</label>
+                <label class="option-label"><input type="radio" name="q14" value="B"> B. 28</label>
+                <label class="option-label"><input type="radio" name="q14" value="C"> C. 38</label>
+                <label class="option-label"><input type="radio" name="q14" value="D"> D. 22</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 15</span>
+            <div class="question-text">ئەنجامێ لێکدانا هەر دوو ڕێزکەریێن <span class="matrix">-1 \\ 2</span> <span class="matrix">2 &nbsp; 1 \\ 4 &nbsp; 0</span> بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q15" value="A"> A. <span class="matrix">2 \\ -4</span></label>
+                <label class="option-label"><input type="radio" name="q15" value="B"> B. <span class="matrix">-2 \\ 4</span></label>
+                <label class="option-label"><input type="radio" name="q15" value="C"> C. <span class="matrix">2 \\ -2</span></label>
+                <label class="option-label"><input type="radio" name="q15" value="D"> D. <span class="matrix">2 \\ 2</span></label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 16</span>
+            <div class="question-text">ڕێزکەری هاوکۆلکەیان <span class="matrix">3 &nbsp; 2 \\ 1 &nbsp; -1</span> یێ کیش سیستەمێ هێلی نەفین ل خوارێ یە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q16" value="A"> A. {3x + 2y = 8, x = y + 1}</label>
+                <label class="option-label"><input type="radio" name="q16" value="B"> B. {3x + 2y = 8, x = -y + 1}</label>
+                <label class="option-label"><input type="radio" name="q16" value="C"> C. {3x - 2y = 8, x = y + 1}</label>
+                <label class="option-label"><input type="radio" name="q16" value="D"> D. {3x + 2y = 8, x - y = 1}</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 17</span>
+            <div class="question-text">ئەگەر A = <span class="matrix">1 &nbsp; -2 \\ 2 &nbsp; 5</span> و B = <span class="matrix">-1 &nbsp; 3 \\ 2 &nbsp; -1</span> دوو ڕێزکەری بن، سنووردارێ ڕێزکەریا ئەنجامێ لێکدانا AB بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q17" value="A"> A. 28</label>
+                <label class="option-label"><input type="radio" name="q17" value="B"> B. -28</label>
+                <label class="option-label"><input type="radio" name="q17" value="C"> C. 34</label>
+                <label class="option-label"><input type="radio" name="q17" value="D"> D. -34</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 18</span>
+            <div class="question-text">ل وێنەیێ ڕوونکردنا نەخشەیا f یێ بەرامبەر، کیش ژ ڤان هێلێن ل خوارێ ماوەیێ بەردەوام زێدەبوونا نەخشەیی یە؟</div>
+            <div style="text-align:center;">
+                <span style="font-weight:bold; color:#777;">[وێنەیێ گرافی ل سەر ماوێ زێدەبوونێ]</span>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q18" value="A"> A. مەزنتر ژ 2</label>
+                <label class="option-label"><input type="radio" name="q18" value="B"> B. کێمتر ژ -2</label>
+                <label class="option-label"><input type="radio" name="q18" value="C"> C. دناڤبەرا 2 و -2 دا</label>
+                <label class="option-label"><input type="radio" name="q18" value="D"> D. هەر دوو (A و B)</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 19</span>
+            <div class="question-text">ترومبێلەک بهایێ وێ 28 ملیۆن دینارن و بهایێ وێ ساڵانە ب تێکڕایێ 9.5% کێم دبیت. نەخشەیەکا توانی دیاربکە کو سامپڵەکی بۆ بهایێ ڤێ ترومبێلێ بنوێنت پشتی بورینا t ساڵ ژ کڕینی.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q19" value="A"> A. f(t) = 28(0.905)^t</label>
+                <label class="option-label"><input type="radio" name="q19" value="B"> B. f(t) = 28(0.095)^t</label>
+                <label class="option-label"><input type="radio" name="q19" value="C"> C. f(t) = 28(0.95)^t</label>
+                <label class="option-label"><input type="radio" name="q19" value="D"> D. f(t) = 28(9.5)^t</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 20</span>
+            <div class="question-text">بهایێ log_4(16) هەمژماربکە.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q20" value="A"> A. 1</label>
+                <label class="option-label"><input type="radio" name="q20" value="B"> B. -1</label>
+                <label class="option-label"><input type="radio" name="q20" value="C"> C. 2</label>
+                <label class="option-label"><input type="radio" name="q20" value="D"> D. -2</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 21</span>
+            <div class="question-text">سادەترین شێوێ e^(-2 ln t) دبیته:</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q21" value="A"> A. t^2</label>
+                <label class="option-label"><input type="radio" name="q21" value="B"> B. t^-2</label>
+                <label class="option-label"><input type="radio" name="q21" value="C"> C. 2t</label>
+                <label class="option-label"><input type="radio" name="q21" value="D"> D. -2t</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 22</span>
+            <div class="question-text">هاوکێشەیا لۆگاریتمی log_4(8) = 1.5 ل سەر شێوازێ توانی دبیته:</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q22" value="A"> A. 1.5^8 = 4</label>
+                <label class="option-label"><input type="radio" name="q22" value="B"> B. 1.5^4 = 8</label>
+                <label class="option-label"><input type="radio" name="q22" value="C"> C. 4^8 = 1.5</label>
+                <label class="option-label"><input type="radio" name="q22" value="D"> D. 4^1.5 = 8</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 23</span>
+            <div class="question-text">شەمی قەمیسەک ب قست کڕی، ل حەفتیا ئێکێ 15000 دیناردانە فرۆشیاری، و دگەل وێ ڕێککەفت ل هەر حەفتەیەکێ 5000 دیناران بۆ قیستێ زێدەکەت. چەند پارە ل حەفتیا نەهێ دێ دەت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q23" value="A"> A. 20,000</label>
+                <label class="option-label"><input type="radio" name="q23" value="B"> B. 50,000</label>
+                <label class="option-label"><input type="radio" name="q23" value="C"> C. 55,000</label>
+                <label class="option-label"><input type="radio" name="q23" value="D"> D. 60,000</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 24</span>
+            <div class="question-text">سنووردارێ ڕێزکەریا <span class="matrix">2 &nbsp; 2 \\ -2 &nbsp; -2</span> بهەژمێرە.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q24" value="A"> A. 8</label>
+                <label class="option-label"><input type="radio" name="q24" value="B"> B. 4</label>
+                <label class="option-label"><input type="radio" name="q24" value="C"> C. -8</label>
+                <label class="option-label"><input type="radio" name="q24" value="D"> D. 0</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 25</span>
+            <div class="question-text">دیاربکە ئەڤێ خشتەیێ بەرامبەر چ جۆرە پەیوەندیێ د نوینیت؟</div>
+            <table border="1" style="width:100%; text-align:center; margin-bottom:15px; border-collapse:collapse;">
+                <tr><td>x</td><td>2</td><td>5</td><td>9</td></tr>
+                <tr><td>y</td><td>3</td><td>6</td><td>4</td></tr>
+            </table>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q25" value="A"> A. گۆڕانەکا ڕاستەوانەیە</label>
+                <label class="option-label"><input type="radio" name="q25" value="B"> B. گۆڕانەکا بەڕۆڤاژییە</label>
+                <label class="option-label"><input type="radio" name="q25" value="C"> C. هەر دوو (A و B)</label>
+                <label class="option-label"><input type="radio" name="q25" value="D"> D. چ ژڤان نینە</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 26</span>
+            <div class="question-text">هەردوو گۆڕاوێن x و y ب پەیوەندیەکا گۆڕانیا ڕاستەوانە پێکڤە گرێداینە کو y=48 دەمێ x=8، بهایێ y چەندە دەمێ x=2؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q26" value="A"> A. 11</label>
+                <label class="option-label"><input type="radio" name="q26" value="B"> B. 12</label>
+                <label class="option-label"><input type="radio" name="q26" value="C"> C. 24</label>
+                <label class="option-label"><input type="radio" name="q26" value="D"> D. 48</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 27</span>
+            <div class="question-text">وێنەیێ ڕوونکردنی بۆ نەخشەیا f(x) = -3/x کیشکە؟</div>
+            <div style="text-align:center;">
+                <span style="font-weight:bold; color:#777;">[چوار وێنەیێن گرافی یێن کێشراو (A, B, C, D)]</span>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q27" value="A"> A. گرافێ ئێکێ (چارەکی دووێ و چوارێ)</label>
+                <label class="option-label"><input type="radio" name="q27" value="B"> B. گرافێ دووێ</label>
+                <label class="option-label"><input type="radio" name="q27" value="C"> C. گرافێ سێی</label>
+                <label class="option-width"><input type="radio" name="q27" value="D"> D. گرافێ چوارێ</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 28</span>
+            <div class="question-text">نەخشەیا توانی f(x) = 32(1.88)^x گەشەبوونا کۆمەلەکا بەکتریا د نوینیت. ڕێژەیا سەدی بۆ گەشەبوونا نەخۆشخانێ چەندە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q28" value="A"> A. 88%</label>
+                <label class="option-label"><input type="radio" name="q28" value="B"> B. 32%</label>
+                <label class="option-label"><input type="radio" name="q28" value="C"> C. 1.88%</label>
+                <label class="option-label"><input type="radio" name="q28" value="D"> D. 0.088%</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 29</span>
+            <div class="question-text">کیش نەخشە ژ هێلێن ل خوارێ پلە حەفتە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q29" value="A"> A. f(x) = 4x^3 + 2x^2</label>
+                <label class="option-label"><input type="radio" name="q29" value="B"> B. f(x) = x^4 (x^3 + x^2)</label>
+                <label class="option-label"><input type="radio" name="q29" value="C"> C. f(x) = x^6 - x^4</label>
+                <label class="option-label"><input type="radio" name="q29" value="D"> D. f(x) = 4x^4 + 2</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 30</span>
+            <div class="question-text">نەخشەیا f(x) = ab^x دبیته نەخشەیەکا گەشەبوونا توانی هەکە:</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q30" value="A"> A. 0 < b < 1</label>
+                <label class="option-label"><input type="radio" name="q30" value="B"> B. b < 1 و a > 0</label>
+                <label class="option-label"><input type="radio" name="q30" value="C"> C. b > 1 و a > 0</label>
+                <label class="option-label"><input type="radio" name="q30" value="D"> D. b < 1 و a = 0</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 31</span>
+            <div class="question-text">سەرجەمێ S_5 بۆ ئێک ژ دووڤچوونێن ژمارەیی چەندە هەکە 27 = a4 و 19 = a5 بیت.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q31" value="A"> A. 195</label>
+                <label class="option-label"><input type="radio" name="q31" value="B"> B. -195</label>
+                <label class="option-label"><input type="radio" name="q31" value="C"> C. 175</label>
+                <label class="option-label"><input type="radio" name="q31" value="D"> D. -175</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 32</span>
+            <div class="question-text">ڕادەیێ یازدێ بۆ ئێک ژ دووڤچوونێن ژمارەیی چەندە هەکە ڕادەیێ گشتی یێ وێ an = -6n + 2 بیت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q32" value="A"> A. 68</label>
+                <label class="option-label"><input type="radio" name="q32" value="B"> B. -68</label>
+                <label class="option-label"><input type="radio" name="q32" value="C"> C. 64</label>
+                <label class="option-label"><input type="radio" name="q32" value="D"> D. -64</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 33</span>
+            <div class="question-text">کیش ژ ڤان هێلان ل خوارێ دووڤچوونەکا ئەندازەیی کێمە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q33" value="A"> A. -5, -7, -9, -11, ...</label>
+                <label class="option-label"><input type="radio" name="q33" value="B"> B. 5, 7, 9, 11, ...</label>
+                <label class="option-label"><input type="radio" name="q33" value="C"> C. 32, 25, 18, 11, ...</label>
+                <label class="option-label"><input type="radio" name="q33" value="D"> D. 320, 80, 20, 5, ...</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 34</span>
+            <div class="question-text">ڕادەیێ دەهێ بۆ ئێک ژ دووڤچوونێن ژمارەیی ..., 5, 9, 13, 17 چەندە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q34" value="A"> A. 36</label>
+                <label class="option-label"><input type="radio" name="q34" value="B"> B. 41</label>
+                <label class="option-label"><input type="radio" name="q34" value="C"> C. 49</label>
+                <label class="option-label"><input type="radio" name="q34" value="D"> D. -49</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 35</span>
+            <div class="question-text">هەکە f(x) = 0.5^x بیت، ئەنجامێ f(1/2) بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q35" value="A"> A. 0.025</label>
+                <label class="option-label"><input type="radio" name="q35" value="B"> B. 3/5</label>
+                <label class="option-label"><input type="radio" name="q35" value="C"> C. 1/4</label>
+                <label class="option-label"><input type="radio" name="q35" value="D"> D. 2.5</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 36</span>
+            <div class="question-text">سەرجەمێ S_7 بۆ ئێک ژ دووڤچوونێن ئەندازەیی بینەدەر ئەگەر بنچینە 3 بیت و ڕادەیێ ئێکێ a1 = 4 بیت.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q36" value="A"> A. 3472</label>
+                <label class="option-label"><input type="radio" name="q36" value="B"> B. -3472</label>
+                <label class="option-label"><input type="radio" name="q36" value="C"> C. -4372</label>
+                <label class="option-label"><input type="radio" name="q36" value="D"> D. 4372</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 37</span>
+            <div class="question-text">ڕادەیێ نەهێ بۆ ئێک ژ دووڤچوونێن ئەندازەیی ..., 3, -6, 12, -24, 48 چەندە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q37" value="A"> A. -256</label>
+                <label class="option-label"><input type="radio" name="q37" value="B"> B. 256</label>
+                <label class="option-label"><input type="radio" name="q37" value="C"> C. 768</label>
+                <label class="option-label"><input type="radio" name="q37" value="D"> D. -768</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 38</span>
+            <div class="question-text">هەکە x + y + 2z = 4- بیت، بهایێ y بینەدەر کو x = 1 و z = -1 بیت.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q38" value="A"> A. 3</label>
+                <label class="option-label"><input type="radio" name="q38" value="B"> B. -3</label>
+                <label class="option-label"><input type="radio" name="q38" value="C"> C. 4</label>
+                <label class="option-label"><input type="radio" name="q38" value="D"> D. -4</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 39</span>
+            <div class="question-text">ژمارا نەهەنگێن کۆمەدین ئوسترالی 450 نەهەنگ بوون ل ساڵا 1983 و ژمارا وان ساڵانە (t) زێدەبوو ب تێکڕایێ 11%. کیش نەخشەیا توانی سامپڵەکی د نوینیت بۆ نەهەنگێن زێدەبووی؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q39" value="A"> A. f(t) = 450(0.11)^t</label>
+                <label class="option-label"><input type="radio" name="q39" value="B"> B. f(t) = 450(1.11)^t</label>
+                <label class="option-label"><input type="radio" name="q39" value="C"> C. f(t) = 450(0.011)^t</label>
+                <label class="option-label"><input type="radio" name="q39" value="D"> D. f(t) = 450(0.89)^t</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 40</span>
+            <div class="question-text">بنچینێ ئێک ژ دووڤچوونێن ئەندازەیی کیژکە هەکە a5 = 96 و a7 = 384 بیت؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q40" value="A"> A. ∓2</label>
+                <label class="option-label"><input type="radio" name="q40" value="B"> B. ∓1</label>
+                <label class="option-label"><input type="radio" name="q40" value="C"> C. 1</label>
+                <label class="option-label"><input type="radio" name="q40" value="D"> D. ∓4</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 41</span>
+            <div class="question-text">هەکە T = <span class="matrix">1 &nbsp; 0 &nbsp; 1 \\ 2 &nbsp; 0 &nbsp; -2</span> ڕێزکەری بیت، کیژک ژڤان دهێن شیکارکرن؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q41" value="A"> A. T^3</label>
+                <label class="option-label"><input type="radio" name="q41" value="B"> B. T^2</label>
+                <label class="option-label"><input type="radio" name="q41" value="C"> C. 2 T</label>
+                <label class="option-label"><input type="radio" name="q41" value="D"> D. T^4</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 42</span>
+            <div class="question-text">سادەترین شێوێ ln e^3.2 دبیته:</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q42" value="A"> A. e^3.2</label>
+                <label class="option-label"><input type="radio" name="q42" value="B"> B. 3.2</label>
+                <label class="option-label"><input type="radio" name="q42" value="C"> C. ln 3.2</label>
+                <label class="option-label"><input type="radio" name="q42" value="D"> D. 1</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 43</span>
+            <div class="question-text">هەکە f(x) = (4/3)^x بیت، ئەنجامێ f(0) بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q43" value="A"> A. 4/3</label>
+                <label class="option-label"><input type="radio" name="q43" value="B"> B. 3/4</label>
+                <label class="option-label"><input type="radio" name="q43" value="C"> C. 1</label>
+                <label class="option-label"><input type="radio" name="q43" value="D"> D. 0</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 44</span>
+            <div class="question-text">سە‌رین دەڤەرا گونجای ل پرسیارەکا پرۆگرامی هێلی نەفین هەنە، کیش خال مەزنترین بها ددەتە نەخشەیا ئارمانجێ P = 3x + 5y؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q44" value="A"> A. (2, -1)</label>
+                <label class="option-label"><input type="radio" name="q44" value="B"> B. (-2, 1)</label>
+                <label class="option-label"><input type="radio" name="q44" value="C"> C. (-3, 4)</label>
+                <label class="option-label"><input type="radio" name="q44" value="D"> D. (-4, 3)</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 45</span>
+            <div class="question-text">کیش ژ هێلێن ل خوارێ دبیته شێوازی لۆگاریتمی بۆ 128 = 2^7؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q45" value="A"> A. log_7(128) = 2</label>
+                <label class="option-label"><input type="radio" name="q45" value="B"> B. log_2(128) = 7</label>
+                <label class="option-label"><input type="radio" name="q45" value="C"> C. log_7(2) = 128</label>
+                <label class="option-label"><input type="radio" name="q45" value="D"> D. log_2(7) = 128</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 46</span>
+            <div class="question-text">ڕادەیێن نەدیار ل ئێک ژ دووڤچوونێن ژمارەیی ..., 25 ,⬜, ⬜ ,13 کیشکن؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q46" value="A"> A. 18, 22</label>
+                <label class="option-label"><input type="radio" name="q46" value="B"> B. 16, 19</label>
+                <label class="option-label"><input type="radio" name="q46" value="C"> C. 17, 21</label>
+                <label class="option-label"><input type="radio" name="q46" value="D"> D. 17, 22</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 47</span>
+            <div class="question-text">هەکە f(x) = x^4 - 8x^2 + 1 بیت، ئەنجامێ f(√2) بینەدەر.</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q47" value="A"> A. -11</label>
+                <label class="option-label"><input type="radio" name="q47" value="B"> B. 11</label>
+                <label class="option-label"><input type="radio" name="q47" value="C"> C. 8</label>
+                <label class="option-label"><input type="radio" name="q47" value="D"> D. -8</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 48</span>
+            <div class="question-text">هەکە هاوەڵکەرێ ڕێزکەری <span class="matrix">2 &nbsp; 3 \\ -2 &nbsp; 3</span> کیشکە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q48" value="A"> A. ڕێزکەریا ئێکێ</label>
+                <label class="option-label"><input type="radio" name="q48" value="B"> B. ڕێزکەریا دووێ</label>
+                <label class="option-label"><input type="radio" name="q48" value="C"> C. ڕێزکەریا سێی</label>
+                <label class="option-label"><input type="radio" name="q48" value="D"> D. ڕێزکەریا چوارێ</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 49</span>
+            <div class="question-text">بهایێ نێزیک یێ هاوکۆلکەیێ پێکڤەگرێدانی بۆ خالێن ڕوونکردنی بین بەرامبەر چەندە؟</div>
+            <div style="text-align:center;">
+                <span style="font-weight:bold; color:#777;">[وێنەیێ خالێن لێکبڵاڤبوویی کو هێلەک بەرەف خوار دچیت]</span>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q49" value="A"> A. -0.4</label>
+                <label class="option-label"><input type="radio" name="q49" value="B"> B. 0.4</label>
+                <label class="option-label"><input type="radio" name="q49" value="C"> C. 0.6</label>
+                <label class="option-label"><input type="radio" name="q49" value="D"> D. -0.6</label>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">پرسیارا 50</span>
+            <div class="question-text">هەکە A = <span class="matrix">1 &nbsp; 3 \\ -2 &nbsp; 4</span> و I ڕێزکەریا ئێکێ بیت، ئەنجامێ A + I کیشکە؟</div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q50" value="A"> A. <span class="matrix">2 &nbsp; 3 \\ -2 &nbsp; 5</span></label>
+                <label class="option-label"><input type="radio" name="q50" value="B"> B. <span class="matrix">2 &nbsp; -4 \\ 0 &nbsp; 2</span></label>
+                <label class="option-label"><input type="radio" name="q50" value="C"> C. <span class="matrix">-1 &nbsp; 3 \\ -2 &nbsp; 4</span></label>
+                <label class="option-label"><input type="radio" name="q50" value="D"> D. <span class="matrix">-6 &nbsp; 2 \\ -8 &nbsp; 2</span></label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="calculateResult()">ئەنجامی دیاربکە</button>
+    </form>
+</div>
+
+<div id="result-modal">
+    <div class="modal-content">
+        <h2>تاقیکردنەوە ب دوماهی هات!</h2>
+        <p style="margin-top: 10px; color: #555;">ئاستێ تە یێ گشتی:</p>
+        <div class="score-circle" id="score-display">0 / 100</div>
+        <p id="percentage-display" style="font-size: 18px; font-weight: bold; color: var(--secondary-color);"></p>
+        <p id="feedback-message" style="margin-top: 15px; font-weight: 500;"></p>
+        <button class="btn-close" onclick="closeModal()">دووبارە تاقیکردنەوە</button>
     </div>
+</div>
+
+<script>
+    // کلیلا بەرسڤێن ڕاست (ژ 50 پرسیاران)
+    const correctAnswers = {
+        q1: "B", q2: "D", q3: "C", q4: "A", q5: "D",
+        q6: "B", q7: "C", q8: "D", q9: "A", q10: "D",
+        q11: "A", q12: "D", q13: "A", q14: "B", q15: "A",
+        q16: "B", q17: "B", q18: "D", q19: "A", q20: "C",
+        q21: "B", q22: "D", q23: "C", q24: "D", q25: "D",
+        q26: "B", q27: "A", q28: "A", q29: "B", q30: "C",
+        q31: "C", q32: "C", q33: "D", q34: "B", q35: "C",
+        q36: "D", q37: "C", q38: "B", q39: "B", q40: "A",
+        q41: "C", q42: "B", q43: "C", q44: "C", q45: "B",
+        q46: "C", q47: "A", q48: "C", q49: "D", q50: "A"
+    };
+
+    function calculateResult() {
+        const form = document.getElementById('quiz-form');
+        let correctCount = 0;
+        const totalQuestions = 50;
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selectedOption = form.elements['q' + i].value;
+            if (selectedOption === correctAnswers['q' + i]) {
+                correctCount++;
+            }
+        }
+
+        // حسابکرنا نمرێ ژ 100
+        const finalScore = (correctCount / totalQuestions) * 100;
+        const percentage = (correctCount / totalQuestions) * 100;
+
+        // دیارکرنا ئەنجامان د ناڤ مۆدالێ دا
+        document.getElementById('score-display').innerText = finalScore + " / 100";
+        document.getElementById('percentage-display').innerText = "ڕێژەیا سەرکەفتنێ: " + percentage.toFixed(0) + "%";
+
+        // نامەکا هاندەر بەپێی نمرێ
+        let message = "";
+        if (finalScore >= 85) {
+            message = "پیرۆزە! ئاستێ تە گەلەک عالی یە. 🌟";
+        } else if (finalScore >= 50) {
+            message = "باشە! تو سەرکەفتی، بەس دشیێ هێشتا باشر لێ بکەی. 👍";
+        } else {
+            message = "دڤێت هێشتا زێدەتر بخوینی و هەوڵ بدەی. 📚";
+        }
+        document.getElementById('feedback-message').innerText = message;
+
+        // نیشاندانا مۆدالێ
+        document.getElementById('result-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('result-modal').style.display = 'none';
+        document.getElementById('quiz-form').reset();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
