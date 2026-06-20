@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاقیکرنا پەروەردا ئیسلامی</title>
+    <title>تێستێ بابەتێ پەروەردا ئیسلامی</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
 
@@ -15,40 +15,124 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: #f0f4f8;
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            padding: 20px 15px;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .quiz-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: transparent;
         }
 
-        header {
+        /* کارتا ناڤونیشانێ سەرەکی */
+        .header-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px 20px;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #4A90E2;
-            padding-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border-top: 5px solid #3b82f6;
         }
 
-        h1 {
-            color: #2C3E50;
+        .main-title {
             font-size: 24px;
+            font-weight: 700;
+            color: #1e3a8a;
             margin-bottom: 10px;
         }
 
-        .welcome-text {
-            color: #7F8C8D;
-            font-size: 16px;
+        .sub-title {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.5;
         }
 
-        .section-selection, .quiz-section, .result-section {
+        /* کارتێن هەلبژارتنا وانەیان */
+        .selection-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            color: #374151;
+            padding: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: right;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            line-height: 1.5;
+        }
+
+        .menu-btn:hover {
+            border-color: #3b82f6;
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        /* کارتێن پرسیاران */
+        .question-card {
+            background: #ffffff;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border-right: 5px solid #3b82f6;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #4b5563;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .option-label:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .option-label input {
+            margin-left: 12px;
+            transform: scale(1.2);
+            accent-color: #3b82f6;
+        }
+
+        .section {
             display: none;
         }
 
@@ -56,214 +140,133 @@
             display: block;
         }
 
-        .btn-menu {
-            display: block;
+        /* پشکا دوماهی هاتنێ */
+        .oval-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 16px;
+            cursor: pointer;
             width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            background: #4A90E2;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            text-align: center;
+            margin-top: 10px;
         }
 
-        .btn-menu:hover {
-            background: #357ABD;
+        .oval-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
-        .question-card {
-            background: #f9f9f9;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border-right: 5px solid #4A90E2;
-        }
-
-        .question-text {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .options-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .options-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .option-label:hover {
-            border-color: #4A90E2;
-            background: #f0f7ff;
-        }
-
-        .option-label input {
-            margin-left: 10px;
-            transform: scale(1.2);
-        }
-
-        .btn-submit {
-            background: #2ECC71;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto 0;
-            width: 50%;
-        }
-
-        .btn-submit:hover {
-            background: #27AE60;
-        }
-
+        /* کارتا ئەنجامی */
         .result-card {
             text-align: center;
-            padding: 30px;
-            background: #edfcf2;
-            border-radius: 10px;
-            border: 2px solid #2ECC71;
-            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
         }
 
         .score-text {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: bold;
-            color: #2ECC71;
-            margin: 10px 0;
+            color: #10b981;
+            margin: 15px 0;
         }
 
         .percentage-text {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: bold;
-            color: #34495E;
-            margin-bottom: 15px;
-        }
-
-        .review-title {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #2C3E50;
-            border-bottom: 2px solid #bdc3c7;
-            padding-bottom: 5px;
+            color: #1f2937;
+            margin-bottom: 10px;
         }
 
         .review-card {
-            background: #fff;
-            padding: 15px;
+            background: #ffffff;
+            padding: 20px;
             margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #dcdde1;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #e5e7eb;
         }
 
-        .correct-review {
-            border-right: 5px solid #2ECC71;
-            background: #f4fbf7;
-        }
-
-        .wrong-review {
-            border-right: 5px solid #E74C3C;
-            background: #fdf5f4;
-        }
+        .correct-review { border-right: 5px solid #10b981; }
+        .wrong-review { border-right: 5px solid #ef4444; }
 
         .status-badge {
             display: inline-block;
             padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: bold;
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
+        .badge-correct { background-color: #10b981; }
+        .badge-wrong { background-color: #ef4444; }
 
-        .badge-correct { background-color: #2ECC71; }
-        .badge-wrong { background-color: #E74C3C; }
+        .text-success { color: #10b981; font-weight: bold; }
+        .text-danger { color: #ef4444; font-weight: bold; }
+        .text-correct-ans { color: #10b981; font-weight: bold; }
 
-        .answer-info {
-            margin-top: 8px;
-            font-size: 15px;
-        }
-
-        .text-success { color: #27AE60; font-weight: bold; }
-        .text-danger { color: #C0392B; font-weight: bold; }
-
-        .btn-back {
-            background: #95A5A6;
-            color: white;
-            padding: 12px 25px;
+        .btn-secondary {
+            background-color: #6b7280;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
+            color: white;
+            font-size: 15px;
+            padding: 12px;
             cursor: pointer;
+            width: 100%;
             margin-top: 20px;
-            font-size: 16px;
             font-weight: bold;
         }
-        .btn-back:hover { background: #7F8C8D; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>تێستێ بابەتێ پەروەردا ئیسلامی</h1>
-        <p class="welcome-text">خۆشەویست قوتابی، بابەتێ خۆ یێ تاقیکرنێ هەلبژێره‌</p>
-    </header>
-
-    <div id="section-selection" class="section-selection active">
-        <button class="btn-menu" onclick="startQuiz(1)">وانەیا ئێکی : باوەری ب رامانخستنا ژیانێ</button>
-        <button class="btn-menu" onclick="startQuiz(2)">وانەیا دووێ : باوەری و ئەرێنیبوون د ژیانێ دا</button>
-        <button class="btn-menu" onclick="startQuiz(3)">وانەیا سێێ : پالدەرێن ئەرێنیبوونێ د ژیانێ دا</button>
+<div class="quiz-container">
+    
+    <div class="header-card">
+        <div class="main-title" id="main-header-title">تێستێ بابەتێ پەروەردا ئیسلامی</div>
+        <div class="sub-title" id="main-header-sub">خۆشەویست قوتابی، بابەتێ خۆ یێ تاقیکرنێ هەڵبژێره‌</div>
     </div>
 
-    <div id="quiz-section" class="quiz-section">
-        <h2 id="quiz-title" style="margin-bottom: 20px; color: #34495E;"></h2>
+    <div id="selection-screen" class="section active">
+        <div class="selection-group">
+            <button class="menu-btn" onclick="startQuiz(1)">وانەیا ئێکی : باوەری ب رامانخستنا ژیانێ (٨ پرسیار)</button>
+            <button class="menu-btn" onclick="startQuiz(2)">وانەیا دووێ : باوەری و ئەرێنیبوون د ژیانێ دا (٢٦ پرسیار)</button>
+            <button class="menu-btn" onclick="startQuiz(3)">وانەیا سێێ : پالدەرێن ئەرێنیبوونێ د ژیانێ دا (١٧ پرسیار)</button>
+        </div>
+    </div>
+
+    <div id="quiz-screen" class="section">
         <form id="quiz-form">
             <div id="questions-container"></div>
-            <button type="button" class="btn-submit" onclick="calculateScore()">دوماهیك هاتن و دیتنا نمرێ</button>
+            <button type="button" class="oval-btn" onclick="submitQuiz()">دوماهیك هاتن و دیتنا ئەنجامی</button>
         </form>
     </div>
 
-    <div id="result-section" class="result-section">
+    <div id="result-screen" class="section">
         <div class="result-card">
-            <h2>ئەنجامێ تاقیکرنا تە</h2>
+            <h2>ئەنجامێ تاقیکرنێ</h2>
             <div class="score-text" id="score-display">0 / 0</div>
             <div class="percentage-text" id="percentage-display">ڕێژا سەرکەفتنێ: 0%</div>
-            <p id="result-message" style="font-size: 18px; font-weight: 500;"></p>
-            <button class="btn-back" onclick="goBack()">زڤرین بۆ لاپەرێ سەرەکی</button>
+            <p id="result-message" style="color: #4b5563; font-weight: 500;"></p>
+            <button class="btn-secondary" onclick="goHome()">زڤرین بۆ لاپەرێ سەرەکی</button>
         </div>
-
-        <h3 class="review-title">پێداچوونا پرسیار و بەرسڤان:</h3>
+        <h3 style="margin-bottom: 15px; color: #1e3a8a; font-weight: 700; padding-right: 5px;">پێداچوونا پرسیاران:</h3>
         <div id="review-container"></div>
     </div>
 </div>
 
 <script>
-    // داتایا هەمی پرسیارێن هەر سێ وانەیان
     const quizData = {
         1: {
             title: "وانەیا ئێکی : باوەری ب رامانخستنا ژیانێ",
@@ -288,21 +291,22 @@
                 { q: "......... پالدەرەکێ نافخۆیییە، مروڤی بەرەو چاکخوازی و زێدەکرنا خێراتیێ دبەت .", options: {A:"باوەر", B:"هێز", C:"خواندن", D:"هزر"}, correct: "A" },
                 { q: "......... نیشانا لاوازییا کەسایەتیا خودانییە، ژ بەر کو ئەو هێز و شیانا دەستپێشخەری و دانا بریارێ ژ مروڤی دستینیت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "A" },
                 { q: "ئێک ژ ئەگەرێن نەرێنیبوونێ یە :", options: {A:"هەزۆک و دودلی", B:"بێ زەوقی", C:"خۆشی", D:"نەخۆشی"}, correct: "A" },
+                { q: "......... نیشانا لاوازییا کەسایەتیا خودانییە، ژ بەر کو ئەو هێز و شیانا دەستپێشخەری و دانا بریارێ ژ مروڤی دستینیت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "A" },
                 { q: "مروڤێ ......... ، ئەو کەسە ئەون ل دەمێ پێدڤی شیانا بریاردانێ ناهەبت، و پشتی دانا بریارێ هەزۆک و دودل نەبت .", options: {A:"باش", B:"خراب", C:"ئەرێنی", D:"نەرێنی"}, correct: "C" },
                 { q: "......... گەلەک د دلیڤەیێن چاک و سەرکەفتنان ژ دەست مروڤی دکەت .", options: {A:"دودلی", B:"بێ زەوقی", C:"خۆشی", D:"نەخۆشی"}, correct: "A" },
                 { q: "......... گەلەک جاران ل نیڤا ڕێکی مروڤی تووشی شکەستن و پاشڤەچوونێ دکەت .", options: {A:"هەزۆک و دودلی", B:"بێزاری و بێتاقەتی", C:"تەمبەڵی", D:"شەرمینی"}, correct: "A" },
                 { q: "......... دوژمنێ سەرکەفتنێیە، و ڕێگرە بۆ ژ دەستدانا ئارمانجێن مەزن د ژیانێ دا .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
-                { q: "......... ژ ئەگەرێن شکەستن و خەمbari و زەعیفکرنا دەمی و هەژاری و خوسارەتی و پاشکەفتنێیە، لەوا دڤێت مروڤێ باوەردار خۆ ژێ دوور بێخت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
+                { q: "......... ژ ئەگەرێن شکەستن و خەمباری و زەعیفکرنا دەمی و هەژاری و خوسارەتی و پاشکەفتنێیە، لەوا دڤێت مروڤێ باوەردار خۆ ژێ دوور بێخت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
                 { q: "......... د پەرستنێدا سالوخەتێ دوورویایە .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( اللهم إني أعوذ بك من ......... )) .", options: {A:"البخل", B:"الجهل", C:"الخجل", D:"الكسل"}, correct: "D" },
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( اللهم إني أعوذ بك من الكسل )) ، ئانکو : خودایێ من، ئەز خۆ ب تە دپارێزم ژ ......... .", options: {A:"بەخیلیێ", B:"نەزانینێ", C:"شەرمینیێ", D:"تەمبەلیێ"}, correct: "D" },
                 { q: "د قورئانێ دا هەردەم ب حەس باوەری دگه ل کار و خەبات و خۆ وستاندنێ دهێته کرن، چونکی باوەر و تەمبەلی دوو تشتێن ......... .", options: {A:"هەڤدژن", B:"نێزیکی ئێکبن", C:"باشن", D:"خرابن"}, correct: "A" },
-                { q: "((تەمبەڵی کلیلا بێخێریێیە، ب ڕێکا تەمبەلیێ فەقێراتی و زیان و تێچوون پەیدا دبن)). ئەڤە گۆتنا یا کێیە ؟", options: {A:"ئەبوبەکر سدیق", B:"عومەرێ کورێ خەتابی", C:"عەلییێ کورێ ئەبو تالبی", D:"عوسمانێ کورێ عەفانی"}, correct: "C" },
-                { q: "......... نێشەکا نیراویا مروڤی لاواز دکەت، و نەخۆشییە ل نەک مروڤی دکوژت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
+                { q: "((تەمبەڵی کلیلا بێخێریێیە، ب ڕێکا تەمبەلیێ فەقێراتی و زیان و تێچوون پەیدا دبن)). ئەڤە گۆتنا یا کێیە ؟", options: {A:"ئەبوبەکر سدیق", B:"عومەرێ کورێ خەتابی", C:"عەلییێ کورێ ئه‌بو تالبی", D:"عوسمانێ کورێ عەفانی"}, correct: "C" },
+                { q: "......... نێشەکا نیراویا مروڤی لاواز دکەت, و نەخۆشییە ل نەک مروڤی دکوژت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "C" },
                 { q: "......... ئێکە هند ژ مروڤی چیندکەت کو ئەو داخوازا مافێ خۆ نە کەت، و ب ئاشکرایی دەربڕینی ژ بیر و باوەرێن خوه نەکەت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "D" },
-                { q: "......... ئەوە مروڤ ب خۆ هەبت، و شانازیێ ب کەسایەتیا خۆ بکەت، و وەک کەسەکێ ئەرێنی بزاڤێ بکەت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "D" },
+                { q: "چارەسەریا ......... ئەوە مروڤ ب خۆ هەبت، و شانازیێ ب کەسایەتیا خۆ بکەت، و وەک کەسەکێ ئەرێنی بزاڤێ بکەت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "D" },
                 { q: "((ئەو هاتینە خەلکی ژ کۆلەتیا مروڤان ڤەگوهێزینە بەندایەتیا خودایێ مەزن، و ژ زۆردارییا ئاینان ڤەگوهێزینە دادپەروەریا ئیسلامێ...)) ئەڤە گۆتنا یا کێیە ؟", options: {A:"سەعد کورێ مەعازی", B:"ڕوبەیێ کورێ عامری", C:"ڕەبیعێ کورێ عامری", D:"ئەبوبه کر سدیق"}, correct: "C" },
-                { q: "......... ب نوینەراتیا موسلمانان چووبو دەف مەزنێ ساسانیان .", options: {A:"سەعد کورێ مەعازی", B:"عەلیێ کورێ ئەبو تالبی", C:"ڕەبیعێ کورێ عامری", D:"ئەبوبه کر سدیق"}, correct: "C" },
+                { q: "......... ب نوینەراتیا موسلمانان چووبو دەف مەزنێ ساسانیان .", options: {A:"سەعد کورێ مەعازی", B:"عەلیێ کورێ ئه‌بو تالبی", C:"ڕەبیعێ کورێ عامری", D:"ئەبوبه کر سدیق"}, correct: "C" },
                 { q: "مەبەست ژ ......... ئەوە، کار ل دەمێ خۆ نەهێته کرن، و کارێ نەڤرو بو سوباهی بهێته گیروکرن .", options: {A:"نەئەنجامدانا کاری", B:"پێشخستنا کاری", C:"پاشخستنا کاری", D:"نە کرنا کاری"}, correct: "C" },
                 { q: "ئەڤە نیشانا بێخەمی و لاوازییا گیانی بەڕپرسی و نە مجدبوونێ د ژیانێ دا .", options: {A:"پاشخستنا کاری", B:"بێزاری", C:"تەمبەلی", D:"شەرمینی"}, correct: "A" },
                 { q: "......... کەسەکێ نەرێنییە، و نە ب تنێ ئەوی پاشخستنا کاری رازی نابت، بەلکو ئەو ب هزرا پاشەکێشێ به ڕێ خۆ ددەتە ژیانێ .", options: {A:"باوەردار", B:"بێ باوەر", C:"نەزان", D:"نەخواندەڤان"}, correct: "B" }
@@ -318,12 +322,13 @@
                 { q: "خودایێ مەزن داخوازی ژ ......... دکەت کو ئەو کاری بکەن و پشتڕاست بن کو خودێ و پێغەمبەر د کاری وان دبینن .", options: {A:"نەزانان", B:"بێ باوەران", C:"باوەرداران", D:"نەخواندەڤانان"}, correct: "C" },
                 { q: "د چەند ئایەت و فەرموودەیاندا هاتیە کو ......... و کۆمەکا هەڵوێست و چالاکییان پێکڤە د گرێداینە .", options: {A:"باوەری", B:"هێز", C:"خواندن", D:"هزر"}, correct: "A" },
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن رَأى مِنكُم مُنكراً فَلْيُغَيِّرْهُ بِيَدِهِ ... )) . کی ئەڤ فەرموودە ڤەگوهاستیە ؟", options: {A:"ئیمامی ئەحمەد", B:"ئیمامی بوخاری", C:"ئیمامی مسلم", D:"ئیمامی ترمزی"}, correct: "C" },
-                { q: "ب دیتنا باوەرداری ژیان کۆمەکا دەلیڤەیانە، و پێغەمبەر (سلاڤ لێ بن) داخوازی ژ ......... دکەت کو ئەو وان دەلیڤەیان ژ دەست خۆ نەکەت .", options: {A:"موسلمانی", B:"نەزانی", C:"خەلکی", D:"کارکەری"}, correct: "A" },
-                { q: "خودایێ مەزن یاڵددەت کو ئەو ل سەرێ د کرنا ......... بکەن، و د بەهر ئێکودودا بکەن .", options: {A:"بازرگانیێدا", B:"خێریدا", C:"جوتیاریێدا", D:"خۆشیێدا"}, correct: "B" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن رَأى مِنكُم مُنكراً فَلْيُغَيِّرْهُ بِيَدِهِ ... )) ، ئه‌ڤه‌ فه‌رمووده‌ هه‌می هندێ دگه‌هینیت كو نابیت ......... به‌رانبه‌ر كارێ خراب بێ هه‌ڵوێست بمینیت .", options: {A:"نەزان", B:"بێ باوەر", C:"باوەردار", D:"نەخواندەڤان"}, correct: "C" },
+                { q: "خودایێ مەزن باوەرداران یاڵددەت کو ئەو ل سەرێ د کرنا ......... بکەن، و د بەهر ئێکودودا بکەن .", options: {A:"بازرگانیێدا", B:"خێریدا", C:"جوتیاریێدا", D:"خۆشیێدا"}, correct: "B" },
                 { q: "خودایێ مەزن باوەرداران یاڵددەت کو ئەو ل سەرێ د کرنا خێریدا بکەن، چونکی ئەڤە نیشانا ......... مروڤییه .", options: {A:"ب هێزبوونێ", B:"بێ هێزبوونێ", C:"ئەرێنیبوونێ", D:"نەرێنیبوونێ"}, correct: "C" },
                 { q: "قورئان گرنگی نەدانێ ب تەحفیا لاواز، و هارینەکڕنا وان ژ لایێ جڤاکیڤە، دکەتە نیشانا ......... .", options: {A:"نەبوونا هێزێ", B:"نەبوونا زانینێ", C:"نەبوونا ئارمانجێ", D:"نەبوونا باوەریێ"}, correct: "D" },
-                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن لَم يَهْتَمَّ بِأَمْرِ الْمُسْلِمِينَ فَلَيْسَ مِنْهُمْ )) ، ئانکو : هەرکەسێ خەمێ ژ موسلمانان نەخۆت، ئەو ......... .", options: {A:"نە ژ وانە", B:"بەخیلە", C:"تەمبەلە", D:"نە یێ ژوانە"}, correct: "A" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن لَم يَهْتَمَّ بِأَمْرِ الْمُسْلِمِينَ فَلَيْسَ مِنْهُمْ )) ، ئانکو : هرکەسێ خەمێ ژ موسلمانان نەخۆت، ئەو ......... .", options: {A:"نە ژ وانە", B:"بەخیلە", C:"تەمبەلە", D:"ژ وانە"}, correct: "A" },
                 { q: "ب دیتنا باوەرداری ژیان کۆمەکا ......... .", options: {A:"خۆشیانە", B:"هێڤیانە", C:"ئارمانجانە", D:"دەلیڤەیانە"}, correct: "D" },
+                { q: "ب دیتنا باوەرداری ژیان کۆمەکا دەلیڤەیانە، و پێغەمبەر (سلاڤ لێ بن) داخوازی ژ ......... دکەت کو ئەو وان دەلیڤەیان ژ دەست خۆ نەکەت .", options: {A:"موسلمانی", B:"نەزانی", C:"خەلکی", D:"کارکەری"}, correct: "A" },
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( اغتنم خمسا قبل خمس ... )) . کێ ئەڤ فەرموودە ڤەگوهاستیە ؟", options: {A:"تەمبەرانی", B:"بوخاری", C:"مسلم", D:"نەسائی و بەیهەقی"}, correct: "D" },
                 { q: "......... هەستا گرنگییا دەمی ل نک مروڤی په‌یدا دکەت .", options: {A:"هێز", B:"هیڤی", C:"باوەری", D:"زانین"}, correct: "C" },
                 { q: "خودایێ مەزن د گەلەک سوورەتێن قورئانێدا سووند خوارییە کو تێچوون و زیان بۆ وی مروڤییە ئەوێ دەمێ خۆ بنی ......... ببورینت .", options: {A:"خۆشی", B:"ئارمانج", C:"باوەری و کارێ چاک", D:"خواندن و زانینێ"}, correct: "C" }
@@ -331,109 +336,99 @@
         }
     };
 
-    let currentSection = null;
+    let activeSection = null;
 
     function startQuiz(sectionNum) {
-        currentSection = sectionNum;
-        const section = quizData[sectionNum];
+        activeSection = sectionNum;
+        const currentData = quizData[sectionNum];
         
-        document.getElementById('quiz-title').innerText = section.title;
+        // گوهۆرینا ناڤ و دێمێ سەرەکی د کارتا سەرەکیدا
+        document.getElementById('main-header-title').innerText = currentData.title;
+        document.getElementById('main-header-sub').innerText = "بەرسڤا هەمی پرسیاران بدە و ل دوماهییێ پشکنینا ئەنجامی بکە";
+        
         const container = document.getElementById('questions-container');
         container.innerHTML = '';
 
-        section.questions.forEach((q, index) => {
+        currentData.questions.forEach((question, index) => {
             let optionsHtml = '';
-            for (const [key, value] of Object.entries(q.options)) {
+            for (const [key, value] of Object.entries(question.options)) {
                 optionsHtml += `
                     <label class="option-label">
-                        <input type="radio" name="question-${index}" value="${key}">
+                        <input type="radio" name="q-${index}" value="${key}">
                         <strong>${key} )</strong> &nbsp; ${value}
                     </label>
                 `;
             }
 
-            const qCard = `
+            container.innerHTML += `
                 <div class="question-card">
-                    <div class="question-text">${index + 1}. ${q.q}</div>
-                    <div class="options-container">
-                        ${optionsHtml}
-                    </div>
+                    <div class="question-text">${index + 1}. ${question.q}</div>
+                    <div class="options-container">${optionsHtml}</div>
                 </div>
             `;
-            container.innerHTML += qCard;
         });
 
-        document.getElementById('section-selection').classList.remove('active');
-        document.getElementById('quiz-section').classList.add('active');
-        window.scrollTo(0, 0);
+        switchScreen('quiz-screen');
     }
 
-    function calculateScore() {
-        const section = quizData[currentSection];
-        let score = 0;
-        let totalQuestions = section.questions.length;
-        const maxScore = totalQuestions * 2;
-
+    function submitQuiz() {
+        const currentData = quizData[activeSection];
+        let correctCount = 0;
+        let total = currentData.questions.length;
         const reviewContainer = document.getElementById('review-container');
-        reviewContainer.innerHTML = ''; // پاقژکرنا پێداچوونێن کۆن
+        reviewContainer.innerHTML = '';
 
-        section.questions.forEach((q, index) => {
-            const selectedInput = document.querySelector(`input[name="question-${index}"]:checked`);
-            const userAns = selectedInput ? selectedInput.value : "نەهاتیە بەرسڤدان";
-            const isCorrect = selectedInput && selectedInput.value === q.correct;
-            
-            if (isCorrect) {
-                score += 2;
-            }
+        currentData.questions.forEach((question, index) => {
+            const selected = document.querySelector(`input[name="q-${index}"]:checked`);
+            const userChoice = selected ? selected.value : null;
+            const isRight = userChoice === question.correct;
 
-            // دروستکرنا کارتا پێداچوونێ بۆ هەر پرسیارەکێ
-            const cardClass = isCorrect ? "correct-review" : "wrong-review";
-            const badgeClass = isCorrect ? "badge-correct" : "badge-wrong";
-            const badgeText = isCorrect ? "یا ڕاستە" : "یا خەلەتە";
+            if (isRight) correctCount++;
 
-            let userAnsText = userAns !== "نەهاتیە بەرسڤدان" ? `${userAns} ) ${q.options[userAns]}` : userAns;
-            let correctAnsText = `${q.correct} ) ${q.options[q.correct]}`;
+            const cardClass = isRight ? "correct-review" : "wrong-review";
+            const badgeClass = isRight ? "badge-correct" : "badge-wrong";
+            const badgeText = isRight ? "یا ڕاستە" : "یا خەلەتە";
 
-            const reviewCard = `
+            let userText = userChoice ? `${userChoice} ) ${question.options[userChoice]}` : "تە بەرسڤ نەدایە";
+            let correctText = `${question.correct} ) ${question.options[question.correct]}`;
+
+            reviewContainer.innerHTML += `
                 <div class="review-card ${cardClass}">
                     <span class="status-badge ${badgeClass}">${badgeText}</span>
-                    <div class="question-text" style="font-size:16px;">${index + 1}. ${q.q}</div>
-                    <div class="answer-info">
-                        <p>بەرسڤا تە: <span class="${isCorrect ? 'text-success' : 'text-danger'}">${userAnsText}</span></p>
-                        ${!isCorrect ? `<p>بەرسڤا دروست: <span class="text-success">${correctAnsText}</span></p>` : ''}
+                    <div class="question-text" style="font-size:15px; margin-bottom:10px;">${index + 1}. ${question.q}</div>
+                    <div style="font-size: 14px;">
+                        <p style="margin-bottom:4px;">بەرسڤا تە: <span class="${isRight ? 'text-success' : 'text-danger'}">${userText}</span></p>
+                        ${!isRight ? `<p>بەرسڤا دروست: <span class="text-correct-ans">${correctText}</span></p>` : ''}
                     </div>
                 </div>
             `;
-            reviewContainer.innerHTML += reviewCard;
         });
 
-        // حسابکرنا ڕێژا سەدی
-        const percentage = Math.round((score / maxScore) * 100);
+        let finalScore = correctCount * 2;
+        let maxScore = total * 2;
+        let percent = Math.round((finalScore / maxScore) * 100);
 
-        document.getElementById('score-display').innerText = `${score} / ${maxScore}`;
-        document.getElementById('percentage-display').innerText = `ڕێژا سەرکەفتنێ: ${percentage}%`;
-        
-        let message = "";
-        if (percentage === 100) {
-            message = "ماشا‌ءالله! تو سەرکەفتنا نایاب ب دەستخۆڤە ئینا و نمرەکا تمام وەرگرت.";
-        } else if (percentage >= 50) {
-            message = "پیرۆزە! تو د ڤێ تاقیکرنێ دا سەرکەفتی بووی.";
-        } else {
-            message = "مخابن تو سەرنەکەفتی! پێداچوونێ دگەل پرسیاران بکە دا کو فێری بەرسڤێن دروست ببی.";
-        }
-        
-        document.getElementById('result-message').innerText = message;
+        document.getElementById('score-display').innerText = `${finalScore} / ${maxScore}`;
+        document.getElementById('percentage-display').innerText = `ڕێژا سەرکەفتنێ: ${percent}%`;
+        document.getElementById('result-message').innerText = percent >= 50 ? "پیرۆزە! تو ب سەرکەفتیانە دەرچووی." : "هەول بدە ڤارەکا دی بابەتان پێداچوون بکەی.";
 
-        document.getElementById('quiz-section').classList.remove('active');
-        document.getElementById('result-section').classList.add('active');
+        document.getElementById('main-header-title').innerText = "ئەنجامێ تاقیکرنێ";
+        document.getElementById('main-header-sub').innerText = "ل خوارێ دشێی تەماشای پێداچوونا هەمی بەرسڤان بکەی";
+
+        switchScreen('result-screen');
+    }
+
+    function switchScreen(screenId) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
         window.scrollTo(0, 0);
     }
 
-    function goBack() {
-        document.getElementById('result-section').classList.remove('active');
-        document.getElementById('section-selection').classList.add('active');
+    function goHome() {
         document.getElementById('quiz-form').reset();
-        window.scrollTo(0, 0);
+        document.getElementById('main-header-title').innerText = "تێستێ بابەتێ پەروەردا ئیسلامی";
+        document.getElementById('main-header-sub').innerText = "خۆشەویست قوتابی، بابەتێ خۆ یێ تاقیکرنێ هەڵبژێره‌";
+        switchScreen('selection-screen');
     }
 </script>
 
