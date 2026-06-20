@@ -5,102 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تێستێ بابەتێ پەروەردا ئیسلامی</title>
     <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --card-bg: #ffffff;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* بەکارهێنانا فۆنتێن ستاندارد یێن سیستەمی بۆ هندێ چ کێشە د خویندنا پیتێن کوردی دا پەیدا نەبن */
-            font-family: Tahoma, Arial, "Segoe UI", Helvetica, sans-serif;
+            font-family: Tahoma, Arial, "Segoe UI", sans-serif;
         }
 
         body {
-            background-color: #f0f4f8;
+            background: var(--bg-gradient);
             min-height: 100vh;
-            padding: 20px 15px;
-            color: #2c3e50;
+            padding: 30px 15px;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: flex-start;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         .quiz-container {
             width: 100%;
-            max-width: 600px;
-            background-color: transparent;
+            max-width: 680px;
         }
 
-        /* کارتا ناڤونیشانێ سەرەکی */
+        /* کارتا سەرەکی یا ناڤونیشانی */
         .header-card {
-            background-color: #ffffff;
-            border-radius: 20px;
-            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 35px 25px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            border-top: 5px solid #3b82f6;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6, #10b981);
         }
 
         .main-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             color: #1e3a8a;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
         }
 
         .sub-title {
             font-size: 15px;
-            color: #6b7280;
-            line-height: 1.6;
+            color: var(--text-muted);
+            line-height: 1.7;
         }
 
-        /* کارتێن هەلبژارتنا وانەیان */
+        /* بەرسڤا هەلبژارتنا وانەیان */
         .selection-group {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
         }
 
         .menu-btn {
-            background-color: #ffffff;
+            background: var(--card-bg);
             border: 1px solid #e5e7eb;
-            border-radius: 16px;
-            color: #374151;
-            padding: 20px;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            padding: 22px 20px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             text-align: right;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             line-height: 1.6;
         }
 
-        .menu-btn:hover {
-            border-color: #3b82f6;
-            background-color: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        .menu-btn::after {
+            content: '←';
+            font-size: 18px;
+            color: var(--primary);
+            transition: transform 0.2s;
         }
 
-        /* کارتێن پرسیاران */
+        .menu-btn:hover {
+            border-color: var(--primary);
+            background-color: #f8fafc;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.15);
+        }
+
+        .menu-btn:hover::after {
+            transform: translateX(-5px);
+        }
+
+        /* کارتا پرسیارێ */
         .question-card {
-            background: #ffffff;
-            padding: 25px 20px;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            border-right: 5px solid #3b82f6;
+            background: var(--card-bg);
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            border-right: 6px solid var(--primary);
         }
 
         .question-text {
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.7;
-            color: #1f2937;
+            margin-bottom: 22px;
+            line-height: 1.8;
+            color: #0f172a;
         }
 
         .options-container {
@@ -112,27 +148,27 @@
         .option-label {
             display: flex;
             align-items: center;
-            padding: 14px 16px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
+            padding: 15px 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            color: #4b5563;
+            transition: all 0.2s;
+            color: #334155;
             font-size: 15px;
             font-weight: 500;
             line-height: 1.6;
         }
 
         .option-label:hover {
-            border-color: #3b82f6;
-            background: #f8fafc;
+            border-color: var(--primary);
+            background: #f1f5f9;
         }
 
         .option-label input {
-            margin-left: 12px;
+            margin-left: 14px;
             transform: scale(1.3);
-            accent-color: #3b82f6;
+            accent-color: var(--primary);
             cursor: pointer;
         }
 
@@ -142,94 +178,104 @@
 
         .active {
             display: block;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        /* پشکا دوماهی هاتنێ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* دوگمێن ئۆڤال */
         .oval-btn {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             border: none;
             border-radius: 50px;
             color: white;
             font-size: 16px;
             font-weight: bold;
-            padding: 16px;
+            padding: 18px;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.4);
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .oval-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.5);
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
         }
 
         /* کارتا ئەنجامی */
         .result-card {
             text-align: center;
-            padding: 30px 20px;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            border: 1px solid #e5e7eb;
+            padding: 40px 24px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
         }
 
         .score-text {
-            font-size: 36px;
-            font-weight: bold;
-            color: #10b981;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--success);
             margin: 15px 0;
         }
 
         .percentage-text {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 10px;
+            color: var(--text-main);
+            margin-bottom: 12px;
         }
 
         .review-card {
-            background: #ffffff;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            border: 1px solid #e5e7eb;
+            background: var(--card-bg);
+            padding: 24px;
+            margin-bottom: 18px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
         }
 
-        .correct-review { border-right: 5px solid #10b981; }
-        .wrong-review { border-right: 5px solid #ef4444; }
+        .correct-review { border-right: 6px solid var(--success); }
+        .wrong-review { border-right: 6px solid var(--danger); }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
             color: white;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
-        .badge-correct { background-color: #10b981; }
-        .badge-wrong { background-color: #ef4444; }
+        .badge-correct { background-color: var(--success); }
+        .badge-wrong { background-color: var(--danger); }
 
-        .text-success { color: #10b981; font-weight: bold; }
-        .text-danger { color: #ef4444; font-weight: bold; }
-        .text-correct-ans { color: #10b981; font-weight: bold; }
+        .text-success { color: var(--success); font-weight: bold; }
+        .text-danger { color: var(--danger); font-weight: bold; }
+        .text-correct-ans { color: var(--success); font-weight: bold; }
 
         .btn-secondary {
-            background-color: #6b7280;
+            background-color: #64748b;
             border: none;
             border-radius: 50px;
             color: white;
             font-size: 15px;
-            padding: 12px;
+            padding: 14px;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 25px;
             font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569;
         }
     </style>
 </head>
@@ -247,6 +293,7 @@
             <button class="menu-btn" onclick="startQuiz(1)">وانەیا ئێکی : باوەری ب رامانخستنا ژیانێ (٨ پرسیار)</button>
             <button class="menu-btn" onclick="startQuiz(2)">وانەیا دووێ : باوەری و ئەرێنیبوون د ژیانێ دا (٢٦ پرسیار)</button>
             <button class="menu-btn" onclick="startQuiz(3)">وانەیا سێێ : پالدەرێن ئەرێنیبوونێ د ژیانێ دا (١٧ پرسیار)</button>
+            <button class="menu-btn" onclick="startQuiz(4)">وانەیا چارێ : دادپەروەری (٢٦ پرسیار)</button>
         </div>
     </div>
 
@@ -262,10 +309,10 @@
             <h2>ئەنجامێ تاقیکرنێ</h2>
             <div class="score-text" id="score-display">0 / 0</div>
             <div class="percentage-text" id="percentage-display">ڕێژا سەرکەفتنێ: 0%</div>
-            <p id="result-message" style="color: #4b5563; font-weight: bold;"></p>
+            <p id="result-message" style="color: var(--text-muted); font-weight: bold;"></p>
             <button class="btn-secondary" onclick="goHome()">زڤرین بۆ لاپەرێ سەرەکی</button>
         </div>
-        <h3 style="margin-bottom: 15px; color: #1e3a8a; font-weight: bold; padding-right: 5px;">پێداچوونا پرسیاران:</h3>
+        <h3 style="margin-bottom: 18px; color: #1e3a8a; font-weight: bold; padding-right: 5px;">پێداچوونا پرسیاران:</h3>
         <div id="review-container"></div>
     </div>
 </div>
@@ -282,7 +329,7 @@
                 { q: "ئێک ژ ئەرکێن سەرەکی یێن ......... ئەوە ئەو هاریکارییا مروڤی بکەت کو مروڤ ب سەر کێم و کاسیێن خۆ ب سەرکەڤیت .", options: {A:"ژیانێ", B:"باوەریێ", C:"خۆشیێ", D:"نەخۆشیێ"}, correct: "B" },
                 { q: "......... مە ژ رەوشەکا نەرێنی بۆ ئێک ئەرێنی ڤەدگوهێزیت، و نەئەرکە ئەرکێن باوەری و دینی ب گشتی .", options: {A:"ب رامانخستنا نەخۆشیان", B:"بەریکانەیا نەخۆشیان", C:"ژ دەستدانا خوشتڤیان", D:"هەستکرن ب ترسی"}, correct: "A" },
                 { q: "......... مە فێری هندێ دکەن کو دابیت نەخۆشی ببیته دەلیڤە بۆ تێگەهشتنەکا زیندەتر بۆ ژیانێ .", options: {A:"خۆشی و شادی", B:"کەرب و کین", C:"باوەری و ئیسلام", D:"دل و دەروون"}, correct: "C" },
-                { q: "......... dزانت کو نەخۆشی هەمی نە خرابییه، و خودایەک هەیە دشێت خوشیین بدەت .", options: {A:"باوەردار", B:"بێ باوەر", C:"هەر کەسەک", D:"نەخواندەڤان"}, correct: "A" }
+                { q: "......... دزانت کو نەخۆشی هەمی نە خرابییه، و خودایەک هەیە دشێت خوشیین بدەت .", options: {A:"باوەردار", B:"بێ باوەر", C:"هەر کەسەک", D:"نەخواندەڤان"}, correct: "A" }
             ]
         },
         2: {
@@ -291,8 +338,8 @@
                 { q: ".........، ئانکو چالاکبوون، و هەستکرن ب بەرپرسیێ، و بەرەنگاربوونا کەفتنا کێشەیێن بۆ ژیانێ، و کارلیکرنا دگەل ئارمانجێ .", options: {A:"ب هێزبوون", B:"بێ هێزبوون", C:"ئەرێنیبوون", D:"نەرێنیبوون"}, correct: "C" },
                 { q: ".........، رامانا خەمساری و ڕەشبینی و هەست نەکرن ب بەرپرسیێ و خۆ ڤەکێشان و شکەستنێ ددەت .", options: {A:"ب هێزبوون", B:"بێ هێزبوون", C:"ئەرێنیبوون", D:"نەرێنیبوون"}, correct: "D" },
                 { q: "ئەگەر باوەرى جهێ خۆ د دڵێ کەسەکێدا کر، ئەڤە دێ وی کەتە خۆدان ......... .", options: {A:"هشیارییەکا ڕاست و دروست", B:"ڤیانەکا ڕاست و دروست", C:"هێزەکا ڕاست و دروست", D:"مێشکەکێ ڕاست و دروست"}, correct: "C" },
-                { q: "......... گیانێ نەرێنیبوونێ و خۆ ڤەکێشانێ ئێکجار ل دەڤ مروڤی ناهێلیت، یان دێ لاواز کەت، و ئەڤە دێ مروڤی بۆ کارکرن و دان و داهێنان و خەباتێ پالدەت .", options: {A:"ساخلەمی", B:"بێ هیڤیبوون", C:"زیندەیبوون", D:"باوەری"}, correct: "D" },
-                { q: "......... پالدەرەکێ نافخۆیییە، مروڤی بەرەو چاکخوازی و زێدەکرنا خێراتیێ دبەت .", options: {A:"باوەر", B:"هێز", B:"خواندن", D:"هزر"}, correct: "A" },
+                { q: "......... گیانێ نەرێنیبوونێ و خۆ ڤەکێشانێ ئێکجار ل دەڤ مروڤی ناهێلیت، یان دێ لاواز کەت، و ئەڤە دێ مروڤی بۆ کارکردن و دان و داهێنان و خەباتێ پالدەت .", options: {A:"ساخلەمی", B:"بێ هیڤیبوون", C:"زیندەیبوون", D:"باوەری"}, correct: "D" },
+                { q: "......... پالدەرەکێ نافخۆیییە، مروڤی بەرەو چاکخوازی و زێدەکرنا خێراتیێ دبەت .", options: {A:"باوەر", B:"هێز", C:"خواندن", D:"هزر"}, correct: "A" },
                 { q: "......... نیشانا لاوازییا کەسایەتیا خودانییە، ژ بەر کو ئەو هێز و شیانا دەستپێشخەری و دانا بریارێ ژ مروڤی دستینیت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "A" },
                 { q: "ئێک ژ ئەگەرێن نەرێنیبوونێ یە :", options: {A:"هەزۆک و دودلی", B:"بێ زەوقی", C:"خۆشی", D:"نەخۆشی"}, correct: "A" },
                 { q: "......... نیشانا لاوازییا کەسایەتیا خودانییە، ژ بەر کو ئەو هێز و شیانا دەستپێشخەری و دانا بریارێ ژ مروڤی دستینیت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "A" },
@@ -311,7 +358,7 @@
                 { q: "چارەسەریا ......... ئەوە مروڤ ب خۆ هەبت، و شانازیێ ب کەسایەتیا خۆ بکەت، و وەک کەسەکێ ئەرێنی بزاڤێ بکەت .", options: {A:"هەزۆک و دودلی", B:"بێزاری", C:"تەمبەڵی", D:"شەرمینی"}, correct: "D" },
                 { q: "((ئەو هاتینە خەلکی ژ کۆلەتیا مروڤان ڤەگوهێزینە بەندایەتیا خودایێ مەزن، و ژ زۆردارییا ئاینان ڤەگوهێزینە دادپەروەریا ئیسلامێ...)) ئەڤە گۆتنا یا کێیە ؟", options: {A:"سەعد کورێ مەعازی", B:"ڕوبەیێ کورێ عامری", C:"ڕەبیعێ کورێ عامری", D:"ئەبوبه کر سدیق"}, correct: "C" },
                 { q: "......... ب نوینەراتیا موسلمانان چووبو دەف مەزنێ ساسانیان .", options: {A:"سەعد کورێ مەعازی", B:"عەلیێ کورێ ئه‌بو تالبی", C:"ڕەبیعێ کورێ عامری", D:"ئەبوبه کر سدیق"}, correct: "C" },
-                { q: "مەبەست ژ ......... ئەوە، کار ل دەمێ خۆ نەهێته کرن، و کارێ نەڤرو بو سوباهی بهێته گیروکرن .", options: {A:"نەئەنجامدانا کاری", B:"پێشخستنا کاری", C:"پاشخستنا کاری", D:"نە کرنا کاری"}, correct: "C" },
+                { q: "Mەبەست ژ ......... ئەوە، کار ل دەمێ خۆ نەهێته کرن، و کارێ نەڤرو بو سوباهی بهێته گیروکرن .", options: {A:"نەئەنجامدانا کاری", B:"پێشخستنا کاری", C:"پاشخستنا کاری", D:"نە کرنا کاری"}, correct: "C" },
                 { q: "ئەڤە نیشانا بێخەمی و لاوازییا گیانی بەڕپرسی و نە مجدبوونێ د ژیانێ دا .", options: {A:"پاشخستنا کاری", B:"بێزاری", C:"تەمبەلی", D:"شەرمینی"}, correct: "A" },
                 { q: "......... کەسەکێ نەرێنییە، و نە ب تنێ ئەوی پاشخستنا کاری رازی نابت، بەلکو ئەو ب هزرا پاشەکێشێ به ڕێ خۆ ددەتە ژیانێ .", options: {A:"باوەردار", B:"بێ باوەر", C:"نەزان", D:"نەخواندەڤان"}, correct: "B" }
             ]
@@ -326,7 +373,7 @@
                 { q: "خودایێ مەزن داخوازی ژ ......... دکەت کو ئەو کاری بکەن و پشتڕاست بن کو خودێ و پێغەمبەر د کاری وان دبینن .", options: {A:"نەزانان", B:"بێ باوەران", C:"باوەرداران", D:"نەخواندەڤانان"}, correct: "C" },
                 { q: "د چەند ئایەت و فەرموودەیاندا هاتیە کو ......... و کۆمەکا هەڵوێست و چالاکییان پێکڤە د گرێداینە .", options: {A:"باوەری", B:"هێز", C:"خواندن", D:"هزر"}, correct: "A" },
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن رَأى مِنكُم مُنكراً فَلْيُغَيِّرْهُ بِيَدِهِ ... )) . کی ئەڤ فەرموودە ڤەگوهاستیە ؟", options: {A:"ئیمامی ئەحمەد", B:"ئیمامی بوخاری", C:"ئیمامی مسلم", D:"ئیمامی ترمزی"}, correct: "C" },
-                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن رَأى مِنكُم مُنكراً fَلْيُغَيِّرْهُ بِيَدِهِ ... )) ، ئه‌ڤه‌ فه‌رمووده‌ هه‌می هندێ دگه‌هینیت كو نابیت ......... به‌رانبه‌ر كارێ خراب بێ هه‌ڵوێست بمینیت .", options: {A:"نەزان", B:"بێ باوەر", C:"باوەردار", D:"نەخواندەڤان"}, correct: "C" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( مَن رَأى مِنكُم مُنكراً فَلْيُغَيِّرْهُ بِيَدِهِ ... )) ، ئه‌ڤه‌ فه‌رمووده‌ هه‌می هندێ دگه‌هینیت كو نابیت ......... به‌رانبه‌ر كارێ خراب بێ هه‌ڵوێست بمینیت .", options: {A:"نەزان", B:"بێ باوەر", C:"باوەردار", D:"نەخواندەڤان"}, correct: "C" },
                 { q: "خودایێ مەزن باوەرداران یاڵددەت کو ئەو ل سەرێ د کرنا ......... بکەن، و د بەهر ئێکودودا بکەن .", options: {A:"بازرگانیێدا", B:"خێریدا", C:"جوتیاریێدا", D:"خۆشیێدا"}, correct: "B" },
                 { q: "خودایێ مەزن باوەرداران یاڵددەت کو ئەو ل سەرێ د کرنا خێریدا بکەن، چونکی ئەڤە نیشانا ......... مروڤییه .", options: {A:"ب هێزبوونێ", B:"بێ هێزبوونێ", C:"ئەرێنیبوونێ", D:"نەرێنیبوونێ"}, correct: "C" },
                 { q: "قورئان گرنگی نەدانێ ب تەحفیا لاواز، و هارینەکڕنا وان ژ لایێ جڤاکیڤە، دکەتە نیشانا ......... .", options: {A:"نەبوونا هێزێ", B:"نەبوونا زانینێ", C:"نەبوونا ئارمانجێ", D:"نەبوونا باوەریێ"}, correct: "D" },
@@ -336,6 +383,37 @@
                 { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت : (( اغتنم خمسا قبل خمس ... )) . کێ ئەڤ فەرموودە ڤەگوهاستیە ؟", options: {A:"تەمبەرانی", B:"بوخاری", C:"مسلم", D:"نەسائی و بەیهەقی"}, correct: "D" },
                 { q: "......... هەستا گرنگییا دەمی ل نک مروڤی په‌یدا دکەت .", options: {A:"هێز", B:"هیڤی", C:"باوەری", D:"زانین"}, correct: "C" },
                 { q: "خودایێ مەزن د گەلەک سوورەتێن قورئانێدا سووند خوارییە کو تێچوون و زیان بۆ وی مروڤییە ئەوێ دەمێ خۆ بنی ......... ببورینت .", options: {A:"خۆشی", B:"ئارمانج", C:"باوەری و کارێ چاک", D:"خواندن و زانینێ"}, correct: "C" }
+            ]
+        },
+        4: {
+            title: "وانەیا چارێ : دادپەروەری",
+            questions: [
+                { q: "ژ بەر هندێ وەرە دادێ و ڕزگاربوون ژ زۆڵم و زۆرداریێ خەونا ......... .", options: {A:"باوەردارانە", B:"بێ باوەرانە", C:"زانایانە", D:"جڤاکێن مروڤانە"}, correct: "D" },
+                { q: "......... ئێک ژ بهایێن بلند و سەرەکییە، و هەر ژ بەر ڤێ چەندێ، قورئانێ زیندە گرنگی دایە ڤی بهایی، و داخواز ژ باوەرداران کر کۆ ئەو وی ژ دەست خۆ نەکەن .", options: {A:"دادی", B:"هشیاری", C:"کارکرن", D:"ڕێزگرتن"}, correct: "A" },
+                { q: "( مافێ هەر خودان مافەکی پێدان - إعطاء كل ذي حق حقه )، پێناسەیە بۆ ......... .", options: {A:"دادپەروەریێ", B:"وەکهەڤیێ", C:"کەسایەتیێ", D:"دیموکراسیێ"}, correct: "A" },
+                { q: "ئەو بارودۆخە ئەوا تێدا مرۆڤ تێدا هەست نەکەت کو ستەم لێ دهێتەکرن، یان ماف لێ دهێتە خوارن، پێناسەیە بۆ ......... .", options: {A:"دادپەروەریێ", B:"وەکهەڤیێ", C:"کەسایەتیێ", D:"دیموکراسیێ"}, correct: "A" },
+                { q: "ب دیتنا ئیسلامێ ناردنا پێغەمبەر و کتبێن ئاسمانی ل درێژیا دیرۆکێ هەر بۆ هندێ بو کو ......... دناڤبەرا مرۆڤاندا بنەجه بیت .", options: {A:"بازرگانی", B:"حەژێکرن", C:"دادپەروەری", D:"زۆرداری"}, correct: "C" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت: (( عدل ساعة خير من عبادة ......... )) .", options: {A:"اربعين سنة", B:"خمسين سنة", C:"ستين سنة", D:"سبعين سنة"}, correct: "C" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت: (( عدل ساعة خير من عبادة ستين سنة ))، ئانکو: ......... سەعەتەکێ ژ پەرستنا شەست سالان باشرە .", options: {A:"دادییا", B:"وەکهەڤیا", C:"کەسایەتیا", D:"دیموکراسیێ"}, correct: "A" },
+                { q: "دڤێت هەر ......... بزانیت کۆ دەستنیشانکرنا دادیێ و بجهئینانا وێ، و کار بۆ پەیداکرنا وێ فەرمانەکا خودێیە .", options: {A:"زانایەک", B:"بێ باوەرەک", C:"باوەردارەک", D:"کەسەک"}, correct: "C" },
+                { q: "دادپەروەری فەرمانەکا خودێیە بۆ ......... .", options: {A:"زۆرداران", B:"بێ باوەران", C:"پێغەمبەران", D:"موسلمانان"}, correct: "D" },
+                { q: "خودایێ مەزن د بێژیت: (( إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ )) ئەڤ ئایەتە گرنگیێ ددەتە ......... .", options: {A:"دادپەروەریێ", B:"وەکهەڤیێ", C:"کەسایەتیێ", D:"تەناهییێ"}, correct: "A" },
+                { q: "د ئیسلامێدا ......... تشتەکێ تایبەت نینە بۆ ئالییەکێ دەستنیشانکری د ژیانێدا .", options: {A:"بازرگانی", B:"حەژێکرن", C:"دادپەروەری", D:"زۆرداری"}, correct: "C" },
+                { q: "مروڤ د گەل خۆ و دگەل هەڤالێن خۆ و دناف بنەماڵ و جڤاکی هەمیاندا دڤێت یێ ......... بیت .", options: {A:"کەشخە بیت", B:"زیرەک بیت", C:"دادپەروەر بیت", D:"وێرەک بیت"}, correct: "C" },
+                { q: "......... ئێکە ژ دەرئەنجامێن دادپەروەریێ .", options: {A:"دەولەتەمەندیا سیاسی", B:"دەولەتەمەندیا هزری", C:"دەولەتەمەندیا جڤاکی", D:"دەولەتەمەندیا دەروونی"}, options: {A:"دەولەتییا سیاسی", B:"دەولەتییا ئابووری", C:"دەولەتییا جڤاکی", D:"دەولەتییا دادوەری"}, correct: "C" },
+                { q: "دادپەروەری ......... ئێکە ژ گرنگترین ڕەنگێن دادپەروەریێ، کو ئیسلامێ فەرمان پێ دای .", options: {A:"سیاسی", B:"ئابووری", C:"هزری", D:"دەروونی"}, correct: "A" },
+                { q: "ب دیتنا ئیسلامێ فەرمانڕەوا (حاکم) ب گریەستنەکێ و ب ڕێکا ......... دەستەڵاتی وەردگریت .", options: {A:"نیاسینا خۆ", B:"خۆسەپاندنێ", C:"هەڵبژارتنێ", D:"میراتگیریێ"}, correct: "C" },
+                { q: "د ئیسلامێدا چەسپاندنا دادپەروەریێ ل ڕێزا ئێکی دهێت، پاشی ......... دهێت .", options: {A:"یەکسانی", B:"وەکهەڤی", C:"دیموکراسی", D:"تەناهی"}, correct: "D" },
+                { q: "(( خودێ دەولەتا دادپەروەر ددەت ئەگەر کافر بیت، و دەولەتا زۆردار ناهێلیت ئەگەر موسلمان بیت، و دنیا دگەل دادی و کوفری دمینیت، بەلێ دگەل زۆرداری و ئیسلامێ نامینیت ))، ئەڤ گۆتنە یا کێیە ؟", options: {A:"ئیبن تەیمییە", B:"ئیمامێ ئەحمەد", B:"ئیمامێ عەلی", D:"راغب ئەلئەسفەهانی"}, correct: "A" },
+                { q: "د دەولەتا ......... زێدە ئیسلامێ گۆتنا خۆ هەیه، و هەر خوارنا مافێ خەلكی بو مالی، ئیسلامێ حەرام کرییه .", options: {A:"سیاسی", B:"جڤاکی", C:"ئابووری", D:"دەروونی"}, correct: "C" },
+                { q: "خودایێ مەزن د بێژیت: (( وَلَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ ))، ئەڤ ئایەتە بەحسێ کیژ دەلیڤەیانە ؟", options: {A:"دەلیڤەیا سیاسی", B:"دەلیڤەیا ئابووری", C:"دەلیڤەیا دادوەری", D:"دەلیڤەیا دەروونی"}, correct: "B" },
+                { q: "ئەگەر جڤاک و دەولەت ژیانەکا بەختەوەر بۆ کەس و خێزانان دابین نەکەت، مەعنا ئەو ......... دکەن .", options: {A:"بازرگانیێ", B:"دادیێ", C:"بێدادیێ", D:"وەکهەڤیێ"}, correct: "C" },
+                { q: "پێغەمبەر (سلاڤ لێ بن) د بێژیت: ((خودێ دانا هند مالی ل سەر دەولەمەندان کرییه ئەرک، کۆ تیرا ......... بکەت)).", options: {A:"دەولەمەندان", B:"هەژاران", C:"کریکاران", D:"بازرگانان"}, correct: "B" },
+                { q: "(( دگەل هەر ماڵەکێ ب حەرامی هاتییە کۆمکرن، هندەک ماف هەنە هاتینە خوارن ))، ئەڤە گۆتنا یا کێیە ؟", options: {A:"ئیمامێ ئەحمەد", B:"ئیمامێ عومەر", C:"ئیمامێ عەلی", D:"ئیمامێ بوخاری"}, correct: "C" },
+                { q: "جێبەجێکرنا دادیێ ژ ئەرکێن سەرەکی یێن ......... ، ئەوی ژی ب ڕێکا کارپێکرنا یاسایێ .", options: {A:"دادوەرین", B:"وەکەڤین", C:"کەسایەتین", D:"تەناهیین"}, correct: "A" },
+                { q: "دا دادپەروەرییا دادوەر و یاسایی پەیدا ببیت، دڤێت :", options: {A:"هەمی وەلاتی بەرانبەری یاسایی وەکهەڤ بن", B:"دادگەهـ خوەسەر و بێلا بیت و دووریت ژ هەمی ڕەنگێن دەستیوەردانێن دەرەکی", C:"یاسایەکا دادپەروەر سەردەست بیت", D:"هەمی بەرسڤ د ڕاستن"}, correct: "D" },
+                { q: "زۆری و کوتەکی د وەرگرتنا دانپێداناندا ......... .", options: {A:"دروستە", B:"قەدەغەیە", C:"ئاساییە", D:"ڕێ پێدایە"}, correct: "B" },
+                { q: "هەمی کەس بەرانبەری یاسایێ ......... .", options: {A:"وەکهەڤن", B:"هەڤدژن", C:"جیاوازن", D:"باشن"}, correct: "A" }
             ]
         }
     };
