@@ -59,7 +59,7 @@
             min-height: 100vh;
         }
 
-        /* پشکا گوهۆڕینی ڕەنگان */
+        /* پانێلا گوهۆڕینا ڕەنگان */
         .theme-panel {
             display: flex;
             align-items: center;
@@ -154,10 +154,11 @@
         .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px var(--accent-glow); }
 
         .btn-submit { background: linear-gradient(135deg, #0ea5e9, #2563eb); margin-top: 30px; }
+        .btn-reset { background: linear-gradient(135deg, #f59e0b, #d97706); margin-top: 15px; }
 
         .quiz-section, .result-section { display: none; }
 
-        /* دیزاینا نوو یا کارتێن پرسیاران */
+        /* کارتێن پرسیاران */
         .question-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -166,7 +167,6 @@
             margin-bottom: 30px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.02);
             position: relative;
-            overflow: hidden;
         }
 
         .question-badge {
@@ -187,7 +187,6 @@
             line-height: 1.6;
         }
 
-        /* بژاردەیێن پرسیارێ ب شێوازێ جیاواز */
         .options-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
 
         .option-item {
@@ -198,7 +197,6 @@
             border: 2px solid var(--border-color);
             border-radius: 16px;
             cursor: pointer;
-            position: relative;
         }
 
         .option-item:hover {
@@ -244,7 +242,7 @@
             border-radius: 10px;
         }
 
-        /* پشکا ئەنجامی یا شاهانە */
+        /* پشکا ئەنجامی */
         .result-card {
             background: var(--primary-gradient);
             color: white;
@@ -273,22 +271,27 @@
         footer { text-align: center; margin-top: auto; padding: 40px 20px; }
         footer p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
-        /* ناڤێ تە یێ گەشەپێدەر */
+        /* ئەنیمەیشنا ناڤێ تە */
         footer .developer {
             font-weight: 900;
-            font-size: 22px;
+            font-size: 24px;
             margin-top: 6px;
             letter-spacing: 2px;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(99, 102, 241, 0.2)); }
+            100% { transform: scale(1.03); filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.6)); }
         }
     </style>
 </head>
 <body>
 
-    <!-- پانێلا گوهۆڕینا ڕەنگان -->
     <div class="theme-panel">
         <span>شاشە:</span>
         <div class="color-dot dot-white" onclick="setTheme('light')"></div>
@@ -302,7 +305,7 @@
             <p>وزاری خولا ئێکێ و دووێ (٢٠١٩ - ٢٠٢٥)</p>
         </header>
 
-        <!-- دەستپێک -->
+        <!-- پشکا هەڵبژارتنێ -->
         <div id="setup-section">
             <div class="selection-box">
                 <div class="form-group">
@@ -328,16 +331,17 @@
             <button class="btn" onclick="startQuiz()">دەستپێکرنا تاقیکردنەوەیێ</button>
         </div>
 
-        <!-- ئەنجام -->
+        <!-- پشکا ئەنجامی دگەل بژاردەیا زڤڕینێ -->
         <div id="result-section" class="result-section">
             <div class="result-card">
                 <h2>ئەنجامێ تاقیکردنەوەیا تە</h2>
                 <div class="score-circle" id="percentage-display">0%</div>
-                <div id="score-display" style="font-weight: 600; font-size: 18px; opacity: 0.9;">نمرە: 0 ژ 0</div>
+                <div id="score-display" style="font-weight: 600; font-size: 18px; opacity: 0.9; margin-bottom: 10px;">نمرە: 0 ژ 0</div>
             </div>
+            <button class="btn btn-reset" onclick="resetQuiz()">زڤڕین بۆ پشکا سەرەکی 🔄</button>
         </div>
 
-        <!-- پرسیار -->
+        <!-- پشکا پرسیاران -->
         <div id="quiz-section" class="quiz-section">
             <div id="questions-container"></div>
             <button type="button" class="btn btn-submit" onclick="submitQuiz()">بۆچوونا ئەنجامان و پشکنین</button>
@@ -365,6 +369,7 @@
         function startQuiz() {
             document.getElementById('setup-section').style.display = 'none';
             document.getElementById('quiz-section').style.display = 'block';
+            document.getElementById('result-section').style.display = 'none'; // دڵنیاکبوونەوە ژ شاردنەوا ئەنجامێ کۆن
             currentQuestions = [...sampleQuestions]; 
             generateQuestions(currentQuestions);
         }
@@ -415,7 +420,7 @@
                         document.getElementById(`opt-label-${qIndex}-${userAns}`).classList.add('wrong-answer');
                         const hintBox = document.getElementById(`hint-${qIndex}`);
                         hintBox.style.display = 'block';
-                        hintBox.innerText = `✕ وەڵامێ خەلەت! وەڵامێ دروست: [ ${q.options[correctIndex]} ] لێرەیە.`;
+                        hintBox.innerText = `✕ وەڵامێ خەلەت! وەڵامێ دروست: [ ${q.options[correctIndex]} ]`;
                     }
                 } else {
                     const hintBox = document.getElementById(`hint-${qIndex}`);
@@ -433,6 +438,16 @@
             document.getElementById('percentage-display').innerText = `%${scoreOutOf100}`;
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // فەنکشنا زڤڕینێ بۆ تاقیکردنەوەیا نوو
+        function resetQuiz() {
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('setup-section').style.display = 'block';
+            
+            // دووبارە پاقژکرنا فورمێ
+            document.getElementById('quiz-form').reset();
         }
     </script>
 </body>
