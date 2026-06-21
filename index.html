@@ -59,6 +59,19 @@
         }
         .subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; opacity: 0.9; }
         
+        /* پەنەلێ نیشادانا خاڵان */
+        .points-badge {
+            background: rgba(255, 204, 0, 0.15);
+            color: var(--gold);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
         /* تۆڕا دوگمەیێن بابەتان (Grid) */
         .btn-container { 
             display: grid; 
@@ -88,6 +101,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.25); 
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
             position: relative;
+            cursor: pointer;
         }
         
         .btn.disabled {
@@ -217,11 +231,12 @@
 
     <div id="main-content">
         <div class="header-container">
-            <h2>تاقیکرنێن ویزاری  چاڤه ريبن دده مي بهيتدا ب شيوازه كي جوانتر هينه خزمه تا هه وه ئه فه وه كي تيستي يه ژبه ركو من يي كريه كود چونكي خه له تي هه ين هه تا هه ميا چاره سه ر كه م دي يي وه توف بيت و دي پتر ژ ٥٠٠٠ پسيارا كه مه نافدا </h2>
+            <h2>تاقیکرنێن ویزاری</h2>
             <div class="subtitle">سیستەمێ گەهشتنا بلەز یا مەلزەمە و تاقیکردنان - خولا دووێ</div>
         </div>
 
-        <!-- دوگمەیێن بابەتان -->
+        <div id="points-display" class="points-badge">💰 خاڵێن تە: ١٠٠ خاڵ</div>
+
         <div class="btn-container">
             <div onclick="navigateTo('fizya.html')" class="btn" id="m-fizya"><span>⚛️</span>فیزیا</div>
             <div onclick="navigateTo('mejo.html')" class="btn" id="m-mejo"><span>📜</span>مێژوو</div>
@@ -232,22 +247,22 @@
             <div onclick="navigateTo('ark.html')" class="btn" id="m-ark"><span>🌐</span>ئارک (ARK)</div>
             <div onclick="navigateTo('eslame.html')" class="btn" id="m-eslame"><span>📖</span>ئیسلامی</div>
             <div onclick="navigateTo('zindawar.html')" class="btn" id="m-zindawar"><span>🧬</span>ژیندەوار</div>
-            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span>🔬</span>ژیندەوار ١</div>  <div onclick="navigateTo('eslamebabat.html')" class="btn" id="m-eslame"><span>⚛️</span>ئيسلامي وانه ب وانه</div>
+            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span>🔬</span>ژیندەوار ١</div>
+            <div onclick="navigateTo('eslamebabat.html')" class="btn" id="m-eslame-babat"><span>⚛️</span>ئيسلامي وانه ب وانه</div>
+        </div>
     </div>
 
-    <!-- پەنەلێ ڕێکخستنا رووژانە و ئەکاونتان -->
     <div class="section-box">
         <div id="status-container" class="hidden"></div>
         
         <div id="limit-msg" class="warning-box hidden">
-            ⚠️ تە ئەڤرۆ پشکداری کریە! بۆ دووبارەکرنێ دڤێت ناسناما (حسابی) هه‌بیت.
+            ⚠️ خاڵێن تە تەمام بوون! بۆ بەردەوامبوونێ دڤێت حسابی بكڕی یان داخل بكەی.
         </div>
         
         <span id="account-link-btn" class="account-link" onclick="toggleLoginBox()">🔐 چووناژوورێ ب حسابی (بۆ ئەزموونکرنا بێ سنوور)</span>
 
-        <!-- فۆڕما چووناژوورێ -->
         <div id="login-panel" class="login-box hidden" style="margin-top: 15px; padding-top: 10px;">
-            <input type="text" id="username-input" placeholder="ناڤێ بەکارهێنەر (Username)">
+            <input type="text" id="username-input" placeholder="کۆدێ ئەکاونتی یان ناڤێ بەکارهێنەر">
             <input type="password" id="password-input" placeholder="پێپەیڤ (Password)">
             <button onclick="validateUserAccount()">پشکنین و بەستنا حسابێ ➔</button>
         </div>
@@ -256,35 +271,58 @@
     </div>
 
     <script>
-        // لیستا ١٠ حسابێن کارا
+        // لیستا حسابان
         const studentAccounts = {
             "student1": "pass111", "student2": "pass456", "student3": "pass789",
             "student4": "pass2026", "student5": "user555", "student6": "user666",
             "student7": "user777", "student8": "user888", "student9": "user999", "student10": "vip2026"
         };
 
+        // دروستکرنا ناسنامەکا بێهاوتا بۆ ئامێری (بۆ رێگری ل دووبارەبوونێ)
+        if (!localStorage.getItem("device_uid")) {
+            localStorage.setItem("device_uid", "dev_" + Math.random().toString(36).substr(2, 9));
+        }
+        const currentDeviceUID = localStorage.getItem("device_uid");
+
         document.addEventListener("DOMContentLoaded", function() {
+            initPointsSystem();
             checkAccessLock();
         });
 
+        function initPointsSystem() {
+            const isVIP = localStorage.getItem("is_vip_account") === "true";
+            if (isVIP) return;
+
+            const todayStr = new Date().toDateString();
+            const lastPointsDate = localStorage.getItem("last_points_date");
+
+            // ئەگەر ڕۆژەکا نوو بیت یان یەکەمجار بیت، ١٠٠ خاڵان بدێ
+            if (lastPointsDate !== todayStr) {
+                localStorage.setItem("user_points", "100");
+                localStorage.setItem("last_points_date", todayStr);
+            }
+        }
+
         function checkAccessLock() {
             const isVIP = localStorage.getItem("is_vip_account") === "true";
-            const lastClickDate = localStorage.getItem("last_exam_click_date");
-            const todayStr = new Date().toDateString();
-            
             const limitMsg = document.getElementById("limit-msg");
             const badge = document.getElementById("status-container");
             const accountBtn = document.getElementById("account-link-btn");
+            const pointsDisplay = document.getElementById("points-display");
 
             if (isVIP) {
                 badge.className = "status-badge";
-                badge.innerHTML = "👑 حسابی تایبەت کارایە (پشکداریا بێ سنوور)";
+                badge.innerHTML = "👑 حسابی VIP کارایە (پشکداریا بێ سنوور)";
                 badge.classList.remove("hidden");
                 limitMsg.classList.add("hidden");
                 accountBtn.style.display = "none";
+                pointsDisplay.innerHTML = "👑 حسابی تە: VIP بێ سنوور";
                 enableButtons();
             } else {
-                if (lastClickDate === todayStr) {
+                let points = parseInt(localStorage.getItem("user_points") || "0");
+                pointsDisplay.innerHTML = "💰 خاڵێن تە: " + points + " خاڵ";
+
+                if (points < 10) {
                     limitMsg.classList.remove("hidden");
                     disableButtons();
                 } else {
@@ -304,19 +342,22 @@
 
         function navigateTo(url) {
             const isVIP = localStorage.getItem("is_vip_account") === "true";
-            const lastClickDate = localStorage.getItem("last_exam_click_date");
-            const todayStr = new Date().toDateString();
 
-            if (!isVIP && lastClickDate === todayStr) {
-                alert("تە ئەڤرۆ ئەزموون کریە! ناتوانیت پشکداری کەیە ڤە ئیلا حسابی داخل کەی.");
+            if (isVIP) {
+                window.location.href = url;
                 return;
             }
 
-            if (!isVIP) {
-                localStorage.setItem("last_exam_click_date", todayStr);
-            }
+            let points = parseInt(localStorage.getItem("user_points") || "0");
 
-            window.location.href = url;
+            if (points >= 10) {
+                points -= 10; // کێمکرنا ١٠ خاڵان بۆ هەر بابەتەکێ
+                localStorage.setItem("user_points", points.toString());
+                window.location.href = url;
+            } else {
+                alert("ببوورە! خاڵێن تە تەمام بوونە، دڤێت حسابی داخل کەی یان پارەی بدەی.");
+                checkAccessLock();
+            }
         }
 
         function toggleLoginBox() {
@@ -328,8 +369,20 @@
             const pass = document.getElementById("password-input").value.trim();
 
             if (studentAccounts[user] && studentAccounts[user] === pass) {
+                
+                // پشکنینا سیستەمی و ئامێری
+                const savedDeviceUID = localStorage.getItem("used_by_device_" + user);
+                
+                if (savedDeviceUID && savedDeviceUID !== currentDeviceUID) {
+                    showMsg("ببوورە! ئەڤ کۆدە پێشتر ل سەر سیستەمەک (ئامێرەکێ) دی هاتیە بكارئینان.", "var(--error)");
+                    return;
+                }
+
+                // قفلکرنا حسابێ ل سەر ڤی ئامێری
+                localStorage.setItem("used_by_device_" + user, currentDeviceUID);
                 localStorage.setItem("is_vip_account", "true");
-                showMsg("چووناژوورێ سەرکەفتی بوو! پشکنین دهيته كرن بوو.", "var(--success)");
+                
+                showMsg("چووناژوورێ سەرکەفتی بوو!", "var(--success)");
                 setTimeout(() => {
                     location.reload();
                 }, 1000);
@@ -340,7 +393,8 @@
 
         function showMsg(text, color) {
             const msg = document.getElementById("error-msg");
-            msg.innerHTML = text; msg.style.color = color;
+            msg.innerHTML = text; 
+            msg.style.color = color;
         }
     </script>
 </body>
