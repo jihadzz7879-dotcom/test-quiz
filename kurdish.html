@@ -12,17 +12,18 @@
             --card-blur: blur(16px);
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --border-color: #cbd5e1;
             --primary-gradient: linear-gradient(135deg, #4f46e5, #7c3aed);
             --accent-glow: rgba(99, 102, 241, 0.15);
             --success: #10b981;
             --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
         /* ستایلێ شاهانە یێ ڕەش (Amoled Dark) */
         [data-theme="dark"] {
             --bg-gradient: linear-gradient(135deg, #090d16 0%, #020408 100%);
-            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-bg: rgba(15, 23, 42, 0.8);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #1e293b;
@@ -33,7 +34,7 @@
         /* ستایلێ گەش یێ نیلی (Cyber Navy) */
         [data-theme="navy"] {
             --bg-gradient: linear-gradient(135deg, #060c18 0%, #02040a 100%);
-            --card-bg: rgba(13, 27, 56, 0.8);
+            --card-bg: rgba(13, 27, 56, 0.85);
             --text-main: #f0fdf4;
             --text-muted: #38bdf8;
             --border-color: #1e3a8a;
@@ -69,7 +70,7 @@
             backdrop-filter: var(--card-blur);
             padding: 10px 20px;
             border-radius: 50px;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
@@ -94,8 +95,8 @@
             backdrop-filter: var(--card-blur);
             padding: 40px;
             border-radius: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
         }
 
         header {
@@ -158,10 +159,30 @@
 
         .quiz-section, .result-section { display: none; }
 
+        /* ئاگەهدارکرنا بەرسڤ نەدانێ */
+        .error-message {
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
         /* کارتێن پرسیاران */
         .question-card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             padding: 30px;
             border-radius: 24px;
             margin-bottom: 30px;
@@ -169,11 +190,17 @@
             position: relative;
         }
 
+        /* کادرێ تێبینیێ ئەگەر وەڵام نەهاتبیتە دان د ناو کارتێ دا */
+        .unanswered-card {
+            border-color: var(--warning) !important;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
         .question-badge {
             display: inline-block;
             background: var(--primary-gradient);
             color: white;
-            padding: 4px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 800;
@@ -181,7 +208,7 @@
         }
 
         .question-text {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 700;
             margin-bottom: 25px;
             line-height: 1.6;
@@ -202,7 +229,7 @@
         .option-item:hover {
             border-color: #6366f1;
             background: var(--accent-glow);
-            transform: scale(1.01);
+            transform: translateX(-4px);
         }
 
         .option-item input {
@@ -310,13 +337,13 @@
             <div class="selection-box">
                 <div class="form-group">
                     <select id="year-select">
-                        <option value="2025">سارا تاقیکردنەوەیێ: 2025</option>
-                        <option value="2024">سارا تاقیکردنەوەیێ: 2024</option>
-                        <option value="2023">سارا تاقیکردنەوەیێ: 2023</option>
-                        <option value="2022">سارا تاقیکردنەوەیێ: 2022</option>
-                        <option value="2021">سارا تاقیکردنەوەیێ: 2021</option>
-                        <option value="2020">سارا تاقیکردنەوەیێ: 2020</option>
-                        <option value="2019">سارا تاقیکردنەوەیێ: 2019</option>
+                        <option value="2025">سالا تاقیکردنەوەیێ: 2025</option>
+                        <option value="2024">سالا تاقیکردنەوەیێ: 2024</option>
+                        <option value="2023">سالا تاقیکردنەوەیێ: 2023</option>
+                        <option value="2022">سالا تاقیکردنەوەیێ: 2022</option>
+                        <option value="2021">سالا تاقیکردنەوەیێ: 2021</option>
+                        <option value="2020">سالا تاقیکردنەوەیێ: 2020</option>
+                        <option value="2019">سالا تاقیکردنەوەیێ: 2019</option>
                     </select>
                 </div>
 
@@ -331,7 +358,7 @@
             <button class="btn" onclick="startQuiz()">دەستپێکرنا تاقیکردنەوەیێ</button>
         </div>
 
-        <!-- پشکا ئەنجامی دگەل بژاردەیا زڤڕینێ -->
+        <!-- پشکا ئەنجامی -->
         <div id="result-section" class="result-section">
             <div class="result-card">
                 <h2>ئەنجامێ تاقیکردنەوەیا تە</h2>
@@ -343,8 +370,11 @@
 
         <!-- پشکا پرسیاران -->
         <div id="quiz-section" class="quiz-section">
-            <div id="questions-container"></div>
-            <button type="button" class="btn btn-submit" onclick="submitQuiz()">بۆچوونا ئەنجامان و پشکنین</button>
+            <div id="error-box" class="error-message">تە بەرسڤ نەهەڵبژارتییە، هیڤییە بەرسڤێ هەڵبژێری ⚠️</div>
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="button" class="btn btn-submit" onclick="submitQuiz()">بۆچوونا ئەنجامان و پشکنین</button>
+            </form>
         </div>
     </div>
 
@@ -369,7 +399,8 @@
         function startQuiz() {
             document.getElementById('setup-section').style.display = 'none';
             document.getElementById('quiz-section').style.display = 'block';
-            document.getElementById('result-section').style.display = 'none'; // دڵنیاکبوونەوە ژ شاردنەوا ئەنجامێ کۆن
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('error-box').style.display = 'none';
             currentQuestions = [...sampleQuestions]; 
             generateQuestions(currentQuestions);
         }
@@ -381,12 +412,13 @@
             questions.forEach((q, qIndex) => {
                 const questionCard = document.createElement('div');
                 questionCard.className = 'question-card';
+                questionCard.id = `q-card-${qIndex}`;
                 
                 let optionsHTML = '';
                 q.options.forEach((opt, oIndex) => {
                     optionsHTML += `
                         <li class="option-item" id="opt-label-${qIndex}-${oIndex}">
-                            <input type="radio" name="question-${qIndex}" value="${oIndex}" id="opt-${qIndex}-${oIndex}">
+                            <input type="radio" name="question-${qIndex}" value="${oIndex}" id="opt-${qIndex}-${oIndex}" onchange="removeWarning(${qIndex})">
                             <label for="opt-${qIndex}-${oIndex}">${opt}</label>
                         </li>
                     `;
@@ -402,9 +434,36 @@
             });
         }
 
+        // لادانی نیشانەی ئاگەهدارکردنێ دەما قوتابی وەڵامەک هەڵدەبژێریت
+        function removeWarning(qIndex) {
+            document.getElementById(`q-card-${qIndex}`).classList.remove('unanswered-card');
+        }
+
         function submitQuiz() {
             let score = 0;
             const total = currentQuestions.length;
+            let allAnswered = true;
+            const errorBox = document.getElementById('error-box');
+
+            // پشکنین کا ئایا هەمی پرسیار هاتینە بەرسڤدان؟
+            currentQuestions.forEach((q, qIndex) => {
+                const selectedRadio = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+                if (!selectedRadio) {
+                    allAnswered = false;
+                    document.getElementById(`q-card-${qIndex}`).classList.add('unanswered-card');
+                }
+            });
+
+            // ئەگەر پرسیارەکا بەرسڤ نەدای هەبیت تاقیکردنەوەیێ ڕادەگرین
+            if (!allAnswered) {
+                errorBox.style.display = 'block';
+                // فۆکەس و چوون بەرەو سەرێ پەیجێ بۆ دیتنا پەیاما خەلەتیێ
+                window.scrollTo({ top: 150, behavior: 'smooth' });
+                return;
+            }
+
+            // ئەگەر هەمی هاتبنە بەرسڤدان، پەیامێ لادەین و ئەنجامان پیشان دەین
+            errorBox.style.display = 'none';
 
             currentQuestions.forEach((q, qIndex) => {
                 const selectedRadio = document.querySelector(`input[name="question-${qIndex}"]:checked`);
@@ -412,20 +471,14 @@
                 
                 document.getElementById(`opt-label-${qIndex}-${correctIndex}`).classList.add('correct-answer');
 
-                if (selectedRadio) {
-                    const userAns = parseInt(selectedRadio.value);
-                    if (userAns === correctIndex) {
-                        score++;
-                    } else {
-                        document.getElementById(`opt-label-${qIndex}-${userAns}`).classList.add('wrong-answer');
-                        const hintBox = document.getElementById(`hint-${qIndex}`);
-                        hintBox.style.display = 'block';
-                        hintBox.innerText = `✕ وەڵامێ خەلەت! وەڵامێ دروست: [ ${q.options[correctIndex]} ]`;
-                    }
+                const userAns = parseInt(selectedRadio.value);
+                if (userAns === correctIndex) {
+                    score++;
                 } else {
+                    document.getElementById(`opt-label-${qIndex}-${userAns}`).classList.add('wrong-answer');
                     const hintBox = document.getElementById(`hint-${qIndex}`);
                     hintBox.style.display = 'block';
-                    hintBox.innerText = `⚠️ تە چ وەڵام نەدانە! وەڵامێ دروست: [ ${q.options[correctIndex]} ]`;
+                    hintBox.innerText = `✕ وەڵامێ خەلەت! وەڵامێ دروست: [ ${q.options[correctIndex]} ]`;
                 }
 
                 document.querySelectorAll(`input[name="question-${qIndex}"]`).forEach(input => input.disabled = true);
@@ -440,13 +493,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // فەنکشنا زڤڕینێ بۆ تاقیکردنەوەیا نوو
         function resetQuiz() {
             document.getElementById('result-section').style.display = 'none';
             document.getElementById('quiz-section').style.display = 'none';
             document.getElementById('setup-section').style.display = 'block';
-            
-            // دووبارە پاقژکرنا فورمێ
             document.getElementById('quiz-form').reset();
         }
     </script>
