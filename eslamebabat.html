@@ -173,7 +173,6 @@
             border-color: var(--primary-color);
         }
 
-        /* Result Styles */
         .result-info {
             text-align: center;
             margin-bottom: 30px;
@@ -229,7 +228,6 @@
 <body>
 
 <div class="container">
-    <!-- Header -->
     <div class="header">
         <h1>سیستەمێ پسیارێن ویزاری</h1>
         <div class="developer">گەشەپێدەر: JEHAD ZEBARI</div>
@@ -263,7 +261,7 @@
             <div id="progress" class="progress"></div>
         </div>
         <div id="question-container">
-            <!-- Question will be injected here by JS -->
+            <!-- Questions injected here -->
         </div>
         <button id="next-btn" onclick="nextQuestion()">پسیارا پاشتر</button>
     </div>
@@ -285,43 +283,51 @@
         <button onclick="restartQuiz()" style="margin-top: 20px;">دووبارە دەستپێکرن</button>
     </div>
 
-    <!-- Footer -->
     <div class="footer-credit">
         هەمی ماف دپاراستینە بۆ <strong>JEHAD ZEBARI</strong> &copy; 2026
     </div>
 </div>
 
 <script>
-// بەنکا پێزانینان: پسیارێن ویزاری بۆ هەر سالەکێ و خولەکێ (١٠ پسیار بۆ هەر ئێکێ)
-// تێبینی: تە دشێی دەقێ پسیار و بەرسڤان ل دویف حەزا خۆ بگۆڕی.
-const quizData = {};
-
-const years = ['2021', '2022', '2023', '2024', '2025'];
-years.forEach(year => {
-    quizData[year] = {
-        "1": [],
+// ل ڤێرە پسیار و بەرسڤێن خۆ بنڤیسە برا
+// تێبینی: "correct" ئاماژەیە بۆ ژمارا بەرسڤا ڕاست (0 یان 1 یان 2 یان 3) 
+const quizData = {
+    "2021": {
+        "1": [
+            {
+                question: "پسیارا ئێکێ ل ڤێرە بنڤیسە بۆ سالا 2021 خۆلا 1؟",
+                options: ["هەلبژارتنا یەکێ", "هەلبژارتنا دووێ", "هەلبژارتنا سیێ (ئەڤە یا ڕاستە)", "هەلبژارتنا چوارێ"],
+                correct: 2 // ل ڤێرە 2 واتە هەلبژارتنا سیێ یا ڕاستە چونکی ژ 0 دەستپێدکەت
+            },
+            {
+                question: "پسیارا دووێ ل ڤێرە بنڤیسە؟",
+                options: ["هەلبژارتنا یەکێ (ئەڤە یا ڕاستە)", "هەلبژارتنا دووێ", "هەلبژارتنا سیێ", "هەلبژارتنا چوارێ"],
+                correct: 0 // ل ڤێرە 0 واتە هەلبژارتنا یەکێ یا ڕاستە
+            }
+            // تۆ دشێی پسیارێن 3 تا 10 ب هەمان شێوە ل ڤێرە زێدە بکەی...
+        ],
+        "2": [
+            {
+                question: "پسیارا ئێکێ بۆ سالا 2021 خۆلا 2 چیە؟",
+                options: ["هەلبژارتنا 1", "هەلبژارتنا 2", "هەلبژارتنا 3", "هەلبژارتنا 4 (ئەڤە یا ڕاستە)"],
+                correct: 3
+            }
+        ]
+    },
+    "2022": {
+        "1": [
+            {
+                question: "پسیارا ئێکێ بۆ سالا 2022 خۆلا 1 بنڤیسە؟",
+                options: ["ژڤان", "خەلات", "ڕاست", "کوردستان"],
+                correct: 2
+            }
+        ],
         "2": []
-    };
-    
-    // دروستکرنا ١٠ پسیاران بۆ خۆلا ئێکێ
-بۆ (با من = 1؛ من <=10؛ من ++) {
-       {
-    question: "باوه ري و ئيسلام مه فيري هندي دكه ت وه ك دين كو نه خوشي بيته ده ليفه بو",
-    options: ["سیێ", "بەرسڤا چوارێ"],
-    correct: 0 // ئەگەر بەرسڤا ئێکێ ڕاست بیت دێ کەیە 0، ئەگەر یا دووێ بیت کەیە 1، یا سیێ کەیە 2...
-}
-
-
-    
-    // دروستکرنا ١٠ پسیاران بۆ خۆلا دووێ
-    for(let i=1; i<=10; i++) {
-        quizData[year]["2"].push({
-            question: `پسیارا ${i} ژ خۆلا دووێ یا سالا ${year} چیە؟`,
-            options: [`بەرسڤا خەلەت ئێک`, `بەرسڤا ڕاست ل ڤێرە`, `بەرسڤا خەلەت دوو`, `بەرسڤا خەلەت سێ`],
-            correct: 1
-        });
-    }
-});
+    },
+    "2023": { "1": [], "2": [] },
+    "2024": { "1": [], "2": [] },
+    "2025": { "1": [], "2": [] }
+};
 
 let currentQuestions = [];
 let currentQuestionIndex = 0;
@@ -333,6 +339,12 @@ function startQuiz() {
     const round = document.getElementById('round-select').value;
     
     currentQuestions = quizData[year][round];
+    
+    if(currentQuestions.length === 0) {
+        alert("هیێشتا چ پسیار بۆ ڤێ سالێ و خولێ نەتێنە نڤیسین!");
+        return;
+    }
+    
     currentQuestionIndex = 0;
     userAnswers = [];
     score = 0;
@@ -349,14 +361,12 @@ function showQuestion() {
         return;
     }
     
-    // نووکرنا پرۆگرێس بار
     const progressPercent = (currentQuestionIndex / currentQuestions.length) * 100;
     document.getElementById('progress').style.width = `${progressPercent}%`;
     
     const q = currentQuestions[currentQuestionIndex];
     const container = document.getElementById('question-container');
     
-    // گۆڕینا لایێ بەرسڤان ب شێوەیەکێ هەرەمەکی دا کو تاقیکردن ب سەرنجڕاکێشتر لێ بهێت
     let optionsHtml = '';
     q.options.forEach((option, index) => {
         optionsHtml += `<li class="option-item" onclick="selectOption(${index})" id="opt-${index}">${option}</li>`;
@@ -405,16 +415,15 @@ function showResults() {
     const round = document.getElementById('round-select').value;
     
     document.getElementById('quiz-details-result').innerText = `سالا ${year} - خۆلا  ${round === '1' ? 'ئێکێ' : 'دووێ'}`;
-    document.getElementById('score-display').innerText = `${score} / 10`;
+    document.getElementById('score-display').innerText = `${score} / ${currentQuestions.length}`;
     
     let feedback = "";
-    if(score >= 8) feedback = "نمرەکا نایابە! سەرکەفتی بی.";
-    else if(score >= 5) feedback = "باشە، بەلێ تۆ دشێی هێشتا باشتر لێ بکەی.";
-    else feedback = "دڤێت هێشتا پتر بخوینی و هەول بدەی.";
+    if(score === currentQuestions.length) feedback = "نمرەکا نایابە و تەمامە! دەست خۆش.";
+    else if(score >= currentQuestions.length / 2) feedback = "باشە، بەلێ تۆ دشێی هێشتا باشتر لێ بکەی.";
+    else feedback = "دڤێت هێشتا پتر پێداچوونێ بکەی.";
     
     document.getElementById('feedback-message').innerText = feedback;
     
-    // نیشاندانا پێداچوونێ (بەرسڤێن ڕاست و خەلەت)
     const reviewContainer = document.getElementById('review-container');
     reviewContainer.innerHTML = '';
     
