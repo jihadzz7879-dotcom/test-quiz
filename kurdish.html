@@ -12,7 +12,8 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --accent-color: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
         * {
@@ -81,7 +82,6 @@
 
         .form-group label {
             font-weight: bold;
-            color: var(--text-main);
         }
 
         .form-group select {
@@ -90,19 +90,16 @@
             border-radius: 10px;
             outline: none;
             font-size: 16px;
-            transition: all 0.3s;
             background-color: #fff;
         }
 
         .form-group select:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
 
-        .btn-start {
+        .btn {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 10px;
@@ -110,16 +107,16 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
-            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
         }
 
-        .btn-start:hover {
-            background-color: var(--primary-hover);
-        }
+        .btn-start { background-color: var(--primary-color); box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2); }
+        .btn-start:hover { background-color: var(--primary-hover); }
+        
+        .btn-submit { background-color: #0ea5e9; margin-top: 20px; }
+        .btn-submit:hover { background-color: #0284c7; }
 
-        .quiz-section {
+        .quiz-section, .result-section {
             display: none;
-            margin-top: 20px;
         }
 
         .quiz-info {
@@ -134,11 +131,11 @@
 
         .question-card {
             background: #fff;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #e2e8f0;
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s;
         }
 
         .question-text {
@@ -165,15 +162,42 @@
             transition: background 0.2s;
         }
 
-        .option-item:hover {
-            background-color: #f8fafc;
+        .option-item:hover { background-color: #f8fafc; }
+        .option-item input { width: 18px; height: 18px; cursor: pointer; }
+
+        /* ستایلێن پشکنینێ */
+        .correct-answer {
+            background-color: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
         }
 
-        .option-item input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
+        .wrong-answer {
+            background-color: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: #991b1b;
         }
+
+        .correct-hint {
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--success);
+            font-size: 14px;
+        }
+
+        /* ستایلا پشکا ئەنجامی */
+        .result-card {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-card h2 { color: #166534; margin-bottom: 15px; }
+        .score-text { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .percentage-text { font-size: 32px; color: var(--primary-color); font-weight: bold; }
 
         footer {
             text-align: center;
@@ -220,79 +244,136 @@
                 <div class="form-group">
                     <label for="exam-select">خولی هه‌ڵبژێره‌:</label>
                     <select id="exam-select">
-                        <option value="خولى ئێكێ">خولی ئێکێ (50 پرسیار)</option>
-                        <option value="خولی دووێ">خولی دووێ (50 پرسیار)</option>
+                        <option value="خولا ئێکێ">خولی ئێکێ (50 پرسیار)</option>
+                        <option value="خولا دووێ">خولی دووێ (50 پرسیار)</option>
                     </select>
                 </div>
             </div>
 
-            <button class="btn-start" onclick="startQuiz()">دەستپێکرنا تاقیکردنەوەیێ</button>
+            <button class="btn btn-start" onclick="startQuiz()">دەستپێکرنا تاقیکردنەوەیێ</button>
+        </div>
+
+        <!-- پشکا ئەنجامان -->
+        <div id="result-section" class="result-section">
+            <div class="result-card">
+                <h2>ئەنجامێ تاقیکردنەوەیێ</h2>
+                <div class="score-text" id="score-display">نمرە: 0 / 0</div>
+                <div class="percentage-text" id="percentage-display">ڕێژە: 0%</div>
+            </div>
         </div>
 
         <!-- پشکا نیشادانا پرسیاران -->
         <div id="quiz-section" class="quiz-section">
             <div id="quiz-info" class="quiz-info"></div>
-            <div id="questions-container">
-                <!-- پرسیار ل ڤێرە ب ڕێکا JavaScript دێ هێنە دروستکرن -->
-            </div>
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="button" class="btn btn-submit" onclick="submitQuiz()">بۆچوونا ئەنجامان و پشکنین</button>
+            </form>
         </div>
     </div>
 
-    <!-- فوتەر و ناڤێ تە یێ گەشەپێدەر -->
     <footer>
         <p>هەمی ماف پاراستینە بۆ گەشەپێدەرێ بەرنامەی</p>
         <div class="developer">Developed by: JEHAD ZEBARI</div>
     </footer>
 
     <script>
+        // داتابەیسەکا نموونەیی بۆ تاقیکردنەوەیا کارکرنێ (دشێی پسیارێن ڕاستەقینە لێرە دابنێی)
+        const sampleQuestions = [
+            { id: 1, text: "پرسیارا ئێکێ: ڕێزمانا کوردی د چەند پشکان دا لێکۆڵینەوەیێ دکەت؟", options: ["A) دوو پشک", "B) سێ پشک", "C) چوار پشک", "D) پێنج پشک"], correct: 2 }, // وەڵامێ دروست index 2 یە واتە C
+            { id: 2, text: "پرسیارا دووێ: کام ژ ئەڤان ناڤان ناڤێ ناسراوە؟", options: ["A) کورتەچیرۆک", "B) قوتابخانا ئەحمەد", "C) دەریایێ ڕەش", "D) جانتا"], correct: 1 },
+            { id: 3, text: "پرسیارا سیێ: فۆنەتیک ل سەر چ دکۆڵیت؟", options: ["A) ڕستە", "B) پەیڤ", "C) دەنگ", "D) ڕامان"], correct: 2 },
+            { id: 4, text: "پرسیارا چوارێ: کام هۆنراوە بۆ نیشتمانی نڤیسیە؟", options: ["A) هێمن", "B) قانع", "C) نالی", "D) بێکەس"], correct: 1 },
+            { id: 5, text: "پرسیارا پێنجێ: کلیل و دەرگەهـ چ جۆرە پەیوەندیەک د ناڤبەرا واندا هەیە؟", options: ["A) هاوواتا", "B) دژواتا", "C) هاوپێوەند", "D) هیچ کام"], correct: 2 }
+        ];
+
+        let currentQuestions = [];
+
         function startQuiz() {
             const year = document.getElementById('year-select').value;
             const exam = document.getElementById('exam-select').value;
             
-            // نیشادانا پشکا تاقیکردنەوەیێ
             document.getElementById('setup-section').style.display = 'none';
-            const quizSection = document.getElementById('quiz-section');
-            quizSection.style.display = 'block';
-            
-            // دیارکرنا زانیاریێن تاقیکردنەوەیێ
+            document.getElementById('quiz-section').style.display = 'block';
             document.getElementById('quiz-info').innerText = `تاقیکردنەوەیا سالا ${year} - ${exam}`;
             
-            generateQuestions();
+            // ئەڤە بۆ نموونەیە هەکە ۵ پرسیار بن، بەس سیستەم بۆ ۵۰ پرسیاران ژی ب هەمان شێوەیە
+            currentQuestions = [...sampleQuestions]; 
+            generateQuestions(currentQuestions);
         }
 
-        // دروستکرنا نموونەیا پرسیاران (تۆ دشێی پرسیارێن خۆ ل ڤێرە زێدە بکەی)
-        function generateQuestions() {
+        function generateQuestions(questions) {
             const container = document.getElementById('questions-container');
-            container.innerHTML = ''; // پاقژکرنا لایەنێ ناڤخۆ
+            container.innerHTML = '';
             
-            // دروستکرنا 50 پرسیاران وەک نموونە
-            for (let i = 1; i <= 50; i++) {
+            questions.forEach((q, qIndex) => {
                 const questionCard = document.createElement('div');
                 questionCard.className = 'question-card';
+                questionCard.id = `qcard-${qIndex}`;
                 
+                let optionsHTML = '';
+                q.options.forEach((opt, oIndex) => {
+                    optionsHTML += `
+                        <li class="option-item" id="opt-label-${qIndex}-${oIndex}">
+                            <input type="radio" name="question-${qIndex}" value="${oIndex}" id="opt-${qIndex}-${oIndex}">
+                            <label for="opt-${qIndex}-${oIndex}">${opt}</label>
+                        </li>
+                    `;
+                });
+
                 questionCard.innerHTML = `
-                    <div class="question-text">پرسیارا ${i}: ل ڤێرە دەقێ پرسیارا وزاری بنڤیسە؟</div>
-                    <ul class="options-list">
-                        <li class="option-item">
-                            <input type="radio" name="q${i}" id="q${i}a">
-                            <label for="q${i}a">بژاردەیا ئێکێ (A)</label>
-                        </li>
-                        <li class="option-item">
-                            <input type="radio" name="q${i}" id="q${i}b">
-                            <label for="q${i}b">بژاردەیا دووێ (B)</label>
-                        </li>
-                        <li class="option-item">
-                            <input type="radio" name="q${i}" id="q${i}c">
-                            <label for="q${i}c">بژاردەیا سیێ (C)</label>
-                        </li>
-                        <li class="option-item">
-                            <input type="radio" name="q${i}" id="q${i}d">
-                            <label for="q${i}d">بژاردەیا چوارێ (D)</label>
-                        </li>
-                    </ul>
+                    <div class="question-text">${q.text}</div>
+                    <ul class="options-list">${optionsHTML}</ul>
+                    <div class="correct-hint" id="hint-${qIndex}" style="display:none;"></div>
                 `;
                 container.appendChild(questionCard);
-            }
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const total = currentQuestions.length;
+
+            currentQuestions.forEach((q, qIndex) => {
+                const selectedRadio = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+                const correctIndex = q.correct;
+                
+                // نیشادانا وەڵامێ ڕاست یێ سەرەکی هەمیشە ب سەوزی
+                document.getElementById(`opt-label-${qIndex}-${correctIndex}`).classList.add('correct-answer');
+
+                if (selectedRadio) {
+                    const userAns = parseInt(selectedRadio.value);
+                    if (userAns === correctIndex) {
+                        score++; // ئەگەر وەڵام ڕاست بوو نمرە زێدە دبیت
+                    } else {
+                        // ئەگەر وەڵام خەلەت بوو، یێ خەلەت سوور دکەت
+                        document.getElementById(`opt-label-${qIndex}-${userAns}`).classList.add('wrong-answer');
+                        // نیشادانا تێبینیەکا بچویک بۆ دیارکرنا وەڵامێ ڕاست
+                        const hintBox = document.getElementById(`hint-${qIndex}`);
+                        hintBox.style.display = 'block';
+                        hintBox.innerText = `وەڵامێ دروست: ${q.options[correctIndex]}`;
+                    }
+                } else {
+                    // ئەگەر قوتابی چ وەڵام نەدابن، تێبینی بۆ دچیت کا یێ ڕاست کیشکە
+                    const hintBox = document.getElementById(`hint-${qIndex}`);
+                    hintBox.style.display = 'block';
+                    hintBox.innerText = `تە وەڵام نەدایە! وەڵامێ دروست: ${q.options[correctIndex]}`;
+                }
+
+                // قفلکرنا دەستکاریێ دا وەڵام نەهێنە گوهۆڕین پشتی ئەنجامان
+                document.querySelectorAll(`input[name="question-${qIndex}"]`).forEach(input => input.disabled = true);
+            });
+
+            // ئەژمارکرنا ڕێژا ۱۰۰%
+            const scoreOutOf100 = Math.round((score / total) * 100);
+
+            // نیشادانا تابلۆیا ئەنجامان
+            document.getElementById('result-section').style.display = 'block';
+            document.getElementById('score-display').innerText = `نمرە: ${score} ژ ${total} پرسیاران`;
+            document.getElementById('percentage-display').innerText = `ڕێژە: ${scoreOutOf100}%`;
+
+            // سەرکەفتن بۆ سەرێ پەیجێ بۆ دیتنا نمرێ
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
