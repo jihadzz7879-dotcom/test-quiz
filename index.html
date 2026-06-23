@@ -8,9 +8,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --bg-gradient: linear-gradient(180deg, #0b1523 0%, #112237 100%);
             --primary: #3b82f6;
-            --primary-hover: #2563eb;
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
@@ -29,28 +28,27 @@
             color: var(--text-main); 
             text-align: center; 
             margin: 0; 
-            padding: 30px 15px;
+            padding: 40px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        /* لۆگۆ نوێ و شاهانەکەی جیهاد */
-        .premium-logo {
-            margin-top: 10px;
-            margin-bottom: 25px;
+        /* لۆگۆی نوێی شاهانە */
+        .premium-logo-box {
+            margin-bottom: 30px;
         }
 
-        .premium-logo .badge {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        .premium-logo-box .badge {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 22px;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 24px;
             font-weight: 900;
-            letter-spacing: 2px;
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+            letter-spacing: 1.5px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
             display: inline-block;
         }
 
@@ -58,24 +56,24 @@
             color: #94a3b8;
             font-size: 14px;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         /* کارتی سەرەکی */
         .main-card {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             background: var(--card-bg);
             border-radius: 35px;
-            padding: 35px 25px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            padding: 40px 25px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
         }
 
         h2 { 
             color: #0f172a;
-            margin: 0 0 5px 0; 
+            margin: 0 0 8px 0; 
             font-size: 26px; 
             font-weight: 900; 
         }
@@ -84,7 +82,7 @@
             color: var(--text-muted);
             font-size: 14px;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .status-badge { 
@@ -111,7 +109,6 @@
             grid-template-columns: repeat(2, 1fr); 
             gap: 14px; 
             width: 100%;
-            margin-bottom: 10px;
         }
         
         .btn { 
@@ -121,7 +118,6 @@
             padding: 18px 16px; 
             background: #f8fafc; 
             color: #475569; 
-            text-decoration: none; 
             border-radius: 20px; 
             border: 1px solid #e2e8f0; 
             font-weight: 700; 
@@ -135,18 +131,11 @@
             cursor: not-allowed;
             pointer-events: none;
         }
-        
-        .btn:not(.disabled):hover { 
-            background: #f1f5f9;
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
 
         .btn .btn-text { order: 2; }
         .btn .btn-icon { font-size: 20px; order: 1; }
 
-        /* لاپەڕەی قفل لەسەرانسەر سایتەکە */
+        /* لاپەڕەی قفڵکردنی گشتی */
         .lock-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -160,34 +149,11 @@
             z-index: 999;
         }
 
-        .lock-icon {
-            font-size: 65px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
+        .lock-icon { font-size: 65px; margin-bottom: 20px; }
+        .lock-title { font-size: 22px; font-weight: 900; color: #0f172a; margin-bottom: 12px; }
+        .lock-desc { color: var(--text-muted); font-size: 14px; font-weight: 600; line-height: 1.7; text-align: center; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
-
-        .lock-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-
-        .lock-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
-
-        /* بەشی لۆدینگی ٣٠ چرکەیی */
+        /* ئەنیمەیشنی لۆدینگ */
         .loading-spinner {
             border: 4px solid #f3f4f6;
             border-top: 4px solid var(--primary);
@@ -203,14 +169,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        .countdown-text {
-            font-weight: 700;
-            color: var(--primary);
-            margin-top: 10px;
-            font-size: 15px;
-        }
+        .countdown-text { font-weight: 700; color: var(--primary); margin-top: 10px; font-size: 15px; }
+        .hidden { display: none !important; }
 
-        /* دوگمەی ئەدمین بۆ لێدانی کۆد */
+        /* دوگمەی ئەدمین */
         .admin-trigger {
             position: fixed;
             bottom: 15px;
@@ -218,29 +180,18 @@
             background: rgba(255, 255, 255, 0.05);
             border: none;
             color: #64748b;
-            padding: 6px 12px;
-            border-radius: 10px;
+            padding: 8px 14px;
+            border-radius: 12px;
             font-size: 12px;
             cursor: pointer;
             transition: 0.3s;
         }
-        .admin-trigger:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
-
-        .warning-box {
-            background: #fef2f2;
-            border: 1px solid #fee2e2;
-            color: var(--error);
-            padding: 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            margin-top: 15px;
-        }
+        .admin-trigger:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
     </style>
 </head>
 <body>
 
-    <div class="premium-logo">
+    <div class="premium-logo-box">
         <div class="badge">JEHAD</div>
         <div class="brand-subtitle">سیستەمێ پاراستی یێ تاقیکردنەوان</div>
     </div>
@@ -249,15 +200,15 @@
         <div id="global-lock" class="lock-overlay">
             <div id="lock-content">
                 <div class="lock-icon">🔒</div>
-                <div class="lock-title">دەستگەیشتن ڕێگەپێنەدراوە</div>
-                <div class="lock-desc">ئەڤ لینکە تەنها ل سەر تەلەفۆنا تایبەت یا خودانێ سیستەمی کار دکەت.</div>
+                <div class="lock-title" id="lock-main-title">دەستگەیشتن ڕێگەپێنەدراوە</div>
+                <div class="lock-desc" id="lock-main-desc">ئەڤ لینکە تەنها ل سەر تەلەفۆنا تایبەت یا خودانێ سیستەمی کار دکەت.</div>
             </div>
             
             <div id="loading-content" class="hidden">
                 <div class="loading-spinner"></div>
                 <div class="lock-title">پشکنینا سیستەمی...</div>
                 <div class="lock-desc">تکایە چاوەڕێبە، ناسنامەیا ئامێری دهێتە پشتڕاستکرن.</div>
-                <div id="countdown" class="countdown-text">ماوەی ماو: ٣٠ چرکە</div>
+                <div id="countdown" class="countdown-text">ماوەی ماو: ١٠ چرکە</div>
             </div>
         </div>
 
@@ -276,13 +227,9 @@
             <div class="btn disabled"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></div>
             <div class="btn disabled"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></div>
         </div>
-        
-        <div id="limit-msg" class="warning-box hidden">
-            ⚠️ سیستەم قفل بوو! ٢٠ پرسیارێن تاقیکاری ب داوی هاتن.
-        </div>
     </div>
 
-    <button class="admin-trigger" onclick="promptAdminCode()">⚙️ سیستەم</button>
+    <button id="admin-btn" class="admin-trigger" onclick="promptAdminCode()">⚙️ سیستەم</button>
 
     <script>
         const SECRET_CODE = "jehad_phone_2026";
@@ -292,8 +239,20 @@
         });
 
         function checkAuthorization() {
+            const isBanned = localStorage.getItem("jehad_device_banned") === "true";
             const isVerified = localStorage.getItem("jehad_device_verified") === "true";
             const lockOverlay = document.getElementById("global-lock");
+            const adminBtn = document.getElementById("admin-btn");
+
+            if (isBanned) {
+                // ئەگەر بلۆک بووبێت، شاشەکە ڕەش دەبێت و دوگمەکەش نامێنێت
+                lockOverlay.classList.remove("hidden");
+                document.getElementById("lock-main-title").innerHTML = "❌ ئامێرا تە هاتە بلۆککرن!";
+                document.getElementById("lock-main-title").style.color = "var(--error)";
+                document.getElementById("lock-main-desc").innerHTML = "تە چەندین جاران کۆد خەلەت لێدا. ئیتر چ جاران ئەڤ سیستەمە بۆ تە ڤەنا بیت.";
+                if(adminBtn) adminBtn.remove();
+                return;
+            }
 
             if (isVerified) {
                 lockOverlay.classList.add("hidden");
@@ -304,36 +263,43 @@
         }
 
         function initSystemContent() {
-            if (!localStorage.getItem("questions_count")) {
-                localStorage.setItem("questions_count", "0");
-            }
-            
-            let count = parseInt(localStorage.getItem("questions_count") || "0");
             const statusDisplay = document.getElementById("status-display");
-            const limitMsg = document.getElementById("limit-msg");
             const buttons = document.querySelectorAll('.btn');
 
             statusDisplay.innerHTML = "👑 خودانێ سیستەمی: JEHAD";
             statusDisplay.className = "status-badge vip";
 
-            // چونکە تەلەفۆنی جیهادە، هەموو دوگمەکان بێ سنوور کار دەکەن
-            buttons.forEach((btn, index) => {
+            buttons.forEach((btn) => {
                 btn.classList.remove('disabled');
                 btn.onclick = function() {
                     alert("وانە دەکریتەوە...");
                 };
             });
+            
+            const adminBtn = document.getElementById("admin-btn");
+            if(adminBtn) adminBtn.remove(); // لای جیهاد دوگمەکە لادەبات چونکە چالاک بووە
         }
 
         function promptAdminCode() {
+            // ئەگەر پێشتر هەوڵی دابێت، ژمارەی هەوڵەکان دەخوێنێتەوە
+            let attempts = parseInt(localStorage.getItem("login_attempts") || "0");
+            
+            if (attempts >= 2) {
+                localStorage.setItem("jehad_device_banned", "true");
+                checkAuthorization();
+                return;
+            }
+
             const codeInput = prompt("کۆدێ نهێنی یێ تەلەفۆنا خۆ بنووسە:");
             
             if (codeInput === SECRET_CODE) {
-                // شاردنەوەی ناوەڕۆکی قفڵ و پیشاندانی لۆدینگی ٣٠ چرکەیی
+                // پاککردنەوەی هەوڵە خەڵەتەکان ئەگەر ڕاست بوو
+                localStorage.removeItem("login_attempts");
+
                 document.getElementById("lock-content").classList.add("hidden");
                 document.getElementById("loading-content").classList.remove("hidden");
                 
-                let timeLeft = 30;
+                let timeLeft = 10; // گۆڕدرا بۆ ١٠ چرکە
                 const countdownEl = document.getElementById("countdown");
                 
                 const interval = setInterval(() => {
@@ -343,13 +309,22 @@
                     if (timeLeft <= 0) {
                         clearInterval(interval);
                         localStorage.setItem("jehad_device_verified", "true");
-                        alert("پشکنین سەرکەوتوو بوو! تەلەفۆنی جیهاد بە تەواوی ناسێندرا.");
+                        alert("پشکنین سەرکەوتوو بوو! تەلەفۆنی جیهاد ناسێندرا.");
                         location.reload();
                     }
                 }, 1000);
                 
             } else if (codeInput !== null) {
-                alert("کۆدەکە خەڵەتە، دەستگەیشتن ڕەتکرایەوە!");
+                attempts++;
+                localStorage.setItem("login_attempts", attempts.toString());
+                
+                if (attempts >= 2) {
+                    localStorage.setItem("jehad_device_banned", "true");
+                    alert("تە ٢ جاران کۆد خەلەت لێدا! ئامێرا تە بلۆک بوو.");
+                    checkAuthorization();
+                } else {
+                    alert("کۆدەکە خەڵەتە! ئاگەهداربە، تەنها ١ هەوڵت ماوە پێش بلۆکبوون.");
+                }
             }
         }
     </script>
