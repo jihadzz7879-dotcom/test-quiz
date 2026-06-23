@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاقیکرنێن ویزاری پۆلا JEHAD ZEBARI١٢</title>
+    <title>JEHAD - تاقیکرنێن ویزاری</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 
         :root {
-            --bg-gradient: linear-gradient(180deg, #0f2b48 0%, #1a3c61 50%, #0b1d33 100%);
+            --bg-gradient: linear-gradient(180deg, #162a45 0%, #112237 50%, #0a1523 100%);
             --primary: #3b82f6;
             --primary-hover: #2563eb;
             --gold: #ffcc00;
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
-            --input-border: #d1d5db;
+            --input-border: #e5e7eb;
             --error: #ef4444;
             --success: #10b981;
         }
@@ -23,6 +23,7 @@
         * {
             box-sizing: border-box;
             font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body { 
@@ -37,111 +38,129 @@
             min-height: 100vh;
         }
 
-        /* لۆگۆ و سەردێڕ */
+        /* لۆگۆ و سەردێڕ ب ناڤێ JEHAD */
         .brand-container {
-            margin-top: 20px;
-            margin-bottom: 25px;
+            margin-top: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .brand-logo {
             width: 140px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .brand-title {
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            opacity: 0.9;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
         }
 
-        /* کارتە سەرەکییەکە بە ستایلی وێنەکە */
+        /* کارتی سەرەکی */
         .main-card {
             width: 100%;
             max-width: 450px;
             background: var(--card-bg);
-            border-radius: 30px;
-            padding: 35px 25px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 35px;
+            padding: 30px 22px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
             margin-bottom: 30px;
         }
 
         h2 { 
             color: #000000;
-            margin: 0 0 25px 0; 
-            font-size: 26px; 
+            margin: 0 0 5px 0; 
+            font-size: 28px; 
             font-weight: 900; 
         }
-        
-        .points-badge {
-            background: #f3f4f6;
-            color: #1e3a8a;
-            padding: 10px 20px;
-            border-radius: 50px;
+
+        .welcome-text {
+            color: var(--text-muted);
+            font-size: 15px;
             font-weight: 700;
-            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .status-badge { 
+            background: #f4f6f9; 
+            color: #1e3a8a; 
+            padding: 10px 24px; 
+            border-radius: 50px; 
+            font-size: 14px; 
+            font-weight: 700; 
             margin-bottom: 25px;
             display: inline-block;
             border: 1px solid #e5e7eb;
         }
 
-        /* تۆڕی بابەتەکان */
+        .status-badge.vip {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+
+        /* تۆڕی بابەتەکان ڕێک وەک وێنەکە */
         .btn-container { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 12px; 
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         
-        /* ستایلی دوگمەی بابەتەکان */
         .btn { 
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            padding: 14px 16px; 
+            justify-content: space-between;
+            padding: 18px 16px; 
             background: #f8fafc; 
             color: #334155; 
             text-decoration: none; 
-            border-radius: 16px; 
+            border-radius: 18px; 
             border: 1px solid #e2e8f0; 
             font-weight: 700; 
-            font-size: 14px; 
+            font-size: 15px; 
             transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .btn.disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
             background: #f1f5f9;
+            border-color: #e2e8f0;
         }
         
         .btn:not(.disabled):hover { 
-            background: #edf2f7;
+            background: #f1f5f9;
             border-color: var(--primary);
-            color: var(--primary);
+            transform: translateY(-2px);
         }
-        
-        .btn span { 
-            font-size: 20px; 
+
+        .btn .btn-text {
+            order: 2;
+        }
+
+        .btn .btn-icon {
+            font-size: 18px;
+            order: 1;
         }
         
         .hidden { display: none !important; }
 
-        /* بەشی هۆشداری و چوونەژوورەوە */
+        /* بەشی قفلکرنێ */
         .warning-box {
             background: #fef2f2;
             border: 1px solid #fee2e2;
             color: var(--error);
-            padding: 14px;
-            border-radius: 16px;
+            padding: 15px;
+            border-radius: 18px;
             font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            margin-top: 15px;
             line-height: 1.6;
         }
 
@@ -153,46 +172,44 @@
             font-weight: 700; 
             cursor: pointer; 
             transition: 0.2s;
-            margin-top: 10px;
+            margin-top: 20px;
         }
-        .account-link:hover { color: var(--primary-hover); text-decoration: underline; }
+        .account-link:hover { color: var(--primary-hover); }
         
-        /* ستایلی ئینپوتەکان ڕێک وەک وێنەکە */
+        /* دۆلابی چوونەژوورەوە */
         .login-box {
             text-align: right;
             margin-top: 20px;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 20px;
         }
 
         .login-box label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: #374151;
-            padding-right: 4px;
+            margin-bottom: 6px;
+            color: #4b5563;
         }
 
         .login-box input { 
             width: 100%; 
-            padding: 14px 18px; 
-            margin-bottom: 18px; 
+            padding: 14px 16px; 
+            margin-bottom: 15px; 
             border-radius: 14px; 
             border: 1px solid var(--input-border); 
             background: #ffffff; 
-            color: #000000; 
-            font-size: 15px; 
+            font-size: 14px; 
             font-weight: 600; 
-            box-sizing: border-box; 
             outline: none; 
             transition: all 0.2s;
         }
         
         .login-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        /* دوگمەی چوونەژوورەوەی سەرەکی */
         .login-box button { 
             width: 100%; 
             padding: 14px; 
@@ -200,87 +217,96 @@
             border: none; 
             background: var(--primary); 
             color: #ffffff; 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: 700; 
             cursor: pointer; 
             transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
-        .login-box button:hover {
-            background: var(--primary-hover);
+        .login-box button:hover { background: var(--primary-hover); }
+
+        /* دوگمەی چوونەژوورەوەی گووگڵ */
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .google-btn:hover { background: #f9fafb; }
+        .google-btn img { width: 18px; height: 18px; }
         
         #error-msg { font-size: 13px; margin-top: 15px; font-weight: 700; min-height: 20px; text-align: center; }
-        
-        .status-badge { 
-            background: #ecfdf5; 
-            color: var(--success); 
-            border: 1px solid #d1fae5; 
-            padding: 12px; 
-            border-radius: 16px; 
-            font-size: 14px; 
-            font-weight: 700; 
-            margin-bottom: 15px;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
     <div class="brand-container">
         <svg class="brand-logo" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20,90 Q100,60 180,90" fill="none" stroke="#4ade80" stroke-width="4"/>
-            <path d="M30,95 Q100,70 170,95" fill="none" stroke="#ef4444" stroke-width="4"/>
+            <path d="M20,95 Q100,65 180,95" fill="none" stroke="#4ade80" stroke-width="3.5"/>
+            <path d="M30,100 Q100,75 170,100" fill="none" stroke="#ef4444" stroke-width="3.5"/>
             <g stroke="#facc15" stroke-width="2">
-                <line x1="100" y1="70" x2="100" y2="10"/>
-                <line x1="100" y1="70" x2="60" y2="20"/>
-                <line x1="100" y1="70" x2="140" y2="20"/>
-                <line x1="100" y1="70" x2="30" y2="40"/>
-                <line x1="100" y1="70" x2="170" y2="40"/>
-                <line x1="100" y1="70" x2="15" y2="70"/>
-                <line x1="100" y1="70" x2="185" y2="70"/>
+                <line x1="100" y1="75" x2="100" y2="15"/>
+                <line x1="100" y1="75" x2="65" y2="25"/>
+                <line x1="100" y1="75" x2="135" y2="25"/>
+                <line x1="100" y1="75" x2="35" y2="45"/>
+                <line x1="100" y1="75" x2="165" y2="45"/>
+                <line x1="100" y1="75" x2="20" y2="75"/>
+                <line x1="100" y1="75" x2="180" y2="75"/>
             </g>
-            <text x="100" y="85" font-family="sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Qotabi</text>
+            <text x="100" y="90" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">JEHAD</text>
         </svg>
         <div class="brand-title">پلاتفۆرمی خویندن بۆ قوتابیانی پۆلی دوازدە</div>
     </div>
 
     <div class="main-card">
-        <h2>تاقیکرنێن ویزاری</h2>
+        <h2>JEHAD</h2>
+        <div class="welcome-text">Welcome - خێرهاتن بۆ سیستەمێ تاقیکردنەوان</div>
         
-        <div id="points-display" class="points-badge">💰 خاڵێن تە: ١٠٠ خاڵ</div>
+        <div id="status-display" class="status-badge">📊 پرسیارێن دیتن: 0 / 20</div>
 
         <div class="btn-container">
-            <div onclick="navigateTo('fizya.html')" class="btn" id="m-fizya"><span>⚛️</span> فیزیا</div>
-            <div onclick="navigateTo('mejo.html')" class="btn" id="m-mejo"><span>📜</span> مێژوو</div>
-            <div onclick="navigateTo('kurdish.html')" class="btn" id="m-kurdish"><span>✒️</span> کوردی</div>
-            <div onclick="navigateTo('arabic.html')" class="btn" id="m-arabic"><span>🕌</span> عەرەبی</div>
-            <div onclick="navigateTo('english.html')" class="btn" id="m-english"><span>🇬🇧</span> ئینگلیزی</div>
-            <div onclick="navigateTo('yasa.html')" class="btn" id="m-yasa"><span>⚖️</span> یاسا</div>
-            <div onclick="navigateTo('ark.html')" class="btn" id="m-ark"><span>🌐</span> ئارک</div>
-            <div onclick="navigateTo('eslame.html')" class="btn" id="m-eslame"><span>📖</span> ئیسلامی</div>
-            <div onclick="navigateTo('zindawar.html')" class="btn" id="m-zindawar"><span>🧬</span> ژیندەوار</div>
-            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span>🔬</span> ژیندەوار ١</div>
-            <div onclick="navigateTo('eslamebabat.html')" class="btn" id="m-eslame-babat"><span>📚</span> ئیسلامی وانە</div>
+            <div onclick="navigateTo('fizya.html')" class="btn" id="m-fizya"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></div>
+            <div onclick="navigateTo('mejo.html')" class="btn" id="m-mejo"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></div>
+            <div onclick="navigateTo('kurdish.html')" class="btn" id="m-kurdish"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></div>
+            <div onclick="navigateTo('arabic.html')" class="btn" id="m-arabic"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></div>
+            <div onclick="navigateTo('english.html')" class="btn" id="m-english"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></div>
+            <div onclick="navigateTo('yasa.html')" class="btn" id="m-yasa"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></div>
+            <div onclick="navigateTo('ark.html')" class="btn" id="m-ark"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></div>
+            <div onclick="navigateTo('eslame.html')" class="btn" id="m-eslame"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></div>
+            <div onclick="navigateTo('zindawar.html')" class="btn" id="m-zindawar"><span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span></div>
+            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span></div>
         </div>
-
-        <div id="status-container" class="hidden"></div>
         
         <div id="limit-msg" class="warning-box hidden">
-            ⚠️ خاڵێن تە تەمام بوون! بۆ بەردەوامبوونێ دڤێت حسابی بكڕی یان داخل بكەی.
+            ⚠️ سیستەم قفل بوو! تە ٢٠ پرسیارێن خۆ یێن خۆڕایی ب داوی ئینان. دڤێت حسابی کارا بکەی بۆ بەردەوامبوونێ.
         </div>
         
-        <span id="account-link-btn" class="account-link" onclick="toggleLoginBox()">🔐 چووناژوورێ ب حسابی (بۆ ئەزموونکرنا بێ سنوور)</span>
+        <span id="account-link-btn" class="account-link" onclick="toggleLoginBox()">🔐 چووناژوورێ ب حسابی یان لۆگینکرن</span>
 
         <div id="login-panel" class="login-box hidden">
-            <label for="username-input">کۆدێ ئەکاونتی یان ناڤێ بەکارهێنەر</label>
-            <input type="text" id="username-input" placeholder="بەکارهێنەر بنووسە...">
+            <label>کۆدێ ئەکاونتی یان ناڤێ بەکارهێنەر</label>
+            <input type="text" id="username-input" placeholder="کۆد یان ناڤ بنووسە">
             
-            <label for="password-input">پێپەیڤ (Password)</label>
-            <input type="password" id="password-input" placeholder="پێپەیڤ بنووسە...">
+            <label>پێپەیڤ (Password)</label>
+            <input type="password" id="password-input" placeholder="پێپەیڤ بنووسە">
             
             <button onclick="validateUserAccount()">چوونه‌ژووره‌وه‌</button>
+
+            <button class="google-btn" onclick="loginWithGoogleMock()">
+                <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google">
+                بەردەوامبە ب گووگڵ (Google)
+            </button>
         </div>
 
         <div id="error-msg"></div>
@@ -288,54 +314,34 @@
 
     <script>
         const studentAccounts = {
-            "student1": "pass111", "student2": "pass456", "student3": "pass789",
-            "student4": "pass2026", "student5": "user555", "student6": "user666",
-            "student7": "user777", "student8": "user888", "student9": "user999", "student10": "vip2026"
+            "student1": "pass111", "student2": "pass456", "vip2026": "jehad"
         };
 
-        if (!localStorage.getItem("device_uid")) {
-            localStorage.setItem("device_uid", "dev_" + Math.random().toString(36).substr(2, 9));
-        }
-        const currentDeviceUID = localStorage.getItem("device_uid");
-
         document.addEventListener("DOMContentLoaded", function() {
-            initPointsSystem();
+            if (!localStorage.getItem("questions_viewed")) {
+                localStorage.setItem("questions_viewed", "0");
+            }
             checkAccessLock();
         });
-
-        function initPointsSystem() {
-            const isVIP = localStorage.getItem("is_vip_account") === "true";
-            if (isVIP) return;
-
-            const todayStr = new Date().toDateString();
-            const lastPointsDate = localStorage.getItem("last_points_date");
-
-            if (lastPointsDate !== todayStr) {
-                localStorage.setItem("user_points", "100");
-                localStorage.setItem("last_points_date", todayStr);
-            }
-        }
 
         function checkAccessLock() {
             const isVIP = localStorage.getItem("is_vip_account") === "true";
             const limitMsg = document.getElementById("limit-msg");
-            const badge = document.getElementById("status-container");
+            const statusDisplay = document.getElementById("status-display");
             const accountBtn = document.getElementById("account-link-btn");
-            const pointsDisplay = document.getElementById("points-display");
 
             if (isVIP) {
-                badge.className = "status-badge";
-                badge.innerHTML = "👑 حسابی VIP کارایە (پشکداریا بێ سنوور)";
-                badge.classList.remove("hidden");
+                statusDisplay.className = "status-badge vip";
+                statusDisplay.innerHTML = "👑 حسابی تە: VIP بێ سنوور";
                 limitMsg.classList.add("hidden");
                 accountBtn.style.display = "none";
-                pointsDisplay.innerHTML = "👑 حسابی تە: VIP بێ سنوور";
+                document.getElementById("login-panel").classList.add("hidden");
                 enableButtons();
             } else {
-                let points = parseInt(localStorage.getItem("user_points") || "0");
-                pointsDisplay.innerHTML = "💰 خاڵێن تە: " + points + " خاڵ";
+                let count = parseInt(localStorage.getItem("questions_viewed") || "0");
+                statusDisplay.innerHTML = "📊 پرسیارێن دیتن: " + count + " / 20";
 
-                if (points < 10) {
+                if (count >= 20) {
                     limitMsg.classList.remove("hidden");
                     disableButtons();
                 } else {
@@ -361,14 +367,15 @@
                 return;
             }
 
-            let points = parseInt(localStorage.getItem("user_points") || "0");
+            let count = parseInt(localStorage.getItem("questions_viewed") || "0");
 
-            if (points >= 10) {
-                points -= 10;
-                localStorage.setItem("user_points", points.toString());
+            if (count < 20) {
+                count++;
+                localStorage.setItem("questions_viewed", count.toString());
+                checkAccessLock();
+                // لێرەدا دەچێتە ناو لاپەڕەی پرسیارەکە
                 window.location.href = url;
             } else {
-                alert("ببوورە! خاڵێن تە تەمام بوونە، دڤێت حسابی داخل کەی.");
                 checkAccessLock();
             }
         }
@@ -382,25 +389,27 @@
             const pass = document.getElementById("password-input").value.trim();
 
             if (studentAccounts[user] && studentAccounts[user] === pass) {
-                const savedDeviceUID = localStorage.getItem("used_by_device_" + user);
-                
-                if (savedDeviceUID && savedDeviceUID !== currentDeviceUID) {
-                    showMsg("ببوورە! ئەڤ کۆدە پێشتر ل سەر ئامێرەکێ دی هاتیە بكارئینان.", "var(--error)");
-                    return;
-                }
-
-                localStorage.setItem("used_by_device_" + user, currentDeviceUID);
                 localStorage.setItem("is_vip_account", "true");
-                
                 showMsg("چووناژوورێ سەرکەفتی بوو!", "var(--success)");
-                setTimeout(() => {
-                    location.reload();
-                }, 1000);
+                setTimeout(() => { location.reload(); }, 1000);
             } else {
-                showMsg("بوورە! ناڤ یان پێپەیڤ خەلەتە.", "var(--error)");
+                showMsg("بوورە! کۆد یان پێپەیڤ خەلەتە.", "var(--error)");
             }
         }
 
+        // کرداری لۆگینی گووگڵ (سیستەمەکە ڕاستەوخۆ کارا دەکات بۆ تاقیکردنەوە)
+        function loginWithGoogleMock() {
+            localStorage.setItem("is_vip_account", "true");
+            showMsg("ب سەرکەوتوویی ب ڕێکا گووگڵ داخل بووی!", "var(--success)");
+            setTimeout(() => { location.reload(); }, 1000);
+        }
+
+        function strokeMsg(text, color) {
+            const msg = document.getElementById("error-msg");
+            msg.innerHTML = text; 
+            msg.style.color = color;
+        }
+        
         function showMsg(text, color) {
             const msg = document.getElementById("error-msg");
             msg.innerHTML = text; 
