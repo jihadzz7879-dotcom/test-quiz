@@ -8,14 +8,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 
         :root {
-            --bg-gradient: linear-gradient(180deg, #162a45 0%, #112237 50%, #0a1523 100%);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --gold: #ffcc00;
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
-            --input-border: #e5e7eb;
             --error: #ef4444;
             --success: #10b981;
         }
@@ -31,73 +29,87 @@
             color: var(--text-main); 
             text-align: center; 
             margin: 0; 
-            padding: 20px 15px;
+            padding: 30px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        .brand-container {
-            margin-top: 15px;
-            margin-bottom: 20px;
-            text-align: center;
+        /* لۆگۆ نوێ و شاهانەکەی جیهاد */
+        .premium-logo {
+            margin-top: 10px;
+            margin-bottom: 25px;
         }
 
-        .brand-logo {
-            width: 140px;
-            height: auto;
-            margin-bottom: 5px;
+        .premium-logo .badge {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+            display: inline-block;
         }
 
-        .brand-title {
-            color: #ffffff;
-            font-size: 13px;
+        .brand-subtitle {
+            color: #94a3b8;
+            font-size: 14px;
             font-weight: 600;
-            opacity: 0.85;
+            margin-top: 10px;
         }
 
+        /* کارتی سەرەکی */
         .main-card {
             width: 100%;
             max-width: 450px;
             background: var(--card-bg);
             border-radius: 35px;
-            padding: 30px 22px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
-            margin-bottom: 30px;
+            padding: 35px 25px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             position: relative;
+            overflow: hidden;
         }
 
         h2 { 
-            color: #000000;
+            color: #0f172a;
             margin: 0 0 5px 0; 
-            font-size: 28px; 
+            font-size: 26px; 
             font-weight: 900; 
         }
 
         .welcome-text {
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .status-badge { 
-            background: #f4f6f9; 
-            color: #1e3a8a; 
+            background: #f1f5f9; 
+            color: #1e293b; 
             padding: 10px 24px; 
             border-radius: 50px; 
             font-size: 14px; 
             font-weight: 700; 
             margin-bottom: 25px;
             display: inline-block;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #e2e8f0;
         }
 
+        .status-badge.vip {
+            background: #f0fdf4;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        /* تۆڕی بابەتەکان */
         .btn-container { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
+            gap: 14px; 
             width: 100%;
             margin-bottom: 10px;
         }
@@ -108,47 +120,33 @@
             justify-content: space-between;
             padding: 18px 16px; 
             background: #f8fafc; 
-            color: #334155; 
+            color: #475569; 
             text-decoration: none; 
-            border-radius: 18px; 
+            border-radius: 20px; 
             border: 1px solid #e2e8f0; 
             font-weight: 700; 
             font-size: 15px; 
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             cursor: pointer;
         }
         
         .btn.disabled {
-            opacity: 0.2;
+            opacity: 0.15;
             cursor: not-allowed;
-            background: #e2e8f0;
             pointer-events: none;
         }
         
         .btn:not(.disabled):hover { 
             background: #f1f5f9;
             border-color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         .btn .btn-text { order: 2; }
-        .btn .btn-icon { font-size: 18px; order: 1; }
-        
-        .hidden { display: none !important; }
+        .btn .btn-icon { font-size: 20px; order: 1; }
 
-        .warning-box {
-            background: #fef2f2;
-            border: 1px solid #fee2e2;
-            color: var(--error);
-            padding: 15px;
-            border-radius: 18px;
-            font-weight: 700;
-            font-size: 14px;
-            margin-top: 15px;
-            line-height: 1.6;
-        }
-
-        /* ستایلی قفڵی گشتی */
+        /* لاپەڕەی قفل لەسەرانسەر سایتەکە */
         .lock-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -158,83 +156,125 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px;
+            padding: 35px;
             z-index: 999;
         }
 
         .lock-icon {
-            font-size: 60px;
+            font-size: 65px;
             margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
         }
 
         .lock-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
-            color: var(--error);
-            margin-bottom: 10px;
+            color: #0f172a;
+            margin-bottom: 12px;
         }
 
         .lock-desc {
             color: var(--text-muted);
             font-size: 14px;
-            font-weight: 700;
-            line-height: 1.6;
+            font-weight: 600;
+            line-height: 1.7;
+            margin-bottom: 30px;
         }
 
-        /* بەشی چالاککردنی تەلەفۆنی جیهاد */
-        .owner-activate-btn {
+        /* بەشی لۆدینگی ٣٠ چرکەیی */
+        .loading-spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .countdown-text {
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 10px;
+            font-size: 15px;
+        }
+
+        /* دوگمەی ئەدمین بۆ لێدانی کۆد */
+        .admin-trigger {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: transparent;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.05);
             border: none;
-            color: rgba(255,255,255,0.1);
-            font-size: 11px;
+            color: #64748b;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 12px;
             cursor: pointer;
+            transition: 0.3s;
+        }
+        .admin-trigger:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+
+        .warning-box {
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            color: var(--error);
+            padding: 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="brand-container">
-        <svg class="brand-logo" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20,95 Q100,65 180,95" fill="none" stroke="#4ade80" stroke-width="3.5"/>
-            <path d="M30,100 Q100,75 170,100" fill="none" stroke="#ef4444" stroke-width="3.5"/>
-            <g stroke="#facc15" stroke-width="2">
-                <line x1="100" y1="75" x2="100" y2="15"/>
-                <line x1="100" y1="75" x2="65" y2="25"/>
-                <line x1="100" y1="75" x2="135" y2="25"/>
-                <line x1="100" y1="75" x2="35" y2="45"/>
-                <line x1="100" y1="75" x2="165" y2="45"/>
-            </g>
-            <text x="100" y="90" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">JEHAD</text>
-        </svg>
-        <div class="brand-title">پلاتفۆرمی خویندن بۆ قوتابیانی پۆلی دوازدە</div>
+    <div class="premium-logo">
+        <div class="badge">JEHAD</div>
+        <div class="brand-subtitle">سیستەمێ پاراستی یێ تاقیکردنەوان</div>
     </div>
 
     <div class="main-card">
-        <div id="global-lock" class="lock-overlay hidden">
-            <div class="lock-icon">🔒</div>
-            <div class="lock-title">ئەڤ سیستەمە هاتیە قفلکرن!</div>
-            <div class="lock-desc">ببوورە! ئەڤ لینکە تایبەتە و تەنها ل سەر تەلەفۆنا خودانێ سیستەمی (JEHAD) کار دکەت. کەسێن دی نەشێن داخل ببن.</div>
+        <div id="global-lock" class="lock-overlay">
+            <div id="lock-content">
+                <div class="lock-icon">🔒</div>
+                <div class="lock-title">دەستگەیشتن ڕێگەپێنەدراوە</div>
+                <div class="lock-desc">ئەڤ لینکە تەنها ل سەر تەلەفۆنا تایبەت یا خودانێ سیستەمی کار دکەت.</div>
+            </div>
+            
+            <div id="loading-content" class="hidden">
+                <div class="loading-spinner"></div>
+                <div class="lock-title">پشکنینا سیستەمی...</div>
+                <div class="lock-desc">تکایە چاوەڕێبە، ناسنامەیا ئامێری دهێتە پشتڕاستکرن.</div>
+                <div id="countdown" class="countdown-text">ماوەی ماو: ٣٠ چرکە</div>
+            </div>
         </div>
 
-        <h2>JEHAD</h2>
-        <div class="welcome-text">Welcome - خێرهاتن بۆ سیستەمێ تاقیکردنەوان</div>
+        <h2>تاقیکرنێن ویزاری</h2>
+        <div class="welcome-text">بۆ دۆزینەوە و ئەزموونکردنی پرسیارەکان</div>
         
         <div id="status-display" class="status-badge">📊 پرسیارێن دیتن: 0 / 20</div>
 
         <div class="btn-container">
-            <div onclick="navigateTo('fizya.html')" class="btn" id="m-fizya"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></div>
-            <div onclick="navigateTo('mejo.html')" class="btn" id="m-mejo"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></div>
-            <div onclick="navigateTo('kurdish.html')" class="btn" id="m-kurdish"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></div>
-            <div onclick="navigateTo('arabic.html')" class="btn" id="m-arabic"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></div>
-            <div onclick="navigateTo('english.html')" class="btn" id="m-english"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></div>
-            <div onclick="navigateTo('yasa.html')" class="btn" id="m-yasa"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></div>
-            <div onclick="navigateTo('ark.html')" class="btn" id="m-ark"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></div>
-            <div onclick="navigateTo('eslame.html')" class="btn" id="m-eslame"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></div>
-            <div onclick="navigateTo('zindawar.html')" class="btn" id="m-zindawar"><span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span></div>
-            <div onclick="navigateTo('zindawar1.html')" class="btn" id="m-zindawar1"><span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span></div>
+            <div class="btn disabled"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></div>
+            <div class="btn disabled"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></div>
+            <div class="btn disabled"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></div>
+            <div class="btn disabled"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></div>
+            <div class="btn disabled"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></div>
+            <div class="btn disabled"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></div>
+            <div class="btn disabled"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></div>
+            <div class="btn disabled"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></div>
         </div>
         
         <div id="limit-msg" class="warning-box hidden">
@@ -242,67 +282,74 @@
         </div>
     </div>
 
-    <button class="owner-activate-btn" onclick="activateWithOwnerCode()">⚙️ Admin</button>
+    <button class="admin-trigger" onclick="promptAdminCode()">⚙️ سیستەم</button>
 
     <script>
-        // کۆدی نهێنی بۆ ناسینەوەی تەلەفۆنی تۆ (دەتوانیت بیگۆڕیت)
-        const MY_SECRET_PASSWORD = "jehad_phone_2026";
+        const SECRET_CODE = "jehad_phone_2026";
 
         document.addEventListener("DOMContentLoaded", function() {
-            checkDeviceAuthorization();
+            checkAuthorization();
         });
 
-        // پشکنین دەکات کایا ئەم ئامێرە ڕێگەپێدراوە؟
-        function checkDeviceAuthorization() {
-            const isOwner = localStorage.getItem("is_verified_owner") === "true";
+        function checkAuthorization() {
+            const isVerified = localStorage.getItem("jehad_device_verified") === "true";
             const lockOverlay = document.getElementById("global-lock");
 
-            if (!isOwner) {
-                // ئەگەر تەلەفۆنی تۆ نەبوو، هەموو شتێک قفل دەکات
-                lockOverlay.classList.remove("hidden");
-            } else {
-                // ئەگەر تەلەفۆنی تۆ بوو، بە تەواوی دەکرێتەوە
+            if (isVerified) {
                 lockOverlay.classList.add("hidden");
-                initPointsAndLimits();
+                initSystemContent();
+            } else {
+                lockOverlay.classList.remove("hidden");
             }
         }
 
-        // ئەم بەشە تەنها بۆ تەلەفۆنی تۆ کار دەکات دوای ناسینەوەی
-        function initPointsAndLimits() {
-            if (!localStorage.getItem("questions_viewed")) {
-                localStorage.setItem("questions_viewed", "0");
+        function initSystemContent() {
+            if (!localStorage.getItem("questions_count")) {
+                localStorage.setItem("questions_count", "0");
             }
             
-            let count = parseInt(localStorage.getItem("questions_viewed") || "0");
+            let count = parseInt(localStorage.getItem("questions_count") || "0");
             const statusDisplay = document.getElementById("status-display");
             const limitMsg = document.getElementById("limit-msg");
+            const buttons = document.querySelectorAll('.btn');
 
-            statusDisplay.innerHTML = "📊 پرسیارێن دیتن: " + count + " / 20";
+            statusDisplay.innerHTML = "👑 خودانێ سیستەمی: JEHAD";
+            statusDisplay.className = "status-badge vip";
 
-            if (count >= 20) {
-                limitMsg.classList.remove("hidden");
-                document.querySelectorAll('.btn').forEach(b => b.classList.add('disabled'));
-            }
+            // چونکە تەلەفۆنی جیهادە، هەموو دوگمەکان بێ سنوور کار دەکەن
+            buttons.forEach((btn, index) => {
+                btn.classList.remove('disabled');
+                btn.onclick = function() {
+                    alert("وانە دەکریتەوە...");
+                };
+            });
         }
 
-        function navigateTo(url) {
-            let count = parseInt(localStorage.getItem("questions_viewed") || "0");
-            if (count < 20) {
-                count++;
-                localStorage.setItem("questions_viewed", count.toString());
-                window.location.href = url;
-            }
-        }
-
-        // کاتێک کلیک لەسەر دوگمە بچووکەکەی خوارەوەی لای چەپ دەکەیت، ئەم کۆدە لێدەدەیت بۆ ئەوەی تەلەفۆنەکەت جێگیر بێت
-        function activateWithOwnerCode() {
-            const code = prompt("بۆ کاراکردنی تەلەفۆنی خۆت، کۆدی نهێنی بنووسە:");
-            if (code === MY_SECRET_PASSWORD) {
-                localStorage.setItem("is_verified_owner", "true");
-                alert("تەلەفۆنی تۆ بە سەرکەوتوویی ناسێندرا! ئێستا سایتەکە بۆ تۆ کراوەیە.");
-                location.reload();
-            } else {
-                alert("کۆدەکە خەڵەتە!");
+        function promptAdminCode() {
+            const codeInput = prompt("کۆدێ نهێنی یێ تەلەفۆنا خۆ بنووسە:");
+            
+            if (codeInput === SECRET_CODE) {
+                // شاردنەوەی ناوەڕۆکی قفڵ و پیشاندانی لۆدینگی ٣٠ چرکەیی
+                document.getElementById("lock-content").classList.add("hidden");
+                document.getElementById("loading-content").classList.remove("hidden");
+                
+                let timeLeft = 30;
+                const countdownEl = document.getElementById("countdown");
+                
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    countdownEl.innerHTML = "ماوەی ماو: " + timeLeft + " چرکە";
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        localStorage.setItem("jehad_device_verified", "true");
+                        alert("پشکنین سەرکەوتوو بوو! تەلەفۆنی جیهاد بە تەواوی ناسێندرا.");
+                        location.reload();
+                    }
+                }, 1000);
+                
+            } else if (codeInput !== null) {
+                alert("کۆدەکە خەڵەتە، دەستگەیشتن ڕەتکرایەوە!");
             }
         }
     </script>
