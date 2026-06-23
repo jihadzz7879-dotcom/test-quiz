@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEHAD - پلاتفۆرمی شاهانە</title>
+    <title>JEHAD - پلاتفۆرمی تاقیکردنەوەکان</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 
         :root {
-            --bg-gradient: linear-gradient(180deg, #0b131f 0%, #152238 100%);
-            --gold: #facc15;
-            --gold-glow: rgba(250, 204, 21, 0.3);
+            --bg-gradient: linear-gradient(180deg, #070f1e 0%, #0d1b33 100%);
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
             --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --primary: #3b82f6;
-            --success: #10b981;
-            --error: #ef4444;
+            --text-dark: #0f172a;
+            --border-color: #e2e8f0;
         }
 
         * {
@@ -30,370 +27,339 @@
             color: var(--text-dark); 
             text-align: center; 
             margin: 0; 
-            padding: 30px 15px;
+            padding: 25px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        .header-logo {
-            margin-bottom: 25px;
+        .brand-header {
+            margin-bottom: 20px;
         }
 
-        .header-logo h1 {
-            font-size: 36px;
+        .brand-header h1 {
+            font-size: 38px;
             font-weight: 900;
             color: #ffffff;
             margin: 0;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+            letter-spacing: 1px;
         }
 
-        .header-logo p {
+        .brand-header p {
             color: #94a3b8;
             font-size: 13px;
-            margin: 5px 0 0 0;
+            margin: 4px 0 0 0;
             font-weight: 600;
         }
 
-        .points-box {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        .points-pill {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             color: white;
-            padding: 14px 28px;
+            padding: 12px 25px;
             border-radius: 50px;
             font-size: 18px;
             font-weight: 900;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            gap: 8px;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
             margin-bottom: 25px;
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .app-container {
+        .main-card {
             width: 100%;
             max-width: 440px;
             background: var(--card-bg);
-            border-radius: 35px;
-            padding: 30px 22px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 32px;
+            padding: 30px 20px;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
             position: relative;
-            min-height: 400px;
         }
 
-        .grid-subjects { 
+        .section-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        /* ستایلی نوێ و زۆر جوانی بابەتەکان */
+        .grid-layout { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 14px; 
+            gap: 12px; 
             width: 100%;
         }
         
-        .subject-card { 
+        .subject-item { 
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 16px; 
+            padding: 16px 14px; 
             background: #f8fafc; 
             color: #334155; 
-            border-radius: 20px; 
-            border: 1px solid #e2e8f0; 
+            border-radius: 18px; 
+            border: 1px solid var(--border-color); 
             font-weight: 700; 
-            font-size: 15px; 
-            transition: all 0.2s ease;
+            font-size: 14px; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            text-decoration: none;
         }
         
-        .subject-card:hover { 
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        .subject-item:hover { 
+            border-color: var(--gold);
+            background: #fffdf5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.1);
         }
 
-        .subject-card .btn-text { order: 2; }
-        .subject-card .btn-icon { font-size: 20px; order: 1; }
+        .subject-item .btn-text { order: 2; }
+        .subject-item .btn-icon { font-size: 20px; order: 1; }
 
-        /* لاپەڕەی ناو پرسیارەکان */
-        .quiz-view {
-            text-align: right;
-            padding: 10px;
-        }
-
-        .quiz-title {
-            font-size: 18px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-align: center;
-            color: var(--primary);
-        }
-
-        .question-text {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .option-btn {
-            width: 100%;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            padding: 14px 20px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: right;
-            transition: 0.2s;
-        }
-
-        .option-btn:hover { background: #e2e8f0; }
-
-        .back-btn {
-            width: 100%;
-            background: #0f172a;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 15px;
-            font-weight: 700;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-
-        /* قفڵ بوونی مۆبایل و ئەکاونت */
-        .lock-screen {
+        /* سکرینێ قفل بوونێ کاتێ خاڵ دەبنە سفر */
+        .lock-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, #111827, #1f2937);
+            background: linear-gradient(180deg, #0f172a, #1e293b);
             color: #ffffff;
-            border-radius: 35px;
+            border-radius: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 20px;
+            padding: 25px;
             z-index: 999;
         }
 
-        .lock-badge { font-size: 55px; margin-bottom: 15px; }
-        .lock-heading { font-size: 22px; font-weight: 900; color: var(--gold); margin-bottom: 10px; }
-        .lock-text { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .lock-icon { font-size: 50px; margin-bottom: 12px; }
+        .lock-title { font-size: 20px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
+        .lock-desc { color: #94a3b8; font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
 
-        .input-code-field {
+        .code-input {
             width: 100%;
-            padding: 15px;
-            border-radius: 15px;
+            padding: 14px;
+            border-radius: 14px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             outline: none;
         }
 
-        .input-code-field:focus { border-color: var(--primary); }
+        .code-input:focus { border-color: var(--gold); }
 
-        .submit-code-btn {
+        .activate-btn {
             width: 100%;
-            background: linear-gradient(90deg, #facc15, #eab308);
-            color: #111827;
+            background: linear-gradient(90deg, var(--gold-light), var(--gold));
+            color: #0f172a;
             border: none;
-            padding: 15px;
-            border-radius: 15px;
+            padding: 14px;
+            border-radius: 14px;
             font-size: 15px;
             font-weight: 900;
             cursor: pointer;
+            transition: 0.2s;
         }
+        .activate-btn:hover { transform: scale(1.01); }
 
-        .buy-link {
-            margin-top: 20px;
-            color: #3b82f6;
+        .instagram-link {
+            margin-top: 18px;
+            color: #60a5fa;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
         }
 
+        .free-badge {
+            background: #10b981;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-right: 4px;
+        }
+
         .hidden { display: none !important; }
+
+        .footer {
+            margin-top: 25px;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .footer a { color: #3b82f6; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div class="header-logo">
+    <div class="brand-header">
         <h1>JEHAD</h1>
-        <p>سیستەمێ فەرمی یێ تاقیکردنەوە پۆلا ١٢</p>
+        <p>سیستەمێ ئەلیکترۆنی یێ پۆلا ١٢</p>
     </div>
 
-    <div class="points-box">
+    <div class="points-pill">
         <span>🪙 خالێن تە:</span>
-        <span id="global-points">20</span>
+        <span id="display-points">20</span>
     </div>
 
-    <div class="app-container">
+    <div class="main-card">
         
-        <!-- لاپەڕەی قفل بوون لە کاتی تەواوبوونی خاڵەکان -->
-        <div id="lock-view" class="lock-screen hidden">
-            <div class="lock-badge">🔒</div>
-            <div class="lock-heading">سیستەم قفل بوو!</div>
-            <div class="lock-text">خالێن تە گەهشتنە سفرێ! بۆ کاراکردنەوەی بابەتان، کۆدی چالاککردنێ بنووسە:</div>
+        <!-- سکرینێ قفل بوونێ کاتێ خاڵ نامێنن -->
+        <div id="lock-screen" class="lock-container hidden">
+            <div class="lock-icon">🔒</div>
+            <div class="lock-title">ئەکاونتێ تە قفل بوو!</div>
+            <div class="lock-desc">خالێن تە ب داوی هاتن. بۆ بەردەوامبوونێ کۆدێ چالاککرنێ یێ کڕینێ ل خوارێ بنووسە:</div>
             
-            <input type="text" id="activation-input" class="input-code-field" placeholder="کۆدی نهێنی لێرە بنووسە...">
-            <button class="submit-code-btn" onclick="verifyAndActivateCode()">پشکنین و چالاککردن</button>
+            <input type="text" id="code-field" class="code-input" placeholder="کۆدێ نهێنی لێرە لێدە...">
+            <button class="activate-btn" onclick="validateActivationCode()">پشکنین و کاراکردن</button>
             
-            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="buy-link">🛒 کڕینا کۆدان ژ ئەدەمینی (جیهاد زێباری)</a>
+            <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="instagram-link">🛒 کڕینا کۆدێن نوێ ژ ئەدمینی</a>
         </div>
 
-        <!-- لیستی سەرەکی بابەتەکان -->
-        <div id="main-subjects-list" class="grid-subjects">
-            <div class="subject-card" onclick="loadQuiz('فیزیا')"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></div>
-            <div class="subject-card" onclick="loadQuiz('مێژوو')"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></div>
-            <div class="subject-card" onclick="loadQuiz('کوردی')"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></div>
-            <div class="subject-card" onclick="loadQuiz('عەرەبی')"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></div>
-            <div class="subject-card" onclick="loadQuiz('ئینگلیزی')"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></div>
-            <div class="subject-card" onclick="loadQuiz('یاسا')"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></div>
-            <div class="subject-card" onclick="loadQuiz('ئارک')"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></div>
-            <div class="subject-card" onclick="loadQuiz('ئیسلامی')"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></div>
-            <div class="subject-card" onclick="loadQuiz('ژیندەوار')"><span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span></div>
-            <div class="subject-card" onclick="loadQuiz('ژیندەوار ١')"><span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span></div>
+        <div class="section-title">✨ پۆلێنێن بابەتێن تاقیکردنەوەیێ</div>
+
+        <!-- بەستنەوەی ڕاستەوخۆ بە لاپەڕەکانی سەر گیتهاب وەک ناوەکانی ناو وێنەکە -->
+        <div class="grid-layout">
+            <a href="#" class="subject-item" onclick="handleSubjectClick('fizya.html', false)">
+                <span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('mejo.html', false)">
+                <span class="btn-text">مێژوو</span><span class="btn-icon">📜</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('kurdish.html', false)">
+                <span class="btn-text">کوردی</span><span class="btn-icon">✒️</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('arabic.html', false)">
+                <span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('english.html', false)">
+                <span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('yasa.html', false)">
+                <span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('ark.html', false)">
+                <span class="btn-text">ئارک</span><span class="btn-icon">🌐</span>
+            </a>
+            <!-- بابەتی ئیسلامی ٣ تاقیکردنەوەی بەلاشە پێش کەمبوونی خاڵ -->
+            <a href="#" class="subject-item" onclick="handleSubjectClick('eslame.html', true)" style="border-color: #10b981;">
+                <span class="btn-text">ئیسلامی <span class="free-badge">بەلاش</span></span><span class="btn-icon">📖</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('zindawar.html', false)">
+                <span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span>
+            </a>
+            <a href="#" class="subject-item" onclick="handleSubjectClick('zindawar1.html', false)">
+                <span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span>
+            </a>
         </div>
 
-        <!-- لاپەڕەی ناوخۆیی پرسیارەکان کاتێک کلیک دەکرێت -->
-        <div id="quiz-window" class="quiz-view hidden">
-            <div class="quiz-title" id="quiz-subject-title">ناوێ بابەتی</div>
-            <div class="question-text" id="quiz-question-text">لێرە پرسیارەکە پیشان دەدرێت؟</div>
-            <div id="quiz-options-box">
-                <!-- بژاردەکان لێرە دروست دەبن -->
-            </div>
-            <button class="back-btn" onclick="backToMenu()">⬅️ گەڕانەوە بۆ لیستێ</button>
-        </div>
+    </div>
 
+    <div class="footer">
+        بۆ په‌یوه‌ندی كرن: <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank">@gehad.zebare78</a>
     </div>
 
     <script>
-        // داتای نموونەیی پرسیارەکان بۆ ئەوەی کاتێک قوتابی کلیک دەکات بە ڕاستی بکرێتەوە
-        const DATA_BANK = {
-            "فیزیا": { q: "یاسای ئۆم پەیوەندی نێوان چی و چی دیاری دەکات؟", o: ["تەوژم و ڤۆڵتیە", "بەرگری و کات", "وزە و بارگە"], a: 0 },
-            "مێژوو": { q: "جەنگی جیهانی یەکەم لە چ ساڵێکدا دەستی پێکرد؟", o: ["١٩١٤", "١٩٣٩", "١٩٤٥"], a: 0 },
-            "کوردی": { q: "کامیان ناوی ناسراوی شاعیری گەورە (فایق بێکەس)ە؟", o: ["بێکەس", "نالی", "گۆران"], a: 0 },
-            "ئیسلامی": { q: "پێغەمبەر (ص) لە چ تەمەنێکدا وەحی بۆ هات؟", o: ["٤٠ ساڵی", "٢٥ ساڵی", "٣٠ ساڵی"], a: 0 }
-        };
-
-        // لایسێنس و کۆدەکانی کڕین (٥٠ و ٦٠ خاڵ) + ٣ وەڵامی ئایینی وەک کۆدی فەرمی
-        const CODES_DATABASE = {
-            "jehad_50": 50,
-            "jehad_60": 60,
-            "کەعبە": 100,      // پرسیاری ئاینی ١: قیبلەی موسڵمانان چییە؟
-            "قورئان": 150,    // پرسیاری ئاینی ٢: کتێبی پیرۆزی ئیسلام چییە؟
-            "ڕەمەزان": 200    // پرسیاری ئاینی ٣: مانگی ڕۆژووبوون چییە؟
+        // داتابەیسی ٧ کۆدێن زۆر پارێزراو کە هەر یەکێکیان تەنها ٦٠ خاڵ دەدات
+        const SECURITY_COUNDS_DB = {
+            "JEHAD-60X-1": 60,
+            "JEHAD-60X-2": 60,
+            "JEHAD-60X-3": 60,
+            "JEHAD-60X-4": 60,
+            "JEHAD-60X-5": 60,
+            "JEHAD-60X-6": 60,
+            "JEHAD-60X-7": 60
         };
 
         document.addEventListener("DOMContentLoaded", function() {
-            if (localStorage.getItem("user_points_jehad") === null) {
-                localStorage.setItem("user_points_jehad", "20"); // ٢٠ خاڵی سەرەتایی بەلاش
+            if (localStorage.getItem("jehad_points_system") === null) {
+                localStorage.setItem("jehad_points_system", "20"); // خاڵی دەستپێک
             }
-            refreshPoints();
+            if (localStorage.getItem("islamic_free_count") === null) {
+                localStorage.setItem("islamic_free_count", "0"); // ژمارەی تاقیکردنەوەی بەلاش
+            }
+            syncPoints();
         });
 
-        function refreshPoints() {
-            let pts = parseInt(localStorage.getItem("user_points_jehad") || "0");
-            document.getElementById("global-points").innerText = pts;
+        function syncPoints() {
+            let pts = parseInt(localStorage.getItem("jehad_points_system") || "0");
+            document.getElementById("display-points").innerText = pts;
 
+            const lockLayer = document.getElementById("lock-screen");
             if (pts < 10) {
-                document.getElementById("lock-view").classList.remove("hidden");
-                document.getElementById("main-subjects-list").classList.add("hidden");
-                document.getElementById("quiz-window").classList.add("hidden");
+                lockLayer.classList.remove("hidden");
             } else {
-                document.getElementById("lock-view").classList.add("hidden");
+                lockLayer.classList.add("hidden");
             }
         }
 
-        // کردەنەوەی پرسیار بە سەرکەوتوویی و کەمکردنەوەی ١0 خاڵ
-        function loadQuiz(subject) {
-            let pts = parseInt(localStorage.getItem("user_points_jehad") || "0");
+        // بەڕێوەبردنی کلیك ل سەر بابەتان و کەمبوونی ١٠ خاڵ
+        function handleSubjectClick(url, isIslamic) {
+            let pts = parseInt(localStorage.getItem("jehad_points_system") || "0");
             
+            if (isIslamic) {
+                let freeCount = parseInt(localStorage.getItem("islamic_free_count") || "0");
+                if (freeCount < 3) {
+                    freeCount++;
+                    localStorage.setItem("islamic_free_count", freeCount.toString());
+                    alert("ئەڤە تاقیکردنەوەیا بەلاشە یا ژمارە (" + freeCount + ") بۆ بابەتی ئیسلامی، هیچ خاڵەک کەم نەبوو!");
+                    
+                    if (freeCount === 3) {
+                        alert("🎉 پیرۆزە! تە هەر ٣ تاقیکردنەوەی بەلاش ب سەرکەفتوویی ئەنجام دان. کۆدێ خەڵاتی تە ئەڤەیە: JEHAD-60X-1");
+                    }
+                    window.location.href = url;
+                    return;
+                }
+            }
+
+            // بۆ بابەتەکانی تر یان کاتێک بەلاش نەمێنێت
             if (pts >= 10) {
                 pts -= 10;
-                localStorage.setItem("user_points_jehad", pts.toString());
-                refreshPoints();
-
-                // پیشاندانی ناوەڕۆکی پرسیارەکە
-                document.getElementById("main-subjects-list").classList.add("hidden");
-                document.getElementById("quiz-window").classList.remove("hidden");
-                
-                document.getElementById("quiz-subject-title").innerText = "بابەتێ: " + subject;
-                
-                // هێنانی پرسیار لە بانک، ئەگەر نەبوو پرسیارێکی گشتی دادەنێت
-                let quizData = DATA_BANK[subject] || { q: "پرسیارەک ل سەر ڤێ بابەتێ لێرە دێ هێتە نیشاندان؟", o: ["بژاردەیا ئێکێ", "بژاردەیا دووێ", "بژاردەیا سیێ"], a: 0 };
-                
-                document.getElementById("quiz-question-text").innerText = quizData.q;
-                
-                let optionsDiv = document.getElementById("quiz-options-box");
-                optionsDiv.innerHTML = "";
-                
-                quizData.o.forEach((opt, idx) => {
-                    let btn = document.createElement("button");
-                    btn.className = "option-btn";
-                    btn.innerText = opt;
-                    btn.onclick = function() {
-                        if (idx === quizData.a) {
-                            alert("✅ وەڵامێ تە ڕاستە!");
-                        } else {
-                            alert("❌ وەڵامێ تە خەلەتە!");
-                        }
-                    };
-                    optionsDiv.appendChild(btn);
-                });
-
+                localStorage.setItem("jehad_points_system", pts.toString());
+                syncPoints();
+                window.location.href = url;
             } else {
-                refreshPoints();
+                syncPoints();
             }
         }
 
-        function backToMenu() {
-            document.getElementById("quiz-window").classList.add("hidden");
-            document.getElementById("main-subjects-list").classList.remove("hidden");
-            refreshPoints();
-        }
-
-        // پشکنین و لێدانی کۆد بە شێوازێکی زۆر دەقیق و قفڵبوونی تەنها لەسەر یەک مۆبایل
-        function verifyAndActivateCode() {
-            const inputVal = document.getElementById("activation-input").value.trim();
+        // پشکنینی پڕۆفیشناڵ و قفڵکردنی کۆدەکە تەنها بۆ یەک ئامێر
+        function validateActivationCode() {
+            const inputVal = document.getElementById("code-field").value.trim().toUpperCase();
             if (!inputVal) return;
 
-            const trackingCodes = JSON.parse(localStorage.getItem("jehad_registered_device_codes") || "[]");
+            const strictDeviceArchive = JSON.parse(localStorage.getItem("jehad_strict_device_archive") || "[]");
 
-            if (trackingCodes.includes(inputVal)) {
-                alert("ئەڤ کۆدە پێشتر ل سەر مۆبایلەکێ هاتیە قفلکرن و دووبارە کار ناکەت!");
+            if (strictDeviceArchive.includes(inputVal)) {
+                alert("ئەڤ کۆدە پێشتر ل سەر ڤێ مۆبایلێ هاتیە قفلکرن و دووبارە کار ناکەت!");
                 return;
             }
 
-            if (inputVal in CODES_DATABASE) {
-                let bonus = CODES_DATABASE[inputVal];
-                let pts = parseInt(localStorage.getItem("user_points_jehad") || "0");
+            if (inputVal in SECURITY_COUNDS_DB) {
+                let reward = SECURITY_COUNDS_DB[inputVal];
+                let pts = parseInt(localStorage.getItem("jehad_points_system") || "0");
                 
-                pts += bonus;
-                localStorage.setItem("user_points_jehad", pts.toString());
+                pts += reward;
+                localStorage.setItem("jehad_points_system", pts.toString());
                 
-                // قفڵکردنی کۆدەکە ل سەر ڤێ مۆبایلێ
-                trackingCodes.push(inputVal);
-                localStorage.setItem("jehad_registered_device_codes", JSON.stringify(trackingCodes));
+                // پاشەکەوتکردنی کۆدەکە بۆ ئەوەی دووبارە بەکار نەیێتەوە لەسەر ئەم ئامێرە
+                strictDeviceArchive.push(inputVal);
+                localStorage.setItem("jehad_strict_device_archive", JSON.stringify(strictDeviceArchive));
 
-                alert("🎉 پشکنین سەرکەوتوو بوو! +" + bonus + " خال بۆ حسێبا تە زێدە بوون.");
-                document.getElementById("activation-input").value = "";
-                
-                document.getElementById("lock-view").classList.add("hidden");
-                document.getElementById("main-subjects-list").classList.remove("hidden");
-                refreshPoints();
+                alert("🎉 پشکنین سەرکەوتوو بوو! +" + reward + " خال بۆ حسێبا تە زێدە بوون.");
+                document.getElementById("code-field").value = "";
+                syncPoints();
             } else {
-                alert("کۆدێ تە خەلەتە یان چالاک نینە!");
+                alert("کۆدێ تە خەلەتە یان پێشتر ل سەر مۆبایلەکا دی هاتیە بەکارهێنان و قفل بووە!");
             }
         }
     </script>
 </body>
 </html>
-
-        
