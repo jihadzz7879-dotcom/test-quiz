@@ -130,7 +130,7 @@
             margin-right: 4px;
         }
 
-        /* بەشی تاقیکردنەوەی خۆڕایی و کڕینی کۆد (دیزاینی تاریک لە وێنەکە) */
+        /* بەشی تاقیکردنەوەی خۆڕایی ل سەر شێوازی وێنەی image_7.png */
         .quiz-shop-container {
             width: 100%;
             max-width: 440px;
@@ -160,6 +160,7 @@
             color: #94a3b8;
             font-size: 14px;
             margin-bottom: 15px;
+            font-weight: bold;
         }
 
         .question-box {
@@ -175,6 +176,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             color: #ffffff;
+            line-height: 1.5;
         }
 
         .helps-grid {
@@ -188,11 +190,13 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 15px;
-            padding: 10px;
+            padding: 12px;
             color: #f8fafc;
             cursor: pointer;
             font-size: 12px;
+            transition: 0.2s;
         }
+        .help-btn:hover { background: rgba(255,255,255,0.08); }
 
         .options-grid {
             display: grid;
@@ -230,6 +234,11 @@
             justify-content: center;
             font-size: 12px;
             color: var(--gold);
+        }
+
+        .disabled-option {
+            opacity: 0.2;
+            pointer-events: none;
         }
 
         .shop-section {
@@ -333,7 +342,7 @@
         <span id="display-points">20</span>
     </div>
 
-    <!-- پۆلێنێن بابەتەکان -->
+    <!-- بەشی بابەتەکان -->
     <div class="main-card">
         
         <div id="lock-screen" class="lock-container hidden">
@@ -383,45 +392,32 @@
         </div>
     </div>
 
-    <!-- بەشی تاقیکردنەوەی بەخۆڕایی و کڕینی کۆدەکان (ڕێکخراو لەگەڵ وێنەی نوێ) -->
+    <!-- بەشی تاقیکردنەوەی بەخۆڕایی دینامیکی و کۆدەکان وەک ناو وێنەکە -->
     <div class="quiz-shop-container">
         <div class="box-title">تاقیکردنەوەی بەخۆڕایی</div>
         <div class="box-subtitle">٣ پرسیاران دروست وەڵام بدە بۆ بەدەستهێنانی کۆدی ٦٠ خاڵا!</div>
 
-        <div class="question-counter">پرسیارا ١ ل سەر ٣</div>
+        <div id="quiz-zone">
+            <div class="question-counter" id="q-counter">پرسیارا ١ ل سەر ٣</div>
 
-        <div class="question-box">
-            <div class="question-text">نوسەری ڕۆمانی (کەشتی نوێی نوح) کێیە؟</div>
+            <div class="question-box">
+                <div class="question-text" id="q-text">نوسەری ڕۆمانی (کەشتی نوێی نوح) کێیە؟</div>
 
-            <div class="helps-grid">
-                <div class="help-btn">❌ 50:50<br><small style="color:#94a3b8">لادانا دوو وەڵامێن خەلەت (ئێک جار)</small></div>
-                <div class="help-btn">🧠 وەڵام دەستکرد<br><small style="color:#94a3b8">(ئێک جار)</small></div>
-            </div>
+                <div class="helps-grid">
+                    <div class="help-btn" id="btn-5050" onclick="use5050()">❌ 50:50<br><small style="color:#94a3b8">لادانا دوو وەڵامێن خەلەت (ئێک جار)</small></div>
+                    <div class="help-btn" id="btn-ai" onclick="useAIHelp()">🧠 وەڵام دەستکرد<br><small style="color:#94a3b8">(ئێک جار)</small></div>
+                </div>
 
-            <div class="options-grid">
-                <div class="option-item" onclick="checkAnswer(false)">
-                    <span class="option-num">١</span>
-                    <span>شێرکۆ بێکەس</span>
-                </div>
-                <div class="option-item" onclick="checkAnswer(false)">
-                    <span class="option-num">٢</span>
-                    <span>بەختیار عەلی</span>
-                </div>
-                <div class="option-item" onclick="checkAnswer(false)">
-                    <span class="option-num">٣</span>
-                    <span>هەردی مەلۆود</span>
-                </div>
-                <div class="option-item" onclick="checkAnswer(true)">
-                    <span class="option-num">٤</span>
-                    <span>عەبدوڵڵا پەشێو</span>
+                <div class="options-grid" id="options-zone">
+                    <!-- وەڵامەکان لێرەوە بە دینامیکی لە ڕێگەی سکریپتەوە دادەنرێن -->
                 </div>
             </div>
         </div>
 
         <div class="shop-section">
             <div class="shop-title">کۆدێن کڕینی نایاب</div>
-            <div class="price-row">١٠٠٠ خاڵ - ١٠,٠٠٠ دینار</div>
-            <div class="price-row">٢٠٠٠ خاڵ - ١٨,٠٠٠ دینار</div>
+            <div class="price-row">١٠٠٠ خاڵ - ١٠,٠٠0 دینار</div>
+            <div class="price-row">٢٠٠٠ خاڵ - ١٨,٠٠0 دینار</div>
             <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="shop-link">🛒 کڕینا کۆدێن نوێ ژ ئەدمینی</a>
         </div>
     </div>
@@ -431,15 +427,31 @@
     </div>
 
     <script>
-        // داتابەیسی کۆدەکان کە تەنها ٦٠ خاڵ دەدەن بەکارھێنەر
+        // بانکێ پسیارێن تاقیکردنەوەیێ
+        const quizQuestions = [
+            {
+                question: "نوسەری ڕۆمانی (کەشتی نوێی نوح) کێیە؟",
+                options: ["شێرکۆ بێکەس", "بەختیار عەلی", "هەردی مەلۆود", "عەبدوڵڵا پەشێو"],
+                correct: 1 // بەختیار عەلی ڕاستە
+            },
+            {
+                question: "یاسای یەکەم یێ نیوتنی فیزیاوی پتر ب چ ناڤ دهێتە نیاسین؟",
+                options: ["یاسای هێزێ", "یاسای هێزا کێشکردنێ", "یاسای سستیێ (الاستمرارية)", "یاسای کردار و پەرچەکردارێ"],
+                correct: 2
+            },
+            {
+                question: "کام مێژوونووس ب (باوکێ مێژوویێ) دهێتە ناڤکرن؟",
+                options: ["ئەفلاتۆن", "هێرۆدۆت", "ئەرستۆ", "ئیبن خەلدون"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let is5050Used = false;
+        let isAIUsed = false;
+
         const SECURITY_COUNDS_DB = {
-            "JEHAD-60X-1": 60,
-            "JEHAD-60X-2": 60,
-            "JEHAD-60X-3": 60,
-            "JEHAD-60X-4": 60,
-            "JEHAD-60X-5": 60,
-            "JEHAD-60X-6": 60,
-            "JEHAD-60X-7": 60
+            "JEHAD-60X-1": 60, "JEHAD-60X-2": 60, "JEHAD-60X-3": 60
         };
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -450,6 +462,7 @@
                 localStorage.setItem("islamic_free_count", "0");
             }
             syncPoints();
+            loadQuestion();
         });
 
         function syncPoints() {
@@ -464,6 +477,83 @@
             }
         }
 
+        // بارکرنا پسیارێ ب شێوازەکێ جوان
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                // سەرکەوتن و وەرگرتنی ٦٠ خاڵ
+                let pts = parseInt(localStorage.getItem("jehad_points_system") || "0");
+                pts += 60;
+                localStorage.setItem("jehad_points_system", pts.toString());
+                syncPoints();
+
+                document.getElementById("quiz-zone").innerHTML = `
+                    <div style="padding:30px 10px; color:#10b981; font-weight:900; font-size:18px;">
+                        🎉 پیرۆزە! تە هەر ٣ پسیار ب دروستی وەڵام دان و پاداشتێ (٦٠ خاڵا) خۆ وەرگرت!
+                    </div>
+                `;
+                return;
+            }
+
+            const qData = quizQuestions[currentQuestionIndex];
+            document.getElementById("q-counter").innerText = "پرسیارا " + (currentQuestionIndex + 1) + " ل سەر ٣";
+            document.getElementById("q-text").innerText = qData.question;
+
+            const optionsZone = document.getElementById("options-zone");
+            optionsZone.innerHTML = "";
+
+            qData.options.forEach((opt, idx) => {
+                optionsZone.innerHTML += `
+                    <div class="option-item" id="opt-${idx}" onclick="selectOption(${idx})">
+                        <span class="option-num">${idx + 1}</span>
+                        <span>${opt}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function selectOption(selectedIdx) {
+            const qData = quizQuestions[currentQuestionIndex];
+            if (selectedIdx === qData.correct) {
+                alert("✅ وەڵامێ تە ڕاستە! دێ چیتە پسیارا داهاتی.");
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                alert("❌ وەڵامێ تە خەلەتە! دووبارە تاقیکەرەوە.");
+            }
+        }
+
+        // یارمەتیدەری لادانی دوو وەڵامان
+        function use5050() {
+            if (is5050Used) {
+                alert("تە پێشتر ئەڤ یارمەتییە بەکارهێناوە!");
+                return;
+            }
+            is5050Used = true;
+            document.getElementById("btn-5050").style.opacity = "0.3";
+
+            const qData = quizQuestions[currentQuestionIndex];
+            let count = 0;
+            for (let i = 0; i < 4; i++) {
+                if (i !== qData.correct && count < 2) {
+                    document.getElementById(`opt-${i}`).classList.add("disabled-option");
+                    count++;
+                }
+            }
+        }
+
+        // یارمەتیدەری وەڵامی دەستکرد
+        function useAIHelp() {
+            if (isAIUsed) {
+                alert("تە پێشتر ئەڤ یارمەتییە بەکارهێناوە!");
+                return;
+            }
+            isAIUsed = true;
+            document.getElementById("btn-ai").style.opacity = "0.3";
+
+            const qData = quizQuestions[currentQuestionIndex];
+            alert("🧠 وەڵامێ دەستکرد دبێژیت: وەڵامێ ڕاست ژمارە (" + (qData.correct + 1) + ") یە.");
+        }
+
         function handleSubjectClick(url, isIslamic) {
             let pts = parseInt(localStorage.getItem("jehad_points_system") || "0");
             
@@ -472,11 +562,7 @@
                 if (freeCount < 3) {
                     freeCount++;
                     localStorage.setItem("islamic_free_count", freeCount.toString());
-                    alert("ئەڤە تاقیکردنەوەیا بەلاشە یا ژمارە (" + freeCount + ") بۆ بابەتی ئیسلامی، هیچ خاڵەک کەم نەبوو!");
-                    
-                    if (freeCount === 3) {
-                        alert("🎉 پیرۆزە! تە هەر ٣ تاقیکردنەوەی بەلاش ب سەرکەفتوویی ئەجا دان. کۆدێ خەڵاتی تە ئەڤەیە: JEHAD-60X-1");
-                    }
+                    alert("ئەڤە تاقیکردنەوەیا بەلاشە یا ژمارە (" + freeCount + ") بۆ بابەتی ئیسلامی!");
                     window.location.href = url;
                     return;
                 }
@@ -499,7 +585,7 @@
             const strictDeviceArchive = JSON.parse(localStorage.getItem("jehad_strict_device_archive") || "[]");
 
             if (strictDeviceArchive.includes(inputVal)) {
-                alert("ئەڤ کۆدە پێشتر ل سەر ڤێ مۆبایلێ هاتیە قفلکرن و دووبارە کار ناکەت!");
+                alert("ئەڤ کۆدە پێشتر ل سەر ڤێ مۆبایلێ هاتیە بەکارهێنان!");
                 return;
             }
 
@@ -513,19 +599,11 @@
                 strictDeviceArchive.push(inputVal);
                 localStorage.setItem("jehad_strict_device_archive", JSON.stringify(strictDeviceArchive));
 
-                alert("🎉 پشکنین سەرکەوتوو بوو! +" + reward + " خال بۆ حسێبا تە زێدە بوون.");
+                alert("🎉 +" + reward + " خال بۆ حسێبا تە زێدە بوون.");
                 document.getElementById("code-field").value = "";
                 syncPoints();
             } else {
-                alert("کۆدێ تە خەلەتە یان پێشتر ل سەر مۆبایلەکا دی هاتیە بەکارهێنان و قفل بووە!");
-            }
-        }
-
-        function checkAnswer(isCorrect) {
-            if(isCorrect) {
-                alert("✅ وەڵامێ تە ڕاستە!");
-            } else {
-                alert("❌ وەڵامێ تە خەلەتە!");
+                alert("کۆدێ تە خەلەتە!");
             }
         }
     </script>
