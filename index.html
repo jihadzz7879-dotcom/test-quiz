@@ -10,7 +10,7 @@
         :root {
             --bg-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
             --gold: #facc15;
-            --gold-glow: rgba(250, 204, 21, 0.5);
+            --gold-glow: rgba(250, 204, 21, 0.4);
             --card-glass: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-light: #f8fafc;
@@ -50,7 +50,6 @@
             font-size: 14px;
             margin: 6px 0 25px 0;
             font-weight: 600;
-            letter-spacing: 1px;
         }
 
         /* کارتی سەرەکی یێ بابەتان */
@@ -75,7 +74,7 @@
             text-shadow: 0 0 15px rgba(250, 204, 21, 0.3);
         }
 
-        /* دیزاینێ نوو و جوانی بابەتان */
+        /* دیزاینێ نوو و ڕێکوپێک یێ بابەتان */
         .grid-layout { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -97,20 +96,30 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
         .subject-item:hover { 
             border-color: var(--gold);
             background: rgba(250, 204, 21, 0.08);
-            transform: translateY(-5px) scale(1.03);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(250, 204, 21, 0.2);
         }
 
         .subject-item .btn-text { order: 2; }
         .subject-item .btn-icon { font-size: 24px; order: 1; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); }
 
-        /* بوتنێ ئینستاگرامێ ل ناڤ دڵێ بابەتان */
+        .free-badge {
+            background: #10b981;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-right: 6px;
+            font-weight: 900;
+        }
+
+        /* دوگمەی ئینستاگرام ل خوارێ بابەتان */
         .insta-btn-container {
             grid-column: span 2;
             margin-top: 10px;
@@ -138,7 +147,7 @@
             box-shadow: 0 12px 30px rgba(225, 48, 108, 0.6);
         }
 
-        /* شاشەیا قوفڵبوونا دەستپێکێ (داخوازکردنی کۆد) */
+        /* شاشەیا قوفڵبوونا دەستپێکێ بۆ داخوازکردنی کۆد */
         .lock-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -214,6 +223,16 @@
         }
         .shop-link-btn:hover { background: rgba(255,255,255,0.1); border-color: #ffffff; }
 
+        .close-lock-btn {
+            margin-top: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
         .hidden { display: none !important; }
         .footer { margin-top: 20px; color: #475569; font-size: 13px; font-weight: 600; }
         .footer a { color: #3b82f6; text-decoration: none; }
@@ -226,35 +245,38 @@
         <p>سیستەمێ ئەلیکترۆنی یێ پۆلا ١٢</p>
     </div>
 
-    <!-- کارتی سەرەکی بابەتەکان -->
     <div class="main-card">
         
-        <!-- شاشەیا قوفڵبوونا ئەپڵیکەیشنێ پێش داخڵبوونێ -->
         <div id="lock-screen" class="lock-container">
             <div class="lock-icon">🔒</div>
             <div style="font-size:24px; font-weight:900; color:var(--gold); margin-bottom:10px;">سیستەم یێ قوفڵکریە!</div>
-            <div style="color:var(--text-muted); font-size:14px; margin-bottom:25px; max-width: 300px; line-height: 1.6;">بۆ چوونە ژوورێ و دیتنا بابەتان، پێویستە کۆدێ تایبەت یێ داخڵبوونێ لێدەی.</div>
+            <div style="color:var(--text-muted); font-size:14px; margin-bottom:25px; max-width: 300px; line-height: 1.6;">بۆ دیتنا بابەتان، پێویستە کۆدێ فەرمی یێ داخڵبوونێ لێدەی.</div>
             
             <input type="text" id="code-field" class="code-input" placeholder="کۆدێ داخڵبوونێ لێدە...">
             <button class="activate-btn" onclick="validateActivationCode()">پشکنین و چوونە ژوورێ</button>
             
             <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="shop-link-btn">🛒 وەرگرتنا کۆدی ژ ئینستاگرامی من</a>
+            <button class="close-lock-btn" onclick="closeLockForFree()">تەنها دیتنا بابەتێن بەڵاش (ئیسلامی)</button>
         </div>
 
         <div class="section-title">✨ پۆلێنێن بابەتێن تاقیکردنەوەیێ</div>
         <div class="grid-layout">
-            <a href="fizya.html" class="subject-item"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></a>
-            <a href="mejo.html" class="subject-item"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></a>
-            <a href="kurdish.html" class="subject-item"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></a>
-            <a href="arabic.html" class="subject-item"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></a>
-            <a href="english.html" class="subject-item"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></a>
-            <a href="yasa.html" class="subject-item"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></a>
-            <a href="ark.html" class="subject-item"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></a>
-            <a href="eslame.html" class="subject-item"><span class="btn-text">ئیسلامی</span><span class="btn-icon">📖</span></a>
-            <a href="zindawar.html" class="subject-item"><span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span></a>
-            <a href="zindawar1.html" class="subject-item"><span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('fizya.html')"><span class="btn-text">فیزیا</span><span class="btn-icon">⚛️</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('mejo.html')"><span class="btn-text">مێژوو</span><span class="btn-icon">📜</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('kurdish.html')"><span class="btn-text">کوردی</span><span class="btn-icon">✒️</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('arabic.html')"><span class="btn-text">عەرەبی</span><span class="btn-icon">🕌</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('english.html')"><span class="btn-text">ئینگلیزی</span><span class="btn-icon">🇬🇧</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('yasa.html')"><span class="btn-text">یاسا</span><span class="btn-icon">⚖️</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('ark.html')"><span class="btn-text">ئارک</span><span class="btn-icon">🌐</span></a>
             
-            <!-- بوتنێ شاهانە یێ ئینستاگرامێ د ناڤ بابەتاندا -->
+            <a href="eslame.html" class="subject-item" style="border-color: #10b981; background: rgba(16, 185, 129, 0.05);">
+                <span class="btn-text">ئیسلامی <span class="free-badge">بەڵاش</span></span>
+                <span class="btn-icon">📖</span>
+            </a>
+            
+            <a href="#" class="subject-item" onclick="checkAccess('zindawar.html')"><span class="btn-text">ژیندەوار</span><span class="btn-icon">🧬</span></a>
+            <a href="#" class="subject-item" onclick="checkAccess('zindawar1.html')"><span class="btn-text">ژیندەوار ١</span><span class="btn-icon">🔬</span></a>
+            
             <div class="insta-btn-container">
                 <a href="https://www.instagram.com/gehad.zebare78?igsh=ZmdibXV6NTdrdDlp" target="_blank" class="insta-inner-btn">
                     📸 پەیجێ فەرمی یێ ئینستاگرامی: @gehad.zebare78
@@ -268,19 +290,12 @@
     </div>
 
     <script>
-        // لێرە ٧ کۆدێن تایبەت یێن داخڵبوونێ هەنە (هەر کۆدەک تەنها بۆ ئێک مۆبایلە!)
+        // لێرە ٧ کۆدێن تایبەت یێن داخڵبوونێ هەنە
         const ALLOWED_ACCESS_CODES = [
-            "JEHAD-88A", 
-            "JEHAD-77B", 
-            "JEHAD-66C", 
-            "JEHAD-55D", 
-            "JEHAD-44E", 
-            "JEHAD-33F", 
-            "JEHAD-22G"
+            "JEHAD-88A", "JEHAD-77B", "JEHAD-66C", "JEHAD-55D", "JEHAD-44E", "JEHAD-33F", "JEHAD-22G"
         ];
 
         document.addEventListener("DOMContentLoaded", function() {
-            // پشکنین کا ئایا ئەڤ مۆبایلە پێشتر داخڵ بووە یان نا
             if (localStorage.getItem("jehad_device_unlocked") === "true") {
                 document.getElementById("lock-screen").classList.add("hidden");
             }
@@ -290,16 +305,28 @@
             const inputVal = document.getElementById("code-field").value.trim().toUpperCase();
             if (!inputVal) return;
 
-            // پشکنینی ڕاستی کۆدەکە
             if (ALLOWED_ACCESS_CODES.includes(inputVal)) {
-                // قوفڵکردنی مۆبایلەکە بە هەمیشەیی بۆ ئەم کۆدە (بۆ ئەوەی کەسی تر نەتوانێت بەکاری بێنێتەوە)
                 localStorage.setItem("jehad_device_unlocked", "true");
-                
                 alert("🎉 کۆد ڕاست بوو! بەخێر بێی بۆ پلاتفۆرمی JEHAD.");
                 document.getElementById("lock-screen").classList.add("hidden");
             } else {
-                alert("❌ ئەڤ کۆدە خەلەتە یان پێشتر ل سەر مۆبایلەکا دی هاتیە بەکارهێنان!");
+                alert("❌ ئەڤ کۆدە خەلەتە یان پێشتر هاتیە بەکارهێنان!");
             }
+        }
+
+        // پشکنین کا ئایا ئەپڵیکەیشن کراوەیە یان نا کاتێ کلیک لە بابەتەکان دەکەن
+        function checkAccess(url) {
+            if (localStorage.getItem("jehad_device_unlocked") === "true") {
+                window.location.href = url;
+            } else {
+                document.getElementById("lock-screen").classList.remove("hidden");
+                alert("🔒 ئەڤ بابەتە قوفڵکریە! پێویستە کۆدێ داخڵبوونێ لێدەی بۆ بینینی.");
+            }
+        }
+
+        // لادانی شاشەی قوفڵ تەنها بۆ بینینی بەشی بەڵاش
+        function closeLockForFree() {
+            document.getElementById("lock-screen").classList.add("hidden");
         }
     </script>
 </body>
