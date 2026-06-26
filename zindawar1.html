@@ -72,7 +72,7 @@
             border-radius: 28px;
             padding: 40px;
             width: 100%;
-            max-width: 700px;
+            max-width: 750px;
             box-shadow: var(--shadow);
             position: relative;
             z-index: 10;
@@ -164,16 +164,31 @@
             overflow: hidden;
         }
 
-        /* ئەنیمەیشنا نوو یا فڕۆکێ ✈️ */
-        .plane-animation {
+        /* ستایلێ فڕۆکەیێن داهێنانە ✈ * /
+        .airshow-plane {
             position: fixed;
-            bottom: -100px;
-            left: 10%;
-            font-size: 5rem;
+            font-size: 4rem;
             z-index: 1000;
             pointer-events: none;
-            transform: rotate(-45deg);
-            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0;
+            transform: translate(-100px, 100px) rotate(-45deg);
+        }
+
+        @keyframes flyPlane1 {
+            0% { transform: translate(-10vw, 90vh) rotate(-35deg); opacity: 1; }
+            100% { transform: translate(110vw, -10vh) rotate(-35deg); opacity: 1; }
+        }
+        @keyframes flyPlane2 {
+            0% { transform: translate(-20vw, 70vh) rotate(-50deg) scale(0.8); opacity: 0.9; }
+            100% { transform: translate(110vw, -20vh) rotate(-50deg) scale(0.8); opacity: 0.9; }
+        }
+        @keyframes flyPlane3 {
+            0% { transform: translate(-15vw, 50vh) rotate(-25deg) scale(0.7); opacity: 0.8; }
+            100% { transform: translate(110vw, 10vh) rotate(-25deg) scale(0.7); opacity: 0.8; }
+        }
+        @keyframes flyPlane4 {
+            0% { transform: translate(-30vw, 85vh) rotate(-40deg) scale(0.9); opacity: 0.9; }
+            100% { transform: translate(110vw, -5vh) rotate(-40deg) scale(0.9); opacity: 0.9; }
         }
 
         .quiz-section {
@@ -224,13 +239,12 @@
         }
         [data-theme="light"] .option-btn { background: rgba(0, 0, 0, 0.01); }
         
-        .option-btn:hover:not([disabled]) {
+        .option-btn:hover {
             border-color: var(--accent-color);
             background: rgba(99, 102, 241, 0.08);
             transform: translateX(-4px);
         }
 
-        /* بازنێ پیتێن A, B, C, D */
         .letter-circle {
             width: 36px;
             height: 36px;
@@ -316,23 +330,21 @@
             margin-top: 8px;
         }
 
-        /* ئەنیمەیشنا کەفتنا تەپکان 🎈 */
         .falling-ball {
             position: fixed;
             width: 16px;
             height: 16px;
             border-radius: 50%;
             pointer-events: none;
-            animation: ballDrop 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            animation: ballDrop 2.5s linear forwards;
             z-index: 100;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            box-shadow: 0 0 10px rgba(255,255,255,0.4);
         }
 
         @keyframes ballDrop {
-            0% { transform: translateY(-50px) scale(0); opacity: 0; }
-            10% { opacity: 1; transform: translateY(0) scale(1); }
-            90% { opacity: 1; }
-            100% { transform: translateY(105vh) scale(0.6); opacity: 0; }
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(105vh); opacity: 0; }
         }
     </style>
 </head>
@@ -340,7 +352,10 @@
 
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ ڕۆهن</button>
 
-    <div class="plane-animation" id="sky-plane">✈️</div>
+    <div class="airshow-plane" id="plane1">✈️</div>
+    <div class="airshow-plane" id="plane2">✈️</div>
+    <div class="airshow-plane" id="plane3">✈️</div>
+    <div class="airshow-plane" id="plane4">✈️</div>
 
     <div class="container">
         <div id="selection-page">
@@ -351,11 +366,11 @@
             <div class="grid-options">
                 <div class="selection-card" id="year-2024" onclick="selectYear(2024)">
                     <div class="card-title">٢٠٢٤</div>
-                    <div class="card-desc">پرسیارێن سالا بورى</div>
+                    <div class="card-desc">پرسیارێن پێنجى پسیاری تەمام</div>
                 </div>
                 <div class="selection-card" id="year-2025" onclick="selectYear(2025)">
                     <div class="card-title">٢٠٢٥</div>
-                    <div class="card-desc">پرسیارێن ئەڤساڵە</div>
+                    <div class="card-desc">پرسیارێن نوو</div>
                 </div>
             </div>
 
@@ -403,11 +418,10 @@
         let selectedYear = null;
         let selectedRound = null;
         let currentQuestionIndex = 0;
-        let score = 0;
         let userAnswers = [];
         let currentQuestionsList = [];
-        let hasAnsweredCurrent = false;
 
+        // بنکەیا داتایێن پسیاران - ٥٠ پسیارێن تەمام یێن وەزاری کیمیا خولا ١
         const database = {
             "2024_1": [
                 { q: "١. ئاوێتەیەکی کیمیاییە کو د ئاڤێدا دحەلیت ئایۆنین دکەت و [H₃O⁺] زێدە دکەت:", a: ["کلۆریدی ئامۆنیۆم", "نیشان", "فلۆریدی هایدرۆجین", "ئەمۆنیا"], c: 2 },
@@ -428,38 +442,38 @@
                 { q: "١٦. هەمی ئەڤە گێراوێن خوارێ ترشن ژبلی:", a: ["[H₃O⁺] = 1x10⁻⁵ M", "[OH⁻] = 1x10⁻¹⁰ M", "pH < 7", "[H₃O⁺] = 1x10⁻⁷ M"], c: 3 },
                 { q: "١٧. د ئاڤا گێراوێ Ca(OH)₂ دا ب خەستیا 1.0x10⁻³M د 25°C دا دکەتە:", a: ["5.0x10⁻³ M", "0.002 M", "1.0x10⁻¹¹ M", "5.0x10⁻¹٢ M"], c: 3 },
                 { q: "١٨. د کریارەکا سەکاندنێدا 36mL ژ گێراوێ 0.02M KOH هاوکێش دبیت دگەل 12mL ژ گێراوێ H₂SO₄. کیژ ژ ڤان یا دروستە؟", a: ["pH یێ خالا هاوهێزی مەزنترە ژ 7", "[H₂SO₄] = 0.03M", "pH یێ خالا هاوهێزی بچویکترە ژ 7", "چ ژڤان نینن"], c: 1 },
-                { q: "١٩. 4.0g ژ شویشە 32J ژ وێزا گەرمی دەمژیت دەمێ پلەیا گەرمی ژ 274K بۆ 314K بهێتە گەرمکرن، چەند ژ وێزا دەمژیت ئەگەر ژ 314K بهێتە گەرمکرن بۆ 344K؟", a: ["32J", "0.2J", "24J", "بژاردان پێدانا د شیان دانینە دیار بکەی"], c: 2 },
+                { q: "١٩. 4.0g ژ شویشە 32J ژ وێزا گەرمی دەمژیت دەمێ پلەیا گەرمی ژ 274K بۆ 314K بهێتە گەرمکرن، چەند ژ وێزا دەمژیت ئەگەر ژ 314K بهێتە گەرمکرن بۆ 344K؟", a: ["32J", "0.2J", "24J", "بژاردان پێدانا د شیان دانینە"], c: 2 },
                 { q: "٢٠. د ڤێ کارلیکێدا: NO₂(g) + ½O₂(g) -> NO₃(g). ئەگەر ڕێژەیا کارلێکی بۆ سووتنا 2mol گازا نایترۆجین بژمێرە هەکە بەهایێ ΔH°f یێ هەر ئێک ژ NO, NO₂ ب یەکەیان kJ/mol نێزیک بکەتە (+90.3, +33.2):", a: ["-57.1kJ", "+114.2kJ", "-114.2kJ", "+57.1kJ"], c: 2 },
-                { q: "٢١. بەهایێ ΔG هەمە ڕوو و هەر سالب دبیت ئەگەر:", a: ["(ΔH=- , ΔS=-)", "(ΔH=+ , ΔS=+)", "(ΔH=- , ΔS=+)", "(ΔH=+ , ΔS=-)"], c: 2 },
-                { q: "٢٢. د کارلیکەکیدا بەهایێ ΔH دکەتە 98.112kJ/mol و ΔS دکەتە 292J/(mol.K) د چ پلەیەکا گەرمیدا ئەڤ کارلیکە بخۆ دبیت؟", a: ["T = 336K", "T > 336K", "T < 336K", "ناهێتە دەستنیشانکرن"], c: 1 },
-                { q: "٢٣. دەڤێ کارلیکا گەرمی دەردیدا: NH₃(g)+HCl(g) -> NH₄Cl(s). کیژ ژڤان یا دروستە؟", a: ["کارلیک خودان ΔS کا سالبە", "کارلێک هەر و هەر بخۆییە", "کارلێک هەر و هەر نە بخۆییە", "کارلێک د پلا گەرمیا بلندا بخۆییە"], c: 0 },
-                { q: "٢٤. گازا NO₂ دگەل گازا CO کارلێک دکەت لدوێف ڤی ڕێبازی، ب دوو هندی کرنا [CO] ئەو لەزاتییا کارلێکی دێ گوهۆڕیت چەندە؟", a: ["2", "4", "8", "لەزاتییا ناهێته گوهۆرین"], c: 3 },
-                { q: "٢٥. د ڤێ کارلیکا منگرتی دا: C -> 2B + 80kJ . هەکە وێزا چالاککرنا کارلیکا پێشین بکەتە 100kJ/mol و ئاستێ وێزا ماددین بەرهەمهاتی بکەتە 60kJ/mol وێزا ئالۆزا چالاککەر دکەتە:", a: ["100 kJ/mol", "90 kJ/mol", "120 kJ/mol", "80 kJ/mol"], c: 3 },
-                { q: "٢٦. بەهایێ جێگیرێ لەزاتییا جۆری زێدە دبیت ب:", a: ["زێدەکرنا خەستیا کارلێککەری", "بلندبوونا پلا گەرمیێ", "زۆربوونا ڕووبەرێ ڕوویێ کارلێکی", "هەمی"], c: 1 },
-                { q: "٢٧. د کارلیکێدا: 3A -> C ، خەستیا دەستپێکی A دکەتە 0.2M و لەزاتییا کارلێکی 1.0M/s و ب دوو جایی کرنا [A] لەزاتییا کارلێکی 4.0M/s زێدە کر، کیژ ژڤان یا یاسایا لەزاتییا کارلێکی دنوێبیت؟", a: ["R = k[A]", "R = k[A]²", "R = k[A]³", "چ ژوان نینن"], c: 1 },
-                { q: "٢٨. گوهۆرینا پلا گەرمیێ کار دکەتە سەر لەزاتییا کارلێکی چونکی کار دکەتە سەر:", a: ["وێزا ئالۆزێ چالاککەری", "گەرمیییا کارلێکی", "وێزا چالاککرنی", "هژمارا پێکدادانێن چالاک"], c: 3 },
-                { q: "٢٩. کیمترین برا ژ وێزا پێدڤی بۆ گوهۆرینا کارلێکەران بۆ ئالۆزێ چالاککەری دێبێژنێ:", a: ["وێزا چالاککرنی", "وێزا سەربەست", "گەرمیییا کارلێکی", "وێزا لڤینا"], c: 0 },
-                { q: "٣٠. ئایۆنەکا فرە گەردیلەییە و ئاڤاندنی دکەت:", a: ["SO₄²⁻", "CO₃²⁻", "F⁻", "(B+C) پێکڤە"], c: 1 },
-                { q: "٣١. د کیژ ژڤان کارلیکاندا بلندبوونا پلا گەرمیێ و نزمبوونا پەستانی کارلێکا پێشین باو دکەت؟", a: ["2HI(g) + 12.2kJ ⇌ H₂(g) + I₂(g)", "2CO(g) + O₂(g) ⇌ 2CO₂(g) + 167kJ", "PCl₅(g) + 88kJ ⇌ PCl₃(g) + Cl₂(g)", "Cu²⁺(aq) + 4NH₃(aq) ⇌ [Cu(NH₃)₄]²⁺(aq) + 42kJ"], c: 2 },
-                { q: "٣٢. د ڤێ کارلیکا گازییا هاڤسەنگدا: وێزە + 2SO₂ + O₂ ⇌ 2SO₃ ، هاتیە دیتن د باری هاڤسەنگیدا [SO₂]=1.5M , [O₂]=1.25M و K=4.36 ، ب نزمبوونا پلا گەرمیێ کیژ ژڤان یا دروسته؟", a: ["[SO₃] > 3.5M", "K > 4.36", "[SO₂] > 1.5M", "(A+B) پێکڤە"], c: 3 },
-                { q: "٣٣. پشتی تێکەلکرنا هەردوو ئاڤە گێراوێن Pb(NO₃)₂ و KCl هاتیە دیتن [Pb²⁺]=1.6x10⁻³M و [Cl⁻]=1.2x10⁻³M ئەرێ نیشتەنی پێکdێت؟ (Ksp بۆ PbCl₂ بکەتە 1.6x10⁻⁵)", a: ["نە، نیشتەنی پەدا نابیت 2.3x10⁻⁹", "بڵێ، 2.3x10⁻⁹", "نە، 3.1x10⁻⁹", "بەڵێ، 1.9x10⁻⁵"], c: 0 },
-                { q: "٣٤. ئەڤە کارلیکە: HCl(aq) + NaOH(aq) -> ....... + ....... ب بەرەف تەمام بوونی دچیت چونکی پێکدهێت ژ:", a: ["نیشتی", "گاز", "بەرەهمەکێ لاواز ئایۆنیو", "هەمی"], c: 2 },
-                { q: "٣٥. د سیستەمێ هاڤسەنگدا ئەگەر بەهایی جێگیری هاڤسەنگی (K) د پلا گەرمیا دیارکەریدا زۆر مەزن بیت کیژ ژڤان یا دروسته؟", a: ["لەزاتییا کارلێکا ڕاستەوانە زێدەترە ژ لەزاتییا کارلێکا پێچەوانە", "لەزاتییا کارلێکا پێچەوانە زێدەترە ژ لەزاتییا کارلێکا ڕاستەوانە", "لەزاتییا کارلێکا ڕاستەوانە و پێچەوانە د یەکسانن", "چ ژڤان نینن"], c: 2 },
-                { q: "٣٦. تێکرنا CH₃COONa بۆ ئاڤە گێراوێ ترشی سرکە دبیتە ئەگەرێ:", a: ["پەیدابوونا هژمارەکا پتر ژگەردیلێن ترشی سرکە", "لادانا هاڤسەنگی بۆ ڕەخێ ڕاستێ", "زۆربوونا ئایۆنێنا ترشی", "کێمبوونا pH"], c: 0 },
-                { q: "٣٧. د ڤێ کارلیکێدا: CH₃OH(g) + 90.7kJ -> 2H₂(g) + CO(g)، بەهایێ 90.7kJ- کیژ ژڤان دنوێبیت؟", a: ["گەرمیییا کارلێکی", "گەرمیییا سووتنا هایدرۆجینی", "گەرمیییا پێکهاتنا میسانۆل", "(A+C) پێکڤە"], c: 0 },
-                { q: "٣٨. دشێین چ تێبینی بکەین لدوور تێکرانی گوهۆرینا pH یێ گێراوەکی کۆ ژ خالا دووماهیی یا سەکاندنێ نێزیک دبیت؟", a: ["pH ناهێته گوهۆرین", "گوهۆرینەکا بلەز ڕوودەدەت ژ بەهایی pH", "pH دابەزیتە صفر", "گوهۆرینەکا هێدی ڕوودەدەت ژ بەهایی pH"], c: 1 },
-                { q: "٣٩. کیژ ژڤان ساخلەتێن ئەڵماس خەلەتن؟", a: ["گەهێنەرەکێ باشی کارەبێ یە", "گەهێنەرەکێ باشی گەرمی یە", "چریا یەکا بلند هەیە", "پلا شلبوونا وی بلنده"], c: 0 },
-                { q: "٤٠. هەمی ئاوێتەیێن زنجیرەکا وەک یەک د نە لکانینن......................", a: ["هەمان شێوگێن گەردیلەیی هەنە", "د هەمان دۆخی فیزیاویدان", "هەمان شێوگێن گەردیلەیی گشتی هەنە", "ئایۆزومەری پێکهاتنی نینە"], c: 2 },
-                { q: "٤١. گۆریا تێکەلی ............. دگەل ئۆکسجینی پاک گەرمیەکا بلند ژی دهێت، دهێتە بکارئینان ل کردارێن پێکڤە نیساندنا کانزایان.", a: ["C₂H₆", "C₂H₄", "C₆H₆", "C₂H₂"], c: 3 },
-                { q: "٤٢. ناڤێ دروستێ نەڤی ئاوێتەی ل دویف سیستەمێ IUPAC بریتییە ژ CH₂=C(CH₂-CH₃)-CH(CH₃)-CH₃:", a: ["3-ئەسیل-2-مەسیل-3-بیوتین", "2-ئەسیل-3-مەسیل-1-بیوتین", "3-مەسیل-2-ئەسیل-1-بیوتین", "2-پڕۆپیل-1-بیوتین"], c: 1 },
-                { q: "٤٣. ئاوێتێ دووێ ژ زنجیرەبین نە لکین بریتییە ژ:", a: ["C₂H₄", "C₃H₄", "C₃H₆", "C₂H₆"], c: 2 },
-                { q: "٤٤. کیژ ژڤان هایدرۆکاربۆنین ناتێر کیمترین چالاکیا کیمیایی هەیە؟", a: ["ئەرۆماتی", "نە لکین", "نە لکاین", "نە لکان"], c: 0 },
-                { q: "٤٥. مۆنۆمەری مەتاتی سروشتی بریتییە ژ:", a: ["نیۆپرین", "ئایۆپرین", "2-کلۆرۆ-3,1-بیوتادایین", "نەلکین"], c: 1 },
-                { q: "٤Client کیژ ژڤان ئاوێتەیێن ئەندامی دهێنە بکارئینان وەکی چاککەری ئۆکتانی ل سووتەمەنیێ؟", a: ["میسانۆل", "گلیسڕۆل", "MTBE", "(A+C) پێکڤە"], c: 3 },
-                { q: "٤٧. کیژ ژڤان ئاوێتەیێن لدوور دوو کۆمەڵێن ئەلکەیلان تێدانە کۆ نیلسەر گریدایە ب کۆمەڵا کاربۆنیلی؟", a: ["ئەستەر", "ئەلدێهاید", "کیتۆن", "ئیسەر"], c: 2 },
-                { q: "٤٨. ئەو چ جۆری کارلیکەکا کیمیایی تو پێشبین دکەی ڕووبدەت دناڤبەرا 2-بیوتین و برۆمیدی هایدرۆجین (HBr) دا چییە؟", a: ["پێکڤەگوهۆرینی", "خستەسەری", "خەستبوونی", "لێ دەرئینانی"], c: 1 },
-                { q: "٤٩. شێوگێ گەردی کیژ ژ ڤان ئاوێتەیێن نەئەندامی بریتییە ژ C₃H₉N:", a: ["سیانە مەسیل ئەماین", "ئەسیل مەسیل ئەماین", "پڕۆپیل ئەماین", "هەمی"], c: 3 },
-                { q: "٥٠. ناڤ لێنانا کیژ ژ ڤان یا ل دویف سیستەمێ IUPAC خەلەتە؟", a: ["2,2-دوانە کلۆرۆ-1,1-دوانە فلۆرۆ پڕۆپان", "3-بیوتانۆل", "1-مەسیل-2-ئەسیل پڕۆپانی نە لکەیی", "(B+C) پێکڤە"], c: 3 }
+                { q: "٢١. ل دەمێ گەرمکرنا سیستەمەکێ هاوسەنگ ب گۆڕانکاریا قەبارەی، کیژ تشت گۆڕانکاری بسەردا ناهێت؟", a: ["خەستیێن ماددەیان", "بەهایێ Keq", "ئاڕاستەیێ کارلێکی", "هەمی دێ گۆڕێن"], c: 1 },
+                { q: "٢٢. ترشەکێ لاواز هەیە کو بەهایێ وێ یێ Ka کێمە، ئەڤە چ ڕادگەهینیت؟", a: ["ڕێژەیا ئایۆنبوونا وێ زۆر کێمە", "ڕێژەیا ئایۆنبوونا وێ زۆر مەزنە", "تفتەکا هاوجووت یا زۆر لاواز هەیە", "ترشەکێ خورتە"], c: 0 },
+                { q: "٢٣. دەما خەستییا بەرهەمان د هاوسەنگیێ دا گەلەک مەزنتر بیت ژ خەستییا کارلێکەران، بەهایێ Keq چ لێ دێت؟", a: ["Keq > 1", "Keq < 1", "Keq = 1", "Keq = 0"], c: 0 },
+                { q: "٢٤. کەتالێست (برەوکەر) د کارلیکەکا کیمیایی دا چ دکەت؟", a: ["وێزا چالاککرنێ کێم دکەت", "وێزا چالاککرنێ زێدە دکەت", "ΔH دگۆڕیت", "خەستییا بەرهەمی زێدە دکەت"], c: 0 },
+                { q: "٢٥. یەکەکا گونجای بۆ گەرمییا جۆری (Specific Heat) بریتییە ژ:", a: ["J/g°C", "J/mol", "kJ/mol", "J/g"], c: 0 },
+                { q: "٢٦. د سیستەمەکێ داخستی دا، گۆڕانکاریا ئینتڕۆپی (ΔS) ئەرێنییە ئەگەر:", a: ["ماددە ژ باری شل ببیتە گاز", "ماددە بجهـ ببیت", "پلەیا گەرمی کێم ببیت", "قەبارە کێم ببیت"], c: 0 },
+                { q: "٢٧. ئەگەر کارلیکەک خۆبخۆ بیت د هەمی پلەیێن گەرمی دا، پێدڤییە بەهایێن ΔH و ΔS چەوا بن؟", a: ["ΔH سالبی و ΔS ئەرێنی", "ΔH ئەرێنی و ΔS سالبی", "هەردوو ئەرێنی", "هەردوو سالبی"], c: 0 },
+                { q: "٢٨. ئاوێتەیێ د ئاڤێدا بتەواوی ئایۆن نەبیت، دهێتە نیاسین ب:", a: ["ئەلەکترۆلیتێ لاواز", "ئەلەکترۆلیتێ خورت", "نە ئەلەکترۆلیت", "گێراوێ تێرکری"], c: 0 },
+                { q: "٢٩. خەستیا ئایۆنێ هایدرۆنیۆم [H₃O⁺] د ئاڤا پاقژ دا د پلەیا ٢٥ سیلیزی دا یەکسانە ب:", a: ["1.0 x 10⁻⁷ M", "1.0 x 10⁻¹⁴ M", "1.0 x 10⁻⁷ M", "7.0 M"], c: 0 },
+                { q: "٣٠. دەما ترشەکێ خورت دگەل تفتەکا خورت کارلیکێ دکەت، خوێیا بەرهەم هاتی جۆرێ چییە؟", a: ["بێلایەن", "ترشی", "تفتی", "تێکەڵ"], c: 0 },
+                { q: "٣١. کیژ ژ ڤان زانایان ترش پێناسە کر کو ماددەیەکی ئۆکسجین تێدا بیت؟", a: ["لاڤوازیە", "ئەرهینیۆس", "برۆنشتەد", "لویس"], c: 0 },
+                { q: "٣٢. دیاردەیا گۆڕانکاریا ڕەنگێ نیشاندەران (Indicators) بەندە ل سەر:", a: ["گۆڕینی pH یێ گێراوی", "پلەیا گەرمی", "خەستیا خوێیێ", "جۆری پەرداخی"], c: 0 },
+                { q: "٣٣. په‌یوه‌ندیا د ناڤبه‌را لێكخشاندنا گه‌ردیله‌یان و خێریا كارلێكێ دا په‌یوه‌ندیه‌كا چه‌وایه؟", a: ["ڕاستەوانە", "پێچەوانە", "چو په‌یوه‌ندی نینن", "هەردوو"], c: 0 },
+                { q: "٣٤. تیکڕایێ خێریا کارلیکێ کێم دبیت دەما:", a: ["خەستییا کارلێکەران کێم ببیت", "پلەیا گەرمی زێدە ببیت", "ڕووبەرێ دەرەکی زێدە ببیت", "برەوکەر بهێتە زێدەکرن"], c: 0 },
+                { q: "٣٥. ئامێری تاقیگەیی یێ کو دهێتە بکارئینان بۆ پێڤانا گەرمییا کارلێکی ناڤێ چییە؟", a: ["گەرمیپێو (Calorimeter)", "فولتامیتەر", "بارۆمیتەر", "مایکرۆسکۆپ"], c: 0 },
+                { q: "٣٦. دەما ئەلەکترۆن د کارلیکەکێ دا بهێنە بەخشین، ئەڤ پرۆسەیە ناڤێ چییە؟", a: ["ئۆکسان (Oxidation)", "داکەفتن (Reduction)", "هاوسەنگی", "ئایۆنبوون"], c: 0 },
+                { q: "٣٧. ژمارەیا ئۆکسانا هایدرۆجینی د فرۆکەیا هایدریدێن کانزایی دا (وەکی NaH) یەکسانە ب:", a: ["-1", "+1", "0", "+2"], c: 0 },
+                { q: "٣٨. د خانەیا گەلڤانی دا، جەمسەرێ ئۆکسان ل سەر ڕووددەت ناڤێ چییە؟", a: ["ئانۆد (Anode)", "کاسۆد (Cathode)", "پردێ خوێیێ", "پاتری"], c: 0 },
+                { q: "٣٩. ئەرکێ هێزا پاڵنەرا کارەبایی (E°cell) یا ئەرێنی ڕادگەهینیت کو کارلیک:", a: ["خۆبەخۆیە", "نە خۆبەخۆیە", "د هاوسەنگیێ دایه", "ڕوونادات"], c: 0 },
+                { q: "٤٠. تێکەڵەیەک ژ ترشەکێ لاواز دگەل خوێیا وێ ناڤێ چییە؟", a: ["گێراوێ ڕاگر (Buffer Solution)", "گێراوێ تێرکری", "شلەمەنی پاقژ", "خوێیا گۆگردی"], c: 0 },
+                { q: "٤١. یاسایا هێس (Hess's Law) هاتیە دانان بۆ هژمارکرنا گۆڕانکاریا چی؟", a: ["ئینتالیپی (ΔH)", "خێریا کارلێکی", "خەستی", "پلەیا کەلینێ"], c: 0 },
+                { q: "٤٢. گازەکا نموونەیی هەیە، پەستان و قەبارەیا وێ پەیوەندیەکا چەوا د ناڤبەرا کادان دا هەیە؟", a: ["پێچەوانە", "ڕاستەوانە", "هیچ گۆڕانکاری نابیت", "نەدیارە"], c: 0 },
+                { q: "٤٣. بارستەیا مۆڵیا غازا ئۆکسجینێ (O₂) چەندە؟ (O=16)", a: ["32 g/mol", "16 g/mol", "8 g/mol", "64 g/mol"], c: 0 },
+                { q: "٤٤. کیژ جۆرێ تیشکدانێ هێزا لێدانا وێ یا دەرەکی هەرە کێمترە؟", a: ["ئالفا (Alpha)", "بێتا (Beta)", "گاما (Gamma)", "تیشکا ئێکس"], c: 0 },
+                { q: "٤٥. دەمێ نیڤبوونا توخمەکێ تیشکدەر هێمایێ وێ چییە؟", a: ["t½", "T", "t", "K"], c: 0 },
+                { q: "٤٦. کیژ ژ ڤان بەهایێن pH نیشانا تفتییا هەرە بەهێزە؟", a: ["14", "7", "1", "9"], c: 0 },
+                { q: "٤٧. کانزایێ هەرە چالاک د زنجیرەیا چالاکیێ دا دکەڤیتە کیژ لای؟", a: ["سەری زنجیرەیێ", "بنی زنجیرەیێ", "ناڤەڕاست", "دەرەوەی زنجیرەیێ"], c: 0 },
+                { q: "٤٨. ئاوێتەیێن ئەندامی (Organic Compounds) پێکدێن ب شێوەیەکێ سەرەکی ژ توخمێ چی؟", a: ["کاربۆن", "نایترۆجین", "ئۆکسجین", "کلۆر"], c: 0 },
+                { q: "٤٩. هێما و نیشانا گۆڕانکاریا وزەیا ئازاد یا گیبس بریتییە ژ:", a: ["ΔG", "ΔH", "ΔS", "ΔE"], c: 0 },
+                { q: "٥٠. یەکەیێ پێڤانا خەستییا مۆلاریتی (Molarity) بریتییە ژ:", a: ["mol/L", "mol/kg", "g/L", "mol"], c: 0 }
             ],
             "2024_2": [], "2025_1": [], "2025_2": [] 
         };
@@ -502,16 +516,26 @@
             currentQuestionsList = database[apiKey] || [];
             
             if (currentQuestionsList.length === 0) {
-                alert('ئەڤ پرسیارە هێشتا د سیستەمی دا نەهاتینە زێدەکرن! تەنێ ٢٠٢٤ خۆلا ١ یا ئامادەیە.');
+                alert('ئەڤ پرسیارە هێشتا د سیستەمی دا نەهاتینە زێدەکرن! تەنێ ٢٠٢٤ خۆلا ١ یا ئامادەیە ب ٥٠ پسیاران.');
                 return;
             }
 
-            // ئەنیمەیشنا نوو یا فڕۆکێ ✈️
-            const plane = document.getElementById('sky-plane');
-            plane.style.bottom = '120vh';
-            plane.style.left = '90%';
+            const p1 = document.getElementById('plane1');
+            const p2 = document.getElementById('plane2');
+            const p3 = document.getElementById('plane3');
+            const p4 = document.getElementById('plane4');
+
+            p1.style.animation = 'flyPlane1 4s ease-in-out infinite';
+            p2.style.animation = 'flyPlane2 4.5s ease-in-out infinite 0.5s';
+            p3.style.animation = 'flyPlane3 5s ease-in-out infinite 1s';
+            p4.style.animation = 'flyPlane4 3.8s ease-in-out infinite 1.5s';
 
             setTimeout(() => {
+                p1.style.animation = 'none';
+                p2.style.animation = 'none';
+                p3.style.animation = 'none';
+                p4.style.animation = 'none';
+
                 document.getElementById('selection-page').style.display = 'none';
                 document.getElementById('quiz-page').style.display = 'block';
                 
@@ -519,14 +543,9 @@
                 document.getElementById('quiz-title').innerText = `ئەزموونا سالا ${selectedYear} - ${roundText}`;
                 
                 currentQuestionIndex = 0;
-                score = 0;
                 userAnswers = [];
                 showQuestion();
-                
-                // زڤڕاندنا فڕۆکێ بۆ باری سروشتی
-                plane.style.bottom = '-100px';
-                plane.style.left = '10%';
-            }, 1100);
+            }, 8000); 
         }
 
         function showQuestion() {
@@ -535,7 +554,6 @@
                 return;
             }
 
-            hasAnsweredCurrent = false;
             document.getElementById('next-question-btn').style.display = 'none';
 
             const currentQuestion = currentQuestionsList[currentQuestionIndex];
@@ -548,7 +566,11 @@
             currentQuestion.a.forEach((option, index) => {
                 const button = document.createElement('button');
                 button.className = 'option-btn';
-                // دروستکرنا پیتا هەڵبژارتنێ د ناڤ بازنێ دا
+                
+                if (userAnswers[currentQuestionIndex] === index) {
+                    button.classList.add('selected-temp');
+                }
+
                 button.innerHTML = `
                     <div class="letter-circle">${letterMap[index]}</div>
                     <span>${option}</span>
@@ -556,17 +578,18 @@
                 button.onclick = () => saveTemporaryAnswer(button, index);
                 optionsContainer.appendChild(button);
             });
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                document.getElementById('next-question-btn').style.display = 'block';
+            }
         }
 
         function saveTemporaryAnswer(selectedButton, index) {
-            if (hasAnsweredCurrent) return;
-            hasAnsweredCurrent = true;
+            const allButtons = document.querySelectorAll('.option-btn');
+            allButtons.forEach(btn => btn.classList.remove('selected-temp'));
 
             selectedButton.classList.add('selected-temp');
             userAnswers[currentQuestionIndex] = index;
-
-            const allButtons = document.querySelectorAll('.option-btn');
-            allButtons.forEach(btn => btn.disabled = true);
 
             document.getElementById('next-question-btn').style.display = 'block';
         }
@@ -576,7 +599,6 @@
             showQuestion();
         }
 
-        // پێکەنینێن تایبەت بۆ هەر دەهەکا نمران 😂
         function getFunnyFeedback(finalScore) {
             if (finalScore === 100) return "👑 ١٠٠ تەمام! ما شالله، تو خودێ ل سەر عەردی یێ کیمیایێ مەلەک ل تە هاتیە خار! 🧪🔥";
             if (finalScore >= 90) return "🚀 نمرە د سەر ٩٠ دا! تو کیمیاگەرێ داهاتی یی؛ نمرەکا شاهانە و سەیر ب دەست ئینا! 😎";
@@ -588,48 +610,53 @@
             if (finalScore >= 30) return "💥 ٣٠ نمرە! گەلەک خەلەت چووینە، تو چوو بوویە تاقیکرنا کیمیایێ یان یا وەرزشێ؟ 🤣";
             if (finalScore >= 20) return "🚪 ٢٠ نمرە؟ حەجی تە تەنێ ناڤێ خۆ یێ ڕاست نڤیسی و هاتیە دەرێ دیارە! 🤦‍♂️";
             if (finalScore >= 10) return "🤡 ١٠ نمرە! ئەڤە چ کارەساتە؟ مەلا عەلی ل تە نەدەت چوو نینە، فڕنک ل مێشکێ تە نەدەت!";
-            return "💨 ٠ نمرە! پیرۆزە، تە مێژوو تۆمارکر! کورێ من تو یێ هۆشیار بووی یان یێ نڤستی بووی؟ 🤫💀";
+            return "💨 ٠ نمرە! پیرۆزە، تە مێژوو تۆمارکر! کورێ من تو یێ هۆشیار بووی یان یێ نڤستی بووی? 🤫💀";
         }
 
-        // بارانا تەپکێن ڕەنگاوڕەنگ د دوماهییێ دا 🎈
-        function createNeonBallRain() {
+        let ballInterval;
+        function startNeonBallRain() {
             const colors = ['#10b981', '#ef4444', '#6366f1', '#f59e0b', '#ec4899', '#06b6d4', '#a855f7'];
-            for (let i = 0; i < 70; i++) {
+            
+            ballInterval = setInterval(() => {
                 const ball = document.createElement('div');
                 ball.className = 'falling-ball';
                 ball.style.left = Math.random() * 100 + 'vw';
                 ball.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 
-                // جیاوازی د قەبارە و دەمێ کەفتنێ دا
-                const size = Math.random() * 12 + 10;
+                const size = Math.random() * 14 + 10;
                 ball.style.width = size + 'px';
                 ball.style.height = size + 'px';
-                ball.style.animationDelay = Math.random() * 3 + 's';
-                ball.style.animationDuration = Math.random() * 2 + 2 + 's';
                 
                 document.body.appendChild(ball);
-            }
+
+                setTimeout(() => { ball.remove(); }, 2500);
+            }, 60);
+
+            setTimeout(() => {
+                clearInterval(ballInterval);
+            }, 5000);
         }
 
         function calculateAndShowResults() {
-            score = 0;
+            let correctAnswersCount = 0;
             currentQuestionsList.forEach((q, i) => {
                 if (userAnswers[i] === q.c) {
-                    score += 2;
+                    correctAnswersCount++;
                 }
             });
+
+            // هەر پسیارەک دوو نمرە (کۆم دکەتە ۱۰۰ نمرە بۆ ٥٠ پرسیاران)
+            const finalScoreValue = correctAnswersCount * 2;
 
             document.getElementById('quiz-page').style.display = 'none';
             document.getElementById('result-box').style.display = 'block';
             
-            document.getElementById('final-score').innerText = `${score} / 100`;
-            document.getElementById('final-percentage').innerText = `ڕێژەیا گشتی: %${score}`;
-            document.getElementById('joke-feedback').innerText = getFunnyFeedback(score);
+            document.getElementById('final-score').innerText = `${finalScoreValue} / 100`;
+            document.getElementById('final-percentage').innerText = `ڕێژەیا گشتی: %${finalScoreValue} (هژمارا وەڵامێن ڕاست: ${correctAnswersCount})`;
+            document.getElementById('joke-feedback').innerText = getFunnyFeedback(finalScoreValue);
             
-            // چالاککرنا بارانا تەپکان
-            createNeonBallRain(); 
+            startNeonBallRain(); 
 
-            // دەرکەفتنا وەڵامان ب ڕەنگێن کەسک و سۆر د پێداچوونێ دا
             const reviewArea = document.getElementById('review-area');
             reviewArea.innerHTML = '';
             currentQuestionsList.forEach((q, i) => {
