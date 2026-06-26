@@ -10,22 +10,23 @@
             --panel-bg: rgba(255, 255, 255, 0.03);
             --panel-border: rgba(255, 255, 255, 0.08);
             --text-color: #f8fafc;
-            --accent-glow: 0 0 20px rgba(99, 102, 241, 0.5);
+            --accent-glow: 0 0 25px rgba(99, 102, 241, 0.6);
             --accent-color: #6366f1;
-            --correct-color: #ef4444; /* خەتا سۆر بۆ وەڵامێ ڕاست */
-            --card-hover: rgba(99, 102, 241, 0.12);
-            --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            --correct-color: #10b981; /* کەسک بۆ وەڵاما ڕاست ل دوماهییێ */
+            --wrong-color: #ef4444; /* سۆر بۆ وەڵاما خەلەت */
+            --card-hover: rgba(99, 102, 241, 0.15);
+            --shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
         }
 
         [data-theme="light"] {
-            --bg-gradient: linear-gradient(135deg, #f8fafc, #f1f5f9, #e2e8f0);
-            --panel-bg: rgba(255, 255, 255, 0.8);
+            --bg-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1);
+            --panel-bg: rgba(255, 255, 255, 0.75);
             --panel-border: rgba(15, 23, 42, 0.08);
             --text-color: #0f172a;
-            --accent-glow: 0 0 15px rgba(79, 70, 229, 0.2);
+            --accent-glow: 0 0 18px rgba(79, 70, 229, 0.25);
             --accent-color: #4f46e5;
-            --card-hover: rgba(79, 70, 229, 0.06);
-            --shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+            --card-hover: rgba(79, 70, 229, 0.08);
+            --shadow: 0 25px 45px rgba(15, 23, 42, 0.06);
         }
 
         * {
@@ -33,6 +34,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.3s, color 0.3s;
         }
 
         body {
@@ -44,6 +46,7 @@
             align-items: center;
             padding: 20px;
             overflow-x: hidden;
+            position: relative;
         }
 
         .theme-toggle {
@@ -53,32 +56,34 @@
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
             color: var(--text-color);
-            padding: 10px 18px;
+            padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
         .container {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 35px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            padding: 40px;
             width: 100%;
-            max-width: 680px;
+            max-width: 700px;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         .developer-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 10px var(--accent-color);
+            text-shadow: 0 0 15px var(--accent-color);
             margin-bottom: 5px;
         }
         
@@ -86,41 +91,41 @@
 
         .system-title {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             opacity: 0.8;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             font-weight: 600;
         }
 
         .section-label {
             text-align: right;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             opacity: 0.9;
         }
 
         .grid-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 18px;
+            margin-bottom: 30px;
         }
 
         .selection-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--panel-border);
-            border-radius: 14px;
-            padding: 18px;
+            border-radius: 16px;
+            padding: 22px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="light"] .selection-card { background: rgba(0, 0, 0, 0.02); }
 
         .selection-card:hover, .selection-card.active {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             border-color: var(--accent-color);
             background: var(--card-hover);
             box-shadow: var(--accent-glow);
@@ -132,9 +137,9 @@
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .card-desc {
@@ -147,16 +152,26 @@
             background: linear-gradient(90deg, #4f46e5, #6366f1);
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 14px;
-            font-size: 1.15rem;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            position: relative;
+            overflow: hidden;
         }
-        .start-btn:hover { transform: scale(1.01); opacity: 0.95; }
+
+        .rocket-animation {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 5rem;
+            z-index: 1000;
+            transition: bottom 1.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
 
         .quiz-section {
             display: none;
@@ -167,44 +182,76 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
             border-bottom: 1px solid var(--panel-border);
         }
 
         .badge {
             background: var(--accent-color);
             color: white;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: bold;
         }
 
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 14px;
+            margin-bottom: 25px;
         }
 
         .option-btn {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--panel-border);
             color: var(--text-color);
-            padding: 15px 20px;
-            border-radius: 12px;
+            padding: 16px 22px;
+            border-radius: 14px;
             text-align: right;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             cursor: pointer;
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.2s ease;
         }
         [data-theme="light"] .option-btn { background: rgba(0, 0, 0, 0.01); }
-        .option-btn:hover {
+        
+        .option-btn:hover:not([disabled]) {
             border-color: var(--accent-color);
             background: rgba(99, 102, 241, 0.08);
-            transform: translateX(-3px);
+            transform: translateX(-4px);
+        }
+
+        /* ل دەمێ هەڵبژارتنێ تەنێ ڕەنگێ شین نیشان دەدەت کو دیار بیت هاتیە کلیک کرن */
+        .option-btn.selected-temp {
+            background: rgba(99, 102, 241, 0.25) !important;
+            border-color: var(--accent-color) !important;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .next-btn {
+            width: 100%;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .result-screen {
@@ -213,17 +260,28 @@
         }
 
         .score-big {
-            font-size: 3.8rem;
+            font-size: 4rem;
             font-weight: 800;
             color: var(--accent-color);
             margin: 20px 0;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .funny-feedback {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 15px 0 35px 0;
+            color: #f59e0b;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.05);
         }
 
         .review-item {
             text-align: right;
-            padding: 15px;
+            padding: 18px;
             border-bottom: 1px solid var(--panel-border);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .review-correct {
@@ -231,13 +289,13 @@
             font-weight: bold;
             border-right: 3px solid var(--correct-color);
             padding-right: 10px;
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         .ball {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             pointer-events: none;
             animation: drop 2.5s linear infinite;
@@ -253,6 +311,8 @@
 <body data-theme="dark">
 
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ ڕۆهن</button>
+
+    <div class="rocket-animation" id="space-rocket">🚀</div>
 
     <div class="container">
         <div id="selection-page">
@@ -291,19 +351,22 @@
                 <span id="quiz-title" style="font-weight: bold; font-size: 1.1rem; opacity: 0.85;"></span>
                 <span class="badge" id="question-counter">پرسیار ١ ژ ٥٠</span>
             </div>
-            <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 25px; line-height: 1.65; text-align: right;" id="question-text">
+            <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; line-height: 1.7; text-align: right;" id="question-text">
                 لڤێرە دێ پرسیار هێتە نیشاندان...
             </div>
             <div class="options-list" id="options-container"></div>
+            
+            <button class="next-btn" id="next-question-btn" onclick="goToNextQuestion()">پسیارا دویڤدا ➡️</button>
         </div>
 
         <div id="result-box" class="result-screen">
             <h2>تاقیکرن ب دوماهی هات!</h2>
             <div class="score-big" id="final-score">0/100</div>
+            <div class="funny-feedback" id="joke-feedback"></div>
             <p id="final-percentage" style="font-size: 1.2rem; margin-bottom: 30px; font-weight: 600;"></p>
-            <button class="start-btn" style="background:var(--accent-color); width: auto; padding: 12px 30px;" onclick="location.reload()">دووبارە دەستپێبکە 🔄</button>
+            <button class="start-btn" style="background:var(--accent-color); width: auto; padding: 12px 35px;" onclick="location.reload()">دووبارە دەستپێبکە 🔄</button>
             
-            <h3 style="text-align:right; margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">📌 پێداچوونا وەڵامێن ڕاست (ب خەتا سۆر):</h3>
+            <h3 style="text-align:right; margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">📌 پێداچوونا وەڵامێن ڕاست د دوماهییێ دا:</h3>
             <div id="review-area"></div>
         </div>
     </div>
@@ -315,8 +378,8 @@
         let score = 0;
         let userAnswers = [];
         let currentQuestionsList = [];
+        let hasAnsweredCurrent = false;
 
-        // داتابەیسا ٥٠ پرسیارێن تەمام یێن تۆمارکری د ناڤ کۆدی دا ژ وێنەیێن تە
         const database = {
             "2024_1": [
                 { q: "١. ئاوێتەیەکی کیمیاییە کو د ئاڤێدا دحەلیت ئایۆنین دکەت و [H₃O⁺] زێدە دکەت:", a: ["A - کلۆریدی ئامۆنیۆم", "B - نیشان", "C - فلۆریدی هایدرۆجین", "D - ئەمۆنیا"], c: 2 },
@@ -351,23 +414,23 @@
                 { q: "٣٠. ئایۆنەکا فرە گەردیلەییە و ئاڤاندنی دکەت:", a: ["A - SO₄²⁻", "B - CO₃²⁻", "C - F⁻", "D - (B+C) پێکڤە"], c: 1 },
                 { q: "٣١. د کیژ ژڤان کارلیکاندا بلندبوونا پلا گەرمیێ و نزمبوونا پەستانی کارلێکا پێشین باو دکەت؟", a: ["A - 2HI(g) + 12.2kJ ⇌ H₂(g) + I₂(g)", "B - 2CO(g) + O₂(g) ⇌ 2CO₂(g) + 167kJ", "C - PCl₅(g) + 88kJ ⇌ PCl₃(g) + Cl₂(g)", "D - Cu²⁺(aq) + 4NH₃(aq) ⇌ [Cu(NH₃)₄]²⁺(aq) + 42kJ"], c: 2 },
                 { q: "٣٢. د ڤێ کارلیکا گازییا هاڤسەنگدا: وێزە + 2SO₂ + O₂ ⇌ 2SO₃ ، هاتیە دیتن د باری هاڤسەنگیدا [SO₂]=1.5M , [O₂]=1.25M و K=4.36 ، ب نزمبوونا پلا گەرمیێ کیژ ژڤان یا دروسته؟", a: ["A - [SO₃] > 3.5M", "B - K > 4.36", "C - [SO₂] > 1.5M", "D - (A+B) پێکڤە"], c: 3 },
-                { q: "٣٣. پشتی تێکەلکرنا هەردوو ئاڤە گێراوێن Pb(NO₃)₂ و KCl هاتیە دیتن [Pb²⁺]=1.6x10⁻³M و [Cl⁻]=1.2x10⁻³M ئەرێ نیشتەنی پێکدێت؟ (Ksp بۆ PbCl₂ بکەتە 1.6x10⁻⁵)", a: ["A - نە، نیشتەنی پەیدا نابیت 2.3x10⁻⁹", "B - بڵێ، 2.3x10⁻⁹", "C - نە، 3.1x10⁻⁹", "D - بەڵێ، 1.9x10⁻⁵"], c: 0 },
+                { q: "٣٣. پشتی تێکەلکرنا هەردوو ئاڤە گێراوێن Pb(NO₃)₂ و KCl هاتیە دیتن [Pb²⁺]=1.6x10⁻³M و [Cl⁻]=1.2x10⁻³M ئەرێ نیشتەنی پێکدێت؟ (Ksp بۆ PbCl₂ بکەتە 1.6x10⁻⁵)", a: ["A - نە، نیشتەنی پەدا نابیت 2.3x10⁻⁹", "B - بڵێ، 2.3x10⁻⁹", "C - نە، 3.1x10⁻⁹", "D - بەڵێ، 1.9x10⁻⁵"], c: 0 },
                 { q: "٣٤. ئەڤە کارلیکە: HCl(aq) + NaOH(aq) -> ....... + ....... ب بەرەف تەمام بوونی دچیت چونکی پێکدهێت ژ:", a: ["A - نیشتی", "B - گاز", "C - بەرەهمەکێ لاواز ئایۆنیو", "D - هەمی"], c: 2 },
                 { q: "٣٥. د سیستەمێ هاڤسەنگدا ئەگەر بەهایی جێگیری هاڤسەنگی (K) د پلا گەرمیا دیارکەریدا زۆر مەزن بیت کیژ ژڤان یا دروسته؟", a: ["A - لەزاتییا کارلێکا ڕاستەوانە زێدەترە ژ لەزاتییا کارلێکا پێچەوانە", "B - لەزاتییا کارلێکا پێچەوانە زێدەترە ژ لەزاتییا کارلێکا ڕاستەوانە", "C - لەزاتییا کارلێکا ڕاستەوانە و پێچەوانە د یەکسانن", "D - چ ژڤان نینن"], c: 2 },
                 { q: "٣٦. تێکرنا CH₃COONa بۆ ئاڤە گێراوێ ترشی سرکە دبیتە ئەگەرێ:", a: ["A - پەیدابوونا هژمارەکا پتر ژگەردیلێن ترشی سرکە", "B - لادانا هاڤسەنگی بۆ ڕەخێ ڕاستێ", "C - زۆربوونا ئایۆنێنا ترشی", "D - کێمبوونا pH"], c: 0 },
                 { q: "٣٧. د ڤێ کارلیکێدا: CH₃OH(g) + 90.7kJ -> 2H₂(g) + CO(g)، بەهایێ 90.7kJ- کیژ ژڤان دنوێبیت؟", a: ["A - گەرمیییا کارلێکی", "B - گەرمیییا سووتنا هایدرۆجینی", "C - گەرمیییا پێکهاتنا میسانۆل", "D - (A+C) پێکڤە"], c: 0 },
                 { q: "٣٨. دشێین چ تێبینی بکەین لدوور تێکرانی گوهۆرینا pH یێ گێراوەکی کۆ ژ خالا دووماهیی یا سەکاندنێ نێزیک دبیت؟", a: ["A - pH ناهێته گوهۆرین", "B - گوهۆرینەکا بلەز ڕوودەدەت ژ بەهایی pH", "C - pH دابەزیتە صفر", "D - گوهۆرینەکا هێدی ڕوودەدەت ژ بەهایی pH"], c: 1 },
                 { q: "٣٩. کیژ ژڤان ساخلەتێن ئەڵماس خەلەتن؟", a: ["A - گەهێنەرەکێ باشی کارەبێ یە", "B - گەهێنەرەکێ باشی گەرمی یە", "C - چریا یەکا بلند هەیە", "D - پلا شلبوونا وی بلنده"], c: 0 },
-                { q: "٤٠. هەمی ئاوێتەیێن زنجیرەکا وەک یەک د نە لکانینن......................", a: ["A - هەمان شێوگێن گەردیلەیی هەنە", "B - د هەمان دۆخی فیزیاویدان", "C - هەمان شێوگێن گەردیلەیی گشتی هەنە", "D - ئایزۆمەری پێکهاتنی نینە"], c: 2 },
+                { q: "٤٠. هەمی ئاوێتەیێن زنجیرەکا وەک یەک د نە لکانینن......................", a: ["A - هەمان شێوگێن گەردیلەیی هەنە", "B - د هەمان دۆخی فیزیاویدان", "C - هەمان شێوگێن گەردیلەیی گشتی هەنە", "D - ئایۆزومەری پێکهاتنی نینە"], c: 2 },
                 { q: "٤١. گۆریا تێکەلی ............. دگەل ئۆکسجینی پاک گەرمیەکا بلند ژی دهێت، دهێتە بکارئینان ل کردارێن پێکڤە نیساندنا کانزایان.", a: ["A - C₂H₆", "B - C₂H₄", "C - C₆H₆", "D - C₂H₂"], c: 3 },
                 { q: "٤٢. ناڤێ دروستێ نەڤی ئاوێتەی ل دویف سیستەمێ IUPAC بریتییە ژ CH₂=C(CH₂-CH₃)-CH(CH₃)-CH₃:", a: ["A - 3-ئەسیل-2-مەسیل-3-بیوتین", "B - 2-ئەسیل-3-مەسیل-1-بیوتین", "C - 3-مەسیل-2-ئەسیل-1-بیوتین", "D - 2-پڕۆپیل-1-بیوتین"], c: 1 },
                 { q: "٤٣. ئاوێتێ دووێ ژ زنجیرەبین نە لکین بریتییە ژ:", a: ["A - C₂H₄", "B - C₃H₄", "C - C₃H₆", "D - C₂H₆"], c: 2 },
                 { q: "٤٤. کیژ ژڤان هایدرۆکاربۆنین ناتێر کیمترین چالاکیا کیمیایی هەیە؟", a: ["A - ئەرۆماتی", "B - نە لکین", "C - نە لکاین", "D - نە لکان"], c: 0 },
-                { q: "٤٥. مۆنۆمەری مەتاتی سروشتی بریتییە ژ:", a: ["A - نیۆپرین", "B - ئایزۆپرین", "C - 2-کلۆرۆ-3,1-بیوتادایین", "D - نەلکین"], c: 1 },
+                { q: "٤٥. مۆنۆمەری مەتاتی سروشتی بریتییە ژ:", a: ["A - نیۆپرین", "B - ئایۆپرین", "C - 2-کلۆرۆ-3,1-بیوتادایین", "D - نەلکین"], c: 1 },
                 { q: "٤٦. کیژ ژڤان ئاوێتەیێن ئەندامی دهێنە بکارئینان وەکی چاککەری ئۆکتانی ل سووتەمەنیێ؟", a: ["A - میسانۆل", "B - گلیسڕۆل", "C - MTBE", "D - (A+C) پێکڤە"], c: 3 },
                 { q: "٤٧. کیژ ژڤان ئاوێتەیێن لدوور دوو کۆمەڵێن ئەلکەیلان تێدانە کۆ نیلسەر گریدایە ب کۆمەڵا کاربۆنیلی؟", a: ["A - ئەستەر", "B - ئەلدێهاید", "C - کیتۆن", "D - ئیسەر"], c: 2 },
                 { q: "٤٨. ئەو چ جۆری کارلیکەکا کیمیایی تو پێشبین دکەی ڕووبدەت دناڤبەرا 2-بیوتین و برۆمیدی هایدرۆجین (HBr) دا چییە؟", a: ["A - پێکڤەگوهۆرینی", "B - خستەسەری", "C - خەستبوونی", "D - لێ دەرئینانی"], c: 1 },
-                { q: "٤٩. شێوگێ گەردی کیژ ژ ڤان ئاوێتەیێن نەئەندامی بریتییە ژ C₃H₉N:", a: ["A - سیانە مەسیل ئەماین", "B - ئەسیل مەسیل ئەماین", "C - پڕۆپیل ئەماین", "D - هەمی"], c: 3 },
+                { q: "٤ school ت شێوگێ گەردی کیژ ژ ڤان ئاوێتەیێن نەئەندامی بریتییە ژ C₃H₉N:", a: ["A - سیانە مەسیل ئەماین", "B - ئەسیل مەسیل ئەماین", "C - پڕۆپیل ئەماین", "D - هەمی"], c: 3 },
                 { q: "٥٠. ناڤ لێنانا کیژ ژ ڤان یا ل دویف سیستەمێ IUPAC خەلەتە؟", a: ["A - 2,2-دوانە کلۆرۆ-1,1-دوانە فلۆرۆ پڕۆپان", "B - 3-بیوتانۆل", "C - 1-مەسیل-2-ئەسیل پڕۆپانی نە لکەیی", "D - (B+C) پێکڤە"], c: 3 }
             ],
             "2024_2": [], "2025_1": [], "2025_2": [] 
@@ -413,23 +476,32 @@
                 return;
             }
 
-            document.getElementById('selection-page').style.display = 'none';
-            document.getElementById('quiz-page').style.display = 'block';
-            
-            const roundText = selectedRound === 1 ? 'خۆلا ئێكێ' : 'خۆلا دووێ';
-            document.getElementById('quiz-title').innerText = `ئەزموونا سالا ${selectedYear} - ${roundText}`;
-            
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswers = [];
-            showQuestion();
+            const rocket = document.getElementById('space-rocket');
+            rocket.style.bottom = '120vh';
+
+            setTimeout(() => {
+                document.getElementById('selection-page').style.display = 'none';
+                document.getElementById('quiz-page').style.display = 'block';
+                
+                const roundText = selectedRound === 1 ? 'خۆلا ئێكێ' : 'خۆلا دووێ';
+                document.getElementById('quiz-title').innerText = `ئەزموونا سالا ${selectedYear} - ${roundText}`;
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                userAnswers = [];
+                showQuestion();
+                rocket.style.bottom = '-100px';
+            }, 1000);
         }
 
         function showQuestion() {
             if (currentQuestionIndex >= currentQuestionsList.length) {
-                showResults();
+                calculateAndShowResults();
                 return;
             }
+
+            hasAnsweredCurrent = false;
+            document.getElementById('next-question-btn').style.display = 'none';
 
             const currentQuestion = currentQuestionsList[currentQuestionIndex];
             document.getElementById('question-counter').innerText = `پرسیار ${currentQuestionIndex + 1} ژ ${currentQuestionsList.length}`;
@@ -441,23 +513,43 @@
             currentQuestion.a.forEach((option, index) => {
                 const button = document.createElement('button');
                 button.className = 'option-btn';
-                button.innerText = option;
-                button.onclick = () => selectOption(index);
+                button.innerHTML = `<span>${option}</span>`;
+                button.onclick = () => saveTemporaryAnswer(button, index);
                 optionsContainer.appendChild(button);
             });
         }
 
-        function selectOption(index) {
-            userAnswers.push(index);
-            if (index === currentQuestionsList[currentQuestionIndex].c) {
-                score += 2; // هەر پرسیارەک ٢ نمرە، کۆم دبیتە ١٠٠
-            }
+        function saveTemporaryAnswer(selectedButton, index) {
+            if (hasAnsweredCurrent) return;
+            hasAnsweredCurrent = true;
+
+            // تەنێ وەڵام دێ هێتە تۆمارکرن ب ڕەنگێ شین (نە وەڵاما دروست ئاشکرا دبیت و نە خەلەت)
+            selectedButton.classList.add('selected-temp');
+            
+            // خەزنکرنا وەڵامی
+            userAnswers[currentQuestionIndex] = index;
+
+            const allButtons = document.querySelectorAll('.option-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            // نیشاندانا دوگمەیا پسیارا دویڤدا ڕاستەوخۆ پشتی لێدانێ
+            document.getElementById('next-question-btn').style.display = 'block';
+        }
+
+        function goToNextQuestion() {
             currentQuestionIndex++;
             showQuestion();
         }
 
-        function createBalls() {
-            for (let i = 0; i < 40; i++) {
+        function getFunnyFeedback(finalScore) {
+            if (finalScore >= 90) return "ماشاالله! تو کیمیاگەرێ داهاتی یی 🧠🔥؛ نمرەکا شاهانە ب دەست ئینا!";
+            if (finalScore >= 70) return "گەلەک باشە برام! دەرچووی و نمرەکا جوانە، تشتەک مایی بۆ ١٠٠ێ ⚡";
+            if (finalScore >= 50) return "سەدەف دەرچووی حەجی! 😅 خودێ ڕەحم کر، بەس جارەک دی پێداچوونێ بکە.";
+            return "ها خینۆ! ئەڤە چ نمرەیە؟ 💀 هەڕە کیمیایێ بخوێنەڤە دا مەلا عەلی ل تە نەدەت!";
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
                 const ball = document.createElement('div');
                 ball.className = 'ball';
                 ball.style.left = Math.random() * 100 + 'vw';
@@ -467,24 +559,37 @@
             }
         }
 
-        function showResults() {
+        function calculateAndShowResults() {
+            // ئەژمارکرنا نمران تەنێ ل ڤێرە د خولا دوماهییێ دا دبیت
+            score = 0;
+            currentQuestionsList.forEach((q, i) => {
+                if (userAnswers[i] === q.c) {
+                    score += 2;
+                }
+            });
+
             document.getElementById('quiz-page').style.display = 'none';
             document.getElementById('result-box').style.display = 'block';
             
             document.getElementById('final-score').innerText = `${score} / 100`;
-            document.getElementById('final-percentage').innerText = `ڕێژەیا سەرکەفتنێ: %${score}`;
+            document.getElementById('final-percentage').innerText = `ڕێژەیا گشتی: %${score}`;
+            document.getElementById('joke-feedback').innerText = getFunnyFeedback(score);
             
-            createBalls(); // ئەنیمەیشنا کەفتنا توپان
+            createConfetti(); 
 
+            // نیشاندانا هەمی وەڵامێن ڕاست ب کەسک د لایێ پێداچوونێ دا
             const reviewArea = document.getElementById('review-area');
             reviewArea.innerHTML = '';
             currentQuestionsList.forEach((q, i) => {
+                const isCorrect = userAnswers[i] === q.c;
                 const div = document.createElement('div');
                 div.className = 'review-item';
                 div.innerHTML = `
                     <div><b>${q.q}</b></div>
-                    <div style="opacity:0.75">وەڵامێ تە: ${q.a[userAnswers[i]] || 'نەهاتیە وەڵامدان'}</div>
-                    <div class="review-correct">وەڵامێ ڕاست (ب خەتا سۆر): ${q.a[q.c]}</div>
+                    <div style="opacity:0.8; color: ${isCorrect ? '#10b981' : '#ef4444'}">
+                        وەڵامێ تە: ${q.a[userAnswers[i]] !== undefined ? q.a[userAnswers[i]] : 'نەهاتیە وەڵامدان'} ${isCorrect ? '✔️' : '❌'}
+                    </div>
+                    ${!isCorrect ? `<div class="review-correct">وەڵامێ ڕاست (ب کەسک): ${q.a[q.c]}</div>` : ''}
                 `;
                 reviewArea.appendChild(div);
             });
