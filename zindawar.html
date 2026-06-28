@@ -42,12 +42,18 @@
         .upload-label { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.4rem; }
         .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 28px; height: 54px; border-radius: 18px; color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer; }
 
+        /* شاشەیا قەدەغەکردنێ */
         .block-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 5, 5, 0.99); z-index: 99999; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; }
         .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; }
 
-        .admin-modal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 500px; background: rgba(15, 22, 38, 0.95); backdrop-filter: blur(20px); border: 1px solid #00f2fe; border-radius: 24px; padding: 30px; z-index: 10000; display: none; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); }
-        .admin-modal h3 { color: #00f2fe; margin-bottom: 15px; text-align: center; }
-        .admin-btn { width: 100%; padding: 12px; background: #ff0055; color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        /* پنلێ ئەدمینی یێ پێشکەفتی */
+        .admin-modal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 550px; background: rgba(10, 16, 30, 0.98); backdrop-filter: blur(25px); border: 2px solid #00f2fe; border-radius: 28px; padding: 30px; z-index: 10000; display: none; box-shadow: 0 0 40px rgba(0, 242, 254, 0.4); }
+        .admin-modal h3 { color: #00f2fe; margin-bottom: 15px; text-align: center; font-size: 1.5rem; }
+        .user-list { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; max-height: 200px; overflow-y: auto; padding: 10px; margin-bottom: 15px; }
+        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .kick-btn { background: #ff0055; color: white; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+        .kick-btn:hover { background: #ff0033; }
+        .admin-btn { width: 100%; padding: 12px; background: #00f2fe; color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; }
 
         .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .lightbox.active { opacity: 1; pointer-events: auto; }
@@ -63,9 +69,13 @@
         </div>
 
         <div class="admin-modal" id="adminModal">
-            <h3>پنلێ کۆنترۆلا ئەدمینی ⚙️</h3>
-            <button class="admin-btn" onclick="resetAdminSettings()">پاقژکرنا سزایان و ڕیفرێش</button>
-            <button class="admin-btn" style="background: #444;" onclick="document.getElementById('adminModal').style.display='none'">داخستن</button>
+            <h3>پنلێ کۆنترۆلا جێکۆ ⚙️</h3>
+            <p style="color: #00f2fe; font-size: 0.9rem; margin-bottom: 10px;">👥 قوتابیێن د ناڤ لایڤێ دا (ل سەر هێڵ):</p>
+            <div class="user-list" id="adminUserList">
+                <p style="color: #666; text-align: center; font-size: 0.9rem;">چ قوتابی نینن...</p>
+            </div>
+            <button class="admin-btn" style="background: #ff0055; color: white;" onclick="resetAdminSettings()">💥 پاقژکرنا گشتی یا سزایان</button>
+            <button class="admin-btn" style="background: #333; color: #fff;" onclick="document.getElementById('adminModal').style.display='none'">داخستن</button>
         </div>
 
         <div class="chat-header">
@@ -101,6 +111,7 @@
         const mediaInput = document.getElementById('mediaInput');
         const blockOverlay = document.getElementById('blockOverlay');
         const adminModal = document.getElementById('adminModal');
+        const adminUserList = document.getElementById('adminUserList');
         const connectionStatus = document.getElementById('connectionStatus');
         const lightboxOverlay = document.getElementById('lightboxOverlay');
         const lightboxImg = document.getElementById('lightboxImg');
@@ -109,7 +120,7 @@
         let linkAttempts = parseInt(localStorage.getItem('link_attempts')) || 0;
         const badWords = ["حیوان", "حەیوان", "بینامیس", "بێنامووس", "کەری کەر", "کەر", "بێشۆل", "بێشول", "حیز", "قەحپە"];
 
-        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاساشکاندن کریە."); }
+        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاساشکاندن کریە یان ژ لایێ ئەدمینی ڤە هاتیە بلۆککرن."); }
 
         function triggerBlock(title, reason) {
             document.getElementById('blockTitle').innerText = title;
@@ -123,7 +134,6 @@
             location.reload();
         }
 
-        // پاشکەوتکرن و بارکرنا نامەیێن پاراستی ل سەر میمۆریێ مۆبایلێ
         function saveMessageToStorage(msgObj) {
             let currentLogs = JSON.parse(localStorage.getItem('chat_logs')) || [];
             currentLogs.push(msgObj);
@@ -135,18 +145,19 @@
             let currentLogs = JSON.parse(localStorage.getItem('chat_logs')) || [];
             const now = Date.now();
             const twentyFourHours = 24 * 60 * 60 * 1000;
-
-            // تەنێ ئەو نامەیێن کو تەمەنێ وان ژ ٢٤ سەعەتا کێمترە دێ هێنە هێلان
             let validLogs = currentLogs.filter(msg => (now - msg.time) < twentyFourHours);
             localStorage.setItem('chat_logs', JSON.stringify(validLogs));
-
-            validLogs.forEach(msg => {
-                renderMessageHTML(msg.sender, msg.text, msg.media, msg.sender === myAnonymousID, msg.time);
-            });
+            validLogs.forEach(msg => { renderMessageHTML(msg.sender, msg.text, msg.media, msg.sender === myAnonymousID, msg.time); });
         }
 
         function checkSecurity(text) {
-            if (text === `/admin JEKO122`) { adminModal.style.display = 'block'; messageInput.value = ''; return false; }
+            // ڤەکرنا مۆدێ ئەدمینی و نووکرنا لیستا بەکارهێنەران د لایڤێ دا
+            if (text === `/admin JEKO122`) {
+                updateAdminUserList();
+                adminModal.style.display = 'block';
+                messageInput.value = '';
+                return false;
+            }
             for (let word of badWords) {
                 if (text.includes(word)) { triggerBlock("ئێکسەر قفل بوو! ❌", "تە ئاخفتنەکا قەدەغە بکارئینا."); return false; }
             }
@@ -158,6 +169,37 @@
                 else { alert(`لینک قەدەغەیە! دەرفەتا (${linkAttempts}/3)`); }
             }
             return true;
+        }
+
+        // نیشاندانا لیستا قوتابیان د ناڤ پنلێ ئەدمینی دا
+        function updateAdminUserList() {
+            adminUserList.innerHTML = "";
+            if (connections.length === 0) {
+                adminUserList.innerHTML = `<p style="color: #666; text-align: center; font-size: 0.9rem;">چ قوتابیێن دی لایڤ نینن نوکە</p>`;
+                return;
+            }
+            connections.forEach((conn, index) => {
+                if (conn.open) {
+                    const item = document.createElement('div');
+                    item.classList.add('user-item');
+                    item.innerHTML = `
+                        <span>👤 قوتابی لایڤ (مێوان ${index + 1})</span>
+                        <button class="kick-btn" onclick="kickUser(${index})">بلۆککرن 🚫</button>
+                    `;
+                    adminUserList.appendChild(item);
+                }
+            });
+        }
+
+        // فرمانا بلۆککرنا قوتابی ژ لایێ ئەدمینی ڤە
+        function kickUser(index) {
+            const conn = connections[index];
+            if (conn && conn.open) {
+                // فرێکرنا فەرمانا بلۆککرنێ بۆ ئامێری وی قوتابی
+                conn.send({ type: "FORCE_BLOCK", reason: "تۆ ژ لایێ ئەدمین (جێکۆ) ڤە هاتیە بلۆککرن!" });
+                alert("قوتابی بەرقەرار هاتە بلۆککرن!");
+                updateAdminUserList();
+            }
         }
 
         // --- PeerJS لایڤ سێرڤەر ---
@@ -180,6 +222,11 @@
         function handleConnection(conn) {
             connections.push(conn);
             conn.on('data', (data) => {
+                // پشکنین کا ئەرێ فەرمانا بلۆککرنێ ژ ئەدمینی هاتیە؟
+                if (data.type === "FORCE_BLOCK") {
+                    triggerBlock("تۆ هاتیە بلۆککرن! 🛑", data.reason);
+                    return;
+                }
                 saveMessageToStorage(data);
                 renderMessageHTML(data.sender, data.text, data.media, false, data.time);
             });
@@ -242,7 +289,6 @@
             reader.readAsDataURL(file);
         });
 
-        // هەر خولەکەکێ پشکنینا تەمەنێ نامەیان بکە دا ئەوێن ٢٤ دەمژمێر دکۆن تر بن سڕینەوە ببن
         setInterval(loadValidMessages, 60000);
     </script>
 </body>
