@@ -31,7 +31,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .login-card {
@@ -45,12 +45,6 @@
             max-width: 420px;
             text-align: center;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 50px rgba(0, 242, 254, 0.05);
-            animation: cardSpawn 0.5s ease-out;
-        }
-
-        @keyframes cardSpawn {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .login-card .icon {
@@ -127,16 +121,10 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-            visibility: hidden;
+            display: none; /* ل دەستپێکێ هاتیە بەرزەکرن */
             opacity: 0;
             transform: scale(0.98);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chat-container.active {
-            visibility: visible;
-            opacity: 1;
-            transform: scale(1);
+            transition: all 0.4s ease;
         }
 
         /* سەرێ چاتێ (Header) */
@@ -173,13 +161,7 @@
         .chat-messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
 
         /* ستایلێ نامەیان */
-        .message-wrapper { display: flex; gap: 14px; max-width: 75%; animation: msgFade 0.3s ease-out; }
-        @keyframes msgFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .message-wrapper.me { align-self: flex-end; flex-direction: row; } /* لایێ من دێ چیتە چەپ/ڕاست برێکوپێکی */
-
-        /* بۆ رێکخستنا لایێن نامان */
-        .message-wrapper { align-self: flex-start; }
+        .message-wrapper { display: flex; gap: 14px; max-width: 75%; align-self: flex-start; }
         .message-wrapper.me { align-self: flex-end; flex-direction: row-reverse; }
 
         .user-avatar {
@@ -254,13 +236,13 @@
 </head>
 <body>
 
-    <!-- شاشەیا چوونەژوورێ (هاتە چاککرن) -->
+    <!-- شاشەیا چوونەژوورێ -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card">
             <div class="icon">🔐</div>
             <h2>کۆڕبەندا قوتابیان</h2>
             <p>ژ بۆ پاراستن و چوونە ژوورەکا سەرکەفتی، تکایە ناڤێ خۆ بنڤیسە</p>
-            <input type="text" id="usernameInput" class="login-input" placeholder="ناڤێ تە یێ سیان..." maxlength="25" autocomplete="off">
+            <input type="text" id="usernameInput" class="login-input" placeholder="ناڤێ تە ل ڤێرێ..." maxlength="25" autocomplete="off">
             <button class="login-btn" id="loginBtn">پەیوەستبوون و چوونەژوورێ</button>
         </div>
     </div>
@@ -278,7 +260,6 @@
         </div>
 
         <div class="chat-messages" id="chatMessages">
-            <!-- نامەکا پێشوەختە وەک نموونە -->
             <div class="message-wrapper">
                 <div class="user-avatar">مـ</div>
                 <div class="message-content">
