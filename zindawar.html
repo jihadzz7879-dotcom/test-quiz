@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -134,7 +134,7 @@
 <div class="chat-container">
     <div class="chat-header">
         <h1>بۆتێ هۆشمەند یێ پۆلا 12 🎓</h1>
-        <p>هەمی بابەتان شیکار دکەت (کیمیا، فیزیا، بیرکاری، کوردی، عەرەبی، ئینگلیزی، مێژوو، جوگرافی، ئابووری، زیندەوەر)</p>
+        <p>هەمی بابەتان شیکار دکەت (کیمیا، فیزیا، بیرکاری، کوردی، عەرەبی، ئینگلیزی، مێژوو, جوگرافی، ئابووری، زیندەوەر)</p>
     </div>
 
     <div class="controls">
@@ -200,7 +200,7 @@
         userInput.value = "";
         fileInput.value = "";
 
-        // ساختەکردنی نامەی چاوەڕوانی بۆت
+        // دروستکرنا نامەیا چاوەڕوانیێ
         const loadingMessage = appendMessage("🤖 ل هێڤیێ بە... دۆزینەوەی بەرسڤێ...", 'bot-message');
 
         try {
@@ -224,253 +224,7 @@
                 prompt += `تکایە ئەم پرسیارە یان ئەم وێنەیە بە وردی و هەنگاو بە هەنگاو شیکار بکە بە زمانی کوردی (شێوەزاری بادینی یان سۆرانی فەرمی). پرسیار: ${text}`;
             }
 
-            // لێرەدا پەیوەندی بە ئەپی گێمینی دەکەین
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [
-                            { text: prompt },
-                            ...(file ? [{ inlineData: { mimeType: mimeType, data: base64Data } }] : [])
-                        ]
-                    }]
-                })
-            });
-
-            const data = await response.json();
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            
-            loadingMessage.innerText = aiResponse;
-
-        } catch (error) {
-            loadingMessage.innerText = <!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بۆتێ هۆشمەند یێ پۆلا 12</title>
-    <style>
-        :root {
-            --primary-color: #4f46e5;
-            --bg-color: #f3f4f6;
-            --chat-bg: #ffffff;
-            --text-color: #1f2937;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: var(--text-color);
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 800px;
-            height: 90vh;
-            background: var(--chat-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .chat-header h1 { font-size: 1.5rem; }
-        .chat-header p { font-size: 0.85rem; opacity: 0.9; margin-top: 5px; }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            padding: 15px;
-            background: #f9fafb;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .subject-select, .mode-select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            outline: none;
-            background: white;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .message {
-            max-width: 75%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-        }
-        .bot-message {
-            background: #f3f4f6;
-            align-self: flex-start;
-            border-bottom-right-radius: 4px;
-        }
-        .user-message {
-            background: var(--primary-color);
-            color: white;
-            align-self: flex-end;
-            border-bottom-left-radius: 4px;
-        }
-
-        .chat-input-area {
-            padding: 15px;
-            background: #f9fafb;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .input-box {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            outline: none;
-            resize: none;
-            height: 45px;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-send { background: var(--primary-color); color: white; }
-        
-        .file-input-label {
-            background: #e5e7eb;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        #file-input { display: none; }
-    </style>
-</head>
-<body>
-
-<div class="chat-container">
-    <div class="chat-header">
-        <h1>بۆتێ هۆشمەند یێ پۆلا 12 🎓</h1>
-        <p>هەمی بابەتان شیکار دکەت (کیمیا، فیزیا، بیرکاری، کوردی، عەرەبی، ئینگلیزی، مێژوو، جوگرافی، ئابووری، زیندەوەر)</p>
-    </div>
-
-    <div class="controls">
-        <select id="subject" class="subject-select">
-            <option value="گشتی">هەلبژارتنا بابەتی...</option>
-            <option value="بیرکاری">بیرکاری</option>
-            <option value="فیزیا">فیزیا</option>
-            <option value="کیمیا">کیمیا</option>
-            <option value="زیندەوەر">زیندەوەر</option>
-            <option value="کوردی">کوردی</option>
-            <option value="عەرەبی">عەرەبی</option>
-            <option value="ئینگلیزی">ئینگلیزی</option>
-            <option value="مێژوو">مێژوو</option>
-            <option value="جوگرافی">جوگرافی</option>
-            <option value="ئابووری">ئابووری</option>
-        </select>
-
-        <select id="mode" class="mode-select">
-            <option value="shikar">شیکارکرنا پرسیارێ</option>
-            <option value="quiz">دروستکرنا تاقیکرنێ (Quiz)</option>
-        </select>
-    </div>
-
-    <div class="chat-messages" id="chat-box">
-        <div class="message bot-message">
-            بخێر بێی پۆلا 12! ئەز بۆتێ تە یێ هۆشمەندم. بابەتەکێ هەلبژێرە و پرسیارا خۆ بنڤیسە یان وێنەی ببارێزە.
-        </div>
-    </div>
-
-    <div class="chat-input-area">
-        <label for="file-input" class="file-input-label" title="بارکرنا وێنەیێ پرسیارێ">
-            📷
-            <input type="file" id="file-input" accept="image/*">
-        </label>
-        <textarea id="user-input" class="input-box" placeholder="پرسیارا خۆ ل ڤێرێ بنڤیسە..."></textarea>
-        <button class="btn btn-send" onclick="sendMessage()">ناردن</button>
-    </div>
-</div>
-
-<script>
-    // ⚠️ ل ڤێرێ کلیلا خۆ یا API دانی ل جهێ "YOUR_GEMINI_API_KEY"
-    const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"; 
-
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const subjectSelect = document.getElementById('subject');
-    const modeSelect = document.getElementById('mode');
-    const fileInput = document.getElementById('file-input');
-
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        const subject = subjectSelect.value;
-        const mode = modeSelect.value;
-        const file = fileInput.files[0];
-
-        if (text === "" && !file) return;
-
-        let userMessageText = `[${subject}] `;
-        if (text) userMessageText += text;
-        if (file) userMessageText += ` 🖼️ (وێنە: ${file.name})`;
-
-        appendMessage(userMessageText, 'user-message');
-        userInput.value = "";
-        fileInput.value = "";
-
-        // ساختەکردنی نامەی چاوەڕوانی بۆت
-        const loadingMessage = appendMessage("🤖 ل هێڤیێ بە... دۆزینەوەی بەرسڤێ...", 'bot-message');
-
-        try {
-            let base64Data = "";
-            let mimeType = "";
-            
-            if (file) {
-                const reader = new FileReader();
-                base64Data = await new Promise((resolve) => {
-                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
-                    reader.readAsDataURL(file);
-                });
-                mimeType = file.type;
-            }
-
-            // ئامادەکردنی فەرمان (Prompt) بۆ AI
-            let prompt = `تۆ مامۆستایەکی زیرەکی پۆلی 12ی لە کورستان. بابەت: ${subject}. `;
-            if (mode === "quiz") {
-                prompt += `تکایە تاقیکردنەوەیەکی کورت (Quiz) کە پێکهاتبێت لە 3 پرسیاری هەڵبژاردن لەسەر ئەم بابەتە یان ئەم وێنەیە دروست بکە و وەڵامی ڕاستیش لە کۆتایی بنووسە.`;
-            } else {
-                prompt += `تکایە ئەم پرسیارە یان ئەم وێنەیە بە وردی و هەنگاو بە هەنگاو شیکار بکە بە زمانی کوردی (شێوەزاری بادینی یان سۆرانی فەرمی). پرسیار: ${text}`;
-            }
-
-            // لێرەدا پەیوەندی بە ئەپی گێمینی دەکەین
+            // پەیوەندی ب ئەپی Gemini
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -491,23 +245,6 @@
 
         } catch (error) {
             loadingMessage.innerText = "❌ خەلەتەک چێبوو د گرێدانێ دا. تکایە دڵنیابە کلیلێ API یێ دروستە.";
-            console.error(error);
-        }
-    }
-
-    function appendMessage(text, className) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', className);
-        messageDiv.innerText = text;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return messageDiv;
-    }
-</script>
-
-</body>
-</html>
-"❌ خەلەتەک چێبوو د گرێدانێ دا. تکایە دڵنیابە کلیلێ API یێ دروستە.";
             console.error(error);
         }
     }
