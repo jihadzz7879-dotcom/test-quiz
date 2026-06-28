@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کۆڕبەندا قوتابیان یا شاهانە</title>
+    <title>کۆڕبەندا پاراستی یا قوتابیان</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #0d0e15 0%, #050508 100%);
+            background: radial-gradient(circle at center, #0a0b10 0%, #020204 100%);
             color: #fff;
             display: flex;
             justify-content: center;
@@ -22,139 +22,53 @@
             overflow: hidden;
         }
 
-        /* --- لایەرێ ناڤ تۆمارکرنێ (Login Screen) --- */
-        .login-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #050508;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .login-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 45px 35px;
-            border-radius: 28px;
-            width: 90%;
-            max-width: 420px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 50px rgba(0, 242, 254, 0.05);
-        }
-
-        .login-card .icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.4));
-        }
-
-        .login-card h2 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 30%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-card p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.88rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            text-align: center;
-            margin-bottom: 22px;
-            transition: all 0.3s ease;
-        }
-
-        .login-input:focus {
-            border-color: #00f2fe;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            border: none;
-            border-radius: 16px;
-            color: #050508;
-            font-weight: 700;
-            font-size: 1.05rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.3);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.5);
-        }
-
-        /* --- لایەرێ سەرەکی یێ چاتێ (Main Chat) --- */
+        /* لایەرێ سەرەکی یێ چاتێ - Glassmorphism Ultra */
         .chat-container {
             width: 95%;
-            max-width: 950px;
-            height: 88vh;
+            max-width: 1000px;
+            height: 90vh;
             background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 30px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-            display: none; /* ل دەستپێکێ هاتیە بەرزەکرن */
-            opacity: 0;
-            transform: scale(0.98);
-            transition: all 0.4s ease;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 242, 254, 0.03);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* سەرێ چاتێ (Header) */
+        /* بارێ سەرەکی (Header) */
         .chat-header {
             padding: 22px 30px;
             background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .group-info { display: flex; align-items: center; gap: 18px; }
-        
         .group-avatar {
-            width: 52px; height: 52px;
-            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+            width: 54px; height: 54px;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 24px; box-shadow: 0 0 20px rgba(255, 0, 127, 0.35);
+            font-size: 24px; box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
         }
 
         .group-details h2 {
-            font-size: 1.25rem; font-weight: 600;
-            background: linear-gradient(to left, #fff, #ff007f);
+            font-size: 1.3rem; font-weight: 700;
+            background: linear-gradient(to left, #fff, #00f2fe);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .group-details p { font-size: 0.82rem; color: #ff007f; opacity: 0.9; margin-top: 3px; }
+        .group-details p { font-size: 0.82rem; color: #00f2fe; opacity: 0.9; margin-top: 3px; }
 
-        /* ناڤەڕۆکا چاتێ (Chat Body) */
+        /* بەشێ نامان */
         .chat-messages {
             flex: 1; padding: 30px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 22px;
+            display: flex; flex-direction: column; gap: 24px;
         }
 
         .chat-messages::-webkit-scrollbar { width: 6px; }
@@ -166,40 +80,47 @@
 
         .user-avatar {
             width: 44px; height: 44px; border-radius: 50%;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: #000; display: flex; justify-content: center; align-items: center;
-            font-weight: 700; font-size: 1rem; box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+            color: #fff; display: flex; justify-content: center; align-items: center;
+            font-weight: 700; font-size: 0.9rem; box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
         }
 
         .message-wrapper.me .user-avatar {
-            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
-            color: #fff; box-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #000; box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
         }
 
         .message-content { display: flex; flex-direction: column; gap: 6px; }
-        .user-name { font-size: 0.82rem; color: rgba(255, 255, 255, 0.45); font-weight: 500; }
+        .user-name { font-size: 0.82rem; color: rgba(255, 255, 255, 0.45); font-weight: 600; }
         
         .message-text {
-            padding: 15px 20px; border-radius: 20px; font-size: 0.96rem; line-height: 1.5;
+            padding: 15px 20px; border-radius: 22px; font-size: 0.98rem; line-height: 1.5;
             background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04);
             border-top-right-radius: 4px; word-break: break-word;
         }
 
         .message-wrapper.me .message-text {
-            background: rgba(0, 242, 254, 0.07); border: 1px solid rgba(0, 242, 254, 0.2);
-            border-top-right-radius: 20px; border-top-left-radius: 4px;
+            background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2);
+            border-top-right-radius: 22px; border-top-left-radius: 4px;
         }
 
-        /* ستایلێ وێنەیان */
-        .sent-img {
+        /* مێدیا (وێنە، ڤیدیۆ، فایل) */
+        .media-content {
             max-width: 100%; max-height: 280px; border-radius: 16px;
             margin-top: 6px; border: 1px solid rgba(255, 255, 255, 0.08);
             display: block; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
-        /* بەشێ نڤیسینێ (Input Bar) */
+        .file-box {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255, 255, 255, 0.05); padding: 12px 18px;
+            border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #00f2fe; text-decoration: none; margin-top: 6px;
+        }
+
+        /* بارێ نڤیسینێ */
         .chat-input-area {
-            padding: 22px 30px; background: rgba(0, 0, 0, 0.25);
+            padding: 22px 30px; background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex; gap: 14px; align-items: center;
         }
@@ -215,78 +136,206 @@
 
         .chat-input-area input[type="text"]:focus {
             border-color: #00f2fe; background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.12);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
         }
 
-        .image-upload-btn {
+        .upload-label {
             background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);
             width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center;
             align-items: center; cursor: pointer; transition: 0.3s; font-size: 1.4rem;
         }
-        .image-upload-btn:hover { background: rgba(255, 255, 255, 0.12); border-color: #ff007f; }
+        .upload-label:hover { background: rgba(255, 255, 255, 0.12); border-color: #00f2fe; }
 
         .send-btn {
             background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             border: none; padding: 0 28px; height: 54px; border-radius: 18px;
-            color: #050508; font-weight: 700; font-size: 1rem; cursor: pointer;
+            color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer;
             transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
         }
         .send-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0, 242, 254, 0.4); }
+
+        /* شاشەیا بلۆککرنێ/قفلکرنێ (Security Overlay) */
+        .block-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 5, 5, 0.98); z-index: 99999;
+            display: none; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 30px;
+            animation: redAlert 0.3s ease;
+        }
+
+        @keyframes redAlert {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255,0,85,0.5); }
+        .block-overlay p { color: #ccc; font-size: 1.1rem; max-width: 500px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <!-- شاشەیا چوونەژوورێ -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-card">
-            <div class="icon">🔐</div>
-            <h2>کۆڕبەندا قوتابیان</h2>
-            <p>ژ بۆ پاراستن و چوونە ژوورەکا سەرکەفتی، تکایە ناڤێ خۆ بنڤیسە</p>
-            <input type="text" id="usernameInput" class="login-input" placeholder="ناڤێ تە ل ڤێرێ..." maxlength="25" autocomplete="off">
-            <button class="login-btn" id="loginBtn">پەیوەستبوون و چوونەژوورێ</button>
+    <div class="chat-container">
+        <!-- شاشەیا قفلکرنا سیستەمی ل دەمێ سەرپێچیێ -->
+        <div class="block-overlay" id="blockOverlay">
+            <h1>سیستەم قفل بوو! 🛑</h1>
+            <p>تە سەرپێچیا یاسایێن گروپێ قوتابیان کریە (ناردنا لینک یان پەیڤێن نەجوان). دەستهەلاتا تە هاتە ڕاگرتن و چات بۆ تە بلۆک بوو.</p>
         </div>
-    </div>
 
-    <!-- شاشەیا سەرەکی یا چاتێ -->
-    <div class="chat-container" id="chatContainer">
+        <!-- سەرێ چاتێ -->
         <div class="chat-header">
             <div class="group-info">
-                <div class="group-avatar">🎓</div>
+                <div class="group-avatar">🛡️</div>
                 <div class="group-details">
-                    <h2>کۆڕبەندا هۆشمەند یا قوتابیان</h2>
-                    <p>● ژینگەکا پاراستی بۆ پسیار و بەرسڤان</p>
+                    <h2>کۆڕبەندا قوتابیان (بێ ناڤ / پاراستی)</h2>
+                    <p>● سیستەمێ چاودێرێ هۆشمەند یێ لایڤ</p>
                 </div>
             </div>
         </div>
 
+        <!-- لیستێ نامان -->
         <div class="chat-messages" id="chatMessages">
             <div class="message-wrapper">
-                <div class="user-avatar">مـ</div>
+                <div class="user-avatar">🤖</div>
                 <div class="message-content">
-                    <span class="user-name">مامۆستا هێمن</span>
-                    <div class="message-text">بخێرهاتنا هەمی قوتابیێن هێژا دکەم! هوین دشێن پسیارێن خۆ ب دەق یان ب وێنە ل ڤێرێ بڵاڤ کەن. ✍️</div>
+                    <span class="user-name">سیستەمێ پاراستنێ</span>
+                    <div class="message-text">بخێرهاتن! ئەڤ گروپە ب تەمامی پاراستیە. ناردنا هەر لینکەکێ یان پەیڤەکا نەجوان دێ بیتە ئەگەرێ قفلبوونا ئێکسەر یا چاتێ ل دەف تە. نامە بۆ ٢٤ دەمژمێران دمینن.</div>
                 </div>
             </div>
         </div>
 
-        <!-- بارێ نڤیسین و وێنەیان -->
+        <!-- بارێ خوارێ بۆ نڤیسین و مێدیایێ -->
         <div class="chat-input-area">
             <div class="input-wrapper">
-                <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                <label for="fileInput" class="image-upload-btn" title="وێنەیەکێ زێدەبکە">🖼️</label>
+                <!-- دوگمەیا فایل، وێنە و ڤیدیۆیان -->
+                <input type="file" id="mediaInput" accept="image/*,video/*,.pdf,.docx,.zip,.rar" style="display: none;">
+                <label for="mediaInput" class="upload-label" title="وێنە، ڤیدیۆ یان فایل (ماکسیمم 50MB)">📁</label>
                 
-                <input type="text" id="messageInput" placeholder="پسیارەکێ یان نامەکێ بنڤیسە..." autocomplete="off">
+                <input type="text" id="messageInput" placeholder="ناما خۆ بنڤیسە..." autocomplete="off">
             </div>
             <button class="send-btn" id="sendBtn">ناردن</button>
         </div>
     </div>
 
     <script>
-        let currentUserName = "";
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const mediaInput = document.getElementById('mediaInput');
+        const blockOverlay = document.getElementById('blockOverlay');
 
-        const loginOverlay = document.getElementById('loginOverlay');
-        const chatContainer = document.getElementById('chatContainer');
-        const usernameInput = document.getElementById('usernameInput');
-        const loginBtn = document.getElementById('loginBtn');
-        
-        const chatMessagesNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+        // دروستکرنا ناسنامەکا بێ ناڤ بۆ ڤی کەسی
+        const myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
+
+        // لایستێ پەیڤێن نەجوان (تۆ دشێی پەیڤێن دی ژی لێرە زێدە بکەی)
+        const badWords = ["کەر", "سە", "بێئەدەب", "کەرتێ تێکتەدانێ", "حەیوون"];
+
+        // فلتەرکرن و چاودێریا ئەمنییەتێ
+        function checkSecurity(text) {
+            // ١. پشکنینا لینکان (هەر لینکەک ب حەرفێن http یان www یان .com یان .net دەستپێبکەت)
+            const linkPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
+            if (linkPattern.test(text)) {
+                triggerBlock();
+                return false;
+            }
+
+            // ٢. پشکنینا ئاخفتنێن نەجوان
+            for (let word of badWords) {
+                if (text.includes(word)) {
+                    triggerBlock();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // قفلکرنا سیستەمی ئێکسەر
+        function triggerBlock() {
+            blockOverlay.style.display = 'flex';
+            localStorage.setItem('chat_blocked', 'true'); // بۆ هندێ ئەگەر شاشێ ریفرێش ژی بکەت هەر قفل بمینیت
+        }
+
+        // پشکنینا ئەگەر بەڕێزێ بلۆککری بیت ژ بەری نوکە
+        if (localStorage.getItem('chat_blocked') === 'true') {
+            blockOverlay.style.display = 'flex';
+        }
+
+        // ڕەوانەکرنا نامێ
+        function sendMessage(textContent, mediaHTML = "") {
+            if (!textContent && !mediaHTML) return;
+
+            // پشکنینا ئەمنی یا دەقی
+            if (textContent && !checkSecurity(textContent)) return;
+
+            const timeStamp = Date.now();
+
+            const messageWrapper = document.createElement('div');
+            messageWrapper.classList.add('message-wrapper', 'me');
+            messageWrapper.setAttribute('data-time', timeStamp);
+
+            messageWrapper.innerHTML = `
+                <div class="user-avatar">تۆ</div>
+                <div class="message-content">
+                    <span class="user-name">${myAnonymousID}</span>
+                    <div class="message-text">
+                        ${textContent}
+                        ${mediaHTML}
+                    </div>
+                </div>
+            `;
+
+            chatMessages.appendChild(messageWrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // پاقژکرنا دەقێ ئینپوتی
+            messageInput.value = '';
+        }
+
+        // کارپێکرنا دوگمەیا ناردنێ
+        sendBtn.addEventListener('click', () => sendMessage(messageInput.value.trim()));
+        messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(messageInput.value.trim()); });
+
+        // بەشێ فایل و مێدیایێ (وێنە، ڤیدیۆ، فایل تا 50 مێگابایت)
+        mediaInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            // پشکنینا قەبارەیێ فایلی (50MB = 50 * 1024 * 1024 Bytes)
+            const maxSize = 50 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert("خەتایەک: قەبارێ فایلی ژ ٥٠ مێگابایتا مەزنترە و ناهێتە ناردن!");
+                this.value = '';
+                return;
+            }
+
+            const fileURL = URL.createObjectURL(file);
+            let mediaHTML = "";
+
+            // جوداکرنا جۆرێ فایلی
+            if (file.type.startsWith('image/')) {
+                mediaHTML = `<img src="${fileURL}" class="media-content">`;
+            } else if (file.type.startsWith('video/')) {
+                mediaHTML = `<video src="${fileURL}" class="media-content" controls></video>`;
+            } else {
+                // ئەگەر فایلەکێ ئاسایی بیت وەک PDF یان ZIP
+                mediaHTML = `<a href="${fileURL}" download="${file.name}" class="file-box">📎 دابەزاندنا فایلی: ${file.name}</a>`;
+            }
+
+            sendMessage("", mediaHTML);
+            this.value = ''; // پاقژکرنەوەی مەیدانەکە
+        });
+
+        // --- سیستەمێ سڕینەڤەیا خۆکارانە پشتی ٢٤ دەمژمێران ---
+        setInterval(() => {
+            const allMessages = document.querySelectorAll('.message-wrapper');
+            const now = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000; // ب میلی چرکە
+
+            allMessages.forEach(msg => {
+                const msgTime = msg.getAttribute('data-time');
+                if (msgTime && (now - msgTime > twentyFourHours)) {
+                    msg.remove(); // نامە دێ هێتە سڕین پشتی ٢٤ دەمژمێران
+                }
+            });
+        }, 60000); // هەر خولەکەکێ جارەکێ پشکنینێ دکەت
+    </script>
+</body>
+</html>
