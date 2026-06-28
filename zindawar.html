@@ -3,213 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کۆڕبەندا پاراستی یا قوتابیان</title>
+    <title>کۆڕبەندا لایڤ یا قوتابیان</title>
+    <!-- هینانا کاتێبخانەیا لایڤ بۆ گرێدانا قوتابیان ب ئێک ڤە بێ سێرڤەر -->
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: radial-gradient(circle at center, #0a0b10 0%, #020204 100%);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* لایەرێ سەرەکی یێ چاتێ - Glassmorphism Ultra */
-        .chat-container {
-            width: 95%;
-            max-width: 1000px;
-            height: 90vh;
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 242, 254, 0.03);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* بارێ سەرەکی (Header) */
-        .chat-header {
-            padding: 22px 30px;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: radial-gradient(circle at center, #0a0b10 0%, #020204 100%); color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        .chat-container { width: 95%; max-width: 1000px; height: 90vh; background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; }
+        .chat-header { padding: 22px 30px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; }
         .group-info { display: flex; align-items: center; gap: 18px; }
-        .group-avatar {
-            width: 54px; height: 54px;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 24px; box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
-        }
-
-        .group-details h2 {
-            font-size: 1.3rem; font-weight: 700;
-            background: linear-gradient(to left, #fff, #00f2fe);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
+        .group-avatar { width: 54px; height: 54px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 0 25px rgba(0, 242, 254, 0.35); }
+        .group-details h2 { font-size: 1.3rem; font-weight: 700; background: linear-gradient(to left, #fff, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .group-details p { font-size: 0.82rem; color: #00f2fe; opacity: 0.9; margin-top: 3px; }
-
-        /* بەشێ نامان */
-        .chat-messages {
-            flex: 1; padding: 30px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 24px;
-        }
-
+        
+        .chat-messages { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
         .chat-messages::-webkit-scrollbar { width: 6px; }
         .chat-messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
-
-        /* ستایلێ نامەیان */
+        
         .message-wrapper { display: flex; gap: 14px; max-width: 75%; align-self: flex-start; }
         .message-wrapper.me { align-self: flex-end; flex-direction: row-reverse; }
-
-        .user-avatar {
-            width: 44px; height: 44px; border-radius: 50%;
-            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
-            color: #fff; display: flex; justify-content: center; align-items: center;
-            font-weight: 700; font-size: 0.9rem; box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
-        }
-
-        .message-wrapper.me .user-avatar {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            color: #000; box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
-        }
-
+        
+        .user-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%); color: #fff; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.9rem; }
+        .message-wrapper.me .user-avatar { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); color: #000; }
         .message-content { display: flex; flex-direction: column; gap: 6px; }
         .user-name { font-size: 0.82rem; color: rgba(255, 255, 255, 0.45); font-weight: 600; }
         
-        .message-text {
-            padding: 15px 20px; border-radius: 22px; font-size: 0.98rem; line-height: 1.5;
-            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04);
-            border-top-right-radius: 4px; word-break: break-word;
-        }
-
-        .message-wrapper.me .message-text {
-            background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2);
-            border-top-right-radius: 22px; border-top-left-radius: 4px;
-        }
-
-        /* مێدیا (وێنە، ڤیدیۆ، فایل) */
-        .media-content {
-            max-width: 100%; max-height: 280px; border-radius: 16px;
-            margin-top: 6px; border: 1px solid rgba(255, 255, 255, 0.08);
-            display: block; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-        }
-
-        .file-box {
-            display: flex; align-items: center; gap: 12px;
-            background: rgba(255, 255, 255, 0.05); padding: 12px 18px;
-            border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #00f2fe; text-decoration: none; margin-top: 6px;
-        }
-
-        /* بارێ نڤیسینێ */
-        .chat-input-area {
-            padding: 22px 30px; background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex; gap: 14px; align-items: center;
-        }
-
+        .message-text { padding: 15px 20px; border-radius: 22px; font-size: 0.98rem; line-height: 1.5; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04); border-top-right-radius: 4px; word-break: break-word; }
+        .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); border-top-right-radius: 22px; border-top-left-radius: 4px; }
+        
+        .media-content { max-width: 100%; max-height: 280px; border-radius: 16px; margin-top: 6px; display: block; }
+        .file-box { display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); color: #00f2fe; text-decoration: none; margin-top: 6px; }
+        
+        .chat-input-area { padding: 22px 30px; background: rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; gap: 14px; align-items: center; }
         .input-wrapper { flex: 1; display: flex; gap: 12px; align-items: center; }
+        .chat-input-area input[type="text"] { flex: 1; padding: 16px 22px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px; color: #fff; font-size: 0.98rem; outline: none; }
+        .chat-input-area input[type="text"]:focus { border-color: #00f2fe; background: rgba(255, 255, 255, 0.06); }
+        
+        .upload-label { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.4rem; }
+        .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 28px; height: 54px; border-radius: 18px; color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer; }
 
-        .chat-input-area input[type="text"] {
-            flex: 1; padding: 16px 22px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 18px; color: #fff; font-size: 0.98rem; outline: none; transition: 0.3s;
-        }
-
-        .chat-input-area input[type="text"]:focus {
-            border-color: #00f2fe; background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
-        }
-
-        .upload-label {
-            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);
-            width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center;
-            align-items: center; cursor: pointer; transition: 0.3s; font-size: 1.4rem;
-        }
-        .upload-label:hover { background: rgba(255, 255, 255, 0.12); border-color: #00f2fe; }
-
-        .send-btn {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            border: none; padding: 0 28px; height: 54px; border-radius: 18px;
-            color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer;
-            transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
-        }
-        .send-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0, 242, 254, 0.4); }
-
-        /* شاشەیا بلۆککرنێ/قفلکرنێ (Security Overlay) */
-        .block-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 5, 5, 0.98); z-index: 99999;
-            display: none; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 30px;
-            animation: redAlert 0.3s ease;
-        }
-
-        @keyframes redAlert {
-            from { opacity: 0; } to { opacity: 1; }
-        }
-
-        .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255,0,85,0.5); }
-        .block-overlay p { color: #ccc; font-size: 1.1rem; max-width: 500px; line-height: 1.6; }
+        .block-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 5, 5, 0.99); z-index: 99999; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; }
+        .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; }
+        .block-overlay p { color: #ccc; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <div class="chat-container">
-        <!-- شاشەیا قفلکرنا سیستەمی ل دەمێ سەرپێچیێ -->
+        <!-- شاشەیا بلۆککرنێ -->
         <div class="block-overlay" id="blockOverlay">
-            <h1>سیستەم قفل بوو! 🛑</h1>
-            <p>تە سەرپێچیا یاسایێن گروپێ قوتابیان کریە (ناردنا لینک یان پەیڤێن نەجوان). دەستهەلاتا تە هاتە ڕاگرتن و چات بۆ تە بلۆک بوو.</p>
+            <h1 id="blockTitle">سیستەم قفل بوو! 🛑</h1>
+            <p id="blockReason">تە سەرپێچیا یاسایێن گروپێ قوتابیان کریە.</p>
         </div>
 
-        <!-- سەرێ چاتێ -->
         <div class="chat-header">
             <div class="group-info">
                 <div class="group-avatar">🛡️</div>
                 <div class="group-details">
-                    <h2>کۆڕبەندا قوتابیان (بێ ناڤ / پاراستی)</h2>
-                    <p>● سیستەمێ چاودێرێ هۆشمەند یێ لایڤ</p>
+                    <h2>کۆڕبەندا لایڤ یا قوتابیان (بێ ناڤ)</h2>
+                    <p id="connectionStatus">ل هێڤیا گرێدانێ یە...</p>
                 </div>
             </div>
         </div>
 
-        <!-- لیستێ نامان -->
         <div class="chat-messages" id="chatMessages">
             <div class="message-wrapper">
                 <div class="user-avatar">🤖</div>
                 <div class="message-content">
-                    <span class="user-name">سیستەمێ پاراستنێ</span>
-                    <div class="message-text">بخێرهاتن! ئەڤ گروپە ب تەمامی پاراستیە. ناردنا هەر لینکەکێ یان پەیڤەکا نەجوان دێ بیتە ئەگەرێ قفلبوونا ئێکسەر یا چاتێ ل دەف تە. نامە بۆ ٢٤ دەمژمێران دمینن.</div>
+                    <span class="user-name">سیستەم</span>
+                    <div class="message-text">بخێرهاتن! ئەڤ چاتە لایڤە. ناردنا لایڤ یا ئاخفتنێن نەجوان دێ تە ئێکسەر بلۆک کەت. بۆ لینک دێ ٣ دەرفەت هەبن.</div>
                 </div>
             </div>
         </div>
 
-        <!-- بارێ خوارێ بۆ نڤیسین و مێدیایێ -->
         <div class="chat-input-area">
             <div class="input-wrapper">
-                <!-- دوگمەیا فایل، وێنە و ڤیدیۆیان -->
-                <input type="file" id="mediaInput" accept="image/*,video/*,.pdf,.docx,.zip,.rar" style="display: none;">
-                <label for="mediaInput" class="upload-label" title="وێنە، ڤیدیۆ یان فایل (ماکسیمم 50MB)">📁</label>
-                
-                <input type="text" id="messageInput" placeholder="ناما خۆ بنڤیسە..." autocomplete="off">
+                <input type="file" id="mediaInput" accept="image/*,video/*,.pdf,.docx,.zip" style="display: none;">
+                <label for="mediaInput" class="upload-label">📁</label>
+                <input type="text" id="messageInput" placeholder="نامەکێ بنڤیسە..." autocomplete="off">
             </div>
             <button class="send-btn" id="sendBtn">ناردن</button>
         </div>
@@ -221,121 +93,138 @@
         const sendBtn = document.getElementById('sendBtn');
         const mediaInput = document.getElementById('mediaInput');
         const blockOverlay = document.getElementById('blockOverlay');
+        const connectionStatus = document.getElementById('connectionStatus');
 
-        // دروستکرنا ناسنامەکا بێ ناڤ بۆ ڤی کەسی
         const myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
+        
+        // دەرفەتێن لینکی و پەیڤێن قەدەغەکری
+        let linkAttempts = parseInt(localStorage.getItem('link_attempts')) || 0;
+        const badWords = ["حیوان", "حەیوان", "بینامیس", "بێنامووس", "کەری کەر", "کەر", "بێشۆل", "بێشول", "کچکا", "حیز", "گۆوخۆر", "قەحپە"];
 
-        // لایستێ پەیڤێن نەجوان (تۆ دشێی پەیڤێن دی ژی لێرە زێدە بکەی)
-        const badWords = ["کەر", "سە", "بێئەدەب", "کەرتێ تێکتەدانێ", "حەیوون"];
+        // پشکنینا ئەگەر یێ بلۆککری بیت پێشتر
+        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاسا شکاندینە و هاتیە بلۆککرن."); }
 
-        // فلتەرکرن و چاودێریا ئەمنییەتێ
+        function triggerBlock(title, reason) {
+            document.getElementById('blockTitle').innerText = title;
+            document.getElementById('blockReason').innerText = reason;
+            blockOverlay.style.display = 'flex';
+            localStorage.setItem('chat_blocked', 'true');
+        }
+
         function checkSecurity(text) {
-            // ١. پشکنینا لینکان (هەر لینکەک ب حەرفێن http یان www یان .com یان .net دەستپێبکەت)
-            const linkPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
-            if (linkPattern.test(text)) {
-                triggerBlock();
-                return false;
-            }
-
-            // ٢. پشکنینا ئاخفتنێن نەجوان
+            // پشکنینا ئاخفتنێن نەجوان -> قفلکرنا ئێکسەر
             for (let word of badWords) {
                 if (text.includes(word)) {
-                    triggerBlock();
+                    triggerBlock("ئێکسەر قفل بوو! ❌", "تە ئاخفتنەکا گەلەک نەجوان بکارئینا، چات بۆ تە هاتە داخستن.");
                     return false;
+                }
+            }
+
+            // پشکنینا لینکان -> ٣ دەرفەت
+            const linkPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
+            if (linkPattern.test(text)) {
+                linkAttempts++;
+                localStorage.setItem('link_attempts', linkAttempts);
+                if (linkAttempts >= 3) {
+                    triggerBlock("سیستەم قفل بوو! 🛑", "تە ٣ جاران لینک فرێکرن! ئەڤە قەدەغەیە د گروپیدا.");
+                    return false;
+                } else {
+                    alert(`ئاگەهداری: ناردنا لینکا قەدەغەیە! ئەڤە دەرفەتا ژمارە (${linkAttempts}/3) یە.`);
                 }
             }
             return true;
         }
 
-        // قفلکرنا سیستەمی ئێکسەر
-        function triggerBlock() {
-            blockOverlay.style.display = 'flex';
-            localStorage.setItem('chat_blocked', 'true'); // بۆ هندێ ئەگەر شاشێ ریفرێش ژی بکەت هەر قفل بمینیت
+        // --- بەشێ گرێدانا لایڤ ب قوتابیێن دی ڤە (P2P Networking) ---
+        const peer = new Peer('student-group-room-1234'); // ناڤێ ژوورێ لایڤ
+        let connections = [];
+
+        peer.on('open', (id) => {
+            connectionStatus.innerText = "● تۆ یێ ئۆنلاینی د چاتا لایڤ دا";
+        });
+
+        peer.on('error', (err) => {
+            // ئەگەر ژوور دروستکربیت، دێ گرێدەت ب وێ ژوورێ ڤە
+            if (err.type === 'unavailable-id') {
+                const clientPeer = new Peer();
+                clientPeer.on('open', () => {
+                    const conn = clientPeer.connect('student-group-room-1234');
+                    handleConnection(conn);
+                });
+            }
+        });
+
+        peer.on('connection', (conn) => {
+            handleConnection(conn);
+        });
+
+        function handleConnection(conn) {
+            connections.push(conn);
+            conn.on('data', (data) => {
+                showFormatMessage(data.sender, data.text, data.media, false, data.time);
+            });
         }
 
-        // پشکنینا ئەگەر بەڕێزێ بلۆککری بیت ژ بەری نوکە
-        if (localStorage.getItem('chat_blocked') === 'true') {
-            blockOverlay.style.display = 'flex';
+        function broadcastMessage(text, mediaHTML = "") {
+            const msgData = { sender: myAnonymousID, text: text, media: mediaHTML, time: Date.now() };
+            connections.forEach(conn => { if (conn.open) conn.send(msgData); });
+            showFormatMessage(myAnonymousID, text, mediaHTML, true, msgData.time);
         }
 
-        // ڕەوانەکرنا نامێ
-        function sendMessage(textContent, mediaHTML = "") {
-            if (!textContent && !mediaHTML) return;
-
-            // پشکنینا ئەمنی یا دەقی
-            if (textContent && !checkSecurity(textContent)) return;
-
-            const timeStamp = Date.now();
-
+        function showFormatMessage(sender, text, media, isMe, time) {
             const messageWrapper = document.createElement('div');
-            messageWrapper.classList.add('message-wrapper', 'me');
-            messageWrapper.setAttribute('data-time', timeStamp);
+            messageWrapper.classList.add('message-wrapper');
+            if (isMe) messageWrapper.classList.add('me');
+            messageWrapper.setAttribute('data-time', time);
 
             messageWrapper.innerHTML = `
-                <div class="user-avatar">تۆ</div>
+                <div class="user-avatar">${isMe ? 'تۆ' : 'ق'}</div>
                 <div class="message-content">
-                    <span class="user-name">${myAnonymousID}</span>
-                    <div class="message-text">
-                        ${textContent}
-                        ${mediaHTML}
-                    </div>
+                    <span class="user-name">${sender}</span>
+                    <div class="message-text">${text} ${media}</div>
                 </div>
             `;
-
             chatMessages.appendChild(messageWrapper);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-            // پاقژکرنا دەقێ ئینپوتی
+        // فرێکرنا پەیامێ
+        function handleSend() {
+            const text = messageInput.value.trim();
+            if (!text) return;
+            if (!checkSecurity(text)) return;
+            broadcastMessage(text);
             messageInput.value = '';
         }
 
-        // کارپێکرنا دوگمەیا ناردنێ
-        sendBtn.addEventListener('click', () => sendMessage(messageInput.value.trim()));
-        messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(messageInput.value.trim()); });
+        sendBtn.addEventListener('click', handleSend);
+        messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
 
-        // بەشێ فایل و مێدیایێ (وێنە، ڤیدیۆ، فایل تا 50 مێگابایت)
+        // ناردنا وێنە و ڤیدیۆ و فایلا (تا 50MB)
         mediaInput.addEventListener('change', function() {
             const file = this.files[0];
             if (!file) return;
+            if (file.size > 50 * 1024 * 1024) { alert("قەبارێ فایلی مەزنترە ژ 50MB!"); return; }
 
-            // پشکنینا قەبارەیێ فایلی (50MB = 50 * 1024 * 1024 Bytes)
-            const maxSize = 50 * 1024 * 1024;
-            if (file.size > maxSize) {
-                alert("خەتایەک: قەبارێ فایلی ژ ٥٠ مێگابایتا مەزنترە و ناهێتە ناردن!");
-                this.value = '';
-                return;
-            }
-
-            const fileURL = URL.createObjectURL(file);
-            let mediaHTML = "";
-
-            // جوداکرنا جۆرێ فایلی
-            if (file.type.startsWith('image/')) {
-                mediaHTML = `<img src="${fileURL}" class="media-content">`;
-            } else if (file.type.startsWith('video/')) {
-                mediaHTML = `<video src="${fileURL}" class="media-content" controls></video>`;
-            } else {
-                // ئەگەر فایلەکێ ئاسایی بیت وەک PDF یان ZIP
-                mediaHTML = `<a href="${fileURL}" download="${file.name}" class="file-box">📎 دابەزاندنا فایلی: ${file.name}</a>`;
-            }
-
-            sendMessage("", mediaHTML);
-            this.value = ''; // پاقژکرنەوەی مەیدانەکە
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                let mediaHTML = "";
+                if (file.type.startsWith('image/')) mediaHTML = `<img src="${event.target.result}" class="media-content">`;
+                else if (file.type.startsWith('video/')) mediaHTML = `<video src="${event.target.result}" class="media-content" controls></video>`;
+                else mediaHTML = `<a href="${event.target.result}" download="${file.name}" class="file-box">📎 دابەزاندن: ${file.name}</a>`;
+                
+                broadcastMessage("", mediaHTML);
+            };
+            reader.readAsDataURL(file);
         });
 
-        // --- سیستەمێ سڕینەڤەیا خۆکارانە پشتی ٢٤ دەمژمێران ---
+        // سڕینەڤەیا خۆکار پشتی ٢٤ دەمژمێران
         setInterval(() => {
-            const allMessages = document.querySelectorAll('.message-wrapper');
-            const now = Date.now();
-            const twentyFourHours = 24 * 60 * 60 * 1000; // ب میلی چرکە
-
-            allMessages.forEach(msg => {
+            document.querySelectorAll('.message-wrapper').forEach(msg => {
                 const msgTime = msg.getAttribute('data-time');
-                if (msgTime && (now - msgTime > twentyFourHours)) {
-                    msg.remove(); // نامە دێ هێتە سڕین پشتی ٢٤ دەمژمێران
-                }
+                if (msgTime && (Date.now() - msgTime > 24 * 60 * 60 * 1000)) msg.remove();
             });
-        }, 60000); // هەر خولەکەکێ جارەکێ پشکنینێ دکەت
+        }, 60000);
     </script>
 </body>
 </html>
