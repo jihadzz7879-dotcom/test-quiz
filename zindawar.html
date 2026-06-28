@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کۆڕبەندا لایڤ یا قوتابیان</title>
-    <!-- هینانا کاتێبخانەیا لایڤ بۆ گرێدانا قوتابیان ب ئێک ڤە بێ سێرڤەر -->
+    <title>کۆڕبەندا لایڤ یا قوتابیان یێ شاهانە</title>
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -32,20 +31,30 @@
         .message-text { padding: 15px 20px; border-radius: 22px; font-size: 0.98rem; line-height: 1.5; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04); border-top-right-radius: 4px; word-break: break-word; }
         .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); border-top-right-radius: 22px; border-top-left-radius: 4px; }
         
-        .media-content { max-width: 100%; max-height: 280px; border-radius: 16px; margin-top: 6px; display: block; }
+        .media-content { max-width: 220px; max-height: 180px; border-radius: 12px; margin-top: 6px; display: block; cursor: pointer; transition: transform 0.2s; }
+        .media-content:hover { transform: scale(1.03); }
         .file-box { display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); color: #00f2fe; text-decoration: none; margin-top: 6px; }
         
         .chat-input-area { padding: 22px 30px; background: rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; gap: 14px; align-items: center; }
         .input-wrapper { flex: 1; display: flex; gap: 12px; align-items: center; }
         .chat-input-area input[type="text"] { flex: 1; padding: 16px 22px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px; color: #fff; font-size: 0.98rem; outline: none; }
-        .chat-input-area input[type="text"]:focus { border-color: #00f2fe; background: rgba(255, 255, 255, 0.06); }
         
         .upload-label { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.4rem; }
         .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 28px; height: 54px; border-radius: 18px; color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer; }
 
+        /* شاشەیا قەدەغەکردنێ */
         .block-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 5, 5, 0.99); z-index: 99999; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; }
         .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; }
-        .block-overlay p { color: #ccc; font-size: 1.1rem; }
+
+        /* پنلێ ئەدمینی یێ ڤەشارتی */
+        .admin-modal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 500px; background: rgba(15, 22, 38, 0.95); backdrop-filter: blur(20px); border: 1px solid #00f2fe; border-radius: 24px; padding: 30px; z-index: 10000; display: none; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); }
+        .admin-modal h3 { color: #00f2fe; margin-bottom: 15px; text-align: center; }
+        .admin-btn { width: 100%; padding: 12px; background: #ff0055; color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+
+        /* شاشەیا بینینا وێنەی ب مەزنی (Lightbox) */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .lightbox.active { opacity: 1; pointer-events: auto; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -55,6 +64,14 @@
         <div class="block-overlay" id="blockOverlay">
             <h1 id="blockTitle">سیستەم قفل بوو! 🛑</h1>
             <p id="blockReason">تە سەرپێچیا یاسایێن گروپێ قوتابیان کریە.</p>
+        </div>
+
+        <!-- پنلێ ئەدمینی یێ ڤەشارتی -->
+        <div class="admin-modal" id="adminModal">
+            <h3>پنلێ کۆنترۆلا ئەدمینی ⚙️</h3>
+            <p style="color: #bbb; font-size: 0.9rem; text-align: center;">بخێرهاتی جێکۆ! ل ڤێرێ تۆ دشێی قفلا سیستەمی ل سەر خۆ لادەی.</p>
+            <button class="admin-btn" onclick="resetAdminSettings()">پاقژکرنا سزایان و ڕیفرێش</button>
+            <button class="admin-btn" style="background: #444;" onclick="document.getElementById('adminModal').style.display='none'">داخستن</button>
         </div>
 
         <div class="chat-header">
@@ -72,7 +89,7 @@
                 <div class="user-avatar">🤖</div>
                 <div class="message-content">
                     <span class="user-name">سیستەم</span>
-                    <div class="message-text">بخێرهاتن! ئەڤ چاتە لایڤە. ناردنا لایڤ یا ئاخفتنێن نەجوان دێ تە ئێکسەر بلۆک کەت. بۆ لینک دێ ٣ دەرفەت هەبن.</div>
+                    <div class="message-text">بخێرهاتن! ئەڤ چاتە لایڤە. بۆ لینک ٣ دەرفەت هەنە، وێنە ژی کلیک لێبکە بۆ دیتنا تەمام.</div>
                 </div>
             </div>
         </div>
@@ -87,22 +104,27 @@
         </div>
     </div>
 
+    <!-- لایتبۆکس بۆ مەزنکرنا وێنەیان -->
+    <div class="lightbox" id="lightboxOverlay" onclick="this.classList.remove('active')">
+        <img id="lightboxImg" src="" alt="Full Screen Picture">
+    </div>
+
     <script>
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const sendBtn = document.getElementById('sendBtn');
         const mediaInput = document.getElementById('mediaInput');
         const blockOverlay = document.getElementById('blockOverlay');
+        const adminModal = document.getElementById('adminModal');
         const connectionStatus = document.getElementById('connectionStatus');
+        const lightboxOverlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImg');
 
         const myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
-        
-        // دەرفەتێن لینکی و پەیڤێن قەدەغەکری
         let linkAttempts = parseInt(localStorage.getItem('link_attempts')) || 0;
-        const badWords = ["حیوان", "حەیوان", "بینامیس", "بێنامووس", "کەری کەر", "کەر", "بێشۆل", "بێشول", "کچکا", "حیز", "گۆوخۆر", "قەحپە"];
+        const badWords = ["حیوان", "حەیوان", "بینامیس", "بێنامووس", "کەری کەر", "کەر", "بێشۆل", "بێشول", "حیز", "قەحپە"];
 
-        // پشکنینا ئەگەر یێ بلۆککری بیت پێشتر
-        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاسا شکاندینە و هاتیە بلۆککرن."); }
+        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاسا شکاندینە."); }
 
         function triggerBlock(title, reason) {
             document.getElementById('blockTitle').innerText = title;
@@ -111,52 +133,58 @@
             localStorage.setItem('chat_blocked', 'true');
         }
 
+        // فرمانا پاڵپشتیا ئەدمینی بۆ پاقژکرنێ
+        function resetAdminSettings() {
+            localStorage.removeItem('chat_blocked');
+            localStorage.removeItem('link_attempts');
+            location.reload();
+        }
+
         function checkSecurity(text) {
-            // پشکنینا ئاخفتنێن نەجوان -> قفلکرنا ئێکسەر
+            // ئەکتیڤکرنا ئەدمینی ب کۆدێ ڤەشارتی
+            if (text === "/admin JEKO122") {
+                adminModal.style.display = 'block';
+                messageInput.value = '';
+                return false;
+            }
+
             for (let word of badWords) {
                 if (text.includes(word)) {
-                    triggerBlock("ئێکسەر قفل بوو! ❌", "تە ئاخفتنەکا گەلەک نەجوان بکارئینا، چات بۆ تە هاتە داخستن.");
+                    triggerBlock("ئێکسەر قفل بوو! ❌", "تە ئاخفتنەکا قەدەغە بکارئینا.");
                     return false;
                 }
             }
 
-            // پشکنینا لینکان -> ٣ دەرفەت
             const linkPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
             if (linkPattern.test(text)) {
                 linkAttempts++;
                 localStorage.setItem('link_attempts', linkAttempts);
                 if (linkAttempts >= 3) {
-                    triggerBlock("سیستەم قفل بوو! 🛑", "تە ٣ جاران لینک فرێکرن! ئەڤە قەدەغەیە د گروپیدا.");
+                    triggerBlock("سیستەم قفل بوو! 🛑", "تە ٣ جاران لینک فرێکرن!");
                     return false;
                 } else {
-                    alert(`ئاگەهداری: ناردنا لینکا قەدەغەیە! ئەڤە دەرفەتا ژمارە (${linkAttempts}/3) یە.`);
+                    alert(`ئاگەهداری: لینک قەدەغەیە! دەرفەتا (${linkAttempts}/3)`);
                 }
             }
             return true;
         }
 
-        // --- بەشێ گرێدانا لایڤ ب قوتابیێن دی ڤە (P2P Networking) ---
-        const peer = new Peer('student-group-room-1234'); // ناڤێ ژوورێ لایڤ
+        // --- گرێدانا لایڤ (PeerJS Network) ---
+        const peer = new Peer('student-premium-room-999');
         let connections = [];
 
-        peer.on('open', (id) => {
-            connectionStatus.innerText = "● تۆ یێ ئۆنلاینی د چاتا لایڤ دا";
-        });
-
+        peer.on('open', () => { connectionStatus.innerText = "● تۆ یێ ئۆنلاینی د چاتا لایڤ دا"; });
         peer.on('error', (err) => {
-            // ئەگەر ژوور دروستکربیت، دێ گرێدەت ب وێ ژوورێ ڤە
             if (err.type === 'unavailable-id') {
                 const clientPeer = new Peer();
                 clientPeer.on('open', () => {
-                    const conn = clientPeer.connect('student-group-room-1234');
+                    const conn = clientPeer.connect('student-premium-room-999');
                     handleConnection(conn);
                 });
             }
         });
 
-        peer.on('connection', (conn) => {
-            handleConnection(conn);
-        });
+        peer.on('connection', handleConnection);
 
         function handleConnection(conn) {
             connections.push(conn);
@@ -186,9 +214,18 @@
             `;
             chatMessages.appendChild(messageWrapper);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // زێدەکرنا فرمانێ بۆ کلیککرنا ل سەر وێنەیان داکو مەزن ببن
+            messageWrapper.querySelectorAll('.media-content').forEach(img => {
+                if(img.tagName === 'IMG') {
+                    img.addEventListener('click', function() {
+                        lightboxImg.src = this.src;
+                        lightboxOverlay.classList.add('active');
+                    });
+                }
+            });
         }
 
-        // فرێکرنا پەیامێ
         function handleSend() {
             const text = messageInput.value.trim();
             if (!text) return;
@@ -200,7 +237,6 @@
         sendBtn.addEventListener('click', handleSend);
         messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
 
-        // ناردنا وێنە و ڤیدیۆ و فایلا (تا 50MB)
         mediaInput.addEventListener('change', function() {
             const file = this.files[0];
             if (!file) return;
@@ -211,14 +247,13 @@
                 let mediaHTML = "";
                 if (file.type.startsWith('image/')) mediaHTML = `<img src="${event.target.result}" class="media-content">`;
                 else if (file.type.startsWith('video/')) mediaHTML = `<video src="${event.target.result}" class="media-content" controls></video>`;
-                else mediaHTML = `<a href="${event.target.result}" download="${file.name}" class="file-box">📎 دابەزاندن: ${file.name}</a>`;
+                else mediaHTML = `<a href="${event.target.result}" download="${file.name}" class="file-box">📎 فایل: ${file.name}</a>`;
                 
                 broadcastMessage("", mediaHTML);
             };
             reader.readAsDataURL(file);
         });
 
-        // سڕینەڤەیا خۆکار پشتی ٢٤ دەمژمێران
         setInterval(() => {
             document.querySelectorAll('.message-wrapper').forEach(msg => {
                 const msgTime = msg.getAttribute('data-time');
