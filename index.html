@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -44,8 +45,13 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-columns: 1fr; /* ل سەرەتا تنێ چات دیارە بۆ قوتابیان */
+            grid-template-columns: 1.2fr 1fr;
             gap: 20px;
+        }
+
+        @media (max-width: 1050px) {
+            .main-wrapper { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
+            .main-card { height: auto !important; min-height: 85vh; }
         }
 
         .main-card {
@@ -63,18 +69,24 @@
             height: 100%;
         }
 
-        /* --- بەشێ بابەتێن ئەزموونان --- */
-        .brand-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
-        .brand-header h1 { font-size: 22px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
+        /* --- بەشێ پلاتفۆرمی ئەزموونان --- */
+        .brand-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+        .brand-header h1 { font-size: 24px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
         .brand-header p { color: var(--text-muted); font-size: 13px; font-weight: 600; margin-top: 6px; }
-        .section-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 15px; text-align: right; }
+        .section-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 12px; text-align: right; display: flex; align-items: center; gap: 8px; }
         
-        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; overflow-y: auto; }
+        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; margin-bottom: 20px; }
+        
         .subject-item { 
             display: flex; align-items: center; justify-content: space-between; padding: 14px; 
             background: rgba(255,255,255,0.02); color: #f1f5f9; border-radius: 18px; border: 1px solid var(--card-border); font-weight: 700; font-size: 13.5px; transition: 0.3s; text-decoration: none;
         }
         .subject-item:hover { border-color: var(--gold); background: rgba(250, 204, 21, 0.06); transform: translateY(-2px); }
+
+        /* --- پەنەلا پێشنیار و ئامۆژگاریان --- */
+        .suggestions-panel { flex: 1; background: rgba(255,255,255,0.01); border: 1px solid var(--card-border); border-radius: 20px; padding: 15px; overflow-y: auto; }
+        .suggestion-list { list-style: none; display: flex; flex-direction: column; gap: 8px; text-align: right; font-size: 13px; color: #cbd5e1; }
+        .suggestion-list li { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border-right: 3px solid var(--gold); }
 
         /* --- بەشێ کلیل و چوونەژوورێ --- */
         .lock-container {
@@ -84,6 +96,12 @@
         }
         .code-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: white; text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: 700; }
         .activate-btn { width: 100%; background: linear-gradient(90deg, var(--gold), #fbbf24); color: #020617; border: none; padding: 14px; border-radius: 14px; font-weight: 900; cursor: pointer; }
+
+        /* --- پەنەلا زانیاریێن قوتابی (Dashboard) --- */
+        .student-dashboard { background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.15); border-radius: 20px; padding: 12px 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
+        .student-info p { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+        .student-stats { display: flex; gap: 15px; font-size: 12px; color: #a1a1aa; }
+        .status-badge { background: var(--cyan-gradient); color: #000; padding: 2px 8px; border-radius: 8px; font-weight: 900; font-size: 11px; }
 
         /* --- بەشێ چاتا لایڤ --- */
         .chat-header { padding: 15px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; gap: 10px; }
@@ -133,7 +151,8 @@
 
     <div class="main-wrapper" id="appLayout">
         
-        <div class="main-card hidden" id="exams-card">
+        <!-- بەشێ بابەتێن ئەزموونان و پێشنیاران (بۆ هەمی قوتابیان دیارە) -->
+        <div class="main-card" id="exams-card">
             <div id="subjects-menu">
                 <div class="brand-header">
                     <h1>JEHAD PROVISOR</h1>
@@ -142,28 +161,65 @@
                 
                 <div class="section-title">✨ بابەتێن تاقیکردنەوەیێ</div>
                 <div class="grid-layout">
-                    <a href="kurdish.html" class="subject-item"><span class="btn-text">زمانێ کوردی</span><span>✒️</span></a>
-                    <a href="arabic.html" class="subject-item"><span class="btn-text">زمانێ عەرەبی</span><span>📜</span></a>
-                    <a href="english.html" class="subject-item"><span class="btn-text">زمانێ ئینگلیزی</span><span>🇬🇧</span></a>
-                    <a href="fizya.html" class="subject-item"><span class="btn-text">فیزیا</span><span>⚛️</span></a>
-                    <a href="kimia.html" class="subject-item"><span class="btn-text">کیمیا</span><span>🔬</span></a>
-                    <a href="mejo.html" class="subject-item"><span class="btn-text">مێژوو</span><span>⏳</span></a>
-                    <a href="eslame.html" class="subject-item"><span class="btn-text">پەروەردەیا ئیسلامی</span><span>🕌</span></a>
-                    <a href="eslamebabat.html" class="subject-item"><span class="btn-text">بابەتێن ئیسلامی</span><span>📖</span></a>
-                    <a href="zindawar.html" class="subject-item"><span class="btn-text">زیندەوەر زانی</span><span>🔬</span></a>
-                    <a href="zindawar1.html" class="subject-item"><span class="btn-text">زیندەوەر پشک ١</span><span>🧬</span></a>
-                    <a href="ark.html" class="subject-item"><span class="btn-text">پەرتووکا ئەرک</span><span>📊</span></a>
-                    <a href="env.html" class="subject-item"><span class="btn-text">زانستێن ژینگەهێ</span><span>🌱</span></a>
-                    <a href="yasa.html" class="subject-item"><span class="btn-text">یاسا و ڕێنمایی</span><span>⚖️</span></a>
+                    <a href="kurdish.html" onclick="trackQuiz('کوردی')" class="subject-item"><span class="btn-text">زمانێ کوردی</span><span>✒️</span></a>
+                    <a href="arabic.html" onclick="trackQuiz('عەرەبی')" class="subject-item"><span class="btn-text">زمانێ عەرەبی</span><span>📜</span></a>
+                    <a href="english.html" onclick="trackQuiz('ئینگلیزی')" class="subject-item"><span class="btn-text">زمانێ ئینگلیزی</span><span>🇬🇧</span></a>
+                    <a href="fizya.html" onclick="trackQuiz('فیزیا')" class="subject-item"><span class="btn-text">فیزیا</span><span>⚛️</span></a>
+                    <a href="kimia.html" onclick="trackQuiz('کیمیا')" class="subject-item"><span class="btn-text">کیمیا</span><span>🔬</span></a>
+                    <a href="mejo.html" onclick="trackQuiz('مێژوو')" class="subject-item"><span class="btn-text">مێژوو</span><span>⏳</span></a>
+                    <a href="eslame.html" onclick="trackQuiz('ئیسلامی')" class="subject-item"><span class="btn-text">پەروەردەیا ئیسلامی</span><span>🕌</span></a>
+                    <a href="zindawar.html" onclick="trackQuiz('زیندەوەر')" class="subject-item"><span class="btn-text">زیندەوەر زانی</span><span>🧬</span></a>
+                </div>
+
+                <div class="section-title">💡 ٢٠ پێشنیارێن زێڕین بۆ سەرکەفتنا پۆلا ١٢</div>
+                <div class="suggestions-panel">
+                    <ul class="suggestion-list">
+                        <li>١. ده‌ستپێكێ باوه‌ریێ ب خۆ بینە، تو دشێی نمرەکا بلند بزانی.</li>
+                        <li>٢. پلانەکا ڕۆژانە دابنێ و ل گۆرەی کاتی لێکدانێ بکە.</li>
+                        <li>٣. بابەتێن گرنگ و بەرهەڤیێن وەزاری بەری هەر تشتەکی بخوینە.</li>
+                        <li>٤. ژ جهێن قەرەبالغ دویر بکەوە، د ژوورەکا ئارام دا بخوینە.</li>
+                        <li>٥. تەلەفۆنێ و سۆشیاڵ میدیایێ د دەمێ خویندنێ دا قفل بکە.</li>
+                        <li>٦. پرسیارێن سالێن دەربازبووی (٢٠١٩ تا ٢٠٢٥) زۆر چارەسەر بکە.</li>
+                        <li>٧. هەر بابەتەکێ خویندبیت، پشت چەند ڕۆژان پێداچوونەوە (مراجعة) بۆ بکە.</li>
+                        <li>٨. خەوا خۆ ڕێکبخە، کێمتری ٧ دەمژمێران نەخەوە دا مێشکێ تە یێ ئارام بیت.</li>
+                        <li>٩. ئاڤێ زۆر ڤەخۆ د دەمێ خویندنێ دا بۆ چالاکبوونا مێشکی.</li>
+                        <li>١٠. د ناڤبەرا هەر ٥٠ خۆلەکان دا، ١٠ خۆلەکان بێهنڤەدانێ بدە خۆ.</li>
+                        <li>١١. خۆ ژ کەسێن نەرێنی (سەلبى) دویر بکە کو دبێژن "مەحاڵە و نمرە نایێن".</li>
+                        <li>١٢. تاقیکرنێن ئەلیکترۆنی ل سەر ڤی پلاتفۆرمی زۆر بکە دا ترسا تە بشکێت.</li>
+                        <li>١٣. تێبینیێن کورت د دەفتەرەکێ دا بنڤیسە بۆ شەڤا تاقیکرنێ.</li>
+                        <li>١٤. فیزیا و کیمیایێ پێویستی ب تێگەهشتنێ هەیە نەکو ژبەرکرنێ.</li>
+                        <li>١٥. زمانێ کوردی و عەرەبی پۆینتێن زێڕینن بۆ بەرزکرنا کۆنمرەی.</li>
+                        <li>١٦. ئەگەر د بابەتەکێ دا خەلەت بووی، خەم نەخۆ، ل سەر خەلەتیا خۆ فێرببە.</li>
+                        <li>١٧. بەردەوامی گرنگترە ژ خویندنا زۆر و بێ مفا.</li>
+                        <li>١٨. دەمێ تاقیکرنێ، پرسیارێ ب تمامی بخوینە پاشان وەڵامی دیار بکە.</li>
+                        <li>١٩. توکلێ خۆ بکە سەر خودێ و هێزا خۆ کۆم بکە.</li>
+                        <li>٢٠. بیر ل کەیفا ڕۆژا دەرچوونێ و کەیفخۆشیا دایک و بابێن خۆ بکە!</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
+        <!-- بەشێ چاتا ئەنۆنیمۆس و پەیوەندیا ڤیدیۆیی -->
         <div class="main-card" id="chat-card">
+            <!-- پەنجەرا کلیلا سۆراو بۆ چوونەژوورێ -->
             <div id="lock-screen" class="lock-container">
-                <div style="font-size:18px; font-weight:900; color:var(--gold); margin-bottom:8px;">بۆ چوونە ژوورێ وەک قوتابیەکێ نەناسراو دوگمەی لێدە</div>
-                <input type="text" id="code-field" class="code-input" placeholder="ئەگەر کۆدێ ئەدمینی لای تە هەیە لێدە (بژاردە)...">
-                <button class="activate-btn" onclick="validateAccess()">چوونە ژوورێ (ب شێوازێ ڤەشارتى)</button>
+                <div style="font-size:18px; font-weight:900; color:var(--gold); margin-bottom:8px;">کۆدێ خۆ یێ تایبەت لێدە بۆ داخڵبوونێ</div>
+                <input type="text" id="code-field" class="code-input" placeholder="کۆدێ خۆ لێدە (بۆ نموونە: STUDENT01 یان ADMIN123)...">
+                <button class="activate-btn" onclick="validateAccess()">پشکنیین و بەشداریکردن</button>
+            </div>
+
+            <!-- پەنەلا دیارکرنا ئاستێ قوتابی (Dashboard) -->
+            <div class="student-dashboard">
+                <div class="student-info">
+                    <p id="dashStudentName">ناڤێ قوتابی: نەدیار</p>
+                    <div class="student-stats">
+                        <span id="dashStudentClass">پۆل: --</span>
+                        <span id="dashStudentCount">تاقیکرنێن کرین: ٠</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="status-badge" id="dashStudentLevel">ئاست: نەدیار</span>
+                </div>
             </div>
 
             <div class="chat-header">
@@ -175,9 +231,10 @@
                     </div>
                 </div>
                 
+                <!-- کۆنترۆلا کامێرا و مایکێ -->
                 <div class="call-controls">
                     <button class="call-btn btn-start-call" id="startCallBtn">📸 دەستپێکرنا تەلەفۆنا لایڤ (دەنگ و کامێرا)</button>
-                    <button class="call-btn btn-end-call" id="endCallBtn">🛑 داخستنا تەلەفۆن و کامێرێ</button>
+                    <button class="call-btn btn-end-call" id="endCallBtn">🛑 داخستنا کامێرێ و تەلەفۆنێ</button>
                 </div>
                 <div class="video-container">
                     <video id="localVideo" autoplay muted playsinline class="hidden"></video>
@@ -190,7 +247,7 @@
             <div class="chat-input-area">
                 <button class="send-btn" id="sendBtn">ناردن</button>
                 <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە (ناسنامەیا تە یا پاراستیە)..." autocomplete="off">
+                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە..." autocomplete="off">
                     <label class="file-label" for="fileInput" title="ناردنا وێنە و ڤیدیۆ و فایلا">📁
                         <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.docx" style="display:none;">
                     </label>
@@ -203,10 +260,20 @@
     <script>
         let isAdmin = false;
         let myAnonymousID = "";
+        let studentClass = "";
         let linkWarnings = 0;
 
+        // ٢٠ کۆدێن چوونەژوورێ بۆ قوتابیێن زانستی و وێژەیی
+        const validCodes = {};
+        for (let i = 1; i <= 10; i++) {
+            validCodes[`STUDENT${i < 10 ? '0' + i : i}`] = { name: `قوتابی_${1000 + i}`, class: "١٢ زانستی (علمی)" };
+        }
+        for (let i = 11; i <= 20; i++) {
+            validCodes[`STUDENT${i}`] = { name: `قوتابی_${1000 + i}`, class: "١٢ وێژەیی (ئەدەبی)" };
+        }
+
         if(localStorage.getItem('chat_blocked') === 'true') {
-            document.body.innerHTML = `<div class="blocked-screen"><h2>❌ چاتا تە هاتیە قفلکرن!</h2><p>تە لینک فڕێکرینە و یاسایێن گروپێ بەزاندینە.</p></div>`;
+            document.body.innerHTML = `<div class="blocked-screen"><h2>❌ چاتا تە هاتیە قفلکرن!</h2><p>تە یاسایێن گروپێ بەزاندینە و لینک فڕێکرینە.</p></div>`;
         }
 
         function validateAccess() {
@@ -215,18 +282,50 @@
             if (inputVal === "ADMIN123") {
                 isAdmin = true;
                 myAnonymousID = "خودانێ پلاتفۆرمێ (ADMIN) 👑";
-                document.getElementById("exams-card").classList.remove("hidden");
-                document.getElementById("appLayout").style.gridTemplateColumns = "1.1fr 1fr";
-            } else {
+                studentClass = "ڕێڤەبەرێ گشتی";
+                document.getElementById("dashStudentName").innerText = myAnonymousID;
+                document.getElementById("dashStudentClass").innerText = "پۆل: ئەدمین";
+                document.getElementById("dashStudentLevel").innerText = "ئاست: شاهانە";
+                document.getElementById("lock-screen").classList.add("hidden");
+            } else if (validCodes[inputVal]) {
                 isAdmin = false;
-                // دروستکرنا ناڤەکێ نەناسراو و پاراستی بۆ قوتابی کو کەس پێ نەزانیت چ ناڤە
-                myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
-                document.getElementById("exams-card").classList.add("hidden");
-                document.getElementById("appLayout").style.gridTemplateColumns = "1fr";
+                myAnonymousID = validCodes[inputVal].name;
+                studentClass = validCodes[inputVal].class;
+                
+                document.getElementById("dashStudentName").innerText = "ناسنامە: ڤەشارتی (🔒)";
+                document.getElementById("dashStudentClass").innerText = "پۆل: " + studentClass;
+                
+                // نووکرنا داتایێن تاقیکرنان ژ سەر میمۆریێ
+                updateDashboardStats();
+                document.getElementById("lock-screen").classList.add("hidden");
+            } else {
+                alert("❌ کۆدێ داخڵبوونێ خەلەتە! تکایە ئێک ژ ٢٠ کۆدان یان کۆدێ ئەدمینی بنڤیسە.");
+                return;
             }
-            document.getElementById("lock-screen").classList.add("hidden");
-            connectionStatus.innerText = "● ل سەر هێڵ: ناسنامەیا تە یا ڤەشارتەیە 🔒";
+
+            connectionStatus.innerText = "● ل سەر هێڵ: ناسنامەیا تە یا پاراستیە 🔒";
             loadMessages();
+        }
+
+        // پشکنین و تۆمارکرنا ئاستێ قوتابی د تاقیکرنان دا
+        function trackQuiz(subjectName) {
+            let count = parseInt(localStorage.getItem('quiz_count') || '0');
+            count++;
+            localStorage.setItem('quiz_count', count);
+            updateDashboardStats();
+        }
+
+        function updateDashboardStats() {
+            let count = parseInt(localStorage.getItem('quiz_count') || '0');
+            document.getElementById("dashStudentCount").innerText = "تاقیکرنێن کرین: " + count;
+            
+            let level = "نەدیار";
+            if (count >= 5) level = "نایاب (🔥)";
+            else if (count >= 3) level = "باش (👍)";
+            else if (count >= 1) level = "بەردەوام (📝)";
+            else level = "دەستپێنەکری (💤)";
+            
+            document.getElementById("dashStudentLevel").innerText = "ئاست: " + level;
         }
 
         const chatMessages = document.getElementById('chatMessages');
@@ -242,7 +341,7 @@
         let localStream;
         let currentCall;
 
-        const peer = new Peer('jehad-secure-room-' + Math.floor(Math.random() * 100));
+        const peer = new Peer('jehad-final-room-' + Math.floor(Math.random() * 100));
         let connections = [];
 
         peer.on('connection', (conn) => {
@@ -361,7 +460,7 @@
             wrapper.innerHTML = `
                 <div class="user-avatar">${isSenderAdmin ? '👑' : (isMe ? 'تۆ' : 'ق')}</div>
                 <div class="message-content">
-                    <span class="user-name">${sender} ${isSenderAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</span>
+                    <span class="user-name">${isSenderAdmin ? sender : (isMe ? 'تۆ (🔒 ڤەشارتی)' : 'قوتابیەکێ پۆلا ١٢')} ${isSenderAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</span>
                     <div class="message-text">${text} ${mediaHTML}</div>
                 </div>
             `;
@@ -370,18 +469,18 @@
         }
 
         function saveMessage(sender, text, isSenderAdmin, fileData, fileType, fileName, isMe) {
-            let messages = JSON.parse(localStorage.getItem('jehad_secure_msgs')) || [];
+            let messages = JSON.parse(localStorage.getItem('jehad_final_msgs')) || [];
             messages.push({ sender, text, isSenderAdmin, fileData, fileType, fileName, isMe, timestamp: Date.now() });
-            localStorage.setItem('jehad_secure_msgs', JSON.stringify(messages));
+            localStorage.setItem('jehad_final_msgs', JSON.stringify(messages));
         }
 
         function loadMessages() {
             chatMessages.innerHTML = '';
-            let messages = JSON.parse(localStorage.getItem('jehad_secure_msgs')) || [];
+            let messages = JSON.parse(localStorage.getItem('jehad_final_msgs')) || [];
             const oneDay = 24 * 60 * 60 * 1000;
             
             messages = messages.filter(m => (Date.now() - m.timestamp) < oneDay);
-            localStorage.setItem('jehad_secure_msgs', JSON.stringify(messages));
+            localStorage.setItem('jehad_final_msgs', JSON.stringify(messages));
 
             messages.forEach(m => {
                 renderMessageHTML(m.sender, m.text, m.isSenderAdmin, m.isMe, m.fileData, m.fileType, m.fileName);
