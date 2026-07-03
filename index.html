@@ -3,382 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی شاهانە یا قوتابیان & JEHAD</title>
+    <title>Dr. Firdaws Dental Clinic | دکتۆرا ددانا</title>
+    <!-- Google Fonts بۆ فۆنتەکێ کوردی یێ جوان -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
-
         :root {
-            --bg-gradient: linear-gradient(180deg, #0b0d19 0%, #04050c 100%);
-            --gold: #facc15;
-            --gold-glow: rgba(250, 204, 21, 0.3);
-            --card-glass: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.07);
-            --cyan-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            --pink-gradient: linear-gradient(135deg, #e100ff 0%, #7928ca 100%);
-            --admin-gradient: linear-gradient(135deg, #ff0055 0%, #990033 100%);
+            --primary-color: #0d9488; /* ڕەنگێ تۆرکوازی پرۆفیشناڵ */
+            --secondary-color: #0f172a; /* ڕەنگێ پاشبنەما تاریک */
+            --accent-color: #38bdf8;
             --text-light: #f8fafc;
-            --text-muted: #6b7280;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Noto Sans Arabic', 'Segoe UI', sans-serif; 
-            -webkit-tap-highlight-color: transparent;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Kufi Arabic', sans-serif;
         }
 
-        body { 
-            background: var(--bg-gradient); 
-            color: var(--text-light); 
-            height: 100vh;
-            width: 100vw;
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 15px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-light);
         }
 
-        /* --- شاشەیا سەرەکی یا قفلێ (وه‌کی وێنەیێ تە) --- */
-        .global-lock-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, #060814, #020307);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 24px; z-index: 99999; transition: all 0.5s ease-in-out;
-        }
-        .lock-box {
-            width: 100%; max-width: 450px; background: rgba(17, 20, 38, 0.6);
-            border: 1px solid var(--card-border); padding: 35px 25px; border-radius: 28px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .lock-title { font-size: 20px; font-weight: 900; color: var(--gold); margin-bottom: 20px; text-shadow: 0 0 15px var(--gold-glow); }
-        .code-input { width: 100%; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: white; text-align: center; margin-bottom: 20px; font-size: 16px; font-weight: 700; outline: none; transition: 0.3s; }
-        .code-input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(250, 204, 21, 0.2); }
-        .activate-btn { width: 100%; background: linear-gradient(90deg, var(--gold), #fbbf24); color: #020617; border: none; padding: 16px; border-radius: 16px; font-weight: 900; cursor: pointer; font-size: 16px; transition: 0.2s; box-shadow: 0 4px 15px var(--gold-glow); }
-        .activate-btn:hover { transform: scale(0.98); opacity: 0.95; }
-
-        /* --- پەیامێن بێهنڤەدانێ ل سەرێ شاشێ --- */
-        .top-tip { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; color: #cbd5e1; font-size: 13px; text-align: center; margin-bottom: 20px; width: 100%; max-width: 450px; border-right: 4px solid var(--gold); }
-
-        /* --- لایەوتێ سەرەکی یێ ئەپڵیکەیشنێ --- */
-        .main-wrapper {
-            width: 100%; height: 100%; display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; opacity: 0; transform: scale(0.95); transition: all 0.5s ease;
-        }
-        .main-wrapper.show { opacity: 1; transform: scale(1); }
-
-        @media (max-width: 1050px) {
-            .main-wrapper { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
-            .main-card { height: auto !important; min-height: 85vh; }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        .main-card {
-            background: rgba(17, 20, 38, 0.45); border: 1px solid var(--card-border); border-radius: 28px;
-            padding: 25px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            display: flex; flex-direction: column; height: 100%; position: relative;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- پلاتفۆرمی بابەت و تاقیکرنان --- */
-        .brand-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
-        .brand-header h1 { font-size: 24px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
-        .brand-header p { color: var(--text-muted); font-size: 13px; font-weight: 600; margin-top: 6px; }
-        .section-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 12px; text-align: right; display: flex; align-items: center; gap: 8px; }
-        
-        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; margin-bottom: 20px; }
-        
-        /* شێوازێ بابەتان */
-        .subject-item { 
-            display: flex; align-items: center; justify-content: space-between; padding: 15px; 
-            background: rgba(255,255,255,0.02); color: #f1f5f9; border-radius: 18px; border: 1px solid var(--card-border); font-weight: 700; font-size: 14px; transition: 0.3s; text-decoration: none;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); position: relative; overflow: hidden;
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
         }
-        .subject-item:hover:not(.locked-subject) { border-color: var(--gold); background: rgba(250, 204, 21, 0.08); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-        /* شێوازێ بابەتێ هاتیە بلۆککرن/قفلکرن */
-        .subject-item.locked-subject {
-            background: rgba(255, 0, 85, 0.03) !important; border: 1px solid rgba(255, 0, 85, 0.15) !important;
-            color: rgba(255,255,255,0.2) !important; cursor: not-allowed !important; transform: none !important; box-shadow: none !important;
+        .header .logo-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: pulse 2s infinite;
         }
-        .lock-badge { background: #ff0055; color: white; padding: 2px 6px; border-radius: 6px; font-size: 10px; font-weight: 900; margin-right: 5px; }
 
-        /* --- پەنەلا پێشنیاران --- */
-        .suggestions-panel { flex: 1; background: rgba(0,0,0,0.2); border: 1px solid var(--card-border); border-radius: 20px; padding: 15px; overflow-y: auto; }
-        .suggestion-list { list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: right; font-size: 13px; color: #cbd5e1; }
-        .suggestion-list li { background: rgba(255,255,255,0.01); padding: 12px; border-radius: 12px; border-right: 4px solid var(--gold); }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-        /* --- دیشبۆرد و لایەنێ ڕێژەیا نمرە و پێشکەفتنێ --- */
-        .student-dashboard { background: rgba(0, 242, 254, 0.04); border: 1px solid rgba(0, 242, 254, 0.12); border-radius: 20px; padding: 16px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 12px; text-align: right; }
-        .dash-top { display: flex; justify-content: space-between; align-items: center; }
-        .student-info p { font-size: 15px; font-weight: 900; color: #fff; }
-        .student-stats { display: flex; gap: 15px; font-size: 12px; color: #a1a1aa; margin-top: 4px; }
-        .status-badge { background: var(--cyan-gradient); color: #000; padding: 4px 12px; border-radius: 10px; font-weight: 900; font-size: 11px; }
-        
-        /* بارێ پێشکەفتنێ (Progress Bar) */
-        .progress-container { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; position: relative; margin-top: 4px; }
-        .progress-bar { height: 100%; width: 0%; background: var(--cyan-gradient); transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
-        .progress-text { font-size: 11px; color: #00f2fe; font-weight: 700; text-align: left; margin-top: -2px; }
+        .header h1 {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-        /* --- بەشێ چاتا لایڤ --- */
-        .chat-header { padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: space-between; }
-        .group-info-chat { display: flex; align-items: center; gap: 12px; text-align: right; width: 100%; }
-        .group-avatar-chat { width: 44px; height: 44px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; }
-        .group-details-chat h2 { font-size: 1rem; font-weight: 700; }
-        .group-details-chat p { font-size: 0.78rem; color: #00f2fe; font-weight: 600; margin-top: 2px; }
+        .header p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
 
-        .chat-messages { flex: 1; padding: 15px 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; text-align: right; }
-        .message-wrapper { display: flex; gap: 10px; max-width: 85%; align-self: flex-start; }
-        .message-wrapper.me { align-self: flex-end; flex-direction: row-reverse; }
-        
-        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--pink-gradient); color: #fff; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
-        .message-wrapper.me .user-avatar { background: var(--cyan-gradient); color: #000; }
-        .message-wrapper.admin-msg .user-avatar { background: var(--admin-gradient) !important; color: #fff !important; box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
-        
-        .message-content { display: flex; flex-direction: column; gap: 4px; }
-        .user-name { font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-weight: 600; }
-        .admin-badge { background: #ff0055; color: #fff; padding: 1px 6px; border-radius: 6px; font-size: 10px; font-weight: 900; margin-right: 5px; }
-        
-        .message-text { padding: 11px 16px; border-radius: 18px; font-size: 0.92rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.03); border-top-right-radius: 4px; color: #e2e8f0; line-height: 1.5; }
-        .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.18); border-top-right-radius: 18px; border-top-left-radius: 4px; }
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
 
-        .chat-input-area { padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.06); display: flex; gap: 10px; align-items: center; }
-        .input-wrapper { flex: 1; display: flex; gap: 10px; align-items: center; flex-direction: row-reverse; }
-        .chat-input-area input[type="text"] { flex: 1; padding: 12px 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; color: #fff; font-size: 0.92rem; outline: none; text-align: right; }
-        
-        .file-label { background: rgba(255, 255, 255, 0.03); padding: 11px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid var(--card-border); }
-        .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 22px; height: 44px; border-radius: 14px; color: #020204; font-weight: 900; font-size: 0.9rem; cursor: pointer; }
-        
-        .hidden { display: none !important; }
-        .blocked-screen { position: absolute; top:0; left:0; width:100%; height:100%; background:#090a14; color:#ff3366; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:bold; font-size:20px; z-index:10000; text-align:center; padding:20px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-appearance: none; /* بۆ لادانا ستایلێ کۆن یێ سێلێکتێ */
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* ستایلکرنا تایبەت بۆ ناڤبڕا کارگێڕیا جۆری سلێکتەر */
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2338bdf8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 16px center;
+            background-size: 18px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0d9488 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .note {
+            background: rgba(239, 68, 68, 0.15);
+            border-right: 4px solid #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #fca5a5;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ١. شاشەیا قفلێ یا گشتی (هەتا کۆد لێ نەدەی چو تشت دیار نابن) -->
-    <div id="globalLock" class="global-lock-screen">
-        <div class="top-tip">١. ده‌ستپێكێ باوه‌ریێ ب خۆ بینە، تو دشێی نمرەکا بلند بزانی.</div>
-        <div class="lock-box">
-            <div class="lock-title">کۆدێ خۆ یێ تایبەت لێدە بۆ داخڵبوونێ</div>
-            <input type="text" id="code-field" class="code-input" placeholder="کۆدێ خۆ بنڤیسە (بۆ نموونە: STUDENT01 یان ADMIN123)...">
-            <button class="activate-btn" onclick="validateAccess()">پشکنین و بەشداریکردن</button>
-        </div>
+<div class="container">
+    <div class="header">
+        <div class="logo-icon">🦷</div>
+        <h1>Dr. Firdaws Dental Clinic</h1>
+        <p>سیستەمێ ئەلەکترۆنی یێ تۆمارکرنا ناڤ و مۆلەتان</p>
     </div>
 
-    <!-- ٢. لایەوت و شاشەیا سەرەکی یا بەرنامەی -->
-    <div class="main-wrapper" id="appLayout">
+    <div class="note">
+        ⚠️ <b>تێبینی:</b> کلینیک ل رۆژێن <b>ئەینی پێشوازیێ ل نەخۆشان ناکەت</b>. دەوام ژ شەمبی تا پێنجشەمبی یە.
+    </div>
+
+    <form id="bookingForm" onsubmit="handleSubmit(event)">
         
-        <!-- پلاتفۆرمی تاقیکرنان -->
-        <div class="main-card" id="exams-card">
-            <div id="subjects-menu">
-                <div class="brand-header">
-                    <h1>JEHAD PROVISOR</h1>
-                    <p>سیستەمێ تاقیکرنێن ئەلیکترۆنی پۆلا ١٢ (٢٠٢٥-٢٠٢٦)</p>
-                </div>
-                
-                <div class="section-title">✨ بابەتێن تاقیکرنێ (ل سەر لایەنێ خۆ کریک بکە)</div>
-                <div class="grid-layout">
-                    <!-- ناسنامەیێن ئایدی (id) دایە بابەتان بۆ کۆنتڕۆڵکرنێ -->
-                    <a href="kurdish.html" id="sub-kurdish" target="_blank" class="subject-item"><span>✒️ زمانێ کوردی</span><span>⬅️</span></a>
-                    <a href="arabic.html" id="sub-arabic" target="_blank" class="subject-item"><span>📜 زمانێ عەرەبی</span><span>⬅️</span></a>
-                    <a href="english.html" id="sub-english" target="_blank" class="subject-item"><span>🇬🇧 زمانێ ئینگلیزی</span><span>⬅️</span></a>
-                    <a href="fizya.html" id="sub-fizya" target="_blank" class="subject-item"><span>⚛️ فیزیا</span><span>⬅️</span></a>
-                    <a href="kimia.html" id="sub-kimia" target="_blank" class="subject-item"><span>🔬 کیمیا</span><span>⬅️</span></a>
-                    <a href="mejo.html" id="sub-mejo" target="_blank" class="subject-item"><span>⏳ مێژوو</span><span>⬅️</span></a>
-                    <a href="eslame.html" id="sub-eslame" target="_blank" class="subject-item"><span>🕌 پەروەردەیا ئیسلامی</span><span>⬅️</span></a>
-                    <a href="zindawar.html" id="sub-zindawar" target="_blank" class="subject-item"><span>🧬 زیندەوەر زانی</span><span>⬅️</span></a>
-                </div>
+        <!-- ناڤێ نەخۆشی -->
+        <div class="form-group">
+            <label for="fullName">ناڤێ سێ چاری یێ نەخۆشی:</label>
+            <input type="text" id="fullName" placeholder="بۆ نموونە: ئەحمەد عەلی حەسەن" required>
+        </div>
 
-                <div class="section-title">💡 پێشنیارێن کورت بۆ سەرکەفتنێ</div>
-                <div class="suggestions-panel">
-                    <ul class="suggestion-list">
-                        <li>• پرسیارێن سالێن دەربازبووی (٢٠١٩ تا ٢٠٢٥) زۆر چارەسەر بکە.</li>
-                        <li>• خەوا خۆ ڕێکبخە، کێمتری ٧ دەمژمێران نەخەوە.</li>
-                        <li>• تاقیکرنێن ئەلیکترۆنی ل سەر ڤی پلاتفۆرمی زۆر بکە دا ترسا تە بشکێت.</li>
-                    </ul>
-                </div>
+        <!-- ژمارا مۆبایلێ -->
+        <div class="form-group">
+            <label for="phone">ژمارا مۆبایلێ:</label>
+            <input type="tel" id="phone" placeholder="0750 XXX XX XX" style="text-align: left; direction: ltr;" required>
+        </div>
+
+        <!-- جۆرێ چارەسەریێ -->
+        <div class="form-group">
+            <label for="treatment">جۆرێ چارەسەریا ددانی:</label>
+            <select id="treatment" required>
+                <option value="" disabled selected>جۆرێ چارەسەریێ هەلبژێره...</option>
+                <option value="orthodontics">راستکرنا ددانا (تقویم)</option>
+                <option value="filling">پڕکرنا ددانی (حشوة)</option>
+                <option value="cleaning">پاقژکرن و سپیکرن (تنظیف)</option>
+                <option value="implants">چاندنا ددانا (زراعة)</option>
+                <option value="extraction">کێشانا ددانی</option>
+                <option value="consultation">پشکنینا گشتی / ئێشانا سەکەتە</option>
+            </select>
+        </div>
+
+        <!-- رۆژ و دەم (Grid) -->
+        <div class="grid-2">
+            <div class="form-group">
+                <label for="day">رۆژا سەرەدانێ:</label>
+                <select id="day" required>
+                    <option value="" disabled selected>رۆژێ دیارکە...</option>
+                    <option value="Saturday">شەمبی</option>
+                    <option value="Sunday">یەکشەمبی</option>
+                    <option value="Monday">دووشەمبی</option>
+                    <option value="Tuesday">سێشەمبی</option>
+                    <option value="Wednesday">چارشەمبی</option>
+                    <option value="Thursday">پێنجشەمبی</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="time">دەمژمێر (سەعەت):</label>
+                <select id="time" required>
+                    <option value="" disabled selected>دەمێ گونجای...</option>
+                    <option value="4:00 PM">04:00 ئێڤاری</option>
+                    <option value="5:00 PM">05:00 ئێڤاری</option>
+                    <option value="6:00 PM">06:00 ئێڤاری</option>
+                    <option value="7:00 PM">07:00 ئێڤاری</option>
+                    <option value="8:00 PM">08:00 شەڤ</option>
+                    <option value="9:00 PM">09:00 شەڤ</option>
+                </select>
             </div>
         </div>
 
-        <!-- بەشێ دیشبۆرد و چاتا نڤیسینێ -->
-        <div class="main-card" id="chat-card">
+        <!-- پشکۆژا ناردنێ -->
+        <button type="submit" class="btn-submit">تۆمارکرنا ناڤی و وەرگرتنا مۆلەتێ</button>
+    </form>
+</div>
 
-            <!-- دیشبۆرد و زانیاریێن قوتابی + بارێ پێشکەفتنێ (%) -->
-            <div class="student-dashboard">
-                <div class="dash-top">
-                    <div class="student-info">
-                        <p id="dashStudentName">ناسنامە: بار دکەت...</p>
-                        <div class="student-stats">
-                            <span id="dashStudentClass">پۆل: --</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="status-badge" id="dashStudentLevel">زانستی</span>
-                    </div>
-                </div>
-                <!-- بارێ نیشاندانا ڕێژەیا کارکرنێ یا قوتابی -->
-                <div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-                        <span style="font-size:11px; color:#a1a1aa;">ڕێژەیا بەرهەڤیا تاقیکرنان:</span>
-                        <span class="progress-text" id="progressPercent">0%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-                </div>
-            </div>
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('fullName').value;
+        const phone = document.getElementById('phone').value;
+        const treatment = document.getElementById('treatment').options[document.getElementById('treatment').selectedIndex].text;
+        const day = document.getElementById('day').options[document.getElementById('day').selectedIndex].text;
+        const time = document.getElementById('time').options[document.getElementById('time').selectedIndex].text;
 
-            <div class="chat-header">
-                <div class="group-info-chat">
-                    <div class="group-avatar-chat">🔒</div>
-                    <div class="group-details-chat">
-                        <h2>کۆڕبەندا نڤیسینێ یا قوتابیان (ئەنۆنیمۆس)</h2>
-                        <p id="connectionStatus">تنێ نڤیسین کار دکەت - پەیوەندی یا پاراستیە</p>
-                    </div>
-                </div>
-            </div>
+        // پیشاندانا نامەکا سەرکەفتنێ (دشێی پاشان ببەستی ب داتابەیسێ ڤە)
+        alert(`سەرکەفتبوو! Наڤێ تە هاتە تۆمارکرن.\n\nنەخۆش: ${name}\nرۆژا: ${day}\nدەم: ${time}\nبابەت: ${treatment}\nدێ پەیوەندی ب ژمارا ${phone} هێتە کرن بۆ پشتڕاستکرنێ.`);
+    }
+</script>
 
-            <div class="chat-messages" id="chatMessages"></div>
-
-            <div class="chat-input-area">
-                <button class="send-btn" id="sendBtn">ناردن</button>
-                <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە..." autocomplete="off">
-                    <label class="file-label" for="fileInput" title="فایل">📁
-                        <input type="file" id="fileInput" accept="image/*,video/*,.pdf" style="display:none;">
-                    </label>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        let isAdmin = false;
-        let myAnonymousID = "";
-        let studentClass = "";
-
-        // دروستکرنا ٢٠ کۆدان (١ تا ١٠ زانستی، ١١ تا ٢٠ وێژەیی)
-        const validCodes = {};
-        for (let i = 1; i <= 10; i++) {
-            validCodes[`STUDENT${i < 10 ? '0' + i : i}`] = { name: `قوتابی_${1000 + i}`, class: "زانستی", progress: "85%" };
-        }
-        for (let i = 11; i <= 20; i++) {
-            validCodes[`STUDENT${i}`] = { name: `قوتابی_${1000 + i}`, class: "وێژەیی", progress: "70%" };
-        }
-
-        function validateAccess() {
-            const inputVal = document.getElementById("code-field").value.trim().toUpperCase();
-
-            if (inputVal === "ADMIN123") {
-                isAdmin = true;
-                myAnonymousID = "ADMIN 👑";
-                studentClass = "ڕێڤەبەر";
-                
-                setupDashboard(myAnonymousID, studentClass, "100%", "ڕێڤەبەر");
-                unlockAllSubjects();
-                hideLockScreen();
-            } else if (validCodes[inputVal]) {
-                isAdmin = false;
-                myAnonymousID = validCodes[inputVal].name;
-                studentClass = validCodes[inputVal].class;
-                let userProgress = validCodes[inputVal].progress;
-                
-                setupDashboard("قوتابیێ پۆلا ١٢ (🔒)", studentClass, userProgress, studentClass);
-                applySubjectRestrictions(studentClass);
-                hideLockScreen();
-            } else {
-                alert("❌ کۆدێ داخڵبوونێ خەلەتە! تکایە کۆدەکێ دروست بنڤیسە.");
-            }
-        }
-
-        function hideLockScreen() {
-            // بەرزەکرنا شاشەیا قفلێ ب ئەنیمەیشنەکا جوان
-            const lockScreen = document.getElementById("globalLock");
-            lockScreen.style.opacity = "0";
-            setTimeout(() => {
-                lockScreen.classList.add("hidden");
-                document.getElementById("appLayout").classList.add("show");
-            }, 500);
-        }
-
-        function setupDashboard(name, pۆl, progress, badgeText) {
-            document.getElementById("dashStudentName").innerText = "ناسنامە: " + name;
-            document.getElementById("dashStudentClass").innerText = "پۆل: " + pۆl;
-            document.getElementById("dashStudentLevel").innerText = "ئاست: " + badgeText;
-            
-            // ئەنیمەیشن بۆ بارێ ڕێژەیێ
-            setTimeout(() => {
-                document.getElementById("progressBar").style.width = progress;
-                document.getElementById("progressPercent").innerText = progress;
-            }, 600);
-        }
-
-        function applySubjectRestrictions(type) {
-            // ل دەستپێکێ هەمی بابەتان پاقژ دکەین
-            unlockAllSubjects();
-
-            if (type === "زانستی") {
-                // زانستی نەشێت مێژوویێ بکەت
-                lockSubject("sub-mejo", "تایبەت ب وێژەیی");
-            } else if (type === "وێژەیی") {
-                // وێژەیی نەشێت فیزیا، کیمیا، زیندەوەر بکەت
-                lockSubject("sub-fizya", "تایبەت ب زانستی");
-                lockSubject("sub-kimia", "تایبەت ب زانستی");
-                lockSubject("sub-zindawar", "تایبەت ب زانستی");
-            }
-        }
-
-        function lockSubject(elementId, message) {
-            const el = document.getElementById(elementId);
-            if (el) {
-                el.classList.add("locked-subject");
-                el.removeAttribute("target");
-                // گۆڕینی لایەنێ کلیکێ دا کو نەچیتە ناڤ تاقیکرنێ
-                el.onclick = function(e) {
-                    e.preventDefault();
-                    alert(`❌ تو نەشێی ڤێ تاقیکرنێ بکەی! چونکی ئەڤە ${message} یە.`);
-                    return false;
-                };
-                // زێدەکرنا باجەکا بچووک د ناڤ دا
-                el.innerHTML += `<span class="lock-badge">🔒 قفلە</span>`;
-            }
-        }
-
-        function unlockAllSubjects() {
-            const subjects = ["sub-kurdish", "sub-arabic", "sub-english", "sub-fizya", "sub-kimia", "sub-mejo", "sub-eslame", "sub-zindawar"];
-            subjects.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.classList.remove("locked-subject");
-                    el.onclick = null;
-                    el.setAttribute("target", "_blank");
-                    const badge = el.querySelector(".lock-badge");
-                    if (badge) badge.remove();
-                }
-            });
-        }
-
-        // --- سیستەمێ ناردنا نامەیان یێ کورت د چاتێ دا ---
-        const chatMessages = document.getElementById('chatMessages');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-
-        sendBtn.addEventListener('click', () => {
-            const text = messageInput.value.trim();
-            if(!text) return;
-            
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('message-wrapper', 'me');
-            wrapper.innerHTML = `
-                <div class="user-avatar">تۆ</div>
-                <div class="message-content">
-                    <span class="user-name">تۆ (🔒 ڤەشارتی)</span>
-                    <div class="message-text">${text}</div>
-                </div>
-            `;
-            chatMessages.appendChild(wrapper);
-            messageInput.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        });
-    </script>
 </body>
 </html>
