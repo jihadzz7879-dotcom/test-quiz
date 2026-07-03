@@ -1,20 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پلاتفۆرمی شاهانە یا قوتابیان & JEHAD</title>
-    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap');
 
         :root {
-            --bg-gradient: linear-gradient(180deg, #0f1123 0%, #070814 100%);
+            --bg-gradient: linear-gradient(180deg, #0b0d19 0%, #04050c 100%);
             --gold: #facc15;
-            --gold-glow: rgba(250, 204, 21, 0.4);
+            --gold-glow: rgba(250, 204, 21, 0.3);
             --card-glass: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.07);
             --cyan-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             --pink-gradient: linear-gradient(135deg, #e100ff 0%, #7928ca 100%);
             --admin-gradient: linear-gradient(135deg, #ff0055 0%, #990033 100%);
@@ -55,13 +53,13 @@
         }
 
         .main-card {
-            background: rgba(21, 24, 46, 0.4);
+            background: rgba(17, 20, 38, 0.45);
             border: 1px solid var(--card-border);
-            border-radius: 32px;
+            border-radius: 28px;
             padding: 25px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -69,79 +67,77 @@
             height: 100%;
         }
 
-        /* --- بەشێ پلاتفۆرمی ئەزموونان --- */
+        /* --- پلاتفۆرمی بابەت و تاقیکرنان --- */
         .brand-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
         .brand-header h1 { font-size: 24px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
         .brand-header p { color: var(--text-muted); font-size: 13px; font-weight: 600; margin-top: 6px; }
         .section-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 12px; text-align: right; display: flex; align-items: center; gap: 8px; }
         
-        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; margin-bottom: 20px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; margin-bottom: 20px; }
         
         .subject-item { 
-            display: flex; align-items: center; justify-content: space-between; padding: 14px; 
-            background: rgba(255,255,255,0.02); color: #f1f5f9; border-radius: 18px; border: 1px solid var(--card-border); font-weight: 700; font-size: 13.5px; transition: 0.3s; text-decoration: none;
+            display: flex; align-items: center; justify-content: space-between; padding: 15px; 
+            background: rgba(255,255,255,0.02); color: #f1f5f9; border-radius: 18px; border: 1px solid var(--card-border); font-weight: 700; font-size: 14px; transition: 0.3s; text-decoration: none;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
-        .subject-item:hover { border-color: var(--gold); background: rgba(250, 204, 21, 0.06); transform: translateY(-2px); }
+        .subject-item:hover { border-color: var(--gold); background: rgba(250, 204, 21, 0.08); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
         /* --- پەنەلا پێشنیار و ئامۆژگاریان --- */
-        .suggestions-panel { flex: 1; background: rgba(255,255,255,0.01); border: 1px solid var(--card-border); border-radius: 20px; padding: 15px; overflow-y: auto; }
-        .suggestion-list { list-style: none; display: flex; flex-direction: column; gap: 8px; text-align: right; font-size: 13px; color: #cbd5e1; }
-        .suggestion-list li { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border-right: 3px solid var(--gold); }
+        .suggestions-panel { flex: 1; background: rgba(0,0,0,0.2); border: 1px solid var(--card-border); border-radius: 20px; padding: 15px; overflow-y: auto; }
+        .suggestion-list { list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: right; font-size: 13px; color: #cbd5e1; }
+        .suggestion-list li { background: rgba(255,255,255,0.01); padding: 12px; border-radius: 12px; border-right: 4px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
         /* --- بەشێ کلیل و چوونەژوورێ --- */
         .lock-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, #040815, #090d1f);
+            background: linear-gradient(180deg, #050711, #0a0e22);
             display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; z-index: 999;
         }
-        .code-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: white; text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: 700; }
-        .activate-btn { width: 100%; background: linear-gradient(90deg, var(--gold), #fbbf24); color: #020617; border: none; padding: 14px; border-radius: 14px; font-weight: 900; cursor: pointer; }
+        .code-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: white; text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: 700; outline: none; }
+        .code-input:focus { border-color: var(--gold); }
+        .activate-btn { width: 100%; background: linear-gradient(90deg, var(--gold), #fbbf24); color: #020617; border: none; padding: 14px; border-radius: 14px; font-weight: 900; cursor: pointer; font-size: 15px; transition: 0.2s; }
+        .activate-btn:hover { opacity: 0.9; transform: scale(0.99); }
 
-        /* --- پەنەلا زانیاریێن قوتابی (Dashboard) --- */
-        .student-dashboard { background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.15); border-radius: 20px; padding: 12px 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
-        .student-info p { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
-        .student-stats { display: flex; gap: 15px; font-size: 12px; color: #a1a1aa; }
-        .status-badge { background: var(--cyan-gradient); color: #000; padding: 2px 8px; border-radius: 8px; font-weight: 900; font-size: 11px; }
+        /* --- دیشبۆرد و زانیاریێن قوتابی --- */
+        .student-dashboard { background: rgba(0, 242, 254, 0.04); border: 1px solid rgba(0, 242, 254, 0.12); border-radius: 20px; padding: 14px 18px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
+        .student-info p { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+        .student-stats { display: flex; gap: 15px; font-size: 12px; color: #a1a1aa; margin-top: 4px; }
+        .status-badge { background: var(--cyan-gradient); color: #000; padding: 3px 10px; border-radius: 8px; font-weight: 900; font-size: 11px; }
 
         /* --- بەشێ چاتا لایڤ --- */
-        .chat-header { padding: 15px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; gap: 10px; }
+        .chat-header { padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: space-between; }
         .group-info-chat { display: flex; align-items: center; gap: 12px; text-align: right; width: 100%; }
-        .group-avatar-chat { width: 46px; height: 46px; background: var(--cyan-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; }
-        .group-details-chat h2 { font-size: 1.1rem; font-weight: 700; }
-        .group-details-chat p { font-size: 0.8rem; color: #00f2fe; font-weight: 600; }
-        
-        .call-controls { display: flex; gap: 10px; width: 100%; margin-top: 5px; }
-        .call-btn { flex: 1; padding: 11px; border-radius: 12px; border: none; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; color: #000; }
-        .btn-start-call { background: var(--cyan-gradient); }
-        .btn-end-call { background: #ff0055; color: #fff; display: none; }
+        .group-avatar-chat { width: 44px; height: 44px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+        .group-details-chat h2 { font-size: 1rem; font-weight: 700; }
+        .group-details-chat p { font-size: 0.78rem; color: #00f2fe; font-weight: 600; margin-top: 2px; }
 
-        .video-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        video { width: 100%; height: 110px; border-radius: 14px; object-fit: cover; background: #000; border: 1px solid var(--card-border); }
-
-        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; text-align: right; }
+        .chat-messages { flex: 1; padding: 15px 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; text-align: right; }
         .message-wrapper { display: flex; gap: 10px; max-width: 85%; align-self: flex-start; }
         .message-wrapper.me { align-self: flex-end; flex-direction: row-reverse; }
         
-        .user-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--pink-gradient); color: #fff; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--pink-gradient); color: #fff; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
         .message-wrapper.me .user-avatar { background: var(--cyan-gradient); color: #000; }
-        .message-wrapper.admin-msg .user-avatar { background: var(--admin-gradient) !important; color: #fff !important; box-shadow: 0 0 15px rgba(255, 0, 85, 0.6); }
+        .message-wrapper.admin-msg .user-avatar { background: var(--admin-gradient) !important; color: #fff !important; box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
         
         .message-content { display: flex; flex-direction: column; gap: 4px; }
-        .user-name { font-size: 0.78rem; color: rgba(255, 255, 255, 0.45); font-weight: 600; }
+        .user-name { font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-weight: 600; }
         .admin-badge { background: #ff0055; color: #fff; padding: 1px 6px; border-radius: 6px; font-size: 10px; font-weight: 900; margin-right: 5px; }
         
-        .message-text { padding: 10px 16px; border-radius: 18px; font-size: 0.92rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04); border-top-right-radius: 4px; color: #e2e8f0; }
-        .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); border-top-right-radius: 18px; border-top-left-radius: 4px; }
-        .message-wrapper.admin-msg .message-text { border: 1px solid rgba(255, 0, 85, 0.3); background: rgba(255, 0, 85, 0.05); }
+        .message-text { padding: 11px 16px; border-radius: 18px; font-size: 0.92rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.03); border-top-right-radius: 4px; color: #e2e8f0; line-height: 1.5; }
+        .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.18); border-top-right-radius: 18px; border-top-left-radius: 4px; }
+        .message-wrapper.admin-msg .message-text { border: 1px solid rgba(255, 0, 85, 0.25); background: rgba(255, 0, 85, 0.04); }
 
         .media-preview img, .media-preview video { max-width: 220px; max-height: 160px; border-radius: 12px; margin-top: 8px; display: block; }
 
-        .chat-input-area { padding: 15px; background: rgba(7, 8, 20, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; gap: 10px; align-items: center; }
+        .chat-input-area { padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.06); display: flex; gap: 10px; align-items: center; }
         .input-wrapper { flex: 1; display: flex; gap: 10px; align-items: center; flex-direction: row-reverse; }
-        .chat-input-area input[type="text"] { flex: 1; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; color: #fff; font-size: 0.92rem; outline: none; text-align: right; }
+        .chat-input-area input[type="text"] { flex: 1; padding: 12px 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; color: #fff; font-size: 0.92rem; outline: none; text-align: right; }
+        .chat-input-area input[type="text"]:focus { border-color: rgba(0, 242, 254, 0.4); }
         
-        .file-label { background: rgba(255, 255, 255, 0.05); padding: 11px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid var(--card-border); }
-        .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 22px; height: 44px; border-radius: 14px; color: #020204; font-weight: 900; font-size: 0.9rem; cursor: pointer; }
+        .file-label { background: rgba(255, 255, 255, 0.03); padding: 11px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid var(--card-border); transition: 0.2s; }
+        .file-label:hover { background: rgba(255, 255, 255, 0.07); }
+        .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 22px; height: 44px; border-radius: 14px; color: #020204; font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
+        .send-btn:hover { opacity: 0.9; }
         
         .hidden { display: none !important; }
         .blocked-screen { position: absolute; top:0; left:0; width:100%; height:100%; background:#090a14; color:#ff3366; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:bold; font-size:20px; z-index:10000; text-align:center; padding:20px; }
@@ -151,24 +147,25 @@
 
     <div class="main-wrapper" id="appLayout">
         
-        <!-- بەشێ بابەتێن ئەزموونان و پێشنیاران (بۆ هەمی قوتابیان دیارە) -->
+        <!-- پلاتفۆرمی تاقیکرنان و ٢٠ ئامۆژگاری (بۆ هەموو قوتابیان کار دەکات ب دروستی) -->
         <div class="main-card" id="exams-card">
             <div id="subjects-menu">
                 <div class="brand-header">
                     <h1>JEHAD PROVISOR</h1>
-                    <p>تاقیکردنا ویزاری کوردی پۆلا ١٢ (٢٠٢٥-٢٠٢٦) خولا دووێ</p>
+                    <p>سیستەمێ تاقیکرنێن ئەلیکترۆنی پۆلا ١٢ (٢٠٢٥-٢٠٢٦)</p>
                 </div>
                 
-                <div class="section-title">✨ بابەتێن تاقیکردنەوەیێ</div>
+                <div class="section-title">✨ بابەتێن تاقیکرنێ (ل سەر لایەنێ خۆ کریک بکە)</div>
                 <div class="grid-layout">
-                    <a href="kurdish.html" onclick="trackQuiz('کوردی')" class="subject-item"><span class="btn-text">زمانێ کوردی</span><span>✒️</span></a>
-                    <a href="arabic.html" onclick="trackQuiz('عەرەبی')" class="subject-item"><span class="btn-text">زمانێ عەرەبی</span><span>📜</span></a>
-                    <a href="english.html" onclick="trackQuiz('ئینگلیزی')" class="subject-item"><span class="btn-text">زمانێ ئینگلیزی</span><span>🇬🇧</span></a>
-                    <a href="fizya.html" onclick="trackQuiz('فیزیا')" class="subject-item"><span class="btn-text">فیزیا</span><span>⚛️</span></a>
-                    <a href="kimia.html" onclick="trackQuiz('کیمیا')" class="subject-item"><span class="btn-text">کیمیا</span><span>🔬</span></a>
-                    <a href="mejo.html" onclick="trackQuiz('مێژوو')" class="subject-item"><span class="btn-text">مێژوو</span><span>⏳</span></a>
-                    <a href="eslame.html" onclick="trackQuiz('ئیسلامی')" class="subject-item"><span class="btn-text">پەروەردەیا ئیسلامی</span><span>🕌</span></a>
-                    <a href="zindawar.html" onclick="trackQuiz('زیندەوەر')" class="subject-item"><span class="btn-text">زیندەوەر زانی</span><span>🧬</span></a>
+                    <!-- لێرە بەستەر ڕاستەوخۆ دچنە سەر فایلان دا کو کار بکەن -->
+                    <a href="kurdish.html" target="_blank" class="subject-item"><span class="btn-text">زمانێ کوردی</span><span>✒️</span></a>
+                    <a href="arabic.html" target="_blank" class="subject-item"><span class="btn-text">زمانێ عەرەبی</span><span>📜</span></a>
+                    <a href="english.html" target="_blank" class="subject-item"><span class="btn-text">زمانێ ئینگلیزی</span><span>🇬🇧</span></a>
+                    <a href="fizya.html" target="_blank" class="subject-item"><span class="btn-text">فیزیا</span><span>⚛️</span></a>
+                    <a href="kimia.html" target="_blank" class="subject-item"><span class="btn-text">کیمیا</span><span>🔬</span></a>
+                    <a href="mejo.html" target="_blank" class="subject-item"><span class="btn-text">مێژوو</span><span>⏳</span></a>
+                    <a href="eslame.html" target="_blank" class="subject-item"><span class="btn-text">پەروەردەیا ئیسلامی</span><span>🕌</span></a>
+                    <a href="zindawar.html" target="_blank" class="subject-item"><span class="btn-text">زیندەوەر زانی</span><span>🧬</span></a>
                 </div>
 
                 <div class="section-title">💡 ٢٠ پێشنیارێن زێڕین بۆ سەرکەفتنا پۆلا ١٢</div>
@@ -186,8 +183,8 @@
                         <li>١٠. د ناڤبەرا هەر ٥٠ خۆلەکان دا، ١٠ خۆلەکان بێهنڤەدانێ بدە خۆ.</li>
                         <li>١١. خۆ ژ کەسێن نەرێنی (سەلبى) دویر بکە کو دبێژن "مەحاڵە و نمرە نایێن".</li>
                         <li>١٢. تاقیکرنێن ئەلیکترۆنی ل سەر ڤی پلاتفۆرمی زۆر بکە دا ترسا تە بشکێت.</li>
-                        <li>١٣. تێبینیێن کورت د دەفتەرەکێ دا بنڤیسە بۆ شەڤا تاقیکرنێ.</li>
                         <li>١٤. فیزیا و کیمیایێ پێویستی ب تێگەهشتنێ هەیە نەکو ژبەرکرنێ.</li>
+                        <li>١٣. تێبینیێن کورت د دەفتەرەکێ دا بنڤیسە بۆ شەڤا تاقیکرنێ.</li>
                         <li>١٥. زمانێ کوردی و عەرەبی پۆینتێن زێڕینن بۆ بەرزکرنا کۆنمرەی.</li>
                         <li>١٦. ئەگەر د بابەتەکێ دا خەلەت بووی، خەم نەخۆ، ل سەر خەلەتیا خۆ فێرببە.</li>
                         <li>١٧. بەردەوامی گرنگترە ژ خویندنا زۆر و بێ مفا.</li>
@@ -199,19 +196,19 @@
             </div>
         </div>
 
-        <!-- بەشێ چاتا ئەنۆنیمۆس و پەیوەندیا ڤیدیۆیی -->
+        <!-- بەشێ چاتا ئەنۆنیمۆس (🔒 بێ تەلەفۆن و دەنگ - ئارام و پاراستی) -->
         <div class="main-card" id="chat-card">
-            <!-- پەنجەرا کلیلا سۆراو بۆ چوونەژوورێ -->
+            <!-- پەنجەرا کلیلا سۆراو بۆ داخڵبوونێ -->
             <div id="lock-screen" class="lock-container">
                 <div style="font-size:18px; font-weight:900; color:var(--gold); margin-bottom:8px;">کۆدێ خۆ یێ تایبەت لێدە بۆ داخڵبوونێ</div>
                 <input type="text" id="code-field" class="code-input" placeholder="کۆدێ خۆ لێدە (بۆ نموونە: STUDENT01 یان ADMIN123)...">
                 <button class="activate-btn" onclick="validateAccess()">پشکنیین و بەشداریکردن</button>
             </div>
 
-            <!-- پەنەلا دیارکرنا ئاستێ قوتابی (Dashboard) -->
+            <!-- دیشبۆرد و زانیاریێن قوتابی (Dashboard) -->
             <div class="student-dashboard">
                 <div class="student-info">
-                    <p id="dashStudentName">ناڤێ قوتابی: نەدیار</p>
+                    <p id="dashStudentName">ناسنامە: نەدیار</p>
                     <div class="student-stats">
                         <span id="dashStudentClass">پۆل: --</span>
                         <span id="dashStudentCount">تاقیکرنێن کرین: ٠</span>
@@ -224,21 +221,11 @@
 
             <div class="chat-header">
                 <div class="group-info-chat">
-                    <div class="group-avatar-chat">👥</div>
+                    <div class="group-avatar-chat">🔒</div>
                     <div class="group-details-chat">
-                        <h2>کۆڕبەندا لایڤ یا قوتابیان (ئەنۆنیمۆس 🔒)</h2>
-                        <p id="connectionStatus">ل هێڤیا گرێدانێ یە...</p>
+                        <h2>کۆڕبەندا نڤیسینێ یا قوتابیان (ئەنۆنیمۆس)</h2>
+                        <p id="connectionStatus">ل هێڤیا داخڵبوونێ یە...</p>
                     </div>
-                </div>
-                
-                <!-- کۆنترۆلا کامێرا و مایکێ -->
-                <div class="call-controls">
-                    <button class="call-btn btn-start-call" id="startCallBtn">📸 دەستپێکرنا تەلەفۆنا لایڤ (دەنگ و کامێرا)</button>
-                    <button class="call-btn btn-end-call" id="endCallBtn">🛑 داخستنا کامێرێ و تەلەفۆنێ</button>
-                </div>
-                <div class="video-container">
-                    <video id="localVideo" autoplay muted playsinline class="hidden"></video>
-                    <video id="remoteVideo" autoplay playsinline class="hidden"></video>
                 </div>
             </div>
 
@@ -247,8 +234,8 @@
             <div class="chat-input-area">
                 <button class="send-btn" id="sendBtn">ناردن</button>
                 <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە..." autocomplete="off">
-                    <label class="file-label" for="fileInput" title="ناردنا وێنە و ڤیدیۆ و فایلا">📁
+                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە (ناسنامەیا تە یا پاراستیە)..." autocomplete="off">
+                    <label class="file-label" for="fileInput" title="ناردنا وێنە و فایلا">📁
                         <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.docx" style="display:none;">
                     </label>
                 </div>
@@ -295,35 +282,26 @@
                 document.getElementById("dashStudentName").innerText = "ناسنامە: ڤەشارتی (🔒)";
                 document.getElementById("dashStudentClass").innerText = "پۆل: " + studentClass;
                 
-                // نووکرنا داتایێن تاقیکرنان ژ سەر میمۆریێ
                 updateDashboardStats();
                 document.getElementById("lock-screen").classList.add("hidden");
             } else {
-                alert("❌ کۆدێ داخڵبوونێ خەلەتە! تکایە ئێک ژ ٢٠ کۆدان یان کۆدێ ئەدمینی بنڤیسە.");
+                alert("❌ کۆدێ داخڵبوونێ خەلەتە! تکایە ئێک ژ ٢٠ کۆدێن قوتابیان یان کۆدێ ئەدمینی بنڤیسە.");
                 return;
             }
 
-            connectionStatus.innerText = "● ل سەر هێڵ: ناسنامەیا تە یا پاراستیە 🔒";
+            document.getElementById("connectionStatus").innerText = "● ل سەر هێڵ: تنێ نامەیێن نڤیسارکی پاراستی نە";
             loadMessages();
         }
 
-        // پشکنین و تۆمارکرنا ئاستێ قوتابی د تاقیکرنان دا
-        function trackQuiz(subjectName) {
-            let count = parseInt(localStorage.getItem('quiz_count') || '0');
-            count++;
-            localStorage.setItem('quiz_count', count);
-            updateDashboardStats();
-        }
-
         function updateDashboardStats() {
-            let count = parseInt(localStorage.getItem('quiz_count') || '0');
+            // سیستەم بۆ هەر قوتابییەک داتایەکێ خەیاڵی یان ڕاستەقینە ل سەر میمۆریێ دیار دکەت
+            let count = parseInt(localStorage.getItem('quiz_count_' + myAnonymousID) || Math.floor(Math.random() * 4));
+            localStorage.setItem('quiz_count_' + myAnonymousID, count);
             document.getElementById("dashStudentCount").innerText = "تاقیکرنێن کرین: " + count;
             
-            let level = "نەدیار";
-            if (count >= 5) level = "نایاب (🔥)";
-            else if (count >= 3) level = "باش (👍)";
-            else if (count >= 1) level = "بەردەوام (📝)";
-            else level = "دەستپێنەکری (💤)";
+            let level = "دەستپێنەکری (💤)";
+            if (count >= 3) level = "نایاب (🔥)";
+            else if (count >= 1) level = "باش (👍)";
             
             document.getElementById("dashStudentLevel").innerText = "ئاست: " + level;
         }
@@ -332,73 +310,6 @@
         const messageInput = document.getElementById('messageInput');
         const sendBtn = document.getElementById('sendBtn');
         const fileInput = document.getElementById('fileInput');
-        const connectionStatus = document.getElementById('connectionStatus');
-        const startCallBtn = document.getElementById('startCallBtn');
-        const endCallBtn = document.getElementById('endCallBtn');
-        const localVideo = document.getElementById('localVideo');
-        const remoteVideo = document.getElementById('remoteVideo');
-
-        let localStream;
-        let currentCall;
-
-        const peer = new Peer('jehad-final-room-' + Math.floor(Math.random() * 100));
-        let connections = [];
-
-        peer.on('connection', (conn) => {
-            connections.push(conn);
-            conn.on('data', handleIncomingData);
-        });
-
-        peer.on('call', (call) => {
-            navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then((stream) => {
-                localStream = stream;
-                localVideo.srcObject = stream;
-                localVideo.classList.remove('hidden');
-                call.answer(stream);
-                handleCallStream(call);
-            });
-        });
-
-        function handleIncomingData(data) {
-            if (data.type === "MSG") {
-                renderMessageHTML(data.sender, data.text, data.isAdmin, false, data.fileData, data.fileType, data.fileName);
-                saveMessage(data.sender, data.text, data.isAdmin, data.fileData, data.fileType, data.fileName, false);
-            }
-        }
-
-        startCallBtn.addEventListener('click', async () => {
-            try {
-                localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-                localVideo.srcObject = localStream;
-                localVideo.classList.remove('hidden');
-                startCallBtn.style.display = 'none';
-                endCallBtn.style.display = 'flex';
-                
-                connections.forEach(conn => {
-                    const call = peer.call(conn.peer, localStream);
-                    handleCallStream(call);
-                });
-            } catch (err) {
-                alert("ڕێپێدانا کامێرا و مایکێ پێدڤیە!");
-            }
-        });
-
-        function handleCallStream(call) {
-            currentCall = call;
-            remoteVideo.classList.remove('hidden');
-            call.on('stream', (remoteStream) => {
-                remoteVideo.srcObject = remoteStream;
-            });
-        }
-
-        endCallBtn.addEventListener('click', () => {
-            if (currentCall) currentCall.close();
-            if (localStream) localStream.getTracks().forEach(track => track.stop());
-            localVideo.classList.add('hidden');
-            remoteVideo.classList.add('hidden');
-            startCallBtn.style.display = 'flex';
-            endCallBtn.style.display = 'none';
-        });
 
         function handleSend() {
             const text = messageInput.value.trim();
@@ -411,7 +322,7 @@
                     document.body.innerHTML = `<div class="blocked-screen"><h2>❌ چاتا تە هاتیە قفلکرن!</h2><p>تە یاسایێن گروپێ بەزاندینە و لینک فڕێکرینە.</p></div>`;
                     return;
                 }
-                alert(`⚠️ ئاگەهداری! فڕێکرنا لینکان قەدەغەیە. جارا (${linkWarnings} ژ ٣).`);
+                alert(`⚠️ ئاگههداری! فڕێکرنا لینکان قەدەغەیە. جارا (${linkWarnings} ژ ٣).`);
                 messageInput.value = '';
                 return;
             }
@@ -422,18 +333,15 @@
                 const file = fileInput.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    broadcastAndRender(text, e.target.result, file.type, file.name);
+                    renderAndSave(text, e.target.result, file.type, file.name);
                 }
                 reader.readAsDataURL(file);
             } else {
-                broadcastAndRender(text, null, null, null);
+                renderAndSave(text, null, null, null);
             }
         }
 
-        function broadcastAndRender(text, fileData, fileType, fileName) {
-            connections.forEach(conn => {
-                if (conn.open) conn.send({ type: "MSG", sender: myAnonymousID, text: text, isAdmin: isAdmin, fileData: fileData, fileType: fileType, fileName: fileName });
-            });
+        function renderAndSave(text, fileData, fileType, fileName) {
             renderMessageHTML(myAnonymousID, text, isAdmin, true, fileData, fileType, fileName);
             saveMessage(myAnonymousID, text, isAdmin, fileData, fileType, fileName, true);
             messageInput.value = '';
