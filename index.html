@@ -44,13 +44,8 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-columns: 1.1fr 1fr;
+            grid-template-columns: 1fr; /* ل سەرەتا تنێ چات دیارە بۆ قوتابیان */
             gap: 20px;
-        }
-
-        @media (max-width: 950px) {
-            .main-wrapper { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
-            .main-card { height: 85vh !important; }
         }
 
         .main-card {
@@ -68,20 +63,20 @@
             height: 100%;
         }
 
-        /* --- بەشێ پلاتفۆرمی ئەزموونان --- */
+        /* --- بەشێ بابەتێن ئەزموونان --- */
         .brand-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
-        .brand-header h1 { font-size: 24px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
+        .brand-header h1 { font-size: 22px; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); }
         .brand-header p { color: var(--text-muted); font-size: 13px; font-weight: 600; margin-top: 6px; }
-        .section-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 15px; text-align: right; display: flex; align-items: center; gap: 8px; }
+        .section-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 15px; text-align: right; }
         
-        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; overflow-y: auto; padding-right: 5px; }
-        
+        .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; overflow-y: auto; }
         .subject-item { 
             display: flex; align-items: center; justify-content: space-between; padding: 14px; 
             background: rgba(255,255,255,0.02); color: #f1f5f9; border-radius: 18px; border: 1px solid var(--card-border); font-weight: 700; font-size: 13.5px; transition: 0.3s; text-decoration: none;
         }
         .subject-item:hover { border-color: var(--gold); background: rgba(250, 204, 21, 0.06); transform: translateY(-2px); }
 
+        /* --- بەشێ کلیل و چوونەژوورێ --- */
         .lock-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, #040815, #090d1f);
@@ -90,7 +85,7 @@
         .code-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: white; text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: 700; }
         .activate-btn { width: 100%; background: linear-gradient(90deg, var(--gold), #fbbf24); color: #020617; border: none; padding: 14px; border-radius: 14px; font-weight: 900; cursor: pointer; }
 
-        /* --- بەشێ چات و تەلەفۆنێ --- */
+        /* --- بەشێ چاتا لایڤ --- */
         .chat-header { padding: 15px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; gap: 10px; }
         .group-info-chat { display: flex; align-items: center; gap: 12px; text-align: right; width: 100%; }
         .group-avatar-chat { width: 46px; height: 46px; background: var(--cyan-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; }
@@ -121,25 +116,23 @@
         .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); border-top-right-radius: 18px; border-top-left-radius: 4px; }
         .message-wrapper.admin-msg .message-text { border: 1px solid rgba(255, 0, 85, 0.3); background: rgba(255, 0, 85, 0.05); }
 
-        .media-preview img, .media-preview video { max-width: 220px; max-height: 160px; border-radius: 12px; margin-top: 8px; display: block; border: 1px solid rgba(255,255,255,0.1); }
+        .media-preview img, .media-preview video { max-width: 220px; max-height: 160px; border-radius: 12px; margin-top: 8px; display: block; }
 
         .chat-input-area { padding: 15px; background: rgba(7, 8, 20, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; gap: 10px; align-items: center; }
         .input-wrapper { flex: 1; display: flex; gap: 10px; align-items: center; flex-direction: row-reverse; }
         .chat-input-area input[type="text"] { flex: 1; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; color: #fff; font-size: 0.92rem; outline: none; text-align: right; }
         
-        .file-label { background: rgba(255, 255, 255, 0.05); padding: 11px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid var(--card-border); transition: 0.2s; }
-        .file-label:hover { background: rgba(255, 255, 255, 0.1); }
+        .file-label { background: rgba(255, 255, 255, 0.05); padding: 11px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 1px solid var(--card-border); }
         .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 22px; height: 44px; border-radius: 14px; color: #020204; font-weight: 900; font-size: 0.9rem; cursor: pointer; }
         
         .hidden { display: none !important; }
-        .blocked-screen { position: absolute; top:0; left:0; width:100%; height:100%; background:#090a14; color:#ff3366; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:bold; font-size:20px; z-index:10000; text-align:center; padding:20px; gap: 10px; }
+        .blocked-screen { position: absolute; top:0; left:0; width:100%; height:100%; background:#090a14; color:#ff3366; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:bold; font-size:20px; z-index:10000; text-align:center; padding:20px; }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
+    <div class="main-wrapper" id="appLayout">
         
-        <!-- بەشێ یەکەم: ئەزموونێن وزاری (تنێ بۆ ئەدمینی یان یێ کۆدی بزانیت دەرکەڤیت) -->
         <div class="main-card hidden" id="exams-card">
             <div id="subjects-menu">
                 <div class="brand-header">
@@ -147,13 +140,13 @@
                     <p>تاقیکردنا ویزاری کوردی پۆلا ١٢ (٢٠٢٥-٢٠٢٦) خولا دووێ</p>
                 </div>
                 
-                <div class="section-title">✨ پەیڕەو و بابەتێن ئەلیکترۆنی</div>
+                <div class="section-title">✨ بابەتێن تاقیکردنەوەیێ</div>
                 <div class="grid-layout">
-                    <!-- لایەنێ چەپێ وێنەی: فایلێن حەقیقی ل سەر گیتهابێ -->
                     <a href="kurdish.html" class="subject-item"><span class="btn-text">زمانێ کوردی</span><span>✒️</span></a>
                     <a href="arabic.html" class="subject-item"><span class="btn-text">زمانێ عەرەبی</span><span>📜</span></a>
                     <a href="english.html" class="subject-item"><span class="btn-text">زمانێ ئینگلیزی</span><span>🇬🇧</span></a>
                     <a href="fizya.html" class="subject-item"><span class="btn-text">فیزیا</span><span>⚛️</span></a>
+                    <a href="kimia.html" class="subject-item"><span class="btn-text">کیمیا</span><span>🔬</span></a>
                     <a href="mejo.html" class="subject-item"><span class="btn-text">مێژوو</span><span>⏳</span></a>
                     <a href="eslame.html" class="subject-item"><span class="btn-text">پەروەردەیا ئیسلامی</span><span>🕌</span></a>
                     <a href="eslamebabat.html" class="subject-item"><span class="btn-text">بابەتێن ئیسلامی</span><span>📖</span></a>
@@ -166,27 +159,25 @@
             </div>
         </div>
 
-        <!-- بەشێ دووەم: چاتا لایڤ و پەیوەندیا قوتابیان -->
-        <div class="main-card" style="grid-column: span 2;" id="chat-card">
+        <div class="main-card" id="chat-card">
             <div id="lock-screen" class="lock-container">
-                <div style="font-size:18px; font-weight:900; color:var(--gold); margin-bottom:8px;">ناڤێ خۆ بنڤیسە بۆ چوونە ژوورێ</div>
-                <input type="text" id="code-field" class="code-input" placeholder="ناڤێ خۆ یان کلیلێ لێدە...">
-                <button class="activate-btn" onclick="validateAccess()">پشکنیین و بەشداریکردن</button>
+                <div style="font-size:18px; font-weight:900; color:var(--gold); margin-bottom:8px;">بۆ چوونە ژوورێ وەک قوتابیەکێ نەناسراو دوگمەی لێدە</div>
+                <input type="text" id="code-field" class="code-input" placeholder="ئەگەر کۆدێ ئەدمینی لای تە هەیە لێدە (بژاردە)...">
+                <button class="activate-btn" onclick="validateAccess()">چوونە ژوورێ (ب شێوازێ ڤەشارتى)</button>
             </div>
 
             <div class="chat-header">
                 <div class="group-info-chat">
                     <div class="group-avatar-chat">👥</div>
                     <div class="group-details-chat">
-                        <h2>کۆڕبەندا لایڤ یا قوتابیان</h2>
-                        <p id="connectionStatus">ل هێڤیا ناڤنڤیسینێ یە...</p>
+                        <h2>کۆڕبەندا لایڤ یا قوتابیان (ئەنۆنیمۆس 🔒)</h2>
+                        <p id="connectionStatus">ل هێڤیا گرێدانێ یە...</p>
                     </div>
                 </div>
                 
-                <!-- کۆنترۆلا کامێرا و مایکێ -->
                 <div class="call-controls">
-                    <button class="call-btn btn-start-call" id="startCallBtn">📸 دەستپێکرنا تەلەفۆنا لایڤ (دەنگ و سەروچاو)</button>
-                    <button class="call-btn btn-end-call" id="endCallBtn">🛑 داخستنا کامێرێ و تەلەفۆنێ</button>
+                    <button class="call-btn btn-start-call" id="startCallBtn">📸 دەستپێکرنا تەلەفۆنا لایڤ (دەنگ و کامێرا)</button>
+                    <button class="call-btn btn-end-call" id="endCallBtn">🛑 داخستنا تەلەفۆن و کامێرێ</button>
                 </div>
                 <div class="video-container">
                     <video id="localVideo" autoplay muted playsinline class="hidden"></video>
@@ -195,13 +186,12 @@
             </div>
 
             <div class="chat-messages" id="chatMessages"></div>
-            <div class="typing-indicator" id="typingIndicator">قوتابیەک یێ نامەکێ دەنڤیسیت...</div>
 
             <div class="chat-input-area">
                 <button class="send-btn" id="sendBtn">ناردن</button>
                 <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="نامەکێ یان لینکەکێ بنڤیسە..." autocomplete="off">
-                    <label class="file-label" for="fileInput" title="فڕێکرنا وێنە، ڤیدیۆ و فایلا">📁
+                    <input type="text" id="messageInput" placeholder="نامەیەک بنڤیسە (ناسنامەیا تە یا پاراستیە)..." autocomplete="off">
+                    <label class="file-label" for="fileInput" title="ناردنا وێنە و ڤیدیۆ و فایلا">📁
                         <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.docx" style="display:none;">
                     </label>
                 </div>
@@ -215,28 +205,27 @@
         let myAnonymousID = "";
         let linkWarnings = 0;
 
-        // پشکنینا بلۆکبوونا قوتابی
         if(localStorage.getItem('chat_blocked') === 'true') {
-            document.body.innerHTML = `<div class="blocked-screen"><h2>❌ گروپێ تە قفل بوو!</h2><p>تە یاسایێن گروپێ بەزاندینە و لینک فڕێکرینە.</p></div>`;
+            document.body.innerHTML = `<div class="blocked-screen"><h2>❌ چاتا تە هاتیە قفلکرن!</h2><p>تە لینک فڕێکرینە و یاسایێن گروپێ بەزاندینە.</p></div>`;
         }
 
         function validateAccess() {
-            const inputVal = document.getElementById("code-field").value.trim();
-            if (!inputVal) return;
+            const inputVal = document.getElementById("code-field").value.trim().toUpperCase();
 
-            if (inputVal.toUpperCase() === "ADMIN123") {
+            if (inputVal === "ADMIN123") {
                 isAdmin = true;
                 myAnonymousID = "خودانێ پلاتفۆرمێ (ADMIN) 👑";
                 document.getElementById("exams-card").classList.remove("hidden");
-                document.getElementById("chat-card").style.gridColumn = "span 1";
+                document.getElementById("appLayout").style.gridTemplateColumns = "1.1fr 1fr";
             } else {
                 isAdmin = false;
-                myAnonymousID = inputVal;
+                // دروستکرنا ناڤەکێ نەناسراو و پاراستی بۆ قوتابی کو کەس پێ نەزانیت چ ناڤە
+                myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
                 document.getElementById("exams-card").classList.add("hidden");
-                document.getElementById("chat-card").style.gridColumn = "span 2";
+                document.getElementById("appLayout").style.gridTemplateColumns = "1fr";
             }
             document.getElementById("lock-screen").classList.add("hidden");
-            connectionStatus.innerText = "● ل سەر هێڵ: گرێدای ب سەرکەفتوویی";
+            connectionStatus.innerText = "● ل سەر هێڵ: ناسنامەیا تە یا ڤەشارتەیە 🔒";
             loadMessages();
         }
 
@@ -253,8 +242,7 @@
         let localStream;
         let currentCall;
 
-        // دروستکرنا ژوورا پەیوەندیێ
-        const peer = new Peer('jehad-quiz-room-' + Math.floor(Math.random() * 100));
+        const peer = new Peer('jehad-secure-room-' + Math.floor(Math.random() * 100));
         let connections = [];
 
         peer.on('connection', (conn) => {
@@ -292,7 +280,7 @@
                     handleCallStream(call);
                 });
             } catch (err) {
-                alert("پێویستە مۆڵەتا کامێرا و مایکێ بدەی!");
+                alert("ڕێپێدانا کامێرا و مایکێ پێدڤیە!");
             }
         });
 
@@ -316,16 +304,15 @@
         function handleSend() {
             const text = messageInput.value.trim();
             
-            // سيستەمێ قفلکرنا لینکان بۆ قوتابیان
             const linkReg = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
             if(linkReg.test(text) && !isAdmin) {
                 linkWarnings++;
                 if(linkWarnings >= 3) {
                     localStorage.setItem('chat_blocked', 'true');
-                    document.body.innerHTML = `<div class="blocked-screen"><h2>❌ گروپێ تە قفل بوو!</h2><p>تە یاسایێن گروپێ بەزاندینە و لینک فڕێکرینە.</p></div>`;
+                    document.body.innerHTML = `<div class="blocked-screen"><h2>❌ چاتا تە هاتیە قفلکرن!</h2><p>تە یاسایێن گروپێ بەزاندینە و لینک فڕێکرینە.</p></div>`;
                     return;
                 }
-                alert(`⚠️ ئاگەهداری! فڕێکرنا لینکان قەدەغەیە. جارا (${linkWarnings} ژ ٣). نەکە دێ هێیی قفلکرن!`);
+                alert(`⚠️ ئاگەهداری! فڕێکرنا لینکان قەدەغەیە. جارا (${linkWarnings} ژ ٣).`);
                 messageInput.value = '';
                 return;
             }
@@ -367,7 +354,7 @@
                 } else if (fileType.startsWith('video/')) {
                     mediaHTML = `<div class="media-preview"><video src="${fileData}" controls></video></div>`;
                 } else {
-                    mediaHTML = `<div style="margin-top:5px;"><a href="${fileData}" download="${fileName}" style="color:#00f2fe; text-decoration:underline;">📁 دابەزاندنا فایلێ: ${fileName}</a></div>`;
+                    mediaHTML = `<div style="margin-top:5px;"><a href="${fileData}" download="${fileName}" style="color:#00f2fe; text-decoration:underline;">📁 فایل: ${fileName}</a></div>`;
                 }
             }
 
@@ -382,21 +369,19 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // پاراستن بۆ ٢٤ دەمژمێران
         function saveMessage(sender, text, isSenderAdmin, fileData, fileType, fileName, isMe) {
-            let messages = JSON.parse(localStorage.getItem('jehad_chat_msgs')) || [];
+            let messages = JSON.parse(localStorage.getItem('jehad_secure_msgs')) || [];
             messages.push({ sender, text, isSenderAdmin, fileData, fileType, fileName, isMe, timestamp: Date.now() });
-            localStorage.setItem('jehad_chat_msgs', JSON.stringify(messages));
+            localStorage.setItem('jehad_secure_msgs', JSON.stringify(messages));
         }
 
         function loadMessages() {
             chatMessages.innerHTML = '';
-            let messages = JSON.parse(localStorage.getItem('jehad_chat_msgs')) || [];
+            let messages = JSON.parse(localStorage.getItem('jehad_secure_msgs')) || [];
             const oneDay = 24 * 60 * 60 * 1000;
             
-            // سڕینەوا نامەیێن کۆنتر ژ ٢٤ دەمژمێران
             messages = messages.filter(m => (Date.now() - m.timestamp) < oneDay);
-            localStorage.setItem('jehad_chat_msgs', JSON.stringify(messages));
+            localStorage.setItem('jehad_secure_msgs', JSON.stringify(messages));
 
             messages.forEach(m => {
                 renderMessageHTML(m.sender, m.text, m.isSenderAdmin, m.isMe, m.fileData, m.fileType, m.fileName);
