@@ -13,6 +13,7 @@
             --gold-glow: rgba(245, 158, 11, 0.25);
             --success: #10b981;
             --danger: #ef4444;
+            --blue: #38bdf8;
         }
 
         * {
@@ -30,7 +31,6 @@
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
-            overflow-x: hidden;
         }
 
         .container {
@@ -59,7 +59,7 @@
         }
 
         h2 {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             color: #fff;
             margin-bottom: 0.5rem;
             font-weight: 800;
@@ -81,7 +81,6 @@
             margin-bottom: 0.6rem;
             color: #cbd5e1;
             font-size: 0.9rem;
-            font-weight: 500;
         }
 
         input, select {
@@ -93,14 +92,13 @@
             color: #fff;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             text-align: center;
         }
 
         input:focus {
             border-color: var(--gold);
             box-shadow: 0 0 15px var(--gold-glow);
-            background: rgba(15, 23, 42, 0.95);
         }
 
         button {
@@ -115,7 +113,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
-            box-shadow: 0 4px 12px var(--gold-glow);
         }
 
         button:hover {
@@ -162,17 +159,18 @@
             text-align: center;
         }
 
-        .marks-table th {
-            color: #94a3b8;
-            font-weight: 600;
-            font-size: 0.95rem;
+        .change-pass-section {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            padding: 1rem;
+            border-radius: 14px;
+            margin-bottom: 1.5rem;
         }
 
         .back-btn {
             background: transparent;
             color: #94a3b8;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: none;
         }
 
         .back-btn:hover {
@@ -189,11 +187,6 @@
             width: auto;
             display: inline-block;
             margin-top: 2rem;
-            box-shadow: none;
-        }
-
-        .admin-link:hover {
-            background: rgba(239, 68, 68, 0.05);
         }
 
         .admin-item {
@@ -218,7 +211,7 @@
 <div class="container">
     <div id="loginSection">
         <h2>ئەنجامێن پۆلا 12 ئەدەبی</h2>
-        <p class="subtitle">خۆلا دووێ 2025-2026 - ب جوانترین دیزاین</p>
+        <p class="subtitle">خۆلا دووێ 2025-2026 - ب سیستەمێ نووکرنا پاسوۆردێ</p>
         
         <div class="input-group">
             <label>کۆدێ قوتابی</label>
@@ -226,7 +219,7 @@
         </div>
 
         <div class="input-group">
-            <label>ژمارا نهێنی</label>
+            <label>ژمارا نهێنی (Password)</label>
             <input type="password" id="studentPass" placeholder="••••••">
         </div>
 
@@ -253,11 +246,19 @@
             <tbody id="marksBody">
             </tbody>
         </table>
+
+        <div class="change-pass-section">
+            <label style="color: var(--blue); font-weight: 600; font-size: 0.85rem;">🔒 گۆڕینا ژمارا نهێنی (پاسوۆرد)</label>
+            <input type="text" id="newStudentPass" placeholder="ژمارا نهێنی یا نوو بنڤێسه" style="margin-top: 0.5rem; padding: 0.6rem; font-size: 0.9rem;">
+            <button style="background: var(--blue); color: #020617; padding: 0.6rem; font-size: 0.9rem; margin-top: 0.5rem;" onclick="changePassword()">تۆمارکرنا پاسوۆردا نوو</button>
+        </div>
+
         <button class="back-btn" onclick="goBack()">گەڕیانەوه</button>
     </div>
 
     <div id="adminSection" class="admin-box">
-        <h3 style="color: #ef4444; margin-bottom: 1.5rem; font-size: 1.4rem;">کۆنترۆلا نمرەیێن قوتابیان</h3>
+        <h3 style="color: #ef4444; margin-bottom: 1rem; font-size: 1.4rem;">کۆنترۆلا نمرەیێن قوتابیان</h3>
+        <p id="adminCurrentPassDisplay" style="color: var(--blue); margin-bottom: 1.5rem; font-size: 0.9rem; font-weight: bold; text-align: center; background: rgba(56,189,248,0.1); padding: 0.5rem; border-radius: 8px;">پاسوۆردا وی یا نوو ل دەف تە: -</p>
         
         <div class="input-group">
             <label>قوتابی هەلبژێره:</label>
@@ -268,13 +269,13 @@
         <div id="adminMarksEditArea">
         </div>
 
-        <button style="background: #ef4444; color: #fff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);" onclick="saveAdminChanges()">تۆمارکرنا گۆڕانکاریان</button>
+        <button style="background: #ef4444; color: #fff;" onclick="saveAdminChanges()">تۆمارکرنا گۆڕانکاریان</button>
         <button class="back-btn" onclick="goBack()">پاشەکێش</button>
     </div>
 </div>
 
 <script>
-    // داتابەیسا نوو یا بابەتێن ئەدەبی (دگەل ئابووری)
+    // داتابەیسا سەرەکی
     let studentsData = {
         "2001": { 
             name: "نرمین حسن احمد", pass: "1234",
@@ -290,10 +291,10 @@
         }
     };
 
+    let currentLoggedInCode = ""; // پاراستنا کۆدێ قوتابیێ چۆییە ژوورڤە
     const ADMIN_PASSWORD = "admin";
 
     function checkStatus(marks) {
-        // ئەگەر نمرەکا کێمتر ژ 50 هەبیت، کەفتیە
         for(let key in marks) {
             if(marks[key] < 50) return { text: "موعید / کەفتی", className: "status-fail" };
         }
@@ -305,28 +306,39 @@
         let pass = document.getElementById("studentPass").value;
 
         if(studentsData[code] && studentsData[code].pass === pass) {
-            let student = studentsData[code];
+            currentLoggedInCode = code;
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("resultSection").style.display = "block";
             
-            document.getElementById("resName").innerText = student.name;
+            document.getElementById("resName").innerText = studentsData[code].name;
+            document.getElementById("newStudentPass").value = studentsData[code].pass; // نیشاندانا پاسوۆردا نوکە
             
-            // دیارکرنا ناجح یان کەفتی
-            let status = checkStatus(student.marks);
+            let status = checkStatus(studentsData[code].marks);
             let badge = document.getElementById("resStatus");
             badge.innerText = status.text;
             badge.className = "status-badge " + status.className;
             
             let tbody = document.getElementById("marksBody");
             tbody.innerHTML = "";
-            for (let subject in student.marks) {
-                let mark = student.marks[subject];
+            for (let subject in studentsData[code].marks) {
+                let mark = studentsData[code].marks[subject];
                 let markColor = mark >= 50 ? 'var(--success)' : 'var(--danger)';
                 tbody.innerHTML += `<tr><td style="color:#cbd5e1">${subject}</td><td style="font-weight:700; color:${markColor}">${mark}</td></tr>`;
             }
         } else {
             alert("کۆد یان ژمارا نهێنی یا خەلەتە!");
         }
+    }
+
+    // فەنکشنا گۆڕینا پاسوۆردێ ژ لایێ قوتابی ڤە
+    function changePassword() {
+        let newPass = document.getElementById("newStudentPass").value.trim();
+        if(newPass === "") {
+            alert("تکایە ژمارەکا نهێنی یا دروست بنڤێسه!");
+            return;
+        }
+        studentsData[currentLoggedInCode].pass = newPass;
+        alert("ژمارا تە یا نهێنی ب سەرکەفتی هاتە گۆڕین! ئێستا ئەدمین دشێت ببینیت کا تە چ داناپیت.");
     }
 
     function showAdminLogin() {
@@ -349,9 +361,12 @@
     function loadAdminStudentMarks() {
         let code = document.getElementById("adminSelectStudent").value;
         let student = studentsData[code];
+        
+        // نیشاندانا پاسوۆردا نوکە یا قوتابی بۆ ئەدمینی
+        document.getElementById("adminCurrentPassDisplay").innerText = `پاسوۆردا نوو یا ڤی قوتابی: ${student.pass}`;
+
         let area = document.getElementById("adminMarksEditArea");
         area.innerHTML = "";
-
         for(let subject in student.marks) {
             area.innerHTML += `
                 <div class="admin-item">
@@ -383,6 +398,7 @@
         document.getElementById("loginSection").style.display = "block";
         document.getElementById("studentCode").value = "";
         document.getElementById("studentPass").value = "";
+        currentLoggedInCode = "";
     }
 </script>
 
