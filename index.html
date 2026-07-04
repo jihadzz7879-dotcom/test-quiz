@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمێ ئەنجامێن پۆلا 12</title>
+    <title>سیستەمێ ئەنجامێن پۆلا 12 ئەدەبی</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --text-color: #f8fafc;
-            --glass-bg: rgba(30, 41, 59, 0.65);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            --glass-bg: rgba(30, 41, 59, 0.45);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.3);
-            --admin-color: #f43f5e;
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.25);
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
         * {
@@ -23,287 +23,314 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 60%, #070a13 100%);
-            color: var(--text-color);
+            background: var(--bg-gradient);
+            color: #f8fafc;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
+            overflow-x: hidden;
         }
 
         .container {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 28px;
+            padding: 3rem 2rem;
             width: 100%;
-            max-width: 550px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            text-align: center;
-            transition: all 0.4s ease;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 0 0 10px 10px;
         }
 
         h2 {
+            font-size: 1.9rem;
+            color: #fff;
             margin-bottom: 0.5rem;
-            color: var(--text-color);
-            font-size: 1.8rem;
+            font-weight: 800;
         }
 
         .subtitle {
             color: #94a3b8;
             font-size: 0.95rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .input-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
             text-align: right;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             color: #cbd5e1;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         input, select {
             width: 100%;
-            padding: 0.85rem 1rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
             color: #fff;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
 
-        input:focus, select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
+        input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+            background: rgba(15, 23, 42, 0.95);
         }
 
         button {
             width: 100%;
-            padding: 0.9rem;
-            background: var(--accent);
-            color: #0b0f19;
+            padding: 1rem;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            color: #020617;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
+            box-shadow: 0 4px 12px var(--gold-glow);
         }
 
         button:hover {
-            box-shadow: 0 0 20px var(--accent);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
         }
 
         .result-box, .admin-box {
             display: none;
             text-align: right;
-            margin-top: 1.5rem;
-            animation: fadeIn 0.5s ease;
+            animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .student-info {
-            background: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 12px;
+        .student-card-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.25rem;
+            border-radius: 16px;
             margin-bottom: 1.5rem;
-            border-right: 4px solid var(--accent);
+            border-right: 4px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .status-pass { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .status-fail { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
 
         .marks-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .marks-table th, .marks-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             text-align: center;
         }
 
         .marks-table th {
-            color: var(--accent);
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .back-btn {
             background: transparent;
             color: #94a3b8;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-top: 1.5rem;
-        }
-
-        .back-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-        }
-
-        .admin-nav-btn {
-            background: transparent;
-            color: var(--admin-color);
-            border: 1px dashed var(--admin-color);
-            font-size: 0.9rem;
-            padding: 0.5rem;
-            width: auto;
-            display: inline-block;
-            margin-top: 2rem;
-        }
-
-        .admin-nav-btn:hover {
-            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: none;
         }
 
-        .admin-control-group {
-            background: rgba(255,255,255,0.03);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(244, 63, 94, 0.2);
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .admin-link {
+            background: transparent;
+            color: #ef4444;
+            border: 1px dashed rgba(239, 68, 68, 0.3);
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            width: auto;
+            display: inline-block;
+            margin-top: 2rem;
+            box-shadow: none;
+        }
+
+        .admin-link:hover {
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .admin-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
-    <!-- بەشا چوونەژوورێ (Login Section) -->
+<div class="container">
     <div id="loginSection">
-        <h2>پلاتفۆرما ئەنجامێن پۆلا 12</h2>
-        <p class="subtitle">خۆلا دووێ 2025-2026 - زانستی و وێژەیی</p>
+        <h2>ئەنجامێن پۆلا 12 ئەدەبی</h2>
+        <p class="subtitle">خۆلا دووێ 2025-2026 - ب جوانترین دیزاین</p>
         
         <div class="input-group">
-            <label>پۆل (پشکا خۆ هەلبژێره)</label>
-            <select id="studentBranch">
-                <option value="scientific">زانستی (Scientific)</option>
-                <option value="literary">وێژەیی (Literary)</option>
-            </select>
+            <label>کۆدێ قوتابی</label>
+            <input type="text" id="studentCode" placeholder="بۆ نموونە: 2001">
         </div>
 
         <div class="input-group">
-            <label>کۆدێ قوتابی (Student Code)</label>
-            <input type="text" id="studentCode" placeholder="بۆ نموونە: 1001">
-        </div>
-
-        <div class="input-group">
-            <label>ژمارا نهێنی (Password)</label>
+            <label>ژمارا نهێنی</label>
             <input type="password" id="studentPass" placeholder="••••••">
         </div>
 
         <button onclick="loginStudent()">تەماشاکرنا ئەنجامی</button>
-        <button class="admin-nav-btn" onclick="showAdminLogin()">چوونەژوورێ وەک ئەدمین ⚙️</button>
+        <button class="admin-link" onclick="showAdminLogin()">پانێلا ئەدمینی ⚙</button>
     </div>
 
-    <!-- بەشا نیشاندانا ئەنجامان (Results Section) -->
     <div id="resultSection" class="result-box">
-        <div class="student-info">
-            <h3 id="resName">ناڤ: </h3>
-            <p id="resBranch" style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.25rem;">پشکا: </p>
+        <div class="student-card-header">
+            <div>
+                <h3 id="resName" style="color: #fff; font-size: 1.2rem;">-</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.2rem;">پشکا ئەدەبی (وێژەیی)</p>
+            </div>
+            <div id="resStatus" class="status-badge">-</div>
         </div>
+        
         <table class="marks-table">
             <thead>
                 <tr>
-                    <th>بابەت</th>
+                    <th>وانە</th>
                     <th>نمرە</th>
                 </tr>
             </thead>
             <tbody id="marksBody">
-                <!-- نمرە ل ڤێرە دێ دەرکەڤن -->
             </tbody>
         </table>
         <button class="back-btn" onclick="goBack()">گەڕیانەوه</button>
     </div>
 
-    <!-- بەشا پانێلا ئەدمینی (Admin Control Panel) -->
     <div id="adminSection" class="admin-box">
-        <h3 style="color: var(--admin-color); margin-bottom: 1.5rem;">کۆنترۆلا ئەدمینی (دەستکاری کرنا نمرەیان)</h3>
+        <h3 style="color: #ef4444; margin-bottom: 1.5rem; font-size: 1.4rem;">کۆنترۆلا نمرەیێن قوتابیان</h3>
         
         <div class="input-group">
             <label>قوتابی هەلبژێره:</label>
             <select id="adminSelectStudent" onchange="loadAdminStudentMarks()">
-                <!-- ناڤێن قوتابیان ل ڤێرە دێ هێن -->
             </select>
         </div>
 
         <div id="adminMarksEditArea">
-            <!-- دەستکاری کرنا نمرەیێن قوتابی ل ڤێرە کەت -->
         </div>
 
-        <button style="background: var(--admin-color); color: white;" onclick="saveAdminChanges()">خەزنکرنا گۆڕانکاریان</button>
-        <button class="back-btn" onclick="goBack()">دەرکەفتن ژ ئەدمینی</button>
+        <button style="background: #ef4444; color: #fff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);" onclick="saveAdminChanges()">تۆمارکرنا گۆڕانکاریان</button>
+        <button class="back-btn" onclick="goBack()">پاشەکێش</button>
     </div>
 </div>
 
 <script>
-    // داتابەیسا قوتابیان (Data Store)
+    // داتابەیسا نوو یا بابەتێن ئەدەبی (دگەل ئابووری)
     let studentsData = {
-        "1001": { 
-            name: "نرمین حسن احمد", pass: "1234", branch: "scientific",
-            marks: { "فیزیا": 68, "کیمیا": 92, "عەرەبی": 54, "ئینگلیزی": 88, "زیندەوەر": 66, "بیرکاری": 88, "کوردی": 98 }
+        "2001": { 
+            name: "نرمین حسن احمد", pass: "1234",
+            marks: { "مێژوو": 85, "جوگرافیا": 92, "ئابووری": 78, "عەرەبی": 54, "ئینگلیزی": 88, "کوردی": 98, "ئیسلامی": 95 }
         },
-        "1002": { 
-            name: "ئازاد علی حسین", pass: "5678", branch: "scientific",
-            marks: { "فیزیا": 75, "کیمیا": 80, "عەرەبی": 65, "ئینگلیزی": 70, "زیندەوەر": 85, "بیرکاری": 90, "کوردی": 88 }
+        "2002": { 
+            name: "ئازاد علی حسین", pass: "5678",
+            marks: { "مێژوو": 74, "جوگرافیا": 45, "ئابووری": 65, "عەرەبی": 55, "ئینگلیزی": 70, "کوردی": 88, "ئیسلامی": 90 }
         },
-        "1003": { 
-            name: "شهناز صدقی احمد", pass: "4321", branch: "literary",
-            marks: { "مێژوو": 95, "جوگرافیا": 88, "عەرەبی": 76, "ئینگلیزی": 82, "فەلسەفە": 90, "کوردی": 94, "ئیسلامی": 100 }
-        },
-        "1004": { 
-            name: "احمد خالد مصطفی", pass: "0000", branch: "scientific",
-            marks: { "فیزیا": 50, "کیمیا": 62, "عەرەبی": 60, "ئینگلیزی": 55, "زیندەوەر": 70, "بیرکاری": 58, "کوردی": 72 }
-        },
-        "1005": { 
-            name: "دیلان عمر عثمان", pass: "1111", branch: "literary",
-            marks: { "مێژوو": 60, "جوگرافیا": 72, "عەرەبی": 50, "ئینگلیزی": 64, "فەلسەفە": 58, "کوردی": 80, "ئیسلامی": 85 }
+        "2003": { 
+            name: "شهناز صدقی احمد", pass: "4321",
+            marks: { "مێژوو": 95, "جوگرافیا": 88, "ئابووری": 90, "عەرەبی": 76, "ئینگلیزی": 82, "کوردی": 94, "ئیسلامی": 100 }
         }
     };
 
-    const ADMIN_PASSWORD = "admin123"; // کودی نهێنی یێ ئەدمینی
+    const ADMIN_PASSWORD = "admin";
 
-    // فەنکشنا چوونەژوورا قوتابی
+    function checkStatus(marks) {
+        // ئەگەر نمرەکا کێمتر ژ 50 هەبیت، کەفتیە
+        for(let key in marks) {
+            if(marks[key] < 50) return { text: "موعید / کەفتی", className: "status-fail" };
+        }
+        return { text: "ناجح / دەرچووی", className: "status-pass" };
+    }
+
     function loginStudent() {
-        let branch = document.getElementById("studentBranch").value;
         let code = document.getElementById("studentCode").value.trim();
         let pass = document.getElementById("studentPass").value;
 
-        if(studentsData[code] && studentsData[code].pass === pass && studentsData[code].branch === branch) {
+        if(studentsData[code] && studentsData[code].pass === pass) {
             let student = studentsData[code];
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("resultSection").style.display = "block";
             
-            document.getElementById("resName").innerText = "ناڤ: " + student.name;
-            document.getElementById("resBranch").innerText = "پشکا: " + (student.branch === "scientific" ? "زانستی" : "وێژەیی");
+            document.getElementById("resName").innerText = student.name;
+            
+            // دیارکرنا ناجح یان کەفتی
+            let status = checkStatus(student.marks);
+            let badge = document.getElementById("resStatus");
+            badge.innerText = status.text;
+            badge.className = "status-badge " + status.className;
             
             let tbody = document.getElementById("marksBody");
             tbody.innerHTML = "";
             for (let subject in student.marks) {
-                tbody.innerHTML += `<tr><td>${subject}</td><td style="font-weight:bold; color:${student.marks[subject] >= 50 ? '#2ecc71' : '#e74c3c'}">${student.marks[subject]}</td></tr>`;
+                let mark = student.marks[subject];
+                let markColor = mark >= 50 ? 'var(--success)' : 'var(--danger)';
+                tbody.innerHTML += `<tr><td style="color:#cbd5e1">${subject}</td><td style="font-weight:700; color:${markColor}">${mark}</td></tr>`;
             }
         } else {
-            alert("کۆد، ژمارا نهێنی، یان پشک خەلەتە! ژ پەرستێ دیسا تاقی بکەوه.");
+            alert("کۆد یان ژمارا نهێنی یا خەلەتە!");
         }
     }
 
-    // پیشاندانا لۆگینا ئەدمینی
     function showAdminLogin() {
-        let inputPass = prompt("کۆدێ نهێنی یێ ئەدمینی لێدە:");
+        let inputPass = prompt("کۆدێ ئەدمینی لێدە:");
         if (inputPass === ADMIN_PASSWORD) {
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("adminSection").style.display = "block";
@@ -315,11 +342,10 @@
             }
             loadAdminStudentMarks();
         } else if(inputPass !== null) {
-            alert("کۆدێ ئەدمینی خەلەتە!");
+            alert("خەلەتە!");
         }
     }
 
-    // بارکرنا نمرەیێن قوتابی بۆ دەستکاری کرنێ د پانێلا ئەدمینی دا
     function loadAdminStudentMarks() {
         let code = document.getElementById("adminSelectStudent").value;
         let student = studentsData[code];
@@ -328,15 +354,14 @@
 
         for(let subject in student.marks) {
             area.innerHTML += `
-                <div class="admin-control-group">
-                    <label style="color:var(--accent); font-weight:bold;">${subject}</label>
-                    <input type="number" class="admin-mark-input" data-subject="${subject}" value="${student.marks[subject]}" min="0" max="100">
+                <div class="admin-item">
+                    <label style="color:#fff;">${subject}</label>
+                    <input type="number" class="admin-mark-input" data-subject="${subject}" value="${student.marks[subject]}" min="0" max="100" style="width:100px; padding:0.5rem;">
                 </div>
             `;
         }
     }
 
-    // خەزنکرنا نمرەیێن نوی یێن ئەدمینی (کێمکرن یان زێدەکرن)
     function saveAdminChanges() {
         let code = document.getElementById("adminSelectStudent").value;
         let inputs = document.querySelectorAll(".admin-mark-input");
@@ -349,10 +374,9 @@
             }
         });
 
-        alert(`گۆڕانکاری ب سەرکەفتی بۆ قوتابی (${studentsData[code].name}) هاتنە خەزنکرن!`);
+        alert(`نمرێن نوی یێن قوتابی (${studentsData[code].name}) هاتنە خەزنکرن!`);
     }
 
-    // گەریانەوە بۆ پەرپەڕێ سەرەکی
     function goBack() {
         document.getElementById("resultSection").style.display = "none";
         document.getElementById("adminSection").style.display = "none";
