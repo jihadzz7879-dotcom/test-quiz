@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرما تاقیکردنێن ویزاری پۆلا 12</title>
+    <title>سیستەمێ ئەنجامێن پۆلا 12</title>
     <style>
         :root {
             --bg-color: #0b0f19;
             --text-color: #f8fafc;
-            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-bg: rgba(30, 41, 59, 0.65);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --physics-color: #00f2fe;
-            --kurdish-color: #ff007f;
-            --arabic-color: #00ff87;
-            --english-color: #ff9f43;
-            --bio-color: #a363ff;
-            --history-color: #f1c40f;
-            --islamic-color: #2ecc71;
-            --yasa-color: #e74c3c;
-            --env-color: #1abc9c;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --admin-color: #f43f5e;
         }
 
         * {
@@ -29,281 +23,344 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 50%, #070a13 100%);
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 60%, #070a13 100%);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 2rem 1rem;
+            padding: 1.5rem;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        header h1 {
-            font-size: 2.3rem;
-            background: linear-gradient(to left, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-        }
-
-        header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
-
-        /* بەشا فیزیا یا تایبەت ل سەرێ لاپەرەی */
-        .featured-section {
-            width: 100%;
-            max-width: 1000px;
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .physics-hero {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
-            border: 2px solid var(--physics-color);
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 2.5rem;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .physics-hero:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 45px rgba(0, 242, 254, 0.4);
-        }
-
-        .physics-hero h2 {
-            font-size: 2.2rem;
-            color: var(--physics-color);
-            margin-bottom: 0.8rem;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-
-        .physics-hero p {
-            color: #cbd5e1;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* بەشێ بابەتێن دی وەک گروپ */
-        .grid-title {
             width: 100%;
-            max-width: 1000px;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+            max-width: 550px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
             color: #94a3b8;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.5rem;
-        }
-
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1000px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .subject-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 1.8rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .subject-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--theme-color, #fff);
-        }
-
-        .subject-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--theme-color);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 20px var(--theme-glow);
-        }
-
-        .icon-box {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 8px var(--theme-glow));
-        }
-
-        .subject-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.2rem;
-            color: #f1f5f9;
-        }
-
-        .btn-action {
-            background: transparent;
-            color: #fff;
-            border: 2px solid var(--theme-color);
-            padding: 0.6rem 1.5rem;
-            border-radius: 30px;
             font-size: 0.95rem;
-            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--accent);
+            color: #0b0f19;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .result-box, .admin-box {
+            display: none;
+            text-align: right;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .student-info {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-right: 4px solid var(--accent);
+        }
+
+        .marks-table {
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .marks-table th, .marks-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .marks-table th {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 1.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        .admin-nav-btn {
+            background: transparent;
+            color: var(--admin-color);
+            border: 1px dashed var(--admin-color);
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            width: auto;
             display: inline-block;
+            margin-top: 2rem;
         }
 
-        .subject-card:hover .btn-action {
-            background: var(--theme-color);
-            color: #0b0f19;
-            box-shadow: 0 0 15px var(--theme-color);
+        .admin-nav-btn:hover {
+            background: rgba(244, 63, 94, 0.1);
+            box-shadow: none;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
+        .admin-control-group {
+            background: rgba(255,255,255,0.03);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 600px) {
-            .subjects-grid {
-                grid-template-columns: 1fr;
-            }
-            header h1 { font-size: 1.8rem; }
-            .physics-hero h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>تاقیکردنێن ویزاری پۆلا 12</h1>
-        <p>خۆلا دووێ 2025-2026 - هیڤیا سەرکەفتنێ بۆ هەمی قوتابیان</p>
-    </header>
-
-    <!-- بەشا سەرەکی یا فیزیا -->
-    <div class="featured-section">
-        <div class="physics-hero" onclick="location.href='fizya.html'">
-            <div style="font-size: 3.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px var(--physics-color));">⚛️</div>
-            <h2>تاقیکردنا فیزیا</h2>
-            <p>بۆ دەستپێکرنا تاقیکردنا بابەتێ فیزیا پۆلا 12، پلاتفۆرما پێشکەفتی ئامادەیە.</p>
-            <a href="fizya.html" class="btn-action" style="--theme-color: var(--physics-color); max-width: 250px; background: var(--physics-color); color: #0b0f19;">دەستپێبکە ئێستا</a>
+<div class="container" id="mainContainer">
+    <!-- بەشا چوونەژوورێ (Login Section) -->
+    <div id="loginSection">
+        <h2>پلاتفۆرما ئەنجامێن پۆلا 12</h2>
+        <p class="subtitle">خۆلا دووێ 2025-2026 - زانستی و وێژەیی</p>
+        
+        <div class="input-group">
+            <label>پۆل (پشکا خۆ هەلبژێره)</label>
+            <select id="studentBranch">
+                <option value="scientific">زانستی (Scientific)</option>
+                <option value="literary">وێژەیی (Literary)</option>
+            </select>
         </div>
+
+        <div class="input-group">
+            <label>کۆدێ قوتابی (Student Code)</label>
+            <input type="text" id="studentCode" placeholder="بۆ نموونە: 1001">
+        </div>
+
+        <div class="input-group">
+            <label>ژمارا نهێنی (Password)</label>
+            <input type="password" id="studentPass" placeholder="••••••">
+        </div>
+
+        <button onclick="loginStudent()">تەماشاکرنا ئەنجامی</button>
+        <button class="admin-nav-btn" onclick="showAdminLogin()">چوونەژوورێ وەک ئەدمین ⚙️</button>
     </div>
 
-    <div class="grid-title">هەمی بابەتێن دی یێن پۆلا 12</div>
-
-    <!-- گروپێ هەمی بابەتێن دی ل دویف فۆڵدەرێ تە یێ GitHub -->
-    <div class="subjects-grid">
-
-        <!-- کوردی -->
-        <div class="subject-card" style="--theme-color: var(--kurdish-color); --theme-glow: rgba(255, 0, 127, 0.3);" onclick="location.href='kurdish.html'">
-            <div class="icon-box">📜</div>
-            <h3>کوردی</h3>
-            <a href="kurdish.html" class="btn-action">دەستپێبکە</a>
+    <!-- بەشا نیشاندانا ئەنجامان (Results Section) -->
+    <div id="resultSection" class="result-box">
+        <div class="student-info">
+            <h3 id="resName">ناڤ: </h3>
+            <p id="resBranch" style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.25rem;">پشکا: </p>
         </div>
-
-        <!-- عەرەبی -->
-        <div class="subject-card" style="--theme-color: var(--arabic-color); --theme-glow: rgba(0, 255, 135, 0.3);" onclick="location.href='arabic.html'">
-            <div class="icon-box">✍️</div>
-            <h3>عەرەبی</h3>
-            <a href="arabic.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- ئینگلیزی -->
-        <div class="subject-card" style="--theme-color: var(--english-color); --theme-glow: rgba(255, 159, 67, 0.3);" onclick="location.href='english.html'">
-            <div class="icon-box">🇬🇧</div>
-            <h3>ئینگلیزی</h3>
-            <a href="english.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- زیندەوەرزانی -->
-        <div class="subject-card" style="--theme-color: var(--bio-color); --theme-glow: rgba(163, 99, 255, 0.3);" onclick="location.href='zindawar.html'">
-            <div class="icon-box">🧬</div>
-            <h3>زیندەوەرزانی</h3>
-            <a href="zindawar.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- زیندەوەرزانی 1 -->
-        <div class="subject-card" style="--theme-color: var(--bio-color); --theme-glow: rgba(163, 99, 255, 0.3);" onclick="location.href='zindawar1.html'">
-            <div class="icon-box">🧫</div>
-            <h3>زیندەوەرزانی ١</h3>
-            <a href="zindawar1.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- مێژوو -->
-        <div class="subject-card" style="--theme-color: var(--history-color); --theme-glow: rgba(241, 196, 15, 0.3);" onclick="location.href='mejo.html'">
-            <div class="icon-box">⏳</div>
-            <h3>مێژوو</h3>
-            <a href="mejo.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- ئیسلامی -->
-        <div class="subject-card" style="--theme-color: var(--islamic-color); --theme-glow: rgba(46, 204, 113, 0.3);" onclick="location.href='eslame.html'">
-            <div class="icon-box">🕌</div>
-            <h3>ئیسلامی</h3>
-            <a href="eslame.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- ئیسلامی بابەت -->
-        <div class="subject-card" style="--theme-color: var(--islamic-color); --theme-glow: rgba(46, 204, 113, 0.3);" onclick="location.href='eslamebabat.html'">
-            <div class="icon-box">📖</div>
-            <h3>ئیسلامی بابەت</h3>
-            <a href="eslamebabat.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- یاسا -->
-        <div class="subject-card" style="--theme-color: var(--yasa-color); --theme-glow: rgba(231, 76, 60, 0.3);" onclick="location.href='yasa.html'">
-            <div class="icon-box">⚖️</div>
-            <h3>یاسا</h3>
-            <a href="yasa.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- ژینگە -->
-        <div class="subject-card" style="--theme-color: var(--env-color); --theme-glow: rgba(26, 188, 156, 0.3);" onclick="location.href='env.html'">
-            <div class="icon-box">🌱</div>
-            <h3>ژینگە (Env)</h3>
-            <a href="env.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
-        <!-- Ark -->
-        <div class="subject-card" style="--theme-color: #7f8c8d; --theme-glow: rgba(127, 140, 141, 0.3);" onclick="location.href='ark.html'">
-            <div class="icon-box">📂</div>
-            <h3>Ark</h3>
-            <a href="ark.html" class="btn-action">دەستپێبکە</a>
-        </div>
-
+        <table class="marks-table">
+            <thead>
+                <tr>
+                    <th>بابەت</th>
+                    <th>نمرە</th>
+                </tr>
+            </thead>
+            <tbody id="marksBody">
+                <!-- نمرە ل ڤێرە دێ دەرکەڤن -->
+            </tbody>
+        </table>
+        <button class="back-btn" onclick="goBack()">گەڕیانەوه</button>
     </div>
+
+    <!-- بەشا پانێلا ئەدمینی (Admin Control Panel) -->
+    <div id="adminSection" class="admin-box">
+        <h3 style="color: var(--admin-color); margin-bottom: 1.5rem;">کۆنترۆلا ئەدمینی (دەستکاری کرنا نمرەیان)</h3>
+        
+        <div class="input-group">
+            <label>قوتابی هەلبژێره:</label>
+            <select id="adminSelectStudent" onchange="loadAdminStudentMarks()">
+                <!-- ناڤێن قوتابیان ل ڤێرە دێ هێن -->
+            </select>
+        </div>
+
+        <div id="adminMarksEditArea">
+            <!-- دەستکاری کرنا نمرەیێن قوتابی ل ڤێرە کەت -->
+        </div>
+
+        <button style="background: var(--admin-color); color: white;" onclick="saveAdminChanges()">خەزنکرنا گۆڕانکاریان</button>
+        <button class="back-btn" onclick="goBack()">دەرکەفتن ژ ئەدمینی</button>
+    </div>
+</div>
+
+<script>
+    // داتابەیسا قوتابیان (Data Store)
+    let studentsData = {
+        "1001": { 
+            name: "نرمین حسن احمد", pass: "1234", branch: "scientific",
+            marks: { "فیزیا": 68, "کیمیا": 92, "عەرەبی": 54, "ئینگلیزی": 88, "زیندەوەر": 66, "بیرکاری": 88, "کوردی": 98 }
+        },
+        "1002": { 
+            name: "ئازاد علی حسین", pass: "5678", branch: "scientific",
+            marks: { "فیزیا": 75, "کیمیا": 80, "عەرەبی": 65, "ئینگلیزی": 70, "زیندەوەر": 85, "بیرکاری": 90, "کوردی": 88 }
+        },
+        "1003": { 
+            name: "شهناز صدقی احمد", pass: "4321", branch: "literary",
+            marks: { "مێژوو": 95, "جوگرافیا": 88, "عەرەبی": 76, "ئینگلیزی": 82, "فەلسەفە": 90, "کوردی": 94, "ئیسلامی": 100 }
+        },
+        "1004": { 
+            name: "احمد خالد مصطفی", pass: "0000", branch: "scientific",
+            marks: { "فیزیا": 50, "کیمیا": 62, "عەرەبی": 60, "ئینگلیزی": 55, "زیندەوەر": 70, "بیرکاری": 58, "کوردی": 72 }
+        },
+        "1005": { 
+            name: "دیلان عمر عثمان", pass: "1111", branch: "literary",
+            marks: { "مێژوو": 60, "جوگرافیا": 72, "عەرەبی": 50, "ئینگلیزی": 64, "فەلسەفە": 58, "کوردی": 80, "ئیسلامی": 85 }
+        }
+    };
+
+    const ADMIN_PASSWORD = "admin123"; // کودی نهێنی یێ ئەدمینی
+
+    // فەنکشنا چوونەژوورا قوتابی
+    function loginStudent() {
+        let branch = document.getElementById("studentBranch").value;
+        let code = document.getElementById("studentCode").value.trim();
+        let pass = document.getElementById("studentPass").value;
+
+        if(studentsData[code] && studentsData[code].pass === pass && studentsData[code].branch === branch) {
+            let student = studentsData[code];
+            document.getElementById("loginSection").style.display = "none";
+            document.getElementById("resultSection").style.display = "block";
+            
+            document.getElementById("resName").innerText = "ناڤ: " + student.name;
+            document.getElementById("resBranch").innerText = "پشکا: " + (student.branch === "scientific" ? "زانستی" : "وێژەیی");
+            
+            let tbody = document.getElementById("marksBody");
+            tbody.innerHTML = "";
+            for (let subject in student.marks) {
+                tbody.innerHTML += `<tr><td>${subject}</td><td style="font-weight:bold; color:${student.marks[subject] >= 50 ? '#2ecc71' : '#e74c3c'}">${student.marks[subject]}</td></tr>`;
+            }
+        } else {
+            alert("کۆد، ژمارا نهێنی، یان پشک خەلەتە! ژ پەرستێ دیسا تاقی بکەوه.");
+        }
+    }
+
+    // پیشاندانا لۆگینا ئەدمینی
+    function showAdminLogin() {
+        let inputPass = prompt("کۆدێ نهێنی یێ ئەدمینی لێدە:");
+        if (inputPass === ADMIN_PASSWORD) {
+            document.getElementById("loginSection").style.display = "none";
+            document.getElementById("adminSection").style.display = "block";
+            
+            let select = document.getElementById("adminSelectStudent");
+            select.innerHTML = "";
+            for(let code in studentsData) {
+                select.innerHTML += `<option value="${code}">${studentsData[code].name} (${code})</option>`;
+            }
+            loadAdminStudentMarks();
+        } else if(inputPass !== null) {
+            alert("کۆدێ ئەدمینی خەلەتە!");
+        }
+    }
+
+    // بارکرنا نمرەیێن قوتابی بۆ دەستکاری کرنێ د پانێلا ئەدمینی دا
+    function loadAdminStudentMarks() {
+        let code = document.getElementById("adminSelectStudent").value;
+        let student = studentsData[code];
+        let area = document.getElementById("adminMarksEditArea");
+        area.innerHTML = "";
+
+        for(let subject in student.marks) {
+            area.innerHTML += `
+                <div class="admin-control-group">
+                    <label style="color:var(--accent); font-weight:bold;">${subject}</label>
+                    <input type="number" class="admin-mark-input" data-subject="${subject}" value="${student.marks[subject]}" min="0" max="100">
+                </div>
+            `;
+        }
+    }
+
+    // خەزنکرنا نمرەیێن نوی یێن ئەدمینی (کێمکرن یان زێدەکرن)
+    function saveAdminChanges() {
+        let code = document.getElementById("adminSelectStudent").value;
+        let inputs = document.querySelectorAll(".admin-mark-input");
+        
+        inputs.forEach(input => {
+            let subject = input.getAttribute("data-subject");
+            let newMark = parseInt(input.value);
+            if(!isNaN(newMark) && newMark >= 0 && newMark <= 100) {
+                studentsData[code].marks[subject] = newMark;
+            }
+        });
+
+        alert(`گۆڕانکاری ب سەرکەفتی بۆ قوتابی (${studentsData[code].name}) هاتنە خەزنکرن!`);
+    }
+
+    // گەریانەوە بۆ پەرپەڕێ سەرەکی
+    function goBack() {
+        document.getElementById("resultSection").style.display = "none";
+        document.getElementById("adminSection").style.display = "none";
+        document.getElementById("loginSection").style.display = "block";
+        document.getElementById("studentCode").value = "";
+        document.getElementById("studentPass").value = "";
+    }
+</script>
 
 </body>
 </html>
