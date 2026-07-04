@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمێ ئەنجامێن پۆلا 12 ئەدەبی</title>
+    <title>سیستەمێ پێشکەفتی یێ ئەنجامان</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            --glass-bg: rgba(30, 41, 59, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --gold: #f59e0b;
-            --gold-glow: rgba(245, 158, 11, 0.25);
+            --bg: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
+            --glass: rgba(17, 24, 39, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --gold: linear-gradient(90deg, #fbbf24, #f59e0b);
+            --gold-glow: rgba(245, 158, 11, 0.3);
+            --blue: #06b6d4;
+            --blue-glow: rgba(6, 182, 212, 0.2);
             --success: #10b981;
             --danger: #ef4444;
-            --blue: #38bdf8;
         }
 
         * {
@@ -24,8 +25,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
-            color: #f8fafc;
+            background: var(--bg);
+            color: #f3f4f6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -34,39 +35,30 @@
         }
 
         .container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
             padding: 3rem 2rem;
             width: 100%;
-            max-width: 500px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 520px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            text-align: center;
             position: relative;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40%;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            border-radius: 0 0 10px 10px;
-        }
-
         h2 {
-            font-size: 1.8rem;
-            color: #fff;
+            font-size: 2rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
             font-weight: 800;
         }
 
         .subtitle {
-            color: #94a3b8;
+            color: #6b7280;
             font-size: 0.95rem;
             margin-bottom: 2.5rem;
         }
@@ -79,71 +71,91 @@
         label {
             display: block;
             margin-bottom: 0.6rem;
-            color: #cbd5e1;
-            font-size: 0.9rem;
+            color: #9ca3af;
+            font-size: 0.88rem;
+            font-weight: 500;
         }
 
         input, select {
             width: 100%;
-            padding: 1rem;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
+            padding: 1.1rem;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             color: #fff;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
 
         input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
+            border-color: #f59e0b;
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         button {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(90deg, #d97706, #f59e0b);
-            color: #020617;
+            padding: 1.1rem;
+            background: var(--gold);
+            color: #030712;
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
+            box-shadow: 0 4px 15px var(--gold-glow);
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
         }
 
         .result-box, .admin-box {
             display: none;
             text-align: right;
-            animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s scaleUp;
         }
 
-        .student-card-header {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 1.25rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            border-right: 4px solid var(--gold);
+        /* بەشێ وێنەی و پڕۆفایلی قوتابی */
+        .profile-area {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #f59e0b;
+            box-shadow: 0 0 15px var(--gold-glow);
+            object-fit: cover;
+            background: #1f2937;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
 
-        .status-badge {
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 0.9rem;
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
+        .status-badge {
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
         .status-pass { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
         .status-fail { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
 
@@ -155,53 +167,58 @@
 
         .marks-table th, .marks-table td {
             padding: 0.9rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
         }
 
-        .change-pass-section {
-            background: rgba(56, 189, 248, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            padding: 1rem;
-            border-radius: 14px;
-            margin-bottom: 1.5rem;
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 0.5rem;
         }
 
-        .back-btn {
-            background: transparent;
-            color: #94a3b8;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .btn-upload {
+            border: 1px dashed rgba(255,255,255,0.3);
+            color: #9ca3af;
+            background-color: transparent;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: none;
         }
 
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
         }
 
         .admin-link {
             background: transparent;
-            color: #ef4444;
-            border: 1px dashed rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            border: 1px dashed rgba(239, 68, 68, 0.4);
             font-size: 0.85rem;
             padding: 0.5rem 1rem;
             width: auto;
             display: inline-block;
             margin-top: 2rem;
+            box-shadow: none;
         }
 
-        .admin-item {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1rem;
-            border-radius: 14px;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .back-btn {
+            background: transparent;
+            color: #9ca3af;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
         }
 
         @keyframes scaleUp {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.96); }
             to { opacity: 1; transform: scale(1); }
         }
     </style>
@@ -211,11 +228,11 @@
 <div class="container">
     <div id="loginSection">
         <h2>ئەنجامێن پۆلا 12 ئەدەبی</h2>
-        <p class="subtitle">خۆلا دووێ 2025-2026 - ب سیستەمێ نووکرنا پاسوۆردێ</p>
+        <p class="subtitle">سیستەمێ هۆشمەندێ پاراستنا پاسوۆرد و وێنەیان</p>
         
         <div class="input-group">
             <label>کۆدێ قوتابی</label>
-            <input type="text" id="studentCode" placeholder="بۆ نموونە: 2001">
+            <input type="text" id="studentCode" placeholder="2001">
         </div>
 
         <div class="input-group">
@@ -223,16 +240,22 @@
             <input type="password" id="studentPass" placeholder="••••••">
         </div>
 
-        <button onclick="loginStudent()">تەماشاکرنا ئەنجامی</button>
+        <button onclick="loginStudent()">چوونەژوورێ</button>
         <button class="admin-link" onclick="showAdminLogin()">پانێلا ئەدمینی ⚙</button>
     </div>
 
     <div id="resultSection" class="result-box">
-        <div class="student-card-header">
-            <div>
-                <h3 id="resName" style="color: #fff; font-size: 1.2rem;">-</h3>
-                <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.2rem;">پشکا ئەدەبی (وێژەیی)</p>
+        <div class="profile-area">
+            <div class="avatar-container">
+                <img id="studentAvatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v2h-16v-2c0-2.66 5.33-4 8-4z'/></svg>" alt="پڕۆفایل">
             </div>
+            
+            <div class="upload-btn-wrapper">
+                <button class="btn-upload">📷 بارکرنا وێنەی</button>
+                <input type="file" id="imageUploader" accept="image/*" onchange="previewImage(event)">
+            </div>
+
+            <h3 id="resName" style="color: #fff; font-size: 1.3rem; margin-top: 1rem;">-</h3>
             <div id="resStatus" class="status-badge">-</div>
         </div>
         
@@ -243,61 +266,56 @@
                     <th>نمرە</th>
                 </tr>
             </thead>
-            <tbody id="marksBody">
-            </tbody>
+            <tbody id="marksBody"></tbody>
         </table>
 
-        <div class="change-pass-section">
-            <label style="color: var(--blue); font-weight: 600; font-size: 0.85rem;">🔒 گۆڕینا ژمارا نهێنی (پاسوۆرد)</label>
-            <input type="text" id="newStudentPass" placeholder="ژمارا نهێنی یا نوو بنڤێسه" style="margin-top: 0.5rem; padding: 0.6rem; font-size: 0.9rem;">
-            <button style="background: var(--blue); color: #020617; padding: 0.6rem; font-size: 0.9rem; margin-top: 0.5rem;" onclick="changePassword()">تۆمارکرنا پاسوۆردا نوو</button>
+        <div style="background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.15); padding: 1.25rem; border-radius: 18px; margin-bottom: 1.5rem;">
+            <label style="color: var(--blue); font-weight: bold;">🔒 گۆڕینا ڕاستەوخۆ یا پاسوۆردێ</label>
+            <input type="password" id="newStudentPass" placeholder="پاسوۆردا نوو لێرە بنڤێسه" style="margin-top: 0.5rem; padding: 0.7rem; font-size: 0.9rem;">
+            <button style="background: var(--blue); color: #030712; padding: 0.7rem; font-size: 0.9rem; margin-top: 0.6rem; box-shadow: 0 4px 10px var(--blue-glow);" onclick="changePasswordInstant()">گۆڕین و ژێبرنا یا کۆن</button>
         </div>
 
-        <button class="back-btn" onclick="goBack()">گەڕیانەوه</button>
+        <button class="back-btn" onclick="goBack()">دەرکەفتن</button>
     </div>
 
     <div id="adminSection" class="admin-box">
-        <h3 style="color: #ef4444; margin-bottom: 1rem; font-size: 1.4rem;">کۆنترۆلا نمرەیێن قوتابیان</h3>
-        <p id="adminCurrentPassDisplay" style="color: var(--blue); margin-bottom: 1.5rem; font-size: 0.9rem; font-weight: bold; text-align: center; background: rgba(56,189,248,0.1); padding: 0.5rem; border-radius: 8px;">پاسوۆردا وی یا نوو ل دەف تە: -</p>
+        <h3 style="color: var(--danger); margin-bottom: 1rem; font-size: 1.4rem;">کۆنترۆلا ئەدمینی</h3>
+        <p id="adminPassDisplay" style="color: var(--blue); margin-bottom: 1.5rem; font-size: 0.95rem; font-weight: bold; background: rgba(6,182,212,0.1); padding: 0.6rem; border-radius: 10px; text-align: center;">پاسوۆردا کارا: -</p>
         
         <div class="input-group">
             <label>قوتابی هەلبژێره:</label>
-            <select id="adminSelectStudent" onchange="loadAdminStudentMarks()">
-            </select>
+            <select id="adminSelectStudent" onchange="loadAdminStudentMarks()"></select>
         </div>
 
-        <div id="adminMarksEditArea">
-        </div>
+        <div id="adminMarksEditArea"></div>
 
-        <button style="background: #ef4444; color: #fff;" onclick="saveAdminChanges()">تۆمارکرنا گۆڕانکاریان</button>
+        <button style="background: var(--danger); color: #fff; box-shadow: 0 4px 12px rgba(239,68,68,0.3);" onclick="saveAdminChanges()">تۆمارکرنا نمرەیان</button>
         <button class="back-btn" onclick="goBack()">پاشەکێش</button>
     </div>
 </div>
 
 <script>
-    // داتابەیسا سەرەکی
+    // داتابەیسا سەرەکی دگەل پاراستنا جهێ وێنەی (Avatar)
     let studentsData = {
         "2001": { 
-            name: "نرمین حسن احمد", pass: "1234",
+            name: "نرمین حسن احمد", pass: "1234", avatar: null,
             marks: { "مێژوو": 85, "جوگرافیا": 92, "ئابووری": 78, "عەرەبی": 54, "ئینگلیزی": 88, "کوردی": 98, "ئیسلامی": 95 }
         },
         "2002": { 
-            name: "ئازاد علی حسین", pass: "5678",
+            name: "ئازاد علی حسین", pass: "5678", avatar: null,
             marks: { "مێژوو": 74, "جوگرافیا": 45, "ئابووری": 65, "عەرەبی": 55, "ئینگلیزی": 70, "کوردی": 88, "ئیسلامی": 90 }
         },
         "2003": { 
-            name: "شهناز صدقی احمد", pass: "4321",
+            name: "شهناز صدقی احمد", pass: "4321", avatar: null,
             marks: { "مێژوو": 95, "جوگرافیا": 88, "ئابووری": 90, "عەرەبی": 76, "ئینگلیزی": 82, "کوردی": 94, "ئیسلامی": 100 }
         }
     };
 
-    let currentLoggedInCode = ""; // پاراستنا کۆدێ قوتابیێ چۆییە ژوورڤە
+    let currentStudent = "";
     const ADMIN_PASSWORD = "admin";
 
     function checkStatus(marks) {
-        for(let key in marks) {
-            if(marks[key] < 50) return { text: "موعید / کەفتی", className: "status-fail" };
-        }
+        for(let key in marks) { if(marks[key] < 50) return { text: "موعید / کەفتی", className: "status-fail" }; }
         return { text: "ناجح / دەرچووی", className: "status-pass" };
     }
 
@@ -306,13 +324,19 @@
         let pass = document.getElementById("studentPass").value;
 
         if(studentsData[code] && studentsData[code].pass === pass) {
-            currentLoggedInCode = code;
+            currentStudent = code;
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("resultSection").style.display = "block";
             
             document.getElementById("resName").innerText = studentsData[code].name;
-            document.getElementById("newStudentPass").value = studentsData[code].pass; // نیشاندانا پاسوۆردا نوکە
             
+            // ئەگەر وێنە هەبیت دێ هێتە گۆڕین
+            if(studentsData[code].avatar) {
+                document.getElementById("studentAvatar").src = studentsData[code].avatar;
+            } else {
+                document.getElementById("studentAvatar").src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v2h-16v-2c0-2.66 5.33-4 8-4z'/></svg>";
+            }
+
             let status = checkStatus(studentsData[code].marks);
             let badge = document.getElementById("resStatus");
             badge.innerText = status.text;
@@ -322,23 +346,32 @@
             tbody.innerHTML = "";
             for (let subject in studentsData[code].marks) {
                 let mark = studentsData[code].marks[subject];
-                let markColor = mark >= 50 ? 'var(--success)' : 'var(--danger)';
-                tbody.innerHTML += `<tr><td style="color:#cbd5e1">${subject}</td><td style="font-weight:700; color:${markColor}">${mark}</td></tr>`;
+                tbody.innerHTML += `<tr><td style="color:#9ca3af">${subject}</td><td style="font-weight:700; color:${mark >= 50 ? 'var(--success)' : 'var(--danger)'}">${mark}</td></tr>`;
             }
         } else {
-            alert("کۆد یان ژمارا نهێنی یا خەلەتە!");
+            alert("کۆد یان پاسوۆرد خەلەتە!");
         }
     }
 
-    // فەنکشنا گۆڕینا پاسوۆردێ ژ لایێ قوتابی ڤە
-    function changePassword() {
+    // فەنکشنا گۆڕینا ئێکسەر یا پاسوۆردێ و سڕینەوەی یا کۆن
+    function changePasswordInstant() {
         let newPass = document.getElementById("newStudentPass").value.trim();
-        if(newPass === "") {
-            alert("تکایە ژمارەکا نهێنی یا دروست بنڤێسه!");
-            return;
+        if(newPass === "") { alert("تکایە پاسوۆردەکێ بنڤێسه!"); return; }
+        
+        studentsData[currentStudent].pass = newPass; // ئێکسەر یا نوو کەتە جهێ یا کۆن
+        alert("پاسوۆردا کەفن هاتە سڕین و یا نوو ئێکسەر کەفتە کار!");
+        document.getElementById("newStudentPass").value = "";
+    }
+
+    // فەنکشنا زێدەکرن و پێشاندانا وێنەی
+    function previewImage(event) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let output = document.getElementById('studentAvatar');
+            output.src = reader.result;
+            studentsData[currentStudent].avatar = reader.result; // پاشەکەفتکرن د داتابەیسێ دا
         }
-        studentsData[currentLoggedInCode].pass = newPass;
-        alert("ژمارا تە یا نهێنی ب سەرکەفتی هاتە گۆڕین! ئێستا ئەدمین دشێت ببینیت کا تە چ داناپیت.");
+        reader.readAsDataURL(event.target.files[0]);
     }
 
     function showAdminLogin() {
@@ -349,58 +382,43 @@
             
             let select = document.getElementById("adminSelectStudent");
             select.innerHTML = "";
-            for(let code in studentsData) {
-                select.innerHTML += `<option value="${code}">${studentsData[code].name} (${code})</option>`;
-            }
+            for(let code in studentsData) { select.innerHTML += `<option value="${code}">${studentsData[code].name}</option>`; }
             loadAdminStudentMarks();
-        } else if(inputPass !== null) {
-            alert("خەلەتە!");
-        }
+        } else if(inputPass !== null) { alert("خەلەتە!"); }
     }
 
     function loadAdminStudentMarks() {
         let code = document.getElementById("adminSelectStudent").value;
-        let student = studentsData[code];
-        
-        // نیشاندانا پاسوۆردا نوکە یا قوتابی بۆ ئەدمینی
-        document.getElementById("adminCurrentPassDisplay").innerText = `پاسوۆردا نوو یا ڤی قوتابی: ${student.pass}`;
+        document.getElementById("adminPassDisplay").innerText = `پاسوۆردا نوو و کارا یا ڤی قوتابیی: ${studentsData[code].pass}`;
 
         let area = document.getElementById("adminMarksEditArea");
         area.innerHTML = "";
-        for(let subject in student.marks) {
+        for(let subject in studentsData[code].marks) {
             area.innerHTML += `
-                <div class="admin-item">
-                    <label style="color:#fff;">${subject}</label>
-                    <input type="number" class="admin-mark-input" data-subject="${subject}" value="${student.marks[subject]}" min="0" max="100" style="width:100px; padding:0.5rem;">
-                </div>
-            `;
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:0.8rem; margin-bottom:0.8rem; border-radius:12px; border:1px solid var(--border);">
+                    <label style="color:#fff; margin:0;">${subject}</label>
+                    <input type="number" class="admin-mark-input" data-subject="${subject}" value="${studentsData[code].marks[subject]}" min="0" max="100" style="width:90px; padding:0.5rem; border-radius:8px;">
+                </div>`;
         }
     }
 
     function saveAdminChanges() {
         let code = document.getElementById("adminSelectStudent").value;
         let inputs = document.querySelectorAll(".admin-mark-input");
-        
         inputs.forEach(input => {
             let subject = input.getAttribute("data-subject");
             let newMark = parseInt(input.value);
-            if(!isNaN(newMark) && newMark >= 0 && newMark <= 100) {
-                studentsData[code].marks[subject] = newMark;
-            }
+            if(!isNaN(newMark)) studentsData[code].marks[subject] = newMark;
         });
-
-        alert(`نمرێن نوی یێن قوتابی (${studentsData[code].name}) هاتنە خەزنکرن!`);
+        alert("نمرە هاتنە نووکرن!");
     }
 
     function goBack() {
         document.getElementById("resultSection").style.display = "none";
         document.getElementById("adminSection").style.display = "none";
         document.getElementById("loginSection").style.display = "block";
-        document.getElementById("studentCode").value = "";
-        document.getElementById("studentPass").value = "";
-        currentLoggedInCode = "";
+        currentStudent = "";
     }
 </script>
-
 </body>
 </html>
