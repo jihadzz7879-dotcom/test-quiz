@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرما تاقیکردنێن پۆلا 12</title>
+    <title>پلاتفۆرما تاقیکردنێن ویزاری پۆلا 12</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --bg-color: #0b0f19;
             --text-color: #f8fafc;
-            --accent-color: #38bdf8;
-            --hover-color: #0284c7;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --physics-color: #00f2fe;
+            --kurdish-color: #ff007f;
+            --arabic-color: #00ff87;
+            --english-color: #ff9f43;
+            --bio-color: #a363ff;
+            --history-color: #f1c40f;
+            --islamic-color: #2ecc71;
+            --yasa-color: #e74c3c;
+            --env-color: #1abc9c;
         }
 
         * {
@@ -21,26 +29,28 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 50%, #070a13 100%);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease-out;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
+            font-size: 2.3rem;
+            background: linear-gradient(to left, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            font-weight: 800;
         }
 
         header p {
@@ -48,83 +58,149 @@
             font-size: 1.1rem;
         }
 
-        .subjects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        /* بەشا فیزیا یا تایبەت ل سەرێ لاپەرەی */
+        .featured-section {
             width: 100%;
-            max-width: 1200px;
-            padding: 1rem;
+            max-width: 1000px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .physics-hero {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+            border: 2px solid var(--physics-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .physics-hero:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 45px rgba(0, 242, 254, 0.4);
+        }
+
+        .physics-hero h2 {
+            font-size: 2.2rem;
+            color: var(--physics-color);
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        .physics-hero p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* بەشێ بابەتێن دی وەک گروپ */
+        .grid-title {
+            width: 100%;
+            max-width: 1000px;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeInUp 1s ease-out;
         }
 
         .subject-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.8rem;
             text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--theme-color, #fff);
         }
 
         .subject-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            transform: translateY(-8px);
+            border-color: var(--theme-color);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 20px var(--theme-glow);
         }
 
-        .icon {
-            font-size: 3rem;
+        .icon-box {
+            font-size: 2.8rem;
             margin-bottom: 1rem;
+            filter: drop-shadow(0 0 8px var(--theme-glow));
         }
 
         .subject-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
             color: #f1f5f9;
         }
 
-        .btn-start {
-            background: var(--accent-color);
-            color: #0f172a;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
+        .btn-action {
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--theme-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
             text-decoration: none;
             width: 100%;
-            display: block;
+            display: inline-block;
         }
 
-        .btn-start:hover {
-            background: var(--hover-color);
+        .subject-card:hover .btn-action {
+            background: var(--theme-color);
+            color: #0b0f19;
+            box-shadow: 0 0 15px var(--theme-color);
         }
 
-        /* تایبەت مەندیا فۆکەس بۆ فیزیا */
-        .physics-featured {
-            border: 2px solid rgba(56, 189, 248, 0.5);
-            background: linear-gradient(180deg, rgba(30, 41, 59, 0.8), rgba(14, 165, 233, 0.15));
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) {
-            .subjects-container {
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .subjects-grid {
                 grid-template-columns: 1fr;
             }
+            header h1 { font-size: 1.8rem; }
+            .physics-hero h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -132,72 +208,99 @@
 
     <header>
         <h1>تاقیکردنێن ویزاری پۆلا 12</h1>
-        <p>خۆلا دووێ 2025-2026 - بابەتێ خۆ هەلبژێره بۆ دەستپێکرنێ</p>
+        <p>خۆلا دووێ 2025-2026 - هیڤیا سەرکەفتنێ بۆ هەمی قوتابیان</p>
     </header>
 
-    <div class="subjects-container">
-
-        <!-- فیزیا - ل سەر داخوازا تە هاتیە پێشخستن -->
-        <div class="subject-card physics-featured" onclick="location.href='fizya.html'">
-            <div>
-                <div class="icon">⚛️</div>
-                <h3>فیزیا</h3>
-            </div>
-            <a href="fizya.html" class="btn-start">دەستپێبکە</a>
+    <!-- بەشا سەرەکی یا فیزیا -->
+    <div class="featured-section">
+        <div class="physics-hero" onclick="location.href='fizya.html'">
+            <div style="font-size: 3.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px var(--physics-color));">⚛️</div>
+            <h2>تاقیکردنا فیزیا</h2>
+            <p>بۆ دەستپێکرنا تاقیکردنا بابەتێ فیزیا پۆلا 12، پلاتفۆرما پێشکەفتی ئامادەیە.</p>
+            <a href="fizya.html" class="btn-action" style="--theme-color: var(--physics-color); max-width: 250px; background: var(--physics-color); color: #0b0f19;">دەستپێبکە ئێستا</a>
         </div>
+    </div>
+
+    <div class="grid-title">هەمی بابەتێن دی یێن پۆلا 12</div>
+
+    <!-- گروپێ هەمی بابەتێن دی ل دویف فۆڵدەرێ تە یێ GitHub -->
+    <div class="subjects-grid">
 
         <!-- کوردی -->
-        <div class="subject-card" onclick="location.href='kurdish.html'">
-            <div>
-                <div class="icon">📜</div>
-                <h3>کوردی</h3>
-            </div>
-            <a href="kurdish.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--kurdish-color); --theme-glow: rgba(255, 0, 127, 0.3);" onclick="location.href='kurdish.html'">
+            <div class="icon-box">📜</div>
+            <h3>کوردی</h3>
+            <a href="kurdish.html" class="btn-action">دەستپێبکە</a>
         </div>
 
         <!-- عەرەبی -->
-        <div class="subject-card" onclick="location.href='arabic.html'">
-            <div>
-                <div class="icon">✍️</div>
-                <h3>عەرەبی</h3>
-            </div>
-            <a href="arabic.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--arabic-color); --theme-glow: rgba(0, 255, 135, 0.3);" onclick="location.href='arabic.html'">
+            <div class="icon-box">✍️</div>
+            <h3>عەرەبی</h3>
+            <a href="arabic.html" class="btn-action">دەستپێبکە</a>
         </div>
 
         <!-- ئینگلیزی -->
-        <div class="subject-card" onclick="location.href='english.html'">
-            <div>
-                <div class="icon">🇬🇧</div>
-                <h3>ئینگلیزی</h3>
-            </div>
-            <a href="english.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--english-color); --theme-glow: rgba(255, 159, 67, 0.3);" onclick="location.href='english.html'">
+            <div class="icon-box">🇬🇧</div>
+            <h3>ئینگلیزی</h3>
+            <a href="english.html" class="btn-action">دەستپێبکە</a>
         </div>
 
         <!-- زیندەوەرزانی -->
-        <div class="subject-card" onclick="location.href='zindawar.html'">
-            <div>
-                <div class="icon">🧬</div>
-                <h3>زیندەوەرزانی</h3>
-            </div>
-            <a href="zindawar.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--bio-color); --theme-glow: rgba(163, 99, 255, 0.3);" onclick="location.href='zindawar.html'">
+            <div class="icon-box">🧬</div>
+            <h3>زیندەوەرزانی</h3>
+            <a href="zindawar.html" class="btn-action">دەستپێبکە</a>
+        </div>
+
+        <!-- زیندەوەرزانی 1 -->
+        <div class="subject-card" style="--theme-color: var(--bio-color); --theme-glow: rgba(163, 99, 255, 0.3);" onclick="location.href='zindawar1.html'">
+            <div class="icon-box">🧫</div>
+            <h3>زیندەوەرزانی ١</h3>
+            <a href="zindawar1.html" class="btn-action">دەستپێبکە</a>
         </div>
 
         <!-- مێژوو -->
-        <div class="subject-card" onclick="location.href='mejo.html'">
-            <div>
-                <div class="icon">⏳</div>
-                <h3>مێژوو</h3>
-            </div>
-            <a href="mejo.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--history-color); --theme-glow: rgba(241, 196, 15, 0.3);" onclick="location.href='mejo.html'">
+            <div class="icon-box">⏳</div>
+            <h3>مێژوو</h3>
+            <a href="mejo.html" class="btn-action">دەستپێبکە</a>
         </div>
 
         <!-- ئیسلامی -->
-        <div class="subject-card" onclick="location.href='eslame.html'">
-            <div>
-                <div class="icon">🕌</div>
-                <h3>ئیسلامی</h3>
-            </div>
-            <a href="eslame.html" class="btn-start">دەستپێبکە</a>
+        <div class="subject-card" style="--theme-color: var(--islamic-color); --theme-glow: rgba(46, 204, 113, 0.3);" onclick="location.href='eslame.html'">
+            <div class="icon-box">🕌</div>
+            <h3>ئیسلامی</h3>
+            <a href="eslame.html" class="btn-action">دەستپێبکە</a>
+        </div>
+
+        <!-- ئیسلامی بابەت -->
+        <div class="subject-card" style="--theme-color: var(--islamic-color); --theme-glow: rgba(46, 204, 113, 0.3);" onclick="location.href='eslamebabat.html'">
+            <div class="icon-box">📖</div>
+            <h3>ئیسلامی بابەت</h3>
+            <a href="eslamebabat.html" class="btn-action">دەستپێبکە</a>
+        </div>
+
+        <!-- یاسا -->
+        <div class="subject-card" style="--theme-color: var(--yasa-color); --theme-glow: rgba(231, 76, 60, 0.3);" onclick="location.href='yasa.html'">
+            <div class="icon-box">⚖️</div>
+            <h3>یاسا</h3>
+            <a href="yasa.html" class="btn-action">دەستپێبکە</a>
+        </div>
+
+        <!-- ژینگە -->
+        <div class="subject-card" style="--theme-color: var(--env-color); --theme-glow: rgba(26, 188, 156, 0.3);" onclick="location.href='env.html'">
+            <div class="icon-box">🌱</div>
+            <h3>ژینگە (Env)</h3>
+            <a href="env.html" class="btn-action">دەستپێبکە</a>
+        </div>
+
+        <!-- Ark -->
+        <div class="subject-card" style="--theme-color: #7f8c8d; --theme-glow: rgba(127, 140, 141, 0.3);" onclick="location.href='ark.html'">
+            <div class="icon-box">📂</div>
+            <h3>Ark</h3>
+            <a href="ark.html" class="btn-action">دەستپێبکە</a>
         </div>
 
     </div>
