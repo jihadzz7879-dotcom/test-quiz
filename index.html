@@ -5,75 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تاقیکردنەوەکانی پۆلا 12</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Vazirmatn', sans-serif; transition: all 0.3s ease; }
-        /* 3 Beautiful Themes */
-        .theme-blue { --bg-main: #f0f4f8; --primary: #1e3a8a; --accent: #3b82f6; --text: #1e293b; }
-        .theme-dark { --bg-main: #0f172a; --primary: #334155; --accent: #a855f7; --text: #f8fafc; }
-        .theme-emerald { --bg-main: #f0fdf4; --primary: #064e3b; --accent: #10b981; --text: #0f172a; }
+        .theme-blue { --bg-main: #f1f5f9; --primary: #1e3a8a; --accent: #3b82f6; --text: #1e293b; --card-bg: #ffffff; }
+        .theme-dark { --bg-main: #0f172a; --primary: #38bdf8; --accent: #a855f7; --text: #f8fafc; --card-bg: #1e293b; }
+        .theme-emerald { --bg-main: #f0fdf4; --primary: #064e3b; --accent: #10b981; --text: #0f172a; --card-bg: #ffffff; }
     </style>
 </head>
-<body class="theme-blue bg-[var(--bg-main)] text-[var(--text)] min-h-screen p-4 md:p-8">
+<body class="theme-blue bg-[var(--bg-main)] text-[var(--text)] min-h-screen p-3 md:p-8">
 
-    <div class="max-w-5xl mx-auto flex justify-between items-center mb-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur p-4 rounded-2xl shadow-sm">
+    <div class="max-w-6xl mx-auto flex justify-between items-center mb-6 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
         <div>
-            <h1 class="text-xl font-bold text-[var(--primary)]">تیاقیکردنا ویزاری کوردی پۆلا ١٢</h1>
-            <p class="text-xs text-gray-500">خولا دووێ ٢٠٢٥-٢٠٢٦</p>
+            <h1 class="text-xl md:text-2xl font-black text-[var(--primary)]">تاقیکردنا ویزاری کوردی پۆلا ١٢</h1>
+            <p class="text-xs text-gray-400">خولا دووێ ٢٠٢٥-٢٠٢٦ • دیسان بژاردێن پێشکەفتی یێن ئەدمینی</p>
         </div>
-        <button onclick="openAdminModal()" class="text-xs opacity-40 hover:opacity-100 transition text-gray-400 hover:text-[var(--accent)]">🔧 لۆگینی ئەدمین</button>
+        <button onclick="openAdminModal()" class="text-xs font-bold opacity-50 hover:opacity-100 bg-gray-100 dark:bg-slate-700 px-3 py-2 rounded-xl transition text-gray-500 dark:text-gray-300">🔧 پانێلا ئەدمین</button>
     </div>
 
-    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <div class="lg:col-span-2 space-y-6">
-            <div id="student-auth-box" class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-                <h2 class="text-lg font-bold mb-4">بۆ دەستپێکرن، ناڤێ خۆ بنویسە:</h2>
+            
+            <div id="public-announcement-box" class="hidden bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-md">
+                <div class="flex items-start gap-3">
+                    <span class="text-2xl">📢</span>
+                    <div>
+                        <h4 class="font-black text-sm">ڕاگەیاندنا گشتی ژ لایێ ئەدمینی ڤە:</h4>
+                        <p id="public-announcement-text" class="text-sm mt-1 opacity-95 font-medium"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-auth-box" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-slate-700">
+                <h2 class="text-lg font-bold mb-4">بۆ دەستپێکرن و دیتنا بابەتان، ناڤێ خۆ بنویسە:</h2>
                 <div class="flex gap-2">
-                    <input type="text" id="student-name-input" placeholder="ناڤێ تە یێ سیانی..." class="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button onclick="registerStudent()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition">تۆمارکرن</button>
+                    <input type="text" id="student-name-input" placeholder="ناڤێ تە یێ سیانی..." class="w-full p-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button onclick="registerStudent()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition whitespace-nowrap">تۆمارکرن</button>
                 </div>
             </div>
 
             <div id="subjects-section" class="hidden space-y-4">
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
-                    <p class="font-medium text-sm">ببخێرهاتی، <span id="display-student-name" class="text-blue-600 font-bold"></span></p>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                    <p class="font-medium text-sm">ببخێرهاتی، <span id="display-student-name" class="text-blue-600 dark:text-blue-400 font-bold"></span></p>
                     <button onclick="logoutStudent()" class="text-xs text-red-500 hover:underline">دەرکەوتن</button>
                 </div>
                 
-                <h3 class="text-md font-bold text-gray-700">پۆلێن و بابەتێن بەردەست:</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    <a href="kurdish.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                <h3 class="text-md font-bold text-gray-500 dark:text-gray-400">📚 لایێ بابەتان و بەڵگەنامەیان (هەموو فایله‌كان):</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div onclick="accessSubject('kurdish.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-kurdish.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">📚</span> <span class="font-bold text-sm">کۆردی (Kurdish)</span>
-                    </a>
-                    <a href="english.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                    </div>
+                    <div onclick="accessSubject('english.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-english.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">🇬🇧</span> <span class="font-bold text-sm">ئینگلیزی (English)</span>
-                    </a>
-                    <a href="arabic.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                    </div>
+                    <div onclick="accessSubject('arabic.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-arabic.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">🌙</span> <span class="font-bold text-sm">عەرەبی (Arabic)</span>
-                    </a>
-                    <a href="fizya.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                    </div>
+                    <div onclick="accessSubject('fizya.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-fizya.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">⚡</span> <span class="font-bold text-sm">فیزیا (Fizya)</span>
-                    </a>
-                    <a href="eslame.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                    </div>
+                    <div onclick="accessSubject('eslame.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-eslame.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">🕌</span> <span class="font-bold text-sm">ئیسلامی (Eslame)</span>
-                    </a>
-                    <a href="yasa.html" class="bg-white p-4 rounded-xl shadow-xs border border-gray-100 hover:border-blue-500 hover:shadow-md transition text-center block">
+                    </div>
+                    <div onclick="accessSubject('eslamebabat.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-eslamebabat.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">📖</span> <span class="font-bold text-sm">بابەتێن ئیسلامیێ</span>
+                    </div>
+                    <div onclick="accessSubject('yasa.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-yasa.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
                         <span class="block text-2xl mb-1">⚖️</span> <span class="font-bold text-sm">یاسا و مێژوو</span>
-                    </a>
+                    </div>
+                    <div onclick="accessSubject('mejo.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-mejo.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">⏳</span> <span class="font-bold text-sm">مێژوو (Mejo)</span>
+                    </div>
+                    <div onclick="accessSubject('zindawar.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-zindawar.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">🧬</span> <span class="font-bold text-sm">زیندەوەر (Zindawar)</span>
+                    </div>
+                    <div onclick="accessSubject('ark.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-ark.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">📁</span> <span class="font-bold text-sm">ئەرشیف (Ark)</span>
+                    </div>
+                    <div onclick="accessSubject('env.html')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-env.html" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">🌐</span> <span class="font-bold text-sm">ژینگە (Env)</span>
+                    </div>
+                    <div onclick="accessSubject('q1.png')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-slate-700 hover:border-blue-500 transition relative group">
+                        <div id="lock-badge-q1.png" class="hidden absolute top-2 left-2 bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded font-bold">🔒 قوفڵە</div>
+                        <span class="block text-2xl mb-1">🖼️</span> <span class="font-bold text-sm">پرسیارێ Q1</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-                <h3 class="font-bold text-md mb-3 flex items-center gap-2">💬 پێشنیار یان پرسیار بۆ ئەدمینی</h3>
-                <textarea id="feedback-input" rows="3" placeholder="پەیاما خۆ لێرە بنویسە..." class="w-full p-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3"></textarea>
-                <button onclick="sendFeedback()" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-sm py-2.5 rounded-xl font-medium transition">هنارتن بۆ ئەدمین</button>
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-slate-700">
+                <h3 class="font-bold text-md mb-3 flex items-center gap-2">💬 ناردنا پێشنیاران بۆ ئەدمینی</h3>
+                <textarea id="feedback-input" rows="3" placeholder="پەیام یان پێشنیارا خۆ لێرە بنویسە..." class="w-full p-3 text-sm rounded-xl border border-gray-200 dark:border-slate-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3"></textarea>
+                <button onclick="sendFeedback()" class="w-full bg-slate-900 dark:bg-blue-600 hover:opacity-90 text-white text-sm py-2.5 rounded-xl font-medium transition">هنارتن بۆ ئەدمین</button>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-                <h3 class="font-bold text-xs uppercase tracking-wider text-gray-400 mb-3">📥 بەرسڤێن ئەدمینی بۆ تە</h3>
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-slate-700">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-gray-400 mb-3">📥 بەرسڤێن تایبەت یێن ئەدمینی</h3>
                 <div id="student-replies-container" class="space-y-3 max-h-60 overflow-y-auto text-sm">
                     <p class="text-gray-400 text-xs italic">چو بەرسڤ نینن ل سەر پەیامێن تە تا نوکە.</p>
                 </div>
@@ -82,72 +123,118 @@
     </div>
 
     <div id="admin-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl p-6 overflow-y-auto max-h-[90vh]">
+        <div class="bg-white dark:bg-slate-800 w-full max-w-5xl rounded-3xl shadow-2xl p-6 overflow-y-auto max-h-[92vh]">
             
             <div id="admin-login-step" class="text-center py-8">
-                <h2 class="text-2xl font-bold mb-2">چوونەژوور ل پانێلا ئەدمین</h2>
-                <p class="text-sm text-gray-500 mb-6">کۆدێ پاراستنێ یێ ڤەشارتی داخڵ بکە</p>
+                <h2 class="text-2xl font-black mb-2">چوونەژوور ل پانێلا ئەدمین</h2>
+                <p class="text-sm text-gray-400 mb-6">کۆدێ ڤەشارتی یێ ئەدمینی داخڵ بکە</p>
                 <div class="max-w-xs mx-auto space-y-3">
-                    <input type="password" id="admin-pass-input" placeholder="کۆدێ ئەدمینی..." class="w-full p-3 text-center border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <input type="password" id="admin-pass-input" placeholder="کۆدێ ئەدمینی..." class="w-full p-3 text-center border border-gray-200 dark:border-slate-600 bg-transparent rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
                     <div class="flex gap-2">
                         <button onclick="verifyAdminLogin()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl font-bold transition">پەسەندکرن</button>
-                        <button onclick="closeAdminModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl transition">داخستن</button>
+                        <button onclick="closeAdminModal()" class="w-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl transition">داخستن</button>
                     </div>
                 </div>
             </div>
 
             <div id="admin-dashboard-content" class="hidden">
-                <div class="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
+                <div class="flex justify-between items-center border-b border-gray-100 dark:border-slate-700 pb-4 mb-6">
                     <div>
-                        <h2 class="text-xl font-bold text-purple-700">👑 زۆربەى زانیاریێن ئەدمین (Dashboard)</h2>
-                        <p class="text-xs text-gray-400">کۆنترۆلا گشتی ل سەر ئەپی</p>
+                        <h2 class="text-xl font-black text-purple-600 dark:text-purple-400">👑 پانێلا کۆنترۆلا گشتی (Admin02592)</h2>
+                        <p class="text-xs text-gray-400">کۆنترۆلا قوتابیان، ڕەمزان و شێوازان</p>
                     </div>
-                    <button onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-600 text-sm bg-gray-100 px-3 py-1.5 rounded-lg">دەرکەوتن</button>
+                    <button onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-600 text-sm bg-gray-100 dark:bg-slate-700 px-3 py-1.5 rounded-lg">داخستن</button>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl">
-                        <span class="text-xs text-blue-600 uppercase font-bold">ژمارا سەرەدان کەران</span>
-                        <div id="stat-total-visitors" class="text-3xl font-black text-blue-900">0</div>
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700">
+                        <span class="text-xs text-blue-600 dark:text-blue-400 font-bold">کۆی داخلبووان</span>
+                        <div id="stat-total-visitors" class="text-3xl font-black mt-1">0</div>
                     </div>
-                    <div class="bg-purple-50 border border-purple-100 p-4 rounded-xl">
-                        <span class="text-xs text-purple-600 uppercase font-bold">پێشنیارێن هاتی</span>
-                        <div id="stat-total-feedback" class="text-3xl font-black text-purple-900">0</div>
+                    <div class="bg-purple-50 dark:bg-slate-700/50 p-4 rounded-xl border border-purple-100 dark:border-slate-700">
+                        <span class="text-xs text-purple-600 dark:text-purple-400 font-bold">پێشنیارێن هاتی</span>
+                        <div id="stat-total-feedback" class="text-3xl font-black mt-1">0</div>
                     </div>
-                    <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-xl">
-                        <span class="text-xs text-emerald-600 uppercase font-bold">شێوازێ ئەپی یێ چالاك</span>
-                        <div id="stat-active-theme" class="text-sm font-black text-emerald-900 mt-2">شێوازێ شین</div>
+                    <div class="bg-amber-50 dark:bg-slate-700/50 p-4 rounded-xl border border-amber-100 dark:border-slate-700">
+                        <span class="text-xs text-amber-600 dark:text-amber-400 font-bold">ڕاگەیاندنا چالاك</span>
+                        <div id="stat-has-announcement" class="text-sm font-bold mt-2 text-amber-800 dark:text-amber-300">نینە</div>
+                    </div>
+                    <div class="bg-emerald-50 dark:bg-slate-700/50 p-4 rounded-xl border border-emerald-100 dark:border-slate-700">
+                        <span class="text-xs text-emerald-600 dark:text-emerald-400 font-bold">شێوازێ ئەپی</span>
+                        <div id="stat-active-theme" class="text-sm font-bold mt-2 text-emerald-800 dark:text-emerald-300">شێوازێ شین</div>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 dark:bg-slate-700/40 p-4 rounded-xl border border-amber-200 dark:border-slate-600 mb-6">
+                    <h3 class="font-bold text-sm text-amber-800 dark:text-amber-400 mb-2">📢 ناردنا ڕاگەیاندنەکا گشتی (بۆ هەموو قوتابیان دیار بیت)</h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="admin-announcement-input" placeholder="بۆ نموونە: تاقیکردنەوا فیزیا هاتیە پاشخستن بۆ سبەى..." class="w-full text-xs p-2.5 bg-white dark:bg-slate-800 border rounded-lg focus:outline-none">
+                        <button onclick="savePublicAnnouncement()" class="bg-amber-600 text-white text-xs px-4 py-2 rounded-lg font-bold">بڵاوکردنەوە</button>
+                        <button onclick="deletePublicAnnouncement()" class="bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-white text-xs px-3 py-2 rounded-lg">سڕینەوە</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <h3 class="font-bold text-sm mb-3 text-gray-700">👥 ناڤێن قوتابیێن داخلبووی</h3>
-                        <div id="admin-visitors-list" class="space-y-2 max-h-60 overflow-y-auto text-xs">
+                    <div class="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                        <h3 class="font-bold text-sm mb-3 text-gray-700 dark:text-gray-300">👥 ناڤ و کاتی داخلبوونا قوتابیان</h3>
+                        <div id="admin-visitors-list" class="space-y-2 max-h-64 overflow-y-auto text-xs">
                             </div>
                     </div>
 
-                    <div class="lg:col-span-2 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <h3 class="font-bold text-sm mb-3 text-gray-700">📥 پێشنیار و بەرسڤدان</h3>
-                        <div id="admin-feedback-list" class="space-y-4 max-h-60 overflow-y-auto">
+                    <div class="lg:col-span-2 bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                        <h3 class="font-bold text-sm mb-3 text-gray-700 dark:text-gray-300">📥 بەڕێوەبردن و بەرسڤدانا پێشنیاران</h3>
+                        <div id="admin-feedback-list" class="space-y-4 max-h-64 overflow-y-auto">
                             </div>
                     </div>
                 </div>
 
-                <div class="mt-8 border-t border-gray-100 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-xs">
+                <div class="mt-6 bg-white dark:bg-slate-900 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                    <h3 class="font-bold text-sm text-purple-700 dark:text-purple-400 mb-3">🔒 دانا رمز (کۆدی پاراستن) بۆ سەر هەر بابەتەکێ</h3>
+                    <p class="text-xs text-gray-400 mb-4">هەر بابەتەکێ لێرە کۆد بۆ دابنێی، قوتابی ناتوانێت بیبینێت تا کۆدەکە لای خۆی داخڵ نەکات. (بەتاڵی بکەوە بۆ لادانی رمز)</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+                        <div>
+                            <label class="block font-medium mb-1">کۆردی (Kurdish)</label>
+                            <input type="text" id="lock-kurdish.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">ئینگلیزی (English)</label>
+                            <input type="text" id="lock-english.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">عەرەبی (Arabic)</label>
+                            <input type="text" id="lock-arabic.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">فیزیا (Fizya)</label>
+                            <input type="text" id="lock-fizya.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">زیندەوەر (Zindawar)</label>
+                            <input type="text" id="lock-zindawar.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1">یاسا و مێژوو</label>
+                            <input type="text" id="lock-yasa.html" placeholder="بێ رمز" class="w-full p-2 border dark:border-slate-700 rounded bg-transparent">
+                        </div>
+                    </div>
+                    <button onclick="saveSubjectLocks()" class="mt-4 bg-purple-600 text-white font-bold px-5 py-2 rounded-lg text-xs">پاشکەوتکرنی کۆدی بابەتەکان</button>
+                </div>
+
+                <div class="mt-6 border-t border-gray-100 dark:border-slate-700 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
                         <h4 class="font-bold text-sm mb-3">🎨 گۆڕینا شێوازێ ئەپڵیکەیشنێ</h4>
                         <div class="grid grid-cols-3 gap-2">
                             <button onclick="changeAppTheme('theme-blue')" class="bg-blue-600 text-white text-xs p-2 rounded-lg font-bold">شێوازێ شین</button>
-                            <button onclick="changeAppTheme('theme-dark')" class="bg-slate-800 text-white text-xs p-2 rounded-lg font-bold">شێوازێ تاری</button>
+                            <button onclick="changeAppTheme('theme-dark')" class="bg-slate-800 border border-slate-600 text-white text-xs p-2 rounded-lg font-bold">شێوازێ تاری</button>
                             <button onclick="changeAppTheme('theme-emerald')" class="bg-emerald-600 text-white text-xs p-2 rounded-lg font-bold">شێوازێ کەسک</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-xs">
-                        <h4 class="font-bold text-sm mb-2">🔐 گۆڕینا کۆدێ پاراستنێ یێ ئەدمینی</h4>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                        <h4 class="font-bold text-sm mb-2">🔐 گۆڕینا کۆدێ چوونەژوورێ یێ ئەدمینی</h4>
                         <div class="flex gap-2">
-                            <input type="text" id="new-admin-pass" placeholder="کۆدێ نوو لێرە بنویسە..." class="w-full text-xs p-2 border border-gray-200 rounded-lg">
+                            <input type="text" id="new-admin-pass" placeholder="کۆدێ نوو بنویسە..." class="w-full text-xs p-2.5 border dark:border-slate-700 rounded-lg bg-transparent">
                             <button onclick="updateAdminPassword()" class="bg-red-500 text-white text-xs px-4 py-2 rounded-lg font-bold whitespace-nowrap">پاشکەوتکرن</button>
                         </div>
                     </div>
@@ -158,29 +245,32 @@
     </div>
 
     <script>
-        // Initialize Core Data structures inside localStorage if they don't exist
+        // Data Structures Setup inside LocalStorage
         if(!localStorage.getItem('admin_password')) localStorage.setItem('admin_password', 'admin02592');
         if(!localStorage.getItem('visitors_log')) localStorage.setItem('visitors_log', JSON.stringify([]));
         if(!localStorage.getItem('feedbacks')) localStorage.setItem('feedbacks', JSON.stringify([]));
         if(!localStorage.getItem('current_theme')) localStorage.setItem('current_theme', 'theme-blue');
+        if(!localStorage.getItem('public_announcement')) localStorage.setItem('public_announcement', '');
+        if(!localStorage.getItem('subject_locks')) localStorage.setItem('subject_locks', JSON.stringify({}));
 
         let currentStudent = localStorage.getItem('logged_student') || "";
 
-        // App Initial Setup
         window.onload = function() {
             applySavedTheme();
             checkStudentSession();
             renderStudentReplies();
+            renderPublicAnnouncement();
+            updateSubjectLockBadges();
         };
 
         function applySavedTheme() {
             const savedTheme = localStorage.getItem('current_theme');
-            document.body.className = `${savedTheme} bg-[var(--bg-main)] text-[var(--text)] min-h-screen p-4 md:p-8`;
+            document.body.className = `${savedTheme} bg-[var(--bg-main)] text-[var(--text)] min-h-screen p-3 md:p-8`;
             const themeNames = {'theme-blue': 'شێوازێ شین', 'theme-dark': 'شێوازێ تاری', 'theme-emerald': 'شێوازێ کەسک'};
             document.getElementById('stat-active-theme').innerText = themeNames[savedTheme];
         }
 
-        // Student Handlers
+        // Student functions
         function checkStudentSession() {
             if(currentStudent) {
                 document.getElementById('student-auth-box').classList.add('hidden');
@@ -199,7 +289,6 @@
             currentStudent = nameInput;
             localStorage.setItem('logged_student', currentStudent);
             
-            // Log visitor to system
             let visitors = JSON.parse(localStorage.getItem('visitors_log'));
             visitors.push({ name: currentStudent, time: new Date().toLocaleString() });
             localStorage.setItem('visitors_log', JSON.stringify(visitors));
@@ -215,6 +304,38 @@
             renderStudentReplies();
         }
 
+        // Subject Access & Guard Mechanism
+        function accessSubject(pageUrl) {
+            const locks = JSON.parse(localStorage.getItem('subject_locks'));
+            if(locks[pageUrl] && locks[pageUrl] !== "") {
+                const userKey = prompt("ئەڤ بابەتە یێ قوفڵکری یە ژ لایێ ئەدمینی ڤە! ئەگەر کۆدێ ڕاست هەیە داخڵ بکە:");
+                if(userKey === locks[pageUrl]) {
+                    window.location.href = pageUrl;
+                } else {
+                    alert("کۆد خەڵتە! تە نکاریت بچی د ناڤ ڤی بابەتی دا.");
+                }
+            } else {
+                window.location.href = pageUrl;
+            }
+        }
+
+        function updateSubjectLockBadges() {
+            const locks = JSON.parse(localStorage.getItem('subject_locks'));
+            const files = ['kurdish.html', 'english.html', 'arabic.html', 'fizya.html', 'eslame.html', 'eslamebabat.html', 'yasa.html', 'mejo.html', 'zindawar.html', 'ark.html', 'env.html', 'q1.png'];
+            
+            files.forEach(file => {
+                const badge = document.getElementById(`lock-badge-${file}`);
+                if(badge) {
+                    if(locks[file] && locks[file] !== "") {
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Feedbacks Logic
         function sendFeedback() {
             if(!currentStudent) return alert('هیڤییە بەری نامێ بنێری ناڤێ خۆ تۆمار بکە!');
             const text = document.getElementById('feedback-input').value.trim();
@@ -237,7 +358,7 @@
         function renderStudentReplies() {
             const container = document.getElementById('student-replies-container');
             if(!currentStudent) {
-                container.innerHTML = `<p class="text-gray-400 text-xs italic">بۆ دیتنا بەرسڤان ناسناما خۆ تۆمار بکە.</p>`;
+                container.innerHTML = `<p class="text-gray-400 text-xs italic">بۆ دیتنا بەرسڤان ناڤێ خۆ تۆمار بکە.</p>`;
                 return;
             }
             const feedbacks = JSON.parse(localStorage.getItem('feedbacks')).filter(f => f.student === currentStudent);
@@ -247,14 +368,25 @@
             }
 
             container.innerHTML = feedbacks.map(f => `
-                <div class="p-3 bg-gray-50 rounded-xl border border-gray-100">
-                    <p class="font-bold text-xs text-gray-600">تە گۆت: "${f.message}"</p>
-                    ${f.reply ? `<p class="mt-2 text-purple-700 bg-purple-50 p-2 rounded-lg text-xs font-medium">✨ بەرسڤا ئەدمینی: ${f.reply}</p>` : `<p class="mt-1 text-xs text-amber-500 italic">⏳ چاوەڕێی بەرسڤێ یە...</p>`}
+                <div class="p-3 bg-gray-50 dark:bg-slate-700/60 rounded-xl border border-gray-100 dark:border-slate-700">
+                    <p class="font-bold text-xs text-gray-500 dark:text-gray-400">تە گۆت: "${f.message}"</p>
+                    ${f.reply ? `<p class="mt-2 text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 p-2 rounded-lg text-xs font-bold">✨ بەرسڤا ئەدمینی: ${f.reply}</p>` : `<p class="mt-1 text-xs text-amber-500 italic">⏳ هێشتا بەرسڤ نەداینە...</p>`}
                 </div>
             `).join('');
         }
 
-        // ================= ADMIN FUNCTIONS =================
+        function renderPublicAnnouncement() {
+            const msg = localStorage.getItem('public_announcement');
+            const box = document.getElementById('public-announcement-box');
+            if(msg && msg.trim() !== "") {
+                box.classList.remove('hidden');
+                document.getElementById('public-announcement-text').innerText = msg;
+            } else {
+                box.classList.add('hidden');
+            }
+        }
+
+        // ================= ADMIN CONSOLE PANEL CONTEXT =================
         function openAdminModal() {
             document.getElementById('admin-modal').classList.remove('hidden');
             document.getElementById('admin-login-step').classList.remove('hidden');
@@ -275,65 +407,96 @@
                 document.getElementById('admin-dashboard-content').classList.remove('hidden');
                 loadAdminDashboardData();
             } else {
-                alert('کۆدێ داخڵبوونی چەوتە! دووبارە هەوڵ بدەوە.');
+                alert('کۆدێ چوونەژوورێ چەوتە!');
             }
         }
 
         function loadAdminDashboardData() {
             const visitors = JSON.parse(localStorage.getItem('visitors_log'));
             const feedbacks = JSON.parse(localStorage.getItem('feedbacks'));
+            const locks = JSON.parse(localStorage.getItem('subject_locks'));
 
-            // Set stats counts
             document.getElementById('stat-total-visitors').innerText = visitors.length;
             document.getElementById('stat-total-feedback').innerText = feedbacks.length;
+            
+            const ann = localStorage.getItem('public_announcement');
+            document.getElementById('stat-has-announcement').innerText = (ann && ann.length > 0) ? "چالاكە" : "نینە";
 
-            // Render Visitors list
-            const visitorsListContainer = document.getElementById('admin-visitors-list');
-            if(visitors.length === 0) {
-                visitorsListContainer.innerHTML = `<p class="text-gray-400 italic">چو قوتابی داخل نەبووینە.</p>`;
-            } else {
-                visitorsListContainer.innerHTML = visitors.map(v => `
-                    <div class="p-2 bg-white rounded border border-gray-200 flex justify-between items-center">
-                        <span class="font-bold text-gray-800">${v.name}</span>
-                        <span class="text-[10px] text-gray-400">${v.time}</span>
+            // Fill subject lock inputs with current configuration
+            if(locks['kurdish.html']) document.getElementById('lock-kurdish.html').value = locks['kurdish.html'];
+            if(locks['english.html']) document.getElementById('lock-english.html').value = locks['english.html'];
+            if(locks['arabic.html']) document.getElementById('lock-arabic.html').value = locks['arabic.html'];
+            if(locks['fizya.html']) document.getElementById('lock-fizya.html').value = locks['fizya.html'];
+            if(locks['zindawar.html']) document.getElementById('lock-zindawar.html').value = locks['zindawar.html'];
+            if(locks['yasa.html']) document.getElementById('lock-yasa.html').value = locks['yasa.html'];
+
+            // Render Visitors Log
+            const visitorsContainer = document.getElementById('admin-visitors-list');
+            visitorsContainer.innerHTML = visitors.length === 0 ? `<p class="text-gray-400 italic">چو قوتابی داخل نەبووینە.</p>` : 
+                visitors.map(v => `<div class="p-2 bg-white dark:bg-slate-800 rounded border border-gray-100 dark:border-slate-700 flex justify-between">
+                    <span class="font-bold">${v.name}</span><span class="text-gray-400 text-[10px]">${v.time}</span>
+                </div>`).reverse().join('');
+
+            // Render Feedbacks Manage list
+            const feedbackContainer = document.getElementById('admin-feedback-list');
+            feedbackContainer.innerHTML = feedbacks.length === 0 ? `<p class="text-gray-400 italic p-2">چو پێشنیار نینن.</p>` :
+                feedbacks.map(f => `
+                    <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 space-y-2">
+                        <div class="flex justify-between text-xs font-bold text-blue-500">
+                            <span>👤 قوتابی: ${f.student}</span><span class="text-gray-400 font-normal">${f.time}</span>
+                        </div>
+                        <p class="text-xs bg-gray-50 dark:bg-slate-900 p-2 rounded text-gray-700 dark:text-gray-300">"${f.message}"</p>
+                        <div class="flex gap-2">
+                            <input type="text" id="reply-input-${f.id}" value="${f.reply}" placeholder="بەرسڤا تایبەت بۆ وی بنویسە..." class="w-full text-xs p-2 border dark:border-slate-700 rounded-lg bg-transparent">
+                            <button onclick="submitAdminReply(${f.id})" class="bg-purple-600 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap">هنارتن</button>
+                        </div>
                     </div>
                 `).reverse().join('');
-            }
-
-            // Render Feedbacks inside Admin console
-            const feedbackListContainer = document.getElementById('admin-feedback-list');
-            if(feedbacks.length === 0) {
-                feedbackListContainer.innerHTML = `<p class="text-gray-400 italic p-2">چو پێشنیار بەردەست نینن.</p>`;
-            } else {
-                feedbackListContainer.innerHTML = feedbacks.map(f => `
-                    <div class="p-4 bg-white rounded-xl border border-gray-200 space-y-2">
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="font-bold text-blue-600">👤 قوتابی: ${f.student}</span>
-                            <span class="text-gray-400">${f.time}</span>
-                        </div>
-                        <p class="text-sm bg-gray-50 p-2 rounded-lg text-gray-700">"${f.message}"</p>
-                        <div class="flex gap-2 pt-1">
-                            <input type="text" id="reply-input-${f.id}" value="${f.reply}" placeholder="بەرسڤا خۆ لێرە بنویسە..." class="w-full text-xs p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500">
-                            <button onclick="submitAdminReply(${f.id})" class="bg-purple-600 text-white text-xs px-3 py-2 rounded-lg font-medium transition whitespace-nowrap">هنارتنی بەرسڤ</button>
-                        </div>
-                    </div>
-                `).reverse().join('');
-            }
         }
 
         function submitAdminReply(feedbackId) {
             const replyText = document.getElementById(`reply-input-${feedbackId}`).value.trim();
-            if(!replyText) return;
-
             let feedbacks = JSON.parse(localStorage.getItem('feedbacks'));
             const index = feedbacks.findIndex(f => f.id === feedbackId);
             if(index !== -1) {
                 feedbacks[index].reply = replyText;
                 localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
-                alert('بەرسڤ هاتە پاشکەوتکرن و بۆ قوتابی دەرکەفت!');
+                alert('بەرسڤ بۆ قوتابی هاتە پاشکەوتکرن!');
                 loadAdminDashboardData();
                 renderStudentReplies();
             }
+        }
+
+        function savePublicAnnouncement() {
+            const text = document.getElementById('admin-announcement-input').value.trim();
+            if(!text) return alert("تکایە پەیامێک بنووسە!");
+            localStorage.setItem('public_announcement', text);
+            alert("ڕاگەیاندنا گشتی بۆ هەموو قوتابیان بڵاوکرایەوە!");
+            renderPublicAnnouncement();
+            loadAdminDashboardData();
+        }
+
+        function deletePublicAnnouncement() {
+            localStorage.setItem('public_announcement', '');
+            document.getElementById('admin-announcement-input').value = "";
+            alert("ڕاگەیاندنا گشتی هاتە سڕینەوە.");
+            renderPublicAnnouncement();
+            loadAdminDashboardData();
+        }
+
+        function saveSubjectLocks() {
+            const locks = {
+                'kurdish.html': document.getElementById('lock-kurdish.html').value.trim(),
+                'english.html': document.getElementById('lock-english.html').value.trim(),
+                'arabic.html': document.getElementById('lock-arabic.html').value.trim(),
+                'fizya.html': document.getElementById('lock-fizya.html').value.trim(),
+                'zindawar.html': document.getElementById('lock-zindawar.html').value.trim(),
+                'yasa.html': document.getElementById('lock-yasa.html').value.trim(),
+                'eslame.html': '', 'eslamebabat.html': '', 'mejo.html': '', 'ark.html': '', 'env.html': '', 'q1.png': '' // open defaults
+            };
+            localStorage.setItem('subject_locks', JSON.stringify(locks));
+            alert("کۆد و ڕەمزێن بابەتان ب سەرکەفتوویی هاتنە نووکرن!");
+            updateSubjectLockBadges();
         }
 
         function changeAppTheme(themeClass) {
@@ -343,11 +506,10 @@
 
         function updateAdminPassword() {
             const newPass = document.getElementById('new-admin-pass').value.trim();
-            if(!newPass) return alert('هیڤییە کۆدەکێ دروست بنویسە');
-            
+            if(!newPass) return alert('کۆدەکێ دروست بنویسە');
             localStorage.setItem('admin_password', newPass);
             document.getElementById('new-admin-pass').value = "";
-            alert(`کۆدێ ئەدمینی ب سەرکەفتوویی هاتە گۆڕین بۆ: ${newPass}`);
+            alert(`کۆدێ سەرەکی یێ ئەدمینی هاتە گۆڕین بۆ: ${newPass}`);
         }
     </script>
 </body>
