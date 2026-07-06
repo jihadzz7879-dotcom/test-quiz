@@ -3,263 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global TV HD & Sports</title>
+    <title>Global IPTV Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0d0925 0%, #05030e 100%);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* بەشی پاراستن بە ڕەمز */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #0b081e; color: white; text-align: center; padding: 20px; }
+        header h1 { font-size: 2rem; color: #00f2fe; margin-bottom: 20px; }
+        
+        /* شاشەی لێدەری ڤیدیۆ */
+        #player {
             width: 100%;
-            height: 100%;
-            background: #09061a;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: all 0.5s ease;
+            max-width: 800px;
+            height: 450px;
+            background: #000;
+            margin: 0 auto 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        @media(max-width:600px){ #player { height: 240px; } }
 
-        .lock-box {
-            background: #140f30;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            text-align: center;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            max-width: 400px;
-            width: 90%;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-
-        .lock-box h2 {
-            margin-bottom: 20px;
-            color: #ff007f;
-            font-size: 1.6rem;
-        }
-
-        .lock-box input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px solid #251f4d;
-            background: #0d0925;
-            color: white;
-            font-size: 1.3rem;
-            text-align: center;
-            margin-bottom: 15px;
-            letter-spacing: 5px;
-        }
-
-        .lock-box button {
-            background: linear-gradient(45deg, #ff007f, #7000ff);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
+        .btn {
+            background: #16113a;
+            color: #fff;
+            border: 1px solid #3d2b85;
+            padding: 15px 10px;
             font-weight: bold;
             border-radius: 10px;
             cursor: pointer;
-            width: 100%;
-            transition: 0.3s;
+            transition: 0.2s;
         }
-
-        .lock-box button:hover {
-            box-shadow: 0 0 20px rgba(112, 0, 255, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .error-msg {
-            color: #ff3333;
-            margin-top: 10px;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        /* بەشی سەرەکی ماڵپەڕ */
-        #main-content {
-            display: none; /* تا ڕەمز لێنەدات دەرناکەوێت */
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
-
-        .player-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%;
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 25px;
-        }
-
-        .player-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* تۆرێکی مۆدێرن بۆ ٢٠ کەناڵەکە */
-        .channels-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .btn-ch {
-            background: rgba(20, 15, 48, 0.7);
-            color: #c9c5e8;
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 15px 10px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn-ch:hover {
+        .btn:hover, .btn.active {
             background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             color: #000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
         }
-
-        .btn-ch.active {
-            background: linear-gradient(135deg, #ff007f 0%, #7000ff 100%);
-            color: #fff;
-            border-color: #fff;
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
-        }
-
-        /* گونجاندن بۆ مۆبایل */
-        @media (max-width: 900px) { .channels-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 600px) { .channels-grid { grid-template-columns: repeat(2, 1fr); } header h1 { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
 
-    <div id="lock-screen">
-        <div class="lock-box">
-            <h2>تکایە ڕەمزەکە بنووسە</h2>
-            <input type="password" id="pin-input" placeholder="••••" maxlength="4">
-            <button onclick="checkPin()">چوونە ژوورەوە</button>
-            <p class="error-msg" id="error-txt">ڕەمزەکە هەڵەیە! دووبارە تاقیکەرەوە.</p>
-        </div>
-    </div>
+    <header>
+        <h1>GLOBAL LIVE TV HD</h1>
+    </header>
 
-    <div id="main-content">
-        <header>
-            <h1>GLOBAL LIVE TV</h1>
-            <p>سەیرکردنی باشترین کەناڵەکانی جیهان بە کوالیتی بەرز</p>
-        </header>
+    <div id="player"></div>
 
-        <div class="player-container">
-            <iframe id="tv-player" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-        </div>
-
-        <div class="channels-grid">
-            <button class="btn-ch active" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', this)">beIN Sports News</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC9s6a7X600I3c4Cba7F8_jA', this)">Al Kass Sports</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCuj4CnhWwWunKbt6_6EmV3Q', this)">AD Sports 1</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzx9gw', this)">KSA Sports HD</button>
-            
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCuj4CnhWwWunKbt6_6EmV3Q', this)">Yassin TV Live</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCwF6Zp6QvS46P6t8vR49A1g', this)">BBC Arabic</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCvtQ76b88L5B_fccXwY6RQQ', this)">Al Jazeera Arabic</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC18SGo7f6396_VshjQn5S4A', this)">Al Hadath</button>
-            
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCYenDLnNco-S8851_w_A5ig', this)">Sky News Arabia</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCCwS_ZOnL_gN9gXnB7NdfLg', this)">TRT Arabic</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC9s6a7X600I3c4Cba7F8_jA', this)">RT Arabic</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCknLrEdhRCp1flllFmsOnbQ', this)">France 24 Arabic</button>
-            
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCZ38N_6M4AALw3p787S7r7A', this)">National Geo</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCb-Xfebe_Eis8wZ9AUnC_Aw', this)">Documentary HD</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCE_M7f0S7X5m1P45sQ9w91Q', this)">SpaceToon</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC8H-Z59T7KOfpS8g0Zf4T1A', this)">MBC 1</button>
-            
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCh7iitj_69XGZl_H_VqQ_pQ', this)">MBC Action</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC-n9vY7N_HTh1_uCgq9Zg2A', this)">Rotana Cinema</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCg736_O28s6vJ7dGsmM_7pA', this)">Kurdistan 24</button>
-            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC-4U6ZqE5F5fWp6p9S9fKww', this)">Rudaw TV</button>
-        </div>
+    <div class="grid">
+        <button class="btn active" onclick="changeLive('https://trtcanlitv.medya.trt.com.tr/master.m3u8', this)">TRT 1 HD</button>
+        <button class="btn" onclick="changeLive('https://live.ch9.qa/hls/ch9.m3u8', this)">Qatar TV</button>
+        <button class="btn" onclick="changeLive('https://aljazeera-ara-apple-live.akamaized.net/apple/live/ara/master.m3u8', this)">Al Jazeera</button>
+        <button class="btn" onclick="changeLive('https://skynewsarabia-live.akamaized.net/hls/live/2002513/skynewsarabia/master.m3u8', this)">Sky News</button>
     </div>
 
     <script>
-        // فەرمانی پشکینی ڕەمز
-        function checkPin() {
-            const input = document.getElementById('pin-input').value;
-            const error = document.getElementById('error-txt');
-            
-            if (input === '2222') {
-                document.getElementById('lock-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                    // دوای کردنەوەی سایتەکە، خۆکار یەکەم کەناڵ کار بکات
-                    const firstBtn = document.querySelector('.btn-ch');
-                    playTv('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', firstBtn);
-                }, 500);
-            } else {
-                error.style.display = 'block';
-                document.getElementById('pin-input').value = '';
-            }
-        }
+        // دروستکردنی لێدەری ڤیدیۆی جیهانی
+        var player = new Clappr.Player({
+            source: "https://trtcanlitv.medya.trt.com.tr/master.m3u8",
+            parentId: "#player",
+            width: "100%",
+            height: "100%",
+            autoPlay: true
+        });
 
-        // فەرمانی لێدانی کەناڵەکان
-        function playTv(url, element) {
-            const player = document.getElementById('tv-player');
-            player.src = url;
+        function changeLive(url, element) {
+            // گۆڕینی بەستەری لایڤەکە بەبێ کێشە
+            player.load(url);
+            player.play();
 
-            const buttons = document.querySelectorAll('.btn-ch');
+            // گۆڕینی ڕەنگی دوگمەکە
+            const buttons = document.querySelectorAll('.btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
         }
-
-        // پشتگیری کلیل (Enter) بۆ لێدانی ڕەمزەکە
-        document.getElementById('pin-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPin();
-            }
-        });
     </script>
 
 </body>
