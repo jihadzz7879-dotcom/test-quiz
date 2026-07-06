@@ -3,39 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمێ پێشکەفتی یێ تاقیکردنەوان</title>
+    <title>سیستەمی پێشکەوتووی تاقیکردنەوەکان | پۆلی 12</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        body { font-family: 'Vazirmatn', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); color: #1e293b; }
         .subject-card {
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(226, 232, 240, 0.8);
             border-radius: 24px;
-            box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.12);
+            box-shadow: 0 10px 25px -5px rgba(148, 163, 184, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .subject-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.2);
             border-color: #3b82f6;
         }
+        .motivate-box { animation: pulse 3s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+    <div id="chat-popup-notification" class="hidden fixed bottom-5 right-5 bg-slate-900 text-white p-4 rounded-2xl shadow-2xl z-50 max-w-sm border border-blue-500 flex flex-col gap-1 transition-all">
+        <div class="flex justify-between items-center"><span class="text-xs font-black text-blue-400">💬 وەڵامێکی نوێ لە ئەدمینەوە گەیشت!</span><button onclick="closeNotif()" class="text-xs opacity-50 hover:opacity-100">❌</button></div>
+        <p id="popup-notif-msg" class="text-xs font-bold mt-1 text-slate-200"></p>
+    </div>
+
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
         <div>
             <h1 class="text-2xl font-black bg-gradient-to-r from-blue-900 to-indigo-700 bg-clip-text text-transparent">تاقیکردنا ویزاری کوردی پۆلا ١٢</h1>
-            <p class="text-xs text-slate-400 mt-1 font-medium">خولا دووێ ٢٠٢٥-٢٠٢٦ • کۆنترۆلا گشتی و بەڕێوەبردن</p>
+            <p class="text-xs text-slate-400 mt-1 font-medium">خولا دووێ ٢٠٢٥-٢٠٢٦ • بەڕێوەبردن</p>
         </div>
         <div class="flex gap-2 w-full sm:w-auto">
-            <button onclick="openSuperModal()" class="flex-1 sm:flex-none text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 px-4 py-3 rounded-2xl transition">👑 سەرپەرشتیار (خاوەن)</button>
+            <button onclick="openSuperModal()" class="flex-1 sm:flex-none text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 px-4 py-3 rounded-2xl transition">👑 سەرپەرشتیار</button>
             <button onclick="openAdminModal()" class="flex-1 sm:flex-none text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-3 rounded-2xl transition">🔧 لۆگینی ئەدمین</button>
         </div>
     </div>
 
-    <div class="max-w-5xl mx-auto space-y-8">
+    <div class="max-w-5xl mx-auto mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 motivate-box text-white p-4 rounded-2xl text-center shadow-md">
+        <p id="motivation-text" class="text-xs md:text-sm font-bold">✨ "سەرکەوتن دەرئەنجامی کۆششە بەردەوامەکانتە، تۆ شایەنی باشترینی!"</p>
+    </div>
+
+    <div class="max-w-5xl mx-auto space-y-6">
         
         <div id="student-auth-box" class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
             <h2 class="text-sm font-bold mb-3 text-slate-700">بۆ دەستپێکرن یان داخوازکرنا پۆستێ ئەدمینی، ناڤێ خۆ بنویسە:</h2>
@@ -47,18 +58,19 @@
 
         <div id="subjects-section" class="hidden space-y-6">
             <div class="bg-slate-900 text-white p-4 rounded-2xl flex items-center justify-between text-sm shadow-md">
-                <p class="font-medium opacity-90">🌸 بخێربێی، مامۆستا/قوتابی: <span id="display-student-name" class="text-amber-400 font-black"></span></p>
+                <p class="font-medium opacity-90">🌸 بخێربێی قوتابی خۆشەویست: <span id="display-student-name" class="text-amber-400 font-black"></span></p>
                 <button onclick="logoutStudent()" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-xl transition">دەرکەوتن</button>
             </div>
 
-            <div id="public-ann-box" class="hidden bg-amber-500 text-white p-4 rounded-2xl text-xs font-bold shadow-sm">
-                📢 ئاگەهداری ژ لایێ ئەدمینی: <span id="public-ann-text"></span>
+            <div id="public-ann-box" class="hidden bg-amber-500 text-white p-4 rounded-2xl text-xs font-bold shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>📢 ئاگەهداری: <span id="public-ann-text" class="underline"></span></div>
+                <a id="public-ann-link" href="#" target="_blank" class="hidden bg-white text-amber-600 px-3 py-1 rounded-xl text-[11px] font-black hover:bg-slate-100 transition">🔗 کلیک لێرە بکە</a>
             </div>
 
-            <h3 class="text-xs font-black text-slate-400 tracking-wider uppercase">📚 لایەنی بابەت و فۆڵدەرێن تاقیکردنەوان (گشتی HTML):</h3>
+            <h3 class="text-xs font-black text-slate-400 tracking-wider uppercase">📚 لایەنی بابەت و فۆڵدەرێن تاقیکردنەوان:</h3>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                <div onclick="accessSubject('kurdish.html')" class="subject-card p-6 text-center cursor-pointer relative">
+                <div onclick="accessSubject('kurdish.html')" class="subject-card p-6 text-center cursor-pointer relative bg-radial">
                     <div id="lock-kurdish.html" class="hidden absolute top-3 left-3 text-sm">🔒</div>
                     <span class="block text-4xl mb-3">📘</span><span class="font-black text-xs text-slate-800 block">kurdish.html</span>
                 </div>
@@ -96,9 +108,20 @@
                 </div>
             </div>
 
+            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100">
+                <h4 class="font-black text-xs text-slate-700 mb-3 flex items-center gap-1">💬 نامە ناردن بۆ ئەدمین (پشنیار یان پرسیار)</h4>
+                <div class="space-y-3">
+                    <div id="chat-box-display" class="bg-slate-50 p-3 rounded-2xl h-32 overflow-y-auto text-xs space-y-2"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="chat-msg-input" placeholder="پەیامەکەت لێرە بنووسە..." class="w-full text-xs p-3 rounded-xl border border-slate-100 bg-slate-50 focus:outline-none">
+                        <button onclick="sendChatMsg()" class="bg-indigo-600 text-white text-xs px-5 rounded-xl font-bold">ناردن</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-gradient-to-br from-indigo-900 via-slate-950 to-blue-950 text-white p-6 rounded-3xl shadow-lg mt-8 border border-indigo-500/20">
                 <h4 class="font-black text-sm mb-1 flex items-center gap-2">🔐 پێشکەشکرنا فۆرمێ بۆ پۆستێ ئەدمینی</h4>
-                <p class="text-xs text-slate-400 mb-4">ناڤێ تە دۆڤێت ل بەندەیا قبوولکرنا سەرپەرشتیاری بیت؛ هەتا ئەو تە وەرنەگرێت نابەیە ئەدمین.</p>
+                <p class="text-xs text-slate-400 mb-4">ناڤێ تە دۆڤێت ل بەندەیا قبوولکرنا سەرپەرشتیاری بیت؛ بەشێ سەرپەرشتیار و کۆد بە تەواوی شاراوەن.</p>
                 <div class="flex flex-col sm:flex-row gap-2">
                     <input type="text" id="req-reason" placeholder="هۆکار یان لایەنێ کار بنویسە..." class="w-full text-xs p-3 rounded-xl bg-white/10 text-white placeholder-white/40 focus:outline-none border border-white/10 focus:border-white/30 transition">
                     <button onclick="submitAdminRequest()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-6 py-3 rounded-xl font-black transition whitespace-nowrap shadow-md">هنارتنا فۆرمی</button>
@@ -109,61 +132,58 @@
     </div>
 
     <div id="admin-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl border border-slate-100">
+        <div class="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
             <div id="admin-login-step" class="text-center py-6">
                 <h2 class="text-lg font-black text-slate-800 mb-2">چوونەژوور ل پانێلا ئەدمین</h2>
-                <input type="password" id="admin-pass-input" placeholder="کۆدێ ئەدمینی بنویسە..." class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none focus:border-blue-500 transition">
+                <input type="password" id="admin-pass-input" placeholder="کۆدێ ئەدمینی بنویسە..." class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
                 <div class="flex justify-center gap-2">
-                    <button onclick="verifyAdminLogin()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-sm">چوونەژوور</button>
-                    <button onclick="closeAdminModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium hover:bg-slate-200 transition">داخستن</button>
+                    <button onclick="verifyAdminLogin()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-sm">چوونەژوور</button>
+                    <button onclick="closeAdminModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium">داخستن</button>
                 </div>
             </div>
 
             <div id="admin-dashboard-content" class="hidden space-y-6">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h2 class="text-md font-black text-blue-600 flex items-center gap-1">🔧 دەسەڵاتێن ئەدمینێ هاتیە وەرگرتن</h2>
-                    <button onclick="closeAdminModal()" class="text-xs text-slate-400 hover:text-slate-600">❌</button>
+                    <h2 class="text-md font-black text-blue-600 flex items-center gap-1">🔧 پانێلی بەڕێوەبردنی ئەدمین</h2>
+                    <button onclick="closeAdminModal()" class="text-xs text-slate-400">❌</button>
+                </div>
+
+                <div class="space-y-2 bg-slate-50 p-3 rounded-2xl">
+                    <label class="text-xs font-bold text-slate-700 block">📢 بڵاوکردنەوەی ئاگاداری و لۆگین بەستەر (گرووپ):</label>
+                    <input type="text" id="admin-ann-input" class="w-full text-xs p-2.5 border rounded-xl bg-white mb-2" placeholder="دەقی ئاگاداری لێرە بنووسە...">
+                    <input type="text" id="admin-link-input" class="w-full text-xs p-2.5 border rounded-xl bg-white" placeholder="بەستەری گرووپ یان لینک (ئیختیاری)...">
+                    <button onclick="saveAnn()" class="w-full mt-2 bg-blue-600 text-white text-xs py-2 rounded-xl font-bold">بڵاوکردنەوەی گشتی</button>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-700 block">📢 نڤیسینا ئاگەهداریەکا گشتی بۆ قوتابیان:</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="admin-ann-input" class="w-full text-xs p-2.5 border rounded-xl bg-slate-50" placeholder="پەیام بنویسە...">
-                        <button onclick="saveAnn()" class="bg-blue-600 text-white text-xs px-4 rounded-xl font-bold hover:bg-blue-700 transition">بڵاوکردنەوە</button>
-                    </div>
+                    <label class="text-xs font-bold text-slate-700 block">🔒 دانانی ڕەمز لەسەر بابەتەکان (خاڵی بێت واتە بێ ڕەمزە):</label>
+                    <div class="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-3 rounded-2xl" id="admin-lock-inputs-grid">
+                        </div>
+                    <button onclick="saveLocks()" class="w-full bg-slate-900 text-white text-xs py-2.5 rounded-xl font-bold">جێبەجێکردنی ڕەمزەکان</button>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-700 block">🔒 دۆدانا قوفڵێ و ڕەمز بۆ بابەتان:</label>
-                    <div class="grid grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-2xl">
-                        <div><label class="block mb-1 text-slate-500">کۆردی (kurdish.html)</label><input type="text" id="l-kurd" class="w-full p-2 border rounded-lg bg-white" placeholder="بێ ڕەمز"></div>
-                        <div><label class="block mb-1 text-slate-500">ئینگلیزی (english.html)</label><input type="text" id="l-eng" class="w-full p-2 border rounded-lg bg-white" placeholder="بێ ڕەمز"></div>
-                    </div>
-                    <button onclick="saveLocks()" class="w-full bg-slate-900 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-slate-800 transition">پاشکەوتکرنا قوفڵان</button>
-                </div>
-
-                <div class="bg-slate-50 p-4 rounded-2xl">
-                    <h3 class="text-xs font-black text-slate-700 mb-2">🕵️ چاودێریکردنا لۆگینبوونا قوتابیان (ڤەشارتی):</h3>
-                    <div id="admin-spy-container" class="text-[11px] space-y-1 max-h-32 overflow-y-auto text-slate-600"></div>
+                <div class="bg-slate-50 p-4 rounded-2xl space-y-3">
+                    <h3 class="text-xs font-black text-slate-700">📥 نامەکانی قوتابیان و وەڵامدانەوە:</h3>
+                    <div id="admin-chats-list" class="space-y-2 max-h-40 overflow-y-auto text-xs"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="super-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-4xl rounded-3xl p-6 shadow-2xl border border-slate-100">
+        <div class="bg-white w-full max-w-4xl rounded-3xl p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
             <div id="super-login-step" class="text-center py-6">
                 <h2 class="text-md font-black text-red-600 mb-2">👑 چوونەژووری سەرپەرشتیاری گشتی (خاوەنێ ئەپی)</h2>
                 <input type="password" id="super-pass-input" placeholder="کۆد لێرە super2026 یە" class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
                 <div class="flex justify-center gap-2">
-                    <button onclick="verifySuperLogin()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold transition">چوونەژوور</button>
-                    <button onclick="closeSuperModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium hover:bg-slate-200 transition">داخستن</button>
+                    <button onclick="verifySuperLogin()" class="bg-red-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold">چوونەژوور</button>
+                    <button onclick="closeSuperModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium">داخستن</button>
                 </div>
             </div>
 
             <div id="super-dashboard-content" class="hidden space-y-6">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h2 class="text-lg font-black text-red-600 flex items-center gap-2">🛡️ پانێلا چاودێریکردنا گشتی و دەرخستنا ئەدمینان</h2>
+                    <h2 class="text-lg font-black text-red-600 flex items-center gap-2">🛡️ چاودێریکردنی گشتی سەرپەرشتیار</h2>
                     <button onclick="closeSuperModal()" class="text-xs bg-slate-100 px-2 py-1 rounded-lg">داخستن</button>
                 </div>
                 
@@ -178,10 +198,9 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                        <h3 class="text-xs font-black text-red-800 mb-3 flex items-center gap-1">📜 هەموو پێنگاڤ و کارێن ئەدمینی (لۆگ):</h3>
+                        <h3 class="text-xs font-black text-red-800 mb-3">📜 سەرجەم کار و پێنگاڤەکانی ئەدمین (شاراوە):</h3>
                         <div id="super-admin-actions-log" class="space-y-1.5 text-xs max-h-52 overflow-y-auto text-slate-600"></div>
                     </div>
-
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                         <h3 class="text-xs font-black text-indigo-800 mb-3">📥 بەڕێوەبردن و دەرخستنا ئەدمینان:</h3>
                         <div id="super-requests-list" class="space-y-2 text-xs max-h-52 overflow-y-auto"></div>
@@ -192,6 +211,14 @@
     </div>
 
     <script>
+        const subjectList = ['kurdish.html', 'english.html', 'arabic.html', 'fizya.html', 'mejo.html', 'zindawar.html', 'yasa.html', 'eslame.html', 'env.html'];
+        const quotes = [
+            "✨ 'سەرکەوتن دەرئەنجامی کۆششە بەردەوامەکانتە، تۆ شایەنی باشترینی!'",
+            "🚀 'هەمیشە بڕوات بە خۆت هەبێت، پۆلی 12 تەنها قۆناغێکە و پێی دەوێریت!'",
+            "📚 'هیچ کاتێک کۆڵمەدە، رۆژانی سەخت تێدەپەڕن و سەرکەوتن نزیکە.'"
+        ];
+
+        // Initialize Local Storage
         if(!localStorage.getItem('admin_password')) localStorage.setItem('admin_password', 'admin11');
         if(!localStorage.getItem('visitors_log')) localStorage.setItem('visitors_log', JSON.stringify([]));
         if(!localStorage.getItem('admin_requests')) localStorage.setItem('admin_requests', JSON.stringify([]));
@@ -199,10 +226,24 @@
         if(!localStorage.getItem('approved_admins')) localStorage.setItem('approved_admins', JSON.stringify([]));
         if(!localStorage.getItem('subject_locks')) localStorage.setItem('subject_locks', JSON.stringify({}));
         if(!localStorage.getItem('public_announcement')) localStorage.setItem('public_announcement', '');
+        if(!localStorage.getItem('public_link')) localStorage.setItem('public_link', '');
+        if(!localStorage.getItem('chat_messages')) localStorage.setItem('chat_messages', JSON.stringify([]));
 
         let currentStudent = localStorage.getItem('logged_student') || "";
+        let activeAdminName = "";
 
-        window.onload = function() { checkStudentSession(); renderAnn(); updateLockUI(); };
+        window.onload = function() {
+            checkStudentSession();
+            renderAnn();
+            updateLockUI();
+            buildAdminLockInputs();
+            
+            // Random motivation text loader
+            document.getElementById('motivation-text').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            // Realtime listener polling interval simulator for new replies
+            setInterval(checkNewRepliesForNotif, 3000);
+        };
 
         function checkStudentSession() {
             if(currentStudent) {
@@ -210,6 +251,7 @@
                 document.getElementById('subjects-section').classList.remove('hidden');
                 document.getElementById('display-student-name').innerText = currentStudent;
                 updateRequestStatusUI();
+                loadChatMessages();
             } else {
                 document.getElementById('student-auth-box').classList.remove('hidden');
                 document.getElementById('subjects-section').classList.add('hidden');
@@ -218,7 +260,7 @@
 
         function registerStudent() {
             const name = document.getElementById('student-name-input').value.trim();
-            if(!name) return alert("ناڤ بنویسە!");
+            if(!name) return alert("تکایە ناو بنووسە!");
             currentStudent = name;
             localStorage.setItem('logged_student', currentStudent);
 
@@ -233,14 +275,14 @@
         function submitAdminRequest() {
             if(!currentStudent) return alert("سەرەتا لۆگین بکە!");
             const reason = document.getElementById('req-reason').value.trim();
-            if(!reason) return alert("هۆکارەکێ بنویسە!");
+            if(!reason) return alert("هۆکارێک بنووسە!");
 
             let reqs = JSON.parse(localStorage.getItem('admin_requests'));
             if(reqs.some(r => r.name === currentStudent)) return alert("تە پێشتر فۆرم ناردووە!");
 
             reqs.push({ name: currentStudent, reason: reason, status: 'pending' });
             localStorage.setItem('admin_requests', JSON.stringify(reqs));
-            alert("فۆرمی تە ب سەرکەفتوویی بۆ سەرپەرشتیاری چوو!");
+            alert("فۆرمەکەت نێردرا!");
             updateRequestStatusUI();
         }
 
@@ -249,26 +291,24 @@
             let myReq = reqs.find(r => r.name === currentStudent);
             const output = document.getElementById('request-status-output');
             if(myReq) {
-                if(myReq.status === 'pending') output.innerText = "⏳ فۆرمی تە نێردراوە؛ ل بەندەیا وەرگرتنێ بە ژ لایێ خاوەنێ ئەپی.";
-                if(myReq.status === 'approved') output.innerHTML = "✅ فۆرمی تە <span class='text-emerald-500'>هاتە وەرگرتن!</span> نوکە دشێی کۆدێ ئەدمینی لێبدەی.";
-                if(myReq.status === 'rejected') output.innerText = "❌ داواکارییا تە هاتە ڕەتکرن یان هاتیە دەرخستن.";
-            } else {
-                output.innerText = "";
-            }
+                if(myReq.status === 'pending') output.innerText = "⏳ چاوەڕوانی وەرگرتن بە لەلایەن سەرپەرشتیارەوە...";
+                if(myReq.status === 'approved') output.innerHTML = "✅ فۆرمەکەت وەرگیرا! ئێستا دەتوانیت کۆدی ئەدمینی لێبدەیت.";
+                if(myReq.status === 'rejected') output.innerText = "❌ داواکارییەکەت ڕەتکراوەتەوە یان لادراویت.";
+            } else { output.innerText = ""; }
         }
 
         function accessSubject(url) {
             const locks = JSON.parse(localStorage.getItem('subject_locks'));
-            if(locks[url]) {
-                const pass = prompt("ئەڤ بابەتە قوفڵە، ڕەمزی لێبدە:");
+            if(locks[url] && locks[url].trim() !== "") {
+                const pass = prompt("ئەم بابەتە قوفڵ کراوە، ڕەمز لێبدە:");
                 if(pass === locks[url]) window.location.href = url;
-                else alert("ڕەمز خەڵتە!");
+                else alert("ڕەمز هەڵەیە!");
             } else { window.location.href = url; }
         }
 
         function updateLockUI() {
             const locks = JSON.parse(localStorage.getItem('subject_locks'));
-            ['kurdish.html', 'english.html', 'arabic.html', 'fizya.html', 'mejo.html', 'zindawar.html', 'yasa.html', 'eslame.html', 'env.html'].forEach(id => {
+            subjectList.forEach(id => {
                 const el = document.getElementById('lock-' + id);
                 if(el) { if(locks[id]) el.classList.remove('hidden'); else el.classList.add('hidden'); }
             });
@@ -276,31 +316,83 @@
 
         function renderAnn() {
             const msg = localStorage.getItem('public_announcement');
+            const link = localStorage.getItem('public_link');
             const box = document.getElementById('public-ann-box');
-            if(msg) { box.classList.remove('hidden'); document.getElementById('public-ann-text').innerText = msg; }
-            else { box.classList.add('hidden'); }
+            const btn = document.getElementById('public-ann-link');
+            
+            if(msg) {
+                box.classList.remove('hidden');
+                document.getElementById('public-ann-text').innerText = msg;
+                if(link && link.trim() !== "") { btn.href = link; btn.classList.remove('hidden'); }
+                else { btn.classList.add('hidden'); }
+            } else { box.classList.add('hidden'); }
         }
 
-        // ================= ADMIN AREA =================
+        // CHAT SYSTEM
+        function sendChatMsg() {
+            const inp = document.getElementById('chat-msg-input');
+            const txt = inp.value.trim();
+            if(!txt) return;
+            let msgs = JSON.parse(localStorage.getItem('chat_messages'));
+            msgs.push({ sender: currentStudent, text: txt, time: new Date().toLocaleTimeString(), viewed: false, isReply: false });
+            localStorage.setItem('chat_messages', JSON.stringify(msgs));
+            inp.value = "";
+            loadChatMessages();
+        }
+
+        function loadChatMessages() {
+            let msgs = JSON.parse(localStorage.getItem('chat_messages'));
+            let myMsgs = msgs.filter(m => m.sender === currentStudent || (m.receiver === currentStudent));
+            document.getElementById('chat-box-display').innerHTML = myMsgs.map(m => `
+                <div class="${m.isReply ? 'text-blue-600 text-left' : 'text-slate-800'}" style="direction: ${m.isReply ? 'ltr' : 'rtl'}">
+                    <b>${m.isReply ? '💡 Admin' : '👤 تۆ'}:</b> ${m.text}
+                </div>
+            `).join('');
+        }
+
+        function checkNewRepliesForNotif() {
+            if(!currentStudent) return;
+            let msgs = JSON.parse(localStorage.getItem('chat_messages'));
+            let newReplyIndex = msgs.findIndex(m => m.receiver === currentStudent && !m.viewed);
+            if(newReplyIndex !== -1) {
+                document.getElementById('popup-notif-msg').innerText = msgs[newReplyIndex].text;
+                document.getElementById('chat-popup-notification').classList.remove('hidden');
+                msgs[newReplyIndex].viewed = true;
+                localStorage.setItem('chat_messages', JSON.stringify(msgs));
+                loadChatMessages();
+            }
+        }
+        function closeNotif() { document.getElementById('chat-popup-notification').classList.add('hidden'); }
+
+        // ================= ADMIN FUNCTIONS =================
+        function buildAdminLockInputs() {
+            const container = document.getElementById('admin-lock-inputs-grid');
+            container.innerHTML = subjectList.map(s => `
+                <div>
+                    <label class="block mb-0.5 text-slate-500">${s}</label>
+                    <input type="text" id="lock-input-${s}" class="w-full p-1.5 border rounded-lg bg-white" placeholder="ڕەمز دابنێ...">
+                </div>
+            `).join('');
+        }
+
         function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
 
         function verifyAdminLogin() {
             let approved = JSON.parse(localStorage.getItem('approved_admins'));
-            if(!approved.includes(currentStudent)) {
-                return alert("❌ فۆرمی تە هێشتا نەهاتیە وەرگرتن یان هاتیە دەرخستن ژ لایێ سەرپەرشتیاری گشتی!");
-            }
+            if(!approved.includes(currentStudent)) return alert("❌ تۆ مافی ئەدمینبوونت نییە!");
 
             const input = document.getElementById('admin-pass-input').value;
             const actual = localStorage.getItem('admin_password');
             if(input === actual) {
+                activeAdminName = currentStudent;
                 document.getElementById('admin-login-step').classList.add('hidden');
                 document.getElementById('admin-dashboard-content').classList.remove('hidden');
                 
                 let num = parseInt(actual.replace("admin", ""));
                 if(!isNaN(num)) localStorage.setItem('admin_password', "admin" + (num + 1));
 
-                logAdminAction(currentStudent, "داخل بوو ل پانێلا ئەدمین (کۆد بۆ قۆناغەکا تر گۆڕا)");
+                logAdminAction(activeAdminName, "داخل بوو بۆ پانێڵی ئەدمین و کۆدی گشتی گۆڕا");
                 loadAdminData();
             } else { alert("کۆد خەڵتە!"); }
         }
@@ -313,29 +405,57 @@
 
         function loadAdminData() {
             const logs = JSON.parse(localStorage.getItem('visitors_log'));
-            document.getElementById('admin-spy-container').innerHTML = logs.map(l => `
-                <div>👤 <b>${l.name}</b> لۆگین بوو ب: <span class='text-blue-600'>${l.device}</span> (${l.time})</div>
+            document.getElementById('admin-spy-container').innerHTML = logs.map(l => `<div>👤 <b>${l.name}</b> (${l.time})</div>`).reverse().join('');
+            
+            // Populate current locks into inputs
+            const locks = JSON.parse(localStorage.getItem('subject_locks'));
+            subjectList.forEach(s => {
+                if(locks[s]) document.getElementById(`lock-input-${s}`).value = locks[s];
+            });
+
+            // Load incoming chats
+            let msgs = JSON.parse(localStorage.getItem('chat_messages'));
+            let studentQueries = msgs.filter(m => !m.isReply);
+            document.getElementById('admin-chats-list').innerHTML = studentQueries.map((m, idx) => `
+                <div class="p-2 bg-white border rounded-xl flex justify-between items-center">
+                    <div><b>${m.sender}:</b> ${m.text}</div>
+                    <button onclick="replyToStudent('${m.sender}')" class="bg-indigo-600 text-white text-[10px] px-2 py-1 rounded">وەڵامدانەوە</button>
+                </div>
             `).reverse().join('');
+        }
+
+        function replyToStudent(studentName) {
+            const rep = prompt(`وەڵامەکەت بۆ (${studentName}) بنووسە:`);
+            if(!rep) return;
+            let msgs = JSON.parse(localStorage.getItem('chat_messages'));
+            msgs.push({ sender: 'Admin', receiver: studentName, text: rep, time: new Date().toLocaleTimeString(), viewed: false, isReply: true });
+            localStorage.setItem('chat_messages', JSON.stringify(msgs));
+            logAdminAction(activeAdminName, `وەڵامی قوتابی (${studentName}) دایەوە`);
+            alert("وەڵامەکە نێردرا!");
+            loadAdminData();
         }
 
         function saveAnn() {
             const txt = document.getElementById('admin-ann-input').value.trim();
+            const link = document.getElementById('admin-link-input').value.trim();
             localStorage.setItem('public_announcement', txt);
-            logAdminAction(currentStudent, `ئاگەهداریەکا نوو بڵاوکردەوە: "${txt}"`);
-            alert("ئاگەهداری هاتە بڵاوکردنەوە!"); renderAnn();
+            localStorage.setItem('public_link', link);
+            logAdminAction(activeAdminName, `ئاگاداری و لۆگین گرووپی نوێی بڵاوکردەوە: "${txt}"`);
+            alert("بڵاوکرایەوە!"); renderAnn();
         }
 
         function saveLocks() {
-            const locks = {
-                'kurdish.html': document.getElementById('l-kurd').value,
-                'english.html': document.getElementById('l-eng').value
-            };
+            let locks = {};
+            subjectList.forEach(s => {
+                let val = document.getElementById(`lock-input-${s}`).value;
+                if(val && val.trim() !== "") locks[s] = val;
+            });
             localStorage.setItem('subject_locks', JSON.stringify(locks));
-            logAdminAction(currentStudent, "سیستەمێ قوفڵکرنا بابەتان نووکرەوە");
-            alert("قوفڵ پاشکەوتکران!"); updateLockUI();
+            logAdminAction(activeAdminName, "ڕەمزی لەسەر بابەتەکان گۆڕی یان نوێکردەوە");
+            alert("ڕەمزەکان جێبەجێکران!"); updateLockUI();
         }
 
-        // ================= 👑 SUPER ADMIN AREA =================
+        // ================= SUPER ADMIN FUNCTIONS =================
         function openSuperModal() { document.getElementById('super-modal').classList.remove('hidden'); }
         function closeSuperModal() { document.getElementById('super-modal').classList.add('hidden'); }
 
@@ -352,31 +472,21 @@
             let approvedList = JSON.parse(localStorage.getItem('approved_admins'));
             document.getElementById('super-total-count').innerText = approvedList.length + " کەس";
 
-            // ALL STEPS DONE BY ADMIN ARE SHOWN HERE
             const actions = JSON.parse(localStorage.getItem('admin_actions_log'));
-            document.getElementById('super-admin-actions-log').innerHTML = actions.length === 0 ? "<div class='text-slate-400'>چو پێنگاڤ نەهاتینە تۆمارکرن.</div>" :
-                actions.map(a => `<div class='p-1 border-b border-slate-100'>🕒 ${a.time} - <b>${a.name}:</b> <span class='text-blue-600'>${a.action}</span></div>`).reverse().join('');
+            document.getElementById('super-admin-actions-log').innerHTML = actions.map(a => `
+                <div class="border-b border-slate-100 p-1">🕒 ${a.time} - <b>${a.name}:</b> <span class="text-blue-600">${a.action}</span></div>
+            `).reverse().join('');
 
-            // MANAGING & REMOVING ADMINS SYSTEM
             const reqs = JSON.parse(localStorage.getItem('admin_requests'));
-            document.getElementById('super-requests-list').innerHTML = reqs.length === 0 ? "<div class='text-slate-400'>چو داواکاری نینن.</div>" :
-                reqs.map(r => `
-                    <div class='p-3 bg-white rounded-xl border border-slate-100 flex justify-between items-center mb-1.5 shadow-2xs'>
-                        <div>
-                            <span class='block font-black text-slate-800'>${r.name}</span>
-                            <span class='text-[10px] text-slate-400'>هۆکار: ${r.reason} [${r.status}]</span>
-                        </div>
-                        <div class='flex gap-1'>
-                            ${r.status === 'pending' ? `
-                                <button onclick="actionRequest('${r.name}', 'approve')" class='bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold'>وەرگرتن</button>
-                                <button onclick="actionRequest('${r.name}', 'reject')" class='bg-red-100 text-red-600 px-2.5 py-1 rounded-lg text-[10px] font-bold'>ڕەتکرن</button>
-                            ` : ''}
-                            ${r.status === 'approved' ? `
-                                <button onclick="removeAdmin('${r.name}')" class='bg-red-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold hover:bg-red-700 transition'>🛑 دەرێختن</button>
-                            ` : ''}
-                        </div>
+            document.getElementById('super-requests-list').innerHTML = reqs.map(r => `
+                <div class="p-2 bg-white rounded-xl border flex justify-between items-center mb-1">
+                    <div><b>${r.name}</b> <span class="text-[10px] text-gray-400">(${r.status})</span></div>
+                    <div class="flex gap-1">
+                        ${r.status === 'pending' ? `<button onclick="actionRequest('${r.name}', 'approve')" class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px]">وەرگرتن</button>` : ''}
+                        ${r.status === 'approved' ? `<button onclick="removeAdmin('${r.name}')" class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px]">🛑 دەرخستن</button>` : ''}
                     </div>
-                `).reverse().join('');
+                </div>
+            `).reverse().join('');
         }
 
         function actionRequest(name, action) {
@@ -385,7 +495,6 @@
             if(idx !== -1) {
                 reqs[idx].status = action === 'approve' ? 'approved' : 'rejected';
                 localStorage.setItem('admin_requests', JSON.stringify(reqs));
-
                 if(action === 'approve') {
                     let approved = JSON.parse(localStorage.getItem('approved_admins'));
                     if(!approved.includes(name)) approved.push(name);
@@ -395,21 +504,17 @@
             }
         }
 
-        // REMOVE/DELETE ADMIN FUNCTION
         function removeAdmin(name) {
-            if(confirm(`تۆ پشتڕاستی دەتەوێت ئەدمین (${name}) دەرسبکەی و دەسەڵاتەکانی لێ بسەنیت؟`)) {
-                // 1. Remove from approved list
+            if(confirm(`ئایا دڵنیای لە دەرکردنی ئەدمین (${name})؟`)) {
                 let approved = JSON.parse(localStorage.getItem('approved_admins'));
                 approved = approved.filter(a => a !== name);
                 localStorage.setItem('approved_admins', JSON.stringify(approved));
 
-                // 2. Change status in requests list
                 let reqs = JSON.parse(localStorage.getItem('admin_requests'));
                 let idx = reqs.findIndex(r => r.name === name);
                 if(idx !== -1) reqs[idx].status = 'rejected';
                 localStorage.setItem('admin_requests', JSON.stringify(reqs));
 
-                alert(`ئەدمین (${name}) ب سەرکەفتوویی هاتە دەرێختن!`);
                 loadSuperData();
                 checkStudentSession();
             }
