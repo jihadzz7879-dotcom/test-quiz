@@ -135,7 +135,7 @@
         <div class="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
             <div id="admin-login-step" class="text-center py-6">
                 <h2 class="text-lg font-black text-slate-800 mb-2">چوونەژوور ل پانێلا ئەدمین</h2>
-                <input type="password" id="admin-pass-input" placeholder="jehad2005" class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
+                <input type="password" id="admin-pass-input" placeholder="••••••••" class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
                 <div class="flex justify-center gap-2">
                     <button onclick="verifyAdminLogin()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-sm">چوونەژوور</button>
                     <button onclick="closeAdminModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium">داخستن</button>
@@ -174,7 +174,7 @@
         <div class="bg-white w-full max-w-4xl rounded-3xl p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
             <div id="super-login-step" class="text-center py-6">
                 <h2 class="text-md font-black text-red-600 mb-2">👑 چوونەژووری سەرپەرشتیاری گشتی (خاوەنێ ئەپی)</h2>
-                <input type="password" id="super-pass-input" placeholder="کۆد لێرە  یە" class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
+                <input type="password" id="super-pass-input" placeholder="کۆد لێرە super2026 یە" class="p-3 border border-slate-200 rounded-2xl text-center mb-4 block mx-auto text-sm w-64 bg-slate-50 focus:outline-none">
                 <div class="flex justify-center gap-2">
                     <button onclick="verifySuperLogin()" class="bg-red-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold">چوونەژوور</button>
                     <button onclick="closeSuperModal()" class="bg-slate-100 text-slate-600 px-5 py-2.5 rounded-xl text-xs font-medium">داخستن</button>
@@ -183,13 +183,13 @@
 
             <div id="super-dashboard-content" class="hidden space-y-6">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h2 class="text-lg font-black text-red-600 flex items-center gap-2">🛡️ چاودێریکردنی گشتی سەرپەرشتیار</h2>
+                    <h2 class="text-lg font-black text-red-600 flex items-center gap-2">🛡️ پانێلا چاودێریکردنی گشتی سەرپەرشتیار</h2>
                     <button onclick="closeSuperModal()" class="text-xs bg-slate-100 px-2 py-1 rounded-lg">داخستن</button>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-800 font-bold">
-                        🔑 کۆدێ ئەدمینی یێ چالاك: <span id="super-current-pass" class="text-red-600 text-sm font-black"></span>
+                        🔑 [تەنها خاوەن دەزانێت] کۆدێ ئەدمینی چالاك یێ نوکە: <span id="super-current-pass" class="text-red-600 text-sm font-black bg-white px-2 py-0.5 rounded border border-red-200"></span>
                     </div>
                     <div class="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs text-emerald-800 font-bold">
                         👥 ژمارا ئەدمینێن وەرگرتی: <span id="super-total-count" class="text-emerald-700 text-sm font-black">0 کەس</span>
@@ -218,7 +218,7 @@
             "📚 'هیچ کاتێک کۆڵمەدە، رۆژانی سەخت تێدەپەڕن و سەرکەوتن نزیکە.'"
         ];
 
-        // Initialize Local Storage
+        // Initialize Local Storage safely
         if(!localStorage.getItem('admin_password')) localStorage.setItem('admin_password', 'admin11');
         if(!localStorage.getItem('visitors_log')) localStorage.setItem('visitors_log', JSON.stringify([]));
         if(!localStorage.getItem('admin_requests')) localStorage.setItem('admin_requests', JSON.stringify([]));
@@ -237,11 +237,7 @@
             renderAnn();
             updateLockUI();
             buildAdminLockInputs();
-            
-            // Random motivation text loader
             document.getElementById('motivation-text').innerText = quotes[Math.floor(Math.random() * quotes.length)];
-            
-            // Realtime listener polling interval simulator for new replies
             setInterval(checkNewRepliesForNotif, 3000);
         };
 
@@ -328,7 +324,6 @@
             } else { box.classList.add('hidden'); }
         }
 
-        // CHAT SYSTEM
         function sendChatMsg() {
             const inp = document.getElementById('chat-msg-input');
             const txt = inp.value.trim();
@@ -389,10 +384,11 @@
                 document.getElementById('admin-login-step').classList.add('hidden');
                 document.getElementById('admin-dashboard-content').classList.remove('hidden');
                 
+                // Secret auto rotation logic
                 let num = parseInt(actual.replace("admin", ""));
                 if(!isNaN(num)) localStorage.setItem('admin_password', "admin" + (num + 1));
 
-                logAdminAction(activeAdminName, "داخل بوو بۆ پانێڵی ئەدمین و کۆدی گشتی گۆڕا");
+                logAdminAction(activeAdminName, "داخل بوو بۆ پانێڵی ئەدمین و کۆد لە دەستی خاوەن نوێبووەوە");
                 loadAdminData();
             } else { alert("کۆد خەڵتە!"); }
         }
@@ -407,13 +403,11 @@
             const logs = JSON.parse(localStorage.getItem('visitors_log'));
             document.getElementById('admin-spy-container').innerHTML = logs.map(l => `<div>👤 <b>${l.name}</b> (${l.time})</div>`).reverse().join('');
             
-            // Populate current locks into inputs
             const locks = JSON.parse(localStorage.getItem('subject_locks'));
             subjectList.forEach(s => {
                 if(locks[s]) document.getElementById(`lock-input-${s}`).value = locks[s];
             });
 
-            // Load incoming chats
             let msgs = JSON.parse(localStorage.getItem('chat_messages'));
             let studentQueries = msgs.filter(m => !m.isReply);
             document.getElementById('admin-chats-list').innerHTML = studentQueries.map((m, idx) => `
@@ -440,7 +434,7 @@
             const link = document.getElementById('admin-link-input').value.trim();
             localStorage.setItem('public_announcement', txt);
             localStorage.setItem('public_link', link);
-            logAdminAction(activeAdminName, `ئاگاداری و لۆگین گرووپی نوێی بڵاوکردەوە: "${txt}"`);
+            logAdminAction(activeAdminName, `ئاگاداری نوێی بڵاوکردەوە: "${txt}"`);
             alert("بڵاوکرایەوە!"); renderAnn();
         }
 
@@ -451,7 +445,7 @@
                 if(val && val.trim() !== "") locks[s] = val;
             });
             localStorage.setItem('subject_locks', JSON.stringify(locks));
-            logAdminAction(activeAdminName, "ڕەمزی لەسەر بابەتەکان گۆڕی یان نوێکردەوە");
+            logAdminAction(activeAdminName, "ڕەمزی لەسەر بابەتەکان دانا یان نوێکردەوە");
             alert("ڕەمزەکان جێبەجێکران!"); updateLockUI();
         }
 
@@ -468,6 +462,7 @@
         }
 
         function loadSuperData() {
+            // Live rendering of current rotating password, always fetched in real-time only inside Super Admin
             document.getElementById('super-current-pass').innerText = localStorage.getItem('admin_password');
             let approvedList = JSON.parse(localStorage.getItem('approved_admins'));
             document.getElementById('super-total-count').innerText = approvedList.length + " کەس";
