@@ -3,293 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کۆڕبەندا لایڤ یا قوتابیان یێ شاهانە</title>
-    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <title>beIN Sports Premium Live</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: radial-gradient(circle at center, #0a0b10 0%, #020204 100%); color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        
-        .chat-container { width: 95%; max-width: 1000px; height: 90vh; background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; }
-        .chat-header { padding: 22px 30px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; }
-        .group-info { display: flex; align-items: center; gap: 18px; }
-        .group-avatar { width: 54px; height: 54px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 0 25px rgba(0, 242, 254, 0.35); }
-        .group-details h2 { font-size: 1.3rem; font-weight: 700; background: linear-gradient(to left, #fff, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .group-details p { font-size: 0.82rem; color: #00f2fe; opacity: 0.9; margin-top: 3px; }
-        
-        .chat-messages { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
-        .chat-messages::-webkit-scrollbar { width: 6px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
-        
-        .message-wrapper { display: flex; gap: 14px; max-width: 75%; align-self: flex-start; }
-        .message-wrapper.me { align-self: flex-end; flex-direction: row-reverse; }
-        
-        .user-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%); color: #fff; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.9rem; }
-        .message-wrapper.me .user-avatar { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); color: #000; }
-        .message-content { display: flex; flex-direction: column; gap: 6px; }
-        .user-name { font-size: 0.82rem; color: rgba(255, 255, 255, 0.45); font-weight: 600; }
-        
-        .message-text { padding: 15px 20px; border-radius: 22px; font-size: 0.98rem; line-height: 1.5; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.04); border-top-right-radius: 4px; word-break: break-word; }
-        .message-wrapper.me .message-text { background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); border-top-right-radius: 22px; border-top-left-radius: 4px; }
-        
-        .media-content { max-width: 220px; max-height: 180px; border-radius: 12px; margin-top: 6px; display: block; cursor: pointer; transition: transform 0.2s; }
-        .media-content:hover { transform: scale(1.03); }
-        .file-box { display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); color: #00f2fe; text-decoration: none; margin-top: 6px; }
-        
-        .chat-input-area { padding: 22px 30px; background: rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; gap: 14px; align-items: center; }
-        .input-wrapper { flex: 1; display: flex; gap: 12px; align-items: center; }
-        .chat-input-area input[type="text"] { flex: 1; padding: 16px 22px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px; color: #fff; font-size: 0.98rem; outline: none; }
-        
-        .upload-label { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); width: 54px; height: 54px; border-radius: 18px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.4rem; }
-        .send-btn { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); border: none; padding: 0 28px; height: 54px; border-radius: 18px; color: #020204; font-weight: 700; font-size: 1rem; cursor: pointer; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        /* شاشەیا قەدەغەکردنێ */
-        .block-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 5, 5, 0.99); z-index: 99999; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; }
-        .block-overlay h1 { color: #ff0055; font-size: 2.5rem; margin-bottom: 15px; }
+        body {
+            background: radial-gradient(circle, #1a103c 0%, #070514 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
 
-        /* پنلێ ئەدمینی یێ پێشکەفتی */
-        .admin-modal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 550px; background: rgba(10, 16, 30, 0.98); backdrop-filter: blur(25px); border: 2px solid #00f2fe; border-radius: 28px; padding: 30px; z-index: 10000; display: none; box-shadow: 0 0 40px rgba(0, 242, 254, 0.4); }
-        .admin-modal h3 { color: #00f2fe; margin-bottom: 15px; text-align: center; font-size: 1.5rem; }
-        .user-list { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; max-height: 200px; overflow-y: auto; padding: 10px; margin-bottom: 15px; }
-        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .kick-btn { background: #ff0055; color: white; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
-        .kick-btn:hover { background: #ff0033; }
-        .admin-btn { width: 100%; padding: 12px; background: #00f2fe; color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
 
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .lightbox.active { opacity: 1; pointer-events: auto; }
-        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff007f, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            font-weight: 800;
+        }
+
+        header p {
+            color: #b3b0cb;
+            font-size: 1rem;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 950px;
+            background: rgba(22, 18, 44, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        /* بەشی ڤیدیۆ مۆدێرن */
+        .player-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* بەشی دوگمەی کەناڵەکان بە دیزاینی نایاب */
+        .channels-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            padding: 25px;
+            background: #110d26;
+        }
+
+        .channel-btn {
+            background: linear-gradient(135deg, #1f1947 0%, #161135 100%);
+            color: #e0e0fc;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .channel-btn:hover {
+            background: linear-gradient(135deg, #8a2be2 0%, #4a00e0 100%);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .channel-btn.active {
+            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+            color: #fff;
+            border-color: #ffffff;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
+            transform: scale(1.03);
+        }
+
+        /* گونجاندن بۆ مۆبایل بە جوانترین شێوە */
+        @media (max-width: 768px) {
+            .channels-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .channels-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="block-overlay" id="blockOverlay">
-            <h1 id="blockTitle">سیستەم قفل بوو! 🛑</h1>
-            <p id="blockReason">تە سەرپێچیا یاسایێن گروپێ قوتابیان کریە.</p>
+    <header>
+        <h1>beIN SPORTS LIVE</h1>
+        <p>پەخشی ڕاستەوخۆی کەناڵە وەرزشییەکان بە کوالیتی FULL HD و بێ ڕیکلام</p>
+    </header>
+
+    <div class="main-container">
+        <!-- شاشەی لێدانی ڤیدیۆ -->
+        <div class="player-container">
+            <iframe id="main-player" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
         </div>
 
-        <div class="admin-modal" id="adminModal">
-            <h3>پنلێ کۆنترۆلا جێکۆ ⚙️</h3>
-            <p style="color: #00f2fe; font-size: 0.9rem; margin-bottom: 10px;">👥 قوتابیێن د ناڤ لایڤێ دا (ل سەر هێڵ):</p>
-            <div class="user-list" id="adminUserList">
-                <p style="color: #666; text-align: center; font-size: 0.9rem;">چ قوتابی نینن...</p>
-            </div>
-            <button class="admin-btn" style="background: #ff0055; color: white;" onclick="resetAdminSettings()">💥 پاقژکرنا گشتی یا سزایان</button>
-            <button class="admin-btn" style="background: #333; color: #fff;" onclick="document.getElementById('adminModal').style.display='none'">داخستن</button>
+        <!-- بەشی دوگمەکان کە بەستەرەکانی تێدا ڕێکخراوە -->
+        <div class="channels-list">
+            <!-- لێرە لە ناو فەرمانی changeChannel بەستەری کەناڵەکان دانراوە -->
+            <button class="channel-btn active" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', this)">beIN 1 HD</button>
+            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC4i9F96fV9K_mpxYyvSIsFA', this)">beIN 2 HD</button>
+            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC14U8Sjd5X_eeC49BxsnNpw', this)">beIN 3 HD</button>
+            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC0Zp_gY0v27O7KIn_L3rBfA', this)">beIN 4 HD</button>
+            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC7_gO0_93XgV65vW-K6b50g', this)">beIN 5 HD</button>
         </div>
-
-        <div class="chat-header">
-            <div class="group-info">
-                <div class="group-avatar">🛡️</div>
-                <div class="group-details">
-                    <h2>کۆڕبەندا لایڤ یا قوتابیان (بێ ناڤ)</h2>
-                    <p id="connectionStatus">ل هێڤیا گرێدانێ یە...</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="chat-messages" id="chatMessages"></div>
-
-        <div class="chat-input-area">
-            <div class="input-wrapper">
-                <input type="file" id="mediaInput" accept="image/*,video/*,.pdf,.docx,.zip" style="display: none;">
-                <label for="mediaInput" class="upload-label">📁</label>
-                <input type="text" id="messageInput" placeholder="نامەکێ بنڤیسە..." autocomplete="off">
-            </div>
-            <button class="send-btn" id="sendBtn">ناردن</button>
-        </div>
-    </div>
-
-    <div class="lightbox" id="lightboxOverlay" onclick="this.classList.remove('active')">
-        <img id="lightboxImg" src="" alt="Full Screen Picture">
     </div>
 
     <script>
-        const chatMessages = document.getElementById('chatMessages');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const mediaInput = document.getElementById('mediaInput');
-        const blockOverlay = document.getElementById('blockOverlay');
-        const adminModal = document.getElementById('adminModal');
-        const adminUserList = document.getElementById('adminUserList');
-        const connectionStatus = document.getElementById('connectionStatus');
-        const lightboxOverlay = document.getElementById('lightboxOverlay');
-        const lightboxImg = document.getElementById('lightboxImg');
+        // فەرمانی سەرەکی بۆ گۆڕینی کەناڵەکان بەبێ ڕیفریش
+        function changeChannel(videoUrl, buttonElement) {
+            const player = document.getElementById('main-player');
+            
+            // گۆڕینی بەستەری ڤیدیۆکە
+            player.src = videoUrl;
 
-        const myAnonymousID = "قوتابی_" + Math.floor(1000 + Math.random() * 9000);
-        let linkAttempts = parseInt(localStorage.getItem('link_attempts')) || 0;
-        const badWords = ["حیوان", "حەیوان", "بینامیس", "بێنامووس", "کەری کەر", "کەر", "بێشۆل", "بێشول", "حیز", "قەحپە"];
-
-        if (localStorage.getItem('chat_blocked') === 'true') { triggerBlock("سیستەم قفل بوو! 🛑", "تە بەری نوکە یاساشکاندن کریە یان ژ لایێ ئەدمینی ڤە هاتیە بلۆککرن."); }
-
-        function triggerBlock(title, reason) {
-            document.getElementById('blockTitle').innerText = title;
-            document.getElementById('blockReason').innerText = reason;
-            blockOverlay.style.display = 'flex';
-            localStorage.setItem('chat_blocked', 'true');
+            // نوێکردنەوەی ستایلی دوگمە چالاکەکە
+            const allButtons = document.querySelectorAll('.channel-btn');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
         }
 
-        function resetAdminSettings() {
-            localStorage.clear();
-            location.reload();
-        }
-
-        function saveMessageToStorage(msgObj) {
-            let currentLogs = JSON.parse(localStorage.getItem('chat_logs')) || [];
-            currentLogs.push(msgObj);
-            localStorage.setItem('chat_logs', JSON.stringify(currentLogs));
-        }
-
-        function loadValidMessages() {
-            chatMessages.innerHTML = "";
-            let currentLogs = JSON.parse(localStorage.getItem('chat_logs')) || [];
-            const now = Date.now();
-            const twentyFourHours = 24 * 60 * 60 * 1000;
-            let validLogs = currentLogs.filter(msg => (now - msg.time) < twentyFourHours);
-            localStorage.setItem('chat_logs', JSON.stringify(validLogs));
-            validLogs.forEach(msg => { renderMessageHTML(msg.sender, msg.text, msg.media, msg.sender === myAnonymousID, msg.time); });
-        }
-
-        function checkSecurity(text) {
-            // ڤەکرنا مۆدێ ئەدمینی و نووکرنا لیستا بەکارهێنەران د لایڤێ دا
-            if (text === `/admin JEKO122`) {
-                updateAdminUserList();
-                adminModal.style.display = 'block';
-                messageInput.value = '';
-                return false;
-            }
-            for (let word of badWords) {
-                if (text.includes(word)) { triggerBlock("ئێکسەر قفل بوو! ❌", "تە ئاخفتنەکا قەدەغە بکارئینا."); return false; }
-            }
-            const linkPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
-            if (linkPattern.test(text)) {
-                linkAttempts++;
-                localStorage.setItem('link_attempts', linkAttempts);
-                if (linkAttempts >= 3) { triggerBlock("سیستەم قفل بوو! 🛑", "تە ٣ جاران لینک فرێکرن!"); return false; }
-                else { alert(`لینک قەدەغەیە! دەرفەتا (${linkAttempts}/3)`); }
-            }
-            return true;
-        }
-
-        // نیشاندانا لیستا قوتابیان د ناڤ پنلێ ئەدمینی دا
-        function updateAdminUserList() {
-            adminUserList.innerHTML = "";
-            if (connections.length === 0) {
-                adminUserList.innerHTML = `<p style="color: #666; text-align: center; font-size: 0.9rem;">چ قوتابیێن دی لایڤ نینن نوکە</p>`;
-                return;
-            }
-            connections.forEach((conn, index) => {
-                if (conn.open) {
-                    const item = document.createElement('div');
-                    item.classList.add('user-item');
-                    item.innerHTML = `
-                        <span>👤 قوتابی لایڤ (مێوان ${index + 1})</span>
-                        <button class="kick-btn" onclick="kickUser(${index})">بلۆککرن 🚫</button>
-                    `;
-                    adminUserList.appendChild(item);
-                }
-            });
-        }
-
-        // فرمانا بلۆککرنا قوتابی ژ لایێ ئەدمینی ڤە
-        function kickUser(index) {
-            const conn = connections[index];
-            if (conn && conn.open) {
-                // فرێکرنا فەرمانا بلۆککرنێ بۆ ئامێری وی قوتابی
-                conn.send({ type: "FORCE_BLOCK", reason: "تۆ ژ لایێ ئەدمین (جێکۆ) ڤە هاتیە بلۆککرن!" });
-                alert("قوتابی بەرقەرار هاتە بلۆککرن!");
-                updateAdminUserList();
-            }
-        }
-
-        // --- PeerJS لایڤ سێرڤەر ---
-        const peer = new Peer('student-premium-room-999');
-        let connections = [];
-
-        peer.on('open', () => { connectionStatus.innerText = "● تۆ یێ ئۆنلاینی د چاتا لایڤ دا"; loadValidMessages(); });
-        peer.on('error', (err) => {
-            if (err.type === 'unavailable-id') {
-                const clientPeer = new Peer();
-                clientPeer.on('open', () => {
-                    const conn = clientPeer.connect('student-premium-room-999');
-                    handleConnection(conn);
-                });
-            }
-        });
-
-        peer.on('connection', handleConnection);
-
-        function handleConnection(conn) {
-            connections.push(conn);
-            conn.on('data', (data) => {
-                // پشکنین کا ئەرێ فەرمانا بلۆککرنێ ژ ئەدمینی هاتیە؟
-                if (data.type === "FORCE_BLOCK") {
-                    triggerBlock("تۆ هاتیە بلۆککرن! 🛑", data.reason);
-                    return;
-                }
-                saveMessageToStorage(data);
-                renderMessageHTML(data.sender, data.text, data.media, false, data.time);
-            });
-        }
-
-        function broadcastMessage(text, mediaHTML = "") {
-            const msgData = { sender: myAnonymousID, text: text, media: mediaHTML, time: Date.now() };
-            connections.forEach(conn => { if (conn.open) conn.send(msgData); });
-            saveMessageToStorage(msgData);
-            renderMessageHTML(myAnonymousID, text, mediaHTML, true, msgData.time);
-        }
-
-        function renderMessageHTML(sender, text, media, isMe, time) {
-            const messageWrapper = document.createElement('div');
-            messageWrapper.classList.add('message-wrapper');
-            if (isMe) messageWrapper.classList.add('me');
-
-            messageWrapper.innerHTML = `
-                <div class="user-avatar">${isMe ? 'تۆ' : 'ق'}</div>
-                <div class="message-content">
-                    <span class="user-name">${sender}</span>
-                    <div class="message-text">${text} ${media}</div>
-                </div>
-            `;
-            chatMessages.appendChild(messageWrapper);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            messageWrapper.querySelectorAll('.media-content').forEach(img => {
-                if(img.tagName === 'IMG') {
-                    img.addEventListener('click', function() {
-                        lightboxImg.src = this.src;
-                        lightboxOverlay.classList.add('active');
-                    });
-                }
-            });
-        }
-
-        function handleSend() {
-            const text = messageInput.value.trim();
-            if (!text) return;
-            if (!checkSecurity(text)) return;
-            broadcastMessage(text);
-            messageInput.value = '';
-        }
-
-        sendBtn.addEventListener('click', handleSend);
-        messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
-
-        mediaInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (!file || file.size > 50 * 1024 * 1024) { alert("فایل خەتایە یان مەزنترە ژ 50MB!"); return; }
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                let mediaHTML = "";
-                if (file.type.startsWith('image/')) mediaHTML = `<img src="${event.target.result}" class="media-content">`;
-                else if (file.type.startsWith('video/')) mediaHTML = `<video src="${event.target.result}" class="media-content" controls></video>`;
-                else mediaHTML = `<a href="${event.target.result}" download="${file.name}" class="file-box">📎 فایل: ${file.name}</a>`;
-                broadcastMessage("", mediaHTML);
-            };
-            reader.readAsDataURL(file);
-        });
-
-        setInterval(loadValidMessages, 60000);
+        // کاتێک لاپەڕەکە دەکرێتەوە خۆکارانە کەناڵی یەکەم لێبدات
+        window.onload = function() {
+            const firstChannelBtn = document.querySelector('.channel-btn');
+            // لێرە بەستەری یەکەم کەناڵ دووبارە کراوەتەوە بۆ دەستپێکی خۆکار
+            changeChannel('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', firstChannelBtn);
+        };
     </script>
+
 </body>
 </html>
