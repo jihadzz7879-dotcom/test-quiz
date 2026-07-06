@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>beIN Sports Premium Live</title>
+    <title>beIN SPORTS Premium HD</title>
+    <!-- لێرەدا کتێبخانەی لێدەری ڤیدیۆی پێشکەوتوو بانگ دەکەین بۆ ئەوەی کێشەی ڤیدیۆکان چارەسەر بێت -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,57 +16,57 @@
         }
 
         body {
-            background: radial-gradient(circle, #1a103c 0%, #070514 100%);
+            background: linear-gradient(135deg, #0b071e 0%, #03020a 100%);
             color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px 15px;
+            padding: 25px 15px;
             min-height: 100vh;
         }
 
-        header {
-            margin-bottom: 30px;
+        .header-box {
             text-align: center;
+            margin-bottom: 25px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, #ff007f, #8a2be2);
+        .header-box h1 {
+            font-size: 2.3rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ff0055, #7000ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
-            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(112, 0, 255, 0.4);
         }
 
-        header p {
-            color: #b3b0cb;
-            font-size: 1rem;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
+        .header-box p {
+            color: #8c86aa;
+            font-size: 0.95rem;
+            margin-top: 6px;
         }
 
-        .main-container {
+        .wrapper {
             width: 100%;
-            max-width: 950px;
-            background: rgba(22, 18, 44, 0.75);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            max-width: 850px;
+            background: rgba(20, 15, 43, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7);
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(138, 43, 226, 0.2);
         }
 
-        /* بەشی ڤیدیۆ مۆدێرن */
-        .player-container {
+        /* ستایلی نوێی لێدەری ڤیدیۆ */
+        .video-box {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%;
             background: #000;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
         }
 
-        .player-container iframe {
+        .video-box iframe, .video-box video {
             position: absolute;
             top: 0;
             left: 0;
@@ -72,59 +75,55 @@
             border: none;
         }
 
-        /* بەشی دوگمەی کەناڵەکان بە دیزاینی نایاب */
-        .channels-list {
+        /* ستایلکردنی دوگمەکان بە شێوازی کێبڕکێ و وەرزشی گەشاوە */
+        .grid-channels {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 12px;
-            padding: 25px;
-            background: #110d26;
+            padding: 20px;
+            background: rgba(10, 7, 24, 0.5);
         }
 
-        .channel-btn {
-            background: linear-gradient(135deg, #1f1947 0%, #161135 100%);
-            color: #e0e0fc;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 12px;
+        .btn-ch {
+            background: #171233;
+            color: #b5b0d8;
+            border: 1px solid rgba(112, 0, 255, 0.15);
+            padding: 14px 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .channel-btn:hover {
-            background: linear-gradient(135deg, #8a2be2 0%, #4a00e0 100%);
+        .btn-ch:hover {
             color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #7000ff 0%, #4a00b0 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(112, 0, 255, 0.4);
         }
 
-        .channel-btn.active {
-            background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+        .btn-ch.active {
             color: #fff;
+            background: linear-gradient(135deg, #ff0055 0%, #9900ff 100%);
             border-color: #ffffff;
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
-            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.5);
+            transform: scale(1.02);
         }
 
-        /* گونجاندن بۆ مۆبایل بە جوانترین شێوە */
+        /* گونجاندن بۆ شاشەی مۆبایل */
         @media (max-width: 768px) {
-            .channels-list {
+            .grid-channels {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                padding: 15px;
+                gap: 10px;
             }
-            header h1 {
-                font-size: 1.8rem;
-            }
+            .header-box h1 { font-size: 1.8rem; }
         }
 
         @media (max-width: 480px) {
-            .channels-list {
+            .grid-channels {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -132,47 +131,46 @@
 </head>
 <body>
 
-    <header>
-        <h1>beIN SPORTS LIVE</h1>
-        <p>پەخشی ڕاستەوخۆی کەناڵە وەرزشییەکان بە کوالیتی FULL HD و بێ ڕیکلام</p>
-    </header>
+    <div class="header-box">
+        <h1>beIN SPORTS PREMIUM</h1>
+        <p>پەخشی ڕاستەوخۆی یارییەکان بە کوالیتی FULL HD و بەبێ بڕان سێربەر</p>
+    </div>
 
-    <div class="main-container">
-        <!-- شاشەی لێدانی ڤیدیۆ -->
-        <div class="player-container">
-            <iframe id="main-player" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    <div class="wrapper">
+        <!-- شاشەی لێدەرەکە -->
+        <div class="video-box" id="player-container">
+            <!-- لێرەدا دەتوانیت لینکی ماڵپەڕی دەرەکی یان لینکەکانی M3U8 دابنێیت -->
+            <iframe id="live-stream" src="about:blank" allowfullscreen allow="autoplay; encrypted-media"></iframe>
         </div>
 
-        <!-- بەشی دوگمەکان کە بەستەرەکانی تێدا ڕێکخراوە -->
-        <div class="channels-list">
-            <!-- لێرە لە ناو فەرمانی changeChannel بەستەری کەناڵەکان دانراوە -->
-            <button class="channel-btn active" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', this)">beIN 1 HD</button>
-            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC4i9F96fV9K_mpxYyvSIsFA', this)">beIN 2 HD</button>
-            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC14U8Sjd5X_eeC49BxsnNpw', this)">beIN 3 HD</button>
-            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC0Zp_gY0v27O7KIn_L3rBfA', this)">beIN 4 HD</button>
-            <button class="channel-btn" onclick="changeChannel('https://www.youtube.com/embed/live_stream?channel=UC7_gO0_93XgV65vW-K6b50g', this)">beIN 5 HD</button>
+        <!-- لیستی کەناڵەکان -->
+        <div class="grid-channels">
+            <button class="btn-ch active" onclick="playChannel('لێرە لینکی کەناڵی 1 دابنێ', this)">beIN 1 HD</button>
+            <button class="btn-ch" onclick="playChannel('لێرە لینکی کەناڵی 2 دابنێ', this)">beIN 2 HD</button>
+            <button class="btn-ch" onclick="playChannel('لێرە لینکی کەناڵی 3 دابنێ', this)">beIN 3 HD</button>
+            <button class="btn-ch" onclick="playChannel('لێرە لینکی کەناڵی 4 دابنێ', this)">beIN 4 HD</button>
+            <button class="btn-ch" onclick="playChannel('لێرە لینکی کەناڵی 5 دابنێ', this)">beIN 5 HD</button>
         </div>
     </div>
 
     <script>
-        // فەرمانی سەرەکی بۆ گۆڕینی کەناڵەکان بەبێ ڕیفریش
-        function changeChannel(videoUrl, buttonElement) {
-            const player = document.getElementById('main-player');
+        function playChannel(url, element) {
+            const iframe = document.getElementById('live-stream');
             
-            // گۆڕینی بەستەری ڤیدیۆکە
-            player.src = videoUrl;
+            // گۆڕینی سەرچاوەی ڤیدیۆ
+            iframe.src = url;
 
-            // نوێکردنەوەی ستایلی دوگمە چالاکەکە
-            const allButtons = document.querySelectorAll('.channel-btn');
-            allButtons.forEach(btn => btn.classList.remove('active'));
-            buttonElement.classList.add('active');
+            // چاککردنی دوگمەکان
+            const buttons = document.querySelectorAll('.btn-ch');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
         }
 
-        // کاتێک لاپەڕەکە دەکرێتەوە خۆکارانە کەناڵی یەکەم لێبدات
+        // بە شێوەیەکی خۆکار لەگەڵ کردنەوەی سایتەکە کەناڵی یەکەم کار دەکات
         window.onload = function() {
-            const firstChannelBtn = document.querySelector('.channel-btn');
-            // لێرە بەستەری یەکەم کەناڵ دووبارە کراوەتەوە بۆ دەستپێکی خۆکار
-            changeChannel('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', firstChannelBtn);
+            const initialBtn = document.querySelector('.btn-ch');
+            // لێرە بەستەری سەرەکی یەکەم کەناڵ بنووسە
+            playChannel('https://vidsrc.me/embed/movie?imdb=tt1375666', initialBtn); // ئەمە نموونەیە، لێرە لینکی یارییەکە دابنێ
         };
     </script>
 
