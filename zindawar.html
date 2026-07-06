@@ -3,85 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global IPTV Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <title>Global Live Sports HD</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-        body { background: #0b081e; color: white; text-align: center; padding: 20px; }
-        header h1 { font-size: 2rem; color: #00f2fe; margin-bottom: 20px; }
-        
-        /* شاشەی لێدەری ڤیدیۆ */
-        #player {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            background: #000;
-            margin: 0 auto 20px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        @media(max-width:600px){ #player { height: 240px; } }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
+        body {
+            background: linear-gradient(135deg, #0a071b 0%, #020107 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .btn {
-            background: #16113a;
+
+        /* بەشی قفڵ بە ڕەمز */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #04030a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .lock-box {
+            background: #120d29;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            text-align: center;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .lock-box h2 {
+            margin-bottom: 20px;
+            color: #00f2fe;
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .lock-box input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 2px solid #1e173e;
+            background: #090615;
+            color: #00f2fe;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 6px;
+            outline: none;
+        }
+
+        .lock-box button {
+            background: linear-gradient(45deg, #00f2fe, #ff007f);
             color: #fff;
-            border: 1px solid #3d2b85;
-            padding: 15px 10px;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: 0.2s;
+            width: 100%;
+            transition: 0.3s;
         }
-        .btn:hover, .btn.active {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            color: #000;
+
+        .lock-box button:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
             transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: #ff3838;
+            margin-top: 12px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        /* بەشی سەرەکی ماڵپەڕ */
+        #main-content {
+            display: none;
+            width: 100%;
+            max-width: 850px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, #00f2fe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        header p {
+            color: #797393;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .player-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.04);
+            margin-bottom: 20px;
+        }
+
+        .player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* دوگمەی کەناڵەکان */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .btn-ch {
+            background: #120e2b;
+            color: #a5a1c5;
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 14px 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-ch:hover {
+            background: #1c1642;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-ch.active {
+            background: linear-gradient(135deg, #ff007f 0%, #7000ff 100%);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+            border-color: #fff;
+        }
+
+        @media (max-width: 500px) {
+            .channels-grid { grid-template-columns: repeat(2, 1fr); }
+            header h1 { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>GLOBAL LIVE TV HD</h1>
-    </header>
+    <div id="lock-screen">
+        <div class="lock-box">
+            <h2>تکایە ڕەمزەکە بنووسە</h2>
+            <input type="password" id="pin-input" placeholder="••••" maxlength="4">
+            <button onclick="checkPin()">چوونە ژوورەوە</button>
+            <p class="error-msg" id="error-txt">ڕەمزەکە هەڵەیە! دووبارە تاقیکەرەوە.</p>
+        </div>
+    </div>
 
-    <div id="player"></div>
+    <div id="main-content">
+        <header>
+            <h1>GLOBAL SPORTS LIVE</h1>
+            <p>پەخشی ڕاستەوخۆی یارییەکان بە کوالیتی بەرز و بێ بڕان</p>
+        </header>
 
-    <div class="grid">
-        <button class="btn active" onclick="changeLive('https://trtcanlitv.medya.trt.com.tr/master.m3u8', this)">TRT 1 HD</button>
-        <button class="btn" onclick="changeLive('https://live.ch9.qa/hls/ch9.m3u8', this)">Qatar TV</button>
-        <button class="btn" onclick="changeLive('https://aljazeera-ara-apple-live.akamaized.net/apple/live/ara/master.m3u8', this)">Al Jazeera</button>
-        <button class="btn" onclick="changeLive('https://skynewsarabia-live.akamaized.net/hls/live/2002513/skynewsarabia/master.m3u8', this)">Sky News</button>
+        <div class="player-container">
+            <iframe id="tv-player" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
+
+        <div class="channels-grid">
+            <button class="btn-ch active" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', this)">beIN News Live</button>
+            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UC9s6a7X600I3c4Cba7F8_jA', this)">Al Kass Live</button>
+            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCuj4CnhWwWunKbt6_6EmV3Q', this)">AD Sports Live</button>
+            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzx9gw', this)">KSA Sports Live</button>
+            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCvtQ76b88L5B_fccXwY6RQQ', this)">Al Jazeera Live</button>
+            <button class="btn-ch" onclick="playTv('https://www.youtube.com/embed/live_stream?channel=UCYenDLnNco-S8851_w_A5ig', this)">Sky News Live</button>
+        </div>
     </div>
 
     <script>
-        // دروستکردنی لێدەری ڤیدیۆی جیهانی
-        var player = new Clappr.Player({
-            source: "https://trtcanlitv.medya.trt.com.tr/master.m3u8",
-            parentId: "#player",
-            width: "100%",
-            height: "100%",
-            autoPlay: true
-        });
+        // پشکنینی ڕەمزی 2222
+        function checkPin() {
+            const input = document.getElementById('pin-input').value;
+            const error = document.getElementById('error-txt');
+            
+            if (input === '2222') {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                
+                // ئۆتۆماتیکی یەکەم کەناڵ لێدەدات دوای ڕەمزەکە
+                const firstBtn = document.querySelector('.btn-ch');
+                playTv('https://www.youtube.com/embed/live_stream?channel=UC77u3YvL78_zDTe2K6Ww6aA', firstBtn);
+            } else {
+                error.style.display = 'block';
+                document.getElementById('pin-input').value = '';
+            }
+        }
 
-        function changeLive(url, element) {
-            // گۆڕینی بەستەری لایڤەکە بەبێ کێشە
-            player.load(url);
-            player.play();
+        // گۆڕینی کەناڵەکە بە شێوازێکی خێرا
+        function playTv(url, element) {
+            const player = document.getElementById('tv-player');
+            player.src = url;
 
-            // گۆڕینی ڕەنگی دوگمەکە
-            const buttons = document.querySelectorAll('.btn');
+            const buttons = document.querySelectorAll('.btn-ch');
             buttons.forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
         }
+
+        // بۆ ئەوەی بە Enter-ی کیبۆردیش ڕەمزەکە وەربگرێت
+        document.getElementById('pin-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { checkPin(); }
+        });
     </script>
 
 </body>
