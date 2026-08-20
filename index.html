@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ئامڕازێن ڕۆژانە | Daily Utility Hub</title>
-  <!-- QR Code Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <title>یاریدەدەرێ ژیر و خێرا | AI Assistant</title>
   <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,272 +23,192 @@
     }
 
     body {
-      background-color: #0f172a;
-      color: #f8fafc;
+      background-color: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 15px;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 25px;
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
     }
 
-    header h1 {
+    .header h1 {
+      font-size: 1.4rem;
       color: #38bdf8;
-      font-size: 1.8rem;
-      margin-bottom: 5px;
     }
 
-    header p {
-      color: #94a3b8;
-      font-size: 0.95rem;
+    .header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
     }
 
-    .nav-tabs {
+    .chat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      height: 380px;
+      overflow-y: auto;
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 600px;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .tab-btn {
-      background: #1e293b;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s;
-      flex: 1 1 40%;
-      text-align: center;
+    .message {
+      padding: 10px 14px;
+      border-radius: 10px;
+      max-width: 85%;
+      line-height: 1.5;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
     }
 
-    .tab-btn.active, .tab-btn:hover {
-      background: #0284c7;
+    .user-msg {
+      background: var(--accent);
       color: #fff;
-      border-color: #38bdf8;
+      align-self: flex-start;
+      border-bottom-right-radius: 2px;
     }
 
-    .card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 25px;
-      width: 100%;
-      max-width: 600px;
-      display: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-
-    .card.active {
-      display: block;
-    }
-
-    .card h2 {
-      font-size: 1.2rem;
-      color: #38bdf8;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 8px;
+    .ai-msg {
+      background: #334155;
+      color: var(--text);
+      align-self: flex-end;
+      border-bottom-left-radius: 2px;
     }
 
     .input-group {
-      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    input, textarea {
-      width: 100%;
+    input[type="text"] {
+      flex: 1;
       padding: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      border: 1px solid #334155;
-      background: #0f172a;
       color: #fff;
       font-size: 0.95rem;
       outline: none;
     }
 
-    input:focus, textarea:focus {
+    input[type="text"]:focus {
       border-color: #38bdf8;
     }
 
-    button.action-btn {
-      width: 100%;
-      padding: 12px;
-      background: #0284c7;
-      color: #fff;
+    button {
+      padding: 12px 20px;
+      background: var(--accent);
+      color: white;
       border: none;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 5px;
+      transition: 0.2s;
     }
 
-    button.action-btn:hover {
-      background: #0369a1;
-    }
-
-    .result {
-      margin-top: 15px;
-      padding: 12px;
-      background: #0f172a;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-
-    #qrcode-box {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      background: #fff;
-      padding: 15px;
-      border-radius: 8px;
+    button:hover {
+      background: var(--accent-hover);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>کۆمکەرێ ئامڕازێن خێرا</h1>
-    <p>ئامڕازێن سادە و مفادار بۆ کارهێنانا ڕۆژانە</p>
-  </header>
-
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('qr')">دروستکەرێ QR</button>
-    <button class="tab-btn" onclick="switchTab('bmi')">کێش و تەندروستی (BMI)</button>
-    <button class="tab-btn" onclick="switchTab('counter')">ژمێرەرا پەیڤان</button>
-    <button class="tab-btn" onclick="switchTab('grade')">بژمێرا نمران</button>
-  </div>
-
-  <!-- 1. QR Code Generator -->
-  <div id="qr" class="card active">
-    <h2>دروستکەرێ کۆدێ QR</h2>
-    <div class="input-group">
-      <label>لینک یان دەق بنڤێسە:</label>
-      <input type="text" id="qrText" placeholder="https://example.com">
+  <div class="container">
+    <div class="header">
+      <h1>پلاتفۆڕما بەرسڤدانا ژیر (AI Assistant)</h1>
+      <p>هر پرسیارەکا تە هەبێت ل ڤێرە بنڤێسە دا ب بێ دوودلی و ڕاستەڕاست بەرسڤا تە ب دەت.</p>
     </div>
-    <button class="action-btn" onclick="generateQR()">دروستکرن</button>
-    <div id="qrcode-box" style="display:none;"></div>
-  </div>
 
-  <!-- 2. BMI Calculator -->
-  <div id="bmi" class="card">
-    <h2>حسابکرنا کێشێ (BMI)</h2>
-    <div class="input-group">
-      <label>درێژی (ب سەنتیمەتر):</label>
-      <input type="number" id="height" placeholder="مێنک: 175">
+    <!-- Chat Box -->
+    <div class="chat-box" id="chatBox">
+      <div class="message ai-msg">سڵاڤ! ئەز ئامادەمە بۆ بەرسڤدانا هەمی پرسیارێن تە ب شێوەیەکێ ژیرانە.</div>
     </div>
-    <div class="input-group">
-      <label>کێش (ب کیلوگرام):</label>
-      <input type="number" id="weight" placeholder="مێنک: 70">
-    </div>
-    <button class="action-btn" onclick="calcBMI()">حسابکرن</button>
-    <div class="result" id="bmiResult" style="display:none;"></div>
-  </div>
 
-  <!-- 3. Word Counter -->
-  <div id="counter" class="card">
-    <h2>ژمێرەرا پەیڤ و پیتان</h2>
+    <!-- Input Area -->
     <div class="input-group">
-      <label>دەقێ خۆ ل ڤێرە بنڤێسە یان پەست بکە:</label>
-      <textarea id="textInput" rows="5" oninput="countText()"></textarea>
+      <input type="text" id="userInput" placeholder="پرسیارا خۆ ل ڤێرە بنڤێسە..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">ناردن</button>
     </div>
-    <div class="result" id="textResult">پەیڤ: 0 | پیت: 0</div>
-  </div>
-
-  <!-- 4. Grade Calculator -->
-  <div id="grade" class="card">
-    <h2>بژمێرا تێکڕایێ نمران</h2>
-    <div class="input-group">
-      <label>نمرێن خۆ ب فاریزە (,) ژێک جودا بکە:</label>
-      <input type="text" id="gradesInput" placeholder="مێنک: 85, 90, 78, 92">
-    </div>
-    <button class="action-btn" onclick="calcGrade()">حسابکرنا تێکڕایێ</button>
-    <div class="result" id="gradeResult" style="display:none;"></div>
   </div>
 
   <script>
-    function switchTab(tabId) {
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
+    const API_KEY = "AQ.Ab8RN6Kg9yAxk-W_opcDU6M2ugDlXa6g0BLQPBwjktJFX0DPSw";
+
+    async function sendMessage() {
+      const inputField = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      const question = inputField.value.trim();
+
+      if (!question) return;
+
+      // 1. Show User Message
+      appendMessage(question, 'user-msg');
+      inputField.value = '';
+
+      // 2. Show Loading Placeholder
+      const loadingMsg = appendMessage('د پرۆسەکرنێ دایە...', 'ai-msg');
+
+      try {
+        // 3. Call Gemini API directly
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: "بەرسڤا ڤێ پرسیارێ ب شێوەیەکێ زۆر ڕوون، ب هێز، و ڕاست ب دە ب بێ دوودلی: " + question }]
+            }]
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          loadingMsg.innerText = data.candidates[0].content.parts[0].text;
+        } else {
+          loadingMsg.innerText = 'ببوورە، کێشەیەک چێبوو د وەرگرتنا بەرسڤێ دا.';
+        }
+      } catch (error) {
+        loadingMsg.innerText = 'کێشەیەک د پەیوەندییا تۆڕێ دا چێبوو. تکایە پشتڕاست ببەوە ژ دروستییا API Key.';
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // QR Generator
-    let qrcode = null;
-    function generateQR() {
-      const text = document.getElementById('qrText').value;
-      const box = document.getElementById('qrcode-box');
-      if (!text) return;
-
-      box.innerHTML = '';
-      box.style.display = 'flex';
-      new QRCode(box, {
-        text: text,
-        width: 150,
-        height: 150
-      });
+    function appendMessage(text, className) {
+      const chatBox = document.getElementById('chatBox');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${className}`;
+      msgDiv.innerText = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return msgDiv;
     }
 
-    // BMI Calculator
-    function calcBMI() {
-      const h = parseFloat(document.getElementById('height').value) / 100;
-      const w = parseFloat(document.getElementById('weight').value);
-      const res = document.getElementById('bmiResult');
-
-      if (!h || !w) return;
-      const bmi = (w / (h * h)).toFixed(1);
-      
-      let status = '';
-      if (bmi < 18.5) status = 'کێشا تە کەمە';
-      else if (bmi < 25) status = 'کێشا تە ئاسایی و تەندروستە';
-      else if (bmi < 30) status = 'زێدەدەهیا کێشێ هەیا';
-      else status = 'قەلەویا پلە بەرز';
-
-      res.style.display = 'block';
-      res.innerText = `ئەنجام (BMI): ${bmi} - (${status})`;
-    }
-
-    // Word Counter
-    function countText() {
-      const txt = document.getElementById('textInput').value.trim();
-      const words = txt ? txt.split(/\s+/).length : 0;
-      const chars = txt.length;
-      document.getElementById('textResult').innerText = `پەیڤ: ${words} | پیت: ${chars}`;
-    }
-
-    // Grade Calculator
-    function calcGrade() {
-      const val = document.getElementById('gradesInput').value;
-      const res = document.getElementById('gradeResult');
-      if (!val) return;
-
-      const arr = val.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
-      if (arr.length === 0) return;
-
-      const sum = arr.reduce((a, b) => a + b, 0);
-      const avg = (sum / arr.length).toFixed(1);
-
-      res.style.display = 'block';
-      res.innerText = `تێکڕایێ نمرێن تە: %${avg}`;
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
     }
   </script>
 
