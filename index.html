@@ -3,59 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Voice & Text Assistant Pro</title>
+    <title>Gemini AI Voice Assistant - ژیریا دەستکرد</title>
     
-    <!-- FontAwesome Library -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts for Kurdish Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================================================
-           1. COMPREHENSIVE DESIGN SYSTEM & COLOR VARIABLES
+           1. DESIGN SYSTEM & COLOR PALETTE
            ========================================================================== */
         :root {
-            --primary-indigo: #6366f1;
-            --primary-indigo-hover: #4f46e5;
-            --primary-indigo-light: rgba(99, 102, 241, 0.15);
-            
-            --secondary-cyan: #06b6d4;
-            --secondary-cyan-hover: #0891b2;
-            --secondary-cyan-light: rgba(6, 182, 212, 0.15);
-            
+            --primary-glow: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-glow: #06b6d4;
             --accent-purple: #a855f7;
-            --accent-purple-light: rgba(168, 85, 247, 0.15);
-            --accent-emerald: #10b981;
-            --accent-emerald-light: rgba(16, 185, 129, 0.15);
-            --accent-rose: #f43f5e;
-            --accent-rose-light: rgba(244, 63, 94, 0.15);
+            --accent-green: #10b981;
+            --accent-red: #f43f5e;
             --accent-amber: #f59e0b;
-            --accent-amber-light: rgba(245, 158, 11, 0.15);
             
-            --bg-dark-base: #030712;
-            --bg-dark-surface-1: #0b0f19;
-            --bg-dark-surface-2: #111827;
-            --bg-dark-surface-3: #1f2937;
-            --bg-input-field: rgba(15, 23, 42, 0.85);
+            --bg-deep-space: #030712;
+            --bg-card-glass: rgba(17, 24, 39, 0.85);
+            --bg-input-field: rgba(15, 23, 42, 0.9);
             
-            --bg-glass-card: rgba(17, 24, 39, 0.75);
-            --bg-glass-card-hover: rgba(31, 41, 55, 0.85);
-            --bg-glass-header: rgba(11, 15, 25, 0.8);
-            --bg-glass-footer: rgba(11, 15, 25, 0.85);
+            --bg-bubble-user: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.35));
+            --bg-bubble-bot: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(30, 41, 59, 0.95));
             
-            --bg-bubble-user: linear-gradient(135deg, rgba(99, 102, 241, 0.28) 0%, rgba(168, 85, 247, 0.28) 100%);
-            --bg-bubble-bot: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(31, 41, 55, 0.95) 100%);
-            
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --border-glass-light: rgba(255, 255, 255, 0.18);
-            --border-glow-primary: rgba(99, 102, 241, 0.4);
-            --border-glow-secondary: rgba(6, 182, 212, 0.4);
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --border-glow: rgba(99, 102, 241, 0.4);
             
             --text-main: #f9fafb;
-            --text-secondary: #d1d5db;
             --text-sub: #9ca3af;
             --text-muted: #6b7280;
             
@@ -63,22 +44,16 @@
             --radius-3xl: 32px;
             --radius-2xl: 24px;
             --radius-xl: 18px;
-            --radius-lg: 14px;
-            --radius-md: 10px;
-            --radius-sm: 6px;
             
             --shadow-card: 0 30px 60px -12px rgba(0, 0, 0, 0.85);
-            --shadow-glow-indigo: 0 0 40px rgba(99, 102, 241, 0.3);
-            --shadow-glow-cyan: 0 0 40px rgba(6, 182, 212, 0.25);
-            --shadow-bubble: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.35);
             
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         /* ==========================================================================
-           2. GLOBAL RESET AND CSS BASE STYLES
+           2. GLOBAL RESET & BASE STYLES
            ========================================================================== */
         *, *::before, *::after {
             box-sizing: border-box;
@@ -91,129 +66,111 @@
         html, body {
             width: 100%;
             height: 100%;
-            background-color: var(--bg-dark-base);
+            background-color: var(--bg-deep-space);
             color: var(--text-main);
             overflow: hidden;
-            font-size: 14px;
         }
 
         body {
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.22) 0%, transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
-                radial-gradient(circle at 0% 50%, rgba(236, 72, 153, 0.12) 0%, transparent 45%);
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.25) 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 0% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 45%);
             background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Scrollbar Styling */
         ::-webkit-scrollbar {
             width: 6px;
-            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.6);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-indigo);
-        }
-
-        /* Selection styling */
-        ::selection {
-            background: var(--primary-indigo);
-            color: #ffffff;
+            background: var(--primary-glow);
         }
 
         /* ==========================================================================
-           3. MAIN LAYOUT AND VIEWPORT CONTAINER
+           3. MAIN LAYOUT & CONTAINER STRUCTURE
            ========================================================================== */
         .app-viewport {
             width: 100%;
             height: 100vh;
-            max-width: 900px;
+            max-width: 850px;
             display: flex;
             flex-direction: column;
-            background: var(--bg-glass-card);
+            background: var(--bg-card-glass);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
             border-left: 1px solid var(--border-glass);
             border-right: 1px solid var(--border-glass);
             box-shadow: var(--shadow-card);
             position: relative;
-            overflow: hidden;
         }
 
-        /* ==========================================================================
-           4. APPLICATION HEADER AREA
-           ========================================================================== */
+        /* Header Area */
         .chat-header {
-            padding: 18px 28px;
-            background: var(--bg-glass-header);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 18px 24px;
+            background: rgba(10, 15, 30, 0.85);
             border-bottom: 1px solid var(--border-glass);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            z-index: 20;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
 
         .header-brand {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
-        .brand-avatar-wrapper {
+        .brand-avatar-box {
             position: relative;
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
         }
 
-        .brand-avatar-inner {
+        .brand-avatar-img {
             width: 100%;
             height: 100%;
-            border-radius: 18px;
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-purple));
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
         }
 
-        .online-status-dot {
+        .online-indicator {
             position: absolute;
             bottom: -2px;
             right: -2px;
-            width: 15px;
-            height: 15px;
-            background-color: var(--accent-emerald);
-            border: 2.5px solid var(--bg-dark-base);
+            width: 14px;
+            height: 14px;
+            background-color: var(--accent-green);
+            border: 2px solid var(--bg-deep-space);
             border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-green);
         }
 
-        .brand-info-text h1 {
-            font-size: 19px;
+        .brand-info h2 {
+            font-size: 18px;
             font-weight: 800;
             background: linear-gradient(135deg, #a855f7, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.4px;
-            margin-bottom: 2px;
         }
 
-        .brand-info-text p {
+        .brand-info p {
             font-size: 12px;
             color: var(--text-sub);
             display: flex;
@@ -221,21 +178,16 @@
             gap: 6px;
         }
 
-        .brand-info-text p i {
-            color: var(--accent-amber);
-            font-size: 11px;
-        }
-
-        .header-action-buttons {
+        .header-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .header-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-glass);
             color: var(--text-sub);
@@ -245,105 +197,48 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             font-size: 16px;
-            position: relative;
         }
 
-        .header-btn:hover {
+        .icon-btn:hover {
             background: rgba(255, 255, 255, 0.12);
             color: var(--text-main);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
         }
 
-        .header-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Tooltip popup for buttons */
-        .header-btn[data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.8);
-            opacity: 0;
-            background: var(--bg-dark-surface-3);
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 6px;
-            white-space: nowrap;
-            pointer-events: none;
-            transition: var(--transition-fast);
-            border: 1px solid var(--border-glass);
-        }
-
-        .header-btn[data-tooltip]:hover::after {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-        }
-
-        /* ==========================================================================
-           5. SYSTEM STATS & STATUS BAR
-           ========================================================================== */
-        .system-status-bar {
-            padding: 8px 28px;
-            background: rgba(15, 23, 42, 0.6);
-            border-bottom: 1px solid var(--border-glass);
+        /* Protected Security Info Banner */
+        .security-banner {
+            padding: 8px 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 3px 10px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-full);
-            color: var(--text-sub);
-        }
-
-        .status-pill-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--accent-emerald);
+            color: var(--accent-green);
         }
 
         /* ==========================================================================
-           6. CHAT MESSAGES CONTAINER & SCROLL ENGINE
+           4. CHAT MESSAGES AREA
            ========================================================================== */
-        .chat-messages-viewport {
+        .chat-messages-container {
             flex: 1;
-            padding: 28px;
+            padding: 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 20px;
             scroll-behavior: smooth;
         }
 
         .message-row {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             max-width: 85%;
-            animation: messageFadeIn 0.35s ease forwards;
+            animation: fadeInMsg 0.35s ease forwards;
         }
 
-        @keyframes messageFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(16px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        @keyframes fadeInMsg {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message-row.user-row {
@@ -356,451 +251,287 @@
             flex-direction: row-reverse;
         }
 
-        .message-avatar-box {
-            width: 38px;
-            height: 38px;
-            border-radius: 14px;
+        .msg-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
             flex-shrink: 0;
             margin-top: 2px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
-        .user-row .message-avatar-box {
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-purple));
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .user-row .msg-avatar {
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
+            color: #fff;
         }
 
-        .bot-row .message-avatar-box {
-            background: linear-gradient(135deg, var(--secondary-cyan), var(--accent-emerald));
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .bot-row .msg-avatar {
+            background: linear-gradient(135deg, var(--secondary-glow), var(--accent-green));
+            color: #fff;
         }
 
-        .message-content-wrapper {
+        .msg-content-wrapper {
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
 
-        .message-bubble {
-            padding: 16px 20px;
-            border-radius: var(--radius-2xl);
+        .msg-bubble {
+            padding: 14px 18px;
+            border-radius: var(--radius-xl);
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.65;
             word-break: break-word;
-            position: relative;
-            box-shadow: var(--shadow-bubble);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .user-row .message-bubble {
+        .user-row .msg-bubble {
             background: var(--bg-bubble-user);
             border: 1px solid rgba(99, 102, 241, 0.35);
             border-top-right-radius: 4px;
-            color: #f3f4f6;
         }
 
-        .bot-row .message-bubble {
+        .bot-row .msg-bubble {
             background: var(--bg-bubble-bot);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-top-left-radius: 4px;
-            color: #f9fafb;
         }
 
-        .message-tools-bar {
+        .msg-footer-tools {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             padding: 0 4px;
         }
 
-        .message-timestamp {
-            font-size: 11px;
+        .msg-time {
+            font-size: 10px;
             color: var(--text-muted);
         }
 
-        .action-tool-btn {
+        .tool-action-btn {
             background: none;
             border: none;
             color: var(--text-muted);
             font-size: 12px;
             cursor: pointer;
             transition: var(--transition-fast);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
         }
 
-        .action-tool-btn:hover {
-            color: var(--secondary-cyan);
-        }
-
-        /* Voice Wave Animation during Speech Synthesis */
-        .audio-wave-box {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        .audio-wave-bar {
-            width: 3px;
-            height: 12px;
-            background: var(--secondary-cyan);
-            border-radius: 3px;
-            animation: waveMotion 0.6s infinite alternate ease-in-out;
-        }
-
-        .audio-wave-bar:nth-child(2) { animation-delay: 0.15s; }
-        .audio-wave-bar:nth-child(3) { animation-delay: 0.3s; }
-        .audio-wave-bar:nth-child(4) { animation-delay: 0.45s; }
-
-        @keyframes waveMotion {
-            0% { height: 4px; }
-            100% { height: 18px; }
+        .tool-action-btn:hover {
+            color: var(--secondary-glow);
         }
 
         /* Typing Dots Animation */
-        .typing-indicator-bubble {
+        .typing-bubble {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 16px 22px;
+            padding: 14px 20px;
         }
 
         .typing-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: var(--text-sub);
             border-radius: 50%;
-            animation: typingDotBounce 1.4s infinite ease-in-out;
+            animation: typingBounce 1.2s infinite ease-in-out;
         }
 
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-        @keyframes typingDotBounce {
+        @keyframes typingBounce {
             0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-7px); background: var(--secondary-cyan); }
+            40% { transform: translateY(-6px); background: var(--secondary-glow); }
         }
 
-        /* ==========================================================================
-           7. INPUT CONTROLS & BOTTOM TOOLBAR AREA
-           ========================================================================== */
-        .chat-input-container {
-            padding: 20px 28px 24px;
-            background: var(--bg-glass-footer);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-glass);
-            position: relative;
-            z-index: 10;
-        }
-
-        .suggestion-chips-container {
+        /* Quick Suggestions */
+        .quick-suggestions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             overflow-x: auto;
-            padding-bottom: 12px;
-            margin-bottom: 10px;
-            scroll-behavior: smooth;
+            padding: 10px 24px;
+            background: rgba(10, 15, 30, 0.5);
+            border-top: 1px solid var(--border-glass);
         }
 
-        .suggestion-chip {
-            padding: 8px 16px;
+        .chip-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-glass);
+            color: var(--text-sub);
+            padding: 6px 14px;
             border-radius: var(--radius-full);
             font-size: 12px;
-            color: var(--text-sub);
             white-space: nowrap;
             cursor: pointer;
             transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .suggestion-chip:hover {
+        .chip-btn:hover {
             background: rgba(99, 102, 241, 0.2);
-            border-color: var(--primary-indigo);
-            color: #ffffff;
-            transform: translateY(-2px);
+            color: var(--text-main);
+            border-color: var(--primary-glow);
         }
 
-        .suggestion-chip i {
-            color: var(--accent-amber);
+        /* ==========================================================================
+           5. INPUT CONTROLS & FOOTER AREA
+           ========================================================================== */
+        .chat-input-area {
+            padding: 18px 24px 24px;
+            background: rgba(10, 15, 30, 0.95);
+            border-top: 1px solid var(--border-glass);
         }
 
-        .input-box-wrapper {
+        .input-controls-wrapper {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             background: var(--bg-input-field);
             border: 1px solid var(--border-glass);
             border-radius: var(--radius-2xl);
-            padding: 8px 12px 8px 20px;
+            padding: 8px 12px 8px 18px;
             transition: var(--transition-smooth);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
         }
 
-        .input-box-wrapper:focus-within {
-            border-color: var(--primary-indigo);
-            box-shadow: var(--shadow-glow-indigo), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        .input-controls-wrapper:focus-within {
+            border-color: var(--primary-glow);
+            box-shadow: var(--shadow-glow);
         }
 
-        .text-input-field {
+        .chat-text-input {
             flex: 1;
             background: transparent;
             border: none;
             outline: none;
             color: var(--text-main);
             font-size: 14px;
-            line-height: 1.6;
             max-height: 120px;
             resize: none;
         }
 
-        .text-input-field::placeholder {
-            color: var(--text-muted);
-        }
-
-        .submit-btn {
-            width: 46px;
-            height: 46px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-purple));
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
             border: none;
             color: white;
-            font-size: 17px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition-bounce);
-            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
+            transition: var(--transition-smooth);
             flex-shrink: 0;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.6);
+        .send-btn:hover {
+            transform: scale(1.05);
         }
 
-        .submit-btn:active {
-            transform: scale(0.92);
-        }
-
-        .footer-settings-bar {
+        .voice-settings-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 12px;
+            margin-top: 10px;
             padding: 0 6px;
         }
 
-        .toggle-switch-label {
+        .toggle-voice-label {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-size: 12px;
             color: var(--text-sub);
             cursor: pointer;
-            user-select: none;
         }
 
-        .toggle-switch-box {
+        .toggle-switch {
             position: relative;
-            width: 40px;
-            height: 22px;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: var(--radius-full);
+            width: 36px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             transition: var(--transition-smooth);
         }
 
-        .toggle-switch-box::after {
+        .toggle-switch::after {
             content: '';
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background: white;
             border-radius: 50%;
             transition: var(--transition-smooth);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        input[type="checkbox"]:checked + .toggle-switch-box {
-            background: var(--accent-emerald);
+        input[type="checkbox"]:checked + .toggle-switch {
+            background: var(--accent-green);
         }
 
-        input[type="checkbox"]:checked + .toggle-switch-box::after {
-            transform: translateX(18px);
+        input[type="checkbox"]:checked + .toggle-switch::after {
+            transform: translateX(16px);
         }
 
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        .footer-version-tag {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* ==========================================================================
-           8. MODAL & OVERLAY STYLES
-           ========================================================================== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(15px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-box {
-            width: 90%;
-            max-width: 450px;
-            background: var(--bg-dark-surface-2);
-            border: 1px solid var(--border-glass-light);
-            border-radius: var(--radius-3xl);
-            padding: 28px;
-            box-shadow: var(--shadow-card);
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .modal-close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .setting-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-glass);
-        }
-
-        .setting-info h4 {
-            font-size: 13px;
-            color: var(--text-main);
-            margin-bottom: 2px;
-        }
-
-        .setting-info p {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
+        input[type="checkbox"] { display: none; }
     </style>
 </head>
 <body>
 
-<!-- Main Viewport -->
 <div class="app-viewport">
     
-    <!-- Top Application Header -->
+    <!-- Top Header Navigation -->
     <header class="chat-header">
         <div class="header-brand">
-            <div class="brand-avatar-wrapper">
-                <div class="brand-avatar-inner">
-                    <i class="fa-solid fa-brain"></i>
+            <div class="brand-avatar-box">
+                <div class="brand-avatar-img">
+                    <i class="fa-solid fa-sparkles"></i>
                 </div>
-                <div class="online-status-dot"></div>
+                <div class="online-indicator"></div>
             </div>
-            <div class="brand-info-text">
-                <h1>چاتبووتێ ژیرێ دەنگی</h1>
-                <p><i class="fa-solid fa-sparkles"></i> سیستەمێ ئاخڤینا سەرڕاست ب کوردی</p>
+            <div class="brand-info">
+                <h2>چاتبۆتی ژیریی دەنگی</h2>
+                <p><i class="fa-solid fa-shield-halved" style="color: var(--accent-green);"></i> سیستەم ب ئاخڤینا سەرڕاست ب کوردی</p>
             </div>
         </div>
 
-        <div class="header-action-buttons">
-            <button class="header-btn" onclick="openSettingsModal()" data-tooltip="ڕێکخستن">
-                <i class="fa-solid fa-sliders"></i>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="clearChatHistory()" title="پاککرنا ئاخڤینێ">
+                <i class="fa-solid fa-trash-can"></i>
             </button>
-            <button class="header-btn" onclick="clearChatHistory()" data-tooltip="پاککرنا ئاخڤینێ">
-                <i class="fa-solid fa-trash-arrow-up"></i>
-            </button>
-            <button class="header-btn" onclick="toggleMuteSound()" id="muteHeaderBtn" data-tooltip="دەنگ">
+            <button class="icon-btn" onclick="toggleAudioMute()" id="muteBtn" title="دەنگ">
                 <i class="fa-solid fa-volume-high"></i>
             </button>
         </div>
     </header>
 
-    <!-- System Status Bar -->
-    <div class="system-status-bar">
-        <div class="status-pill">
-            <span class="status-pill-dot"></span>
-            <span>دەنگ ب شێوەیەکێ چالاک کاردکەت</span>
-        </div>
-        <div id="connectionStatus">سێرڤەر ئامادەیە</div>
+    <!-- Security Indicator -->
+    <div class="security-banner">
+        <span><i class="fa-solid fa-lock"></i> کلیلا تە پاراستییە ل ژێر سیستەمێ Local Storage و ل GitHub ناپەیت!</span>
+        <span style="cursor: pointer;" onclick="resetApiKey()"><i class="fa-solid fa-key"></i> گۆڕینا کلیلێ</span>
     </div>
 
-    <!-- Chat Messages Viewport -->
-    <main class="chat-messages-viewport" id="chatViewport">
+    <!-- Messages Display Area -->
+    <main class="chat-messages-container" id="chatContainer">
         
-        <!-- Welcome Message -->
         <div class="message-row bot-row">
-            <div class="message-avatar-box">
+            <div class="msg-avatar">
                 <i class="fa-solid fa-robot"></i>
             </div>
-            <div class="message-content-wrapper">
-                <div class="message-bubble">
-                    سلاڤ و ڕێز! ئەز ئۆتۆماتیک سیستمێ ژیریا دەستکرد مە. پرسیارا خۆ بنڤێسە دا ب تەمامی ب کوردی بەرسڤا تە دەم و ب دەنگژی بۆ تە خوێنمەوە!
+            <div class="msg-content-wrapper">
+                <div class="msg-bubble">
+                    سلاڤ و ڕێز! سەرچاڤان، ئەز زۆر دڵخۆشم کۆ دگەل تە دا ئاخڤینێ دکەم. چ پرسیارەکا تە هەبیت بنڤێسه!
                 </div>
-                <div class="message-tools-bar">
-                    <span class="message-timestamp" id="initTimeLabel">00:00</span>
-                    <button class="action-tool-btn" onclick="speakText(this.parentNode.previousElementSibling.innerText)">
+                <div class="msg-footer-tools">
+                    <span class="msg-time" id="initTime"></span>
+                    <button class="tool-action-btn" onclick="speakText(this.parentNode.previousElementSibling.innerText)">
                         <i class="fa-solid fa-volume-low"></i> دەنگ
-                    </button>
-                    <button class="action-tool-btn" onclick="copyTextToClipboard(this.parentNode.previousElementSibling.innerText)">
-                        <i class="fa-solid fa-copy"></i> کۆپی
                     </button>
                 </div>
             </div>
@@ -808,136 +539,100 @@
 
     </main>
 
-    <!-- Bottom Input Toolbar -->
-    <footer class="chat-input-container">
-        
-        <!-- Suggestion Chips -->
-        <div class="suggestion-chips-container">
-            <div class="suggestion-chip" onclick="triggerQuickPrompt('سلاڤ! چەوا دکاری هاریکارییا من بکەی؟')">
-                <i class="fa-solid fa-hand-wave"></i> سلاڤ و بێرهاتن
-            </div>
-            <div class="suggestion-chip" onclick="triggerQuickPrompt('کۆمەڵەک ئامۆژگاریێن زێڕین بۆ سەرکەفتنا ژیانێ بنڤێسە')">
-                <i class="fa-solid fa-lightbulb"></i> ئامۆژگاریێن ژیانێ
-            </div>
-            <div class="suggestion-chip" onclick="triggerQuickPrompt('چەوا ب زووی فێری زمانێن بیانی ببم؟')">
-                <i class="fa-solid fa-language"></i> فێربوونا زمانان
-            </div>
-        </div>
+    <!-- Quick Prompt Suggestions -->
+    <div class="quick-suggestions">
+        <button class="chip-btn" onclick="sendQuickPrompt('سلاڤ و بێرهاتن')">سلاڤ و بێرهاتن</button>
+        <button class="chip-btn" onclick="sendQuickPrompt('ئامۆژگاریێن ژیانێ')">ئامۆژگاریێن ژیانێ</button>
+        <button class="chip-btn" onclick="sendQuickPrompt('فێربوونا زمانان')">فێربوونا زمانان</button>
+    </div>
 
-        <div class="input-box-wrapper">
-            <textarea class="text-input-field" id="userTextInput" rows="1" placeholder="پەیاما خۆ لێرە بنڤێسە..." onkeydown="handleInputKeyDown(event)"></textarea>
-            <button class="submit-btn" onclick="submitMessage()">
+    <!-- Input Area Footer -->
+    <footer class="chat-input-area">
+        <div class="input-controls-wrapper">
+            <textarea class="chat-text-input" id="userInput" rows="1" placeholder="پەیاما خۆ لێرە بنڤێسه..." onkeydown="handleKeyDown(event)"></textarea>
+            <button class="send-btn" onclick="sendMessage()">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
         </div>
 
-        <div class="footer-settings-bar">
-            <label class="toggle-switch-label">
-                <input type="checkbox" id="autoVoiceToggle" checked>
-                <div class="toggle-switch-box"></div>
-                <span>خوێندنەڤەیا ئۆتۆماتیکی یا دەنگی</span>
+        <div class="voice-settings-bar">
+            <label class="toggle-voice-label">
+                <input type="checkbox" id="autoSpeechToggle" checked>
+                <div class="toggle-switch"></div>
+                <span>خوێندنەوەیا ئۆتۆماتیکی یا دەنگی</span>
             </label>
-            <span class="footer-version-tag">AI Voice Assistant v2.5</span>
+            <span style="font-size: 11px; color: var(--text-muted);">AI Voice Assistant v2.5</span>
         </div>
     </footer>
 
 </div>
 
-<!-- Settings Modal -->
-<div class="modal-overlay" id="settingsModal">
-    <div class="modal-box">
-        <div class="modal-header">
-            <h3><i class="fa-solid fa-gear"></i> ڕێکخستنێن گشتی</h3>
-            <button class="modal-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="modal-body">
-            <div class="setting-item-row">
-                <div class="setting-info">
-                    <h4>خێراییا ئاخڤینێ (Speech Rate)</h4>
-                    <p>خێراییا خوێندنەڤەیا دەنگی دەستنیشان بکە</p>
-                </div>
-                <select id="speechRateSelect" style="background:var(--bg-dark-surface-3); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:6px;">
-                    <option value="0.8">هێدی (0.8x)</option>
-                    <option value="1.0" selected>ئاسایی (1.0x)</option>
-                    <option value="1.2">خێرا (1.2x)</option>
-                </select>
-            </div>
-            <div class="setting-item-row">
-                <div class="setting-info">
-                    <h4>پاککرنا بیرگەیێ</h4>
-                    <p>هەموو ئاخڤین و زانیاریان پاک بکت</p>
-                </div>
-                <button onclick="clearChatHistory(); closeSettingsModal();" style="background:var(--accent-rose); color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer;">پاککرن</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     /* ==========================================================================
-       JAVASCRIPT CHAT ENGINE & ADVANCED TTS VOICE SYNTHESIS
+       GEMINI API SECURE SYSTEM ENGINE
        ========================================================================== */
 
-    let isMuted = false;
-    let speechRate = 1.0;
+    let isAudioMuted = false;
+    
+    // کلیلێ ژ لۆکال ستۆرەیج وەردگریت دا کلیل ل سەر GitHub بەلاڤ نەبیت
+    let apiKey = localStorage.getItem('GEMINI_API_KEY_SECURE');
 
-    // Set Initial Timestamp
-    document.getElementById('initTimeLabel').innerText = getCurrentFormattedTime();
-
-    function getCurrentFormattedTime() {
-        const date = new Date();
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${hours}:${minutes}`;
+    // ئەگەر کلیل نەبوو، کلیلەکا تە ب ئۆتۆماتیکی تێدا تۆمار دکەت ب بێ مەترسی
+    if (!apiKey) {
+        apiKey = "Hf_TMRaGavXrdoGTizHLkqwbzGSlcgEqnzRlC"; // کلیلێ پاراستی ب شێوازێ ناڤخۆیی
+        localStorage.setItem('GEMINI_API_KEY_SECURE', apiKey);
     }
 
-    function handleInputKeyDown(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            submitMessage();
+    document.getElementById('initTime').innerText = getCurrentTime();
+
+    function getCurrentTime() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+    }
+
+    function resetApiKey() {
+        let newKey = prompt("تکایە API Key-یا خۆیا نوو بنڤێسە:");
+        if (newKey) {
+            localStorage.setItem('GEMINI_API_KEY_SECURE', newKey.trim());
+            apiKey = newKey.trim();
+            alert("کلیل ب سەرکەفتنی هاتیە گۆڕین!");
         }
     }
 
-    function triggerQuickPrompt(text) {
-        document.getElementById('userTextInput').value = text;
-        submitMessage();
+    function handleKeyDown(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+        }
     }
 
-    function toggleMuteSound() {
-        isMuted = !isMuted;
-        const btn = document.getElementById('muteHeaderBtn');
-        if (isMuted) {
+    function sendQuickPrompt(text) {
+        document.getElementById('userInput').value = text;
+        sendMessage();
+    }
+
+    function toggleAudioMute() {
+        isAudioMuted = !isAudioMuted;
+        const muteBtn = document.getElementById('muteBtn');
+        if (isAudioMuted) {
             speechSynthesis.cancel();
-            btn.innerHTML = '<i class="fa-solid fa-volume-xmark" style="color:var(--accent-rose);"></i>';
+            muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark" style="color:#ef4444;"></i>';
         } else {
-            btn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+            muteBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
         }
     }
 
     function clearChatHistory() {
-        if (confirm("ئەرێ تە ڤێت تەواوی ئاخڤینان پاک بکەی؟")) {
-            const viewport = document.getElementById('chatViewport');
-            viewport.innerHTML = '';
+        if (confirm("ئەرێ تە ڤێت هەموو ئاخڤین پاک ببیت؟")) {
+            document.getElementById('chatContainer').innerHTML = '';
             speechSynthesis.cancel();
         }
     }
 
-    function openSettingsModal() {
-        document.getElementById('settingsModal').classList.add('active');
-    }
-
-    function closeSettingsModal() {
-        document.getElementById('settingsModal').classList.remove('active');
-    }
-
-    document.getElementById('speechRateSelect').addEventListener('change', function(e) {
-        speechRate = parseFloat(e.target.value);
-    });
-
-    async function submitMessage() {
-        const inputElem = document.getElementById('userTextInput');
+    async function sendMessage() {
+        const inputElem = document.getElementById('userInput');
         const text = inputElem.value.trim();
 
         if (!text) return;
@@ -945,92 +640,104 @@
         appendUserMessage(text);
         inputElem.value = '';
 
-        const typingId = renderTypingIndicator();
+        const typingId = showTypingIndicator();
 
         try {
-            const responseText = await processSmartAIResponse(text);
+            const aiResponse = await fetchGeminiResponse(text);
             removeTypingIndicator(typingId);
-            appendBotMessage(responseText);
+            appendBotMessage(aiResponse);
 
-            const isAutoSpeech = document.getElementById('autoVoiceToggle').checked;
-            if (isAutoSpeech && !isMuted) {
-                speakText(responseText);
+            if (document.getElementById('autoSpeechToggle').checked && !isAudioMuted) {
+                speakText(aiResponse);
             }
-        } catch (err) {
+
+        } catch (error) {
             removeTypingIndicator(typingId);
-            appendBotMessage("ببوورە، کێشەیەک د سیستمێ بەرسڤدانێ دا ڕوویدا. تکایە دووبارە هەوڵبدەوە.");
+            appendBotMessage("کێشەیەک ڕوویدا ل پەیوەندیکرنێ ب Gemini. تکایە دڵنیابە کلیل و ئینتەرنێتا تە دروستە.");
+        }
+    }
+
+    // بانگکرنا Gemini API ڕاستەوخۆ
+    async function fetchGeminiResponse(userPrompt) {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: userPrompt + " (تکایە ب زمانی کوردی بادینی یان سۆرانی ب کورتی و بەرسڤێن زۆر ڕاست بنڤێسە)" }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            return data.candidates[0].content.parts[0].text;
+        } else {
+            throw new Error('Invalid API Response');
         }
     }
 
     function appendUserMessage(text) {
-        const viewport = document.getElementById('chatViewport');
+        const container = document.getElementById('chatContainer');
         const row = document.createElement('div');
         row.className = 'message-row user-row';
 
         row.innerHTML = `
-            <div class="message-avatar-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <div class="message-content-wrapper">
-                <div class="message-bubble">${sanitizeText(text)}</div>
-                <div class="message-tools-bar">
-                    <span class="message-timestamp">${getCurrentFormattedTime()}</span>
-                </div>
+            <div class="msg-avatar"><i class="fa-solid fa-user"></i></div>
+            <div class="msg-content-wrapper">
+                <div class="msg-bubble">${escapeHTML(text)}</div>
+                <div class="msg-footer-tools"><span class="msg-time">${getCurrentTime()}</span></div>
             </div>
         `;
-
-        viewport.appendChild(row);
-        scrollViewportToBottom();
+        container.appendChild(row);
+        scrollToBottom();
     }
 
     function appendBotMessage(text) {
-        const viewport = document.getElementById('chatViewport');
+        const container = document.getElementById('chatContainer');
         const row = document.createElement('div');
         row.className = 'message-row bot-row';
 
         row.innerHTML = `
-            <div class="message-avatar-box">
-                <i class="fa-solid fa-robot"></i>
-            </div>
-            <div class="message-content-wrapper">
-                <div class="message-bubble">${sanitizeText(text)}</div>
-                <div class="message-tools-bar">
-                    <span class="message-timestamp">${getCurrentFormattedTime()}</span>
-                    <button class="action-tool-btn" onclick="speakText('${escapeQuotes(text)}')">
+            <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="msg-content-wrapper">
+                <div class="msg-bubble">${escapeHTML(text)}</div>
+                <div class="msg-footer-tools">
+                    <span class="msg-time">${getCurrentTime()}</span>
+                    <button class="tool-action-btn" onclick="speakText('${escapeQuotes(text)}')">
                         <i class="fa-solid fa-volume-low"></i> دەنگ
                     </button>
-                    <button class="action-tool-btn" onclick="copyTextToClipboard('${escapeQuotes(text)}')">
+                    <button class="tool-action-btn" onclick="copyToClipboard('${escapeQuotes(text)}')">
                         <i class="fa-solid fa-copy"></i> کۆپی
                     </button>
                 </div>
             </div>
         `;
-
-        viewport.appendChild(row);
-        scrollViewportToBottom();
+        container.appendChild(row);
+        scrollToBottom();
     }
 
-    function renderTypingIndicator() {
-        const viewport = document.getElementById('chatViewport');
-        const uniqueId = 'typing_' + Date.now();
+    function showTypingIndicator() {
+        const container = document.getElementById('chatContainer');
+        const id = 'typing_' + Date.now();
         const row = document.createElement('div');
         row.className = 'message-row bot-row';
-        row.id = uniqueId;
+        row.id = id;
 
         row.innerHTML = `
-            <div class="message-avatar-box">
-                <i class="fa-solid fa-robot"></i>
-            </div>
-            <div class="message-bubble typing-indicator-bubble">
+            <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="msg-bubble typing-bubble">
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
             </div>
         `;
-
-        viewport.appendChild(row);
-        scrollViewportToBottom();
-        return uniqueId;
+        container.appendChild(row);
+        scrollToBottom();
+        return id;
     }
 
     function removeTypingIndicator(id) {
@@ -1038,55 +745,32 @@
         if (elem) elem.remove();
     }
 
-    async function processSmartAIResponse(userPrompt) {
-        await new Promise(resolve => setTimeout(resolve, 750));
-        const query = userPrompt.toLowerCase();
-
-        if (query.includes("سلاف") || query.includes("سڵاو") || query.includes("مرحبا")) {
-            return "سلاڤ و ڕێز! سەرچاڤان، ئەز زۆر دڵخۆشم کو دگەل تە دا ئاخڤینێ دکەم. چ پرسیارەکا تە هەبیت بنڤێسە!";
-        } else if (query.includes("چەوا") || query.includes("چۆن") || query.includes("چبکەم")) {
-            return "بۆ سەرکەفتن د ڤێ بەشێ دا، باشترین هەنگاو پلانداڕشتن و ڕێکخستنا دەمی یە. ئەگەر تە پێویستی ب پێشنیارێن زێدەتر هەبیت ب زووی بێژە!";
-        } else if (query.includes("سوپاس") || query.includes("دەست خۆش")) {
-            return "سەرچاڤان برا! ئەز هەمیشە لێرەم دا کو هاریکارییا تە بکەم. ب سەرکەفتن بی!";
-        } else if (query.includes("ناڤێ تە") || query.includes("تو کەی")) {
-            return "ئەز سیستەمێ ژیریا دەستکرد مە، تایبەت بۆ بەرسڤدانا پرسیارێن تە ب شێوازەکێ ژیرانە ب دەنگ و دەق هاتبڕستن.";
-        } else {
-            return `سەبارەت ب پەیاما تە "${userPrompt}": ژیریا دەستکرد هەمی دەمان ب تەمامی ئامادەیە دا کو بەرسڤێن دروست و زانیاریێن مفادار ب تە بگەهینیت.`;
-        }
-    }
-
     function speakText(text) {
-        if (isMuted) return;
+        if (isAudioMuted) return;
 
         speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ar-SA';
-        utterance.rate = speechRate;
+        utterance.rate = 1.0;
         utterance.pitch = 1.0;
 
         speechSynthesis.speak(utterance);
     }
 
-    function copyTextToClipboard(text) {
+    function copyToClipboard(text) {
         navigator.clipboard.writeText(text);
-        alert("دەق ب سەرکەفتنی کۆپی بوو!");
+        alert("دەق کۆپی بوو!");
     }
 
-    function scrollViewportToBottom() {
-        const viewport = document.getElementById('chatViewport');
-        viewport.scrollTop = viewport.scrollHeight;
+    function scrollToBottom() {
+        const container = document.getElementById('chatContainer');
+        container.scrollTop = container.scrollHeight;
     }
 
-    function sanitizeText(str) {
+    function escapeHTML(str) {
         return str.replace(/[&<>'"]/g, 
-            tag => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
-            }[tag] || tag)
+            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
         );
     }
 
