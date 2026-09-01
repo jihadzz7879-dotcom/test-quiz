@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Talking Avatar Pro</title>
+    <title>AI Talking Avatar (100% Bêberamber)</title>
     
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CryptoJS Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Gradio Client بۆ بەستنەوە ب سێرڤەرێن بێبەرامبەر -->
+    <script type="module">
+        import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client/+esm";
+        window.GradioClient = client;
+    </script>
 
     <style>
         :root {
@@ -18,19 +20,16 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --accent-purple: #8b5cf6;
             --accent-cyan: #06b6d4;
-            --accent-pink: #ec4899;
             --accent-green: #10b981;
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
-            --glow-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         body {
@@ -46,173 +45,93 @@
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             background: var(--card-bg);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
-            border-radius: 28px;
-            padding: 30px 22px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), var(--glow-shadow);
+            border-radius: 24px;
+            padding: 25px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 22px;
-            font-weight: 900;
+            font-size: 20px;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
         }
 
-        .header p {
-            font-size: 13px;
-            color: var(--text-sub);
+        .free-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             margin-top: 6px;
         }
 
-        .badge-secure {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--accent-green);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-top: 10px;
-        }
-
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 700;
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
             color: var(--text-sub);
-            margin-bottom: 8px;
-        }
-
-        .upload-area {
-            border: 2px dashed rgba(255, 255, 255, 0.15);
-            background: rgba(10, 14, 26, 0.6);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .upload-area:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .upload-area i {
-            font-size: 26px;
-            color: var(--accent-cyan);
             margin-bottom: 6px;
         }
 
-        .upload-area span {
-            display: block;
-            font-size: 12px;
-            color: var(--text-sub);
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            background: rgba(10, 14, 26, 0.5);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
         }
 
         input[type="file"] { display: none; }
 
-        textarea, select, input[type="password"] {
+        textarea {
             width: 100%;
-            padding: 12px 14px;
+            height: 70px;
+            padding: 10px;
             background: rgba(10, 14, 26, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             color: #fff;
             font-size: 13px;
             outline: none;
-        }
-
-        textarea {
-            height: 80px;
             resize: none;
-        }
-
-        .vip-box {
-            display: none;
-            background: rgba(236, 72, 153, 0.06);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 18px;
-        }
-
-        .vip-box label { color: var(--accent-pink); }
-
-        .limit-notice {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #f87171;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-bottom: 18px;
-            align-items: center;
-            gap: 8px;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             color: white;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 8px 20px -4px rgba(139, 92, 246, 0.5);
-        }
-
-        .btn-download {
-            display: none;
-            width: 100%;
-            margin-top: 16px;
-            padding: 14px;
-            background: var(--accent-green);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 800;
+            font-weight: bold;
             font-size: 14px;
-            border-radius: 14px;
+            cursor: pointer;
         }
 
         .preview-wrapper {
-            margin-top: 20px;
-            border-radius: 16px;
+            margin-top: 15px;
+            border-radius: 12px;
             overflow: hidden;
             background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 250px;
+            min-height: 220px;
             position: relative;
             display: flex;
             justify-content: center;
@@ -221,293 +140,160 @@
 
         .preview-wrapper img, .preview-wrapper video {
             width: 100%;
-            max-height: 350px;
+            max-height: 300px;
             object-fit: contain;
         }
 
-        .loading-overlay {
+        .loader {
             position: absolute;
             inset: 0;
-            background: rgba(7, 10, 18, 0.92);
+            background: rgba(7, 10, 18, 0.9);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            z-index: 10;
+            gap: 10px;
         }
 
-        .pulse-loader {
-            width: 40px;
-            height: 40px;
+        .spinner {
+            width: 35px;
+            height: 35px;
             border: 3px solid rgba(255, 255, 255, 0.1);
-            border-left-color: var(--accent-cyan);
-            border-right-color: var(--accent-purple);
+            border-top-color: var(--accent-cyan);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        .btn-download {
+            display: none;
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--accent-green);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1><i class="fa-solid fa-shield-halved"></i> AI Talking Avatar Pro</h1>
-        <p>وێنەیێن خۆ ب ڕێکا ژیریا دەستکرد بکە د ئاخڤینێ دا</p>
-        <div class="badge-secure">
-            <i class="fa-solid fa-lock"></i> API Encrypted Securely
-        </div>
+        <h1>AI Avatar Free Studio</h1>
+        <div class="free-badge"><i class="fa-solid fa-bolt"></i> 100% بێبەرامبەر ب بێ کارتا بانکی</div>
     </div>
 
     <div class="form-group">
-        <label><i class="fa-solid fa-image"></i> 1. وێنەیەکێ ڕوون هەڵبژێڕە:</label>
+        <label>1. وێنەیەکێ ڕوون دەستنیشان بکە:</label>
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <span id="uploadStatus">کرتێ بکە بۆ هەڵبژارتنا وێنەی...</span>
+            <i class="fa-solid fa-image" style="font-size: 20px; color: var(--accent-cyan);"></i>
+            <span id="uploadStatus" style="display:block; font-size: 12px; margin-top: 4px;">کرتێ بکە بۆ هەڵبژارتن</span>
         </div>
-        <input type="file" id="fileInput" accept="image/*" onchange="processFile(event)">
+        <input type="file" id="fileInput" accept="image/*" onchange="previewImg(event)">
     </div>
 
     <div class="form-group">
-        <label><i class="fa-solid fa-comment-dots"></i> 2. دەقێ ئاخڤینێ بنڤێسە:</label>
-        <textarea id="speechText" placeholder="ئەو دەقێ تە دڤێت ب بێژێت لێرە بنڤێسە..."></textarea>
+        <label>2. دەقێ ئاخڤینێ بنڤێسە:</label>
+        <textarea id="speechText" placeholder="لێرە بنڤێسە..."></textarea>
     </div>
 
-    <div class="form-group">
-        <label><i class="fa-solid fa-stopwatch"></i> 3. ماوەیا ڤیدیۆیێ:</label>
-        <select id="durationSelect" onchange="checkDurationRules()">
-            <option value="5">5 چرکە (تەنێ 1 جار بێبەرامبەر)</option>
-            <option value="10">10 چرکە (پێویستی ب VIP)</option>
-            <option value="15">15 چرکە (پێویستی ب VIP)</option>
-            <option value="20">20 چرکە (پێویستی ب VIP)</option>
-        </select>
-    </div>
-
-    <div class="limit-notice" id="limitNotice">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span>تە مافێ خۆ یێ (1 جار 5 چرکە بێبەرامبەر) بکارئینایە! بۆ جارەکا دی پێویستی ب کۆدێ VIP هەیە.</span>
-    </div>
-
-    <div class="vip-box" id="vipSection">
-        <label><i class="fa-solid fa-key"></i> کۆدێ VIP بنڤێسە:</label>
-        <input type="password" id="vipCode" placeholder="🔑 کۆدێ تایبەت لێرە دابنێ...">
-    </div>
-
-    <button class="btn-submit" id="generateBtn" onclick="initiateAIVideo()">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> دروستکرنا ڤیدیۆیێ
+    <button class="btn-submit" onclick="makeTalkingVideo()">
+        <i class="fa-solid fa-play"></i> دروستکرنا ڤیدیۆیێ
     </button>
 
     <div class="preview-wrapper">
-        <img id="imagePreview" style="display:none;" alt="Preview">
+        <img id="imagePreview" style="display:none;">
         <video id="videoResult" controls playsinline style="display:none;"></video>
 
-        <div class="loading-overlay" id="loader">
-            <div class="pulse-loader"></div>
-            <span id="loadingMsg" style="font-size: 12px; color: #cbd5e1;">د پرۆسێسکرنێ دا یە ب AI...</span>
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <span id="loadText" style="font-size: 11px; color: #cbd5e1;">د ئامادەکرنێ دا یە...</span>
         </div>
     </div>
 
-    <a id="downloadBtn" class="btn-download" target="_blank" download="AI_Video.mp4">
-        <i class="fa-solid fa-download"></i> داگرتنا ڤیدیۆیێ (MP4)
+    <a id="downloadBtn" class="btn-download" target="_blank" download="AI_Talking_Avatar.mp4">
+        <i class="fa-solid fa-download"></i> داگرتنا ڤیدیۆیێ
     </a>
 </div>
 
 <script>
-    const ENCRYPTED_API_TOKEN = "RHFpa/8HDpPGyEdEZljC1CHLf4USUVJfpoi1Ua5PZiN9DCaQNvALLPg/qY7uvUDZ";
-    const SECRET_PASSPHRASE = "MySecretKey12345";
+    let selectedBlob = null;
 
-    const VIP_DATABASE = {
-        "10": "VIP10",
-        "15": "VIP15",
-        "20": "VIP20",
-        "UNLOCK_FREE": "FREE_VIP"
-    };
-
-    let userSelectedFile = null;
-
-    function getDecryptedToken() {
-        try {
-            const bytes = CryptoJS.AES.decrypt(ENCRYPTED_API_TOKEN, SECRET_PASSPHRASE);
-            return bytes.toString(CryptoJS.enc.Utf8);
-        } catch (e) {
-            return "";
-        }
-    }
-
-    function processFile(e) {
+    function previewImg(e) {
         const file = e.target.files[0];
         if (file) {
-            userSelectedFile = file;
+            selectedBlob = file;
             document.getElementById('uploadStatus').innerText = file.name;
-            
-            const imgPreview = document.getElementById('imagePreview');
-            imgPreview.src = URL.createObjectURL(file);
-            imgPreview.style.display = 'block';
+            const img = document.getElementById('imagePreview');
+            img.src = URL.createObjectURL(file);
+            img.style.display = 'block';
             document.getElementById('videoResult').style.display = 'none';
             document.getElementById('downloadBtn').style.display = 'none';
         }
     }
 
-    function checkDurationRules() {
-        const duration = document.getElementById('durationSelect').value;
-        const vipSec = document.getElementById('vipSection');
-        const limitNotice = document.getElementById('limitNotice');
-        const hasUsedFree = localStorage.getItem('has_used_free_ai_video');
-
-        if (duration === "5") {
-            if (hasUsedFree) {
-                vipSec.style.display = 'block';
-                limitNotice.style.display = 'flex';
-            } else {
-                vipSec.style.display = 'none';
-                limitNotice.style.display = 'none';
-            }
-        } else {
-            vipSec.style.display = 'block';
-            limitNotice.style.display = 'none';
-        }
-    }
-
-    async function initiateAIVideo() {
+    async function makeTalkingVideo() {
         const text = document.getElementById('speechText').value.trim();
-        const duration = document.getElementById('durationSelect').value;
-        const hasUsedFree = localStorage.getItem('has_used_free_ai_video');
-
-        if (!userSelectedFile) {
-            alert('تکایە وێنەیەکێ هەڵبژێڕە!');
-            return;
-        }
-
-        if (!text) {
-            alert('تکایە دەقێ ئاخڤینێ بنڤێسە!');
-            return;
-        }
-
-        if (duration === "5" && hasUsedFree) {
-            const code = document.getElementById('vipCode').value.trim();
-            if (code !== VIP_DATABASE["UNLOCK_FREE"]) {
-                alert('تە پێشتر 1 جارا بێبەرامبەر بکارئینایە. تکایە کۆدێ VIP بنڤێسە!');
-                return;
-            }
-        } else if (duration !== "5") {
-            const code = document.getElementById('vipCode').value.trim();
-            if (code !== VIP_DATABASE[duration]) {
-                alert(`کۆدێ VIP خەلەتە بۆ ماوەیا ${duration} چرکەیان!`);
-                return;
-            }
-        }
+        if (!selectedBlob) return alert('تکایە وێنەیەکێ هەڵبژێڕە!');
+        if (!text) return alert('تکایە دەقەکێ بنڤێسە!');
 
         const loader = document.getElementById('loader');
-        const loadingMsg = document.getElementById('loadingMsg');
-        const dlBtn = document.getElementById('downloadBtn');
-
+        const loadText = document.getElementById('loadText');
         loader.style.display = 'flex';
-        dlBtn.style.display = 'none';
-        loadingMsg.innerText = "د گوهۆڕینا تێکستی دا بۆ دەنگ...";
+        loadText.innerText = "د پەیوەندیکرنێ ب سێرڤەرێ بێبەرامبەر...";
 
         try {
-            const apiToken = getDecryptedToken();
-            const base64Img = await convertFileToBase64(userSelectedFile);
+            // پەیوەندیکرن ب سێرڤەرێ SadTalker ل سەر HuggingFace ب بێ بەرامبەر
+            const app = await window.GradioClient.connect("vinthony/SadTalker");
+            
+            loadText.innerText = "د لڤاندن و دروستکرنا دەنگ و وێنەیی دا یە (تکایە بپڕێنە)...";
 
-            // Generate TTS Audio Link using Google TTS Engine
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
+            // دروستکرنا دەنگێ بێبەرامبەر ژ تێکستی ب ڕێکا Google TTS Blob
+            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
+            const audioRes = await fetch(ttsUrl);
+            const audioBlob = await audioRes.blob();
 
-            loadingMsg.innerText = "د دروستکرنا وێنەیێ ئاخڤتکەر دا ب AI...";
+            const result = await app.predict("/generate_video", [
+                selectedBlob,  // Source Image
+                audioBlob,     // Audio File
+                "pose",        // Preprocess
+                true,          // Still Mode
+                false,         // Enhancer
+                1              // Batch Size
+            ]);
 
-            const response = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://api.replicate.com/v1/predictions"), {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${apiToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    version: "3aa341231f82216584281745aa63972c8427f23a6773a4b917d23d8c1c5e4062",
-                    input: {
-                        source_image: base64Img,
-                        driven_audio: audioUrl,
-                        preprocess: "full",
-                        still: true
-                    }
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.error || !data.id) {
-                alert("کێشەک د API Replicate دا هەیە! تکایە پشتڕاست ببەوە کو ئەکاونتێ تە باڵانس تێدا هەیە یان Key تازە بکەوە.");
-                loader.style.display = 'none';
-                return;
+            if (result && result.data && result.data[0]) {
+                const finalVideoUrl = result.data[0].url || result.data[0];
+                showVideo(finalVideoUrl);
+            } else {
+                throw new Error("سێرڤەرێ بێبەرامبەر مژوولە، دووبارە کرتێ بکەوە!");
             }
 
-            loadingMsg.innerText = "د ئامادەکرنا لڤینا دەم و لێڤان دا یە...";
-            pollAPIResult(data.id, apiToken, duration);
-
         } catch (err) {
-            alert("کێشەیەک د پەیوەندیا ئینتەرنێتێ یان سێرڤەری دا چێبوو.");
+            alert("کێشەیەک ڕوویدا یان سێرڤەر مژوولە. تکایە جارەکا دی کرتێ بکە دێ کار کەت!");
             loader.style.display = 'none';
         }
     }
 
-    function convertFileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
-
-    async function pollAPIResult(id, token, duration) {
-        const interval = setInterval(async () => {
-            try {
-                const res = await fetch("https://corsproxy.io/?" + encodeURIComponent(`https://api.replicate.com/v1/predictions/${id}`), {
-                    headers: { "Authorization": `Bearer ${token}` }
-                });
-                const result = await res.json();
-
-                if (result.status === "succeeded") {
-                    clearInterval(interval);
-                    saveFreeUsageHistory(duration);
-                    renderFinalVideo(result.output);
-                } else if (result.status === "failed") {
-                    clearInterval(interval);
-                    alert("چێکرنا ڤیدیۆیێ سەرنەکەفت ب هۆکارێ دەق یان وێنەیی!");
-                    document.getElementById('loader').style.display = 'none';
-                }
-            } catch (e) {
-                clearInterval(interval);
-                alert("خەتایەک ل وەرگرتنا ڤیدیۆیێ ڕوودا!");
-                document.getElementById('loader').style.display = 'none';
-            }
-        }, 3000);
-    }
-
-    function saveFreeUsageHistory(duration) {
-        if (duration === "5") {
-            localStorage.setItem('has_used_free_ai_video', 'true');
-            checkDurationRules();
-        }
-    }
-
-    function renderFinalVideo(videoUrl) {
+    function showVideo(url) {
         const loader = document.getElementById('loader');
-        const dlBtn = document.getElementById('downloadBtn');
-        const videoRes = document.getElementById('videoResult');
-        const imgPre = document.getElementById('imagePreview');
+        const img = document.getElementById('imagePreview');
+        const video = document.getElementById('videoResult');
+        const dl = document.getElementById('downloadBtn');
 
-        imgPre.style.display = 'none';
-        videoRes.src = videoUrl;
-        videoRes.style.display = 'block';
-
-        dlBtn.href = videoUrl;
-        dlBtn.style.display = 'block';
-
+        img.style.display = 'none';
+        video.src = url;
+        video.style.display = 'block';
+        dl.href = url;
+        dl.style.display = 'block';
         loader.style.display = 'none';
     }
-
-    window.onload = checkDurationRules;
 </script>
 
 </body>
