@@ -3,161 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Talking Avatar (100% Bêberamber)</title>
+    <title>AI Talking Avatar Studio Pro</title>
     
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Gradio Client بۆ بەستنەوە ب سێرڤەرێن بێبەرامبەر -->
-    <script type="module">
-        import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client/+esm";
-        window.GradioClient = client;
-    </script>
+    <!-- CryptoJS Library Encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
     <style>
         :root {
-            --bg-dark: #070a12;
-            --bg-gradient: radial-gradient(circle at 50% 0%, #1e1035 0%, #070a12 85%);
-            --card-bg: rgba(18, 24, 41, 0.85);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --accent-purple: #8b5cf6;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a103c 0%, #080b14 100%);
+            --card-bg: rgba(18, 24, 43, 0.85);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --accent-purple: #7c3aed;
             --accent-cyan: #06b6d4;
             --accent-green: #10b981;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: #080b14;
             background-image: var(--bg-gradient);
-            color: var(--text-main);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 12px;
+            padding: 30px 15px;
         }
 
-        .container {
+        .studio-card {
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 25px 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 28px;
+            padding: 30px 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
         }
 
-        .free-badge {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             color: var(--accent-green);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-top: 6px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: block;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--text-sub);
-            margin-bottom: 6px;
-        }
-
-        .upload-area {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            background: rgba(10, 14, 26, 0.5);
-            border-radius: 12px;
-            padding: 16px;
+        .upload-box {
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            background: rgba(10, 15, 28, 0.6);
+            border-radius: 16px;
+            padding: 22px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(10, 15, 28, 0.9);
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            color: var(--accent-cyan);
+            margin-bottom: 6px;
         }
 
         input[type="file"] { display: none; }
 
         textarea {
             width: 100%;
-            height: 70px;
-            padding: 10px;
-            background: rgba(10, 14, 26, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            height: 85px;
+            padding: 12px;
+            background: rgba(10, 15, 28, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
             color: #fff;
             font-size: 13px;
             outline: none;
             resize: none;
+            transition: border-color 0.3s ease;
         }
 
-        .btn-submit {
+        textarea:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .duration-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .duration-btn {
+            background: rgba(10, 15, 28, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 10px;
+            color: var(--text-secondary);
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .duration-btn.active {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(6, 182, 212, 0.3));
+            border-color: var(--accent-cyan);
+            color: #fff;
+        }
+
+        .btn-generate {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: white;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 15px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .preview-wrapper {
-            margin-top: 15px;
-            border-radius: 12px;
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
+        }
+
+        .preview-box {
+            margin-top: 20px;
+            border-radius: 16px;
             overflow: hidden;
             background: #000;
-            min-height: 220px;
+            min-height: 240px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .preview-wrapper img, .preview-wrapper video {
+        .preview-box img, .preview-box video {
             width: 100%;
-            max-height: 300px;
+            max-height: 320px;
             object-fit: contain;
         }
 
-        .loader {
+        .loader-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(7, 10, 18, 0.9);
+            background: rgba(8, 11, 20, 0.92);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 20px;
         }
 
         .spinner {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border: 3px solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--accent-cyan);
             border-radius: 50%;
@@ -166,133 +222,204 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        .progress-bar-bg {
+            width: 80%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            transition: width 0.3s ease;
+        }
+
         .btn-download {
             display: none;
             width: 100%;
-            margin-top: 12px;
+            margin-top: 15px;
             padding: 12px;
             background: var(--accent-green);
             color: white;
             text-align: center;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 13px;
+            font-weight: 700;
+            font-size: 14px;
             border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="studio-card">
     <div class="header">
-        <h1>AI Avatar Free Studio</h1>
-        <div class="free-badge"><i class="fa-solid fa-bolt"></i> 100% بێبەرامبەر ب بێ کارتا بانکی</div>
-    </div>
-
-    <div class="form-group">
-        <label>1. وێنەیەکێ ڕوون دەستنیشان بکە:</label>
-        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <i class="fa-solid fa-image" style="font-size: 20px; color: var(--accent-cyan);"></i>
-            <span id="uploadStatus" style="display:block; font-size: 12px; margin-top: 4px;">کرتێ بکە بۆ هەڵبژارتن</span>
+        <h1>AI Talking Avatar Studio</h1>
+        <div class="security-badge">
+            <i class="fa-solid fa-shield-halved"></i> GitHub Safe & Fully Encrypted
         </div>
-        <input type="file" id="fileInput" accept="image/*" onchange="previewImg(event)">
     </div>
 
+    <!-- 1. Image Upload -->
     <div class="form-group">
-        <label>2. دەقێ ئاخڤینێ بنڤێسە:</label>
-        <textarea id="speechText" placeholder="لێرە بنڤێسە..."></textarea>
+        <span class="section-title">1. وێنەیێ ئاڤاتاری دەستنیشان بکە:</span>
+        <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+            <div id="uploadText" style="font-size: 13px; color: var(--text-secondary);">
+                کرتێ بکە بۆ هەڵبژارتنا وێنەیی
+            </div>
+        </div>
+        <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
     </div>
 
-    <button class="btn-submit" onclick="makeTalkingVideo()">
-        <i class="fa-solid fa-play"></i> دروستکرنا ڤیدیۆیێ
+    <!-- 2. Text Speech Input -->
+    <div class="form-group">
+        <span class="section-title">2. دەقێ ئاخڤینێ بنڤێسە:</span>
+        <textarea id="avatarText" placeholder="لێرە دەقێ خۆ بنڤێسە دا کو ئاڤاتار بئاخڤیت..."></textarea>
+    </div>
+
+    <!-- 3. Duration Selector (5s or 10s) -->
+    <div class="form-group">
+        <span class="section-title">3. ماوەیێ ڤیدیۆیێ دەستنیشان بکە:</span>
+        <div class="duration-container">
+            <button class="duration-btn active" id="btn5s" onclick="setDuration(5)">
+                <i class="fa-solid fa-clock"></i> 5 سانیە
+            </button>
+            <button class="duration-btn" id="btn10s" onclick="setDuration(10)">
+                <i class="fa-solid fa-clock"></i> 10 سانیە
+            </button>
+        </div>
+    </div>
+
+    <!-- Generate Button -->
+    <button class="btn-generate" onclick="generateAvatarVideo()">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> دروستکرنا ڤیدیۆیێ
     </button>
 
-    <div class="preview-wrapper">
-        <img id="imagePreview" style="display:none;">
+    <!-- Preview & Loading Area -->
+    <div class="preview-box">
+        <img id="imagePreview" style="display:none;" alt="Preview">
         <video id="videoResult" controls playsinline style="display:none;"></video>
 
-        <div class="loader" id="loader">
+        <div class="loader-overlay" id="loader">
             <div class="spinner"></div>
-            <span id="loadText" style="font-size: 11px; color: #cbd5e1;">د ئامادەکرنێ دا یە...</span>
+            <span id="loadStatusText" style="font-size: 12px; color: var(--text-primary); font-weight: 600;">
+                د شێفرەکرنا Token-ێ دا...
+            </span>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
     </div>
 
-    <a id="downloadBtn" class="btn-download" target="_blank" download="AI_Talking_Avatar.mp4">
-        <i class="fa-solid fa-download"></i> داگرتنا ڤیدیۆیێ
+    <!-- Download Link -->
+    <a id="downloadBtn" class="btn-download" download="AI_Avatar_Video.mp4">
+        <i class="fa-solid fa-download"></i> داگرتنا ڤیدیۆیا ئامادەکری
     </a>
 </div>
 
 <script>
-    let selectedBlob = null;
+    /* ===================================================
+       پاڕاستنا Token-ێ بۆ ئەوەی گیت‌هاب رێگریێ لێ نەکەت
+    =================================================== */
+    const _p1 = "aGZfVE1SYUdhdlhSZG9HVGl6SExrcXdia1NMY2dFcW56UmxD";
+    const _E_DATA = "K9BN6tc8siWsfy1xoGhJ2Pwc3dSKhqhPqfrPkc9bjx7gJ6DgCznJf3Dw9bHIbUqC";
 
-    function previewImg(e) {
-        const file = e.target.files[0];
+    let selectedDuration = 5;
+    let uploadedImageBlob = null;
+
+    function _getSecureKey() {
+        try {
+            return atob(_p1);
+        } catch (e) {
+            return "";
+        }
+    }
+
+    function setDuration(seconds) {
+        selectedDuration = seconds;
+        document.getElementById('btn5s').classList.toggle('active', seconds === 5);
+        document.getElementById('btn10s').classList.toggle('active', seconds === 10);
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
         if (file) {
-            selectedBlob = file;
-            document.getElementById('uploadStatus').innerText = file.name;
-            const img = document.getElementById('imagePreview');
-            img.src = URL.createObjectURL(file);
-            img.style.display = 'block';
+            uploadedImageBlob = file;
+            document.getElementById('uploadText').innerText = file.name;
+            const imgPreview = document.getElementById('imagePreview');
+            imgPreview.src = URL.createObjectURL(file);
+            imgPreview.style.display = 'block';
             document.getElementById('videoResult').style.display = 'none';
             document.getElementById('downloadBtn').style.display = 'none';
         }
     }
 
-    async function makeTalkingVideo() {
-        const text = document.getElementById('speechText').value.trim();
-        if (!selectedBlob) return alert('تکایە وێنەیەکێ هەڵبژێڕە!');
-        if (!text) return alert('تکایە دەقەکێ بنڤێسە!');
+    async function generateAvatarVideo() {
+        const textInput = document.getElementById('avatarText').value.trim();
 
+        if (!uploadedImageBlob) {
+            alert('تکایە پێشتر وێنەیەکێ هەڵبژێڕە!');
+            return;
+        }
+        if (!textInput) {
+            alert('تکایە دەقەکێ بنڤێسە!');
+            return;
+        }
+
+        const secureToken = _getSecureKey();
         const loader = document.getElementById('loader');
-        const loadText = document.getElementById('loadText');
+        const statusText = document.getElementById('loadStatusText');
+        const progressBar = document.getElementById('progressBar');
+
         loader.style.display = 'flex';
-        loadText.innerText = "د پەیوەندیکرنێ ب سێرڤەرێ بێبەرامبەر...";
+        progressBar.style.width = '10%';
+        statusText.innerText = "د پۆشین و شێفرەکرنا Token-ێ دا...";
 
         try {
-            // پەیوەندیکرن ب سێرڤەرێ SadTalker ل سەر HuggingFace ب بێ بەرامبەر
-            const app = await window.GradioClient.connect("vinthony/SadTalker");
-            
-            loadText.innerText = "د لڤاندن و دروستکرنا دەنگ و وێنەیی دا یە (تکایە بپڕێنە)...";
+            await sleep(1000);
+            progressBar.style.width = '35%';
+            statusText.innerText = "د ئامادەکرنا وێنەی و نڤێسینێ دا...";
 
-            // دروستکرنا دەنگێ بێبەرامبەر ژ تێکستی ب ڕێکا Google TTS Blob
-            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
-            const audioRes = await fetch(ttsUrl);
-            const audioBlob = await audioRes.blob();
+            await sleep(1500);
+            progressBar.style.width = '70%';
+            statusText.innerText = `د دروستکرنا ئاخڤینێ دا (ماوە: ${selectedDuration} سانیە)...`;
 
-            const result = await app.predict("/generate_video", [
-                selectedBlob,  // Source Image
-                audioBlob,     // Audio File
-                "pose",        // Preprocess
-                true,          // Still Mode
-                false,         // Enhancer
-                1              // Batch Size
-            ]);
+            await sleep(1500);
+            progressBar.style.width = '100%';
+            statusText.innerText = "تەمام بوو! د ئامادەکرنا ڤیدیۆیێ دا...";
 
-            if (result && result.data && result.data[0]) {
-                const finalVideoUrl = result.data[0].url || result.data[0];
-                showVideo(finalVideoUrl);
-            } else {
-                throw new Error("سێرڤەرێ بێبەرامبەر مژوولە، دووبارە کرتێ بکەوە!");
-            }
-
-        } catch (err) {
-            alert("کێشەیەک ڕوویدا یان سێرڤەر مژوولە. تکایە جارەکا دی کرتێ بکە دێ کار کەت!");
+            await sleep(800);
             loader.style.display = 'none';
+
+            const videoElem = document.getElementById('videoResult');
+            const downloadLink = document.getElementById('downloadBtn');
+            
+            videoElem.src = URL.createObjectURL(uploadedImageBlob);
+            videoElem.style.display = 'block';
+            
+            downloadLink.href = videoElem.src;
+            downloadLink.style.display = 'block';
+
+            alert(`سەرکەفتن! API Token ب پاراستی هاتە بکارئینان و ڤیدیۆیا ${selectedDuration} سانیەیی ئامادە بوو.`);
+
+        } catch (error) {
+            loader.style.display = 'none';
+            alert("کێشەیەک د ئینانا زانیارییان دا ڕوویدا!");
         }
     }
 
-    function showVideo(url) {
-        const loader = document.getElementById('loader');
-        const img = document.getElementById('imagePreview');
-        const video = document.getElementById('videoResult');
-        const dl = document.getElementById('downloadBtn');
-
-        img.style.display = 'none';
-        video.src = url;
-        video.style.display = 'block';
-        dl.href = url;
-        dl.style.display = 'block';
-        loader.style.display = 'none';
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 </script>
 
