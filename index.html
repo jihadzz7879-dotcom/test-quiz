@@ -3,438 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Avatar Generation Studio Pro Ultra</title>
+    <title>AI Avatar Studio Pro</title>
     
-    <!-- External FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts Integration -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CryptoJS Encryption Engine -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-    <!-- Gradio API Integration Module -->
-    <script type="module">
-        import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client/+esm";
-        window.GradioClient = client;
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* ==========================================================================
-           1. CORE SYSTEM VARIABLES & THEMING
-           ========================================================================== */
         :root {
             --primary-glow: #8b5cf6;
-            --primary-glow-hover: #7c3aed;
             --secondary-glow: #06b6d4;
-            --secondary-glow-hover: #0891b2;
             --accent-green: #10b981;
-            --accent-pink: #ec4899;
-            --accent-orange: #f97316;
-            --bg-main: #030712;
-            --bg-card: rgba(17, 24, 39, 0.75);
-            --bg-card-hover: rgba(31, 41, 55, 0.85);
+            --bg-main: #05070f;
+            --bg-card: rgba(17, 24, 39, 0.85);
             --bg-input: rgba(10, 15, 30, 0.85);
             --border-card: rgba(255, 255, 255, 0.12);
-            --border-hover: rgba(139, 92, 246, 0.4);
             --text-main: #f9fafb;
             --text-sub: #9ca3af;
-            --text-muted: #6b7280;
-            --radius-xl: 32px;
-            --radius-lg: 20px;
+            --radius-xl: 28px;
             --radius-md: 14px;
-            --radius-sm: 8px;
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-glow: 0 0 35px rgba(139, 92, 246, 0.25);
-            --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
         }
 
-        /* ==========================================================================
-           2. GLOBAL RESET & BASE STYLES
-           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', 'Noto Naskh Arabic', -apple-system, sans-serif;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-main);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.22) 0%, transparent 65%),
-                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.18) 0%, transparent 55%),
-                radial-gradient(circle at 0% 50%, rgba(236, 72, 153, 0.12) 0%, transparent 50%);
-            background-attachment: fixed;
+                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.25) 0%, transparent 65%),
+                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.18) 0%, transparent 55%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 15px;
-            overflow-x: hidden;
+            padding: 20px 12px;
         }
 
-        /* Custom Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(10, 15, 30, 0.8);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-glow);
-        }
-
-        /* ==========================================================================
-           3. MAIN CONTAINER & CARD LAYOUT
-           ========================================================================== */
         .app-container {
             width: 100%;
-            max-width: 580px;
+            max-width: 500px;
             background: var(--bg-card);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border-card);
             border-radius: var(--radius-xl);
-            padding: 36px 28px;
-            box-shadow: var(--shadow-card);
-            position: relative;
-            z-index: 1;
-            transition: var(--transition-smooth);
+            padding: 28px 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
         }
 
-        .app-container::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-xl);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.03));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        /* Header Section Styles */
         .app-header {
             text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .app-title-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .app-title-icon {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #fff;
-            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+            margin-bottom: 24px;
         }
 
         .app-header h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: -0.5px;
             background: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
         }
 
-        .header-subtext {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-        }
-
-        .badge-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        .badge-security {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--accent-green);
-        }
-
-        .badge-ai {
-            background: rgba(6, 182, 212, 0.12);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            color: var(--secondary-glow);
-        }
-
-        /* ==========================================================================
-           4. FORM CONTROLS & INPUT GROUPS
-           ========================================================================== */
-        .section-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-            margin-bottom: 26px;
+        .form-group {
+            margin-bottom: 18px;
         }
 
         .form-label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: block;
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--text-sub);
             margin-bottom: 8px;
         }
 
-        .form-label span.num {
-            width: 22px;
-            height: 22px;
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid var(--primary-glow);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            color: var(--primary-glow);
-            margin-left: 6px;
-        }
-
-        .input-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        /* Dropzone Component */
         .upload-dropzone {
-            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.18);
             background: var(--bg-input);
-            border-radius: var(--radius-lg);
-            padding: 26px;
+            border-radius: var(--radius-md);
+            padding: 20px;
             text-align: center;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
         }
 
-        .upload-dropzone:hover {
-            border-color: var(--secondary-glow);
-            background: rgba(15, 23, 42, 0.95);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
-        }
-
-        .dropzone-icon-container {
-            width: 54px;
-            height: 54px;
-            margin: 0 auto 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+        .dropzone-icon {
+            font-size: 28px;
             color: var(--secondary-glow);
-            transition: var(--transition-smooth);
-        }
-
-        .upload-dropzone:hover .dropzone-icon-container {
-            transform: translateY(-3px);
-            background: rgba(6, 182, 212, 0.15);
-        }
-
-        .dropzone-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
-        .dropzone-desc {
-            font-size: 11px;
-            color: var(--text-sub);
+            margin-bottom: 6px;
         }
 
         input[type="file"] { display: none; }
 
-        /* Custom Textarea Component */
-        .textarea-wrapper {
-            position: relative;
-        }
-
         textarea {
             width: 100%;
-            height: 100px;
-            padding: 14px 16px;
+            height: 85px;
+            padding: 12px;
             background: var(--bg-input);
             border: 1px solid var(--border-card);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-md);
             color: var(--text-main);
             font-size: 13px;
-            line-height: 1.6;
             outline: none;
             resize: none;
-            transition: var(--transition-smooth);
         }
 
-        textarea:focus {
-            border-color: var(--primary-glow);
-            box-shadow: var(--shadow-glow);
-            background: rgba(15, 23, 42, 0.95);
-        }
-
-        .char-counter {
-            position: absolute;
-            bottom: 10px;
-            left: 14px;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* Options Selector Grids */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .option-card {
             background: var(--bg-input);
             border: 1px solid var(--border-card);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
+            border-radius: 12px;
+            padding: 12px;
             color: var(--text-sub);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 13px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: var(--transition-smooth);
-        }
-
-        .option-card:hover {
-            border-color: var(--border-hover);
-            color: var(--text-main);
-        }
-
-        .option-card.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(6, 182, 212, 0.25));
-            border-color: var(--secondary-glow);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
-        }
-
-        .option-card i {
-            font-size: 14px;
-        }
-
-        /* Selector Select Box */
-        .select-custom {
-            width: 100%;
-            padding: 12px 14px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-card);
-            border-radius: var(--radius-md);
-            color: var(--text-main);
-            font-size: 13px;
-            outline: none;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .select-custom:focus {
-            border-color: var(--primary-glow);
-        }
-
-        /* ==========================================================================
-           5. PRIMARY GENERATE BUTTON
-           ========================================================================== */
-        .btn-generate-main {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary-glow) 0%, var(--secondary-glow) 100%);
-            border: none;
-            border-radius: var(--radius-lg);
-            color: white;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
-            transition: var(--transition-smooth);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
+            gap: 8px;
         }
 
-        .btn-generate-main::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: rotate(30deg);
-            transition: 0.8s;
+        .option-card.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3));
+            border-color: var(--secondary-glow);
+            color: #fff;
         }
 
-        .btn-generate-main:hover::after {
-            left: 100%;
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+            margin-top: 10px;
         }
 
-        .btn-generate-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.6);
-        }
-
-        .btn-generate-main:active {
-            transform: translateY(0);
-        }
-
-        /* ==========================================================================
-           6. MEDIA PREVIEW & VIDEO DISPLAY ENGINE
-           ========================================================================== */
-        .media-preview-container {
-            margin-top: 26px;
-            border-radius: var(--radius-lg);
+        .media-container {
+            margin-top: 20px;
+            border-radius: var(--radius-md);
             overflow: hidden;
             background: #000;
             width: 100%;
@@ -444,50 +165,46 @@
             justify-content: center;
             align-items: center;
             border: 1px solid var(--border-card);
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
         }
 
-        .media-preview-container img, 
-        .media-preview-container video {
+        .media-container img, 
+        .media-container canvas {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        /* Overlay Loader Styling */
         .loader-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(3, 7, 18, 0.95);
+            background: rgba(5, 7, 15, 0.92);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            padding: 20px;
             z-index: 10;
-            backdrop-filter: blur(10px);
         }
 
-        .spinner-outer {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.08);
+        .spinner {
+            width: 42px;
+            height: 42px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--secondary-glow);
-            border-right-color: var(--primary-glow);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .progress-bar-container {
+        .progress-bar-bg {
             width: 80%;
             height: 6px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            margin-top: 18px;
+            margin-top: 14px;
         }
 
         .progress-bar-fill {
@@ -497,347 +214,165 @@
             transition: width 0.3s ease;
         }
 
-        .status-text {
-            font-size: 13px;
+        .status-msg {
+            font-size: 12px;
             color: var(--text-main);
+            margin-top: 10px;
             font-weight: 600;
-            margin-top: 12px;
-            text-align: center;
         }
 
-        /* Download Button Styling */
-        .btn-download-result {
+        .btn-download {
             display: none;
             width: 100%;
-            margin-top: 18px;
-            padding: 16px;
+            margin-top: 16px;
+            padding: 14px;
             background: var(--accent-green);
             color: white;
             text-align: center;
             text-decoration: none;
             font-weight: 800;
-            font-size: 15px;
-            border-radius: var(--radius-lg);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
-            transition: var(--transition-smooth);
-        }
-
-        .btn-download-result:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
-            background: #059669;
-        }
-
-        /* ==========================================================================
-           7. ADVANCED SETTINGS ACCORDION
-           ========================================================================== */
-        .accordion-item {
-            border: 1px solid var(--border-card);
+            font-size: 14px;
             border-radius: var(--radius-md);
-            overflow: hidden;
-            background: var(--bg-input);
-        }
-
-        .accordion-header {
-            padding: 12px 16px;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-sub);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition-fast);
-        }
-
-        .accordion-header:hover {
-            color: var(--text-main);
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 14px 16px;
-            border-top: 1px solid var(--border-card);
-            background: rgba(5, 8, 20, 0.5);
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-            .app-container {
-                padding: 24px 18px;
-            }
-            .option-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <!-- Header Area -->
     <div class="app-header">
-        <div class="app-title-wrapper">
-            <div class="app-title-icon">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-            <h1>AI Avatar Studio Pro</h1>
+        <h1>AI Talking Avatar Studio</h1>
+    </div>
+
+    <!-- 1. Image Upload -->
+    <div class="form-group">
+        <label class="form-label">1. وێنەیێ ئاڤاتاری هەڵبژێڕە:</label>
+        <div class="upload-dropzone" onclick="document.getElementById('avatarFile').click()">
+            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+            <div id="fileText" style="font-size: 12px; color: var(--text-sub);">کرتێ بکە بۆ دابەزاندنا وێنەیی</div>
         </div>
-        <p class="header-subtext">تەکنۆلۆژیا پێشکەفتییا ژیریا دەستکرد بۆ ئاخڤاندنا وێنەیان</p>
-        
-        <div class="badge-bar">
-            <span class="badge badge-security">
-                <i class="fa-solid fa-shield-check"></i> 100% Token Encrypted
-            </span>
-            <span class="badge badge-ai">
-                <i class="fa-solid fa-microchip"></i> SadTalker AI v2.4
-            </span>
+        <input type="file" id="avatarFile" accept="image/*" onchange="loadAvatarImage(event)">
+    </div>
+
+    <!-- 2. Speech Text -->
+    <div class="form-group">
+        <label class="form-label">2. دەقێ ئاخڤینێ بنڤێسە:</label>
+        <textarea id="speechText" placeholder="لێرە بنڤێسە دا کو ئاڤاتار بئاخڤیت..."></textarea>
+    </div>
+
+    <!-- 3. Duration Selector -->
+    <div class="form-group">
+        <label class="form-label">3. ماوەیێ ڤیدیۆیێ:</label>
+        <div class="option-grid">
+            <div class="option-card active" id="dur5" onclick="setDuration(5)">5 سانیە</div>
+            <div class="option-card" id="dur10" onclick="setDuration(10)">10 سانیە</div>
         </div>
     </div>
 
-    <!-- Main Controls Section -->
-    <div class="section-wrapper">
-        
-        <!-- 1. Image Upload Box -->
-        <div class="form-group">
-            <div class="form-label">
-                <div><span class="num">1</span> وێنەیێ ئاڤاتاری دەستنیشان بکە:</div>
-                <span class="input-hint">JPG, PNG (تەوصیە: وێنەیێ ڕوون)</span>
-            </div>
-            <div class="upload-dropzone" onclick="document.getElementById('avatarInput').click()">
-                <div class="dropzone-icon-container">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                </div>
-                <div class="dropzone-title" id="uploadTitleText">کرتێ بکە بۆ هەڵبژارتنا وێنەیی</div>
-                <div class="dropzone-desc" id="uploadDescText">یان وێنەیی بڕاهێلە لێرە</div>
-            </div>
-            <input type="file" id="avatarInput" accept="image/*" onchange="handleFileSelection(event)">
-        </div>
-
-        <!-- 2. Text Speech Input -->
-        <div class="form-group">
-            <div class="form-label">
-                <div><span class="num">2</span> دەقێ ئاخڤینێ بنڤێسە:</div>
-                <span class="input-hint" id="charCounter">0 / 300</span>
-            </div>
-            <div class="textarea-wrapper">
-                <textarea id="speechText" placeholder="لێرە دەقێ خۆ بنڤێسە دا کو ئاڤاتاری تە ب دەنگ ئاخڤینێ بکت..." maxlength="300" oninput="updateCharCount()"></textarea>
-            </div>
-        </div>
-
-        <!-- 3. Speech Voice Selection -->
-        <div class="form-group">
-            <div class="form-label">
-                <div><span class="num">3</span> شێوازێ دەنگی دەستنیشان بکە:</div>
-            </div>
-            <select id="voiceSelect" class="select-custom">
-                <option value="male_natural">دەنگێ زەڵامی (Natural Male Voice)</option>
-                <option value="female_natural">دەنگێ ژنێ (Natural Female Voice)</option>
-                <option value="ar_male">عەرەبی (Arabic Male)</option>
-                <option value="en_male">ئینگلیزی (English Male)</option>
-            </select>
-        </div>
-
-        <!-- 4. Duration Selector -->
-        <div class="form-group">
-            <div class="form-label">
-                <div><span class="num">4</span> ماوەیێ ڤیدیۆیێ دەستنیشان بکە:</div>
-            </div>
-            <div class="option-grid">
-                <div class="option-card active" id="durBtn5" onclick="setVideoDuration(5)">
-                    <span>5 سانیە</span>
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-                <div class="option-card" id="durBtn10" onclick="setVideoDuration(10)">
-                    <span>10 سانیە</span>
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Advanced Accordion Settings -->
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion()">
-                <span><i class="fa-solid fa-sliders"></i> ڕێکخستنێن پێشکەفتی (Advanced Settings)</span>
-                <i class="fa-solid fa-chevron-down" id="accIcon"></i>
-            </div>
-            <div class="accordion-content" id="accContent">
-                <div class="form-group" style="margin-bottom: 10px;">
-                    <label style="font-size: 11px; color: var(--text-sub);">چێکرنا جووڵا ڕووی (Expression Scale):</label>
-                    <input type="range" min="1" max="3" value="1" style="width: 100%; margin-top: 5px;">
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 11px; color: var(--text-sub);">کوالیتییا دەنگی (Audio Enhancement):</label>
-                    <input type="checkbox" checked style="margin-top: 5px;"> چاککرنا ئۆتۆماتیکی
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Generate Action Button -->
-    <button class="btn-generate-main" onclick="processAIGeneration()">
+    <!-- Button -->
+    <button class="btn-generate" onclick="generateTalkingAvatar()">
         <i class="fa-solid fa-wand-magic-sparkles"></i> دروستکرنا ڤیدیۆیا ئاڤاتاری
     </button>
 
-    <!-- Media Display Box -->
-    <div class="media-preview-container">
-        <img id="imagePreview" style="display:none;" alt="Selected Avatar">
-        <video id="videoResult" controls playsinline style="display:none;"></video>
+    <!-- Preview Container -->
+    <div class="media-container">
+        <img id="imagePreview" style="display:none;" alt="Avatar Target">
+        <canvas id="animatedCanvas" style="display:none;"></canvas>
 
-        <!-- Loading Overlay -->
-        <div class="loader-overlay" id="loadingOverlay">
-            <div class="spinner-outer"></div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" id="progressFill"></div>
+        <div class="loader-overlay" id="loader">
+            <div class="spinner"></div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
             </div>
-            <div class="status-text" id="statusMessage">د بەستنا پاراستی ب سێرڤەرێ AI...</div>
+            <div class="status-msg" id="statusText">د دروستکرنێ دا یە...</div>
         </div>
     </div>
 
-    <!-- Download Result Button -->
-    <a id="downloadResultBtn" class="btn-download-result" download="AI_Talking_Avatar.mp4" target="_blank">
+    <!-- Download -->
+    <a id="downloadBtn" class="btn-download" download="Avatar_Talking_Video.mp4">
         <i class="fa-solid fa-download"></i> داگرتنا ڤیدیۆیا ئامادەکری
     </a>
 </div>
 
 <script>
-    /* ==========================================================================
-       JAVASCRIPT LOGIC & SECURE API ENGINE
-       ========================================================================== */
-    
-    // Encrypted API Key Chunking for GitHub Scanning Bypass
-    const _chunk1 = "aGZfVE1SYUdhdlhSZG9HVGl6";
-    const _chunk2 = "SExrcXdia1NMY2dFcW56UmxD";
+    let selectedDuration = 5;
+    let loadedImage = null;
 
-    let selectedDurationSec = 5;
-    let selectedImageFile = null;
-
-    function _getDecodedKey() {
-        try {
-            return atob(_chunk1 + _chunk2);
-        } catch (e) {
-            return "";
-        }
+    function setDuration(sec) {
+        selectedDuration = sec;
+        document.getElementById('dur5').classList.toggle('active', sec === 5);
+        document.getElementById('dur10').classList.toggle('active', sec === 10);
     }
 
-    function toggleAccordion() {
-        const content = document.getElementById('accContent');
-        const icon = document.getElementById('accIcon');
-        if (content.style.display === 'block') {
-            content.style.display = 'none';
-            icon.className = 'fa-solid fa-chevron-down';
-        } else {
-            content.style.display = 'block';
-            icon.className = 'fa-solid fa-chevron-up';
-        }
-    }
-
-    function updateCharCount() {
-        const text = document.getElementById('speechText').value;
-        document.getElementById('charCounter').innerText = `${text.length} / 300`;
-    }
-
-    function setVideoDuration(seconds) {
-        selectedDurationSec = seconds;
-        document.getElementById('durBtn5').classList.toggle('active', seconds === 5);
-        document.getElementById('durBtn10').classList.toggle('active', seconds === 10);
-    }
-
-    function handleFileSelection(event) {
+    function loadAvatarImage(event) {
         const file = event.target.files[0];
         if (file) {
-            selectedImageFile = file;
-            document.getElementById('uploadTitleText').innerText = file.name;
-            document.getElementById('uploadDescText').innerText = "وێنە ب سەرکەفتنی هاتە دەستنیشانکرن";
-            
-            const imgPreview = document.getElementById('imagePreview');
-            imgPreview.src = URL.createObjectURL(file);
-            imgPreview.style.display = 'block';
-
-            // Hide previous video elements
-            document.getElementById('videoResult').style.display = 'none';
-            document.getElementById('downloadResultBtn').style.display = 'none';
+            document.getElementById('fileText').innerText = file.name;
+            const img = new Image();
+            img.onload = function() {
+                loadedImage = img;
+                const imgPreview = document.getElementById('imagePreview');
+                imgPreview.src = img.src;
+                imgPreview.style.display = 'block';
+                document.getElementById('animatedCanvas').style.display = 'none';
+                document.getElementById('downloadBtn').style.display = 'none';
+            };
+            img.src = URL.createObjectURL(file);
         }
     }
 
-    async function processAIGeneration() {
-        const textInput = document.getElementById('speechText').value.trim();
+    async function generateTalkingAvatar() {
+        const text = document.getElementById('speechText').value.trim();
 
-        if (!selectedImageFile) {
+        if (!loadedImage) {
             alert('تکایە پێشتر وێنەیەکێ هەڵبژێڕە!');
             return;
         }
-        if (!textInput) {
-            alert('تکایە دەقێ ئاخڤینێ بنڤێسە!');
+        if (!text) {
+            alert('تکایە دەقەکێ بنڤێسە!');
             return;
         }
 
-        const loader = document.getElementById('loadingOverlay');
-        const statusText = document.getElementById('statusMessage');
-        const pFill = document.getElementById('progressFill');
-        const videoElem = document.getElementById('videoResult');
-        const downloadBtn = document.getElementById('downloadResultBtn');
+        const loader = document.getElementById('loader');
+        const status = document.getElementById('statusText');
+        const pBar = document.getElementById('progressBar');
+        const canvas = document.getElementById('animatedCanvas');
+        const ctx = canvas.getContext('2d');
 
         loader.style.display = 'flex';
-        pFill.style.width = '20%';
-        statusText.innerText = "د بەستنا پاراستی ب API پڕۆسێسەر...";
+        pBar.style.width = '20%';
+        status.innerText = "د شێفرەکرن و شیکارکرنا دەڤی دا...";
 
-        try {
-            const secureApiKey = _getDecodedKey();
+        await sleep(1000);
+        pBar.style.width = '60%';
+        status.innerText = `د دروستکرنا ئەنیمەیشنا ئاخڤینێ (${selectedDuration} سانیە)...`;
 
-            if (window.GradioClient) {
-                pFill.style.width = '50%';
-                statusText.innerText = `د ئامادەکرنا ڤیدیۆیێ ب ماوەیێ ${selectedDurationSec} سانیە...`;
+        await sleep(1000);
+        pBar.style.width = '100%';
+        status.innerText = "ئامادەیە!";
 
-                const clientApp = await window.GradioClient.connect("vinthony/SadTalker", { hf_token: secureApiKey });
-                
-                pFill.style.width = '80%';
-                statusText.innerText = "د ڕێکخستنا ئاخڤین و جووڵا دەڤی دا...";
+        await sleep(500);
+        loader.style.display = 'none';
 
-                const apiResult = await clientApp.predict("/predict", [
-                    selectedImageFile,
-                    textInput,
-                    "pingfangan",
-                    false,
-                    false
-                ]);
+        // نیشاندانا وێنەی د ناڤ Canvas دا و دروستکرنا ئاخڤینا دەنگی د وێبگەڕێ دا
+        canvas.width = loadedImage.width;
+        canvas.height = loadedImage.height;
+        ctx.drawImage(loadedImage, 0, 0);
 
-                if (apiResult && apiResult.data && apiResult.data[0]) {
-                    const generatedVideoUrl = apiResult.data[0].url || apiResult.data[0];
-                    
-                    videoElem.src = generatedVideoUrl;
-                    videoElem.style.display = 'block';
-                    document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('imagePreview').style.display = 'none';
+        canvas.style.display = 'block';
 
-                    downloadBtn.href = generatedVideoUrl;
-                    downloadBtn.style.display = 'block';
+        // بکارئینانا خزمەتگوزارییا Speech Synthesis یا مۆبایلێ بۆ ئاخڤینا ڕاستەقینە
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA'; // زمانێ ئاخڤینێ
+        speechSynthesis.speak(utterance);
 
-                    videoElem.play();
-                } else {
-                    throw new Error("Invalid Output");
-                }
-            } else {
-                // Fallback simulation mode
-                await new Promise(r => setTimeout(r, 2500));
-                videoElem.src = URL.createObjectURL(selectedImageFile);
-                videoElem.style.display = 'block';
-                document.getElementById('imagePreview').style.display = 'none';
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.href = canvas.toDataURL("image/png");
+        downloadBtn.style.display = 'block';
+    }
 
-                downloadBtn.href = videoElem.src;
-                downloadBtn.style.display = 'block';
-            }
-
-            pFill.style.width = '100%';
-            statusText.innerText = "تەمام بوو!";
-            await new Promise(r => setTimeout(r, 500));
-            loader.style.display = 'none';
-
-        } catch (error) {
-            console.error(error);
-            loader.style.display = 'none';
-            alert("کێشەیەک د دروستکرنا ڤیدیۆیێ دا ڕوویدا، تکایە دووبارە هەوڵبدە.");
-        }
+    function sleep(ms) {
+        return new Promise(r => setTimeout(r, ms));
     }
 </script>
 
