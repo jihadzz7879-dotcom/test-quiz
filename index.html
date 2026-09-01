@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -316,11 +315,9 @@
 </div>
 
 <script>
-    // 🔒 کۆدێ شێفرەکری و پاسۆردێ تە
     const ENCRYPTED_API_TOKEN = "RHFpa/8HDpPGyEdEZljC1CHLf4USUVJfpoi1Ua5PZiN9DCaQNvALLPg/qY7uvUDZ";
     const SECRET_PASSPHRASE = "MySecretKey12345";
 
-    // 🔑 VIP CODES
     const VIP_DATABASE = {
         "10": "VIP10",
         "15": "VIP15",
@@ -330,7 +327,6 @@
 
     let userSelectedFile = null;
 
-    // 🔓 ڤەکرنا شێفرەیا API د ناڤ میمۆریێ دا
     function getDecryptedToken() {
         try {
             const bytes = CryptoJS.AES.decrypt(ENCRYPTED_API_TOKEN, SECRET_PASSPHRASE);
@@ -409,13 +405,18 @@
 
         loader.style.display = 'flex';
         dlBtn.style.display = 'none';
-        loadingMsg.innerText = "د ناردنا داواکاریێ دا ب ژیریا دەستکرد...";
+        loadingMsg.innerText = "د گوهۆڕینا تێکستی دا بۆ دەنگ...";
 
         try {
             const apiToken = getDecryptedToken();
             const base64Img = await convertFileToBase64(userSelectedFile);
 
-            const response = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent("https://api.replicate.com/v1/predictions"), {
+            // Generate TTS Audio Link using Google TTS Engine
+            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
+
+            loadingMsg.innerText = "د دروستکرنا وێنەیێ ئاخڤتکەر دا ب AI...";
+
+            const response = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://api.replicate.com/v1/predictions"), {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${apiToken}`,
@@ -425,7 +426,7 @@
                     version: "3aa341231f82216584281745aa63972c8427f23a6773a4b917d23d8c1c5e4062",
                     input: {
                         source_image: base64Img,
-                        driven_audio: text,
+                        driven_audio: audioUrl,
                         preprocess: "full",
                         still: true
                     }
@@ -435,15 +436,17 @@
             const data = await response.json();
 
             if (data.error || !data.id) {
-                executeFallbackMode(duration);
+                alert("کێشەک د API Replicate دا هەیە! تکایە پشتڕاست ببەوە کو ئەکاونتێ تە باڵانس تێدا هەیە یان Key تازە بکەوە.");
+                loader.style.display = 'none';
                 return;
             }
 
-            loadingMsg.innerText = "د پرۆسێس و لڤاندنا وێنەی دا یە...";
+            loadingMsg.innerText = "د ئامادەکرنا لڤینا دەم و لێڤان دا یە...";
             pollAPIResult(data.id, apiToken, duration);
 
         } catch (err) {
-            executeFallbackMode(duration);
+            alert("کێشەیەک د پەیوەندیا ئینتەرنێتێ یان سێرڤەری دا چێبوو.");
+            loader.style.display = 'none';
         }
     }
 
@@ -459,7 +462,7 @@
     async function pollAPIResult(id, token, duration) {
         const interval = setInterval(async () => {
             try {
-                const res = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(`https://api.replicate.com/v1/predictions/${id}`), {
+                const res = await fetch("https://corsproxy.io/?" + encodeURIComponent(`https://api.replicate.com/v1/predictions/${id}`), {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
                 const result = await res.json();
@@ -470,22 +473,15 @@
                     renderFinalVideo(result.output);
                 } else if (result.status === "failed") {
                     clearInterval(interval);
-                    alert("چێکرنا ڤیدیۆیێ سەرنەکەفت!");
+                    alert("چێکرنا ڤیدیۆیێ سەرنەکەفت ب هۆکارێ دەق یان وێنەیی!");
                     document.getElementById('loader').style.display = 'none';
                 }
             } catch (e) {
                 clearInterval(interval);
-                executeFallbackMode(duration);
+                alert("خەتایەک ل وەرگرتنا ڤیدیۆیێ ڕوودا!");
+                document.getElementById('loader').style.display = 'none';
             }
         }, 3000);
-    }
-
-    function executeFallbackMode(duration) {
-        setTimeout(() => {
-            saveFreeUsageHistory(duration);
-            const demoVideo = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
-            renderFinalVideo(demoVideo);
-        }, 4000);
     }
 
     function saveFreeUsageHistory(duration) {
@@ -495,29 +491,19 @@
         }
     }
 
-    async function renderFinalVideo(videoUrl) {
+    function renderFinalVideo(videoUrl) {
         const loader = document.getElementById('loader');
         const dlBtn = document.getElementById('downloadBtn');
         const videoRes = document.getElementById('videoResult');
         const imgPre = document.getElementById('imagePreview');
 
         imgPre.style.display = 'none';
-
-        try {
-            // Fetch video as Blob to bypass browser CORS block on Safari/iOS
-            const response = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(videoUrl));
-            const blob = await response.blob();
-            const blobUrl = URL.createObjectURL(blob);
-            
-            videoRes.src = blobUrl;
-            dlBtn.href = blobUrl;
-        } catch (e) {
-            videoRes.src = videoUrl;
-            dlBtn.href = videoUrl;
-        }
-
+        videoRes.src = videoUrl;
         videoRes.style.display = 'block';
+
+        dlBtn.href = videoUrl;
         dlBtn.style.display = 'block';
+
         loader.style.display = 'none';
     }
 
