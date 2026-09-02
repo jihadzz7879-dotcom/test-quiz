@@ -3,36 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی زانستی و فێرکاری - Mega Educational Portal</title>
-    <!-- گۆگل فۆنت و ئایکۆنەکان -->
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>پلاتفۆرمی زانستی و فێرکاری مەزن - Mega Educational Knowledge Portal</title>
+    <!-- گوگل فۆنت و ئایکۆنەکان -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* سیستەمێ ڕەنگان و گۆڕاوەکان */
+        /* سیستەمێ ڕەنگان و گۆڕاوەکان - CSS Variables */
         :root {
             --primary: #4f46e5;
-            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            --primary-dark: #3730a3;
             --secondary: #06b6d4;
+            --accent: #f43f5e;
+            --success: #10b981;
+            --warning: #f59e0b;
             --bg-main: #f8fafc;
+            --bg-alt: #ffffff;
             --text-main: #0f172a;
+            --text-muted: #64748b;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="dark"] {
             --primary: #6366f1;
+            --primary-light: #818cf8;
             --primary-dark: #4f46e5;
             --secondary: #22d3ee;
+            --accent: #fb7185;
+            --success: #34d399;
+            --warning: #fbbf24;
             --bg-main: #030712;
+            --bg-alt: #111827;
             --text-main: #f9fafb;
-            --card-bg: #111827;
-            --border-color: #1f2937;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --text-muted: #9ca3af;
+            --card-bg: #1f2937;
+            --border-color: #374151;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
         }
 
+        /* بنەمای ڕێکخستنی پەڕەیی */
         * {
             margin: 0;
             padding: 0;
@@ -61,16 +78,17 @@
             align-items: center;
             padding: 1rem 5%;
             z-index: 1000;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
         }
 
         .logo {
             font-size: 1.6rem;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
         }
 
         nav ul {
@@ -84,6 +102,7 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 500;
+            font-size: 1rem;
             transition: var(--transition);
         }
 
@@ -99,6 +118,9 @@
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-btn:hover {
@@ -107,7 +129,7 @@
             border-color: var(--primary);
         }
 
-        /* بەشی سەرەکی - Hero */
+        /* بەشی سەرەکی - Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -115,14 +137,17 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 8rem 1rem 4rem 1rem;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
+            padding: 8rem 2rem 4rem 2rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(6, 182, 212, 0.08));
+            position: relative;
+            overflow: hidden;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             margin-bottom: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
+            max-width: 900px;
         }
 
         .hero h1 span {
@@ -130,16 +155,17 @@
         }
 
         .hero p {
-            font-size: 1.25rem;
-            max-width: 800px;
+            font-size: 1.2rem;
+            max-width: 750px;
             margin: 0 auto 2.5rem auto;
-            opacity: 0.85;
+            color: var(--text-muted);
         }
 
         .btn-group {
             display: flex;
             gap: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -149,13 +175,17 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn:hover {
             transform: translateY(-3px);
             background: var(--primary-dark);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-outline {
@@ -169,88 +199,317 @@
             color: white;
         }
 
-        /* سەکۆی سەرەکی - Container */
+        /* چوارچێوەی گشتی - Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            font-weight: 700;
+            margin-bottom: 3.5rem;
         }
 
-        /* خشتەی زانیاریان - Grid Cards */
-        .grid {
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* بەشی تایبەتمەندییەکان - Features Grid */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
             margin-bottom: 4rem;
         }
 
-        .card {
+        .feature-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             padding: 3rem 2rem;
             border-radius: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
             text-align: center;
+            position: relative;
         }
 
-        .card:hover {
+        .feature-card:hover {
             transform: translateY(-8px);
             border-color: var(--primary);
+            box-shadow: var(--shadow-md);
         }
 
-        .card i {
-            font-size: 3rem;
+        .feature-card .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(79, 70, 229, 0.1);
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem auto;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .icon-box {
+            background: var(--primary);
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* بەشی زانیاری و سەرچاوەکان - Content Modules */
+        .modules-section {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .modules-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .modules-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modules-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .modules-content p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .check-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .check-list i {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .modules-card-visual {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modules-card-visual i {
+            font-size: 4rem;
             margin-bottom: 1.5rem;
         }
 
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            opacity: 0.75;
-            font-size: 1rem;
-        }
-
-        /* بەشی تابلۆی زانیاری و پرسیاران - FAQ & Tables */
-        .info-section {
+        /* بەشی ئامارەکان - Statistics Banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 3rem;
             border-radius: 20px;
-            box-shadow: var(--shadow);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item h4 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* پرسیارێن بەردەوام - FAQ Section */
+        .faq-section {
             margin-bottom: 4rem;
         }
 
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
         .faq-box {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .faq-box:hover {
+            border-color: var(--primary);
         }
 
         .faq-box h4 {
-            color: var(--primary);
             font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* بەشی پەیوەندی و فۆرم - Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
         }
 
         /* فۆتەر - Footer */
         footer {
-            text-align: center;
-            padding: 3rem;
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
-            margin-top: 5rem;
+            padding: 4rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: right;
+        }
+
+        .footer-col h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-col ul a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -258,77 +517,176 @@
 
     <!-- سەرپەڕ -->
     <header>
-        <div class="logo">
-            <i class="fa-solid fa-cube"></i> مێگاپلاتفۆرم
-        </div>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-graduation-cap"></i> زانیارپلاتفۆرم
+        </a>
         <nav>
             <ul>
-                <li><a href="#hero">سەرەکی</a></li>
+                <li><a href="#home">سەرەکی</a></li>
                 <li><a href="#features">تایبەتمەندی</a></li>
+                <li><a href="#modules">وانەکان</a></li>
                 <li><a href="#faq">پرسیار</a></li>
                 <li><a href="#contact">پەیوەندی</a></li>
-                <li><button class="theme-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button></li>
+                <li><button class="theme-btn" id="themeToggle" title="گۆڕینی دۆخ"><i class="fa-solid fa-moon"></i></button></li>
             </ul>
         </nav>
     </header>
 
     <!-- بەشی سەرەکی -->
-    <section class="hero" id="hero">
-        <h1>پەناگەها تۆ بۆ فێربوون و <span>پێشکەوتنا وێب</span></h1>
-        <p>ئەڤ کۆدە ب شێوازەکێ زۆر پێشکەتی و پڕ مفا هاتیە ئامادەکرن، دکت پڕۆژەیەکێ بێوێنە ب ئاڤا بکەی ب هەمبوونا دۆخێ تاریک و ڕووناک.</p>
+    <section class="hero" id="home">
+        <h1>پلاتفۆرمی پێشکەوتووی جیهانی بۆ <span>فێربوون و زانیاری</span></h1>
+        <p>ئەم کۆدە دەوڵەمەندە بە دەیان پێکهاتەی هەمەجۆر، دۆخی تاریک، دیزاینی وەڵامدەرەوەی تەواو و نەخشەی جوان بۆ بەدیهێنانی باشترین پڕۆژەی ویب.</p>
         <div class="btn-group">
-            <a href="#features" class="btn">دەستپێکرنا نوکە</a>
-            <a href="#contact" class="btn btn-outline">پەیوەندیکردن</a>
+            <a href="#features" class="btn"><i class="fa-solid fa-rocket"></i> دەستپێکردنا نوکە</a>
+            <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> پەیوەندیکردن</a>
         </div>
     </section>
 
     <div class="container">
-        <!-- تایبەتمەندی -->
-        <section id="features">
-            <h2 class="section-title">تایبەتمەندیێن سەرەکی یێن سیستەمی</h2>
-            <div class="grid">
-                <div class="card">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h3>خێراییەکی بێوێنە</h3>
-                    <p>دیزاینکریە ب ڕەنگەکێ کو ل سەر هەموو ئامیران ب خێراییا بلند کار بکات و سەرنجا بەکارهێنەری راکێشێت.</p>
+
+        <!-- ئامارەکان -->
+        <div class="stats-banner">
+            <div class="stat-item">
+                <h4>+١٥,٠٠٠</h4>
+                <p>بەکارهێنەرێن چالاک</p>
+            </div>
+            <div class="stat-item">
+                <h4>+٢٥0</h4>
+                <p>بابەت و خزمەتگوزاری</p>
+            </div>
+            <div class="stat-item">
+                <h4>١٠٠٪</h4>
+                <p>پاراستن و خێرایی</p>
+            </div>
+            <div class="stat-item">
+                <h4>٢٤/٧</h4>
+                <p>پشتیوانی فەنی</p>
+            </div>
+        </div>
+
+        <!-- تایبەتمەندییەکان -->
+        <section id="features" class="section-header">
+            <h2>تایبەتمەندییە سەرەکییەکان</h2>
+            <p>ڕووکاری بەکارهێنەری پێشکەوتوو بە بەکارهێنانی مۆدێرنترین تەکنەلۆژیای وێب</p>
+        </section>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                <h3>خێراییەکی بێوێنە</h3>
+                <p>دیزاین و کۆدنووسی بە شێوازێک کە وێبپەڕەکە لەسەر هەموو ئامێرێک و لە خێراترین کاتدا بار بکات بێ کێشە.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
+                <h3>سیستەمی ڕەنگی جووت</h3>
+                <p>توانای گۆڕینی ئۆتۆماتیکی نێوان دۆخی ڕووناک (Light Mode) و دۆخی تاریک (Dark Mode) بۆ پاراستنی چاو.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>پاراستنی تەمام</h3>
+                <p>ڕەچاوکردنی ستانداردە جیهانییەکانی پاراستن بۆ زانیارییەکانی بەکارهێنەر و پاراستنی تڕافیک.</p>
+            </div>
+        </div>
+
+        <!-- بەشی وێنە و ناوەڕۆک -->
+        <section id="modules" class="modules-section">
+            <div class="modules-layout">
+                <div class="modules-content">
+                    <h3>بۆچی ئەم پلاتفۆرمە باشترین هەڵبژاردەیە بۆ تۆ؟</h3>
+                    <p>ئێمە هەموو پێویستییەکی تەکنیکی و ڕووکاریمان کۆکردووەتەوە لە یەک پەڕەدا دا کۆدەکە بە تەواوی ئاسان بێت بۆ گەشەپێدەران.</p>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-circle-check"></i> پشتگیری تەواوی زمانی کوردی (ڕاست بۆ چەپ)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> گونجاو لەگەڵ مۆبایل، تابلێت و کامپیوتەر</li>
+                        <li><i class="fa-solid fa-circle-check"></i> پێکهاتەی پاک و دەستکاریکردنی ئاسان</li>
+                    </ul>
+                    <a href="#contact" class="btn">زیاتر بخوێنە</a>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h3>ئارامی و سەلامەتی</h3>
-                    <p>پاراستنا تەمام بۆ زانیاری و سیستەمێ تڕافیکا تە ب پەیڕەوکرنا پرۆتۆکۆلێن مۆدێرن.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-code"></i>
-                    <h3>کۆدێ پاک و رێکوپێک</h3>
-                    <p>بنەمایێن HTML5 و CSS3 تێدا هەنە کو بۆ گەشەپێدەران گەلەک ئاسانە دەستکاریێ تێدا بکەن.</p>
+                <div class="modules-card-visual">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>گەشەپێدانی بەردەوام</h3>
+                    <p>ئامادەکراو بۆ جێبەجێکردنی پرۆژە گەورەکان بە بەکارهێنانی HTML5 و CSS3ی مۆدێرن.</p>
                 </div>
             </div>
         </section>
 
         <!-- پرسیارێن بەردەوام -->
-        <section class="info-section" id="faq">
-            <h2 style="margin-bottom: 2rem; text-align: center;">پرسیارێن بەردەوام (FAQ)</h2>
-            <div class="faq-box">
-                <h4>ئایا ئەڤ پلاتفۆرمە ب خۆراییە بۆ هەمووان؟</h4>
-                <p>بەلێ، هەموو پشکێن سەرەکی ب خۆرایی نە و بێ بەرامبەر بۆ خزمەتکرنا جڤاکی هاتینە دانان.</p>
+        <section id="faq" class="faq-section">
+            <div class="section-header">
+                <h2>پرسیارێن بەردەوام (FAQ)</h2>
+                <p>وەڵامی هەموو ئەو پرسیارانەی کە لەوانەیە لە مێشکتدا هەبن</p>
             </div>
-            <div class="faq-box">
-                <h4>چەوا دشێم دۆخێ تاریک (Dark Mode) چالاک بکەم؟</h4>
-                <p>تنێ کلیکەکێ ل سەر دگمەنێ هەیڤێ/خۆرێ بکە ل ژۆری ل سەرپەڕی، ب شێوازەکێ ئۆتۆماتیکی دگۆڕێت.</p>
-            </div>
-            <div class="faq-box">
-                <h4>ئایا کۆد بۆ هەموو موبایل و کامپیوتەران گونجایە؟</h4>
-                <p>بەلێ، سیستەمێ Responsive Grid تێدا هاتیە بکارئینان کو ل سەر هەموو شاشەیان ب جوانی نیشان دەدات.</p>
+            <div class="faq-grid">
+                <div class="faq-box">
+                    <h4><i class="fa-solid fa-circle-question"></i> ئایا ئەڤ کۆدە بۆ پڕۆژەی بازرگانی گونجایە؟</h4>
+                    <p>بەلێ، بە تەواوی گونجاوە و دەتوانیت وەک بنەمای سەرەکی بۆ پرۆژەکانی وێب بەکاریبهێنیت بێ بەرامبەر.</p>
+                </div>
+                <div class="faq-box">
+                    <h4><i class="fa-solid fa-circle-question"></i> چەوا دەتوانم ڕەنگ و شێواز گۆڕانکاری تێدا بکەم؟</h4>
+                    <p>لە بەشی سەرەکی CSS (`:root`) دەتوانیت هەموو ڕەنگ، پاشبنەما و قەبارەیەک بە ئارەزووی خۆت بگۆڕیت.</p>
+                </div>
+                <div class="faq-box">
+                    <h4><i class="fa-solid fa-circle-question"></i> ئایا سیستەمەکە لۆکال کار دەکات؟</h4>
+                    <p>بەلێ، تەنها پێویستە فایلی `.html` خەزن بکەی و لەناو هەر وێبگەڕەکێ (Browser) ڤەکەیت.</p>
+                </div>
             </div>
         </section>
+
+        <!-- فۆرمی پەیوەندی -->
+        <section id="contact" class="contact-section">
+            <div class="section-header">
+                <h2>پەیوەندی کردن ب مە</h2>
+                <p>پەیامەکێ بۆ مە بنێرە و ئێمە ل زووترین دەم وەڵاما تە ددەینەڤە</p>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('پەیاما تە ب سەرکەفتی هاتە ناردن!');">
+                <div class="form-group">
+                    <label for="name">ناڤێ تە</label>
+                    <input type="text" id="name" placeholder="ناڤێ خۆ ل ڤێرە بنڤیسە..." required>
+                </div>
+                <div class="form-group">
+                    <label for="email">پۆستا ئەلیکترۆنی (Email)</label>
+                    <input type="email" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">پەیاما تە</label>
+                    <textarea id="message" placeholder="پەیاما خۆ ل ڤێرە بەحس بکە..." required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center;">ناردنا پەیامێ</button>
+            </form>
+        </section>
+
     </div>
 
     <!-- فۆتەر -->
-    <footer id="contact">
-        <p>هەموو مافەکان پارێزراون &copy; 2026 - هاتیە دروستکرن بۆ پێشکێشکرنا باشترین زانیاری</p>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h5>دەربارەی پلاتفۆرم</h5>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">ئەم پلاتفۆرمە دروستبووە بۆ پێشکێشکرنا زانیاریێن مۆدێرن و یارمەتیدانا گەشەپێدەرێن وێب لە سەر ئاستی جیهانی.</p>
+            </div>
+            <div class="footer-col">
+                <h5>بەستەرە سەرەکییەکان</h5>
+                <ul>
+                    <li><a href="#home">سەرەکی</a></li>
+                    <li><a href="#features">تایبەتمەندی</a></li>
+                    <li><a href="#modules">وانەکان</a></li>
+                    <li><a href="#faq">پرسیار</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>تۆڕە کۆمەڵایەتییەکان</h5>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-telegram"></i> تلگرام</a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i> یوتیوب</a></li>
+                    <li><a href="#"><i class="fa-brands fa-github"></i> گیتهەب</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>هەموو مافەکان پارێزراون &copy; 2026 - هاتیە دروستکرن ب خۆشەویستی بۆ خزمەتکرنا جڤاکی</p>
+        </div>
     </footer>
 
-    <!-- جاوا سکریپت -->
+    <!-- جاوا سکریپت بۆ گۆڕینی دۆخی تاریک و ڕووناک -->
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
