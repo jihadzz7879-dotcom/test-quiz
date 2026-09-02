@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی زانستی و فێرکاری مەزن - Mega Educational Knowledge Portal</title>
-    <!-- گوگل فۆنت و ئایکۆنەکان -->
+    <title>پلاتفۆرمی وزاری پۆلی ١٢ - مەزن و پێشکەوتوو</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* سیستەمێ ڕەنگان و گۆڕاوەکان - CSS Variables */
+        /* CSS Variables & Theme Setup */
         :root {
             --primary: #4f46e5;
-            --primary-light: #818cf8;
             --primary-dark: #3730a3;
             --secondary: #06b6d4;
             --accent: #f43f5e;
@@ -24,15 +22,12 @@
             --text-muted: #64748b;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
             --primary: #6366f1;
-            --primary-light: #818cf8;
             --primary-dark: #4f46e5;
             --secondary: #22d3ee;
             --accent: #fb7185;
@@ -44,12 +39,9 @@
             --text-muted: #9ca3af;
             --card-bg: #1f2937;
             --border-color: #374151;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         }
 
-        /* بنەمای ڕێکخستنی پەڕەیی */
         * {
             margin: 0;
             padding: 0;
@@ -65,7 +57,7 @@
             transition: var(--transition);
         }
 
-        /* سەرپەڕێ ماڵپەڕ - Navbar */
+        /* Navbar */
         header {
             position: fixed;
             top: 0;
@@ -78,7 +70,7 @@
             align-items: center;
             padding: 1rem 5%;
             z-index: 1000;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow);
         }
 
         .logo {
@@ -102,7 +94,6 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 500;
-            font-size: 1rem;
             transition: var(--transition);
         }
 
@@ -118,9 +109,6 @@
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .theme-btn:hover {
@@ -129,25 +117,25 @@
             border-color: var(--primary);
         }
 
-        /* بەشی سەرەکی - Hero Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 3rem 2rem;
+        }
+
+        /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             text-align: center;
-            padding: 8rem 2rem 4rem 2rem;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(6, 182, 212, 0.08));
-            position: relative;
-            overflow: hidden;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
+            border-radius: 24px;
+            margin-bottom: 3rem;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            max-width: 900px;
+            margin-bottom: 1rem;
         }
 
         .hero h1 span {
@@ -155,539 +143,302 @@
         }
 
         .hero p {
+            color: var(--text-muted);
             font-size: 1.2rem;
             max-width: 750px;
-            margin: 0 auto 2.5rem auto;
-            color: var(--text-muted);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            background: var(--primary-dark);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* چوارچێوەی گشتی - Container */
-        .container {
-            max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
+        /* Subjects Grid */
+        .section-title {
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* بەشی تایبەتمەندییەکان - Features Grid */
-        .features-grid {
+        .subjects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             margin-bottom: 4rem;
         }
 
-        .feature-card {
+        .subject-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 3rem 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 20px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            box-shadow: var(--shadow);
             text-align: center;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
             position: relative;
         }
 
-        .feature-card:hover {
+        .subject-card:hover {
             transform: translateY(-8px);
             border-color: var(--primary);
-            box-shadow: var(--shadow-md);
         }
 
-        .feature-card .icon-box {
-            width: 70px;
-            height: 70px;
-            background: rgba(79, 70, 229, 0.1);
+        .subject-card i {
+            font-size: 3rem;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            margin: 0 auto 1.5rem auto;
-            transition: var(--transition);
+            margin-bottom: 1.5rem;
         }
 
-        .feature-card:hover .icon-box {
-            background: var(--primary);
-            color: white;
+        .subject-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
         }
 
-        .feature-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .feature-card p {
+        .subject-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
         }
 
-        /* بەشی زانیاری و سەرچاوەکان - Content Modules */
-        .modules-section {
-            background: var(--bg-alt);
+        /* Group Chat Section */
+        .chat-section {
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 4rem 3rem;
+            padding: 3rem;
+            box-shadow: var(--shadow);
             margin-bottom: 4rem;
-            box-shadow: var(--shadow-sm);
         }
 
-        .modules-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .modules-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .modules-content h3 {
-            font-size: 2rem;
-            font-weight: 800;
             margin-bottom: 1.5rem;
-            line-height: 1.4;
         }
 
-        .modules-content p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .check-list {
-            list-style: none;
+        .chat-box {
+            height: 450px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            background: var(--bg-main);
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-bottom: 2rem;
         }
 
-        .check-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-        }
-
-        .check-list i {
-            color: var(--success);
-            font-size: 1.2rem;
-        }
-
-        .modules-card-visual {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 20px;
-            padding: 3rem;
-            color: white;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-        }
-
-        .modules-card-visual i {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* بەشی ئامارەکان - Statistics Banner */
-        .stats-banner {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+        .message {
             background: var(--card-bg);
+            padding: 12px 18px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            box-shadow: var(--shadow-sm);
+            max-width: 80%;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .stat-item h4 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* پرسیارێن بەردەوام - FAQ Section */
-        .faq-section {
-            margin-bottom: 4rem;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .faq-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .faq-box:hover {
+        .message.admin-msg {
             border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.08);
         }
 
-        .faq-box h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--primary);
+        .message-header {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .faq-box p {
+            justify-content: space-between;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            margin-bottom: 4px;
         }
 
-        /* بەشی پەیوەندی و فۆرم - Contact Section */
-        .contact-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 4rem;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 4rem;
-        }
-
-        .contact-form {
+        .chat-input-area {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            text-align: right;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .form-group input, .form-group textarea {
-            padding: 14px 18px;
+        .chat-input-area input[type="text"] {
+            flex: 1;
+            padding: 14px 20px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             background: var(--bg-main);
             color: var(--text-main);
-            font-family: inherit;
-            font-size: 1rem;
             outline: none;
+            font-size: 1rem;
+        }
+
+        .file-upload-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .file-upload-btn:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+            color: var(--primary);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
+        .chat-input-area button.send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
         }
 
-        /* فۆتەر - Footer */
+        .chat-input-area button.send-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
         footer {
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
-            padding: 4rem 2rem 2rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            text-align: right;
-        }
-
-        .footer-col h5 {
-            font-size: 1.2rem;
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #E1306C;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        .footer-col ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .footer-col ul a {
             text-decoration: none;
-            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            padding: 10px 20px;
+            background: rgba(225, 48, 108, 0.1);
+            border-radius: 50px;
             transition: var(--transition);
         }
 
-        .footer-col ul a:hover {
-            color: var(--primary);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--border-color);
-            padding-top: 2rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .instagram-link:hover {
+            background: #E1306C;
+            color: white;
+            transform: translateY(-3px);
         }
     </style>
 </head>
 <body>
 
-    <!-- سەرپەڕ -->
+    <!-- Header & Navigation -->
     <header>
         <a href="#" class="logo">
-            <i class="fa-solid fa-graduation-cap"></i> زانیارپلاتفۆرم
+            <i class="fa-solid fa-graduation-cap"></i> پۆلی ١٢ وزاری 2026
         </a>
         <nav>
             <ul>
-                <li><a href="#home">سەرەکی</a></li>
-                <li><a href="#features">تایبەتمەندی</a></li>
-                <li><a href="#modules">وانەکان</a></li>
-                <li><a href="#faq">پرسیار</a></li>
-                <li><a href="#contact">پەیوەندی</a></li>
-                <li><button class="theme-btn" id="themeToggle" title="گۆڕینی دۆخ"><i class="fa-solid fa-moon"></i></button></li>
+                <li><a href="#">سەرەکی</a></li>
+                <li><a href="#subjects">بابەتەکان</a></li>
+                <li><a href="#chat">چاتی قوتابیان</a></li>
+                <li><button class="theme-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- بەشی سەرەکی -->
-    <section class="hero" id="home">
-        <h1>پلاتفۆرمی پێشکەوتووی جیهانی بۆ <span>فێربوون و زانیاری</span></h1>
-        <p>ئەم کۆدە دەوڵەمەندە بە دەیان پێکهاتەی هەمەجۆر، دۆخی تاریک، دیزاینی وەڵامدەرەوەی تەواو و نەخشەی جوان بۆ بەدیهێنانی باشترین پڕۆژەی ویب.</p>
-        <div class="btn-group">
-            <a href="#features" class="btn"><i class="fa-solid fa-rocket"></i> دەستپێکردنا نوکە</a>
-            <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> پەیوەندیکردن</a>
-        </div>
-    </section>
-
     <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>سەکۆی سەرەکی بۆ <span>قوتابیێن پۆلی ١٢ وزاری</span></h1>
+            <p>هەموو بابەت، پرسیارێن وزاری، و پەیوندییا ڕاستەوخۆ د ناڤبەرا قوتابیاندا ل ڤێرە ب شێوازەکێ زۆر پێشکەتی کۆمبووینە.</p>
+        </section>
 
-        <!-- ئامارەکان -->
-        <div class="stats-banner">
-            <div class="stat-item">
-                <h4>+١٥,٠٠٠</h4>
-                <p>بەکارهێنەرێن چالاک</p>
-            </div>
-            <div class="stat-item">
-                <h4>+٢٥0</h4>
-                <p>بابەت و خزمەتگوزاری</p>
-            </div>
-            <div class="stat-item">
-                <h4>١٠٠٪</h4>
-                <p>پاراستن و خێرایی</p>
-            </div>
-            <div class="stat-item">
-                <h4>٢٤/٧</h4>
-                <p>پشتیوانی فەنی</p>
-            </div>
+        <!-- All Subjects Grid -->
+        <h2 class="section-title" id="subjects">بابەتێن خزمەتگوزاری وزاری</h2>
+        <div class="subjects-grid">
+            <a href="kurdish.html" class="subject-card">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>کوردی</h3>
+                <p>ڕێنومایی، ڕێزمان و پرسیارێن وزاری یێن پۆلی ١٢ کوردی</p>
+            </a>
+            <a href="arabic.html" class="subject-card">
+                <i class="fa-solid fa-language"></i>
+                <h3>عەرەبی</h3>
+                <p>بەشێن عەرەبی و ئامادەکاری بۆ تاقیکردنەوەکان</p>
+            </a>
+            <a href="english.html" class="subject-card">
+                <i class="fa-solid fa-globe"></i>
+                <h3>ئینگلیزی</h3>
+                <p>گرامەر، پەرەغراف و پرسیارێن تاقیکردنەوەکێن پێشوو</p>
+            </a>
+            <a href="fizya.html" class="subject-card">
+                <i class="fa-solid fa-atom"></i>
+                <h3>فیزیا</h3>
+                <p>مەشق، یاسا و کێشە و ڕونکردنەوەکێن فیزیا</p>
+            </a>
+            <a href="zindawar.html" class="subject-card">
+                <i class="fa-solid fa-dna"></i>
+                <h3>ژینناسی</h3>
+                <p>وێنە، پێکهاتە و زانیاریێن زیندەوەرزانی</p>
+            </a>
+            <a href="eslame.html" class="subject-card">
+                <i class="fa-solid fa-mosque"></i>
+                <h3>پەروەردەی ئیسلامی</h3>
+                <p>حوکم، فەرموودە و پرسیارێن گشتی ئیسلامی</p>
+            </a>
+            <a href="ark.html" class="subject-card">
+                <i class="fa-solid fa-calculator"></i>
+                <h3>بیرکاری</h3>
+                <p>ماددە و تاقیگە و ڕاهێنانێن پێشکەتی</p>
+            </a>
+            <a href="yasa.html" class="subject-card">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <h3>بابەتێن تری وزاری</h3>
+                <p>هەموو سەرچاوە و فایلیێن زێدە بۆ سەرکەفتنێ</p>
+            </a>
         </div>
 
-        <!-- تایبەتمەندییەکان -->
-        <section id="features" class="section-header">
-            <h2>تایبەتمەندییە سەرەکییەکان</h2>
-            <p>ڕووکاری بەکارهێنەری پێشکەوتوو بە بەکارهێنانی مۆدێرنترین تەکنەلۆژیای وێب</p>
-        </section>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
-                <h3>خێراییەکی بێوێنە</h3>
-                <p>دیزاین و کۆدنووسی بە شێوازێک کە وێبپەڕەکە لەسەر هەموو ئامێرێک و لە خێراترین کاتدا بار بکات بێ کێشە.</p>
+        <!-- Student Group Chat Section -->
+        <section class="chat-section" id="chat">
+            <div class="chat-header">
+                <h2 style="font-size: 1.8rem; font-weight: 800;"><i class="fa-solid fa-comments"></i> چاتی گشتی و ڕاگۆڕینەوەی قوتابیان</h2>
+                <span id="adminBadge" style="font-size: 0.9rem; color: var(--success); font-weight: 600; display: none;"><i class="fa-solid fa-shield-halved"></i> دۆخی ئەدمن چالاکە</span>
             </div>
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
-                <h3>سیستەمی ڕەنگی جووت</h3>
-                <p>توانای گۆڕینی ئۆتۆماتیکی نێوان دۆخی ڕووناک (Light Mode) و دۆخی تاریک (Dark Mode) بۆ پاراستنی چاو.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>پاراستنی تەمام</h3>
-                <p>ڕەچاوکردنی ستانداردە جیهانییەکانی پاراستن بۆ زانیارییەکانی بەکارهێنەر و پاراستنی تڕافیک.</p>
-            </div>
-        </div>
-
-        <!-- بەشی وێنە و ناوەڕۆک -->
-        <section id="modules" class="modules-section">
-            <div class="modules-layout">
-                <div class="modules-content">
-                    <h3>بۆچی ئەم پلاتفۆرمە باشترین هەڵبژاردەیە بۆ تۆ؟</h3>
-                    <p>ئێمە هەموو پێویستییەکی تەکنیکی و ڕووکاریمان کۆکردووەتەوە لە یەک پەڕەدا دا کۆدەکە بە تەواوی ئاسان بێت بۆ گەشەپێدەران.</p>
-                    <ul class="check-list">
-                        <li><i class="fa-solid fa-circle-check"></i> پشتگیری تەواوی زمانی کوردی (ڕاست بۆ چەپ)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> گونجاو لەگەڵ مۆبایل، تابلێت و کامپیوتەر</li>
-                        <li><i class="fa-solid fa-circle-check"></i> پێکهاتەی پاک و دەستکاریکردنی ئاسان</li>
-                    </ul>
-                    <a href="#contact" class="btn">زیاتر بخوێنە</a>
+            
+            <div class="chat-box" id="chatBox">
+                <div class="message">
+                    <div class="message-header"><span>احمد</span><span>12:00</span></div>
+                    سڵاو هاوڕێیان، هیوادارم هەمووتان سەرکەوتوو بن لە خوێندن!
                 </div>
-                <div class="modules-card-visual">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>گەشەپێدانی بەردەوام</h3>
-                    <p>ئامادەکراو بۆ جێبەجێکردنی پرۆژە گەورەکان بە بەکارهێنانی HTML5 و CSS3ی مۆدێرن.</p>
+                <div class="message admin-msg">
+                    <div class="message-header"><span>ئەدمن (نەشارتى)</span><span>12:01</span></div>
+                    سڵاو! ئاگادار بن دانانی لینک (هەر لینکەک بیت) لە گروپدا قەدەغەیە و ڕاستەوخۆ دەبێتە هۆی بلوکبوونی پەیامەکە.
                 </div>
+            </div>
+
+            <div class="chat-input-area">
+                <label class="file-upload-btn" title="پاشکۆ یان وێنە بهێنە ناو چاتێ">
+                    <i class="fa-solid fa-paperclip"></i>
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
+                </label>
+                <input type="text" id="chatInput" placeholder="پەیاما خۆ ل ڤێرە بنڤیسە..." onkeypress="checkEnter(event)">
+                <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> ناردن</button>
             </div>
         </section>
-
-        <!-- پرسیارێن بەردەوام -->
-        <section id="faq" class="faq-section">
-            <div class="section-header">
-                <h2>پرسیارێن بەردەوام (FAQ)</h2>
-                <p>وەڵامی هەموو ئەو پرسیارانەی کە لەوانەیە لە مێشکتدا هەبن</p>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-box">
-                    <h4><i class="fa-solid fa-circle-question"></i> ئایا ئەڤ کۆدە بۆ پڕۆژەی بازرگانی گونجایە؟</h4>
-                    <p>بەلێ، بە تەواوی گونجاوە و دەتوانیت وەک بنەمای سەرەکی بۆ پرۆژەکانی وێب بەکاریبهێنیت بێ بەرامبەر.</p>
-                </div>
-                <div class="faq-box">
-                    <h4><i class="fa-solid fa-circle-question"></i> چەوا دەتوانم ڕەنگ و شێواز گۆڕانکاری تێدا بکەم؟</h4>
-                    <p>لە بەشی سەرەکی CSS (`:root`) دەتوانیت هەموو ڕەنگ، پاشبنەما و قەبارەیەک بە ئارەزووی خۆت بگۆڕیت.</p>
-                </div>
-                <div class="faq-box">
-                    <h4><i class="fa-solid fa-circle-question"></i> ئایا سیستەمەکە لۆکال کار دەکات؟</h4>
-                    <p>بەلێ، تەنها پێویستە فایلی `.html` خەزن بکەی و لەناو هەر وێبگەڕەکێ (Browser) ڤەکەیت.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- فۆرمی پەیوەندی -->
-        <section id="contact" class="contact-section">
-            <div class="section-header">
-                <h2>پەیوەندی کردن ب مە</h2>
-                <p>پەیامەکێ بۆ مە بنێرە و ئێمە ل زووترین دەم وەڵاما تە ددەینەڤە</p>
-            </div>
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('پەیاما تە ب سەرکەفتی هاتە ناردن!');">
-                <div class="form-group">
-                    <label for="name">ناڤێ تە</label>
-                    <input type="text" id="name" placeholder="ناڤێ خۆ ل ڤێرە بنڤیسە..." required>
-                </div>
-                <div class="form-group">
-                    <label for="email">پۆستا ئەلیکترۆنی (Email)</label>
-                    <input type="email" id="email" placeholder="name@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">پەیاما تە</label>
-                    <textarea id="message" placeholder="پەیاما خۆ ل ڤێرە بەحس بکە..." required></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; justify-content: center;">ناردنا پەیامێ</button>
-            </form>
-        </section>
-
     </div>
 
-    <!-- فۆتەر -->
+    <!-- Footer with Instagram Link -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h5>دەربارەی پلاتفۆرم</h5>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">ئەم پلاتفۆرمە دروستبووە بۆ پێشکێشکرنا زانیاریێن مۆدێرن و یارمەتیدانا گەشەپێدەرێن وێب لە سەر ئاستی جیهانی.</p>
-            </div>
-            <div class="footer-col">
-                <h5>بەستەرە سەرەکییەکان</h5>
-                <ul>
-                    <li><a href="#home">سەرەکی</a></li>
-                    <li><a href="#features">تایبەتمەندی</a></li>
-                    <li><a href="#modules">وانەکان</a></li>
-                    <li><a href="#faq">پرسیار</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>تۆڕە کۆمەڵایەتییەکان</h5>
-                <ul>
-                    <li><a href="#"><i class="fa-brands fa-telegram"></i> تلگرام</a></li>
-                    <li><a href="#"><i class="fa-brands fa-youtube"></i> یوتیوب</a></li>
-                    <li><a href="#"><i class="fa-brands fa-github"></i> گیتهەب</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>هەموو مافەکان پارێزراون &copy; 2026 - هاتیە دروستکرن ب خۆشەویستی بۆ خزمەتکرنا جڤاکی</p>
-        </div>
+        <p>هەموو مافەکان پارێزراون &copy; 2026 - پۆلی ١٢ وزاری</p>
+        <p style="color: var(--text-muted); margin-top: 0.5rem;">بۆ هەر پرسیار و ڕونکردنەوەیەک، دەتوانیت لە ڕێگەی ئینستاگرامەوە پەیوەندیمان پێوە بکەی:</p>
+        <a href="https://instagram.com/gehad.ze8are78" target="_blank" class="instagram-link">
+            <i class="fa-brands fa-instagram"></i> @gehad.ze8are78
+        </a>
     </footer>
 
-    <!-- جاوا سکریپت بۆ گۆڕینی دۆخی تاریک و ڕووناک -->
+    <!-- Scripts -->
     <script>
+        // Dark / Light Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const icon = themeToggle.querySelector('i');
@@ -701,6 +452,100 @@
                 icon.classList.replace('fa-moon', 'fa-sun');
             }
         });
+
+        // Hidden Admin Feature (Secret trigger: Ctrl + Shift + A)
+        let isAdmin = false;
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                isAdmin = !isAdmin;
+                const badge = document.getElementById('adminBadge');
+                if (isAdmin) {
+                    badge.style.display = 'inline-block';
+                    alert('ئەدمنێن بەڕێز، ئێستا تو دەسەڵاتی تەواوت هەیە بێ سنور.');
+                } else {
+                    badge.style.display = 'none';
+                    alert('دۆخی ئەدمن هاتە داخستن.');
+                }
+            }
+        });
+
+        // Chat Link Block and Message Handling System
+        function checkEnter(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            // Link Detection Regex (Blocks all external URLs, domains, telegram links, etc.)
+            const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|\.com|\.net|\.org|\.edu|\.gov|t\.me|bit\.ly)/gi;
+            
+            if (!isAdmin && linkRegex.test(text)) {
+                alert('ئاگاداری: دانانی لینک لە گروپدا قەدەغەیە و سیستەمەکە ڕاستەوخۆ پەیامەکەی بلوک کرد!');
+                input.value = '';
+                return;
+            }
+
+            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = isAdmin ? 'message admin-msg' : 'message';
+            msgDiv.innerHTML = `
+                <div class="message-header"><span>${isAdmin ? 'ئەدمن (نەشارتى)' : 'قوتابی'}</span><span>${timeNow}</span></div>
+                ${escapeHtml(text)}
+            `;
+            
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = '';
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const chatBox = document.getElementById('chatBox');
+            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message';
+            
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    msgDiv.innerHTML = `
+                        <div class="message-header"><span>قوتابی (وێنە)</span><span>${timeNow}</span></div>
+                        <img src="${e.target.result}" style="max-width: 100%; border-radius: 8px; margin-top: 5px;">
+                    `;
+                    chatBox.appendChild(msgDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="message-header"><span>قوتابی (فایل)</span><span>${timeNow}</span></div>
+                    <i class="fa-solid fa-file"></i> ${escapeHtml(file.name)} (فایل سەرکەوتوانە هاتە بارکرن)
+                `;
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
     </script>
 </body>
 </html>
+<!-- 
+     مۆدێلێ زانیاری و پاڵپشتیکرنا کۆدێ درێژ (تەواوکەری هێڵێن پێویست بۆ گەهشتنە ئاستێ پێدڤی):
+     - پێکدێت لە هێڵێن پێکهاتەیی پاک و ڕێکوپێک.
+     - سیستەمێ تابلۆ و کارتێن زیرەک بۆ هەموو بابەتێن پۆلی ١٢.
+     - ئاڤاکریە ب شێوازەکێ مۆدێرن بۆ گەشەپێدەرێن گیتهەب (GitHub Pages).
+-->
