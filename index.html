@@ -3,50 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلاتفۆرمی فێرکاری پۆلی ١٢ وزاری - هەموو بابەت و چات</title>
-    <!-- Google Fonts & FontAwesome Icons -->
+    <title>پلاتفۆرمی فێرکاری پۆلی ١٢ وزاری - هەموو پەڕە و بابەتەکان</title>
+    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Variables & Theme Setup */
         :root {
-            --primary: #6366f1;
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --primary-hover: #4f46e5;
+            --primary: #4f46e5;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
             --secondary: #06b6d4;
-            --accent: #f43f5e;
-            --success: #10b981;
-            --warning: #f59e0b;
             --bg-main: #f8fafc;
-            --bg-alt: #ffffff;
+            --card-bg: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --card-bg: #ffffff;
             --border-color: #e2e8f0;
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
             --primary: #818cf8;
-            --primary-gradient: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
-            --primary-hover: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
             --secondary: #22d3ee;
-            --accent: #fb7185;
-            --success: #34d399;
-            --warning: #fbbf24;
             --bg-main: #030712;
-            --bg-alt: #0b0f19;
+            --card-bg: #111827;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
-            --card-bg: #111827;
             --border-color: #1f2937;
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -64,7 +51,7 @@
             transition: var(--transition);
         }
 
-        /* Top Navigation Header */
+        /* Header & Navigation */
         header {
             position: fixed;
             top: 0;
@@ -75,27 +62,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             z-index: 1000;
-            box-shadow: var(--shadow-sm);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 900;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
         }
 
         nav ul {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             list-style: none;
             align-items: center;
         }
@@ -104,7 +90,6 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 600;
-            font-size: 1rem;
             transition: var(--transition);
         }
 
@@ -116,121 +101,83 @@
             background: var(--bg-main);
             border: 2px solid var(--border-color);
             color: var(--text-main);
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            transition: var(--transition);
         }
 
         .theme-btn:hover {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
-            transform: rotate(15deg);
         }
 
-        /* Main Container Layout */
+        /* Main Container */
         .container {
-            max-width: 1300px;
+            max-width: 1250px;
             margin: 0 auto;
-            padding: 7rem 2rem 5rem 2rem;
+            padding: 6rem 1.5rem 4rem 1.5rem;
         }
 
         /* Hero Banner */
         .hero {
             text-align: center;
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
             background: var(--primary-gradient);
             color: white;
-            border-radius: 35px;
-            margin-bottom: 4rem;
+            border-radius: 30px;
+            margin-bottom: 3.5rem;
             box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 250px;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            margin-bottom: 1.2rem;
-            line-height: 1.3;
+            margin-bottom: 1rem;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            max-width: 800px;
-            margin: 0 auto 2.5rem auto;
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto 2rem auto;
             opacity: 0.95;
         }
 
-        .hero-btn {
-            background: white;
-            color: var(--primary);
-            padding: 16px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .hero-btn:hover {
-            transform: translateY(-5px);
-            background: var(--bg-main);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Section Header Titles */
+        /* Section Header */
         .section-header {
             text-align: center;
-            margin-bottom: 3.5rem;
+            margin-bottom: 3rem;
         }
 
         .section-header h2 {
-            font-size: 2.6rem;
+            font-size: 2.3rem;
             font-weight: 900;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .section-header p {
             color: var(--text-muted);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
         }
 
-        /* Subject Cards Grid (All Subjects Included) */
-        .subjects-grid {
+        /* Repository Files Grid (All Pages Included: index, kurdish, arabic, english, fizya, zindawar, eslame, ark, yasa, mejo, env, etc.) */
+        .repo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
-        .subject-card {
+        .file-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 3rem 2rem;
-            border-radius: 28px;
+            padding: 2.5rem 1.8rem;
+            border-radius: 24px;
             box-shadow: var(--shadow-sm);
             text-align: center;
             transition: var(--transition);
@@ -240,146 +187,128 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            overflow: hidden;
         }
 
-        .subject-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-gradient);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .subject-card:hover {
-            transform: translateY(-10px);
+        .file-card:hover {
+            transform: translateY(-8px);
             border-color: var(--primary);
             box-shadow: var(--shadow-lg);
         }
 
-        .subject-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .subject-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(99, 102, 241, 0.1);
+        .file-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(79, 70, 229, 0.1);
             color: var(--primary);
-            border-radius: 24px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            margin-bottom: 1.8rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
             transition: var(--transition);
         }
 
-        .subject-card:hover .subject-icon {
+        .file-card:hover .file-icon {
             background: var(--primary-gradient);
             color: white;
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.1);
         }
 
-        .subject-card h3 {
-            font-size: 1.6rem;
+        .file-card h3 {
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
-        .subject-card p {
+        .file-card code {
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        [data-theme="dark"] .file-card code {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .file-card p {
             color: var(--text-muted);
-            font-size: 0.98rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
         }
 
-        .card-link-badge {
+        .file-link-btn {
             margin-top: auto;
             font-size: 0.9rem;
             font-weight: 700;
             color: var(--primary);
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* Comprehensive Multi-Functional Chat Section */
+        /* Dynamic Multi-Functional Chat Section */
         .chat-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 35px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 5rem;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
         }
 
-        .chat-top-bar {
+        .chat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
         }
 
-        .chat-title-wrapper h3 {
-            font-size: 2rem;
+        .chat-header h3 {
+            font-size: 1.8rem;
             font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .chat-title-wrapper p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
-
-        .admin-status-badge {
-            font-size: 0.95rem;
-            color: var(--success);
+        .admin-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
             font-weight: 700;
             display: none;
-            background: rgba(16, 185, 129, 0.12);
-            padding: 8px 18px;
-            border-radius: 50px;
             border: 1px solid rgba(16, 185, 129, 0.2);
-            align-items: center;
-            gap: 8px;
         }
 
         .chat-box {
-            height: 520px;
+            height: 480px;
             border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 1.5rem;
             overflow-y: auto;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
             background: var(--bg-main);
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .message {
             background: var(--card-bg);
-            padding: 16px 22px;
-            border-radius: 20px;
+            padding: 14px 18px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
             max-width: 75%;
             box-shadow: var(--shadow-sm);
-            animation: messagePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            position: relative;
-        }
-
-        @keyframes messagePop {
-            from { opacity: 0; transform: translateY(15px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .message.admin-msg {
@@ -387,158 +316,146 @@
             background: rgba(99, 102, 241, 0.08);
         }
 
-        .message-header {
+        .msg-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 700;
         }
 
-        .message-body {
-            font-size: 1.05rem;
+        .msg-text {
+            font-size: 1rem;
             word-break: break-word;
         }
 
-        .chat-input-wrapper {
+        .chat-input-area {
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
             align-items: center;
             background: var(--bg-main);
             border: 2px solid var(--border-color);
-            padding: 10px 16px;
-            border-radius: 22px;
+            padding: 8px 14px;
+            border-radius: 18px;
             transition: var(--transition);
         }
 
-        .chat-input-wrapper:focus-within {
+        .chat-input-area:focus-within {
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
-        .chat-input-wrapper input[type="text"] {
+        .chat-input-area input {
             flex: 1;
             background: transparent;
             border: none;
             color: var(--text-main);
             outline: none;
-            font-size: 1.05rem;
-            padding: 8px;
+            font-size: 1rem;
         }
 
-        .chat-action-btn {
+        .chat-btn-action {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            transition: var(--transition);
         }
 
-        .chat-action-btn:hover {
+        .chat-btn-action:hover {
             border-color: var(--primary);
             color: var(--primary);
-            background: rgba(99, 102, 241, 0.08);
-            transform: scale(1.05);
         }
 
-        .send-message-btn {
+        .send-btn {
             background: var(--primary-gradient);
             color: white;
             border: none;
-            padding: 14px 32px;
-            border-radius: 16px;
-            cursor: pointer;
+            padding: 12px 28px;
+            border-radius: 14px;
             font-weight: 800;
-            font-size: 1.05rem;
-            transition: var(--transition);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow-sm);
+            gap: 8px;
+            transition: var(--transition);
         }
 
-        .send-message-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            opacity: 0.95;
+        .send-btn:hover {
+            opacity: 0.9;
         }
 
-        /* Footer & Instagram Direct Link */
+        /* Footer & Instagram */
         footer {
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
-            padding: 5rem 2rem 3rem 2rem;
+            padding: 4rem 2rem 2.5rem 2rem;
             text-align: center;
         }
 
         .footer-content {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
         .footer-content h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-content p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem;
         }
 
-        .instagram-badge {
+        .insta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             color: white;
             font-weight: 800;
             text-decoration: none;
-            font-size: 1.3rem;
-            padding: 16px 36px;
+            font-size: 1.2rem;
+            padding: 14px 32px;
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             border-radius: 50px;
-            box-shadow: 0 12px 30px rgba(220, 39, 67, 0.35);
+            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.3);
             transition: var(--transition);
         }
 
-        .instagram-badge:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 18px 35px rgba(220, 39, 67, 0.45);
+        .insta-btn:hover {
+            transform: translateY(-4px);
         }
 
-        .copyright-text {
-            margin-top: 4rem;
+        .copyright {
+            margin-top: 3rem;
             border-top: 1px solid var(--border-color);
-            padding-top: 2rem;
+            padding-top: 1.5rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Sticky Header -->
+    <!-- Header -->
     <header>
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <i class="fa-solid fa-graduation-cap"></i> پۆلی ١٢ وزاری 2026
         </a>
         <nav>
             <ul>
-                <li><a href="#">سەرەکی</a></li>
-                <li><a href="#subjects">بابەتەکان</a></li>
-                <li><a href="#chat">چاتی قوتابیان</a></li>
-                <li><button class="theme-btn" id="themeToggle" title="گۆڕینی دۆخ"><i class="fa-solid fa-moon"></i></button></li>
+                <li><a href="index.html">سەرەکی</a></li>
+                <li><a href="#files">فایلەکان</a></li>
+                <li><a href="#chat">چاتی گشتی</a></li>
+                <li><button class="theme-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button></li>
             </ul>
         </nav>
     </header>
@@ -546,108 +463,157 @@
     <!-- Main Container -->
     <div class="container">
         
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section class="hero">
-            <h1>سەکۆی فێرکاری و زانیاری <span>قوتابیێن پۆلی ١٢</span></h1>
-            <p>هەموو پەرتووک، پرسیارێن وزاری، ڕونکردنەوەی مامۆستایان و چاتی ڕاستەوخۆ ب شێوازەکێ لوکس و نایاب بۆ هەمەجۆرە سەرکەفتنەکێ.</p>
-            <a href="#subjects" class="hero-btn"><i class="fa-solid fa-arrow-down"></i> دیتنا هەموو بابەتان</a>
+            <h1>سەکۆی تەواوی فایلیێن پۆلی ١٢ وزاری</h1>
+            <p>هەموو پەڕە و فایلێن گیتهەبی (GitHub Pages) دڤێرەدا ب شێوازەکێ ڕێکخراو و بێوێنە کۆمبووینە بۆ هەمەجۆرە سەرکەفتنەکێ.</p>
         </section>
 
-        <!-- Subjects Grid Header -->
-        <div class="section-header" id="subjects">
-            <h2>بابەتێن خزمەتگوزاری وزاری</h2>
-            <p>هەموو بەش و پەرتووکێن پۆلی ١٢ زانستی و وێژەیی ب تەواوی</p>
+        <!-- Section Title -->
+        <div class="section-header" id="files">
+            <h2>لیستا هەموو پەڕە و فایلێن HTML</h2>
+            <p>کلیک ل سەر هەر فایلەکێ بکە بۆ ڤەکرنا ڕاستەوخۆ</p>
         </div>
 
-        <!-- All Subjects Grid (Including kurdish, arabic, english, fizya, zindawar, eslame, ark, yasa, etc.) -->
-        <div class="subjects-grid">
-            <a href="kurdish.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-book-open"></i></div>
-                <h3>کوردی</h3>
-                <p>ڕێزمان، ئەدەب، مێژوو و گشت پرسیارێن وزاری یێن کوردی پۆلی ١٢.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
-            </a>
+        <!-- Repository Files Grid (All 13+ files included from user's repository screenshot) -->
+        <div class="repo-grid">
             
-            <a href="arabic.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-language"></i></div>
+            <a href="index.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-house"></i></div>
+                <h3>سەرەکی</h3>
+                <code>index.html</code>
+                <p>پەڕەی سەرەکی و ناوەندی پلاتفۆرمەکە.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="kurdish.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-book-open"></i></div>
+                <h3>کوردی</h3>
+                <code>kurdish.html</code>
+                <p>ڕێزمان، ئەدەب و پرسیارێن وزاری یێن کوردی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="arabic.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-language"></i></div>
                 <h3>عەرەبی</h3>
-                <p>قواعد، إدب و نصوص، و هەموو ڕاهێنانێن پێویست بۆ نمرەی بەرچاو.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+                <code>arabic.html</code>
+                <p>قواعد، إدب و نصوص وڕاهێنانێن عەرەبی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
 
-            <a href="english.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-globe"></i></div>
+            <a href="english.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-globe"></i></div>
                 <h3>ئینگلیزی</h3>
-                <p>گرامەر، پارەغراف، چیرۆک و پرسیارێن تاقیکردنەوەکێن پێشووی وزاری.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+                <code>english.html</code>
+                <p>گرامەر، پارەغراف و چیرۆکێن ئینگلیزی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
 
-            <a href="fizya.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-atom"></i></div>
-                <h3>فیزیا</h3>
-                <p>یاسا، کێشە، تەلارسازی و ڕونکردنەوەکێن بەشێن فیزیا پۆلی ١٢.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
-            </a>
-
-            <a href="zindawar.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-dna"></i></div>
-                <h3>ژینناسی</h3>
-                <p>خانە، دی ئێن ئەی، وێنە و گشت بابەتێن زیندەوەرزانی بە وردەکاری.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
-            </a>
-
-            <a href="eslame.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-mosque"></i></div>
-                <h3>پەروەردەی ئیسلامی</h3>
-                <p>حوکمێن شەرعی، فەرموودە، قورئان و پرسیارێن گشتی ئیسلامی.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
-            </a>
-
-            <a href="ark.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-calculator"></i></div>
+            <a href="ark.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-calculator"></i></div>
                 <h3>بیرکاری</h3>
-                <p>ژمێرکاری، ماتیماک، و ڕاهێنانێن پێشکەتی بۆ تاقیکردنەوەکانی وزاری.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+                <code>ark.html</code>
+                <p>یاسا، کێشە و ڕاهێنانێن ماتیماک.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
 
-            <a href="yasa.html" class="subject-card">
-                <div class="subject-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                <h3>بابەتێن وێژەیی و تری</h3>
-                <p>مێژوو، جوگرافیا، ئابووری، و گشت سەرچاوە و فایلیێن زێدە.</p>
-                <span class="card-link-badge">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            <a href="fizya.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-atom"></i></div>
+                <h3>فیزیا</h3>
+                <code>fizya.html</code>
+                <p>بەشێن فیزیا، یاسا و تەلارسازی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
+
+            <a href="zindawar.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-dna"></i></div>
+                <h3>ژینناسی</h3>
+                <code>zindawar.html</code>
+                <p>خانە، دی ئێن ئەی و زیندەوەرزانی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="zindawar1.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-seedling"></i></div>
+                <h3>ژینناسی (بەرگی ۲)</h3>
+                <code>zindawar1.html</code>
+                <p>بەشێ دوو یێ ژینناسی پۆلی ١٢.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="eslame.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-mosque"></i></div>
+                <h3>پەروەردەی ئیسلامی</h3>
+                <code>eslame.html</code>
+                <p>حوکمێن شەرعی، فەرموودە و قورئان.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="eslamebabat.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-book"></i></div>
+                <h3>بابەتێن ئیسلامی</h3>
+                <code>eslamebabat.html</code>
+                <p>بابەت و ناوەرۆکێن زێدە یێن ئیسلامی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="yasa.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <h3>یاسا / وێژەیی</h3>
+                <code>yasa.html</code>
+                <p>مێژوو، جوگرافیا و بابه‌تێن وێژەیی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="mejo.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-landmark"></i></div>
+                <h3>مێژوو</h3>
+                <code>mejo.html</code>
+                <p>مێژووی جیهان و کوردستانێ پۆلی ١٢.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
+            <a href="env.html" class="file-card">
+                <div class="file-icon"><i class="fa-solid fa-code"></i></div>
+                <h3>ژینگەی کارکردن</h3>
+                <code>env.html</code>
+                <p>ڕێکخستن و ڕەگەزێن کۆدێ سیستەمی.</p>
+                <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+
         </div>
 
-        <!-- Comprehensive Student Group Chat Section -->
+        <!-- Chat Section -->
         <section class="chat-section" id="chat">
-            <div class="chat-top-bar">
-                <div class="chat-title-wrapper">
+            <div class="chat-header">
+                <div>
                     <h3><i class="fa-solid fa-comments"></i> چاتی گشتی قوتابیان</h3>
-                    <p>ل ڤێرە قوتابی دشێن ب ئازادی باخڤن، پرسیاران بکەن و وێنە یان فایلان بەلاڤ بکەن</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">ل ڤێرە باخڤن، پرسیاران بکەن و وێنە یان فایلان ڤاگۆستن</p>
                 </div>
-                <div id="adminBadge" class="admin-status-badge">
+                <div id="adminBadge" class="admin-badge">
                     <i class="fa-solid fa-shield-halved"></i> دۆخی ئەدمن چالاکە
                 </div>
             </div>
             
             <div class="chat-box" id="chatBox">
                 <div class="message">
-                    <div class="message-header"><span>ئارام</span><span>١٢:٠٠</span></div>
-                    <div class="message-body">سڵاو هاوڕێیان، هیوادارم هەمووتان لە خوێندن سەرکەوتوو بن! ئایا کەس پرسیارێن فیزیا یێن ساڵی بووری هەیە؟</div>
+                    <div class="msg-info"><span>ئارام</span><span>١٢:٠٠</span></div>
+                    <div class="msg-text">سڵاو! هەموو فایلێن گیتهەبی ل ڤێرە کۆمبووینە، زۆر سپاس بۆ ئەم کارە جوانە.</div>
                 </div>
                 <div class="message admin-msg">
-                    <div class="message-header"><span>ئەدمن (نەشارتى)</span><span>١٢:٠١</span></div>
-                    <div class="message-body">سڵاو! فەرموون بێ سڵ کردن دەتوانن پرسیار و وەڵامەکان لە بەشی پەیوەندیدار بدۆزنەوە. سەرکەوتوو بن!</div>
+                    <div class="msg-info"><span>ئەدمن (نەشارتى)</span><span>١٢:٠١</span></div>
+                    <div class="msg-text">سڵاو فەرموون! هەموو بابەت و پەڕە ل ڤێرە ب ئازادی بەردەستن.</div>
                 </div>
             </div>
 
-            <div class="chat-input-wrapper">
-                <label class="chat-action-btn" title="وێنە یان فایل بهێنە ناو چاتێ">
+            <div class="chat-input-area">
+                <label class="chat-btn-action" title="فایل یان وێنە بهێنە">
                     <i class="fa-solid fa-paperclip"></i>
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFile(event)">
                 </label>
-                <input type="text" id="chatInput" placeholder="پەیاما خۆ ل ڤێرە بنڤیسە و راستەوخۆ بینێرە..." onkeypress="checkEnter(event)">
-                <button class="send-message-btn" onclick="sendMessage()">
+                <input type="text" id="chatInput" placeholder="پەیاما خۆ ل ڤێرە بنڤیسە..." onkeypress="handleEnter(event)">
+                <button class="send-btn" onclick="sendMsg()">
                     <span>ناردن</span> <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
@@ -655,26 +621,25 @@
 
     </div>
 
-    <!-- Footer & Instagram Link -->
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <h3>پەیوەندی کردن و ڕاوێژ</h3>
-            <p>بۆ هەر پرسیار، ڕونکردنەوە، یان پێشنیارەکێ، دەتوانیت لە ڕێگەی ئینستاگرامی فەرمی سەرپەرشتیارەوە پەیوەندیمان پێوە بکەی:</p>
+            <p>بۆ هەر پرسیار یان پێشنیارەکێ، دەتوانیت لە ڕێگەی ئینستاگرامی فەرمی سەرپەرشتیارەوە پەیوەندی بکەی:</p>
             
-            <!-- Instagram Link with Direct Click -->
-            <a href="https://instagram.com/gehad.ze8are78" target="_blank" class="instagram-badge">
+            <a href="https://instagram.com/gehad.ze8are78" target="_blank" class="insta-btn">
                 <i class="fa-brands fa-instagram"></i> @gehad.ze8are78
             </a>
 
-            <div class="copyright-text">
+            <div class="copyright">
                 هەموو مافەکان پارێزراون &copy; 2026 - پۆلی ١٢ وزاری (هاتیە دیزاینکرن ب کوالێتی و جوانییەکی بێوێنە)
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript Execution & System Management -->
+    <!-- Script -->
     <script>
-        // Dark / Light Theme Toggle Script
+        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const icon = themeToggle.querySelector('i');
@@ -689,7 +654,7 @@
             }
         });
 
-        // Hidden Secret Admin Trigger (Shortcut: Ctrl + Shift + A)
+        // Secret Admin Toggle (Ctrl + Shift + A)
         let isAdmin = false;
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key === 'A') {
@@ -705,81 +670,65 @@
             }
         });
 
-        // Chat Message Handling System (Direct chat without restrictions, files & images enabled)
-        function checkEnter(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+        // Chat Logic
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendMsg();
         }
 
-        function sendMessage() {
+        function sendMsg() {
             const input = document.getElementById('chatInput');
             const chatBox = document.getElementById('chatBox');
             const text = input.value.trim();
-
             if (!text) return;
 
-            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            const msgDiv = document.createElement('div');
-            msgDiv.className = isAdmin ? 'message admin-msg' : 'message';
-            msgDiv.innerHTML = `
-                <div class="message-header"><span>${isAdmin ? 'ئەدمن (نەشارتى)' : 'قوتابی'}</span><span>${timeNow}</span></div>
-                <div class="message-body">${escapeHtml(text)}</div>
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const msg = document.createElement('div');
+            msg.className = isAdmin ? 'message admin-msg' : 'message';
+            msg.innerHTML = `
+                <div class="msg-info"><span>${isAdmin ? 'ئەدمن (نەشارتى)' : 'قوتابی'}</span><span>${time}</span></div>
+                <div class="msg-text">${escapeHTML(text)}</div>
             `;
-            
-            chatBox.appendChild(msgDiv);
+            chatBox.appendChild(msg);
             chatBox.scrollTop = chatBox.scrollHeight;
             input.value = '';
         }
 
-        // File and Image Upload Handling inside Chat
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
+        function handleFile(e) {
+            const file = e.target.files[0];
             if (!file) return;
 
             const chatBox = document.getElementById('chatBox');
-            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message';
-            
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const msg = document.createElement('div');
+            msg.className = 'message';
+
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    msgDiv.innerHTML = `
-                        <div class="message-header"><span>قوتابی (وێنە)</span><span>${timeNow}</span></div>
-                        <div class="message-body">
-                            <img src="${e.target.result}" style="max-width: 100%; border-radius: 12px; margin-top: 8px; box-shadow: var(--shadow-sm);">
-                        </div>
+                reader.onload = function(evt) {
+                    msg.innerHTML = `
+                        <div class="msg-info"><span>قوتابی (وێنە)</span><span>${time}</span></div>
+                        <div class="msg-text"><img src="${evt.target.result}" style="max-width: 100%; border-radius: 12px; margin-top: 6px;"></div>
                     `;
-                    chatBox.appendChild(msgDiv);
+                    chatBox.appendChild(msg);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
                 reader.readAsDataURL(file);
             } else {
-                msgDiv.innerHTML = `
-                    <div class="message-header"><span>قوتابی (فایل)</span><span>${timeNow}</span></div>
-                    <div class="message-body" style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
-                        <i class="fa-solid fa-file-arrow-down" style="font-size: 1.5rem; color: var(--primary);"></i>
-                        <span>${escapeHtml(file.name)} (فایل سەرکەوتوانە باربوو)</span>
+                msg.innerHTML = `
+                    <div class="msg-info"><span>قوتابی (فایل)</span><span>${time}</span></div>
+                    <div class="msg-text" style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-file-arrow-down" style="color: var(--primary); font-size: 1.3rem;"></i>
+                        <span>${escapeHTML(file.name)}</span>
                     </div>
                 `;
-                chatBox.appendChild(msgDiv);
+                chatBox.appendChild(msg);
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
 
-        function escapeHtml(str) {
+        function escapeHTML(str) {
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
     </script>
 </body>
 </html>
-<!-- 
-     [زانیاریێن پەرەپێدانی پڕۆژە - GitHub Pages Ready]
-     - فایلی تاکی HTML مۆدێرن پێکدێت لە شێوازکاری لوکس و تەمام.
-     - سیستەمێ پڕ لە مفا بۆ قوتابیێن پۆلی ١٢ وزاری ب گشت بابەتان ڤە.
-     - دیزاینەکێ بێوێنە و پاڵپشتیکری ب خێراییەکی بلند ل سەر گشت ئامیران.
-     - بەستەری ڕاستەوخۆی ئینستاگرامێ (@gehad.ze8are78) جهگیرکریە ب شێوازەکێ زۆر سەرنجڕاکێش.
--->
