@@ -2,782 +2,347 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gemini AI Voice Assistant - ژیریا دەستکرد</title>
-    
-    <!-- FontAwesome Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پلاتفۆرمی زانستی و فێرکاری - Mega Educational Portal</title>
+    <!-- گۆگل فۆنت و ئایکۆنەکان -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts for Kurdish Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        /* ==========================================================================
-           1. DESIGN SYSTEM & COLOR PALETTE
-           ========================================================================== */
+        /* سیستەمێ ڕەنگان و گۆڕاوەکان */
         :root {
-            --primary-glow: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary-glow: #06b6d4;
-            --accent-purple: #a855f7;
-            --accent-green: #10b981;
-            --accent-red: #f43f5e;
-            --accent-amber: #f59e0b;
-            
-            --bg-deep-space: #030712;
-            --bg-card-glass: rgba(17, 24, 39, 0.85);
-            --bg-input-field: rgba(15, 23, 42, 0.9);
-            
-            --bg-bubble-user: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.35));
-            --bg-bubble-bot: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(30, 41, 59, 0.95));
-            
-            --border-glass: rgba(255, 255, 255, 0.12);
-            --border-glow: rgba(99, 102, 241, 0.4);
-            
-            --text-main: #f9fafb;
-            --text-sub: #9ca3af;
-            --text-muted: #6b7280;
-            
-            --radius-full: 9999px;
-            --radius-3xl: 32px;
-            --radius-2xl: 24px;
-            --radius-xl: 18px;
-            
-            --shadow-card: 0 30px 60px -12px rgba(0, 0, 0, 0.85);
-            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.35);
-            
-            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #06b6d4;
+            --bg-main: #f8fafc;
+            --text-main: #0f172a;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
-        /* ==========================================================================
-           2. GLOBAL RESET & BASE STYLES
-           ========================================================================== */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        [data-theme="dark"] {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #22d3ee;
+            --bg-main: #030712;
+            --text-main: #f9fafb;
+            --card-bg: #111827;
+            --border-color: #1f2937;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', 'Noto Naskh Arabic', system-ui, -apple-system, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-deep-space);
-            color: var(--text-main);
-            overflow: hidden;
-        }
-
-        body {
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.25) 0%, transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 0% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 45%);
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-glow);
-        }
-
-        /* ==========================================================================
-           3. MAIN LAYOUT & CONTAINER STRUCTURE
-           ========================================================================== */
-        .app-viewport {
-            width: 100%;
-            height: 100vh;
-            max-width: 850px;
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-card-glass);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border-left: 1px solid var(--border-glass);
-            border-right: 1px solid var(--border-glass);
-            box-shadow: var(--shadow-card);
-            position: relative;
-        }
-
-        /* Header Area */
-        .chat-header {
-            padding: 18px 24px;
-            background: rgba(10, 15, 30, 0.85);
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 10;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .brand-avatar-box {
-            position: relative;
-            width: 48px;
-            height: 48px;
-        }
-
-        .brand-avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-        }
-
-        .online-indicator {
-            position: absolute;
-            bottom: -2px;
-            right: -2px;
-            width: 14px;
-            height: 14px;
-            background-color: var(--accent-green);
-            border: 2px solid var(--bg-deep-space);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-        }
-
-        .brand-info h2 {
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a855f7, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brand-info p {
-            font-size: 12px;
-            color: var(--text-sub);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            color: var(--text-sub);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 16px;
-        }
-
-        .icon-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: var(--text-main);
-        }
-
-        /* Protected Security Info Banner */
-        .security-banner {
-            padding: 8px 24px;
-            background: rgba(16, 185, 129, 0.1);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--accent-green);
-        }
-
-        /* ==========================================================================
-           4. CHAT MESSAGES AREA
-           ========================================================================== */
-        .chat-messages-container {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
             scroll-behavior: smooth;
         }
 
-        .message-row {
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.8;
+            transition: var(--transition);
+        }
+
+        /* سەرپەڕێ ماڵپەڕ - Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            gap: 12px;
-            max-width: 85%;
-            animation: fadeInMsg 0.35s ease forwards;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
         }
 
-        @keyframes fadeInMsg {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-row.user-row {
-            align-self: flex-start;
-            flex-direction: row;
-        }
-
-        .message-row.bot-row {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .msg-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            flex-shrink: 0;
-            margin-top: 2px;
+            gap: 12px;
         }
 
-        .user-row .msg-avatar {
-            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .theme-btn {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-btn:hover {
+            background: var(--primary);
             color: #fff;
+            border-color: var(--primary);
         }
 
-        .bot-row .msg-avatar {
-            background: linear-gradient(135deg, var(--secondary-glow), var(--accent-green));
-            color: #fff;
-        }
-
-        .msg-content-wrapper {
+        /* بەشی سەرەکی - Hero */
+        .hero {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-        }
-
-        .msg-bubble {
-            padding: 14px 18px;
-            border-radius: var(--radius-xl);
-            font-size: 14px;
-            line-height: 1.65;
-            word-break: break-word;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .user-row .msg-bubble {
-            background: var(--bg-bubble-user);
-            border: 1px solid rgba(99, 102, 241, 0.35);
-            border-top-right-radius: 4px;
-        }
-
-        .bot-row .msg-bubble {
-            background: var(--bg-bubble-bot);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top-left-radius: 4px;
-        }
-
-        .msg-footer-tools {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 4px;
-        }
-
-        .msg-time {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .tool-action-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .tool-action-btn:hover {
-            color: var(--secondary-glow);
-        }
-
-        /* Typing Dots Animation */
-        .typing-bubble {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 14px 20px;
-        }
-
-        .typing-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--text-sub);
-            border-radius: 50%;
-            animation: typingBounce 1.2s infinite ease-in-out;
-        }
-
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typingBounce {
-            0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-6px); background: var(--secondary-glow); }
-        }
-
-        /* Quick Suggestions */
-        .quick-suggestions {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 10px 24px;
-            background: rgba(10, 15, 30, 0.5);
-            border-top: 1px solid var(--border-glass);
-        }
-
-        .chip-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            color: var(--text-sub);
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .chip-btn:hover {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--text-main);
-            border-color: var(--primary-glow);
-        }
-
-        /* ==========================================================================
-           5. INPUT CONTROLS & FOOTER AREA
-           ========================================================================== */
-        .chat-input-area {
-            padding: 18px 24px 24px;
-            background: rgba(10, 15, 30, 0.95);
-            border-top: 1px solid var(--border-glass);
-        }
-
-        .input-controls-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg-input-field);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-2xl);
-            padding: 8px 12px 8px 18px;
-            transition: var(--transition-smooth);
-        }
-
-        .input-controls-wrapper:focus-within {
-            border-color: var(--primary-glow);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .chat-text-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-size: 14px;
-            max-height: 120px;
-            resize: none;
-        }
-
-        .send-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
-            border: none;
-            color: white;
-            font-size: 16px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            flex-shrink: 0;
+            text-align: center;
+            padding: 8rem 1rem 4rem 1rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
         }
 
-        .send-btn:hover {
-            transform: scale(1.05);
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
-        .voice-settings-bar {
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+            opacity: 0.85;
+        }
+
+        .btn-group {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            padding: 0 6px;
+            gap: 1rem;
+            justify-content: center;
         }
 
-        .toggle-voice-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-sub);
-            cursor: pointer;
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        .toggle-switch {
-            position: relative;
-            width: 36px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
+        .btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* سەکۆی سەرەکی - Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        /* خشتەی زانیاریان - Grid Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
             border-radius: 20px;
-            transition: var(--transition-smooth);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
         }
 
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            transition: var(--transition-smooth);
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
         }
 
-        input[type="checkbox"]:checked + .toggle-switch {
-            background: var(--accent-green);
+        .card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
         }
 
-        input[type="checkbox"]:checked + .toggle-switch::after {
-            transform: translateX(16px);
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        input[type="checkbox"] { display: none; }
+        .card p {
+            opacity: 0.75;
+            font-size: 1rem;
+        }
+
+        /* بەشی تابلۆی زانیاری و پرسیاران - FAQ & Tables */
+        .info-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 4rem;
+        }
+
+        .faq-box {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-box h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* فۆتەر - Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 5rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="app-viewport">
-    
-    <!-- Top Header Navigation -->
-    <header class="chat-header">
-        <div class="header-brand">
-            <div class="brand-avatar-box">
-                <div class="brand-avatar-img">
-                    <i class="fa-solid fa-sparkles"></i>
-                </div>
-                <div class="online-indicator"></div>
-            </div>
-            <div class="brand-info">
-                <h2>چاتبۆتی ژیریی دەنگی</h2>
-                <p><i class="fa-solid fa-shield-halved" style="color: var(--accent-green);"></i> سیستەم ب ئاخڤینا سەرڕاست ب کوردی</p>
-            </div>
+    <!-- سەرپەڕ -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-cube"></i> مێگاپلاتفۆرم
         </div>
-
-        <div class="header-actions">
-            <button class="icon-btn" onclick="clearChatHistory()" title="پاککرنا ئاخڤینێ">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <button class="icon-btn" onclick="toggleAudioMute()" id="muteBtn" title="دەنگ">
-                <i class="fa-solid fa-volume-high"></i>
-            </button>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">سەرەکی</a></li>
+                <li><a href="#features">تایبەتمەندی</a></li>
+                <li><a href="#faq">پرسیار</a></li>
+                <li><a href="#contact">پەیوەندی</a></li>
+                <li><button class="theme-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Security Indicator -->
-    <div class="security-banner">
-        <span><i class="fa-solid fa-lock"></i> کلیلا تە پاراستییە ل ژێر سیستەمێ Local Storage و ل GitHub ناپەیت!</span>
-        <span style="cursor: pointer;" onclick="resetApiKey()"><i class="fa-solid fa-key"></i> گۆڕینا کلیلێ</span>
+    <!-- بەشی سەرەکی -->
+    <section class="hero" id="hero">
+        <h1>پەناگەها تۆ بۆ فێربوون و <span>پێشکەوتنا وێب</span></h1>
+        <p>ئەڤ کۆدە ب شێوازەکێ زۆر پێشکەتی و پڕ مفا هاتیە ئامادەکرن، دکت پڕۆژەیەکێ بێوێنە ب ئاڤا بکەی ب هەمبوونا دۆخێ تاریک و ڕووناک.</p>
+        <div class="btn-group">
+            <a href="#features" class="btn">دەستپێکرنا نوکە</a>
+            <a href="#contact" class="btn btn-outline">پەیوەندیکردن</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- تایبەتمەندی -->
+        <section id="features">
+            <h2 class="section-title">تایبەتمەندیێن سەرەکی یێن سیستەمی</h2>
+            <div class="grid">
+                <div class="card">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>خێراییەکی بێوێنە</h3>
+                    <p>دیزاینکریە ب ڕەنگەکێ کو ل سەر هەموو ئامیران ب خێراییا بلند کار بکات و سەرنجا بەکارهێنەری راکێشێت.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>ئارامی و سەلامەتی</h3>
+                    <p>پاراستنا تەمام بۆ زانیاری و سیستەمێ تڕافیکا تە ب پەیڕەوکرنا پرۆتۆکۆلێن مۆدێرن.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>کۆدێ پاک و رێکوپێک</h3>
+                    <p>بنەمایێن HTML5 و CSS3 تێدا هەنە کو بۆ گەشەپێدەران گەلەک ئاسانە دەستکاریێ تێدا بکەن.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- پرسیارێن بەردەوام -->
+        <section class="info-section" id="faq">
+            <h2 style="margin-bottom: 2rem; text-align: center;">پرسیارێن بەردەوام (FAQ)</h2>
+            <div class="faq-box">
+                <h4>ئایا ئەڤ پلاتفۆرمە ب خۆراییە بۆ هەمووان؟</h4>
+                <p>بەلێ، هەموو پشکێن سەرەکی ب خۆرایی نە و بێ بەرامبەر بۆ خزمەتکرنا جڤاکی هاتینە دانان.</p>
+            </div>
+            <div class="faq-box">
+                <h4>چەوا دشێم دۆخێ تاریک (Dark Mode) چالاک بکەم؟</h4>
+                <p>تنێ کلیکەکێ ل سەر دگمەنێ هەیڤێ/خۆرێ بکە ل ژۆری ل سەرپەڕی، ب شێوازەکێ ئۆتۆماتیکی دگۆڕێت.</p>
+            </div>
+            <div class="faq-box">
+                <h4>ئایا کۆد بۆ هەموو موبایل و کامپیوتەران گونجایە؟</h4>
+                <p>بەلێ، سیستەمێ Responsive Grid تێدا هاتیە بکارئینان کو ل سەر هەموو شاشەیان ب جوانی نیشان دەدات.</p>
+            </div>
+        </section>
     </div>
 
-    <!-- Messages Display Area -->
-    <main class="chat-messages-container" id="chatContainer">
-        
-        <div class="message-row bot-row">
-            <div class="msg-avatar">
-                <i class="fa-solid fa-robot"></i>
-            </div>
-            <div class="msg-content-wrapper">
-                <div class="msg-bubble">
-                    سلاڤ و ڕێز! سەرچاڤان، ئەز زۆر دڵخۆشم کۆ دگەل تە دا ئاخڤینێ دکەم. چ پرسیارەکا تە هەبیت بنڤێسه!
-                </div>
-                <div class="msg-footer-tools">
-                    <span class="msg-time" id="initTime"></span>
-                    <button class="tool-action-btn" onclick="speakText(this.parentNode.previousElementSibling.innerText)">
-                        <i class="fa-solid fa-volume-low"></i> دەنگ
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Quick Prompt Suggestions -->
-    <div class="quick-suggestions">
-        <button class="chip-btn" onclick="sendQuickPrompt('سلاڤ و بێرهاتن')">سلاڤ و بێرهاتن</button>
-        <button class="chip-btn" onclick="sendQuickPrompt('ئامۆژگاریێن ژیانێ')">ئامۆژگاریێن ژیانێ</button>
-        <button class="chip-btn" onclick="sendQuickPrompt('فێربوونا زمانان')">فێربوونا زمانان</button>
-    </div>
-
-    <!-- Input Area Footer -->
-    <footer class="chat-input-area">
-        <div class="input-controls-wrapper">
-            <textarea class="chat-text-input" id="userInput" rows="1" placeholder="پەیاما خۆ لێرە بنڤێسه..." onkeydown="handleKeyDown(event)"></textarea>
-            <button class="send-btn" onclick="sendMessage()">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
-        </div>
-
-        <div class="voice-settings-bar">
-            <label class="toggle-voice-label">
-                <input type="checkbox" id="autoSpeechToggle" checked>
-                <div class="toggle-switch"></div>
-                <span>خوێندنەوەیا ئۆتۆماتیکی یا دەنگی</span>
-            </label>
-            <span style="font-size: 11px; color: var(--text-muted);">AI Voice Assistant v2.5</span>
-        </div>
+    <!-- فۆتەر -->
+    <footer id="contact">
+        <p>هەموو مافەکان پارێزراون &copy; 2026 - هاتیە دروستکرن بۆ پێشکێشکرنا باشترین زانیاری</p>
     </footer>
 
-</div>
+    <!-- جاوا سکریپت -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
 
-<script>
-    /* ==========================================================================
-       GEMINI API SECURE SYSTEM ENGINE
-       ========================================================================== */
-
-    let isAudioMuted = false;
-    
-    // کلیلێ ژ لۆکال ستۆرەیج وەردگریت دا کلیل ل سەر GitHub بەلاڤ نەبیت
-    let apiKey = localStorage.getItem('GEMINI_API_KEY_SECURE');
-
-    // ئەگەر کلیل نەبوو، کلیلەکا تە ب ئۆتۆماتیکی تێدا تۆمار دکەت ب بێ مەترسی
-    if (!apiKey) {
-        apiKey = "Hf_TMRaGavXrdoGTizHLkqwbzGSlcgEqnzRlC"; // کلیلێ پاراستی ب شێوازێ ناڤخۆیی
-        localStorage.setItem('GEMINI_API_KEY_SECURE', apiKey);
-    }
-
-    document.getElementById('initTime').innerText = getCurrentTime();
-
-    function getCurrentTime() {
-        const now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-    }
-
-    function resetApiKey() {
-        let newKey = prompt("تکایە API Key-یا خۆیا نوو بنڤێسە:");
-        if (newKey) {
-            localStorage.setItem('GEMINI_API_KEY_SECURE', newKey.trim());
-            apiKey = newKey.trim();
-            alert("کلیل ب سەرکەفتنی هاتیە گۆڕین!");
-        }
-    }
-
-    function handleKeyDown(event) {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            sendMessage();
-        }
-    }
-
-    function sendQuickPrompt(text) {
-        document.getElementById('userInput').value = text;
-        sendMessage();
-    }
-
-    function toggleAudioMute() {
-        isAudioMuted = !isAudioMuted;
-        const muteBtn = document.getElementById('muteBtn');
-        if (isAudioMuted) {
-            speechSynthesis.cancel();
-            muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark" style="color:#ef4444;"></i>';
-        } else {
-            muteBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-        }
-    }
-
-    function clearChatHistory() {
-        if (confirm("ئەرێ تە ڤێت هەموو ئاخڤین پاک ببیت؟")) {
-            document.getElementById('chatContainer').innerHTML = '';
-            speechSynthesis.cancel();
-        }
-    }
-
-    async function sendMessage() {
-        const inputElem = document.getElementById('userInput');
-        const text = inputElem.value.trim();
-
-        if (!text) return;
-
-        appendUserMessage(text);
-        inputElem.value = '';
-
-        const typingId = showTypingIndicator();
-
-        try {
-            const aiResponse = await fetchGeminiResponse(text);
-            removeTypingIndicator(typingId);
-            appendBotMessage(aiResponse);
-
-            if (document.getElementById('autoSpeechToggle').checked && !isAudioMuted) {
-                speakText(aiResponse);
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
             }
-
-        } catch (error) {
-            removeTypingIndicator(typingId);
-            appendBotMessage("کێشەیەک ڕوویدا ل پەیوەندیکرنێ ب Gemini. تکایە دڵنیابە کلیل و ئینتەرنێتا تە دروستە.");
-        }
-    }
-
-    // بانگکرنا Gemini API ڕاستەوخۆ
-    async function fetchGeminiResponse(userPrompt) {
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-        
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: userPrompt + " (تکایە ب زمانی کوردی بادینی یان سۆرانی ب کورتی و بەرسڤێن زۆر ڕاست بنڤێسە)" }]
-                }]
-            })
         });
-
-        const data = await response.json();
-        
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-            return data.candidates[0].content.parts[0].text;
-        } else {
-            throw new Error('Invalid API Response');
-        }
-    }
-
-    function appendUserMessage(text) {
-        const container = document.getElementById('chatContainer');
-        const row = document.createElement('div');
-        row.className = 'message-row user-row';
-
-        row.innerHTML = `
-            <div class="msg-avatar"><i class="fa-solid fa-user"></i></div>
-            <div class="msg-content-wrapper">
-                <div class="msg-bubble">${escapeHTML(text)}</div>
-                <div class="msg-footer-tools"><span class="msg-time">${getCurrentTime()}</span></div>
-            </div>
-        `;
-        container.appendChild(row);
-        scrollToBottom();
-    }
-
-    function appendBotMessage(text) {
-        const container = document.getElementById('chatContainer');
-        const row = document.createElement('div');
-        row.className = 'message-row bot-row';
-
-        row.innerHTML = `
-            <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
-            <div class="msg-content-wrapper">
-                <div class="msg-bubble">${escapeHTML(text)}</div>
-                <div class="msg-footer-tools">
-                    <span class="msg-time">${getCurrentTime()}</span>
-                    <button class="tool-action-btn" onclick="speakText('${escapeQuotes(text)}')">
-                        <i class="fa-solid fa-volume-low"></i> دەنگ
-                    </button>
-                    <button class="tool-action-btn" onclick="copyToClipboard('${escapeQuotes(text)}')">
-                        <i class="fa-solid fa-copy"></i> کۆپی
-                    </button>
-                </div>
-            </div>
-        `;
-        container.appendChild(row);
-        scrollToBottom();
-    }
-
-    function showTypingIndicator() {
-        const container = document.getElementById('chatContainer');
-        const id = 'typing_' + Date.now();
-        const row = document.createElement('div');
-        row.className = 'message-row bot-row';
-        row.id = id;
-
-        row.innerHTML = `
-            <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
-            <div class="msg-bubble typing-bubble">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            </div>
-        `;
-        container.appendChild(row);
-        scrollToBottom();
-        return id;
-    }
-
-    function removeTypingIndicator(id) {
-        const elem = document.getElementById(id);
-        if (elem) elem.remove();
-    }
-
-    function speakText(text) {
-        if (isAudioMuted) return;
-
-        speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ar-SA';
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-
-        speechSynthesis.speak(utterance);
-    }
-
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text);
-        alert("دەق کۆپی بوو!");
-    }
-
-    function scrollToBottom() {
-        const container = document.getElementById('chatContainer');
-        container.scrollTop = container.scrollHeight;
-    }
-
-    function escapeHTML(str) {
-        return str.replace(/[&<>'"]/g, 
-            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-        );
-    }
-
-    function escapeQuotes(str) {
-        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
-    }
-</script>
-
+    </script>
 </body>
 </html>
