@@ -1,0 +1,35 @@
+import os
+import telebot
+import yt_dlp
+
+TOKEN = '8888135301:AAEI3LInSylV0CDDkz-V2Jptj6a58JD58qI'
+bot = telebot.TeleBot(TOKEN)
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "سڵاو! لینکی ڕێڵز یان ڤیدیۆی ئینستاگرامم بۆ بنێرە تا داونلودت بۆ بکەم.")
+
+@bot.message_handler(func=lambda message: True)
+def download_insta(message):
+    url = message.text
+    if "instagram.com" in url:
+        bot.reply_to(message, "چاوەڕێبە، ڤیدیۆکە خەریکە داونلود دەبێت...")
+        try:
+            ydl_opts = {
+                'outtmpl': 'video.mp4',
+                'format': 'mp4'
+            }
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([url])
+
+            with open('video.mp4', 'rb') as vid:
+                bot.send_video(message.chat.id, vid)
+
+            if os.path.exists('video.mp4'):
+                os.remove('video.mp4')
+        except Exception as e:
+            bot.reply_to(message, "ببوورە، هەڵەیەک ڕوویدا لە داونلودکردنی ئەم لینکە.")
+    else:
+        bot.reply_to(message, "تکایە تەنها لینکی ڕاستەقینەی ئینستاگرام بنێرە.")
+
+bot.infinity_polling()
