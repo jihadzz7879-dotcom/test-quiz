@@ -51,6 +51,94 @@
             transition: var(--transition);
         }
 
+        /* Modal Overlay for Registration */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 1rem;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .modal-card h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-main);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .modal-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .modal-btn:hover {
+            opacity: 0.9;
+        }
+
         /* Header & Navigation */
         header {
             position: fixed;
@@ -97,7 +185,7 @@
             color: var(--primary);
         }
 
-        .theme-btn {
+        .theme-btn, .admin-open-btn {
             background: var(--bg-main);
             border: 2px solid var(--border-color);
             color: var(--text-main);
@@ -111,7 +199,7 @@
             transition: var(--transition);
         }
 
-        .theme-btn:hover {
+        .theme-btn:hover, .admin-open-btn:hover {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
@@ -165,7 +253,7 @@
             font-size: 1.1rem;
         }
 
-        /* Repository Files Grid (All Pages Included: index, kurdish, arabic, english, fizya, zindawar, eslame, ark, yasa, mejo, env, etc.) */
+        /* Repository Files Grid */
         .repo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -251,7 +339,7 @@
             gap: 6px;
         }
 
-        /* Dynamic Multi-Functional Chat Section */
+        /* Chat Section */
         .chat-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -391,7 +479,63 @@
             opacity: 0.9;
         }
 
-        /* Footer & Instagram */
+        /* Admin Control Panel Modal */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .admin-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .admin-table th {
+            background: var(--bg-main);
+            font-weight: 800;
+        }
+
+        .action-kick-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
         footer {
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
@@ -445,6 +589,64 @@
 </head>
 <body>
 
+    <!-- Registration Modal (Check Account & Phone OTP) -->
+    <div id="regModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>چێکرنا هەژماری</h2>
+            <p>بۆ ڤەکرنا پلاتفۆرمی، تکایە زانیاریێن خۆ تژی بکە</p>
+            
+            <div id="step1Form">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-user"></i> ناڤێ تە یێ تەواو</label>
+                    <input type="text" id="regName" placeholder="بۆ نموونە: ئارام احمد">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-envelope"></i> پەیامدانێر (Gmail)</label>
+                    <input type="email" id="regEmail" placeholder="example@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-phone"></i> ڕەقەما مۆبایلێ</label>
+                    <input type="tel" id="regPhone" placeholder="0750 000 0000">
+                </div>
+                <button class="modal-btn" onclick="sendOtpCode()">ڤەناردنا کودێ پشتراستکرنێ</button>
+            </div>
+
+            <div id="step2Form" style="display: none;">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-key"></i> کودێ پشتراستکرنێ بنڤیسە</label>
+                    <input type="text" id="enteredOtp" placeholder="کودێ ٥ ژماری ل ڤێرە بنڤیسە">
+                    <small id="otpHint" style="color: var(--primary); display: block; margin-top: 6px; font-weight: bold;"></small>
+                </div>
+                <button class="modal-btn" onclick="verifyOtpCode()">پشتراستکرن و دەستپێکرن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal (Hidden Admin Panel) -->
+    <div id="adminModal" class="admin-modal">
+        <div class="admin-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                <h3><i class="fa-solid fa-shield-halved"></i> کۆنترۆلا ئەدمنی (ڤەشارتی)</h3>
+                <button onclick="closeAdminPanel()" style="background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="color: var(--text-muted); margin-top: 0.8rem; font-size: 0.9rem;">ل ڤێرە تۆ دشێی بڕێوەبەرایەتییا هەموو کەسێن هاتین و چوون بکەی و وان بلوک بکەی:</p>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ناڤ</th>
+                        <th>جیمیل</th>
+                        <th>ڕەقەم</th>
+                        <th>دەم</th>
+                        <th>کردار</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Users injected dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">
@@ -455,6 +657,7 @@
                 <li><a href="index.html">سەرەکی</a></li>
                 <li><a href="#files">فایلەکان</a></li>
                 <li><a href="#chat">چاتی گشتی</a></li>
+                <li><button class="admin-open-btn" onclick="openAdminPanel()" title="پەنەلا ئەدمن"><i class="fa-solid fa-user-shield"></i></button></li>
                 <li><button class="theme-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button></li>
             </ul>
         </nav>
@@ -475,9 +678,8 @@
             <p>کلیک ل سەر هەر فایلەکێ بکە بۆ ڤەکرنا ڕاستەوخۆ</p>
         </div>
 
-        <!-- Repository Files Grid (All 13+ files included from user's repository screenshot) -->
+        <!-- Repository Files Grid -->
         <div class="repo-grid">
-            
             <a href="index.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-house"></i></div>
                 <h3>سەرەکی</h3>
@@ -485,7 +687,6 @@
                 <p>پەڕەی سەرەکی و ناوەندی پلاتفۆرمەکە.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="kurdish.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-book-open"></i></div>
                 <h3>کوردی</h3>
@@ -493,7 +694,6 @@
                 <p>ڕێزمان، ئەدەب و پرسیارێن وزاری یێن کوردی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="arabic.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-language"></i></div>
                 <h3>عەرەبی</h3>
@@ -501,7 +701,6 @@
                 <p>قواعد، إدب و نصوص وڕاهێنانێن عەرەبی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="english.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-globe"></i></div>
                 <h3>ئینگلیزی</h3>
@@ -509,7 +708,6 @@
                 <p>گرامەر، پارەغراف و چیرۆکێن ئینگلیزی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="ark.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-calculator"></i></div>
                 <h3>بیرکاری</h3>
@@ -517,7 +715,6 @@
                 <p>یاسا، کێشە و ڕاهێنانێن ماتیماک.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="fizya.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-atom"></i></div>
                 <h3>فیزیا</h3>
@@ -525,7 +722,6 @@
                 <p>بەشێن فیزیا، یاسا و تەلارسازی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="zindawar.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-dna"></i></div>
                 <h3>ژینناسی</h3>
@@ -533,7 +729,6 @@
                 <p>خانە، دی ئێن ئەی و زیندەوەرزانی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="zindawar1.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-seedling"></i></div>
                 <h3>ژینناسی (بەرگی ۲)</h3>
@@ -541,7 +736,6 @@
                 <p>بەشێ دوو یێ ژینناسی پۆلی ١٢.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="eslame.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-mosque"></i></div>
                 <h3>پەروەردەی ئیسلامی</h3>
@@ -549,7 +743,6 @@
                 <p>حوکمێن شەرعی، فەرموودە و قورئان.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="eslamebabat.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-book"></i></div>
                 <h3>بابەتێن ئیسلامی</h3>
@@ -557,7 +750,6 @@
                 <p>بابەت و ناوەرۆکێن زێدە یێن ئیسلامی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="yasa.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-scale-balanced"></i></div>
                 <h3>یاسا / وێژەیی</h3>
@@ -565,7 +757,6 @@
                 <p>مێژوو، جوگرافیا و بابه‌تێن وێژەیی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="mejo.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-landmark"></i></div>
                 <h3>مێژوو</h3>
@@ -573,7 +764,6 @@
                 <p>مێژووی جیهان و کوردستانێ پۆلی ١٢.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
             <a href="env.html" class="file-card">
                 <div class="file-icon"><i class="fa-solid fa-code"></i></div>
                 <h3>ژینگەی کارکردن</h3>
@@ -581,7 +771,6 @@
                 <p>ڕێکخستن و ڕەگەزێن کۆدێ سیستەمی.</p>
                 <span class="file-link-btn">ڤەکرنا پەڕەی <i class="fa-solid fa-arrow-left"></i></span>
             </a>
-
         </div>
 
         <!-- Chat Section -->
@@ -600,10 +789,6 @@
                 <div class="message">
                     <div class="msg-info"><span>ئارام</span><span>١٢:٠٠</span></div>
                     <div class="msg-text">سڵاو! هەموو فایلێن گیتهەبی ل ڤێرە کۆمبووینە، زۆر سپاس بۆ ئەم کارە جوانە.</div>
-                </div>
-                <div class="message admin-msg">
-                    <div class="msg-info"><span>ئەدمن (نەشارتى)</span><span>١٢:٠١</span></div>
-                    <div class="msg-text">سڵاو فەرموون! هەموو بابەت و پەڕە ل ڤێرە ب ئازادی بەردەستن.</div>
                 </div>
             </div>
 
@@ -639,6 +824,66 @@
 
     <!-- Script -->
     <script>
+        let generatedOtp = "";
+        let currentUser = null;
+        let allUsersList = JSON.parse(localStorage.getItem('platform_users')) || [];
+        let blockedPhones = JSON.parse(localStorage.getItem('blocked_phones')) || [];
+
+        // Check registration status on load
+        window.onload = function() {
+            const savedUser = localStorage.getItem('current_platform_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                if (blockedPhones.includes(currentUser.phone)) {
+                    alert('هەژمارا تە هاتۆیە بلوککرن ژلایێ ئەدمنی ڤە!');
+                    localStorage.removeItem('current_platform_user');
+                    location.reload();
+                } else {
+                    document.getElementById('regModal').style.display = 'none';
+                }
+            }
+        }
+
+        function sendOtpCode() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('تکایە هەموو خانه یان تژی بکە!');
+                return;
+            }
+
+            if (blockedPhones.includes(phone)) {
+                alert('ئەڤ ڕەقەمە هاتییە بلوککرن!');
+                return;
+            }
+
+            // Generate random 5-digit OTP
+            generatedOtp = Math.floor(10000 + Math.random() * 90000).toString();
+            currentUser = { name, email, phone, time: new Date().toLocaleTimeString() };
+
+            document.getElementById('step1Form').style.display = 'none';
+            document.getElementById('step2Form').style.display = 'block';
+            document.getElementById('otpHint').innerText = `کودێ تاقیکرنێ بۆ تە هات: ${generatedOtp}`;
+        }
+
+        function verifyOtpCode() {
+            const entered = document.getElementById('enteredOtp').value.trim();
+            if (entered === generatedOtp) {
+                // Save user to storage list for admin
+                if (!allUsersList.some(u => u.phone === currentUser.phone)) {
+                    allUsersList.push(currentUser);
+                    localStorage.setItem('platform_users', JSON.stringify(allUsersList));
+                }
+                localStorage.setItem('current_platform_user', JSON.stringify(currentUser));
+                document.getElementById('regModal').style.display = 'none';
+                alert('پیرۆزە! هەژمارا تە ب سەرکەفتنی هاتە چێکرن.');
+            } else {
+                alert('کود خەلەتە! تکایە دووبارە تاقی بکە.');
+            }
+        }
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
@@ -654,21 +899,64 @@
             }
         });
 
-        // Secret Admin Toggle (Ctrl + Shift + A)
-        let isAdmin = false;
+        // Secret Admin Panel Control (Shortcut Ctrl + Shift + A or Click Icon)
+        function openAdminPanel() {
+            const pass = prompt('کودێ ئەدمنی بنڤیسە:');
+            if (pass === '7878' || pass === 'admin123') { // Secret Admin Password
+                renderAdminTable();
+                document.getElementById('adminModal').style.display = 'flex';
+                document.getElementById('adminBadge').style.display = 'inline-flex';
+            } else if (pass !== null) {
+                alert('کودێ ئەدمنی خەلەتە!');
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                isAdmin = !isAdmin;
-                const badge = document.getElementById('adminBadge');
-                if (isAdmin) {
-                    badge.style.display = 'inline-flex';
-                    alert('پیرۆزە! تو بوویە ئەدمنی سیستەمی ب شێوازەکی نەشارتى و پارێزراو.');
-                } else {
-                    badge.style.display = 'none';
-                    alert('دۆخی ئەدمن هاتە داخستن.');
-                }
+                openAdminPanel();
             }
         });
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            const users = JSON.parse(localStorage.getItem('platform_users')) || [];
+            if (users.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">هێشتا چ کەسەک نەهاتینە نێڤ سیستەمی.</td></tr>`;
+                return;
+            }
+
+            users.forEach((u, index) => {
+                const isBlocked = blockedPhones.includes(u.phone);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${escapeHTML(u.name)}</td>
+                    <td>${escapeHTML(u.email)}</td>
+                    <td>${escapeHTML(u.phone)}</td>
+                    <td>${u.time}</td>
+                    <td>
+                        <button class="action-kick-btn" onclick="blockUser('${u.phone}')">${isBlocked ? 'بەرداش' : 'بلوک کرن'}</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function blockUser(phone) {
+            if (blockedPhones.includes(phone)) {
+                blockedPhones = blockedPhones.filter(p => p !== phone);
+            } else {
+                blockedPhones.push(phone);
+            }
+            localStorage.setItem('blocked_phones', JSON.stringify(blockedPhones));
+            renderAdminTable();
+            alert('بارێ بلوککرنێ هاتە گۆهۆڕین!');
+        }
 
         // Chat Logic
         function handleEnter(e) {
@@ -679,23 +967,23 @@
             const input = document.getElementById('chatInput');
             const chatBox = document.getElementById('chatBox');
             const text = input.value.trim();
-            if (!text) return;
+            if (!text || !currentUser) return;
 
             const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const msg = document.createElement('div');
-            msg.className = isAdmin ? 'message admin-msg' : 'message';
+            msg.className = 'message';
             msg.innerHTML = `
-                <div class="msg-info"><span>${isAdmin ? 'ئەدمن (نەشارتى)' : 'قوتابی'}</span><span>${time}</span></div>
+                <div class="msg-info"><span>${escapeHTML(currentUser.name)}</span><span>${time}</span></div>
                 <div class="msg-text">${escapeHTML(text)}</div>
             `;
             chatBox.appendChild(msg);
             chatBox.scrollTop = chatBox.scrollHeight;
-            input.value = '';
+            input.value = ``;
         }
 
         function handleFile(e) {
             const file = e.target.files[0];
-            if (!file) return;
+            if (!file || !currentUser) return;
 
             const chatBox = document.getElementById('chatBox');
             const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -706,7 +994,7 @@
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     msg.innerHTML = `
-                        <div class="msg-info"><span>قوتابی (وێنە)</span><span>${time}</span></div>
+                        <div class="msg-info"><span>${escapeHTML(currentUser.name)} (وێنە)</span><span>${time}</span></div>
                         <div class="msg-text"><img src="${evt.target.result}" style="max-width: 100%; border-radius: 12px; margin-top: 6px;"></div>
                     `;
                     chatBox.appendChild(msg);
@@ -715,7 +1003,7 @@
                 reader.readAsDataURL(file);
             } else {
                 msg.innerHTML = `
-                    <div class="msg-info"><span>قوتابی (فایل)</span><span>${time}</span></div>
+                    <div class="msg-info"><span>${escapeHTML(currentUser.name)} (فایل)</span><span>${time}</span></div>
                     <div class="msg-text" style="display: flex; align-items: center; gap: 8px;">
                         <i class="fa-solid fa-file-arrow-down" style="color: var(--primary); font-size: 1.3rem;"></i>
                         <span>${escapeHTML(file.name)}</span>
