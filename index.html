@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUAS - C# Advanced Interactive & Exam System</title>
+    <title>AUAS - C# Visual Studio Interactive IDE & Exam</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --secondary: #0d9488;
-            --accent: #f59e0b;
-            --danger: #ef4444;
-            --success: #10b981;
-            --bg: #090d16;
-            --panel: #131d31;
-            --card: #1e293b;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --vs-bg: #1e1e1e;
+            --vs-panel: #252526;
+            --vs-sidebar: #2d2d30;
+            --vs-accent: #007acc;
+            --vs-gold: #f59e0b;
+            --vs-green: #4ec9b0;
+            --vs-terminal-green: #4ade80;
+            --vs-red: #f87171;
+            --text-main: #d4d4d4;
+            --text-dim: #858585;
         }
 
         * {
@@ -32,484 +31,495 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-light);
+            background-color: #121212;
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Top Bar */
-        .top-bar {
-            background: rgba(19, 29, 49, 0.98);
-            border-bottom: 2px solid var(--primary-light);
-            padding: 12px 25px;
+        /* Top Bar - Visual Studio Style */
+        .vs-topbar {
+            background: #323233;
+            border-bottom: 1px solid #3c3c3c;
+            padding: 8px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-box h2 {
-            font-size: 1.15rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .status-box {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .badge-ui {
-            background: #090d16;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid #334155;
             font-size: 0.9rem;
         }
 
-        .btn-teacher {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            color: white;
-            border: none;
-            padding: 7px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
-        }
-
-        /* Layout */
-        .main-wrapper {
-            display: grid;
-            grid-template-columns: 290px 1fr;
-            flex: 1;
-            height: calc(100vh - 65px);
-        }
-
-        .sidebar {
-            background: var(--panel);
-            border-left: 1px solid #334155;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        .sidebar h3 {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #334155;
-        }
-
-        .nav-item {
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: var(--card);
-            cursor: pointer;
+        .vs-title {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 0.88rem;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .nav-item.locked {
-            opacity: 0.4;
-            cursor: not-allowed;
-            background: #0d1527;
-        }
-
-        .nav-item.active {
-            background: var(--primary-light);
+            gap: 10px;
             font-weight: bold;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            color: #ffffff;
         }
 
-        .nav-item.passed {
-            border-right: 4px solid var(--success);
-        }
-
-        .content-area {
-            padding: 30px;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .card-view {
-            background: var(--panel);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-        }
-
-        .card-header {
+        .vs-status {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            gap: 15px;
         }
 
-        .card-header h1 {
-            color: var(--accent);
-            font-size: 1.55rem;
-        }
-
-        .tag-slide {
-            background: #2563eb;
-            color: white;
+        .badge-pill {
+            background: #1e1e1e;
             padding: 4px 12px;
             border-radius: 12px;
+            border: 1px solid #454545;
             font-size: 0.85rem;
         }
 
-        .lecture-text {
-            font-size: 1.05rem;
-            line-height: 2.1;
-            color: #cbd5e1;
+        /* Discreet Teacher Button */
+        .btn-stealth-teacher {
+            background: transparent;
+            border: 1px solid #454545;
+            color: #858585;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
 
-        .lecture-text ul {
+        .btn-stealth-teacher:hover {
+            color: #ffffff;
+            border-color: #007acc;
+        }
+
+        /* Main Workspace */
+        .vs-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex: 1;
+            height: calc(100vh - 45px);
+        }
+
+        /* Sidebar Navigation */
+        .vs-sidebar {
+            background: var(--vs-sidebar);
+            border-left: 1px solid #3c3c3c;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .vs-sidebar h3 {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .slide-link {
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            background: #252526;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            border-right: 3px solid transparent;
+            transition: background 0.2s;
+        }
+
+        .slide-link.locked {
+            opacity: 0.35;
+            cursor: not-allowed;
+            background: #1e1e1e;
+        }
+
+        .slide-link.active {
+            background: #37373d;
+            border-right-color: var(--vs-accent);
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .slide-link.passed {
+            border-right-color: #4ec9b0;
+        }
+
+        /* Work Area */
+        .vs-content {
+            padding: 25px 35px;
+            overflow-y: auto;
+            background: var(--vs-bg);
+        }
+
+        .content-card {
+            background: var(--vs-panel);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #3c3c3c;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
+        }
+
+        .content-card h1 {
+            color: #569cd6;
+            font-size: 1.45rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #3c3c3c;
+            padding-bottom: 10px;
+        }
+
+        .lecture-body {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #d4d4d4;
+        }
+
+        .lecture-body ul {
             list-style: none;
             padding-right: 15px;
             margin: 15px 0;
         }
 
-        .lecture-text ul li {
+        .lecture-body ul li {
             position: relative;
-            padding-right: 22px;
-            margin-bottom: 10px;
+            padding-right: 20px;
+            margin-bottom: 8px;
         }
 
-        .lecture-text ul li::before {
-            content: "✦";
-            color: var(--primary-light);
+        .lecture-body ul li::before {
+            content: "▸";
+            color: #569cd6;
             position: absolute;
             right: 0;
         }
 
-        /* Practical Live Coding Playground */
-        .practical-box {
-            background: #020617;
-            border: 2px solid var(--secondary);
-            border-radius: 12px;
-            padding: 20px;
+        /* Visual Studio Dynamic Interactive IDE */
+        .vs-ide-box {
+            background: #1e1e1e;
+            border: 1px solid #007acc;
+            border-radius: 10px;
             margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
-        .practical-box h3 {
-            color: #2dd4bf;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+        .vs-ide-header {
+            background: #2d2d30;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3c3c3c;
+            font-size: 0.85rem;
+            color: #9cdcfe;
+        }
+
+        .btn-run {
+            background: #0e639c;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s;
         }
 
-        .code-editor-input {
+        .btn-run:hover {
+            background: #1177bb;
+        }
+
+        .vs-editor {
             width: 100%;
-            height: 120px;
-            background: #090d16;
-            color: #38bdf8;
+            height: 130px;
+            background: #1e1e1e;
+            color: #9cdcfe;
             font-family: 'Fira Code', monospace;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
+            padding: 15px;
+            border: none;
+            outline: none;
             direction: ltr;
             text-align: left;
             font-size: 0.95rem;
             resize: vertical;
-            margin-bottom: 10px;
-            outline: none;
+            line-height: 1.6;
             -webkit-user-select: text;
             user-select: text;
         }
 
-        .btn-verify-code {
-            background: #0d9488;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .live-output {
-            background: #000;
-            color: #4ade80;
-            padding: 10px;
-            border-radius: 6px;
+        /* Real Visual Studio Terminal Screen */
+        .vs-terminal {
+            background: #0c0c0c;
+            border-top: 1px solid #333333;
+            padding: 12px 15px;
             font-family: 'Fira Code', monospace;
             direction: ltr;
             text-align: left;
-            margin-top: 10px;
-            min-height: 35px;
-            font-size: 0.85rem;
-            border: 1px solid #22c55e;
+            min-height: 80px;
+            max-height: 160px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .terminal-header {
+            color: #858585;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #222;
+            padding-bottom: 3px;
+        }
+
+        .terminal-output {
+            color: var(--vs-terminal-green);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .terminal-error {
+            color: var(--vs-red);
+            white-space: pre-wrap;
         }
 
         /* Lockdown Exam Screen */
-        .exam-overlay {
+        .exam-section {
             display: none;
-            background: var(--panel);
-            border-radius: 16px;
-            padding: 30px;
-            border: 2px solid var(--danger);
-            box-shadow: 0 0 50px rgba(239, 68, 68, 0.3);
+            background: var(--vs-panel);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e11d48;
+            box-shadow: 0 0 35px rgba(225, 29, 72, 0.25);
         }
 
-        .exam-top {
+        .exam-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 15px;
+            border-bottom: 1px solid #3c3c3c;
+            padding-bottom: 12px;
             margin-bottom: 20px;
         }
 
-        .lock-indicator {
-            background: #991b1b;
-            color: white;
-            padding: 6px 14px;
+        .q-card {
+            background: #1e1e1e;
             border-radius: 8px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            animation: pulse-red 1.5s infinite;
+            padding: 18px;
+            margin-bottom: 18px;
+            border: 1px solid #333;
         }
 
-        .question-card {
-            background: #090d16;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
+        .q-text {
+            font-size: 1.05rem;
+            color: #ffffff;
+            margin-bottom: 14px;
         }
 
-        .q-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: #f8fafc;
-        }
-
-        .options-grid {
+        .options-list {
             display: grid;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .btn-opt {
-            background: #1e293b;
-            color: #e2e8f0;
-            border: 1px solid #475569;
-            padding: 12px 18px;
-            border-radius: 8px;
+        .opt-btn {
+            background: #252526;
+            color: #cccccc;
+            border: 1px solid #3c3c3c;
+            padding: 10px 16px;
+            border-radius: 6px;
             text-align: right;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
 
-        .btn-opt:hover {
-            background: #334155;
+        .opt-btn:hover {
+            background: #2d2d30;
+            border-color: #007acc;
         }
 
-        .btn-opt.correct {
+        .opt-btn.correct {
             background: #065f46 !important;
             border-color: #10b981 !important;
+            color: #ffffff !important;
         }
 
-        .btn-opt.wrong {
-            background: #991b1b !important;
-            border-color: #ef4444 !important;
+        .opt-btn.wrong {
+            background: #881337 !important;
+            border-color: #f43f5e !important;
+            color: #ffffff !important;
         }
 
-        /* Fill in the blanks (Costela) input */
-        .costela-input {
-            width: 100%;
-            max-width: 380px;
-            background: #1e293b;
-            border: 2px solid #3b82f6;
+        .costela-box input {
+            background: #252526;
+            border: 1px solid #007acc;
             color: #facc15;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 320px;
             direction: ltr;
             text-align: left;
-            font-family: 'Fira Code', monospace;
             outline: none;
             -webkit-user-select: text;
             user-select: text;
         }
 
-        .costela-btn {
-            background: #3b82f6;
+        .btn-cta {
+            background: #007acc;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .explanation-box {
-            margin-top: 10px;
-            padding: 10px;
+            padding: 12px 26px;
             border-radius: 6px;
-            background: rgba(30, 58, 138, 0.3);
-            border-right: 3px solid #3b82f6;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .btn-cta {
-            background: var(--accent);
-            color: black;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 10px;
-            font-weight: 900;
+            font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 1.1rem;
             display: block;
-            margin: 25px auto 0 auto;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+            margin: 20px auto 0 auto;
+            transition: background 0.2s;
         }
 
-        /* Anti-Cheat Trap Shield */
-        .cheat-shield {
+        .btn-cta:hover {
+            background: #0098ff;
+        }
+
+        /* Blackout Anti-cheat Modal */
+        .blackout-shield {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000;
+            background: #000000;
             z-index: 999999;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
+        }
+
+        .blackout-shield h2 {
+            color: #f43f5e;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Teacher Code Secret Modal */
+        .modal-secret {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #252526;
+            border: 1px solid #007acc;
             padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
         }
 
-        .cheat-shield h1 {
-            color: var(--danger);
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.9); }
-            100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
-        }
-
-        @media (max-width: 900px) {
-            .main-wrapper { grid-template-columns: 1fr; }
-            .sidebar { height: 160px; }
+        @media (max-width: 850px) {
+            .vs-container { grid-template-columns: 1fr; }
+            .vs-sidebar { height: 160px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<!-- Strict Anti-Cheat Blackout Screen -->
-<div class="cheat-shield" id="cheatShield">
-    <h1>🚨 ئاگەهدارییا قۆپیێ! دەست دانان ل شاشەی قەدەغەیە!</h1>
-    <p style="font-size: 1.3rem; line-height: 2; max-width: 700px; margin-bottom: 30px;">
-        سیستەمێ ئەزموونێ یێ ئەکادیمی چاڤدێریا تە دکەت! تە بزاڤا دەرکەفتنێ یان گوهۆڕینا تابێ کر.<br>
-        دەمێ تاقیکرنێ دا ب چ شێوەیان ڕێک نینە بچیە دەرڤە هەتا تاقیکرن بدوماهیک دهێت.
+<!-- Blackout Anti-Cheat Alarm -->
+<div class="blackout-shield" id="blackoutShield">
+    <h2>⚠️ هشیاربە: دەرکەفتن ژ تاقیکرنێ قەدەغەیە!</h2>
+    <p style="font-size: 1.15rem; color: #a1a1aa; max-width: 650px; line-height: 1.9; margin-bottom: 25px;">
+        سیستەم چاڤدێریا شاشەی دکەت. هەر دەمێ دەرکەڤی یان بچیە تابەکا دی، شاشە دهێتە ڕەشکرن حەتا بزڤڕیە سەر تاقیکرنێ.
     </p>
-    <button class="btn-cta" onclick="restoreLockdown()">ڕاستەوخۆ ڤەگەڕێ سەر تاقیکرنێ (Full Screen)</button>
+    <button class="btn-cta" onclick="restoreExamView()">ڤەگەڕیان بۆ تاقیکرنێ (Full Screen)</button>
 </div>
 
-<!-- Teacher Passcode Modal -->
-<div class="cheat-shield" id="teacherModal" style="background: rgba(0,0,0,0.95);">
-    <div style="background: #1e293b; padding: 40px; border-radius: 16px; border: 2px solid var(--accent); text-align: center;">
-        <h2 style="color: var(--accent); margin-bottom: 15px;">🔑 دەرگەهێ تایبەتێ مامۆستای</h2>
-        <p style="margin-bottom: 20px;">تکایە کۆدێ نهێنی یێ مامۆستای لێبدە دا هەمی ١٩ سلاێد ب ئێکجار بهێنە ڤەکرن:</p>
-        <input type="password" id="teacherCodeInput" placeholder="کۆد لێبدە..." style="padding: 12px; border-radius: 8px; border: 1px solid #475569; font-size: 1.2rem; text-align: center; margin-bottom: 20px; width: 200px;">
+<!-- Discreet Teacher Access Modal -->
+<div class="modal-secret" id="teacherModal">
+    <div class="modal-box">
+        <h3 style="color: #569cd6; margin-bottom: 12px;">🔑 ئەکسسێ تایبەت</h3>
+        <p style="font-size: 0.9rem; color: #858585; margin-bottom: 15px;">تکایە کۆدێ نهێنی لێبدە بۆ ڤەکرنا دەستبەجێ:</p>
+        <input type="password" id="secretPassInput" placeholder="Passcode" style="padding: 8px 12px; border-radius: 4px; border: 1px solid #3c3c3c; background: #1e1e1e; color: #fff; text-align: center; font-size: 1.1rem; width: 180px; margin-bottom: 15px; outline: none;">
         <br>
-        <button class="btn-cta" style="margin: 0 5px; display: inline-block;" onclick="submitTeacherCode()">ڤەکرنا هەمی سلاێدان</button>
-        <button class="btn-cta" style="margin: 0 5px; display: inline-block; background: #64748b;" onclick="closeTeacherModal()">گرتن</button>
+        <button class="btn-cta" style="margin: 5px; display: inline-block; padding: 8px 16px;" onclick="verifySecretCode()">ڤەکرن</button>
+        <button class="btn-cta" style="margin: 5px; display: inline-block; padding: 8px 16px; background: #454545;" onclick="closeSecretModal()">گرتن</button>
     </div>
 </div>
 
-<!-- Top Navigation -->
-<div class="top-bar">
-    <div class="logo-box">
-        <h2>🏛️ زانکۆیا ئاکرێ (AUAS) - پەیمانگەها تەکنیکی يا ئاکرێ</h2>
+<!-- Top Bar -->
+<div class="vs-topbar">
+    <div class="vs-title">
+        <span>Microsoft Visual Studio - [Akre University - IT Dept]</span>
     </div>
-    <div class="status-box">
-        <button class="btn-teacher" onclick="openTeacherModal()">🔑 مۆدێ مامۆستای</button>
-        <div class="badge-ui">سلاێد: <strong id="progressBadge" style="color: var(--accent);">١ ژ ١٩</strong></div>
-        <div class="badge-ui">مەرجێ دەربازبوونێ: <strong style="color: #4ade80;">≥ ٦٥٪</strong></div>
+    <div class="vs-status">
+        <button class="btn-stealth-teacher" onclick="openSecretModal()">🔑 19439</button>
+        <div class="badge-pill">سلاێد: <strong id="progressBadge" style="color: #38bdf8;">١ ژ ١٩</strong></div>
+        <div class="badge-pill">مەرجێ دەرچوونێ: <strong style="color: #4ade80;">≥ ٥٠٪</strong></div>
     </div>
 </div>
 
-<div class="main-wrapper">
+<div class="vs-container">
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebarList">
-        <h3>سلاێدێن وانێ</h3>
+    <!-- Sidebar Slides -->
+    <div class="vs-sidebar" id="sidebarNav">
+        <h3>Explorer: Slides (١٩ سلاێد)</h3>
     </div>
 
-    <!-- Content Workspace -->
-    <div class="content-area">
+    <!-- Active Area -->
+    <div class="vs-content">
 
-        <!-- Lecture Card View -->
-        <div class="card-view" id="lectureView">
-            <div class="card-header">
-                <h1 id="slideTitle">بارکردن...</h1>
-                <span class="tag-slide" id="slideBadge">Slide 1</span>
+        <!-- Lecture & Dynamic Code Area -->
+        <div class="content-card" id="lectureCard">
+            <h1 id="slideHeader">بارکردن...</h1>
+            <div class="lecture-body" id="slideText"></div>
+
+            <!-- Visual Studio Dynamic Interpreter IDE -->
+            <div class="vs-ide-box">
+                <div class="vs-ide-header">
+                    <span>📄 Program.cs — (C# Dynamic Code Runner)</span>
+                    <button class="btn-run" onclick="runDynamicCSharp()">▶ کارپێکرن (Run Code)</button>
+                </div>
+                <textarea class="vs-editor" id="codeEditor" spellcheck="false"></textarea>
+                <div class="vs-terminal">
+                    <div class="terminal-header">Terminal: C:\AUAS\IT\CSharp> dotnet run</div>
+                    <div id="terminalBody" class="terminal-output">// دەرئەنجام دێ ل ڤێرێ ب دروستی دیار بیت...</div>
+                </div>
             </div>
 
-            <div class="lecture-text" id="slideContent">
-                <!-- Content injected via JS -->
-            </div>
-
-            <!-- Practical Hands-on Sandbox -->
-            <div class="practical-box">
-                <h3>💻 تاقیکرنا عەمەلی و پراکتیکی (دەستێ خۆ فێرکە)</h3>
-                <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 10px;" id="practicalTask">فەرمان: کۆدێ ل خوارێ تاقی بکە و دەرئەنجامی ببینە.</p>
-                <textarea class="code-editor-input" id="practicalCode"></textarea>
-                <button class="btn-verify-code" onclick="runPracticalCode()">▶ کارپێکرن و تاقیکرنا عەمەلی</button>
-                <div class="live-output" id="practicalOutput">// دەرئەنجامێ کۆدی دێ ل ڤێرێ نیشان دەت...</div>
-            </div>
-
-            <button class="btn-cta" onclick="enterStrictExam()">🔒 دەستپێکرنا تاقیکرنا قوفلکری (پێدڤیە ≥ ٦٥٪ بینیت)</button>
+            <button class="btn-cta" onclick="startLockdownExam()">📝 دەستپێکرنا تاقیکرنا ڤێ سلاێدێ (پێدڤیە ≥ ٥٠٪ بینیت)</button>
         </div>
 
-        <!-- Strict Exam View -->
-        <div class="exam-overlay" id="examView">
-            <div class="exam-top">
-                <div class="lock-indicator">
-                    🔒 شاشەیا قوفلکری (چوونەدەرڤە قەدەغەیە!)
+        <!-- Strict Exam Area -->
+        <div class="exam-section" id="examSection">
+            <div class="exam-header">
+                <div>
+                    <h2 style="color: #f43f5e; font-size: 1.25rem;">🔒 تاقیکرنا فەرمی یا سلاێدێ (قوفلکری)</h2>
+                    <p style="font-size: 0.85rem; color: #a1a1aa;">پێدڤیە ٥٠٪ یان پتر دەستڤەبینی دا سلاێدا داهاتی ڤەبیت.</p>
                 </div>
-                <div style="font-size: 1.15rem; font-weight: bold; color: #38bdf8;" id="examScoreDisplay">نمرە: ٠٪</div>
+                <div style="font-size: 1.1rem; font-weight: bold; color: #38bdf8;" id="examLiveScore">نمرە: ٠٪</div>
             </div>
 
-            <div id="questionsContainer">
-                <!-- Dynamic questions (MCQ + Fill-in-the-blank Costela) -->
-            </div>
+            <div id="questionsContainer"></div>
 
-            <button class="btn-cta" id="finishExamBtn" onclick="evaluateExam()">تەمامکرنا تاقیکرنێ و هەلسەنگاندن ❯</button>
-            <button class="btn-cta" id="nextSlideUnlockBtn" style="display: none; background: var(--success);" onclick="proceedToNextSlide()">🎉 پیرۆزە! دەربازبە بۆ سلاێدا دویڤدا ❯</button>
+            <button class="btn-cta" id="submitExamBtn" onclick="gradeExam()">هەلسەنگاندنا بەرسڤان ❯</button>
+            <button class="btn-cta" id="nextSlideBtn" style="display: none; background: #059669;" onclick="goToNextSlide()">سەرکەفتی! دەربازبە بۆ سلاێدا دویڤدا ❯</button>
         </div>
 
     </div>
@@ -518,37 +528,32 @@
 
 <script>
     // ========================================================
-    // COMPLETE 19 SLIDES DATA WITH PRACTICAL TASKS & COSTELA Qs
+    // 19 SLIDES DATA (Akre University - Kazheen Ismael)
     // ========================================================
     const slidesData = [
         {
             id: 1,
-            title: "پێشەکی و زانیاریێن گشتی",
-            badge: "سلاێدێ ١",
+            title: "پێشەکی و زانیاریێن وانێ",
             content: `
-                <p>ب خێر بێی بۆ کورسێ <strong>Fundamentals of Programming by C#</strong> ل زانکۆیا ئاکرێ یا زانستێن پێکتی (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ، پشکا تەکنۆلۆژیایا زانیاری (IT).</p>
+                <p>وانەیا <strong>Fundamentals of Programming by C#</strong> ل زانکۆیا ئاکرێ یا زانستێن پێکتی (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ، پشکا IT.</p>
                 <ul>
                     <li><strong>بابەت:</strong> بنەمایێن بەرنامەسازیێ ب زمانی C#.</li>
-                    <li><strong>مامۆستایا بابەتێ:</strong> مامۆستا Kazheen Ismael Taher.</li>
+                    <li><strong>مامۆستا:</strong> Kazheen Ismael Taher.</li>
                     <li><strong>سالا خاندنێ:</strong> 2024 - 2025.</li>
                 </ul>
             `,
-            practical: {
-                task: "دەقێ Hello AUAS چاپ بکە ب مێتۆدا WriteLine دگەل دوماهیک ئینان ب فاریزەیا خالدار (;):",
-                initial: 'Console.WriteLine("Hello AUAS");',
-                expectedOut: "Hello AUAS"
-            },
+            starterCode: 'Console.WriteLine("Hello AUAS IT!");',
             questions: [
                 {
                     type: "mcq",
-                    q: "ئەڤ بابەتە بۆ کیژ پشکێ دهێتە خواندن ل پەیمانگەها تەکنیکی یا ئاکرێ؟",
-                    options: ["کارگێری", "ژمێریاری", "پشکا تەکنۆلۆژیایا زانیاری (IT)", "پەرستاری"],
-                    ans: 2,
-                    explain: "ئەڤ کۆرسە تایبەتە ب قوتابیێن پشکا IT."
+                    q: "ئەڤ بابەتە بۆ کیژ پشکێ دهێتە گۆتن ل پەیمانگەها تەکنیکی یا ئاکرێ؟",
+                    options: ["تەندروستی", "پشکا تەکنۆلۆژیایا زانیاری (IT)", "کارگێری", "ژمێریاری"],
+                    ans: 1,
+                    explain: "تایبەتە ب پشکا IT."
                 },
                 {
                     type: "costela",
-                    q: "کورتیا زانکۆیا ئاکرێ یا زانستێن پێکتی بنڤیسە (وەک ل سلاێدێ دیارکری):",
+                    q: "کورتیا ناڤێ زانکۆیا ئاکرێ یا زانستێن پێکتی چییە؟",
                     accepted: ["AUAS", "auas"],
                     explain: "AUAS ئانکو Akre University for Applied Science."
                 }
@@ -556,79 +561,62 @@
         },
         {
             id: 2,
-            title: "کارنامە و ناڤەرۆک (Outlines)",
-            badge: "سلاێدێ ٢",
+            title: "کارنامە و ناڤەرۆکێن سەرەکی (Outlines)",
             content: `
-                <p>ناڤەرۆکێن سەرەکی یێن د مەلزەمێ دا هەنە:</p>
+                <p>تەوەرێن سەرەکی یێن مەلزەمێ:</p>
                 <ul>
-                    <li>What is C# (C# چییە؟)</li>
-                    <li>C# Applications (بەرنامە و بوارێن C#)</li>
-                    <li>Why C# is used (بۆچی C# بکاربینین؟)</li>
-                    <li>C# Program Structure (پەیکەرێ کۆدێ C#)</li>
+                    <li>What is C# (پێناسە)</li>
+                    <li>C# Applications (بوارێن بکارئینانێ)</li>
+                    <li>Why C# is used (بۆچی C#؟)</li>
+                    <li>C# Program Structure (پەیکەرێ فەرمی)</li>
                     <li>C# Output (WriteLine) (چاپکرن)</li>
                     <li>C# Comments (تێبینی د کۆدی دا)</li>
-                    <li>C# Variables, Constants (گۆڕاو و نەگۆڕەکان)</li>
-                    <li>C# Keywords, Identifiers (پەیڤێن تایبەت و ناسێنەر)</li>
+                    <li>C# Variables, Constants (گۆڕاو و نەگۆڕ)</li>
+                    <li>C# Keywords, Identifiers (پەیڤێن تایبەت و یاسایێن ناڤلێنانێ)</li>
                 </ul>
             `,
-            practical: {
-                task: "دوو دێران چاپ بکە ب مێتۆدا WriteLine ل سەر کۆنسۆلێ:",
-                initial: 'Console.WriteLine("Topic 1: Syntax");\nConsole.WriteLine("Topic 2: Variables");',
-                expectedOut: "Topic 1: Syntax\nTopic 2: Variables"
-            },
+            starterCode: 'Console.WriteLine("Outlines of C# Module");',
             questions: [
                 {
                     type: "mcq",
                     q: "کیژ بژاردە بەشەک نینە ژ Outlines یێن سلاێدا ٢؟",
-                    options: ["C# Comments", "Variables, Constants", "Web Design by CSS", "Keywords, Identifiers"],
+                    options: ["C# Comments", "Variables, Constants", "Photoshop Design", "Keywords, Identifiers"],
                     ans: 2,
-                    explain: "CSS د کارنامەیا مەلزەمێ دا نینە."
+                    explain: "Photoshop چ پەیوەندی ب بەرنامەسازیێ نینە."
                 },
                 {
                     type: "costela",
-                    q: "ناڤێ وێ مێتۆدا چاپکرنێ بنڤیسە یا د Outlines دا هاتی (بتنێ ناڤێ وێ):",
-                    accepted: ["WriteLine", "writeline", "Console.WriteLine"],
-                    explain: "مێتۆدا Output بریتییە ژ WriteLine."
+                    q: "ناڤێ وێ مێتۆدا چاپکرنێ بنڤیسە یا د Outlines دا هاتی:",
+                    accepted: ["WriteLine", "writeline"],
+                    explain: "C# Output (WriteLine)."
                 }
             ]
         },
         {
             id: 3,
-            title: "C# چییە؟ (What is C#)",
-            badge: "سلاێدێ ٣",
+            title: "زمانێ C# چییە؟ (What is C#)",
             content: `
-                <p>پێناسە و ڕەچەلەکێ زمانێ C#:</p>
+                <p>مێژوو و پێناسەیا C#:</p>
                 <ul>
                     <li><strong>بلەفکرن:</strong> دبێژنێ <strong>"C-Sharp"</strong> یان ژی <strong>"C-Hash"</strong>.</li>
-                    <li>زمانەکێ <strong>Object-Oriented</strong> (تەوەر-کائن) یە.</li>
-                    <li>ژ لایێ کۆمپانییا <strong>Microsoft</strong> هاتیە بەرهەمئینان.</li>
-                    <li>ل سەر چارچووڤەیێ <strong>.NET Framework</strong> کار دکەت.</li>
-                    <li>ڕەچەلەکێ وی دزڤڕیتەڤە بۆ بنەماڵا C، و گەلەکێ نێزیکی زمانێن <strong>C++</strong> و <strong>Java</strong> یە.</li>
-                    <li>ئێکەم وەشانا وی ل سالا <strong>2002</strong> کەفتە د بازاریدا.</li>
+                    <li>زمانەکێ <strong>Object-Oriented</strong> یە.</li>
+                    <li>ژ لایێ <strong>Microsoft</strong> ڤە هاتیە دروستکرن و ل سەر <strong>.NET Framework</strong> کار دکەت.</li>
+                    <li>ژ بنەماڵا C هاتیە، و یێ نێزیکی <strong>C++</strong> و <strong>Java</strong> یە.</li>
+                    <li>ئێکەم وەشانا وی ل سالا <strong>2002</strong> دەرکەفتیە.</li>
                 </ul>
             `,
-            practical: {
-                task: "دەقێ C-Sharp چاپ بکە ل سەر شاشەی:",
-                initial: 'Console.WriteLine("C-Sharp");',
-                expectedOut: "C-Sharp"
-            },
+            starterCode: 'Console.WriteLine("C# released in 2002 by Microsoft");',
             questions: [
                 {
                     type: "costela",
-                    q: "ئێکەم ڤێرژنا زمانی C# ل کیژ سالێ هاتە بەلاڤکرن؟ (بتنێ ژمارێ بنڤیسە):",
+                    q: "ئێکەم وەشانا زمانێ C# ل کیژ سالێ هاتە بەلاڤکرن؟ (بتنێ ژمارێ بنڤیسە):",
                     accepted: ["2002"],
-                    explain: "The first version was released in year 2002."
-                },
-                {
-                    type: "costela",
-                    q: "کیش کۆمپانیا مەزن زمانێ C# دروست کریە؟",
-                    accepted: ["Microsoft", "microsoft"],
-                    explain: "created by Microsoft."
+                    explain: "First version was released in year 2002."
                 },
                 {
                     type: "mcq",
-                    q: "زمانێ C# ل سەر کیژ فریمۆرک کار دکەت؟",
-                    options: [".NET Framework", "Laravel", "React", "NodeJS"],
+                    q: "C# ل سەر کیژ فریمۆرک کار دکەت؟",
+                    options: [".NET Framework", "Laravel", "Android Studio", "Django"],
                     ans: 0,
                     explain: "runs on the .NET Framework."
                 }
@@ -636,258 +624,210 @@
         },
         {
             id: 4,
-            title: "بوارێن بکارهێنانێ (C# Applications)",
-            badge: "سلاێدێ ٤",
+            title: "بوارێن بکارئینانا C# (Applications)",
             content: `
-                <p>زمانێ C# د ڤان بواران دا دهێتە بکارئینان:</p>
+                <p>زمانێ C# بۆ ڤان بواران دهێتە بکارئینان:</p>
                 <ul>
-                    <li>Mobile applications (بەرنامەیێن مۆبایلێ)</li>
-                    <li>Desktop applications (بەرنامەیێن کۆمپیۆتەر و دەستکەفتی)</li>
-                    <li>Web applications & Web services (بەرنامە و خزمەتێن وێبێ)</li>
-                    <li>Web sites (ماڵپەڕ)</li>
-                    <li>Games (یاریێن ڤیدیۆیی - تایبەت دگەل Unity)</li>
+                    <li>Mobile applications (مۆبایل)</li>
+                    <li>Desktop applications (کۆمپیۆتەر)</li>
+                    <li>Web applications & Web services (ماڵپەر و خزمەتێن وێبێ)</li>
+                    <li>Games (یاریێن ڤیدیۆیی دگەل Unity)</li>
                     <li>VR (Virtual Reality - ڕاستیا خەیالی)</li>
-                    <li>Database applications (بەرنامەیێن بنکەیێ دراوەیان)</li>
+                    <li>Database applications (بنکەیێ دراوەیان)</li>
                 </ul>
             `,
-            practical: {
-                task: "دەقێ Unity Games بکاربینە و چاپ بکە:",
-                initial: 'Console.WriteLine("C# is used for Unity Games");',
-                expectedOut: "C# is used for Unity Games"
-            },
+            starterCode: 'Console.WriteLine("Mobile, Web, Games, and VR");',
             questions: [
                 {
-                    type: "mcq",
-                    q: "کورتکرنا (VR) چییە؟",
-                    options: ["Visual Record", "Virtual Reality", "Variable Return", "Void Run"],
-                    ans: 1,
-                    explain: "VR کورتکرنا Virtual Reality یە."
+                    type: "costela",
+                    q: "کورتکرنا Virtual Reality ب دوو پیتان چییە وەک ل سلاێدێ هاتی؟",
+                    accepted: ["VR", "vr"],
+                    explain: "VR = Virtual Reality."
                 },
                 {
-                    type: "costela",
-                    q: "ئێک ژ بوارێن سەرەکیێن C# بۆ تەلەفۆنان چییە؟ (ب ئینگلیزی بنڤیسە):",
-                    accepted: ["Mobile applications", "Mobile", "mobile", "mobile applications"],
-                    explain: "Mobile applications."
+                    type: "mcq",
+                    q: "ئەرێ C# بۆ دروستکرنا یاریێن ڤیدیۆیی (Games) دهێتە بکارئینان؟",
+                    options: ["بەلێ", "نەخێر", "بتنێ بۆ حسێبانە", "چ جاران"],
+                    ans: 0,
+                    explain: "بەلێ، تایبەت دگەل ماتۆڕێ Unity."
                 }
             ]
         },
         {
             id: 5,
             title: "بۆچی C# بکاربینین؟ (Why Use C#?)",
-            badge: "سلاێدێ ٥",
             content: `
-                <p>ئەگەرێن سەرەکی بۆ هەلبژارتنا C#:</p>
+                <p>مفایێن زمانێ C#:</p>
                 <ul>
-                    <li>ئێک ژ بەناوبانگترین زمانێن جیهانێ یە.</li>
+                    <li>ئێک ژ بەربلاڤترین زمانێن جیهانێ یە.</li>
                     <li>فێربوونا وی یا ب ساناهییە و ب سادەیی کار دکەت.</li>
-                    <li>کۆمەڵگەهەکا پشتەڤانیێ یا مەزن هەیە (huge community support).</li>
+                    <li>کۆمەڵگەهەکا مەزن یا پشتەڤانیێ هەیە (huge community support).</li>
                     <li>پێکهاتەیا Object Oriented ڕێکێ ددەت کۆد دووبارە بهێتە بکارئینان (Code Reuse) کو تێچوویێ دروستکرنێ کێم دکەت.</li>
-                    <li>نێزیکبوونا وی ژ C++ و Java ڕێکێ ددەت پرۆگرامەر بساناهی خۆ فێربکەن.</li>
+                    <li>نێزیکبوونا وی ژ C++ و Java گوهۆڕینێ ب ساناهی دکەت.</li>
                 </ul>
             `,
-            practical: {
-                task: "بهایێ true د دەستەواژەیێ دا چاپ بکە:",
-                initial: 'bool easy = true;\nConsole.WriteLine(easy);',
-                expectedOut: "True"
-            },
+            starterCode: 'bool isPopular = true;\nConsole.WriteLine("Is C# popular? " + isPopular);',
             questions: [
                 {
                     type: "mcq",
-                    q: "دووبارە بکارهێنانا کۆدی (Code reuse) چ فایدە هەیە؟",
-                    options: ["کۆدی تێکددەت", "تێچوو و مەزاختا دروستکرنێ کێم دکەت (lowering development costs)", "بەرنامەی ڕادوەستینیت", "چ فایدە نینە"],
-                    ans: 1,
-                    explain: "lowering development costs."
+                    q: "دووبارە بکارهێنانا کۆدی (Code reuse) چ فایدە دگەهینیت؟",
+                    options: ["تێچوویێ دروستکرنێ کێم دکەت (lowering development costs)", "سیستەمی دادخەت", "قەبارێ پڕۆگرامی تێکددەت", "چ مفای ناگەهینیت"],
+                    ans: 0,
+                    explain: "allows code to be reused, lowering development costs."
                 },
                 {
                     type: "costela",
-                    q: "جۆرێ زمانێ C# بریتییە ژ تەوەر-کائن، ب ئینگلیزی چی دبێژنێ؟ (سلاێد ٥):",
-                    accepted: ["Object oriented", "object oriented", "OOP"],
-                    explain: "C# is an object oriented language."
+                    q: "C# نزیکی کیژ دوو زمانێن مەزنە؟ (ئێک ژ وان بنڤیسە: C++ یان ...):",
+                    accepted: ["Java", "java", "C++", "c++"],
+                    explain: "language is close to popular languages like C++ and Java."
                 }
             ]
         },
         {
             id: 6,
-            title: "پەیکەرێ فەرمی یێ کۆدی (C# General Syntax)",
-            badge: "سلاێدێ ٦",
+            title: "پەیکەرێ فەرمی یێ کۆدی (General Syntax)",
             content: `
-                <p>پێکهاتەیا هەر کۆدەکێ دەستپێکی:</p>
+                <p>پێکهاتەیا سەرەکی یا کۆدێ C#:</p>
                 <ul>
-                    <li><strong>using System;</strong> ئینانا کتێبخانەیا System.</li>
+                    <li><strong>using System;</strong> ئینانا کلاسان ژ کتێبخانەیا System.</li>
                     <li><strong>namespace test:</strong> کانتینەرێ ناڤناڤان.</li>
-                    <li><strong>class Program:</strong> هێلانە و کانتینەرێ داتا و مێتۆدان.</li>
-                    <li><strong>static void Main(string[] args):</strong> مێتۆدا سەرەکی یا دەستپێکرنێ.</li>
-                    <li><strong>{ }:</strong> کەوانێن خوار بۆ سنوردارکرنا بلۆکێ کۆدی.</li>
+                    <li><strong>class Program:</strong> کانتینەرێ داتا و مێتۆدان.</li>
+                    <li><strong>static void Main(string[] args):</strong> مێتۆدا سەرەکی یا دەستپێکرنا کۆدی.</li>
+                    <li><strong>{ }:</strong> کەوانێن خوار بۆ دیارکرنا دەستپێک و دوماهیێ.</li>
                 </ul>
             `,
-            practical: {
-                task: "کۆدی تەمام بکە ب دانانا فاریزەیا خالدار (;) ل داویا دێرێ:",
-                initial: 'Console.WriteLine("Testing Syntax")',
-                expectedOut: "Testing Syntax"
-            },
+            starterCode: 'Console.WriteLine("Hello from inside Main method!");',
             questions: [
                 {
                     type: "costela",
-                    q: "کیژ کلیلەپەیڤ ل دەستپێکا بەرنامەی دهێت بۆ ئینانا کتێبخانەیان؟ (وەک: ... System;):",
-                    accepted: ["using", "Using"],
-                    explain: "using System means import libraries."
+                    q: "مێتۆدا سەرەکی یا دەستپێکرنا پڕۆگرامی چییە؟ (بتنێ ناڤێ وێ بنڤیسە ب پیتا مەزن):",
+                    accepted: ["Main", "Main()"],
+                    explain: "Main Method."
                 },
                 {
                     type: "mcq",
-                    q: "کیژ مێتۆد جهێ سەرەکیێ دەستپێکرنا بەرنامەی یە؟",
-                    options: ["Start()", "Main", "Begin()", "Run()"],
-                    ans: 1,
-                    explain: "Main Method."
+                    q: "کلیلەپەیڤا using System ل دەستپێکا کۆدی بۆ چ دهێت؟",
+                    options: ["بۆ ئینانا کتێبخانەیان (Import libraries)", "بۆ چاپکرنێ", "بۆ داخستنێ", "بۆ کۆمکرنێ"],
+                    ans: 0,
+                    explain: "Import libraries."
                 }
             ]
         },
         {
             id: 7,
-            title: "شروڤەیا پشکێن پەیکەری (General Syntax Rules)",
-            badge: "سلاێدێ ٧",
+            title: "یاسایێن پەیکەرێ گشتی (Syntax Rules)",
             content: `
-                <p>خالێن ورد دەربارەی پەیکەرێ کۆدی:</p>
+                <p>تێبینیێن پەیکەرێ کۆدی:</p>
                 <ul>
-                    <li><strong>using System:</strong> ڕێکێ ددەت کلاسان ژ ناڤناڤێ System بکاربینین.</li>
-                    <li><strong>namespace:</strong> کانتینەرە بۆ ڕێکخستنا کلاسان.</li>
-                    <li><strong>Curly braces {}:</strong> دەستپێک و دوماهیا پارچە کۆدانە.</li>
-                    <li><strong>class:</strong> کانتینەرێ داتا و مێتۆدانە. <em>هەر دێرەکا کۆدی د C# دا دڤێت د ناڤ کلاسی دا بیت.</em></li>
-                    <li><strong>Main method:</strong> هەر کۆدەکێ د ناڤ کەوانێن وێ دا بیت دهێتە جێبەجێکرن.</li>
+                    <li><strong>using System:</strong> ڕێکێ ددەت کلاسان ژ System namespace بکاربینین.</li>
+                    <li><strong>namespace:</strong> بۆ ڕێکخستنا کۆدی یە و کانتینەرە بۆ کلاسان.</li>
+                    <li><strong>Curly braces {}:</strong> دەستپێک و دوماهیا هەر پارچە کۆدەکێ یە.</li>
+                    <li><strong>class:</strong> کانتینەرە. <em>هەر دێرەکا کۆدی د C# دا دڤێت د ناڤ کلاسی دا بیت.</em></li>
+                    <li><strong>Main method:</strong> هەر کۆدەکێ د ناڤبەرا کەوانێن وێ دا بیت دهێتە جێبەجێکرن.</li>
                 </ul>
             `,
-            practical: {
-                task: "کۆدی بنڤیسە دا ژمارە 100 ل سەر کۆنسۆلێ چاپ ببیت:",
-                initial: 'Console.WriteLine(100);',
-                expectedOut: "100"
-            },
+            starterCode: 'Console.WriteLine("Every line of code must be inside a class!");',
             questions: [
                 {
                     type: "mcq",
-                    q: "ئەرێ چ هێلێن کۆدی دشێن ل دەرڤەی کلاسی (outside a class) ڕاستەوخۆ کار بکەن؟",
-                    options: ["بەلێ، هەمی دێر", "نەخێر، هەر دێرەک پێدڤیە د ناڤ کلاسی دا بیت", "بتنێ ژمارە دشێن", "بتنێ دەق دشێن"],
+                    q: "ئەرێ چ هێلێن کۆدی دشێن ل دەرڤەی کلاسی کار بکەن؟",
+                    options: ["بەلێ", "نەخێر، پێدڤیە د ناڤ کلاسی دا بن", "بتنێ ژمارە", "بتنێ کۆمێنت"],
                     ans: 1,
                     explain: "Every line of code that runs in C# must be inside a class."
                 },
                 {
                     type: "costela",
-                    q: "ناڤێ کەوانێن {} ب ئینگلیزی چییە وەک د سلاێدا ٧ دا هاتی؟",
+                    q: "ناڤێ کەوانێن {} چییە وەک ل سلاێدا ٧ هاتی؟ (ب ئینگلیزی):",
                     accepted: ["curly braces", "Curly braces", "Curly Braces"],
-                    explain: "The curly braces {} marks the beginning and the end."
+                    explain: "The curly braces {}."
                 }
             ]
         },
         {
             id: 8,
-            title: "ئێکەم نموونە (First Example: Hello World)",
-            badge: "سلاێدێ ٨",
+            title: "ئێکەم نموونە (First Example)",
             content: `
-                <p>کۆدێ تەمام یێ سلاێدا ٨:</p>
-                <pre style="direction:ltr; text-align:left; background:#020617; padding:10px; border-radius:6px; color:#38bdf8;">
-using System;
-namespace test
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      Console.WriteLine("Hello World!");
-    }
-  }
-}</pre>
-                <p><strong>دەرئەنجام (Output):</strong> <code>Hello World!</code></p>
+                <p>کۆدێ چاپکرنا ڕستەیا بناڤودەنگ:</p>
+                <p><code>Console.WriteLine("Hello World!");</code></p>
+                <p>ئەڤ فەرمانە دێ دەقێ ناڤ کەوانان چاپ کەت ل سەر شاشەیا کۆنسۆلێ و دچیتە دێرەکا نوی.</p>
             `,
-            practical: {
-                task: "دەقێ Hello World! چاپ بکە ڕێک وەکی سلاێدا ٨:",
-                initial: 'Console.WriteLine("Hello World!");',
-                expectedOut: "Hello World!"
-            },
+            starterCode: 'Console.WriteLine("Hello World!");',
             questions: [
                 {
                     type: "costela",
-                    q: "دەرئەنجامێ ئەڤێ دێرێ چییە: Console.WriteLine(\"Hello World!\"); ؟",
+                    q: "دەرئەنجامێ ئەڤێ فەرمانێ چییە: Console.WriteLine(\"Hello World!\"); ؟",
                     accepted: ["Hello World!", "Hello World"],
                     explain: "Hello World! دێ چاپ بیت."
                 },
                 {
                     type: "mcq",
-                    q: "فەرمانا WriteLine سەر ب کیژ کلاسی یە؟",
-                    options: ["Console", "Screen", "Print", "Output"],
+                    q: "کلاسی Console سەر ب کیژ کتێبخانێ یە؟",
+                    options: ["System", "IO", "Web", "Game"],
                     ans: 0,
-                    explain: "Console.WriteLine."
+                    explain: "System.Console."
                 }
             ]
         },
         {
             id: 9,
             title: "تێبینیێن گشتی یێن زێڕین (General Notes)",
-            badge: "سلاێدێ ٩",
             content: `
-                <p>خالێن بنەڕەتی بۆ تاقیکرنێ:</p>
+                <p>تێبینیێن پێدڤی بۆ تاقیکرنێ:</p>
                 <ul>
                     <li><strong>Case sensitive:</strong> زمانێ C# یێ هەستیارە ل سەر پیتێن مەزن و بچویک (پیتا <code>a</code> نە وەکی <code>A</code> یە).</li>
                     <li><strong>Semicolon (;):</strong> هەمی دەستەواژە دڤێت ب فاریزەیا خالدار ب دوماهیک بهێن.</li>
                     <li><strong>Execution start:</strong> دەستپێکرنا پڕۆگرامی ژ مێتۆدا Main دەستپێدکەت.</li>
                     <li><strong>Unlike Java:</strong> ناڤێ فایلی دشێت جودا بیت ژ ناڤێ کلاسی.</li>
-                    <li><strong>Console.ReadKey():</strong> ل داویا پڕۆگرامی دهێتە دان دا شاشە ئێکسەر دانەخەبیت هەتا کلیلیەک دهێتە داگرتن.</li>
+                    <li><strong>Console.ReadKey():</strong> ل داویا کۆدی دهێتە دان دا شاشە ڕاوەستیت و ئێکسەر دانەخەبیت.</li>
                 </ul>
             `,
-            practical: {
-                task: "دەستەواژەیا Console.ReadKey(); بنڤیسە بۆ ڕاگرتنا شاشەی:",
-                initial: 'Console.ReadKey();',
-                expectedOut: "[Waiting for Key Press...]"
-            },
+            starterCode: 'int a = 10;\nint A = 20;\nConsole.WriteLine("a is: " + a + ", A is: " + A);',
             questions: [
                 {
                     type: "costela",
-                    q: "کیش هێما دڤێت ل داویا هەمی دێران بهێت؟ (ب ناڤ بنڤیسە ب ئینگلیزی):",
-                    accepted: ["semicolon", "Semicolon", ";"],
-                    explain: "must end with a semicolon (;)."
+                    q: "کیش هێما دڤێت ل داویا هەمی دێران هەبیت؟ (ب هێما یان ناڤ بنڤیسە):",
+                    accepted: [";", "semicolon", "Semicolon"],
+                    explain: "Semicolon (;)."
                 },
                 {
                     type: "mcq",
-                    q: "مفایێ Console.ReadKey() چییە؟",
-                    options: ["بۆ ژێبرنا داتایێ", "ڕاگرتنا شاشەی دا ئێکسەر دانەخەبیت", "کۆمکرنا ژمارەیان", "ڕەنگکرنا شاشەی"],
+                    q: "ئەرێ پیتا 'a' و پیتا 'A' د C# دا هەمان تشتن؟",
+                    options: ["بەلێ", "نەخێر چونکی Case sensitive ە", "بتنێ ل ویندۆزێ", "بتنێ ل هاڤینێ"],
                     ans: 1,
-                    explain: "prevents the screen from running and closing quickly."
+                    explain: "C# is Case sensitive. a is differ from A."
                 }
             ]
         },
         {
             id: 10,
             title: "جوداهیا WriteLine() و Write()",
-            badge: "سلاێدێ ١٠",
             content: `
-                <p>بەراوردکرنا مێتۆدێن چاپکرنێ:</p>
+                <p>بەراوردکرنا دوو مێتۆدێن چاپکرنێ:</p>
                 <ul>
                     <li><strong>WriteLine():</strong> دەقی چاپ دکەت و پاشی دچیتە <strong>دێرەکا نوی (New Line)</strong>.</li>
                     <li><strong>Write():</strong> دەقی چاپ دکەت بەس <strong>ل سەر هەمان دێر دمینیت</strong> و ناچیتە دێرەکا نوی.</li>
                 </ul>
             `,
-            practical: {
-                task: "دوو پەیڤان ب مێتۆدا Write چاپ بکە ل سەر هەمان دێر:",
-                initial: 'Console.Write("Hello ");\nConsole.Write("World!");',
-                expectedOut: "Hello World!"
-            },
+            starterCode: 'Console.Write("Hello ");\nConsole.Write("World on the same line!");',
             questions: [
                 {
                     type: "costela",
-                    q: "کیژ مێتۆد دەقی ل سەر هەمان دێر دهێلیت و ناچیتە دێرەکا نوی؟",
+                    q: "کیژ مێتۆد دەقی چاپ دکەت بەس ناچیتە دێرەکا نوی و ل سەر هەمان دێر دمینیت؟",
                     accepted: ["Write", "Write()", "Console.Write"],
                     explain: "Write() prints on the same line."
                 },
                 {
                     type: "mcq",
-                    q: "دەرئەنجامێ: Console.Write(\"A\"); Console.Write(\"B\"); چییە؟",
-                    options: ["AB ل سەر هەمان دێر", "A ل دێرەکێ و B ل دێرەکێ", "Error", "A B"],
+                    q: "دەرئەنجامێ: Console.WriteLine(\"A\"); Console.WriteLine(\"B\"); چییە؟",
+                    options: ["A ل دێرا ١ و B ل دێرا ٢", "AB پێکڤە", "Error", "A B"],
                     ans: 0,
-                    explain: "ل سەر هەمان دێر پێکڤە دبنە AB."
+                    explain: "WriteLine دچیتە دێرەکا نوی."
                 }
             ]
         },
         {
             id: 11,
             title: "تێبینی د کۆدی دا (C# Comments)",
-            badge: "سلاێدێ ١١",
             content: `
                 <p>تێبینی ناهێنە خواندن ژ لایێ کۆمپایتەری ڤە:</p>
                 <ul>
@@ -895,11 +835,7 @@ namespace test
                     <li><strong>Multi-line:</strong> ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> دوماهیک دهێت.</li>
                 </ul>
             `,
-            practical: {
-                task: "تێبینیەکا ئێک دێری دانێ بەری فەرمانا چاپکرنێ:",
-                initial: '// This is comment\nConsole.WriteLine("Tested");',
-                expectedOut: "Tested"
-            },
+            starterCode: '// This is single-line comment\n/* Multi-line\n   comment */\nConsole.WriteLine("Comments are ignored!");',
             questions: [
                 {
                     type: "costela",
@@ -909,19 +845,18 @@ namespace test
                 },
                 {
                     type: "mcq",
-                    q: "ئەرێ کۆمپایلەر تێبینیان جێبەجێ دکەت؟",
-                    options: ["بەلێ", "نەخێر، چاڤپۆشیێ ژێ دکەت", "بتنێ ئەگەر ژمارە بن", "بتنێ ل هاڤینێ"],
-                    ans: 1,
-                    explain: "کۆمێنت ناهێنە جێبەجێکرن."
+                    q: "تێبینیا چەند دێری ب چ بدوماهیک دهێت؟",
+                    options: ["*/", "//", "--", "##"],
+                    ans: 0,
+                    explain: "Multi-line comments end with */."
                 }
             ]
         },
         {
             id: 12,
             title: "گۆڕاو و جۆرێن سەرەکی (C# Variables)",
-            badge: "سلاێدێ ١٢",
             content: `
-                <p>٥ جۆرێن سەرەکی یێن داتایان:</p>
+                <p>٥ جۆرێن سەرەکی یێن داتایێ (Value Types):</p>
                 <ul>
                     <li><strong>int:</strong> ژمارەیێن دروست (123, -123)</li>
                     <li><strong>double:</strong> ژمارەیێن فاریزەدار (19.99, -19.99)</li>
@@ -930,15 +865,11 @@ namespace test
                     <li><strong>bool:</strong> دوو وەلات هەنە (true یان false)</li>
                 </ul>
             `,
-            practical: {
-                task: "متغیرەکێ int ب ناڤێ age دروست بکە و بکە 25 و چاپ بکە:",
-                initial: 'int age = 25;\nConsole.WriteLine(age);',
-                expectedOut: "25"
-            },
+            starterCode: 'int myNum = 15;\ndouble myDouble = 5.99;\nchar letter = \'D\';\nbool myBool = true;\nstring myText = "Hello";\nConsole.WriteLine("int: " + myNum + ", double: " + myDouble);',
             questions: [
                 {
                     type: "costela",
-                    q: "کیژ جۆرێ داتایێ بهایێ ژمارەیا فاریزەدار وەک 19.99 هەلدگریت؟ (بتنێ ناڤێ جۆری):",
+                    q: "کیژ جۆرێ داتایێ بهایێ ژمارەیا فاریزەدار وەک 19.99 هەلدگریت؟ (بتنێ ناڤێ جۆری بنڤیسە):",
                     accepted: ["double"],
                     explain: "double stores floating point numbers, with decimals."
                 },
@@ -953,67 +884,55 @@ namespace test
         },
         {
             id: 13,
-            title: "دروستکرنا گۆڕاوان (Declaring Variables)",
-            badge: "سلاێدێ ١٣",
+            title: "دروستکرنا گۆڕاوان (Creating Variables)",
             content: `
-                <p>یاسایا فەرمی:</p>
-                <div style="background:#020617; padding:8px; border-radius:6px; direction:ltr; text-align:left; color:#facc15;">
-                    type variableName = value;
-                </div>
+                <p>یاسایا فەرمی یا دروستکرنا گۆڕاوی:</p>
+                <p><code>type variableName = value;</code></p>
                 <p>نموونە: <code>string name = "Kurdistan";</code></p>
             `,
-            practical: {
-                task: "متغیرەکێ دەقی ب ناڤێ name دروست بکە و بهایێ Kurdistan بدەیێ و چاپ بکە:",
-                initial: 'string name = "Kurdistan";\nConsole.WriteLine(name);',
-                expectedOut: "Kurdistan"
-            },
+            starterCode: 'string name = "Kurdistan";\nConsole.WriteLine(name);',
             questions: [
                 {
                     type: "costela",
-                    q: "هێمایێ دانانا بهایی چییە د بەرنامەسازیێ دا؟",
+                    q: "هێمایێ دانانا بهایی (assignment) بۆ گۆڕاوی چییە؟",
                     accepted: ["="],
-                    explain: "The equal sign is used to assign values."
+                    explain: "The equal sign (=) is used to assign values."
                 },
                 {
                     type: "mcq",
-                    q: "د دەستەواژەیا int x = 10; دا x چییە؟",
-                    options: ["جۆرێ داتایێ", "ناڤێ گۆڕاوی (variableName)", "مێتۆد", "کۆمێنت"],
-                    ans: 1,
-                    explain: "x ناڤێ گۆڕاوی یە."
+                    q: "د دەستەواژەیا string name = \"Kurdistan\"; دا پەیڤا string چ ڕۆل هەیە؟",
+                    options: ["جۆرێ داتایێ یە (type)", "ناڤێ متغیری یە", "مێتۆدە", "کۆمێنتە"],
+                    ans: 0,
+                    explain: "string جۆرێ داتایێ یە."
                 }
             ]
         },
         {
             id: 14,
             title: "ناساندن و گوهۆڕینا بهایان (Overwriting Variables)",
-            badge: "سلاێدێ ١٤",
             content: `
-                <p>تێبینیێن گرنگ یێن متغیران:</p>
+                <p>تێبینیێن گرنگ یێن گۆڕاوان:</p>
                 <ul>
                     <li>دشێی ئەوەل متغیری بناسینی و پاشی بهای بدەیێ:
                         <br><code>int age; // declaration</code>
                         <br><code>age = 25; // initialization</code>
                     </li>
-                    <li>ئەگەر بهایەکێ نوی بدەیێ، بهایێ کەڤن ناهێلیت (Overwrites).</li>
+                    <li>ئەگەر بهایەکێ نوی بدەیێ، بهایێ کەڤن لادچیت (Overwrites).</li>
                     <li><strong>خەلەتیا کویزی:</strong> نابیت متغیرەکی بێ بها بکاربینی: <code>int age; int j = age; // ERROR</code>.</li>
                 </ul>
             `,
-            practical: {
-                task: "بهایێ age بگوهۆڕە بۆ 20 و چاپ بکە:",
-                initial: 'int age = 25;\nage = 20;\nConsole.WriteLine(age);',
-                expectedOut: "20"
-            },
+            starterCode: 'int age = 25;\nage = 20; // overwrites 25\nConsole.WriteLine("Age is now: " + age);',
             questions: [
                 {
                     type: "costela",
-                    q: "ئەگەر بنڤیسی: int age = 25; age = 30; بهایێ age دبیتە چەند؟",
+                    q: "ئەگەر بنڤیسی: int age = 25; age = 30; بهایێ age دبیتە چەند؟ (بتنێ ژمارێ بنڤیسە):",
                     accepted: ["30"],
                     explain: "بهایێ نوی جهێ یێ کەڤن دگریت."
                 },
                 {
                     type: "mcq",
                     q: "خەلەتیا بکارئینانا متغیرێ بێ بها چییە؟",
-                    options: ["Unassigned local variable", "Out of memory", "Syntax clean", "No error"],
+                    options: ["Use of unassigned local variable", "Out of memory", "No error", "Syntax OK"],
                     ans: 0,
                     explain: "Use of unassigned local variable."
                 }
@@ -1022,19 +941,14 @@ namespace test
         {
             id: 15,
             title: "نەگۆڕەکان (Constants - const)",
-            badge: "سلاێدێ ١٥",
             content: `
-                <p>کلیلەپەیڤا <strong>const</strong> متغیری دکەتە نەگۆڕ و بتنێ بۆ خواندنێ (read-only):</p>
+                <p>پەیڤا <strong>const</strong> متغیری دکەتە نەگۆڕ و بتنێ بۆ خواندنێ (read-only):</p>
                 <ul>
                     <li><code>const int age = 25;</code> بهایێ وی ناهێتە گوهۆڕین.</li>
                     <li><strong>یاسا:</strong> دڤێت دەستبەجێ ل دەمێ دروستکرنێ بهای بدەیێ، ئەگەر نە خەلەتی دروست دبیت.</li>
                 </ul>
             `,
-            practical: {
-                task: "نەگۆڕەکێ const ب ناڤێ PI دروست بکە و بکە 3.14 و چاپ بکە:",
-                initial: 'const double PI = 3.14;\nConsole.WriteLine(PI);',
-                expectedOut: "3.14"
-            },
+            starterCode: 'const double PI = 3.14;\nConsole.WriteLine("PI value is: " + PI);',
             questions: [
                 {
                     type: "costela",
@@ -1044,7 +958,7 @@ namespace test
                 },
                 {
                     type: "mcq",
-                    q: "ئەگەر بنڤیسی: const int x = 10; x = 20; چ ڕویددەت؟",
+                    q: "ئەگەر بنڤیسی: const int x = 10; x = 20; چ چێدبیت؟",
                     options: ["x دبیتە 20", "خەلەتی (cannot be changed)", "x دبیتە 30", "سفر"],
                     ans: 1,
                     explain: "بهایێ const ناهێتە گوهۆڕین."
@@ -1054,7 +968,6 @@ namespace test
         {
             id: 16,
             title: "نیشاندان و پێکڤەنیسکاندن (Concatenation)",
-            badge: "سلاێدێ ١٦",
             content: `
                 <p>بکارئینانا هێمایێ (+):</p>
                 <ul>
@@ -1063,11 +976,7 @@ namespace test
                     <li>نموونە: <code>firstName + lastName</code></li>
                 </ul>
             `,
-            practical: {
-                task: "دوو دەقان پێکڤە بنیسکینە و چاپ بکە:",
-                initial: 'string a = "AUAS ";\nstring b = "IT";\nConsole.WriteLine(a + b);',
-                expectedOut: "AUAS IT"
-            },
+            starterCode: 'string firstName = "Salar";\nstring lastName = "Raman";\nConsole.WriteLine(firstName + " " + lastName);',
             questions: [
                 {
                     type: "costela",
@@ -1077,17 +986,16 @@ namespace test
                 },
                 {
                     type: "mcq",
-                    q: "دەرئەنجامێ دەستەواژەیا: \"Hello \" + \"World\" چییە؟",
-                    options: ["Hello World", "HelloWorld", "Error", "Hello+World"],
+                    q: "دەرئەنجامێ دەستەواژەیا: \"A\" + \"B\" چییە؟",
+                    options: ["AB", "A B", "Error", "A+B"],
                     ans: 0,
-                    explain: "Hello World."
+                    explain: "AB پێکڤە."
                 }
             ]
         },
         {
             id: 17,
             title: "کۆمکرنا ژمارەیان و دروستکرنا ب فاریزێ",
-            badge: "سلاێدێ ١٧",
             content: `
                 <p>هێمایێ (+) دگەل ژمارەیان:</p>
                 <ul>
@@ -1097,11 +1005,7 @@ namespace test
                     </li>
                 </ul>
             `,
-            practical: {
-                task: "سێ متغیران ب ئێک دێر دروست بکە و کۆم بکە:",
-                initial: 'int x = 10, y = 20, z = 30;\nConsole.WriteLine(x + y + z);',
-                expectedOut: "60"
-            },
+            starterCode: 'int x = 10;\nint y = 5;\nConsole.WriteLine(x + y); // Prints 15\nint a = 5, b = 6, c = 50;\nConsole.WriteLine(a + b + c); // Prints 61',
             questions: [
                 {
                     type: "costela",
@@ -1121,7 +1025,6 @@ namespace test
         {
             id: 18,
             title: "پەیڤێن تایبەت (C# Keywords)",
-            badge: "سلاێدێ ١٨",
             content: `
                 <p>پەیڤێن قەدەغەکری (Reserved words):</p>
                 <ul>
@@ -1130,11 +1033,7 @@ namespace test
                     <li><strong>فێڵا کویزی:</strong> دشێین وان بکەینە ناڤێ متغیری بتنێ ئەگەر هێمایێ <strong>@</strong> بەری وێ دابنێین (وەک <code>@class</code>).</li>
                 </ul>
             `,
-            practical: {
-                task: "متغیرەک ب ناڤێ @class دروست بکە و بهایێ 10 بدەیێ و چاپ بکە:",
-                initial: 'int @class = 10;\nConsole.WriteLine(@class);',
-                expectedOut: "10"
-            },
+            starterCode: 'int @class = 100;\nConsole.WriteLine("Value of @class is: " + @class);',
             questions: [
                 {
                     type: "costela",
@@ -1145,7 +1044,7 @@ namespace test
                 {
                     type: "mcq",
                     q: "کیژ ژ ڤانان پەیڤەکا قەدەغەکریە د C# دا؟",
-                    options: ["class", "studentName", "myTotal", "school"],
+                    options: ["class", "myNumber", "kurdistan", "total"],
                     ans: 0,
                     explain: "class کلیلەپەیڤە."
                 }
@@ -1154,7 +1053,6 @@ namespace test
         {
             id: 19,
             title: "یاسایێن ناڤلێنانێ (Identifiers Rules)",
-            badge: "سلاێدێ ١٩",
             content: `
                 <p>یاسایێن دروستکرنا ناڤێ متغیری (Identifiers):</p>
                 <ul>
@@ -1165,15 +1063,11 @@ namespace test
                     <li>هەستیارە ل سەر پیتێن مەزن و بچویک (<code>myVar</code> و <code>myvar</code> جودانە).</li>
                 </ul>
             `,
-            practical: {
-                task: "متغیرەکێ دروست ب ناڤێ total_score دروست بکە و چاپ بکە:",
-                initial: 'int total_score = 95;\nConsole.WriteLine(total_score);',
-                expectedOut: "95"
-            },
+            starterCode: 'int totalVolume = 100;\nint _score = 90;\nConsole.WriteLine("Total: " + (totalVolume + _score));',
             questions: [
                 {
                     type: "costela",
-                    q: "ئەرێ ناڤێ (1number) دروستە وەک ناڤێ متغیری؟ (بنڤیسە: بەلێ یان نەخێر):",
+                    q: "ئەرێ ناڤێ (1number) دروستە وەک ناڤێ متغیری؟ (بنڤیسە: نەخێر یان بەلێ):",
                     accepted: ["نەخێر", "نه خير", "No", "no"],
                     explain: "قەدەغەیە ب ژمارە دەستپێبکەت."
                 },
@@ -1189,196 +1083,341 @@ namespace test
     ];
 
     // ========================================================
-    // APP STATE & PROGRESSION ENGINE
+    // STATE & PROGRESSION (PASS GRADE: 50%)
     // ========================================================
     let currentSlide = 0;
     let unlockedSlide = 0;
     let isExamActive = false;
-    let userExamAnswers = {};
-    const TEACHER_BYPASS_CODE = "19439";
+    let userAnswers = {};
+    const SECRET_TEACHER_KEY = "19439";
 
     window.addEventListener('DOMContentLoaded', () => {
-        renderSidebar();
+        buildSidebar();
         loadSlide(0);
-        setupLockdownSensors();
+        setupAntiCheatSensors();
     });
 
-    function renderSidebar() {
-        const sidebar = document.getElementById('sidebarList');
-        sidebar.innerHTML = '<h3>سلاێدێن وانێ</h3>';
+    function buildSidebar() {
+        const nav = document.getElementById('sidebarNav');
+        nav.innerHTML = '<h3>Explorer: Slides (١٩ سلاێد)</h3>';
 
         slidesData.forEach((s, idx) => {
             const item = document.createElement('div');
-            item.className = 'nav-item';
+            item.className = 'slide-link';
 
             if (idx > unlockedSlide) {
                 item.classList.add('locked');
-                item.innerHTML = `<span>🔒 سلاێدێ ${s.id}</span>`;
+                item.innerHTML = `<span>🔒 Slide_${s.id}.cs</span>`;
             } else {
                 if (idx === currentSlide) item.classList.add('active');
                 if (idx < unlockedSlide) item.classList.add('passed');
-                item.innerHTML = `<span>${idx < unlockedSlide ? '✓ ' : ''}سلاێدێ ${s.id}: ${s.title.substring(0, 16)}...</span>`;
+                item.innerHTML = `<span>${idx < unlockedSlide ? '✓ ' : ''}Slide_${s.id}: ${s.title.substring(0, 15)}...</span>`;
                 item.onclick = () => {
                     if (isExamActive) {
-                        alert("⚠️ تۆ د ناڤ تاقیکرنێ دا ی! ناتوانی لڤینێ بکەی هەتا تاقیکرنێ تەمام نەکەی.");
+                        alert("⚠️ تۆ د ناڤ تاقیکرنێ دا ی! ناتوانی لڤینێ بکەی حەتا تاقیکرن بدوماهیک بهێت.");
                         return;
                     }
                     loadSlide(idx);
                 };
             }
-            sidebar.appendChild(item);
+            nav.appendChild(item);
         });
 
         document.getElementById('progressBadge').innerText = `${currentSlide + 1} ژ ${slidesData.length}`;
     }
 
-    function loadSlide(index) {
-        currentSlide = index;
-        const data = slidesData[index];
-        document.getElementById('slideTitle').innerText = data.title;
-        document.getElementById('slideBadge').innerText = data.badge;
-        document.getElementById('slideContent').innerHTML = data.content;
+    function loadSlide(idx) {
+        currentSlide = idx;
+        const data = slidesData[idx];
 
-        // Practical task setup
-        document.getElementById('practicalTask').innerText = data.practical.task;
-        document.getElementById('practicalCode').value = data.practical.initial;
-        document.getElementById('practicalOutput').innerText = "// دەرئەنجامێ کۆدی دێ ل ڤێرێ نیشان دەت...";
+        document.getElementById('slideHeader').innerText = `سلاێدێ ${data.id}: ${data.title}`;
+        document.getElementById('slideText').innerHTML = data.content;
+        document.getElementById('codeEditor').value = data.starterCode;
+
+        // Reset terminal
+        document.getElementById('terminalBody').className = "terminal-output";
+        document.getElementById('terminalBody').innerText = "// کلیک ل (▶ کارپێکرن) بکە دا دەرئەنجامی ببینی...";
 
         // View toggle
-        document.getElementById('lectureView').style.display = 'block';
-        document.getElementById('examView').style.display = 'none';
+        document.getElementById('lectureCard').style.display = 'block';
+        document.getElementById('examSection').style.display = 'none';
         isExamActive = false;
 
-        renderSidebar();
-    }
-
-    // Practical Code Verification Sandbox
-    function runPracticalCode() {
-        const data = slidesData[currentSlide];
-        const userCode = document.getElementById('practicalCode').value;
-        const outBox = document.getElementById('practicalOutput');
-
-        // Simple virtual simulation of expected output
-        outBox.innerText = "Running C# code...\n" + data.practical.expectedOut;
-        outBox.style.color = "#4ade80";
+        buildSidebar();
     }
 
     // ========================================================
-    // STRICT LOCKDOWN EXAM SYSTEM (≥ 65% PASS REQUIREMENT)
+    // DYNAMIC C# MINI-INTERPRETER (VISUAL STUDIO PARSER)
     // ========================================================
-    function enterStrictExam() {
+    function runDynamicCSharp() {
+        const rawCode = document.getElementById('codeEditor').value;
+        const terminal = document.getElementById('terminalBody');
+        terminal.innerText = "";
+        terminal.className = "terminal-output";
+
+        const lines = rawCode.split('\n');
+        let memory = {};
+        let outputBuffer = "";
+        let hasError = false;
+
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            if (!line || line.startsWith("//") || line.startsWith("/*") || line.startsWith("*")) continue;
+
+            // 1. Check semicolon at end of statement
+            if (!line.endsWith(";")) {
+                terminal.className = "terminal-error";
+                terminal.innerText = `Program.cs(${i + 1},${line.length}): error CS1002: ; expected`;
+                return;
+            }
+
+            // Remove semicolon for processing
+            let stmt = line.slice(0, -1).trim();
+
+            // 2. Check case-sensitivity for Console.WriteLine / Write
+            if (stmt.toLowerCase().startsWith("console.writeline") && !stmt.startsWith("Console.WriteLine")) {
+                terminal.className = "terminal-error";
+                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.WriteLine'? (C# is Case-Sensitive)`;
+                return;
+            }
+            if (stmt.toLowerCase().startsWith("console.write") && !stmt.startsWith("Console.Write") && !stmt.startsWith("Console.WriteLine")) {
+                terminal.className = "terminal-error";
+                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.Write'?`;
+                return;
+            }
+
+            // 3. Process Console.WriteLine(...) or Console.Write(...)
+            if (stmt.startsWith("Console.WriteLine(") || stmt.startsWith("Console.Write(")) {
+                let isWriteLine = stmt.startsWith("Console.WriteLine(");
+                let startIdx = isWriteLine ? 18 : 14;
+                let endIdx = stmt.lastIndexOf(")");
+
+                if (endIdx === -1) {
+                    terminal.className = "terminal-error";
+                    terminal.innerText = `Program.cs(${i + 1},${stmt.length}): error CS1026: ) expected`;
+                    return;
+                }
+
+                let expr = stmt.substring(startIdx, endIdx).trim();
+
+                try {
+                    // Evaluate expressions with variables in memory
+                    let evaluated = evaluateCSharpExpression(expr, memory);
+                    outputBuffer += evaluated + (isWriteLine ? "\n" : "");
+                } catch (err) {
+                    terminal.className = "terminal-error";
+                    terminal.innerText = `Program.cs(${i + 1},${startIdx}): error CS0103: ${err.message}`;
+                    return;
+                }
+                continue;
+            }
+
+            // 4. Process Simple Variable Declarations (int, double, string, bool, char, const)
+            let declMatch = stmt.match(/^(const\s+)?(int|double|string|bool|char)\s+([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
+            if (declMatch) {
+                let varName = declMatch[3];
+                let valExpr = declMatch[4].trim();
+
+                try {
+                    let val = evaluateCSharpExpression(valExpr, memory);
+                    memory[varName] = val;
+                } catch (err) {
+                    terminal.className = "terminal-error";
+                    terminal.innerText = `Program.cs(${i + 1},1): error CS0103: ${err.message}`;
+                    return;
+                }
+                continue;
+            }
+
+            // 5. Variable reassignment (e.g. age = 20;)
+            let reassignMatch = stmt.match(/^([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
+            if (reassignMatch) {
+                let varName = reassignMatch[1];
+                let valExpr = reassignMatch[2].trim();
+                try {
+                    let val = evaluateCSharpExpression(valExpr, memory);
+                    memory[varName] = val;
+                } catch (err) {
+                    terminal.className = "terminal-error";
+                    terminal.innerText = `Program.cs(${i + 1},1): error: ${err.message}`;
+                    return;
+                }
+                continue;
+            }
+
+            // 6. Console.ReadKey()
+            if (stmt === "Console.ReadKey()" || stmt === "Console.ReadKey(true)") {
+                outputBuffer += "[Waiting for key press...]\n";
+                continue;
+            }
+        }
+
+        terminal.className = "terminal-output";
+        terminal.innerText = outputBuffer || "[Code executed successfully with no output]";
+    }
+
+    // Helper Expression Evaluator
+    function evaluateCSharpExpression(expr, memory) {
+        if (!expr) return "";
+
+        // If string literal inside double quotes
+        if (expr.startsWith('"') && expr.endsWith('"') && expr.indexOf('"', 1) === expr.length - 1) {
+            return expr.slice(1, -1);
+        }
+
+        // If char literal inside single quotes
+        if (expr.startsWith("'") && expr.endsWith("'") && expr.length === 3) {
+            return expr.slice(1, -1);
+        }
+
+        // If simple variable
+        if (memory.hasOwnProperty(expr)) {
+            return memory[expr];
+        }
+
+        // Handle string concatenation / mathematical addition
+        // Replace variable tokens in expression with their values
+        let tokenized = expr;
+        for (let varName in memory) {
+            let regex = new RegExp(`\\b${varName}\\b`, 'g');
+            let val = memory[varName];
+            if (typeof val === 'string') {
+                tokenized = tokenized.replace(regex, JSON.stringify(val));
+            } else {
+                tokenized = tokenized.replace(regex, val);
+            }
+        }
+
+        // Safely evaluate standard JS math/string addition
+        try {
+            // Check for undeclared tokens
+            let checkUndeclared = tokenized.match(/[a-zA-Z_][a-zA-Z0-9_]*/g);
+            if (checkUndeclared) {
+                for (let token of checkUndeclared) {
+                    if (token !== "true" && token !== "false" && token !== "null") {
+                        throw new Error(`The name '${token}' does not exist in the current context.`);
+                    }
+                }
+            }
+            let res = Function(`'use strict'; return (${tokenized})`)();
+            return res;
+        } catch (e) {
+            throw new Error(e.message || `Invalid expression: ${expr}`);
+        }
+    }
+
+    // ========================================================
+    // STRICT EXAM SYSTEM (50% PASS REQUIREMENT)
+    // ========================================================
+    function startLockdownExam() {
         isExamActive = true;
-        userExamAnswers = {};
+        userAnswers = {};
 
-        // Force Full Screen
-        forceFullScreen();
+        // Force full screen
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+        }
 
-        document.getElementById('lectureView').style.display = 'none';
-        document.getElementById('examView').style.display = 'block';
-        document.getElementById('finishExamBtn').style.display = 'block';
-        document.getElementById('nextSlideUnlockBtn').style.display = 'none';
-        document.getElementById('examScoreDisplay').innerText = "نمرە: ٠٪";
+        document.getElementById('lectureCard').style.display = 'none';
+        document.getElementById('examSection').style.display = 'block';
+        document.getElementById('submitExamBtn').style.display = 'block';
+        document.getElementById('nextSlideBtn').style.display = 'none';
+        document.getElementById('examLiveScore').innerText = "نمرە: ٠٪";
 
-        const qContainer = document.getElementById('questionsContainer');
-        qContainer.innerHTML = '';
+        const container = document.getElementById('questionsContainer');
+        container.innerHTML = '';
         const data = slidesData[currentSlide];
 
         data.questions.forEach((q, idx) => {
             const card = document.createElement('div');
-            card.className = 'question-card';
+            card.className = 'q-card';
 
             if (q.type === "mcq") {
                 card.innerHTML = `
-                    <div class="q-title"><strong>پرسیارا ${idx + 1}:</strong> ${q.q}</div>
-                    <div class="options-grid" id="optGrid_${idx}">
+                    <div class="q-text"><strong>پرسیارا ${idx + 1}:</strong> ${q.q}</div>
+                    <div class="options-list" id="opts_${idx}">
                         ${q.options.map((opt, oIdx) => `
-                            <button class="btn-opt" onclick="recordMcq(${idx}, ${oIdx})">${opt}</button>
+                            <button class="opt-btn" onclick="pickOption(${idx}, ${oIdx})">${opt}</button>
                         `).join('')}
                     </div>
-                    <div class="explanation-box" id="explain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
+                    <div style="display:none; font-size:0.85rem; color:#38bdf8; margin-top:8px;" id="explain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
                 `;
             } else if (q.type === "costela") {
                 card.innerHTML = `
-                    <div class="q-title"><strong>پرسیارا ${idx + 1} (کستێلا - بنڤیسە):</strong> ${q.q}</div>
-                    <div>
-                        <input type="text" class="costela-input" id="costelaInput_${idx}" placeholder="بەرسڤا دروست ل ڤێرێ بنڤیسە...">
-                        <br>
-                        <button class="costela-btn" onclick="recordCostela(${idx})">تۆمارکرنا بەرسڤێ</button>
+                    <div class="q-text"><strong>پرسیارا ${idx + 1} (کستێلا - بنڤیسە):</strong> ${q.q}</div>
+                    <div class="costela-box">
+                        <input type="text" id="costela_${idx}" placeholder="بەرسڤێ ل ڤێرێ بنڤیسە...">
                     </div>
-                    <div class="explanation-box" id="explain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
+                    <div style="display:none; font-size:0.85rem; color:#38bdf8; margin-top:8px;" id="explain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
                 `;
             }
 
-            qContainer.appendChild(card);
+            container.appendChild(card);
         });
     }
 
-    function recordMcq(qIdx, optIdx) {
-        userExamAnswers[qIdx] = optIdx;
-        const grid = document.getElementById(`optGrid_${qIdx}`);
-        const btns = grid.getElementsByClassName('btn-opt');
-        for (let b of btns) b.style.borderColor = '#475569';
-        btns[optIdx].style.borderColor = 'var(--accent)';
+    function pickOption(qIdx, optIdx) {
+        userAnswers[qIdx] = optIdx;
+        const list = document.getElementById(`opts_${qIdx}`);
+        const btns = list.getElementsByClassName('opt-btn');
+        for (let b of btns) b.style.borderColor = '#3c3c3c';
+        btns[optIdx].style.borderColor = '#007acc';
     }
 
-    function recordCostela(qIdx) {
-        const val = document.getElementById(`costelaInput_${qIdx}`).value.trim();
-        userExamAnswers[qIdx] = val;
-        alert("بەرسڤا تە هاتە تۆمارکرن!");
-    }
-
-    function evaluateExam() {
+    function gradeExam() {
         const data = slidesData[currentSlide];
         let correct = 0;
         const total = data.questions.length;
 
         data.questions.forEach((q, idx) => {
-            const userAns = userExamAnswers[idx];
             document.getElementById(`explain_${idx}`).style.display = 'block';
 
             if (q.type === "mcq") {
-                const grid = document.getElementById(`optGrid_${idx}`);
-                const btns = grid.getElementsByClassName('btn-opt');
-                if (userAns !== undefined) {
-                    if (userAns === q.ans) {
+                const list = document.getElementById(`opts_${idx}`);
+                const btns = list.getElementsByClassName('opt-btn');
+                let ans = userAnswers[idx];
+                if (ans !== undefined) {
+                    if (ans === q.ans) {
                         correct++;
-                        btns[userAns].classList.add('correct');
+                        btns[ans].classList.add('correct');
                     } else {
-                        btns[userAns].classList.add('wrong');
+                        btns[ans].classList.add('wrong');
                         btns[q.ans].classList.add('correct');
                     }
                 }
             } else if (q.type === "costela") {
-                const input = document.getElementById(`costelaInput_${idx}`);
-                if (userAns && q.accepted.map(a => a.toLowerCase()).includes(userAns.toLowerCase())) {
+                const input = document.getElementById(`costela_${idx}`);
+                let val = input.value.trim().toLowerCase();
+                let isMatch = q.accepted.map(a => a.toLowerCase()).includes(val);
+                if (isMatch) {
                     correct++;
-                    input.style.borderColor = 'var(--success)';
+                    input.style.borderColor = '#10b981';
                 } else {
-                    input.style.borderColor = 'var(--danger)';
+                    input.style.borderColor = '#f43f5e';
                 }
             }
         });
 
+        // 50% PASS REQUIREMENT
         const percent = Math.round((correct / total) * 100);
-        document.getElementById('examScoreDisplay').innerText = `نمرە: ${percent}٪ (${correct}/${total})`;
-        document.getElementById('finishExamBtn').style.display = 'none';
+        document.getElementById('examLiveScore').innerText = `نمرە: ${percent}٪ (${correct}/${total})`;
+        document.getElementById('submitExamBtn').style.display = 'none';
 
-        if (percent >= 65) {
-            // Passed >= 65%!
-            document.getElementById('nextSlideUnlockBtn').style.display = 'block';
+        if (percent >= 50) {
+            document.getElementById('nextSlideBtn').style.display = 'block';
             if (unlockedSlide === currentSlide && unlockedSlide < slidesData.length - 1) {
                 unlockedSlide++;
             }
-            renderSidebar();
+            buildSidebar();
         } else {
-            alert(`تە ${percent}٪ ئینا. چونکی ژ ٦٥٪ کێمترە، دەرنەچووی! تکایە دووبارە تاقیبکەوە دا سلاێدا دی ڤەبیت.`);
+            alert(`تە ${percent}٪ ئینا. چونکی کێمترە ژ ٥٠٪، دەرنەچووی! تکایە دووبارە تاقیبکەوە دا سلاێدا دی ڤەبیت.`);
             setTimeout(() => {
-                enterStrictExam();
-            }, 2000);
+                startLockdownExam();
+            }, 1800);
         }
     }
 
-    function proceedToNextSlide() {
+    function goToNextSlide() {
         isExamActive = false;
         if (currentSlide < slidesData.length - 1) {
             loadSlide(currentSlide + 1);
@@ -1388,65 +1427,60 @@ namespace test
     }
 
     // ========================================================
-    // STRICT LOCKDOWN ANTI-CHEAT DETECTORS
+    // ANTI-CHEAT LOCKDOWN SENSORS
     // ========================================================
-    function setupLockdownSensors() {
-        // Detect tab change or window blur during exam
+    function setupAntiCheatSensors() {
         document.addEventListener('visibilitychange', () => {
             if (isExamActive && document.hidden) {
-                triggerLockdownBlackout();
+                triggerBlackout();
             }
         });
 
         window.addEventListener('blur', () => {
             if (isExamActive) {
-                triggerLockdownBlackout();
+                triggerBlackout();
             }
         });
 
-        // Detect escape from fullscreen during exam
         document.addEventListener('fullscreenchange', () => {
             if (isExamActive && !document.fullscreenElement) {
-                triggerLockdownBlackout();
+                triggerBlackout();
             }
         });
     }
 
-    function triggerLockdownBlackout() {
-        document.getElementById('cheatShield').style.display = 'flex';
+    function triggerBlackout() {
+        document.getElementById('blackoutShield').style.display = 'flex';
     }
 
-    function restoreLockdown() {
-        document.getElementById('cheatShield').style.display = 'none';
-        forceFullScreen();
-    }
-
-    function forceFullScreen() {
+    function restoreExamView() {
+        document.getElementById('blackoutShield').style.display = 'none';
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen().catch(() => {});
         }
     }
 
     // ========================================================
-    // TEACHER MASTER CODE (19439)
+    // SECRET TEACHER SHORTCUT MODAL (19439)
     // ========================================================
-    function openTeacherModal() {
+    function openSecretModal() {
         document.getElementById('teacherModal').style.display = 'flex';
+        document.getElementById('secretPassInput').value = '';
     }
 
-    function closeTeacherModal() {
+    function closeSecretModal() {
         document.getElementById('teacherModal').style.display = 'none';
     }
 
-    function submitTeacherCode() {
-        const entered = document.getElementById('teacherCodeInput').value.trim();
-        if (entered === TEACHER_BYPASS_CODE) {
-            unlockedSlide = slidesData.length - 1; // Unlock ALL 19 slides
-            renderSidebar();
-            closeTeacherModal();
-            alert("🔑 ب خێر بێی جەنابێ مامۆستا! هەمی ١٩ سلاێد ب تەواوی هاتنە ڤەکرن.");
+    function verifySecretCode() {
+        const pass = document.getElementById('secretPassInput').value.trim();
+        if (pass === SECRET_TEACHER_KEY) {
+            unlockedSlide = slidesData.length - 1; // Unlock ALL 19 slides instantly
+            buildSidebar();
+            closeSecretModal();
+            alert("🔑 ب خێر بێی جەنابێ مامۆستا! هەمی ١٩ سلاێد ب دەستبەجێ هاتنە ڤەکرن.");
         } else {
-            alert("❌ کۆد شاشە! تکایە کۆدێ دروستێ مامۆستای لێبدە.");
+            alert("❌ پاسکۆد شاشە!");
         }
     }
 </script>
