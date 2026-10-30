@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUAS - C# Interactive Learning & Exam System</title>
+    <title>Fundamentals of Programming by C# | مەلزەما تەواو و ١٠٠ کویز</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
             --accent: #f59e0b;
             --danger: #ef4444;
             --success: #10b981;
-            --bg: #0f172a;
-            --panel: #1e293b;
-            --card: #334155;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --code-bg: #1e293b;
         }
 
         * {
@@ -27,2081 +27,1612 @@
             margin: 0;
             padding: 0;
             font-family: 'Vazirmatn', sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none; /* قەدەغەکرنا کۆپیکرنا پرسیاران */
         }
 
         body {
             background-color: var(--bg);
-            color: var(--text-light);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
+            color: var(--text-dark);
+            line-height: 1.8;
+            padding: 20px;
         }
 
-        /* Top Navigation & Status */
-        .top-bar {
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 12px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-light);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
         }
 
-        .logo-area h2 {
-            font-size: 1.15rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* Header Card */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            border-bottom: 5px solid var(--accent);
         }
 
-        .stats-area {
-            display: flex;
-            gap: 20px;
+        .hero h1 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 4px 0;
+        }
+
+        .badge-info {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-top: 15px;
             font-size: 0.95rem;
         }
 
-        .stat-badge {
-            background: #0f172a;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid #475569;
-        }
-
-        .cheat-warning {
-            color: var(--danger);
-            font-weight: bold;
-        }
-
-        /* Main Workspace Layout */
-        .workspace {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            flex: 1;
-            height: calc(100vh - 65px);
-        }
-
-        /* Sidebar - Slides Navigation */
-        .sidebar {
-            background: var(--panel);
-            border-left: 1px solid #334155;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        .sidebar h3 {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #475569;
-        }
-
-        .slide-nav-item {
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: var(--card);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .slide-nav-item.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #1e293b;
-        }
-
-        .slide-nav-item.active {
-            background: var(--primary-light);
-            font-weight: bold;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-        }
-
-        .slide-nav-item.completed {
-            border-right: 4px solid var(--success);
-        }
-
-        /* Content Area */
-        .content-area {
-            padding: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .lecture-card {
-            background: var(--panel);
+        /* Slide Sections */
+        .slide-card {
+            background: var(--card-bg);
             border-radius: 16px;
             padding: 30px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
         }
 
-        .lecture-header {
+        .slide-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .slide-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 15px;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 12px;
             margin-bottom: 20px;
         }
 
-        .lecture-header h1 {
-            color: var(--accent);
-            font-size: 1.6rem;
-        }
-
-        .slide-badge {
-            background: #3b82f6;
-            color: white;
+        .slide-tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-weight: 700;
             padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
 
-        .lecture-body {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: #e2e8f0;
+        .slide-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 800;
         }
 
-        .lecture-body ul {
+        h3 {
+            color: var(--secondary);
+            margin: 15px 0 10px 0;
+            font-size: 1.15rem;
+        }
+
+        ul {
             list-style: none;
             padding-right: 15px;
-            margin: 15px 0;
         }
 
-        .lecture-body ul li {
-            margin-bottom: 10px;
+        ul li {
             position: relative;
-            padding-right: 22px;
+            margin-bottom: 10px;
+            padding-right: 20px;
         }
 
-        .lecture-body ul li::before {
+        ul li::before {
             content: "✦";
             color: var(--primary-light);
             position: absolute;
             right: 0;
+            font-size: 0.9rem;
         }
 
-        /* Interactive Video-like Visualizer */
-        .visualizer-box {
-            background: #090d16;
-            border-radius: 14px;
-            border: 2px solid #3b82f6;
-            padding: 20px;
-            margin: 25px 0;
+        /* Code Blocks */
+        pre, code {
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            text-align: left;
         }
 
-        .visualizer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .btn-run-sim {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        pre {
+            background: var(--code-bg);
+            color: #f8fafc;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
             font-size: 0.95rem;
+            border-left: 5px solid var(--accent);
         }
 
-        .sim-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        code.inline {
+            background: #e2e8f0;
+            color: #d946ef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
 
-        .code-display {
-            background: #020617;
+        /* Note Callouts */
+        .note-box {
+            background: #fffbeb;
+            border-right: 5px solid var(--accent);
             padding: 15px;
             border-radius: 8px;
-            font-family: 'Fira Code', monospace;
-            direction: ltr;
-            text-align: left;
-            font-size: 0.9rem;
-            color: #38bdf8;
-            height: 190px;
-            overflow-y: auto;
+            margin: 15px 0;
+            color: #92400e;
         }
 
-        .code-line {
-            padding: 3px 6px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .code-line.active {
-            background: #1e3a8a;
-            color: #facc15;
-            font-weight: bold;
-        }
-
-        .sim-output-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .ram-box {
-            background: #0f172a;
-            border: 1px dashed #64748b;
+        .danger-box {
+            background: #fef2f2;
+            border-right: 5px solid var(--danger);
+            padding: 15px;
             border-radius: 8px;
-            padding: 10px;
-            height: 90px;
+            margin: 15px 0;
+            color: #991b1b;
         }
 
-        .ram-title {
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin-bottom: 5px;
+        .table-responsive {
+            overflow-x: auto;
+            margin: 15px 0;
         }
 
-        .ram-cells {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .ram-cell {
-            background: #1e293b;
-            border: 1px solid #3b82f6;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-family: 'Fira Code', monospace;
-            animation: pulse 0.5s ease;
-        }
-
-        .console-screen {
-            background: #000;
-            color: #4ade80;
-            border-radius: 8px;
-            padding: 10px;
-            font-family: 'Fira Code', monospace;
-            direction: ltr;
-            text-align: left;
-            height: 90px;
-            overflow-y: auto;
-            border: 1px solid #22c55e;
-            font-size: 0.85rem;
-        }
-
-        /* Strict Quiz Section */
-        .exam-container {
-            background: #1e293b;
-            border-radius: 16px;
-            padding: 30px;
-            border: 2px solid var(--accent);
-            display: none; /* شوینا خۆ دگریت دەمێ خواندن بدوماهیک هات */
-        }
-
-        .exam-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #475569;
-            padding-bottom: 12px;
-        }
-
-        .q-card {
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-        }
-
-        .q-difficulty {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .diff-easy { background: #065f46; color: #6ee7b7; }
-        .diff-med { background: #854d0e; color: #fde047; }
-        .diff-hard { background: #991b1b; color: #fca5a5; }
-
-        .q-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: #f8fafc;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        .opt-btn {
-            background: #1e293b;
-            color: #e2e8f0;
-            border: 1px solid #475569;
-            padding: 12px 18px;
-            border-radius: 8px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
             text-align: right;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        table th {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        /* Quiz Section Styling */
+        .quiz-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            margin-top: 40px;
+            border: 2px solid #3b82f6;
+        }
+
+        .quiz-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .quiz-options {
+            margin-bottom: 10px;
+            padding-right: 15px;
+        }
+
+        details {
+            background: #eef2ff;
+            padding: 8px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.95rem;
+            margin-top: 8px;
         }
 
-        .opt-btn:hover {
-            background: #334155;
-            border-color: var(--primary-light);
+        summary {
+            font-weight: bold;
+            color: var(--primary);
+            user-select: none;
         }
 
-        .opt-btn.correct {
-            background: #065f46 !important;
-            border-color: var(--success) !important;
-            color: #ecfdf5 !important;
+        details p {
+            margin-top: 8px;
+            color: #166534;
+            font-weight: 600;
         }
 
-        .opt-btn.wrong {
-            background: #991b1b !important;
-            border-color: var(--danger) !important;
-            color: #fef2f2 !important;
-        }
-
-        .q-explain {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 6px;
-            background: rgba(30, 58, 138, 0.3);
-            border-right: 3px solid var(--primary-light);
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .btn-action {
+        .btn-print {
             background: var(--accent);
             color: black;
             border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 900;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-            display: block;
-            margin: 20px auto 0 auto;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
-        /* Anti-cheat Fullscreen Overlay Alert */
-        .cheat-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .cheat-modal-content {
-            background: #1e1b4b;
-            border: 3px solid var(--danger);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 550px;
-            box-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 900px) {
-            .workspace { grid-template-columns: 1fr; }
-            .sidebar { height: 160px; }
-            .sim-grid { grid-template-columns: 1fr; }
+        @media print {
+            .btn-print { display: none; }
+            body { padding: 0; background: white; }
+            .slide-card, .quiz-section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+            details { open: true; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-<!-- Anti-Cheat Overlay Alert -->
-<div class="cheat-modal" id="cheatModal">
-    <div class="cheat-modal-content">
-        <h1 style="color: var(--danger); font-size: 2.5rem; margin-bottom: 15px;">⚠️ هشیاربە: قۆپیکرن!</h1>
-        <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 25px;">
-            تە هەولدا پەیجێ تاقیکرنێ بجیهـ بهێلی یان بچیە سەر بەرنامەکێ دی!<br>
-            سیستەمێ زانکۆیا ئاکرێ چاڤدێریا تە دکەت. هەر لڤینەک دهێتە تۆمارکرن.
-        </p>
-        <button class="btn-action" onclick="dismissCheatWarning()">تێگەهشتم، دێ زڤڕمە سەر تاقیکرنێ</button>
-    </div>
-</div>
+<div class="container">
 
-<!-- Top Bar -->
-<div class="top-bar">
-    <div class="logo-area">
-        <h2>🏛️ زانکۆیا ئاکرێ | پەیمانگەها تەکنیکی (IT)</h2>
-    </div>
-    <div class="stats-area">
-        <div class="stat-badge">مامۆستا: <strong>Kazheen Ismael</strong></div>
-        <div class="stat-badge">پێشکەفتن: <span id="progressText" style="color: var(--accent); font-weight: bold;">سلاێدێ ١ ژ ١٩</span></div>
-        <div class="stat-badge cheat-warning">ئاگەهداریێن قۆپیێ: <span id="cheatCount">٠</span></div>
-        <button id="fsBtn" onclick="toggleFullScreen()" style="background:#3b82f6; color:white; border:none; padding:5px 12px; border-radius:6px; cursor:pointer;">⛶ شاشەیا مەزن</button>
-    </div>
-</div>
-
-<!-- Workspace -->
-<div class="workspace">
-
-    <!-- Sidebar with Locked Progress -->
-    <div class="sidebar" id="sidebarList">
-        <h3>سلاێدێن وانێ (قوفلکرینە 🔒)</h3>
-        <!-- Dynamic Navigation Items -->
+    <div style="text-align: left;">
+        <button class="btn-print" onclick="window.print()">🖨️ چاپکرن یان دابەزاندن وەک PDF (Print to PDF)</button>
     </div>
 
-    <!-- Active Content Area -->
-    <div class="content-area" id="contentArea">
+    <!-- Hero Header -->
+    <div class="hero">
+        <h1>Fundamentals of Programming by C#</h1>
+        <p>زانکۆیا ئاکرێ یا زانستێن پێکتی (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ</p>
+        <p>پشک: تەکنۆلۆژیایا زانیاری (Information Technology Department) | 2024 - 2025</p>
+        <p>مامۆستایا بابەتێ: Kazheen Ismael Taher</p>
+        <div class="badge-info">دەستکێشا تەواو: کورتیا هەر ١٩ سلاێدان + ١٠٠ پرسیارێن کویزێ ب بەرسڤ ڤە</div>
+    </div>
 
-        <!-- Lecture Card -->
-        <div class="lecture-card" id="lectureView">
-            <div class="lecture-header">
-                <h1 id="slideTitle">بارکردن...</h1>
-                <span class="slide-badge" id="slideBadge">Slide 1</span>
-            </div>
+    <!-- ================= SLIDE BY SLIDE STUDY GUIDE ================= -->
 
-            <div class="lecture-body" id="slideContent">
-                <!-- Dynamic Slide Content -->
-            </div>
-
-            <!-- Video-Like Interactive Visualizer -->
-            <div class="visualizer-box" id="visualizerContainer">
-                <div class="visualizer-header">
-                    <span style="font-weight: bold; color: var(--accent);">🎬 چاڤدێرێ ڕاستەوخۆ یێ کۆدی (Simulation Demo)</span>
-                    <button class="btn-run-sim" id="runSimBtn" onclick="startSimulation()">▶ کارپێکرنا کۆدی (Step-by-Step)</button>
-                </div>
-                <div class="sim-grid">
-                    <div class="code-display" id="simCodeArea">
-                        <!-- Code lines -->
-                    </div>
-                    <div class="sim-output-wrap">
-                        <div class="ram-box">
-                            <div class="ram-title">🧠 بیرگەهـ (RAM Memory Variables):</div>
-                            <div class="ram-cells" id="simRam">
-                                <span style="color: gray; font-size: 0.8rem;">چ گۆڕاو نینن</span>
-                            </div>
-                        </div>
-                        <div class="console-screen" id="simConsole">
-                            <span style="color: #64748b;">// Console Output دیار دبیت ل ڤێرێ...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn-action" onclick="startSlideExam()">📝 دەستپێکرنا تاقیکرنا ڤێ سلاێدێ (پێدڤیە دەرباز ببی)</button>
+    <!-- SLIDE 1 & 2 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">ناڤەرۆک و کارنامە (Outlines)</span>
+            <span class="slide-tag">سلاێدێ ١ و ٢</span>
         </div>
-
-        <!-- Strict Exam Container -->
-        <div class="exam-container" id="examView">
-            <div class="exam-header">
-                <div>
-                    <h2 style="color: var(--accent);" id="examTitle">تاقیکرنا سلاێدێ</h2>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">پێدڤیە هەمی پرسیاران ب دروستی بەرسڤ بدەی دا سلاێدا دویڤدا ڤەبیت.</p>
-                </div>
-                <div style="font-size: 1.1rem; font-weight: bold; color: #38bdf8;" id="examScore">نمرە: ٠</div>
-            </div>
-
-            <div id="questionsContainer">
-                <!-- Dynamic 100 Questions Injected Here per slide -->
-            </div>
-
-            <button class="btn-action" id="nextSlideBtn" style="display: none;" onclick="advanceToNextSlide()">سەرکەفتی! دەربازبە بۆ سلاێدا دویڤدا ❯</button>
-        </div>
-
+        <p>ئەڤ مەلزەمە بنەمایێن سەرەکی یێن بەرنامەسازیێ ب زمانێ C# بخۆڤەدگریت. خالێن سەرەکی ئەڤەنە:</p>
+        <ul>
+            <li><strong>What is C#:</strong> زمانێ C# چییە و مێژوویا وی.</li>
+            <li><strong>C# Applications:</strong> ل کیڤە و بۆ چ دهێتە بکارئینان.</li>
+            <li><strong>Why C# is used:</strong> بۆچی C# بکاربینین و چ مفایێن وی هەنە.</li>
+            <li><strong>C# Program Structure:</strong> پەیکەر و ڕێزبەندیا دروستکرنا کۆدی.</li>
+            <li><strong>Output (WriteLine):</strong> چاپکرن ل سەر شاشەیێ.</li>
+            <li><strong>C# Comments:</strong> نڤیسینا تێبینیان د کۆدی دا.</li>
+            <li><strong>Variables & Constants:</strong> گۆڕاو و نەگۆڕەکان.</li>
+            <li><strong>Keywords & Identifiers:</strong> پەیڤێن قەدەغەکری و یاسایێن ناڤلێنانێ.</li>
+        </ul>
     </div>
 
-</div>
+    <!-- SLIDE 3 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">C# چییە؟ (What is C#?)</span>
+            <span class="slide-tag">سلاێدێ ٣</span>
+        </div>
+        <ul>
+            <li><strong>بلەفکرن (Pronunciation):</strong> دبێژنێ <strong>"C-Sharp"</strong> یان ژی <strong>"C-Hash"</strong>.</li>
+            <li><strong>جۆرێ زمانێ بەرنامەسازیێ:</strong> زمانەکێ <strong>Object-Oriented</strong> (تەوەر-کائن) یە.</li>
+            <li><strong>دروستکەر:</strong> ژ لایێ کۆمپانییا <strong>Microsoft</strong> هاتیە بەرهەمئینان.</li>
+            <li><strong>ژینگەها کارپێکرنێ:</strong> ل سەر چارچووڤەیێ <strong>.NET Framework</strong> کار دکەت.</li>
+            <li><strong>ڕەچەلەک:</strong> ڕەهێن وی دزڤڕنەڤە بۆ بنەماڵا C، و گەلەکێ نێزیکی زمانێن <strong>C++</strong> و <strong>Java</strong> یە.</li>
+            <li><strong>مێژوو:</strong> ئێکەم ڤێرژن ل سالا <strong>2002</strong> هاتیە بەلاڤکرن.</li>
+        </ul>
+        <div class="note-box">
+            💡 <strong>تێبینیا کویزی:</strong> گەلەک جاران پرسیار دهێت: "C# ژ لایێ کێ ڤە و ل کیژ سالێ هاتە دانان؟" بەرسڤ: Microsoft ل سالا 2002.
+        </div>
+    </div>
 
-<script>
-    // ==========================================
-    // 19 SLIDES DATA + 100 REAL EXAM QUESTIONS
-    // ==========================================
-    const slidesData = [
-        {
-            id: 1,
-            title: "دەستپێک و زانیاریێن وانێ",
-            badge: "سلاێدێ ١",
-            content: `
-                <p>ب خێر بێی بۆ وانەیا <strong>Fundamentals of Programming by C#</strong> ل زانکۆیا ئاکرێ یا زانستێن پێکتی (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ، پشکا تەکنۆلۆژیایا زانیاری (IT).</p>
-                <ul>
-                    <li><strong>بابەت:</strong> بنەما و سەرەتایێن بەرنامەسازیێ ب زمانی C#.</li>
-                    <li><strong>مامۆستایا بابەتێ:</strong> مامۆستا Kazheen Ismael Taher.</li>
-                    <li><strong>سالا خاندنێ:</strong> 2024 - 2025.</li>
-                </ul>
-            `,
-            codeLines: [
-                '// Akre University for Applied Science',
-                '// IT Department - 2024/2025',
-                'Console.WriteLine("Welcome to C# at AUAS!");'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: null, output: null },
-                { line: 2, ram: null, output: "Welcome to C# at AUAS!" }
-            ],
-            questions: [
-                {
-                    q: "ئەڤ بابەتە (C#) بۆ کیژ پشکێ دهێتە گۆتن ل پەیمانگەها تەکنیکی یا ئاکرێ؟",
-                    options: ["پشکا تەندروستی", "پشکا کارگێری", "پشکا تەکنۆلۆژیایا زانیاری (IT)", "پشکا ژمێریاری"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "ئەڤ بابەتە تایبەتە ب قوتابیێن پشکا IT ل زانکۆیا ئاکرێ."
-                },
-                {
-                    q: "ناڤێ مامۆستایا بابەتێ کورتەکێ مەلزەمێ چییە؟",
-                    options: ["Sara Ahmed", "Kazheen Ismael Taher", "Shvan Rekani", "Viyan Doski"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "ل سلاێدا ئێکێ ناڤێ مامۆستایێ هاتیە دیارکرن: Kazheen Ismael Taher."
-                },
-                {
-                    q: "کورتیا (AUAS) ئاماژەیە بۆ کیژ زانکۆیێ؟",
-                    options: ["American University of Sulaimani", "Akre University for Applied Science", "Asian University Applied Studies", "Al-Qalam University"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "AUAS ئانکو زانکۆیا ئاکرێ یا زانستێن پێکتی."
-                }
-            ]
-        },
-        {
-            id: 2,
-            title: "کارنامە و ناڤەرۆکێن سەرەکی (Outlines)",
-            badge: "سلاێدێ ٢",
-            content: `
-                <p>د ڤێ مەلزەمێ دا ل سەرەتایێ حەتا داویێ، ئەڤ تەوەرێن ل خوارێ دێ هێنە خواندن و تاقیکرن ل سەر هێتە کرن:</p>
-                <ul>
-                    <li>ناساندنا زمانێ C# (What is C#).</li>
-                    <li>بەرنامە و بوارێن کارپێکرنا C# (C# Applications).</li>
-                    <li>بۆچی C# بکاربینین (Why C# is used).</li>
-                    <li>پەیکەرێ فەرمی یێ کۆدێ C# (Program Structure).</li>
-                    <li>دەرئەنجام و چاپکرن (Output: WriteLine).</li>
-                    <li>تێبینی د کۆدی دا (C# Comments).</li>
-                    <li>گۆڕاو و نەگۆڕ (Variables & Constants).</li>
-                    <li>پەیڤێن قەدەغەکری و یاسایێن ناڤلێنانێ (Keywords & Identifiers).</li>
-                </ul>
-            `,
-            codeLines: [
-                '// Outlines of C# Lecture',
-                'string subject = "C# Fundamentals";',
-                'Console.WriteLine("Studying: " + subject);'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: { "subject": '"C# Fundamentals"' }, output: null },
-                { line: 2, ram: { "subject": '"C# Fundamentals"' }, output: "Studying: C# Fundamentals" }
-            ],
-            questions: [
-                {
-                    q: "کیژ بابەت ژ ڤانان د ناڤ کارنامەیا (Outlines) یا سلاێدا ٢ دا نینە؟",
-                    options: ["C# Comments", "Variables & Constants", "Pointers & Memory Allocation", "Keywords & Identifiers"],
-                    ans: 2,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "بابەتێ Pointers د کارنامەیا مەلزەمێ دا نینە، بەلکو بەحسێ Comments, Variables, Keywords هاتیە کرن."
-                },
-                {
-                    q: "مێتۆدا چاپکرنێ یا د Outlines دا دیارکری کیژکە؟",
-                    options: ["Print()", "System.out", "WriteLine", "Echo"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "ل Outlines نڤیسیە: C# Output (WriteLine)."
-                }
-            ]
-        },
-        {
-            id: 3,
-            title: "زمانێ C# چییە؟ (What is C#)",
-            badge: "سلاێدێ ٣",
-            content: `
-                <p>خالێن گرنگ دەربارەی پێناسە و مێژوویا C#:</p>
-                <ul>
-                    <li><strong>بلەفکرن:</strong> دبێژنێ <strong>"C-Sharp"</strong> یان ژی <strong>"C-Hash"</strong>.</li>
-                    <li><strong>جۆرێ زمانی:</strong> زمانەکێ <strong>Object-Oriented</strong> (تەوەر-کائن) یە.</li>
-                    <li><strong>دروستکەر:</strong> ژ لایێ کۆمپانییا مەزنا <strong>Microsoft</strong> هاتیە بەرهەمئینان.</li>
-                    <li><strong>ژینگەها کارپێکرنێ:</strong> ل سەر چارچووڤەیێ <strong>.NET Framework</strong> کار دکەت.</li>
-                    <li><strong>ڕەچەلەک:</strong> ژ بنەماڵا C هاتیە، و گەلەکێ نێزیکی زمانێن <strong>C++</strong> و <strong>Java</strong> یە.</li>
-                    <li><strong>مێژوو:</strong> ئێکەم ڤێرژن ل سالا <strong>2002</strong> کەفتە د بازاریدا.</li>
-                </ul>
-            `,
-            codeLines: [
-                'string lang = "C#";',
-                'int releaseYear = 2002;',
-                'Console.WriteLine(lang + " created in " + releaseYear);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "lang": '"C#"' }, output: null },
-                { line: 1, ram: { "lang": '"C#"', "releaseYear": "2002" }, output: null },
-                { line: 2, ram: { "lang": '"C#"', "releaseYear": "2002" }, output: "C# created in 2002" }
-            ],
-            questions: [
-                {
-                    q: "ئێکەم ڤێرژنا زمانێ C# ل کیژ سالێ هاتە بەلاڤکرن؟",
-                    options: ["1998", "2000", "2002", "2005"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "سلاێد ٣: The first version was released in year 2002."
-                },
-                {
-                    q: "زمانێ C# ژ لایێ کیژ کۆمپانی ڤە هاتیە ئافراندن؟",
-                    options: ["Google", "Apple", "Microsoft", "Oracle"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "ژ لایێ Microsoft هاتیە چێکرن."
-                },
-                {
-                    q: "C# ل سەر کیژ فریمۆرک (Framework) کار دکەت؟",
-                    options: [".NET Framework", "Django", "Laravel", "Spring Boot"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "runs on the .NET Framework."
-                },
-                {
-                    q: "زمانێ C# ژ لایێ شێوازێ دارشتنێ ڤە گەلەک یێ نێزیکی کیژ زمانانە؟",
-                    options: ["Python و Ruby", "C++ و Java", "PHP و Swift", "HTML و CSS"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "language is close to other popular languages like C++ and Java."
-                },
-                {
-                    q: "ئەرێ C# زمانەکێ Object-Oriented یە؟",
-                    options: ["نەخێر، پڕۆسێجەرالە", "بەلێ، Object-Oriented یە", "بتنێ زمانێ داتابەیسێ یە", "چ ژ ڤانان نینە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "It is an object-oriented programming language."
-                },
-                {
-                    q: "بلەفکرنا دروستا C# چەوایە؟",
-                    options: ["C-Plus", "C-Sharp or C-Hash", "C-Number", "C-Square"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "C# is pronounced C-Sharp or C-Hash."
-                }
-            ]
-        },
-        {
-            id: 4,
-            title: "بوار و بەرنامەیێن C# (C# Applications)",
-            badge: "سلاێدێ ٤",
-            content: `
-                <p>زمانێ C# زمانەکێ گشتگیرە (General-purpose) و د گەلەک بواران دا دهێتە بکارئینان:</p>
-                <ul>
-                    <li><strong>Mobile applications:</strong> بەرنامەیێن مۆبایلان.</li>
-                    <li><strong>Desktop applications:</strong> بەرنامەیێن ویندۆز و کۆمپیۆتەرێ.</li>
-                    <li><strong>Web applications & Web services:</strong> ماڵپەر و خزمەتێن سەرهێڵ.</li>
-                    <li><strong>Games:</strong> یاریێن ئەلیکترۆنی (ب تایبەت دگەل ماتۆڕێ Unity).</li>
-                    <li><strong>VR:</strong> ڕاستیا خەیالی (Virtual Reality).</li>
-                    <li><strong>Database applications:</strong> کارکرن دگەل سیستەمێن بنکەیێ دراوەیان.</li>
-                </ul>
-            `,
-            codeLines: [
-                'string app1 = "Games (Unity)";',
-                'string app2 = "Mobile Apps";',
-                'Console.WriteLine("C# is used for: " + app1);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "app1": '"Games (Unity)"' }, output: null },
-                { line: 1, ram: { "app1": '"Games (Unity)"', "app2": '"Mobile Apps"' }, output: null },
-                { line: 2, ram: { "app1": '"Games (Unity)"', "app2": '"Mobile Apps"' }, output: "C# is used for: Games (Unity)" }
-            ],
-            questions: [
-                {
-                    q: "ئەرێ زمانێ C# دشێت بۆ دروستکرنا یاریێن ڤیدیۆیی (Games) بهێتە بکارئینان؟",
-                    options: ["نەخێر، بتنێ بۆ ماڵپەڕانە", "بەلێ، بۆ یاری و VR ژی دهێتە بکارئینان", "بتنێ بۆ ژمێریاریێ یە", "قەدەغەیە د یاریان دا"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "C# is used for: Games, VR, Mobile, Desktop, etc."
-                },
-                {
-                    q: "کورتکرنا (VR) د بەرنامەسازیێ دا چییە؟",
-                    options: ["Visual Record", "Virtual Reality", "Variable Rule", "Value Return"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "VR کورتکرنا Virtual Reality یە."
-                },
-                {
-                    q: "کیژ بوار ل سلاێدا ٤ دا هاتیە ناڤبرن؟",
-                    options: ["Database applications", "Web applications", "Desktop applications", "هەمی بەرسڤ دروستن"],
-                    ans: 3,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "هەمی ئەڤ بوارە ل سلاێدێ ٤ ڕاستەوخۆ هاتینە نڤیسین."
-                },
-                {
-                    q: "ئەرێ بەرنامەیێن مۆبایلێ ب C# چێدبن؟",
-                    options: ["بەلێ (Mobile applications)", "نەخێر، ناچێبن", "بتنێ ب جاڤا چێدبن", "بتنێ ل سەر ئایفۆن کار ناکەت"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "بەلێ، ئێک ژ بوارێن سەرەکی Mobile applications ە."
-                },
-                {
-                    q: "کیژ بژاردە ل سەر C# ناگونجیت؟",
-                    options: ["بۆ وێبسایتان دهێتە بکارئینان", "بۆ داتابەیسێ دهێتە بکارئینان", "چ جاران ل سەر ویندۆز کار ناکەت", "بۆ Desktop Apps دهێتە بکارئینان"],
-                    ans: 2,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "C# بەرهەمێ مایکرۆسۆفتە و باشترین کار ل سەر ویندۆز دکەت، لەوا بژاردەیا ٣ خەلەتە."
-                }
-            ]
-        },
-        {
-            id: 5,
-            title: "بۆچی C# بکاربینین؟ (Why Use C#?)",
-            badge: "سلاێدێ ٥",
-            content: `
-                <p>ئەگەرێن سەرەکی یێن بەلاڤبوونا مەزنا C#:</p>
-                <ul>
-                    <li>ئێک ژ بەربلاڤترین و بەناوبانگترین زمانێن جیهانێ یە.</li>
-                    <li>فێربوونا وی یا ب ساناهییە و بسادەیی دهێتە بکارئینان (Easy to learn and simple to use).</li>
-                    <li>کۆمەڵگەهەکا گەلەک مەزن یا پشتەڤانیێ هەیە (Huge community support).</li>
-                    <li>ژبەرکو زمانەکێ Object-Orientedە، ڕێکخستنەکا زەلال ددەتە پڕۆگرامی و ڕێکێ ددەت کۆد <strong>دووبارە بهێتە بکارئینان (Code Reuse)</strong> کو خەرجیێن دروستکرنێ کێم دکەت.</li>
-                    <li>ژبەرکو نێزیکی C، C++ و Javaیە، گوهۆڕین دناڤبەرا واندا گەلەک یا بساناهییە بۆ پرۆگرامەری.</li>
-                </ul>
-            `,
-            codeLines: [
-                '// Why C#? Code Reusability lowers development cost',
-                'bool easyToLearn = true;',
-                'Console.WriteLine("Is C# easy? " + easyToLearn);'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: { "easyToLearn": "true" }, output: null },
-                { line: 2, ram: { "easyToLearn": "true" }, output: "Is C# easy? True" }
-            ],
-            questions: [
-                {
-                    q: "دووبارە بکارهێنانا کۆدی (Code Reuse) د C# دا چ فایدە هەیە؟",
-                    options: ["سیستەمی هێواش دکەت", "تێچوو و مەزاختا دروستکرنێ کێم دکەت (lowering development costs)", "کۆدی تێکددەت", "قەبارێ هارد دیسکی زێدە دکەت"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "سلاێد ٥: allows code to be reused, lowering development costs."
-                },
-                {
-                    q: "بۆچی گوهۆڕین (Switch) ژ C++ یان Java بۆ سەر C# بساناهییە؟",
-                    options: ["چونکی هەمان پیتن", "چونکی C# یێ نێزیکی وانە ژ لایێ سینتاکس و ڕەچەلەکێ ڤە", "چونکی هەمان کۆمپانینە", "چونکی چ جیاوازی نینە دناڤبەرا واندا"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "As C# is close to C, C++ and Java, it makes it easy for programmers to switch."
-                },
-                {
-                    q: "ئەرێ زمانێ C# پشتەڤانیا کۆمەڵگەهێ (Community Support) یا کێمە؟",
-                    options: ["بەلێ، کەس بکارناهینیت", "نەخێر، پشتەڤانیەکا ئێکجار مەزن هەیە (Huge community support)", "بتنێ ل سالا ٢٠٠٢ هەبوو", "بتنێ ل زانکۆیان هەیە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "It has a huge community support."
-                },
-                {
-                    q: "کیژ ژ ڤانان خاسیەتەکا C# نینە؟",
-                    options: ["فێربوونا ب ساناهی", "پێکهاتەیا ڕێکخستی ب OOP", "تێچوویێ گەلەک زێدە دکەت", "هەبوونا پشتەڤانیا مەزن"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "بژاردەیا ٣ خەلەتە، چونکی تێچووی کێم دکەت نەک زێدە!"
-                },
-                {
-                    q: "Object-oriented د C# دا چ ددەتە پڕۆگرامی؟",
-                    options: ["خەلەتیان زێدە دکەت", "پەیکەرەکێ زەلال و ڕێکخستی (Clear structure)", "کۆدی ژناڤ دبەت", "ڕێگریێ ل چاپکرنێ دکەت"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "gives a clear structure to programs."
-                }
-            ]
-        },
-        {
-            id: 6,
-            title: "پەیکەرێ فەرمی یێ کۆدی (C# General Syntax)",
-            badge: "سلاێدێ ٦",
-            content: `
-                <p>هەر کۆدەکێ دەستپێکی یێ C# پێکهاتیە ژ ڤان پشکێن بنەڕەتی:</p>
-                <ul>
-                    <li><strong>using System;</strong> ئینانا کتێبخانە و ناڤناڤێ System.</li>
-                    <li><strong>namespace test:</strong> کانتینەر و هێلانەکە بۆ ڕێکخستنا کلاسان.</li>
-                    <li><strong>class Program:</strong> هێلانەکا داتا و مێتۆدان (هەر کۆدەک دڤێت د ناڤ کلاسی دا بیت).</li>
-                    <li><strong>static void Main(string[] args):</strong> مێتۆدا سەرەکی یا دەستپێکرنا جێبەجێکرنێ.</li>
-                    <li><strong>{ } کەوانێن خوار:</strong> دیارکرنا دەستپێک و دوماهیا پارچە کۆدان.</li>
-                </ul>
-            `,
-            codeLines: [
-                'using System;',
-                'namespace test {',
-                '  class Program {',
-                '    static void Main() {',
-                '      Console.WriteLine("Syntax Verified!");',
-                '    }',
-                '  }',
-                '}'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: null, output: null },
-                { line: 2, ram: null, output: null },
-                { line: 3, ram: null, output: null },
-                { line: 4, ram: null, output: "Syntax Verified!" },
-                { line: 5, ram: null, output: null },
-                { line: 6, ram: null, output: null },
-                { line: 7, ram: null, output: null }
-            ],
-            questions: [
-                {
-                    q: "فەرمانا using System; بۆ چ دهێتە بکارئینان د دەستپێکا بەرنامەی دا؟",
-                    options: ["بۆ گرتنا شاشەی", "بۆ ئینانا کلاسان ژ کتێبخانەیا System (Import libraries)", "بۆ سڕینەوەیا فایلان", "بۆ کۆمکرنا ژمارەیان"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "using System means we can use classes from the System namespace."
-                },
-                {
-                    q: "مێتۆدا Main پێناسەکراوە ب چ؟",
-                    options: ["دەرگەهێ سەرەکیێ دەستپێکرنا کۆدی (Main Method)", "کتێبخانەیا دەنگان", "گۆڕاوەکێ ژمارەیی", "ناوی پڕۆژەی"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Main method is where program execution begins."
-                },
-                {
-                    q: "کیژ هێما ل C# بۆ دەستپێک و دوماهیا بلۆکێ کۆدی دهێتە دانان؟",
-                    options: ["( )", "[ ]", "{ }", "< >"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "The curly braces {} marks the beginning and end of a block of code."
-                },
-                {
-                    q: "کانتینەرێ سەرەکی یێ دراوە و مێتۆدان چییە کو پێدڤیە هەمی کۆد د ناڤدا بیت؟",
-                    options: ["class", "import", "integer", "string"],
-                    ans: 0,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "Every line of code that runs in C# must be inside a class."
-                },
-                {
-                    q: "د دەستەواژەیا (static void Main) پیتا M چەوا دهێتە نڤیسین؟",
-                    options: ["ب پیتا بچویک (main)", "ب پیتا مەزن (Main)", "ب پیتێن مەزن هەمی (MAIN)", "مەرج نینە"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "د C# دا Main ب پیتا مەزنە، ئەگەر بچویک بنڤیسی کۆمپایلەر نانیاسیت."
-                }
-            ]
-        },
-        {
-            id: 7,
-            title: "تێگەهێ پشکێن کۆدی (General Syntax Deep Dive)",
-            badge: "سلاێدێ ٧",
-            content: `
-                <p>پێناسەیێن هویر یێن پەیکەرێ کۆدێ C#:</p>
-                <ul>
-                    <li><strong>using System:</strong> ڕێکێ ددەت کلاسێن ناڤ کتێبخانەیا System بکاربینین (وەک Console).</li>
-                    <li><strong>namespace:</strong> بۆ ڕێکخستنا کۆدی یە و کانتینەرە بۆ کلاسان و نەیمسپەیسێن دی.</li>
-                    <li><strong>Curly braces {}:</strong> دەستپێک و دوماهیا هەر بلۆکەکێ کۆدی نیشان ددەت.</li>
-                    <li><strong>class:</strong> کانتینەرێ دانانا داتا و کردارانە (مێتۆد). <em>هەر دێرەکا کۆدی د C# دا دڤێت د ناڤ کلاسی دا بیت.</em></li>
-                    <li><strong>Main method:</strong> بەشێ بنەڕەتیە کو هەر تشتی د ناڤ کەوانێن وێ دا بیت دهێتە جێبەجێکرن (executed).</li>
-                </ul>
-            `,
-            codeLines: [
-                '// Classes contain data and methods',
-                'class Car {',
-                '  // Inside class body',
-                '}'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: null, output: null },
-                { line: 2, ram: null, output: null },
-                { line: 3, ram: null, output: null }
-            ],
-            questions: [
-                {
-                    q: "ئەرێ چ کۆدەک د C# دا دشێت ل دەرڤەی کلاسی (outside a class) ڕاستەوخۆ کار بکەت؟",
-                    options: ["بەلێ، هەمی کۆد", "نەخێر، هەر دێرەک پێدڤیە د ناڤ کلاسی دا بیت", "بتنێ ژمارە دشێن", "بتنێ دەق دشێن"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "سلاێد ٧: Every line of code that runs in C# must be inside a class."
-                },
-                {
-                    q: "کیژ پارچە ڕێکخەرە و کانتینەرە بۆ چەندین کلاسان پێکڤە؟",
-                    options: ["namespace", "variable", "int", "semicolon"],
-                    ans: 0,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "namespace is used to organize your code, and it is a container for classes."
-                },
-                {
-                    q: "دەمێ بەرنامە دەست ب جێبەجێکرنێ دکەت، چ کۆد دهێتە کارپێکرن؟",
-                    options: ["کۆدێ د ناڤ کەوانێن مێتۆدا Main دا بیت", "کۆدێ دەرڤەی کلاسی", "بتنێ کۆمێنت", "چ کۆد کار ناکەت"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Any code inside Main curly brackets {} will be executed."
-                },
-                {
-                    q: "کلاسی نموونەیا سلاێدا ٦ و ٧ ناڤێ وی چی بوو؟",
-                    options: ["Student", "Program", "MyClass", "AUAS"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "In our example, we named the class Program."
-                },
-                {
-                    q: "ئەگەر کەوانەکێ خوار { دابخەی بێی کو ڤەکەی، چ ڕویددەت؟",
-                    options: ["بەرنامە لڤین دکەت", "خەلەتیا کۆمپایلەری (Syntax error) چێدبیت", "چ کێشە نینە", "خۆ ژ خۆ راست دکەت"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "هەر کەوانەکێ ڤەکری پێدڤیە بهێتە گرتن ئەگەر نە کۆد کار ناکەت."
-                }
-            ]
-        },
-        {
-            id: 8,
-            title: "ئێکەم نموونە (First Example: Hello World)",
-            badge: "سلاێدێ ٨",
-            content: `
-                <p>کۆدێ تەمام یێ چاپکرنا ڕستەیا بناڤودەنگ ل سەر شاشەی:</p>
-                <pre style="direction:ltr; text-align:left; background:#020617; padding:12px; border-radius:8px; color:#38bdf8;">
-using System;
+    <!-- SLIDE 4 & 5 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">بکارهێنان و گرنگیا C# (Applications & Advantages)</span>
+            <span class="slide-tag">سلاێدێ ٤ و ٥</span>
+        </div>
+        <h3>بکارهێنانێن C# (C# Applications):</h3>
+        <p>C# بۆ دروستکرنا ڤان تشتا دهێتە بکارئینان:</p>
+        <ul>
+            <li>Mobile applications (بەرنامەیێن مۆبایلێ).</li>
+            <li>Desktop applications (بەرنامەیێن کۆمپیۆتەر و ویندۆز).</li>
+            <li>Web applications & Web services (بەرنامە و خزمەتگوزاریێن وێبێ).</li>
+            <li>Web sites (ماڵپەڕێن ئینتەرنێتێ).</li>
+            <li>Games (یاریێن ڤیدیۆیی - ب تایبەت ل سەر Unity).</li>
+            <li>VR (Virtual Reality - ڕاستیا خەیالی).</li>
+            <li>Database applications (بەرنامەیێن داتابەیسێ).</li>
+        </ul>
+
+        <h3>بۆچی C# بکاربینین؟ (Why Use C#?):</h3>
+        <ul>
+            <li>ئێک ژ بەربلاڤترین و بەناوبانگترین زمانێن جیهانێ یە.</li>
+            <li>فێربوونا وی یا ب ساناهییە و بسادەیی دهێتە بکارئینان.</li>
+            <li>کۆمەڵگەهەکا مەزن یا پشتەڤانیێ هەیە (Huge Community Support).</li>
+            <li>ژبەرکو Object-Orientedە، ڕێکخستنەکا زەلال ددەتە پڕۆگرامی و دبیتە ئەگەرێ دووبارە بکارهێنانا کۆدی (Code Reuse) کو تێچوویێ دروستکرنێ کێم دکەت.</li>
+            <li>ژبەرکو نێزیکی C, C++ و Javaیە، گوهۆڕین دناڤبەرا واندا گەلەک یا بساناهییە بۆ پرۆگرامەری.</li>
+        </ul>
+    </div>
+
+    <!-- SLIDE 6 & 7 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">پەیکەرێ گشتی یێ کۆدی (C# General Syntax)</span>
+            <span class="slide-tag">سلاێدێ ٦ و ٧</span>
+        </div>
+        <p>هەر کۆدەکێ بنەڕەتی یێ C# ب ڤی شێوەیێ ل خوارێ دهێتە نڤیسین:</p>
+        <pre><code>using System;
+
 namespace test
 {
-  class Program
-  {
-    static void Main(string[] args)
+    class Program
     {
-      Console.WriteLine("Hello World!");
-    }
-  }
-}</pre>
-                <p><strong>دەرئەنجام (Output):</strong> دێ ل سەر شاشەیا کۆنسۆلێ دەقێ <code>Hello World!</code> هێتە نیشاندان.</p>
-            `,
-            codeLines: [
-                '// Slide 8 First Example',
-                'Console.WriteLine("Hello World!");'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: null, output: "Hello World!" }
-            ],
-            questions: [
-                {
-                    q: "دەرئەنجامێ (Output) یێ نموونەیا سلاێدا ٨ چییە؟",
-                    options: ["Hello World!", "test", "Program", "System"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Console.WriteLine('Hello World!') دێ دەقێ Hello World! چاپ کەت."
-                },
-                {
-                    q: "کلاسی Console ل کیژ کتێبخانێ وەرگیراوە؟",
-                    options: ["System", "IO", "Math", "Network"],
-                    ans: 0,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "ژ کتێبخانەیا using System هاتیە وەرگرتن."
-                },
-                {
-                    q: "کەوانێن خوار یێن سەرەکی یێن د بەرنامەی دا چەند جووت بکار هاتینە؟",
-                    options: ["١ جووت", "٢ جووت", "٣ جووت (namespace, class, Main)", "٥ جووت"],
-                    ans: 2,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "٣ جووت: ئێک بۆ namespace، ئێک بۆ class، و ئێک بۆ Main."
-                },
-                {
-                    q: "ئەگەر هێمایێ (;) ل داویا دێرا Console.WriteLine نەنڤیسی، چ چێدبیت؟",
-                    options: ["کۆد چاپ دبیت", "خەلەتی (Error) چێدبیت و کار ناکەت", "ڕەنگێ دەقی شین دبیت", "دەق دووبارە دبیت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "فاریزەیا خالدار ئیجباریە ل داویا هەمی دێرەکان."
-                },
-                {
-                    q: "دەقێ Hello World د ناڤ کیژ هێمایان دا هاتیە دانان؟",
-                    options: ["' ' تاکە کەوان", "\" \" جووت کەوان", "< >", "// //"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "دەق (String) هەردەم د ناڤ جووت کەوانان دا یە."
-                }
-            ]
-        },
+        static void Main(string[] args)
         {
-            id: 9,
-            title: "تێبینیێن گشتی یێن زێڕین (General Notes)",
-            badge: "سلاێدێ ٩",
-            content: `
-                <p>ئەڤ خاڵە ب تایبەت دهێنە ناڤ پرسیارێن کویزێ:</p>
-                <ul>
-                    <li><strong>Case sensitive:</strong> زمانەکێ هەستیارە ل سەر پیتێن مەزن و بچویک (پیتا <code>a</code> نە وەکی <code>A</code> یە).</li>
-                    <li><strong>Semicolon (;):</strong> هەمی دەستەواژە دڤێت ب فاریزەیا خالدار ب دوماهیک بهێن.</li>
-                    <li><strong>Main method:</strong> دەستپێکرنا پڕۆگرامی ژ مێتۆدا Main یە.</li>
-                    <li><strong>Unlike Java:</strong> بەپێچەوانەی جافا، ناڤێ فایلی دشێت جودا بیت ژ ناڤێ کلاسی.</li>
-                    <li><strong>Console.ReadKey():</strong> ل داویا کۆدی دهێتە دانان دا شاشەیا ڕەش ئێکسەر نەهێتە گرتن و چاڤەڕێی تە بمینیت حەتا کلیلیەکێ دادگری.</li>
-                </ul>
-            `,
-            codeLines: [
-                'int a = 10;',
-                'int A = 20; // Case sensitive',
-                'Console.WriteLine(a); // prints 10',
-                'Console.ReadKey(); // Waits for key press'
-            ],
-            simSteps: [
-                { line: 0, ram: { "a": "10" }, output: null },
-                { line: 1, ram: { "a": "10", "A": "20" }, output: null },
-                { line: 2, ram: { "a": "10", "A": "20" }, output: "10" },
-                { line: 3, ram: { "a": "10", "A": "20" }, output: "[Waiting for Key Press...]" }
-            ],
-            questions: [
-                {
-                    q: "ئەرێ پیتا 'a' و پیتا 'A' د C# دا هەمان تشتن؟",
-                    options: ["بەلێ، چ جوداهی نینە", "نەخێر، جودانە چونکی Case sensitive ە", "بتنێ ل هاڤینێ جودانە", "بتنێ ل داتابەیسێ جودانە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "C# is Case sensitive. a is differ from A."
-                },
-                {
-                    q: "مفایێ Console.ReadKey() چییە ل داویا کۆدی؟",
-                    options: ["بۆ ژێبرنا کۆدی", "ڕاگرتنا شاشەی حەتا کلیکەک ل کیبۆردی دهێتە کرن", "بۆ زێدەکرنا ژمارەیان", "بۆ گوهۆڕینا زمانێ ویندۆزێ"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "makes the program wait for a key press and prevents screen from closing quickly."
-                },
-                {
-                    q: "جوداهیا C# دگەل زمانێ Java دەربارەی ناڤێ فایلی چییە؟",
-                    options: ["ل C# مەرج نینە ناڤێ فایلی وەکی ناڤێ کلاسی بیت", "ل Java ناڤێ فایلی نینە", "ل C# ناڤێ فایلی ب ژمارە دبیت", "چ جوداهی نینە"],
-                    ans: 0,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "سلاێد ٩: Unlike java, program file name could be different from the class name."
-                },
-                {
-                    q: "هەمی فەرمانێن C# پێدڤیە ب چ هێما بدوماهیک بهێن؟",
-                    options: [": کۆلۆن", "; فاریزەیا خالدار (Semicolon)", ". خال", ", فاریزە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "All statements and expressions must end with a semicolon (;)."
-                },
-                {
-                    q: "ئەگەر بنڤیسی int a = 5; پاشی Console.WriteLine(A); چ ڕویددەت؟",
-                    options: ["ژمارە 5 چاپ دبیت", "خەلەتی (Error) چێدبیت چونکی A نەهاتیە ناساندن", "سفر چاپ دبیت", "بەرنامە دادخەبیت"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "ژبەرکو Case sensitive ە، 'A' ناڤەکێ جودایە و نەهاتیە ناساندن."
-                },
-                {
-                    q: "دەستپێکا کارکرنا پڕۆگرامێ C# ل کیڤەیە؟",
-                    options: ["ل دێرا ئێکێ یا بەرنامەی", "ل مێتۆدا Main", "ل داویا فایلی", "ل جهێ Console.ReadKey"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "The program execution start at the Main method."
-                }
-            ]
-        },
-        {
-            id: 10,
-            title: "جوداهیا WriteLine() و Write()",
-            badge: "سلاێدێ ١٠",
-            content: `
-                <p>دوو مێتۆدێن سەرەکی یێن چاپکرنێ هەنە د کلاسی Console دا:</p>
-                <ul>
-                    <li><strong><code style="color:#38bdf8;">WriteLine()</code>:</strong> دەقی چاپ دکەت، و پاشی ئێکسەر دچیتە <strong>دێرەکا نوی (New Line)</strong>.</li>
-                    <li><strong><code style="color:#38bdf8;">Write()</code>:</strong> دەقی چاپ دکەت، بەس <strong>ل سەر هەمان دێر دمینیت</strong> و ناچیتە دێرەکا نوی!</li>
-                </ul>
-            `,
-            codeLines: [
-                'Console.WriteLine("Line 1");',
-                'Console.Write("Part A - ");',
-                'Console.Write("Part B");'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: "Line 1\n" },
-                { line: 1, ram: null, output: "Line 1\nPart A - " },
-                { line: 2, ram: null, output: "Line 1\nPart A - Part B" }
-            ],
-            questions: [
-                {
-                    q: "جوداهیا سەرەکی دناڤبەرا WriteLine() و Write() چییە؟",
-                    options: ["WriteLine دچیتە دێرەکا نوی، لێ Write ل سەر هەمان دێر دمینیت", "Write بتنێ ژماران چاپ دکەت", "WriteLine هەردەم خەلەتە", "چ جوداهی نینە دناڤبەرا واندا"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "WriteLine prints on a new line each time, while Write prints on the same line."
-                },
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: Console.Write(\"A\"); Console.Write(\"B\"); ؟",
-                    options: ["A ل دێرەکێ و B ل دێرەکێ", "AB ل سەر هەمان دێر", "A B دگەل بۆشایی", "Error"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "ژبەرکو مێتۆدا Write هاتیە بکارئینان، پێکڤە ل سەر هەمان دێر دبیتە AB."
-                },
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: Console.WriteLine(\"A\"); Console.WriteLine(\"B\"); ؟",
-                    options: ["AB ل سەر هەمان دێر", "A ل دێرا ئێکێ و B ل دێرا دووێ", "BA", "Error"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "WriteLine هەرجار دچیتە دێرەکا نوی."
-                },
-                {
-                    q: "کیژ مێتۆد زێدەتر بەربلاڤە بۆ چاپکرنێ ل C#؟",
-                    options: ["WriteLine()", "PrintLine()", "Echo()", "Display()"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "The most common method to output something in C# is WriteLine()."
-                },
-                {
-                    q: "دەرئەنجامێ ئەڤێ ڕستێ چییە: Console.Write(\"Hi \"); Console.WriteLine(\"All\"); ؟",
-                    options: ["Hi All (پێکڤە ل دێرا ئێکێ)", "Hi ل دێرەکێ و All ل دێرەکێ", "All Hi", "HiAll"],
-                    ans: 0,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "Write دێ Hi چاپ کەت و نامینیتە دێرێ نوی، پاشی WriteLine دێ All چاپ کەت ل دەڤ و پاشان دچیتە دێرا نوی."
-                }
-            ]
-        },
-        {
-            id: 11,
-            title: "تێبینی د کۆدی دا (C# Comments)",
-            badge: "سلاێدێ ١١",
-            content: `
-                <p>تێبینی (Comments) بۆ ڕوونکردنا کۆدی دهێنە دانان و کۆمپایلەر چاڤپۆشیێ ژێ دکەت:</p>
-                <ul>
-                    <li><strong>تێبینیا ئێک دێر (Single-line):</strong> ب دوو سلاشان دەستپێدکەت: <code>//</code></li>
-                    <li><strong>تێبینیا چەند دێران (Multi-line):</strong> ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> دئێتیتە گرتن.</li>
-                </ul>
-            `,
-            codeLines: [
-                '// This is single-line comment',
-                'int x = 5; // comment at end of line',
-                '/* This is multi-line',
-                '   comment in C# */',
-                'Console.WriteLine(x);'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: { "x": "5" }, output: null },
-                { line: 2, ram: { "x": "5" }, output: null },
-                { line: 3, ram: { "x": "5" }, output: null },
-                { line: 4, ram: { "x": "5" }, output: "5" }
-            ],
-            questions: [
-                {
-                    q: "تێبینیا ئێک دێر ب کیژ هێمایان دەستپێدکەت؟",
-                    options: ["/*", "//", "<!--", "#"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Single-line comments start with two forward slashes (//)."
-                },
-                {
-                    q: "تێبینیا چەند دێری (Multi-line) ب چ دەستپێدکەت و ب چ بدوماهیک دهێت؟",
-                    options: ["ب // دەستپێدکەت و ب // دوماهیک دهێت", "ب /* دەستپێدکەت و ب */ دوماهیک دهێت", "ب < دەستپێدکەت و ب > دوماهیک دهێت", "ب { دەستپێدکەت و ب } دوماهیک دهێت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Multi-line comments start with /* and ends with */."
-                },
-                {
-                    q: "ئەرێ کۆمپایلەر تێبینیان (Comments) دەخوێنیت و جێبەجێ دکەت؟",
-                    options: ["بەلێ، وەک فەرمان جێبەجێ دکەت", "نەخێر، کۆمپایلەر چاڤپۆشیێ ژێ دکەت", "بتنێ ئەگەر ب ئینگلیزی بن جێبەجێ دکەت", "بتنێ ڕۆژا ئەزموونێ جێبەجێ دکەت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "کۆمێنت بتنێ بۆ مرۆڤینە و کۆمپیتەر جێبەجێ ناکەت."
-                },
-                {
-                    q: "ئێک ژ مفایێن تێبینیان ئەوە کو دشێی کۆدەکێ بکەیە کۆمێنت دا نەهێتە کارپێکرن دەمێ تاقیکرنێ دا؟",
-                    options: ["بەلێ (prevent execution when testing)", "نەخێر، ناچێبیت", "بتنێ ژمارە چێدبن", "دەقی ژناڤ دبەت ئێکسەر"],
-                    ans: 0,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "It can also be used to prevent execution when testing alternative code."
-                },
-                {
-                    q: "ئەگەر کۆمێنتەکا چەند دێری ب /* ڤەکەی و دانەئێخی ب */، چ ڕویددەت؟",
-                    options: ["کۆدێ خوارێ هەمی دبیتە کۆمێنت و خەلەتی دروست دبیت", "بەرنامە پیرۆزباییێ ل تە دکەت", "چ چێنابیت", "پەیج سپی دبیت"],
-                    ans: 0,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "چونکی هەتا */ نەبینیت، کۆمپایلەر هەمی دێرێن دویڤدا وەک تێبینی تەماشا دکەت."
-                }
-            ]
-        },
-        {
-            id: 12,
-            title: "گۆڕاو و جۆرێن سەرەکی (C# Variables & Data Types)",
-            badge: "سلاێدێ ١٢",
-            content: `
-                <p>گۆڕاو (Variable) کانتینەرە بۆ هەلگرتنا داتایێ. ٥ جۆرێن بنەڕەتی هەنە:</p>
-                <ul>
-                    <li><strong>int:</strong> ژمارەیێن دروست (بێ فاریزە) وەک <code>123</code> یان <code>-123</code>.</li>
-                    <li><strong>double:</strong> ژمارەیێن دەشاڕی (فاریزەدار) وەک <code>19.99</code> یان <code>-19.99</code>.</li>
-                    <li><strong>char:</strong> بتنێ ئێک پیت یان هێما د ناڤ کەوانێ تاک دا وەک <code>'a'</code> یان <code>'B'</code>.</li>
-                    <li><strong>string:</strong> دەق و ڕستە د ناڤ جووت کەوانان دا وەک <code>"Hello World"</code>.</li>
-                    <li><strong>bool:</strong> بهایێ لۆژیکی کو بتنێ دوو ڕەوش هەنە: <code>true</code> یان <code>false</code>.</li>
-                </ul>
-            `,
-            codeLines: [
-                'int myNum = 15;',
-                'double myDouble = 5.99;',
-                'char letter = \'D\';',
-                'bool myBool = true;',
-                'string myText = "Hello";'
-            ],
-            simSteps: [
-                { line: 0, ram: { "myNum": "15" }, output: null },
-                { line: 1, ram: { "myNum": "15", "myDouble": "5.99" }, output: null },
-                { line: 2, ram: { "myNum": "15", "myDouble": "5.99", "letter": "'D'" }, output: null },
-                { line: 3, ram: { "myNum": "15", "myDouble": "5.99", "letter": "'D'", "myBool": "true" }, output: null },
-                { line: 4, ram: { "myNum": "15", "myDouble": "5.99", "letter": "'D'", "myBool": "true", "myText": '"Hello"' }, output: null }
-            ],
-            questions: [
-                {
-                    q: "کیژ جۆرێ داتایێ بهایێ ژمارەیا 19.99 هەلدگریت؟",
-                    options: ["int", "double", "char", "bool"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "double stores floating point numbers, with decimals."
-                },
-                {
-                    q: "بهایێ جۆرێ char پێدڤیە د ناڤ کیژ کەوانان دا بیت؟",
-                    options: ["کەوانێ تاک ' ' (single quotes)", "جووت کەوان \" \" (double quotes)", "کەوانێ خوار { }", "کەوانێ چوارگۆشە [ ]"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Char values are surrounded by single quotes."
-                },
-                {
-                    q: "جۆرێ bool چەند بهایان وەردگریت؟",
-                    options: ["١٠ بهایان", "هەمی ژمارەیان", "بتنێ دوو بهایان: true یان false", "چ بهایان وەرناگریت"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "stores values with two states: true or false."
-                },
-                {
-                    q: "کیژ ژ ڤانان بۆ هەلگرتنا دەقەکێ درێژ وەک ناڤێ کەسەکی دهێتە بکارئینان؟",
-                    options: ["int", "string", "double", "char"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "string stores text, surrounded by double quotes."
-                },
-                {
-                    q: "ئەگەر بنڤیسی int x = 15.5; چ خەلەتی چێدبیت؟",
-                    options: ["چ چێنابیت", "خەلەتی چونکی int ناتوانێت فاریزێ هەلگریت", "ژمارە دبیتە سفر", "پەیج دادخەبیت"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "int بتنێ ژمارەیێن دروست وەردگریت بێ فاریزە."
-                }
-            ]
-        },
-        {
-            id: 13,
-            title: "دروستکرنا گۆڕاوان (Declaring Variables)",
-            badge: "سلاێدێ ١٣",
-            content: `
-                <p>یاسایا سەرەکی یا دروستکرنا گۆڕاوەکی ئەڤەیە:</p>
-                <div style="background:#020617; padding:10px; border-radius:8px; font-family:'Fira Code'; color:#facc15; direction:ltr; text-align:left;">
-                    type variableName = value;
-                </div>
-                <ul>
-                    <li><strong>type:</strong> جۆرێ داتایێ یە وەک <code>int</code> یان <code>string</code>.</li>
-                    <li><strong>variableName:</strong> ناڤێ گۆڕاوی یە وەک <code>x</code> یان <code>name</code>.</li>
-                    <li><strong>= (یەکسان):</strong> بۆ دانانا بهایی دهێتە بکارئینان.</li>
-                </ul>
-            `,
-            codeLines: [
-                'string name = "Kurdistan";',
-                'Console.WriteLine(name);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "name": '"Kurdistan"' }, output: null },
-                { line: 1, ram: { "name": '"Kurdistan"' }, output: "Kurdistan" }
-            ],
-            questions: [
-                {
-                    q: "دەرئەنجامێ نموونەیا سلاێدا ١٣ چییە دەمێ دبیژیت: string name = \"Kurdistan\"; Console.WriteLine(name); ؟",
-                    options: ["name", "Kurdistan", "string", "Error"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "بهایێ متغیری کو 'Kurdistan'ە چاپ دبیت."
-                },
-                {
-                    q: "هێمایێ یەکسان (=) د بەرنامەسازیێ دا بۆ چ دهێتە بکارئینان؟",
-                    options: ["بۆ کۆمکرنێ", "بۆ دانانا بهایی بۆ گۆڕاوی (assign values)", "بۆ ژێبرنێ", "بۆ چاپکرنێ"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "The equal sign is used to assign values to the variable."
-                },
-                {
-                    q: "سینتاکسێ ڕاست یێ دروستکرنا متغیری کیژکە؟",
-                    options: ["value variableName = type;", "type variableName = value;", "variableName type = value;", "= type variableName value;"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "type variableName = value; یاسایا دروستە."
-                },
-                {
-                    q: "ئەرێ دشێین متغیرەکی بناسێنین بێی کو ناڤێ جۆرێ وی دیار بکەین؟",
-                    options: ["بەلێ، هوسا خۆشترە", "نەخێر، دڤێت type دیار بیت", "بتنێ بۆ ژمارەیان چێدبیت", "چ پەیوەندی نینە"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "To create a variable, you must specify the type."
-                },
-                {
-                    q: "د دەستەواژەیا string name = \"Kurdistan\"; دا پەیڤا name چ ڕۆل هەیە؟",
-                    options: ["جۆرێ داتایێ یە", "ناڤێ گۆڕاوی یە (variableName)", "مێتۆدە", "کلاسی سەرەکیە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "name ناڤێ متغیری یە."
-                }
-            ]
-        },
-        {
-            id: 14,
-            title: "ناساندن و نویکرنا بهایان (Declaration & Overwriting)",
-            badge: "سلاێدێ ١٤",
-            content: `
-                <p>دوو تێبینیێن ئێكجار گرنگ ل سەر گۆڕاوان:</p>
-                <ul>
-                    <li><strong>جوداکرنا ناساندن و بهایی:</strong> دشێی ئەوەل متغیری بناسینی و پاشی بهای بدەیێ:
-                        <br><code>int age; // declaration</code>
-                        <br><code>age = 25; // initialization</code>
-                    </li>
-                    <li><strong>گوهۆڕینا بهایی (Overwriting):</strong> ئەگەر بهایەکێ نوی بدەیە متغیری، یێ کەڤن ناهێلیت و یێ نوی دادەنیت.</li>
-                </ul>
-                <div style="background:#450a0a; border-right:4px solid #ef4444; padding:10px; border-radius:6px; margin-top:10px;">
-                    ⚠️ <strong>خەلەتیا بەربلاڤ:</strong> نابیت متغیرەکی بکاربینی بەری بهای بدەیێ! ئەگەر بنڤیسی <code>int age; int j = age;</code> خەلەتییا <em>Use of unassigned local variable</em> ددەت.
-                </div>
-            `,
-            codeLines: [
-                'int age = 25;',
-                'age = 20; // overwrites 25',
-                'Console.WriteLine(age);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "age": "25" }, output: null },
-                { line: 1, ram: { "age": "20" }, output: null },
-                { line: 2, ram: { "age": "20" }, output: "20" }
-            ],
-            questions: [
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: int age = 25; age = 20; Console.WriteLine(age); ؟",
-                    options: ["25", "20", "45", "Error"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "بهایێ نوی یێ ٢٠ جهێ ٢٥ دگریت (Overwrite)."
-                },
-                {
-                    q: "ئەگەر بنڤیسی: int age; int j = age; چ چێدبیت؟",
-                    options: ["j دبیتە سفر", "خەلەتی (Compile-time error: Use of unassigned local variable)", "کۆدێ سەرکەفتی", "age دبیتە ٢٥"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "چونکی متغیرێ age چ بها بۆ نەهاتبوو دانان، لەوا ناهێتە قەبیلکرن."
-                },
-                {
-                    q: "ناڤێ دانانا بهایی بۆ ئێکەم جار چییە بۆ متغیری؟",
-                    options: ["Declaration", "Initialization", "Overwriting", "Importing"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "دانانا بهایی بۆ جارا ئێکێ دبێژنێ initialization."
-                },
-                {
-                    q: "دێرا: int age; بتنێ چییە؟",
-                    options: ["Declaration (ناساندن)", "Initialization", "Print", "Run"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "بتنێ ناساندنە بێی دانانا بهایی."
-                },
-                {
-                    q: "ئەرێ C# ڕێکێ ددەت گۆڕاوەک بێ بها د هژمارکردنێ دا بکاربهێت؟",
-                    options: ["بەلێ، ئاساییە", "نەخێر، ئیجباریە بها هەبیت", "بتنێ ل هاڤینێ ڕێکێ ددەت", "بتنێ ئەگەر string بیت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Variable must be assigned a value before using it, otherwise error."
-                }
-            ]
-        },
-        {
-            id: 15,
-            title: "نەگۆڕەکان (Constants - const)",
-            badge: "سلاێدێ ١٥",
-            content: `
-                <p>پەیڤا <strong><code style="color:#facc15;">const</code></strong> بۆ دروستکرنا نەگۆڕان دهێتە بکارئینان:</p>
-                <ul>
-                    <li>دەمێ پەیڤا <code>const</code> دانی، بهایێ وی ناهێتە دەستکاریکرن و دبیتە بتنێ بۆ خواندنێ (read-only).</li>
-                    <li>ئەگەر بنڤیسی: <code>const int age = 25; age = 30;</code> دێ خەلەتی چێبیت.</li>
-                    <li><strong>تێبینیا کویزی:</strong> چ جاران نابی نەگۆڕەکی دروست بکەی بێی دانانا بهایی! (A const field requires a value to be provided).</li>
-                </ul>
-            `,
-            codeLines: [
-                'const int age = 25;',
-                '// age = 30; // ERROR! Cannot change',
-                'Console.WriteLine("Constant: " + age);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "const age": "25 (LOCKED)" }, output: null },
-                { line: 1, ram: { "const age": "25 (LOCKED)" }, output: null },
-                { line: 2, ram: { "const age": "25 (LOCKED)" }, output: "Constant: 25" }
-            ],
-            questions: [
-                {
-                    q: "مفایێ کلیلەپەیڤا const چییە دەمێ بەری متغیری دهێت؟",
-                    options: ["بهایێ وی لادبەت", "بهایێ وی دکەتە نەگۆڕ و ناهێتە دەستکاریکرن (unchangeable and read-only)", "ژمارێ دکەتە دەق", "خێراییێ کێم دکەت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "const declares variable as constant, unchangeable and read-only."
-                },
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: const int x = 10; x = 20; ؟",
-                    options: ["10", "20", "Error: cannot be changed", "30"],
-                    ans: 2,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "چونکی const نەگۆڕە، ناهێلیت بهایی بگوهۆڕی و خەلەتی دروست دبیت."
-                },
-                {
-                    q: "ئەگەر بنڤیسی: const int myAge; بێی بهایێ بدەیێ، چ چێدبیت؟",
-                    options: ["سفر وەردگریت", "خەلەتی (A const field requires a value to be provided)", "کۆدێ ئاسایی", "بهایێ 10 وەردگریت"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "سلاێد ١٥: You cannot declare a constant variable without assigning the value."
-                },
-                {
-                    q: "کیژ ژ ڤانان دروستە بۆ دروستکرنا نەگۆڕەکی؟",
-                    options: ["const double PI = 3.14;", "double const PI = 3.14;", "constant PI = 3.14;", "PI = 3.14 const;"],
-                    ans: 0,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "شێوازێ ڕاست: const double PI = 3.14; یە."
-                },
-                {
-                    q: "پەیڤا const بۆ کیژ ژۆرێن داتایان دشێت بهێتە بکارئینان؟",
-                    options: ["بتنێ int", "بتنێ string", "بۆ هەمی جۆرێن سەرەکی (int, double, string...)", "بتنێ bool"],
-                    ans: 2,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "بۆ هەمی جۆران دروستە وەک const string, const int, const double."
-                }
-            ]
-        },
-        {
-            id: 16,
-            title: "نیشاندان و پێکڤەنیسکاندن (Display & Concatenation)",
-            badge: "سلاێدێ ١٦",
-            content: `
-                <p>مێتۆدا <code>WriteLine()</code> بۆ نیشاندانا بهایان دهێتە بکارئینان:</p>
-                <ul>
-                    <li><strong>هێمایێ (+):</strong> دەمێ دگەل تێکستێ (String) دهێت، کارێ <strong>پێکڤەنیسکاندنێ (Concatenation)</strong> دکەت.</li>
-                    <li>دشێی متغیرەکی دگەل دەقەکی بنیسکینی: <code>"Hello " + name</code></li>
-                    <li>یان دوو متغیرێن تێکستی پێکڤە بنیسکینی: <code>firstName + lastName</code></li>
-                </ul>
-            `,
-            codeLines: [
-                'string firstName = "Salar";',
-                'string lastName = "Raman";',
-                'string fullName = firstName + lastName;',
-                'Console.WriteLine(fullName);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "firstName": '"Salar"' }, output: null },
-                { line: 1, ram: { "firstName": '"Salar"', "lastName": '"Raman"' }, output: null },
-                { line: 2, ram: { "firstName": '"Salar"', "lastName": '"Raman"', "fullName": '"SalarRaman"' }, output: null },
-                { line: 3, ram: { "firstName": '"Salar"', "lastName": '"Raman"', "fullName": '"SalarRaman"' }, output: "SalarRaman" }
-            ],
-            questions: [
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: string name = \"Aram\"; Console.WriteLine(\"Hello \" + name); ؟",
-                    options: ["Hello Aram", "Hello name", "Aram", "Hello"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "دەقێ Hello و بهایێ متغیری کو Aramە پێکڤە چاپ دبن."
-                },
-                {
-                    q: "ناڤێ کردارا پێکڤە نیسکاندنا دوو دەقان ب هێمایێ (+) چییە؟",
-                    options: ["Addition", "Concatenation", "Multiplication", "Separation"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "To combine text and variable, concatenation is used."
-                },
-                {
-                    q: "ل نموونەیا سلاێدا ١٦ دەرئەنجامێ firstName + lastName چی بوو ئەگەر بۆشایی دناڤبەرا واندا نەبیت؟",
-                    options: ["Salar Raman", "SalarRaman", "Salar+Raman", "Error"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "چونکی بۆشایی (space) نەهاتبوو دانان، ئێکسەر دەق بوو SalarRaman."
-                },
-                {
-                    q: "ئەگەر بنڤیسی: Console.WriteLine(\"A\" + \"B\" + \"C\"); دەرئەنجام چییە؟",
-                    options: ["ABC", "A B C", "A+B+C", "Error"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "هەر سێ دەق پێکڤە دنیسکن و دبنە ABC."
-                },
-                {
-                    q: "کیژ هێما بۆ Concatenation دهێتە بکارئینان د C# دا؟",
-                    options: ["&", "+", "$", "#"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "هێمایێ زێدەکرنێ (+) دهێتە بکارئینان."
-                }
-            ]
-        },
-        {
-            id: 17,
-            title: "کۆمکرنا ژمارەیان و دروستکرنا چەندین متغیرا",
-            badge: "سلاێدێ ١٧",
-            content: `
-                <p>هێمایێ (+) دگەل ژمارەیان کارەکێ جودا دکەت ژ دەقی:</p>
-                <ul>
-                    <li><strong>کۆمکرنا بیرکاریێ (Mathematical Operator):</strong> ئەگەر هەردوو ژمارە بن (وەک int)، کۆمکرنا حسابی دکەت (وەک <code>10 + 5 = 15</code>).</li>
-                    <li><strong>دروستکرنا چەندین متغیران ب فاریزێ:</strong> دشێی چەندین متغیرێن هەمان جۆر ب ئێک دێر دروست بکەی:
-                        <br><code>int x = 5, y = 6, z = 50;</code>
-                    </li>
-                </ul>
-            `,
-            codeLines: [
-                'int x = 10;',
-                'int y = 5;',
-                'Console.WriteLine(x + y); // 15',
-                'int a = 1, b = 2, c = 3;',
-                'Console.WriteLine(a + b + c); // 6'
-            ],
-            simSteps: [
-                { line: 0, ram: { "x": "10" }, output: null },
-                { line: 1, ram: { "x": "10", "y": "5" }, output: null },
-                { line: 2, ram: { "x": "10", "y": "5" }, output: "15" },
-                { line: 3, ram: { "x": "10", "y": "5", "a": "1", "b": "2", "c": "3" }, output: null },
-                { line: 4, ram: { "x": "10", "y": "5", "a": "1", "b": "2", "c": "3" }, output: "15\n6" }
-            ],
-            questions: [
-                {
-                    q: "دەرئەنجامێ ئەڤێ دێرێ چییە: int x = 10; int y = 5; Console.WriteLine(x + y); ؟",
-                    options: ["105", "15", "x+y", "Error"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "چونکی هەردوو int نە، کۆمکرنا بیرکاریێ دبیتە 15."
-                },
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: int x = 5, y = 6, z = 50; Console.WriteLine(x + y + z); ؟",
-                    options: ["5650", "61", "11", "Error"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "5 + 6 + 50 = 61."
-                },
-                {
-                    q: "ب کیژ هێما دشێی چەندین متغیرا ل سەر ئێک دێر ژێک جودا بکەی دەمێ دروستکرنێ؟",
-                    options: ["; فاریزەیا خالدار", ", فاریزە (Comma)", ". خال", ": کۆلۆن"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "use a comma-separated list."
-                },
-                {
-                    q: "دەرئەنجامێ ڤی کۆدی چییە: Console.WriteLine(10 + 20 + \"30\"); ؟",
-                    options: ["60", "3030", "102030", "Error"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "ئەول 10 + 20 دبیتە 30، پاشی دگەل تێکستێ \"30\" دنیسکێت و دبیتە 3030!"
-                },
-                {
-                    q: "ئەرێ دشێی متغیرەکێ int و متغیرەکێ string ب هەمان دێر و ب فاریزێ دروست بکەی وەک: int a = 5, string b = \"hi\"; ؟",
-                    options: ["بەلێ، چ کێشە نینە", "نەخێر، خەلەتە و پێدڤیە هەمان جۆر بن", "بتنێ ل هاڤینێ دروستە", "بتنێ دەمێ const بن"],
-                    ans: 1,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "دڤێت هەمی متغیرێن وێ دێرێ هەمان جۆری داتایێ (same type) بن."
-                }
-            ]
-        },
-        {
-            id: 18,
-            title: "پەیڤێن قەدەغەکری (C# Keywords)",
-            badge: "سلاێدێ ١٨",
-            content: `
-                <p>پەیڤێن تایبەت (Reserved Keywords) کۆمەکا پەیڤانە کو بۆ کۆمپایلەرێ C# هاتینە تەرخانکرن:</p>
-                <ul>
-                    <li>ئەڤ پەیڤە <strong>نابیت</strong> وەک ناڤێ گۆڕاو (Identifier) بهێنە بکارئینان.</li>
-                    <li>نموونەیێن پەیڤێن قەدەغەکری: <code>class, int, double, const, void, static, bool, for, if, else, return</code>.</li>
-                    <li><strong>تێبینیا بەهێزا کویزی:</strong> ئەگەر تە بڤێت ئێک ژ ڤان پەیڤان بکەیە ناڤێ متغیری، دشێی هێمایێ <strong><code style="color:#facc15;">@</code></strong> بەری وێ دانی! (وەک <code>int @class = 15;</code>).</li>
-                </ul>
-            `,
-            codeLines: [
-                '// Keywords cannot be identifiers unless prefixed with @',
-                'int @class = 100;',
-                'Console.WriteLine(@class);'
-            ],
-            simSteps: [
-                { line: 0, ram: null, output: null },
-                { line: 1, ram: { "@class": "100" }, output: null },
-                { line: 2, ram: { "@class": "100" }, output: "100" }
-            ],
-            questions: [
-                {
-                    q: "کیژ ژ ڤان پەیڤان پەیڤەکا قەدەغەکریە (Reserved Keyword) د C# دا؟",
-                    options: ["class", "student", "kurdistan", "total"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "class ئێک ژ پەیڤێن سەرەکیێن C# یە و قەدەغەیە بێ @."
-                },
-                {
-                    q: "ئەگەر تە بڤێت پەیڤا class بکەیە ناڤێ متغیرەکی، پێدڤیە چ هێما بەری وێ دانی؟",
-                    options: ["#", "$", "@", "&"],
-                    ans: 2,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "you may prefix them with the @ character."
-                },
-                {
-                    q: "دەرئەنجامێ دەستەواژەیا int for = 5; چییە؟",
-                    options: ["5", "خەلەتی (Compile error چونکی for پەیڤەکا قەدەغەیە)", "سفر", "ڕاوەستیان"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "چونکی for قەدەغەیە و @ بەری نەهاتیە دانان."
-                },
-                {
-                    q: "کیژ ژ ڤان پەیڤێن خوارێ ناڤ کلیلەپەیڤێن سلاێدا ١٨ دا هەیە؟",
-                    options: ["abstract, bool, catch, double", "computer, monitor", "car, plane", "apple, orange"],
-                    ans: 0,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "ل خشتەیێ سلاێدا ١٨ هەمی ئەڤ پەیڤە هاتینە دیارکرن."
-                },
-                {
-                    q: "دەستەواژەیا int @void = 25; دروستە یان شاشە؟",
-                    options: ["دروستە چونکی @ هاتیە دانان", "شاشە چونکی void چ جاران ناهێت", "شاشە چونکی ژمارە ٢٥ مەزنە", "بتنێ ل ویندۆزێ دروستە"],
-                    ans: 0,
-                    diff: "diff-hard",
-                    diffText: "دژوار",
-                    explain: "بەلێ دروستە چونکی هێمایێ @ پەیڤێ دپارێزیت ژ ڕێگریێ."
-                }
-            ]
-        },
-        {
-            id: 19,
-            title: "یاسایێن ناڤلێنانێ (C# Identifiers Rules)",
-            badge: "سلاێدێ ١٩",
-            content: `
-                <p><strong>ناسێنەر (Identifier):</strong> ناڤێن تایبەتن کو ئەم بۆ متغیر، کلاس، و مێتۆدان دادەنێین. یاسایێن وێ:</p>
-                <ul>
-                    <li>ناڤ دشێت پیت، ژمارە، و هێمایێ ئەندەرسکۆر <code>(_)</code> تێدابن.</li>
-                    <li><strong>مەرجە ناڤ ب پیت دەستپێبکەت</strong> (یان هێمایێ ئەندەرسکۆر).</li>
-                    <li><strong>ب چ شێوەیان نابیت ب ژمارە دەستپێبکەت!</strong> (وەک <code>1age</code> ❌ خەلەتە، بەس <code>age1</code> ✅ دروستە).</li>
-                    <li>نابیت بۆشایی (Whitespace) د ناڤبەرا ناڤی دا هەبیت (وەک <code>my age</code> ❌).</li>
-                    <li>هەستیارە ل سەر پیتێن مەزن و بچویک (<code>myVar</code> و <code>myvar</code> دوو ناڤێن جودانە).</li>
-                    <li>نابیت پەیڤێن قەدەغەکری (Keywords) وەک int و double بن.</li>
-                </ul>
-            `,
-            codeLines: [
-                'int totalVolume = 100; // descriptive',
-                'int _score = 90; // valid underscore',
-                'int x = 5; // short name',
-                'Console.WriteLine(totalVolume + _score);'
-            ],
-            simSteps: [
-                { line: 0, ram: { "totalVolume": "100" }, output: null },
-                { line: 1, ram: { "totalVolume": "100", "_score": "90" }, output: null },
-                { line: 2, ram: { "totalVolume": "100", "_score": "90", "x": "5" }, output: null },
-                { line: 3, ram: { "totalVolume": "100", "_score": "90", "x": "5" }, output: "190" }
-            ],
-            questions: [
-                {
-                    q: "کیژ ژ ڤان ناڤان بۆ متغیرەکی دروستە (Valid Identifier)؟",
-                    options: ["1total", "total_volume", "total volume", "total-volume"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "total_volume دروستە چونکی ب پیت دەستپێکریە و ئەندەرسکۆر تێدایە بێ بۆشایی."
-                },
-                {
-                    q: "بۆچی ناڤێ (2ndPlace) ناهێتە قەبیلکرن وەک ناڤێ متغیری؟",
-                    options: ["چونکی گەلەک یێ درێژە", "چونکی ب ژمارە دەستپێکریە (Names must begin with a letter)", "چونکی پیتێن بچویک تێدانە", "چونکی مێتۆدە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "قەدەغەیە ناڤ ب ژمارە دەستپێبکەت."
-                },
-                {
-                    q: "بۆچی ناڤێ (user name) خەلەتە؟",
-                    options: ["چونکی پیتا u تێدایە", "چونکی بۆشایی (Whitespace) تێدایە و قەدەغەیە", "چونکی کورتە", "چ کێشە تێدا نینە"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Names cannot contain whitespace."
-                },
-                {
-                    q: "ئەرێ ناڤێن myVar و myvar هەمان ناسێنەرن؟",
-                    options: ["بەلێ، هەمان تشتن", "نەخێر، جودانە چونکی case sensitive ە", "بتنێ ل هاڤینێ جودانە", "کۆمپایلەر ناخوینیت"],
-                    ans: 1,
-                    diff: "diff-easy",
-                    diffText: "ساناهی",
-                    explain: "Names are case sensitive (myVar and myvar are different)."
-                },
-                {
-                    q: "کیژ هێما ژ ڤانان ڕێپێدایە د ناڤێ ناسێنەری دا بهێتە بکارئینان؟",
-                    options: ["- هێمایێ داش", "_ هێمایێ ئەندەرسکۆر", "$ دۆلار", "% ڕێژەیا سەدی"],
-                    ans: 1,
-                    diff: "diff-med",
-                    diffText: "ناڤین",
-                    explain: "Names can contain letters, digits and the underscore character (_)."
-                }
-            ]
+            // C# statements...
         }
-    ];
+    }
+}</code></pre>
+        <h3>شروڤەکرنا پشکێن کۆدی ب بادینی:</h3>
+        <ul>
+            <li><code class="inline">using System;</code> : مەبەست ژێ ئەوە کو ئەم دشێین کلاس و کەرەستەیان ژ کتێبخانە و ناڤناڤێ (System Namespace) بکاربینین.</li>
+            <li><code class="inline">namespace test</code> : هێلانە یان کانتینەرەکە بۆ ڕێکخستنا کۆدێ تە و پاراستنا ناڤێن کلاسان.</li>
+            <li><code class="inline">{ }</code> کەوانێن خوار (Curly Braces) : دەستپێک و دوماهیا هەر بلۆکەکێ کۆدی دیار دکەن.</li>
+            <li><code class="inline">class Program</code> : کانتینەرەکە بۆ دانانا داتا و مێتۆدان. <strong>هەر دێرەکا کۆدی د C# دا دڤێت د ناڤ کلاسی دا بیت.</strong></li>
+            <li><code class="inline">static void Main(string[] args)</code> : ئەڤە ناڤێ وێ <strong>Main Method</strong> ە. جێبەجێکرنا هەمی پڕۆگرامان د C# دا هەردەم ل ڤێرێ دەستپێدکەت.</li>
+        </ul>
+    </div>
 
-    // ==========================================
-    // STATE & PROGRESSION
-    // ==========================================
-    let currentSlide = 0;
-    let unlockedSlide = 0;
-    let cheatsCount = 0;
-    let currentSlideExamPassed = false;
-    let simInterval = null;
+    <!-- SLIDE 8 & 9 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">ئێکەم نموونە و تێبینیێن زێڕین (First Example & General Notes)</span>
+            <span class="slide-tag">سلاێدێ ٨ و ٩</span>
+        </div>
+        <pre><code>using System;
+namespace test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+}</code></pre>
+        <p><strong>دەرئەنجام (Output):</strong> دەقێ <code>Hello World!</code> ل سەر شاشەی دهێتە چاپکرن.</p>
 
-    // Load saved progress if exists
-    window.addEventListener('DOMContentLoaded', () => {
-        renderSidebar();
-        loadSlide(0);
-        setupAntiCheat();
-    });
+        <div class="danger-box">
+            🔥 <strong>تێبینیێن گشتی یێن ئەزموونێ (General Notes - گرنگترین پشک):</strong>
+            <ul>
+                <li><strong>C# is Case sensitive:</strong> زمانەکێ گەلەک هەستیارە ل سەر پیتێن مەزن و بچویک! پیتا <code class="inline">a</code> نە وەکی <code class="inline">A</code> یە.</li>
+                <li><strong>Semicolon (;):</strong> پێدڤیە هەمی دەستەواژە و فەرمان ب فاریزەیا خالدار (<code>;</code>) ب دوماهیک بهێن.</li>
+                <li><strong>Execution:</strong> بەرنامە هەردەم دەست ب کار دکەت ل مێتۆدا <code>Main</code>.</li>
+                <li><strong>Unlike Java:</strong> بەپێچەوانەی زمانی جافا، ناڤێ فایلی مەرج نینە وەکی ناڤێ کلاسی بیت.</li>
+                <li><strong>Console.ReadKey():</strong> ل داویا بەرنامەی دهێتە دانان دا شاشە ڕاوەستیت و ئێکسەر نەهێتە گرتن هەتا تو کلیلیەکا کیبۆردی دادگری.</li>
+            </ul>
+        </div>
+    </div>
 
-    // Render Sidebar Navigation
-    function renderSidebar() {
-        const sidebar = document.getElementById('sidebarList');
-        sidebar.innerHTML = '<h3>سلاێدێن وانێ (قوفلکرینە 🔒)</h3>';
+    <!-- SLIDE 10 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">جوداهیا دناڤبەرا WriteLine() و Write()</span>
+            <span class="slide-tag">سلاێدێ ١٠</span>
+        </div>
+        <ul>
+            <li><strong><code class="inline">Console.WriteLine()</code>:</strong> دەقی چاپ دکەت، و پاشی کورسەری دبەتە <strong>دێرەکا نوی (New Line)</strong> بۆ چاپی داهاتی.</li>
+            <li><strong><code class="inline">Console.Write()</code>:</strong> دەقی چاپ دکەت، لێ <strong>ل سەر هەمان دێر دمینیت</strong> و ناچیتە دێرەکا نوی.</li>
+        </ul>
+        <pre><code>Console.WriteLine("Hello World!");
+Console.WriteLine("I will print on a new line.");
+Console.Write("Hello World! ");
+Console.Write("I will print on the same line.");</code></pre>
+        <p><strong>دەرئەنجام (Output):</strong></p>
+        <pre><code>Hello World!
+I will print on a new line.
+Hello World! I will print on the same line.</code></pre>
+    </div>
+
+    <!-- SLIDE 11 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">تێبینی د کۆدی دا (C# Comments)</span>
+            <span class="slide-tag">سلاێدێ ١١</span>
+        </div>
+        <p>تێبینی ژ بۆ ڕوونکردنا کۆدی یە و کۆمپایلەر وان ناخوینیت (ناهێنە جێبەجێکرن):</p>
+        <ul>
+            <li><strong>تێبینیا ئێک دێر (Single-line comment):</strong> ب دوو سلاشان دەستپێدکەت <code>//</code></li>
+            <li><strong>تێبینیا چەند دێران (Multi-line comment):</strong> ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> بدوماهیک دهێت.</li>
+        </ul>
+        <pre><code>// ئەڤە تێبینیا ئێک دێرە
+Console.WriteLine("Hello World!"); // ئەڤە ژی دێرەکا دی یە
+
+/* ئەڤ کۆدێ ل خوارێ
+دەقێ Hello World چاپ دکەت
+و چەند دێرن */
+Console.WriteLine("Hello World!");</code></pre>
+    </div>
+
+    <!-- SLIDE 12, 13, 14 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">گۆڕاوەکان و جۆرێن وان (C# Variables & Data Types)</span>
+            <span class="slide-tag">سلاێدێ ١٢، ١٣، ١٤</span>
+        </div>
+        <p><strong>گۆڕاو (Variable):</strong> کانتینەر و سندوقەکە بۆ هەلگرتنا بهایێن داتایێ د ناڤ بیرگەهێ دا.</p>
+        <p><strong>شێوازێ دروستکرنێ (Syntax):</strong> <code class="inline">type variableName = value;</code></p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>جۆرێ داتایێ (Type)</th>
+                        <th>شروڤەکرن ب بادینی</th>
+                        <th>نموونە</th>
+                        <th>تێبینیا تایبەت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>int</strong></td>
+                        <td>ژمارەیێن دروست (بێ فاریزە)</td>
+                        <td><code>int x = 123;</code></td>
+                        <td>موجب و سالب قەبیل دکەت</td>
+                    </tr>
+                    <tr>
+                        <td><strong>double</strong></td>
+                        <td>ژمارەیێن فاریزەدار (دەشاڕی)</td>
+                        <td><code>double d = 19.99;</code></td>
+                        <td>دشێی پیتا D ژی ل داویێ دانی</td>
+                    </tr>
+                    <tr>
+                        <td><strong>char</strong></td>
+                        <td>بتنێ ئێک کاراکتەر یان پیت</td>
+                        <td><code>char c = 'a';</code></td>
+                        <td><strong>دڤێت د ناڤ کەوانێ تاک بیت ' '</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>string</strong></td>
+                        <td>دەق و پەیڤێن درێژ</td>
+                        <td><code>string s = "Hello";</code></td>
+                        <td><strong>دڤێت د ناڤ جووت کەوانان بیت " "</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>bool</strong></td>
+                        <td>بهایێن لۆژیکی: ڕاست یان شاش</td>
+                        <td><code>bool b = true;</code></td>
+                        <td>بتنێ <code>true</code> یان <code>false</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>یاسایێن گۆڕاوان (Declaration vs Initialization):</h3>
+        <pre><code>int age;       // Declaration (بتنێ ناساندن)
+age = 25;      // Initialization (دانانا بهایی بۆ ئێکەم جار)
+
+age = 20;      // Overwriting (بهایێ کەڤن لادبەت و دبیتە 20)</code></pre>
+
+        <div class="danger-box">
+            ❌ <strong>خەلەتیا بەربلاڤا ئەزموونێ (Compile-time Error):</strong><br>
+            نابیت متغیرەکی بکاربینی بەری بهای بدەیێ! ئەگەر بنڤیسی:
+            <pre><code>int age;
+int j = age; // ERROR: Use of unassigned local variable 'age'</code></pre>
+            ئەڤە خەلەتیە چونکی `age` چ بها د ناڤدا نینە!
+        </div>
+    </div>
+
+    <!-- SLIDE 15 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">نەگۆڕەکان (Constants - const)</span>
+            <span class="slide-tag">سلاێدێ ١٥</span>
+        </div>
+        <p>ئەگەر تە نەڤێت کەس بشێت بهایێ گۆڕاوەکێ بگوهۆڕیت، پەیڤا <strong><code class="inline">const</code></strong> ل دەستپێکێ دانی. ئەڤ بها دێ بیتە نەگۆڕ و بتنێ بۆ خواندنێ یە (read-only).</p>
         
-        slidesData.forEach((s, idx) => {
-            const item = document.createElement('div');
-            item.className = 'slide-nav-item';
-            
-            if (idx > unlockedSlide) {
-                item.classList.add('locked');
-                item.innerHTML = `<span>🔒 سلاێدێ ${s.id}</span>`;
-            } else {
-                if (idx === currentSlide) item.classList.add('active');
-                if (idx < unlockedSlide) item.classList.add('completed');
-                item.innerHTML = `<span>${idx < unlockedSlide ? '✓ ' : ''}سلاێدێ ${s.id}: ${s.title.substring(0, 16)}...</span>`;
-                item.onclick = () => {
-                    loadSlide(idx);
-                };
-            }
-            sidebar.appendChild(item);
-        });
+        <pre><code>const int age = 25;
+age = 30; // ❌ ERROR: The left-hand side of an assignment must be a variable...</code></pre>
 
-        document.getElementById('progressText').innerText = `سلاێدێ ${currentSlide + 1} ژ ${slidesData.length}`;
-    }
+        <div class="note-box">
+            ⚠️ <strong>یاسایا نەگۆڕان:</strong> نابی نەگۆڕەکی دروست بکەی بێی کو دەستبەجێ بهای بدەیێ!<br>
+            <code class="inline">const int myNum;</code> ❌ ئەڤە خەلەتە! (A const field requires a value to be provided).
+        </div>
+    </div>
 
-    // Load Slide View
-    function loadSlide(index) {
-        if (index > unlockedSlide) return;
-        currentSlide = index;
-        currentSlideExamPassed = false;
+    <!-- SLIDE 16 & 17 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">نیشاندانا گۆڕاوان و هێمایێ کۆمکرنێ (+)</span>
+            <span class="slide-tag">سلاێدێ ١٦ و ١٧</span>
+        </div>
+        <p>هێمایێ <code>+</code> د ناڤبەرا دوو کاران دا دهێتە بکارهێنان:</p>
+        <ul>
+            <li><strong>پێکڤەگرێدان (Concatenation):</strong> ئەگەر دگەل دەقان (String) بیت، پەیڤان دنیسکینیتە ئێک:</li>
+        </ul>
+        <pre><code>string firstName = "Salar ";
+string lastName = "Raman";
+string fullName = firstName + lastName;
+Console.WriteLine(fullName); // دێ بیژیت: Salar Raman</code></pre>
 
-        const data = slidesData[index];
-        document.getElementById('slideTitle').innerText = data.title;
-        document.getElementById('slideBadge').innerText = data.badge;
-        document.getElementById('slideContent').innerHTML = data.content;
+        <ul>
+            <li><strong>کۆمکرنا بیرکاریێ (Mathematical Addition):</strong> ئەگەر دگەل ژمارەیان بیت (وەک int)، کۆم دکەت:</li>
+        </ul>
+        <pre><code>int x = 10;
+int y = 5;
+Console.WriteLine(x + y); // دەرئەنجام: 15</code></pre>
 
-        // Reset visualizer
-        setupVisualizer(data);
+        <p><strong>دروستکرنا چەندین گۆڕاوان ب ئێک دێر (ب بکارئینانا فاریزێ):</strong></p>
+        <pre><code>int x = 5, y = 6, z = 50;
+Console.WriteLine(x + y + z); // دەرئەنجام: 61</code></pre>
+    </div>
 
-        // Switch to Lecture view
-        document.getElementById('lectureView').style.display = 'block';
-        document.getElementById('examView').style.display = 'none';
+    <!-- SLIDE 18 & 19 -->
+    <div class="slide-card">
+        <div class="slide-header">
+            <span class="slide-title">پەیڤێن تایبەت و یاسایێن ناڤلێنانێ (Keywords & Identifiers)</span>
+            <span class="slide-tag">سلاێدێ ١٨ و ١٩</span>
+        </div>
+        <h3>پەیڤێن تایبەت (Keywords):</h3>
+        <p>ئەڤە پەیڤێن قەدەغەکرینە کو تایبەتن ب کۆمپایلەرێ C# ڤە، وەک: <code>class, int, double, const, static, void, bool, for, if</code>.</p>
+        <div class="note-box">
+            💡 <strong>فێڵا کویزی:</strong> ئەرێ دشێین پەیڤەکا تایبەت بکەینە ناڤێ متغیری؟<br>
+            <strong>بەلێ!</strong> بتنێ ئەگەر هێمایێ <strong><code class="inline">@</code></strong> بەری وێ پەیڤێ دانی. بۆ نموونە: <code class="inline">int @class = 10;</code> (دروستە!).
+        </div>
 
-        renderSidebar();
-    }
+        <h3>یاسایێن ناڤلێنانێ (Identifiers Rules):</h3>
+        <ul>
+            <li>هەمی ناڤ پێدڤیە ب <strong>پیت</strong> یان هێمایێ <strong>ئەندەرسکۆر ( _ )</strong> دەستپێبکەن.</li>
+            <li><strong>ب چ شێوەیان نابیت ب ژمارە دەستپێبکەت!</strong> (بۆ نموونە: <code>1name</code> ❌ خەلەتە، بەس <code>name1</code> ✅ دروستە).</li>
+            <li>نابیت بۆشایی (Space) د ناڤبەرا ناڤی دا هەبیت (<code>my age</code> ❌ خەلەتە، <code>myAge</code> ✅ دروستە).</li>
+            <li>پیتێن مەزن و بچویک جودانە (Case sensitive) بۆ نموونە: <code>myVar</code> و <code>myvar</code> دوو ناڤێن جودانە.</li>
+            <li>نابیت پەیڤێن تایبەت (Keywords) بهێنە بکارئینان (مەگەر ب @ دەستپێبکەت).</li>
+        </ul>
+    </div>
 
-    // ==========================================
-    // VIDEO-LIKE CODE VISUALIZER / ANIMATION
-    // ==========================================
-    function setupVisualizer(data) {
-        clearInterval(simInterval);
-        const codeArea = document.getElementById('simCodeArea');
-        codeArea.innerHTML = '';
-        
-        data.codeLines.forEach((line, idx) => {
-            const div = document.createElement('div');
-            div.className = 'code-line';
-            div.id = `codeLine_${idx}`;
-            div.innerText = line;
-            codeArea.appendChild(div);
-        });
+    <!-- ================= 100 COMPREHENSIVE QUIZZES ================= -->
 
-        document.getElementById('simRam').innerHTML = '<span style="color: gray; font-size: 0.8rem;">چ گۆڕاو نینن</span>';
-        document.getElementById('simConsole').innerHTML = '<span style="color: #64748b;">// Console Output ل ڤێرێ دیار دبیت...</span>';
-    }
+    <div class="quiz-section">
+        <h2 style="color: var(--primary); text-align: center; margin-bottom: 25px;">
+            📝 بانکا ١٠٠ پرسیارێن کویزێ دگەل بەرسڤ و شروڤەکرنێ ب بادینی
+        </h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">
+            تەپسی ل سەر (ڤەکرنا بەرسڤێ) بدە دا بزانی کا بەرسڤا تە یا دروستە و تێبینیێ بخوینی.
+        </p>
 
-    function startSimulation() {
-        const data = slidesData[currentSlide];
-        let step = 0;
-        clearInterval(simInterval);
+        <!-- CATEGORY 1: TRUE / FALSE (30 Questions) -->
+        <h3 style="background: #e0e7ff; padding: 10px; border-radius: 8px;">بەشێ ١: ڕاست یان شاش (True / False) - ٣٠ پرسیار</h3>
 
-        // Clear previous runs
-        document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
-        document.getElementById('simRam').innerHTML = '';
-        document.getElementById('simConsole').innerText = '';
+        <!-- Q1 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١. زمانێ C# ژ لایێ کۆمپانییا ئەپڵ (Apple) ڤە هاتیە دروستکرن.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | ڕاست: ژ لایێ مایکرۆسۆفت (Microsoft) ڤە هاتیە دروستکرن.</p>
+            </details>
+        </div>
 
-        simInterval = setInterval(() => {
-            if (step >= data.simSteps.length) {
-                clearInterval(simInterval);
-                return;
-            }
+        <!-- Q2 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢. ئێکەم ڤێرژنا زمانی C# د سالا 2002 دا هاتیە بەلاڤکرن.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-            const current = data.simSteps[step];
-            
-            // Highlight active code line
-            document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
-            const activeLineEl = document.getElementById(`codeLine_${current.line}`);
-            if (activeLineEl) activeLineEl.classList.add('active');
+        <!-- Q3 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣. زمانێ C# زمانەکێ پڕۆسێجەرالە و Object-Oriented نینە.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | ڕاست: C# زمانەکێ تەواو Object-Oriented یە.</p>
+            </details>
+        </div>
 
-            // Update RAM View
-            if (current.ram) {
-                const ramContainer = document.getElementById('simRam');
-                ramContainer.innerHTML = '';
-                for (const [key, val] of Object.entries(current.ram)) {
-                    const cell = document.createElement('div');
-                    cell.className = 'ram-cell';
-                    cell.innerText = `${key} = ${val}`;
-                    ramContainer.appendChild(cell);
-                }
-            }
+        <!-- Q4 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤. زمانێ C# یێ هەستیارە ل سەر پیتێن مەزن و بچویک (Case-sensitive).</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | پیتێن مەزن و بچویک وەک 'a' و 'A' جودانە.</p>
+            </details>
+        </div>
 
-            // Update Console Output
-            if (current.output) {
-                const consoleEl = document.getElementById('simConsole');
-                consoleEl.innerText = current.output;
-            }
+        <!-- Q5 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥. هەمی دەستەواژەیێن بەرنامێ C# دڤێت ب فاریزەیا خالدار (;) ب دوماهیک بهێن.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-            step++;
-        }, 1200);
-    }
+        <!-- Q6 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦. مێتۆدا Main دەستپێکا کارکرنا پڕۆگرامێ C# یە.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | کارکرن ژ Main دەستپێدکەت.</p>
+            </details>
+        </div>
 
-    // ==========================================
-    // STRICT EXAM SYSTEM
-    // ==========================================
-    let userAnswers = {};
+        <!-- Q7 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧. هەروەکی زمانێ Java، مەرجە ناڤێ فایلی ب تەواوی وەکی ناڤێ کلاسی بیت د C# دا.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | بەپێچەوانەی جافا، ل C# مەرج نینە ناڤێ فایلی هەمان ناڤێ کلاسی بیت.</p>
+            </details>
+        </div>
 
-    function startSlideExam() {
-        document.getElementById('lectureView').style.display = 'none';
-        document.getElementById('examView').style.display = 'block';
+        <!-- Q8 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨. مێتۆدا WriteLine() دەقی ل سەر هەمان دێر دهێلیت و ناچیتە دێرەکا نوی.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | ڕاست: WriteLine دچیتە دێرەکا نوی، بەس Write ل سەر هەمان دێر دمینیت.</p>
+            </details>
+        </div>
 
-        const data = slidesData[currentSlide];
-        document.getElementById('examTitle').innerText = `تاقیکرنا: ${data.title} (${data.questions.length} پرسیار)`;
-        document.getElementById('examScore').innerText = `نمرە: ٠ / ${data.questions.length}`;
-        document.getElementById('nextSlideBtn').style.display = 'none';
+        <!-- Q9 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩. تێبینیێن چەند دێری ب // دەستپێدکەن.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | // بۆ ئێک دێرە، چەند دێر ب /* */ دهێنە دانان.</p>
+            </details>
+        </div>
 
-        userAnswers = {};
-        const qContainer = document.getElementById('questionsContainer');
-        qContainer.innerHTML = '';
+        <!-- Q10 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٠. گۆڕاوێ int ژمارەیێن فاریزەدار وەک 19.99 هەلدگریت.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | int بتنێ بۆ ژمارەیێن دروستە، double بۆ ژمارەیێن فاریزەدارە.</p>
+            </details>
+        </div>
 
-        data.questions.forEach((qObj, qIdx) => {
-            const card = document.createElement('div');
-            card.className = 'q-card';
-            card.id = `qCard_${qIdx}`;
+        <!-- Q11 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١١. بهایێ char پێدڤیە د ناڤ کەوانێ تاک بیت (' ').</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | char تاکە کەوان ' '، بەس string دوو کەوان " ".</p>
+            </details>
+        </div>
 
-            card.innerHTML = `
-                <span class="q-difficulty ${qObj.diff}">${qObj.diffText}</span>
-                <div class="q-text"><strong>پرسیارا ${qIdx + 1}:</strong> ${qObj.q}</div>
-                <div class="options-grid" id="optGrid_${qIdx}">
-                    ${qObj.options.map((opt, optIdx) => `
-                        <button class="opt-btn" onclick="selectAnswer(${qIdx}, ${optIdx})">${opt}</button>
-                    `).join('')}
-                </div>
-                <div class="q-explain" id="explain_${qIdx}">💡 <strong>تێبینیا بادینی:</strong> ${qObj.explain}</div>
-            `;
-            qContainer.appendChild(card);
-        });
-    }
+        <!-- Q12 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٢. ئەگەر گۆڕاوەک بهایێ وی نەهێتە دیارکرن، ئاساییە ئێکسەر بهێتە بکارئینان د C# دا.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | خەلەتییا Compile-time error ددەت ئەگەر بێ بها بکاربینی.</p>
+            </details>
+        </div>
 
-    function selectAnswer(qIdx, selectedOptIdx) {
-        const data = slidesData[currentSlide];
-        const qObj = data.questions[qIdx];
+        <!-- Q13 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٣. بهایێ const دشێت ل دەمێ کارپێکرنا بەرنامەی بهێتە گوهۆڕین.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | const نەگۆڕە و ناهێتە گوهۆڕین.</p>
+            </details>
+        </div>
 
-        if (userAnswers[qIdx] !== undefined) return; // Prevent changing answer once selected
+        <!-- Q14 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٤. دروستە بنڤیسین: const int x; و پاشی ل دێرەکا دی بنڤیسین x = 10; .</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | پێدڤیە const ل هەمان دەم و هەمان دێر بها بۆ بهێتە دانان.</p>
+            </details>
+        </div>
 
-        userAnswers[qIdx] = selectedOptIdx;
-        const grid = document.getElementById(`optGrid_${qIdx}`);
-        const buttons = grid.getElementsByClassName('opt-btn');
+        <!-- Q15 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٥. ناڤێ گۆڕاوەکی دشێت ب ژمارە دەستپێبکەت وەک 1stNumber.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | قەدەغەیە ب ژمارە دەستپێبکەت، بتنێ ب پیت یان _ دەستپێدکەت.</p>
+            </details>
+        </div>
 
-        // Reveal answer
-        if (selectedOptIdx === qObj.ans) {
-            buttons[selectedOptIdx].classList.add('correct');
-        } else {
-            buttons[selectedOptIdx].classList.add('wrong');
-            buttons[qObj.ans].classList.add('correct'); // Show correct one
-        }
+        <!-- Q16 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٦. بۆشایی (Whitespace) د ناڤبەرا ناڤێ گۆڕاوەکی دا ڕێپێدایە.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | نابیت بۆشایی هەبیت.</p>
+            </details>
+        </div>
 
-        // Show explanation
-        document.getElementById(`explain_${qIdx}`).style.display = 'block';
+        <!-- Q17 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٧. ئەگەر هێمایێ @ بەری پەیڤەکا تایبەت وەک class دانی، دشێی وەک ناڤێ گۆڕاو بکاربینی.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | وەک @class ڕێپێدایە.</p>
+            </details>
+        </div>
 
-        // Calculate score
-        checkExamCompletion();
-    }
+        <!-- Q18 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٨. زمانێ C# ل سەر .NET Framework کار دکەت.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-    function checkExamCompletion() {
-        const data = slidesData[currentSlide];
-        let correctCount = 0;
+        <!-- Q19 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٩. مێتۆدا Console.ReadKey() ناهێلیت شاشە ڕاستەوخۆ دابخرێت.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-        for (let i = 0; i < data.questions.length; i++) {
-            if (userAnswers[i] === data.questions[i].ans) {
-                correctCount++;
-            }
-        }
+        <!-- Q20 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٠. گۆڕاوێ bool بتنێ دوو بهایان وەردگریت: true یان false.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-        document.getElementById('examScore').innerText = `نمرە: ${correctCount} / ${data.questions.length}`;
+        <!-- Q21 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢١. هێمایێ + دشێت بۆ پێکڤەگرێدانا دوو دەقان (String Concatenation) بهێتە بکارئینان.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-        // Check if all answered
-        if (Object.keys(userAnswers).length === data.questions.length) {
-            if (correctCount === data.questions.length) {
-                // Passed full mark
-                document.getElementById('nextSlideBtn').style.display = 'block';
-                if (unlockedSlide === currentSlide) {
-                    unlockedSlide++;
-                }
-                renderSidebar();
-            } else {
-                alert(`تە ${correctCount} ژ ${data.questions.length} نمرە ئینان. پێدڤیە هەمی بەرسڤێن تە ١٠٠٪ دروست بن دا سلاێدا دویڤدا قوفلا وێ ڤەبیت! تکایە دووبارە تاقیبکەوە.`);
-                setTimeout(() => {
-                    startSlideExam();
-                }, 1500);
-            }
-        }
-    }
+        <!-- Q22 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٢. پەیڤا using System بۆ ئینانا کتێبخانەیا System دهێتە بکارئینان.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-    function advanceToNextSlide() {
-        if (currentSlide < slidesData.length - 1) {
-            loadSlide(currentSlide + 1);
-        } else {
-            alert('🎉 پیرۆزە! تە هەمی ١٩ سلاێد و هەمی ١٠٠ پرسیار ب سەرکەفتی تەمام کرن! تو نوکە ئامادەی بۆ کویزێ و ١٠٠٪ دێ ئێکەم بی!');
-        }
-    }
+        <!-- Q23 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٣. د C# دا هەمی دێرێن کۆدی دشێن ل دەرڤەی کلاسی ژی بهێنە نڤیسین.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | هەمی دێرەکا کۆدی دڤێت د ناڤ کلاسی دا بیت.</p>
+            </details>
+        </div>
 
-    // ==========================================
-    // STRICT ANTI-CHEAT MECHANISMS
-    // ==========================================
-    function setupAntiCheat() {
-        // Tab switch / Window blur detection
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                triggerCheatViolation();
-            }
-        });
+        <!-- Q24 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٤. ناڤێ _myValue ناڤەکێ دروستە بۆ گۆڕاوەکی.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | چونکی ب ئەندەرسکۆر دەستپێکریە.</p>
+            </details>
+        </div>
 
-        window.addEventListener('blur', () => {
-            triggerCheatViolation();
-        });
-    }
+        <!-- Q25 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٥. کۆمپایلەر چاڤپۆشیێ ژ تێبینیان (Comments) دکەت و جێبەجێ ناکەت.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
 
-    function triggerCheatViolation() {
-        cheatsCount++;
-        document.getElementById('cheatCount').innerText = cheatsCount;
-        document.getElementById('cheatModal').style.display = 'flex';
-    }
+        <!-- Q26 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٦. گۆڕاوێن string د ناڤ کەوانێ تاک (' ') دا دهێنە نڤیسین.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | string د ناڤ دوو کەوانان دا یە (" ").</p>
+            </details>
+        </div>
 
-    function dismissCheatWarning() {
-        document.getElementById('cheatModal').style.display = 'none';
-        toggleFullScreen();
-    }
+        <!-- Q27 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٧. دەستەواژەیا int x = 10, y = 20, z = 30; یا دروستە د C# دا.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True) | دشێی چەندین متغیرا ب فاریزێ ل ئێک دێر بناسینی.</p>
+            </details>
+        </div>
 
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.log(err.message);
-            });
-            document.getElementById('fsBtn').innerText = '⛶ ئاسایی';
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-                document.getElementById('fsBtn').innerText = '⛶ شاشەیا مەزن';
-            }
-        }
-    }
-</script>
+        <!-- Q28 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٨. پەیڤا double ئێک ژ پەیڤێن قەدەغەکری (Reserved Keywords) یە د C# دا.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>✅ ڕاستە (True).</p>
+            </details>
+        </div>
+
+        <!-- Q29 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٢٩. دەمێ تو بهایەکێ نوی بدەیە گۆڕاوەکی، بهایێ وی یێ کەڤن دمینیت و لاد ناچیت.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | بهایێ کەڤن ناهێلیت و نویکرنڤە (Overwrite) دکەت.</p>
+            </details>
+        </div>
+
+        <!-- Q30 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٠. ناڤێن myvar و myVar دوو ناڤێن هەمان تشتن بۆ C#.</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>❌ شاشە (False) | دوو متغیرێن جودانە ژبەر هەستیاریا پیتان (Case sensitivity).</p>
+            </details>
+        </div>
+
+        <!-- CATEGORY 2: MULTIPLE CHOICE (35 Questions) -->
+        <h3 style="background: #e0e7ff; padding: 10px; border-radius: 8px; margin-top: 30px;">بەشێ ٢: هەلبژارتن (Multiple Choice - MCQ) - ٣٥ پرسیار</h3>
+
+        <!-- Q31 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣١. C# چەوا دهێتە گۆتن و بلەفکرن؟</div>
+            <div class="quiz-options">A) C-Plus &nbsp;&nbsp; B) C-Sharp &nbsp;&nbsp; C) C-Star &nbsp;&nbsp; D) C-Flat</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) C-Sharp</p>
+            </details>
+        </div>
+
+        <!-- Q32 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٢. C# ل سەر کیژ ژینگەهـ و چارچووڤە کار دکەت؟</div>
+            <div class="quiz-options">A) JVM &nbsp;&nbsp; B) .NET Framework &nbsp;&nbsp; C) Node.js &nbsp;&nbsp; D) Android OS</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) .NET Framework</p>
+            </details>
+        </div>
+
+        <!-- Q33 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٣. ئێکەم وەشانا زمانێ C# ل کیژ سالێ هاتە بەلاڤکرن؟</div>
+            <div class="quiz-options">A) 1995 &nbsp;&nbsp; B) 2000 &nbsp;&nbsp; C) 2002 &nbsp;&nbsp; D) 2010</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) 2002</p>
+            </details>
+        </div>
+
+        <!-- Q34 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٤. جێبەجێکرنا پڕۆگرامێ C# ژ کیژ مێتۆدێ دەستپێدکەت؟</div>
+            <div class="quiz-options">A) Start() &nbsp;&nbsp; B) Program() &nbsp;&nbsp; C) Main() &nbsp;&nbsp; D) Run()</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) Main()</p>
+            </details>
+        </div>
+
+        <!-- Q35 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٥. کیژ ژ ڤانان بۆ نڤیسینا تێبینیا ئێک دێر (Single-line comment) دهێتە بکارئینان؟</div>
+            <div class="quiz-options">A) /* &nbsp;&nbsp; B) # &nbsp;&nbsp; C) // &nbsp;&nbsp; D) &lt;!--</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) //</p>
+            </details>
+        </div>
+
+        <!-- Q36 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٦. کیژ ژ ڤانان بۆ نڤیسینا تێبینیا چەند دێری دهێتە بکارئینان؟</div>
+            <div class="quiz-options">A) // ... // &nbsp;&nbsp; B) /* ... */ &nbsp;&nbsp; C) &lt;!-- ... --&gt; &nbsp;&nbsp; D) ** ... **</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) /* ... */</p>
+            </details>
+        </div>
+
+        <!-- Q37 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٧. کیژ مێتۆد دەقی چاپ دکەت و کورسەری دبەتە دێرەکا نوی؟</div>
+            <div class="quiz-options">A) Console.Write() &nbsp;&nbsp; B) Console.Print() &nbsp;&nbsp; C) Console.WriteLine() &nbsp;&nbsp; D) Console.Out()</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) Console.WriteLine()</p>
+            </details>
+        </div>
+
+        <!-- Q38 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٨. کیژ جۆرێ داتایێ بهایێ ژمارەیا دروست بێ فاریزە هەلدگریت؟</div>
+            <div class="quiz-options">A) double &nbsp;&nbsp; B) string &nbsp;&nbsp; C) char &nbsp;&nbsp; D) int</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: D) int</p>
+            </details>
+        </div>
+
+        <!-- Q39 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٣٩. کیژ جۆرێ داتایێ بهایێ ژمارەیا دەشاڕی (فاریزەدار) هەلدگریت؟</div>
+            <div class="quiz-options">A) int &nbsp;&nbsp; B) double &nbsp;&nbsp; C) bool &nbsp;&nbsp; D) char</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) double</p>
+            </details>
+        </div>
+
+        <!-- Q40 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٠. بهایێ جۆرێ char د ناڤبەرا چ دا دهێتە نڤیسین؟</div>
+            <div class="quiz-options">A) " " &nbsp;&nbsp; B) ' ' &nbsp;&nbsp; C) { } &nbsp;&nbsp; D) [ ]</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) ' ' (کەوانێن تاک)</p>
+            </details>
+        </div>
+
+        <!-- Q41 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤١. بهایێ جۆرێ string د ناڤبەرا چ دا دهێتە نڤیسین؟</div>
+            <div class="quiz-options">A) ' ' &nbsp;&nbsp; B) &lt; &gt; &nbsp;&nbsp; C) " " &nbsp;&nbsp; D) ( )</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) " " (جووت کەوان)</p>
+            </details>
+        </div>
+
+        <!-- Q42 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٢. کیژ پەیڤا تایبەت دهێتە بکارئینان دا کو نەهێلیت بهایێ متغیری بهێتە گوهۆڕین؟</div>
+            <div class="quiz-options">A) static &nbsp;&nbsp; B) final &nbsp;&nbsp; C) const &nbsp;&nbsp; D) fixed</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) const</p>
+            </details>
+        </div>
+
+        <!-- Q43 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٣. کیژ ژ ڤان ناڤان بۆ گۆڕاوەکی نە دروستە (Invalid Identifier)؟</div>
+            <div class="quiz-options">A) _myNum &nbsp;&nbsp; B) num1 &nbsp;&nbsp; C) 1num &nbsp;&nbsp; D) my_num</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) 1num (چونکی ب ژمارە دەستپێکریە)</p>
+            </details>
+        </div>
+
+        <!-- Q44 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٤. چ هێما دهێتە بکارئینان دا بشێین پەیڤەکا تایبەت بکەینە ناڤێ متغیری؟</div>
+            <div class="quiz-options">A) # &nbsp;&nbsp; B) $ &nbsp;&nbsp; C) @ &nbsp;&nbsp; D) &amp;</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) @ (وەک @class)</p>
+            </details>
+        </div>
+
+        <!-- Q45 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٥. فەرمانا using System; بۆ چ دهێتە بکارئینان؟</div>
+            <div class="quiz-options">A) دروستکرنا کلاسی &nbsp;&nbsp; B) ئینانا کتێبخانەیا System &nbsp;&nbsp; C) چاپکرن &nbsp;&nbsp; D) گرتنا شاشەی</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) ئینانا کتێبخانەیا System (Import library)</p>
+            </details>
+        </div>
+
+        <!-- Q46 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٦. کیژ پەیڤ بۆ پێناسەکرنا جۆرێ داتایێ لۆژیکی یێ true و false دهێتە بکارئینان؟</div>
+            <div class="quiz-options">A) boolean &nbsp;&nbsp; B) bool &nbsp;&nbsp; C) bit &nbsp;&nbsp; D) binary</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) bool</p>
+            </details>
+        </div>
+
+        <!-- Q47 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٧. دەرئەنجامێ ئەڤێ ڕستێ چییە: Console.WriteLine(10 + 20); ؟</div>
+            <div class="quiz-options">A) 1020 &nbsp;&nbsp; B) 30 &nbsp;&nbsp; C) 10+20 &nbsp;&nbsp; D) Error</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) 30 (چونکی هەردوو ژمارەنە لەوا کۆمکرن چێبوو)</p>
+            </details>
+        </div>
+
+        <!-- Q48 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٨. دەرئەنجامێ ئەڤێ ڕستێ چییە: Console.WriteLine("10" + "20"); ؟</div>
+            <div class="quiz-options">A) 30 &nbsp;&nbsp; B) 1020 &nbsp;&nbsp; C) "30" &nbsp;&nbsp; D) Error</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) 1020 (چونکی دەقن لەوا نیسکانە پێکڤە)</p>
+            </details>
+        </div>
+
+        <!-- Q49 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٤٩. کیژ هێما دەستپێک و دوماهیا بلۆکێ کۆدی دیار دکەت؟</div>
+            <div class="quiz-options">A) ( ) &nbsp;&nbsp; B) [ ] &nbsp;&nbsp; C) { } &nbsp;&nbsp; D) &lt; &gt;</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) { } (Curly braces)</p>
+            </details>
+        </div>
+
+        <!-- Q50 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٠. بۆچی بەرنامەساز C# هەلدبژێرن؟</div>
+            <div class="quiz-options">A) بساناهییە بۆ فێربوونێ &nbsp;&nbsp; B) پشتەڤانیا مەزن هەیە &nbsp;&nbsp; C) کۆدێ وی دهێتە دووبارە بکارئینان &nbsp;&nbsp; D) هەمی بەرسڤ دروستن</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: D) هەمی بەرسڤ دروستن</p>
+            </details>
+        </div>
+
+        <!-- Q51 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥١. دەمێ تو دبیژی int age = 25; پاشی بنڤیسی age = 30; بهایێ age دبیتە چەند؟</div>
+            <div class="quiz-options">A) 25 &nbsp;&nbsp; B) 30 &nbsp;&nbsp; C) 55 &nbsp;&nbsp; D) Error</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) 30</p>
+            </details>
+        </div>
+
+        <!-- Q52 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٢. کیژ ژ ڤان داتایان ژمارەیەکا دروستە؟</div>
+            <div class="quiz-options">A) 5.99 &nbsp;&nbsp; B) -123 &nbsp;&nbsp; C) "123" &nbsp;&nbsp; D) 'A'</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) -123</p>
+            </details>
+        </div>
+
+        <!-- Q53 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٣. کیژ ڕستە خەلەتی تێدا هەیە (Error)؟</div>
+            <div class="quiz-options">A) int a = 5; &nbsp;&nbsp; B) const int b; &nbsp;&nbsp; C) double c = 4.5; &nbsp;&nbsp; D) string d = "Hi";</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) const int b; (چونکی const بێ بها نابیت)</p>
+            </details>
+        </div>
+
+        <!-- Q54 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٤. کانتینەرێ دانانا داتا و مێتۆدان د C# دا چییە؟</div>
+            <div class="quiz-options">A) Namespace &nbsp;&nbsp; B) Class &nbsp;&nbsp; C) Method &nbsp;&nbsp; D) Semicolon</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) Class</p>
+            </details>
+        </div>
+
+        <!-- Q55 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٥. کانتینەرێ کۆمکرنا کلاسان و نەیمسپەیسێن دی چییە؟</div>
+            <div class="quiz-options">A) Variable &nbsp;&nbsp; B) Class &nbsp;&nbsp; C) Namespace &nbsp;&nbsp; D) Argument</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) Namespace</p>
+            </details>
+        </div>
+
+        <!-- Q56 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٦. مێتۆدا Console.ReadKey() چ دکەت؟</div>
+            <div class="quiz-options">A) داتایەکێ چاپ دکەت &nbsp;&nbsp; B) چاڤەڕێی دادگرتنا دوگمەیەکێ دکەت &nbsp;&nbsp; C) ژمارەیان کۆم دکەت &nbsp;&nbsp; D) بەرنامەی دادخەت</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) چاڤەڕێی دادگرتنا دوگمەیەکا کیبۆردی دکەت</p>
+            </details>
+        </div>
+
+        <!-- Q57 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٧. کیژ ژ ڤانان بۆ دروستکرنا متغیرێن هەمەجۆر ب ئێک دێر دروستە؟</div>
+            <div class="quiz-options">A) int x = 5; y = 6; &nbsp;&nbsp; B) int x = 5, y = 6; &nbsp;&nbsp; C) int x = 5 : y = 6; &nbsp;&nbsp; D) int x = 5 and y = 6;</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) int x = 5, y = 6;</p>
+            </details>
+        </div>
+
+        <!-- Q58 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٨. کیژ ناڤ پێچەوانەی یاسایێن C# یە؟</div>
+            <div class="quiz-options">A) user_name &nbsp;&nbsp; B) userName &nbsp;&nbsp; C) user name &nbsp;&nbsp; D) _user</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) user name (بۆشایی/Space قەدەغەیە)</p>
+            </details>
+        </div>
+
+        <!-- Q59 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٥٩. پەیڤا const کورتکرنا چییە؟</div>
+            <div class="quiz-options">A) Constructor &nbsp;&nbsp; B) Constant &nbsp;&nbsp; C) Control &nbsp;&nbsp; D) Console</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) Constant (نەگۆڕ)</p>
+            </details>
+        </div>
+
+        <!-- Q60 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٠. کیژ زمان نە سەر ب بنەماڵا زمانێ C یە؟</div>
+            <div class="quiz-options">A) C++ &nbsp;&nbsp; B) Java &nbsp;&nbsp; C) C# &nbsp;&nbsp; D) HTML</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: D) HTML (ئەڤە زمانی مارک ئەپە نەک بەرنامەسازی)</p>
+            </details>
+        </div>
+
+        <!-- Q61 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦١. جۆرێ double ل داویا ژمارێ چ پیت دشێت وەربگریت؟</div>
+            <div class="quiz-options">A) F &nbsp;&nbsp; B) D &nbsp;&nbsp; C) L &nbsp;&nbsp; D) M</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) D (وەک 5.99D)</p>
+            </details>
+        </div>
+
+        <!-- Q62 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٢. دەرئەنجامێ دەستەواژەیا string s = "A"; char c = 'A'; چییە؟</div>
+            <div class="quiz-options">A) هەردوو هەمان جۆرن &nbsp;&nbsp; B) s دەقە و c کاراکتەرە &nbsp;&nbsp; C) خەلەتی تێدایە &nbsp;&nbsp; D) هەردوو ژمارەنە</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) s دەقە (string) و c بتنێ ئێک پیتە (char)</p>
+            </details>
+        </div>
+
+        <!-- Q63 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٣. ل C# پیتێن مەزن ل دەستپێکا ناڤێ مێتۆدا سەرەکی ب چ شێوەیە؟</div>
+            <div class="quiz-options">A) main &nbsp;&nbsp; B) MAIN &nbsp;&nbsp; C) Main &nbsp;&nbsp; D) _main</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: C) Main (ب پیتا مەزن M)</p>
+            </details>
+        </div>
+
+        <!-- Q64 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٤. کیژ دەستەواژە دێ بیژیت "پێکڤەنیسکاندنا پەیڤان"؟</div>
+            <div class="quiz-options">A) Calculation &nbsp;&nbsp; B) Concatenation &nbsp;&nbsp; C) Compilation &nbsp;&nbsp; D) Conversion</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) Concatenation</p>
+            </details>
+        </div>
+
+        <!-- Q65 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٥. مێتۆدا Write() چ دکەت ئەگەر دوو جاران ل دویڤ ئێک بکاربینی؟</div>
+            <div class="quiz-options">A) دێرەکا نوی چێدکەت &nbsp;&nbsp; B) ل سەر هەمان دێر چاپ دکەت &nbsp;&nbsp; C) تێکدەچیت &nbsp;&nbsp; D) یا ئێکێ ژێردبەت</div>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: B) ل سەر هەمان دێر پێکڤە چاپ دکەت</p>
+            </details>
+        </div>
+
+        <!-- CATEGORY 3: OUTPUT TRACING (20 Questions) -->
+        <h3 style="background: #e0e7ff; padding: 10px; border-radius: 8px; margin-top: 30px;">بەشێ ٣: دەرئەنجامێ کۆدی چییە؟ (Output Tracing) - ٢٠ پرسیار</h3>
+
+        <!-- Q66 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٦. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>Console.Write("Akre ");
+Console.Write("University");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>Akre University</code> (ل سەر هەمان دێر چونکی Write یە)</p>
+            </details>
+        </div>
+
+        <!-- Q67 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٧. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>Console.WriteLine("Akre");
+Console.WriteLine("Institute");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ:<br><code>Akre<br>Institute</code> (دوو دێرێن جودا)</p>
+            </details>
+        </div>
+
+        <!-- Q68 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٨. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int x = 5;
+int y = 10;
+Console.WriteLine(x + y);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>15</code></p>
+            </details>
+        </div>
+
+        <!-- Q69 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٦٩. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>string a = "5";
+string b = "10";
+Console.WriteLine(a + b);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>510</code></p>
+            </details>
+        </div>
+
+        <!-- Q70 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٠. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int age = 18;
+age = 22;
+Console.WriteLine(age);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>22</code> (بهایێ داویێ)</p>
+            </details>
+        </div>
+
+        <!-- Q71 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧١. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>string name = "Kurdistan";
+Console.WriteLine("Hello " + name);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>Hello Kurdistan</code></p>
+            </details>
+        </div>
+
+        <!-- Q72 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٢. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int x = 2, y = 3, z = 4;
+Console.WriteLine(x + y + z);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>9</code> (2 + 3 + 4 = 9)</p>
+            </details>
+        </div>
+
+        <!-- Q73 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٣. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>bool isCSharpFun = true;
+Console.WriteLine(isCSharpFun);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>True</code></p>
+            </details>
+        </div>
+
+        <!-- Q74 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٤. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>char letter = 'B';
+Console.WriteLine(letter);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>B</code></p>
+            </details>
+        </div>
+
+        <!-- Q75 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٥. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>double price = 10.5;
+Console.WriteLine(price);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>10.5</code></p>
+            </details>
+        </div>
+
+        <!-- Q76 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٦. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>string fn = "Aram";
+string ln = "Ali";
+Console.WriteLine(fn + ln);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>AramAli</code> (بێ بۆشایی چونکی سپەیس نەهاتیە دانان)</p>
+            </details>
+        </div>
+
+        <!-- Q77 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٧. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int a = 10;
+int b = 2;
+Console.WriteLine("Sum: " + a + b);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>Sum: 102</code> (ژبەرکو دەستپێک ب تێکست دەستپێکریە، کۆم ناکەت بەلکو دنیسکینیت!)</p>
+            </details>
+        </div>
+
+        <!-- Q78 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٨. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int a = 10;
+int b = 2;
+Console.WriteLine("Sum: " + (a + b));</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>Sum: 12</code> (ژبەرکو کەوانە تێدایە، ئەوەل کۆمکرن چێدبیت پاشی نیسکان)</p>
+            </details>
+        </div>
+
+        <!-- Q79 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٧٩. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>// Console.WriteLine("Hi");
+Console.WriteLine("Bye");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>Bye</code> (چونکی دێرا ئێکێ کۆمێنتە و جێبەجێ نابیت)</p>
+            </details>
+        </div>
+
+        <!-- Q80 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٠. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>/* 
+Console.WriteLine("1");
+Console.WriteLine("2");
+*/
+Console.WriteLine("3");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>3</code> (بتنێ 3 چاپ دبیت چونکی یێن دی کۆمێنتن)</p>
+            </details>
+        </div>
+
+        <!-- Q81 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨١. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int @int = 100;
+Console.WriteLine(@int);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>100</code> (دروستە چونکی ب @ هاتیە نڤیسین)</p>
+            </details>
+        </div>
+
+        <!-- Q82 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٢. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int myVar = 50;
+int MyVar = 60;
+Console.WriteLine(myVar);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>50</code> (چونکی myVar ب پیتا بچویک هاتبوو بانگکرن)</p>
+            </details>
+        </div>
+
+        <!-- Q83 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٣. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>const string country = "KRG";
+Console.WriteLine(country);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>KRG</code></p>
+            </details>
+        </div>
+
+        <!-- Q84 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٤. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>int x = 20;
+int y = x;
+Console.WriteLine(y);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ: <code>20</code> (بهایێ x بۆ y هاتە دانان)</p>
+            </details>
+        </div>
+
+        <!-- Q85 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٥. دەرئەنجامێ ڤی کۆدی چییە؟</div>
+            <pre><code>Console.Write("1");
+Console.WriteLine("2");
+Console.Write("3");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>بەرسڤ:<br><code>12<br>3</code><br>(1 و 2 پێکڤەنە، پاشی دچیتە دێرەکا نوی بۆ 3)</p>
+            </details>
+        </div>
+
+        <!-- CATEGORY 4: FIND THE ERROR (15 Questions) -->
+        <h3 style="background: #e0e7ff; padding: 10px; border-radius: 8px; margin-top: 30px;">بەشێ ٤: خەلەتیێ د کۆدی دا دەستنیشان بکە (Find the Error) - ١٥ پرسیار</h3>
+
+        <!-- Q86 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٦. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int x;
+int y = x + 5;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: <strong>Use of unassigned local variable 'x'</strong>.<br>شروڤە: نابیت متغیرێ <code>x</code> بکاربینی بەری بهای بدەیێ.</p>
+            </details>
+        </div>
+
+        <!-- Q87 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٧. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>const int age;
+age = 25;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: <strong>A const field requires a value to be provided</strong>.<br>شروڤە: دڤێت نەگۆڕێ <code>const</code> ئێکسەر ل دەمێ دروستکرنێ بهای بدەیێ (<code>const int age = 25;</code>).</p>
+            </details>
+        </div>
+
+        <!-- Q88 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٨. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>const double PI = 3.14;
+PI = 3.14159;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: <strong>Cannot assign to 'PI' because it is a constant</strong>.<br>شروڤە: بهایێ const ناهێتە گوهۆڕین.</p>
+            </details>
+        </div>
+
+        <!-- Q89 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٨٩. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>char letter = "A";</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: جۆرێ <code>char</code> دڤێت د ناڤ کەوانێ تاک دا بیت وەک <code>'A'</code> نەک دوو کەوانێن <code>"A"</code>.</p>
+            </details>
+        </div>
+
+        <!-- Q90 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٠. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>string name = 'Ali';</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: جۆرێ <code>string</code> دڤێت د ناڤ دوو کەوانان دا بیت وەک <code>"Ali"</code> نەک کەوانێ تاک.</p>
+            </details>
+        </div>
+
+        <!-- Q91 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩١. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int 1student = 100;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: ناڤێ متغیری نابیت ب ژمارە دەستپێبکەت (<code>1student</code> خەلەتە).</p>
+            </details>
+        </div>
+
+        <!-- Q92 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٢. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int first name = "Salar";</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: بۆشایی (Space) د ناڤبەرا ناڤێ متغیری دا قەدەغەیە، و جۆرێ وی ژی int ە ل شوینا string.</p>
+            </details>
+        </div>
+
+        <!-- Q93 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٣. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>Console.WriteLine("Hello World")</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: ل داویا دێرێ فاریزەیا خالدار (<code>;</code> Semicolon) نەهاتیە دانان.</p>
+            </details>
+        </div>
+
+        <!-- Q94 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٤. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int class = 10;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: پەیڤا <code>class</code> پەیڤەکا تایبەتە (Keyword) و نابیت بکاربهێت وەک ناڤێ متغیری مەگەر بنڤیسی <code>@class</code>.</p>
+            </details>
+        </div>
+
+        <!-- Q95 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٥. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>bool isPass = "true";</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: بهایێ <code>bool</code> نابیت د ناڤ دوو کەوانان بیت، دڤێت بنڤیسی: <code>bool isPass = true;</code> .</p>
+            </details>
+        </div>
+
+        <!-- Q96 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٦. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int age = 19.99;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: جۆرێ <code>int</code> ناتوانێت ژمارەیێن فاریزەدار وەربگریت، پێدڤیە جۆرێ وی <code>double</code> بیت.</p>
+            </details>
+        </div>
+
+        <!-- Q97 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٧. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>console.writeline("Hi");</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: زمانێ C# یێ هەستیارە ل سەر پیتان، دڤێت بنڤیسی: <code>Console.WriteLine("Hi");</code> (C و W مەزنن).</p>
+            </details>
+        </div>
+
+        <!-- Q98 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٨. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int my-var = 50;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: هێمایێ داش (-) ناهێتە بکارئینان چونکی وەک کەمکرن حیساب دکەت، پێدڤیە ئەندەرسکۆر بیت (<code>my_var</code>).</p>
+            </details>
+        </div>
+
+        <!-- Q99 -->
+        <div class="quiz-item">
+            <div class="quiz-title">٩٩. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>int a = 5
+int b = 6;</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: فاریزەیا خالدار (<code>;</code>) ل داویا دێرا ئێکێ نەهاتیە دانان.</p>
+            </details>
+        </div>
+
+        <!-- Q100 -->
+        <div class="quiz-item">
+            <div class="quiz-title">١٠٠. خەلەتیا ڤی کۆدی چییە؟</div>
+            <pre><code>string text = "Hello;
+Console.WriteLine(text);</code></pre>
+            <details>
+                <summary>ڤەکرنا بەرسڤێ</summary>
+                <p>خەلەتی: جووت کەوانا داویێ (<code>"</code>) ل سەر پەیڤا Hello نەهاتیە گرتن (Unclosed string literal).</p>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; margin-top: 40px; padding: 20px; color: var(--text-muted); font-size: 0.95rem;">
+        پیرۆزە! ئەڤ مەلزەمە ب تایبەت بۆ قوتابیێن پەیمانگەها تەکنیکی یا ئاکرێ (پشکا IT) هاتیە ڕێکخستن. ب هیڤیا سەرکەفتنەکا مەزن د کویزی دا! 🌟
+    </div>
+
+</div>
 
 </body>
 </html>
