@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUAS - Fundamentals of Programming by C# | سیستەمێ ئەزموونا پێشکەفتی</title>
+    <title>AUAS - Fundamentals of Programming by C# | پلاتفۆڕما زێڕین</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --auas-blue: #0b4ba2;
-            --auas-dark: #072a5e;
+            --bg-base: #060913;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --auas-blue: #2563eb;
+            --auas-cyan: #06b6d4;
             --auas-gold: #f59e0b;
-            --vs-bg: #1e1e1e;
-            --vs-card: #252526;
-            --vs-sidebar: #2d2d30;
-            --vs-accent: #007acc;
-            --vs-terminal: #0c0c0c;
-            --vs-green: #4ade80;
-            --vs-red: #f87171;
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-            --border-color: #384252;
+            --auas-gold-glow: rgba(245, 158, 11, 0.4);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-active: rgba(56, 189, 248, 0.4);
+            --vs-editor: #181e29;
+            --vs-terminal: #0a0d14;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success: #10b981;
+            --danger: #f43f5e;
         }
 
         * {
@@ -34,529 +36,526 @@
         }
 
         body {
-            background-color: #0b0f19;
-            color: var(--text-main);
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Top Bar with AUAS Official Brand */
-        .auas-navbar {
-            background: linear-gradient(90deg, #071e3d, #0b3c7c, #071e3d);
-            border-bottom: 2px solid var(--auas-gold);
-            padding: 10px 25px;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--auas-cyan);
+        }
+
+        /* Top Header */
+        .auas-header {
+            background: rgba(6, 10, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .brand-box {
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .auas-crest {
+            width: 52px;
+            height: 52px;
+            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+            transition: transform 0.3s;
+        }
+        .auas-crest:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.82rem;
+            color: var(--auas-gold);
+            font-weight: 500;
+        }
+
+        .header-badges {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .auas-logo-img {
-            width: 48px;
-            height: 48px;
-            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
-        }
-
-        .brand-titles h1 {
-            font-size: 1.15rem;
-            color: #ffffff;
-            font-weight: 800;
-        }
-
-        .brand-titles p {
-            font-size: 0.8rem;
-            color: var(--auas-gold);
-        }
-
-        .navbar-controls {
+        .pill-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
+            backdrop-filter: blur(8px);
         }
 
-        .badge-stat {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-        }
-
-        .btn-stealth {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #cbd5e1;
-            padding: 5px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-
-        .btn-stealth:hover {
-            background: var(--auas-gold);
-            color: black;
-            font-weight: bold;
-        }
-
-        /* Main Grid Layout */
-        .main-layout {
+        /* App Main Grid */
+        .app-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 310px 1fr;
             flex: 1;
-            height: calc(100vh - 68px);
+            height: calc(100vh - 77px);
         }
 
-        /* Sidebar Navigation */
-        .sidebar {
-            background: #111827;
-            border-left: 1px solid var(--border-color);
+        /* Sidebar Slide Navigator */
+        .sidebar-panel {
+            background: rgba(11, 16, 29, 0.7);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border-glass);
             overflow-y: auto;
-            padding: 15px;
-        }
-
-        .sidebar-header {
+            padding: 18px 14px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-dim);
-            font-size: 0.85rem;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .slide-nav-btn {
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: #1f2937;
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .slide-tab {
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.88rem;
-            border-right: 4px solid transparent;
-            transition: all 0.2s;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
         }
 
-        .slide-nav-btn.locked {
-            opacity: 0.4;
-            cursor: not-allowed;
-            background: #0f172a;
+        .slide-tab:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-3px);
         }
 
-        .slide-nav-btn.active {
-            background: #1e3a8a;
-            border-right-color: var(--auas-gold);
+        .slide-tab.active {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(6, 182, 212, 0.2));
+            border-color: var(--auas-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
             color: #ffffff;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            font-weight: 700;
         }
 
-        .slide-nav-btn.passed {
-            border-right-color: var(--vs-green);
+        .slide-tab .tab-num {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: var(--auas-cyan);
         }
 
-        /* Content Canvas */
-        .content-canvas {
-            padding: 30px 40px;
+        /* Main Canvas */
+        .main-canvas {
+            padding: 30px 45px;
             overflow-y: auto;
-            background: #0b0f19;
         }
 
-        .slide-card-view {
-            background: #131c2e;
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+        .lecture-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card-top {
+        .lecture-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--auas-blue), var(--auas-cyan), var(--auas-gold));
+        }
+
+        .lecture-hero {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 18px;
-            margin-bottom: 22px;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .card-top-left {
+        .hero-left {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .card-top-left h2 {
-            font-size: 1.5rem;
-            color: #38bdf8;
+        .hero-left h2 {
+            font-size: 1.65rem;
             font-weight: 800;
-        }
-
-        .badge-slide {
-            background: var(--auas-blue);
             color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 12px;
+        }
+
+        .tag-pill {
+            background: linear-gradient(135deg, var(--auas-blue), var(--auas-cyan));
+            color: white;
             font-size: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.3);
         }
 
-        .lecture-body {
-            font-size: 1.08rem;
-            line-height: 2.2;
-            color: #e2e8f0;
+        .lecture-content {
+            font-size: 1.1rem;
+            line-height: 2.3;
+            color: #cbd5e1;
         }
 
-        .lecture-body ul {
+        .lecture-content ul {
             list-style: none;
             padding-right: 15px;
             margin: 15px 0;
         }
 
-        .lecture-body ul li {
+        .lecture-content ul li {
             position: relative;
-            padding-right: 22px;
-            margin-bottom: 10px;
+            padding-right: 24px;
+            margin-bottom: 12px;
         }
 
-        .lecture-body ul li::before {
+        .lecture-content ul li::before {
             content: "✦";
-            color: var(--auas-gold);
+            color: var(--auas-cyan);
             position: absolute;
             right: 0;
+            font-size: 1rem;
         }
 
-        .note-highlight {
-            background: rgba(245, 158, 11, 0.1);
-            border-right: 4px solid var(--auas-gold);
-            padding: 12px 18px;
-            border-radius: 8px;
-            margin: 15px 0;
-            color: #fde68a;
-            font-size: 0.98rem;
-        }
-
-        /* Visual Studio Dynamic Live IDE */
-        .vs-ide-wrapper {
-            background: var(--vs-bg);
-            border: 2px solid #007acc;
+        .gold-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-right: 5px solid var(--auas-gold);
+            padding: 16px 22px;
             border-radius: 12px;
-            margin: 25px 0;
-            overflow: hidden;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+            margin: 20px 0;
+            color: #fde68a;
+            font-size: 1rem;
+            line-height: 1.9;
         }
 
-        .vs-ide-bar {
-            background: #252526;
-            padding: 10px 18px;
+        /* Visual Studio Dynamic Playground */
+        .vs-terminal-container {
+            background: var(--vs-editor);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            margin: 30px 0;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .vs-tabs-bar {
+            background: #111622;
+            padding: 8px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #3c3c3c;
-            font-size: 0.88rem;
-            color: #9cdcfe;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .btn-vs-run {
-            background: #0e639c;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
+        .tab-active-pill {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            background: var(--vs-editor);
+            padding: 6px 14px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: none;
+            color: #38bdf8;
+            font-size: 0.88rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .btn-vs-execute {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.92rem;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
             transition: all 0.2s;
         }
 
-        .btn-vs-run:hover {
-            background: #1177bb;
-            transform: scale(1.02);
+        .btn-vs-execute:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
         }
 
-        .vs-code-area {
+        .vs-code-editor {
             width: 100%;
-            height: 140px;
-            background: var(--vs-bg);
-            color: #9cdcfe;
+            height: 145px;
+            background: var(--vs-editor);
+            color: #93c5fd;
             font-family: 'Fira Code', monospace;
-            padding: 15px;
+            padding: 18px;
             border: none;
             outline: none;
             direction: ltr;
             text-align: left;
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 1.02rem;
+            line-height: 1.7;
             resize: vertical;
             -webkit-user-select: text;
             user-select: text;
         }
 
-        .vs-console {
+        .vs-screen-terminal {
             background: var(--vs-terminal);
-            border-top: 2px solid #333333;
-            padding: 12px 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 20px;
             font-family: 'Fira Code', monospace;
             direction: ltr;
             text-align: left;
             min-height: 85px;
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
         }
 
-        .console-tag {
-            color: #858585;
+        .terminal-status-row {
+            color: #64748b;
             font-size: 0.78rem;
-            margin-bottom: 6px;
-            border-bottom: 1px dashed #262626;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
             padding-bottom: 4px;
         }
 
-        .output-green {
-            color: var(--vs-green);
+        .output-text-green {
+            color: #4ade80;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
-        .output-red {
-            color: var(--vs-red);
+        .output-text-red {
+            color: #f87171;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
-        /* Strict Exam Modal View */
-        .exam-section {
-            display: none;
-            background: #162032;
-            border-radius: 16px;
-            padding: 30px;
-            border: 2px solid #ef4444;
-            box-shadow: 0 0 45px rgba(239, 68, 68, 0.25);
+        /* Interactive Quiz Section */
+        .quiz-wrapper {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            margin-top: 30px;
         }
 
-        .exam-bar {
+        .quiz-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 1px solid var(--border-glass);
             padding-bottom: 15px;
             margin-bottom: 25px;
         }
 
-        .lock-badge {
-            background: #991b1b;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: bold;
+        .quiz-top h3 {
+            font-size: 1.35rem;
+            color: var(--auas-gold);
             display: flex;
             align-items: center;
-            gap: 8px;
-            animation: pulse-border 1.5s infinite;
+            gap: 10px;
         }
 
-        .q-card {
-            background: #0f172a;
-            border-radius: 10px;
-            padding: 20px;
+        .q-card-item {
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 22px;
             margin-bottom: 20px;
-            border: 1px solid var(--border-color);
+            transition: border-color 0.2s;
         }
 
-        .q-title {
-            font-size: 1.1rem;
+        .q-card-item:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .q-text-label {
+            font-size: 1.12rem;
             color: #ffffff;
-            margin-bottom: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        .opts-grid {
+        .options-vertical {
             display: grid;
             gap: 10px;
         }
 
-        .btn-opt {
-            background: #1e293b;
+        .btn-answer {
+            background: rgba(255, 255, 255, 0.03);
             color: #e2e8f0;
-            border: 1px solid var(--border-color);
-            padding: 12px 18px;
-            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+            padding: 13px 20px;
+            border-radius: 10px;
             text-align: right;
             cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            font-size: 0.98rem;
+            transition: all 0.2s ease;
         }
 
-        .btn-opt:hover {
-            background: #334155;
-            border-color: #38bdf8;
+        .btn-answer:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--auas-cyan);
+            transform: translateX(-4px);
         }
 
-        .btn-opt.correct {
-            background: #065f46 !important;
-            border-color: var(--vs-green) !important;
-            color: white !important;
+        .btn-answer.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: var(--success) !important;
+            color: #6ee7b7 !important;
+            font-weight: 700;
         }
 
-        .btn-opt.wrong {
-            background: #991b1b !important;
-            border-color: var(--vs-red) !important;
-            color: white !important;
+        .btn-answer.wrong {
+            background: rgba(244, 63, 94, 0.2) !important;
+            border-color: var(--danger) !important;
+            color: #fda4af !important;
         }
 
-        .costela-wrap input {
-            background: #1e293b;
-            border: 2px solid #38bdf8;
+        .costela-container input {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid var(--auas-cyan);
             color: #facc15;
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 11px 16px;
+            border-radius: 10px;
             font-family: 'Fira Code', monospace;
-            font-size: 1rem;
+            font-size: 1.05rem;
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             direction: ltr;
             text-align: left;
             outline: none;
             -webkit-user-select: text;
             user-select: text;
+            transition: box-shadow 0.2s;
         }
 
-        .btn-action-main {
-            background: var(--auas-gold);
-            color: black;
+        .costela-container input:focus {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .feedback-explanation {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            background: rgba(37, 99, 235, 0.15);
+            border-right: 4px solid var(--auas-cyan);
+            font-size: 0.92rem;
+            color: #bae6fd;
+            line-height: 1.8;
+        }
+
+        .btn-check-exam {
+            background: linear-gradient(135deg, var(--auas-gold), #d97706);
+            color: #000000;
             border: none;
-            padding: 14px 32px;
-            border-radius: 10px;
+            padding: 14px 35px;
+            border-radius: 12px;
             font-weight: 900;
-            cursor: pointer;
             font-size: 1.05rem;
+            cursor: pointer;
             display: block;
             margin: 25px auto 0 auto;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
-            transition: all 0.2s;
+            box-shadow: 0 6px 20px var(--auas-gold-glow);
+            transition: all 0.25s;
         }
 
-        .btn-action-main:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
-        }
-
-        /* Blackout Shield for Anti-Cheat */
-        .blackout-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000000;
-            z-index: 999999;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .blackout-overlay h1 {
-            color: #ef4444;
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-        }
-
-        /* Teacher Bypass Modal */
-        .teacher-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.85);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .teacher-modal-card {
-            background: #1e293b;
-            border: 2px solid var(--auas-gold);
-            padding: 35px;
-            border-radius: 14px;
-            text-align: center;
-            max-width: 420px;
-            box-shadow: 0 0 40px rgba(245, 158, 11, 0.3);
-        }
-
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.4); }
-            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.4); }
+        .btn-check-exam:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 30px var(--auas-gold-glow);
         }
 
         @media (max-width: 900px) {
-            .main-layout { grid-template-columns: 1fr; }
-            .sidebar { height: 160px; }
+            .app-grid { grid-template-columns: 1fr; }
+            .sidebar-panel { height: 180px; }
+            .main-canvas { padding: 20px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<!-- Strict Anti-Cheat Blackout Overlay -->
-<div class="blackout-overlay" id="antiCheatBlackout">
-    <h1>⚠️ ئاگەهدارییا قۆپیێ! دەست دانان ل شاشەی قەدەغەیە!</h1>
-    <p style="font-size: 1.25rem; color: #cbd5e1; max-width: 700px; line-height: 2; margin-bottom: 30px;">
-        سیستەمێ ئەزموونا زانکۆیا ئاکرێ چاڤدێریا شاشەی دکەت. هەر دەمێ دەرکەڤی یان پەیجەکێ دی ڤەکەی، شاشە ڕەش دبیت و ئەزموون ڕادوەستیت حەتا بزڤڕیە سەر تاقیکرنێ!
-    </p>
-    <button class="btn-action-main" onclick="resumeExamFromBlackout()">ڤەگەڕیان بۆ تاقیکرنێ (Full Screen)</button>
-</div>
-
-<!-- Teacher Secret Login Modal -->
-<div class="teacher-modal" id="teacherModal">
-    <div class="teacher-modal-card">
-        <h2 style="color: var(--auas-gold); margin-bottom: 10px;">🔑 مۆدێ نهێنی یێ مامۆستای</h2>
-        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">کۆدێ تێپەڕبوونا مامۆستای لێبدە دا هەمی ١٩ سلاێد ب ئێکجار ڤەبن:</p>
-        <input type="password" id="teacherPassInput" placeholder="Passcode" style="padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; font-size: 1.2rem; width: 200px; margin-bottom: 20px; outline: none;">
-        <br>
-        <button class="btn-action-main" style="margin: 5px; display: inline-block; padding: 10px 20px;" onclick="unlockAllSlidesTeacher()">ڤەکرنا هەمی سلاێدان</button>
-        <button class="btn-action-main" style="margin: 5px; display: inline-block; padding: 10px 20px; background: #475569; color: white;" onclick="closeTeacherModal()">گرتن</button>
-    </div>
-</div>
-
-<!-- Official AUAS Top Navigation -->
-<div class="auas-navbar">
-    <div class="brand-box">
-        <!-- SVG Vector of AUAS Official Crest -->
-        <svg class="auas-logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<!-- AUAS Top Navigation Header -->
+<header class="auas-header">
+    <div class="brand-container">
+        <!-- SVG Vector of AUAS Official Emblem -->
+        <svg class="auas-crest" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <circle cx="100" cy="100" r="95" fill="#ffffff" stroke="#003b99" stroke-width="8"/>
             <circle cx="100" cy="100" r="80" fill="none" stroke="#003b99" stroke-width="3"/>
-            <!-- Center Atom Orbits -->
             <ellipse cx="100" cy="90" rx="32" ry="14" fill="none" stroke="#003b99" stroke-width="3" transform="rotate(30 100 90)"/>
             <ellipse cx="100" cy="90" rx="32" ry="14" fill="none" stroke="#003b99" stroke-width="3" transform="rotate(-30 100 90)"/>
-            <!-- Torch Flame -->
             <path d="M97,93 Q100,75 103,93 Z" fill="#f59e0b"/>
             <circle cx="100" cy="94" r="3" fill="#ef4444"/>
-            <!-- AUAS Text -->
             <text x="100" y="118" font-family="'Vazirmatn', sans-serif" font-weight="900" font-size="16" fill="#003b99" text-anchor="middle">AUAS</text>
             <text x="100" y="132" font-family="'Vazirmatn', sans-serif" font-weight="bold" font-size="11" fill="#003b99" text-anchor="middle">2023</text>
-            <!-- Circular Kurdish & English Text -->
             <path id="textArcTop" d="M 25 100 A 75 75 0 0 1 175 100" fill="none"/>
             <text font-family="'Vazirmatn', sans-serif" font-size="10.5" font-weight="bold" fill="#003b99">
                 <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">پەیمانگەها تەکنیکی ئاکرێ</textPath>
@@ -566,101 +565,99 @@
                 <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">Akre Technical Institute</textPath>
             </text>
         </svg>
-        <div class="brand-titles">
+
+        <div class="brand-text">
             <h1>زانکۆیا ئاکرێ یا زانستێن کرداری (AUAS)</h1>
-            <p>پەیمانگەها تەکنیکی یا ئاکرێ - پشکا IT | مامۆستا: Kazheen Ismael Taher</p>
+            <p>پەیمانگەها تەکنیکی یا ئاکرێ • پشکا IT • مامۆستا: Kazheen Ismael Taher</p>
         </div>
     </div>
 
-    <div class="navbar-controls">
-        <button class="btn-stealth" onclick="openTeacherModal()">🔑 مۆدێ مامۆستای</button>
-        <div class="badge-stat">سلاێد: <strong id="progressLabel" style="color: #38bdf8;">١ ژ ١٩</strong></div>
-        <div class="badge-stat">مەرجێ دەرچوونێ: <strong style="color: #4ade80;">≥ ٥٠٪</strong></div>
+    <div class="header-badges">
+        <div class="pill-badge">🔓 هەمی سلاێد: <strong style="color: #4ade80;">١٩ سلاێد ڤەکرینە</strong></div>
+        <div class="pill-badge">پشکا: <strong style="color: var(--auas-cyan);">IT (2024 - 2025)</strong></div>
     </div>
-</div>
+</header>
 
-<div class="main-layout">
+<div class="app-grid">
 
-    <!-- Sidebar Explorer -->
-    <div class="sidebar" id="sidebarList">
-        <div class="sidebar-header">
-            <span>سلاێدێن وانەیێ (قوفلکرینە 🔒)</span>
+    <!-- Sidebar Slider (All 19 Slides Directly Accessible!) -->
+    <aside class="sidebar-panel" id="sidebarList">
+        <div class="sidebar-title">
+            <span>سلاێدێن وانەیێ</span>
             <span>١٩ سلاێد</span>
         </div>
-    </div>
+        <!-- Slides tabs injected via JS -->
+    </aside>
 
-    <!-- Active Workspace -->
-    <div class="content-canvas">
+    <!-- Main Workspace -->
+    <main class="main-canvas">
 
-        <!-- Slide Presentation & Live Code Playground -->
-        <div class="slide-card-view" id="slideCardView">
-            <div class="card-top">
-                <div class="card-top-left">
-                    <h2 id="slideHeading">سلاێد ١: دەستپێک</h2>
-                    <span class="badge-slide" id="slideNumberBadge">Slide 1</span>
+        <!-- Slide Presentation & Sandbox -->
+        <article class="lecture-card">
+            <div class="lecture-hero">
+                <div class="hero-left">
+                    <h2 id="slideTitle">سلاێدێ ١</h2>
+                    <span class="tag-pill" id="slideTag">Slide 1</span>
                 </div>
-                <div style="font-size: 0.85rem; color: var(--auas-gold);">Fundamentals of Programming by C# (2024-2025)</div>
+                <div style="font-size: 0.88rem; color: var(--auas-gold); font-weight: 600;">Fundamentals of Programming by C#</div>
             </div>
 
-            <div class="lecture-body" id="slideBody">
-                <!-- Injected via JavaScript -->
+            <div class="lecture-content" id="slideBody">
+                <!-- Slide content injected here -->
             </div>
 
-            <!-- Visual Studio Interactive Terminal -->
-            <div class="vs-ide-wrapper">
-                <div class="vs-ide-bar">
-                    <span>📄 Program.cs — Visual Studio Code Interactive Engine</span>
-                    <button class="btn-vs-run" onclick="executeDynamicCode()">▶ کارپێکرن (Run Code)</button>
+            <!-- Visual Studio Integrated Interactive Runner -->
+            <div class="vs-terminal-container">
+                <div class="vs-tabs-bar">
+                    <div class="tab-active-pill">
+                        <span>📄 Program.cs</span>
+                    </div>
+                    <button class="btn-vs-execute" onclick="runDynamicCSharp()">▶ کارپێکرن (Run Code)</button>
                 </div>
-                <textarea class="vs-code-area" id="ideTextarea" spellcheck="false"></textarea>
-                <div class="vs-console">
-                    <div class="console-tag">Terminal: C:\AUAS\CSharp> dotnet run</div>
-                    <div id="ideConsoleOutput" class="output-green">// دەرئەنجامی ل ڤێرێ ببینی دەمێ کلیک ل کارپێکرنێ دکەی...</div>
+                <textarea class="vs-code-editor" id="codeEditorArea" spellcheck="false"></textarea>
+                <div class="vs-screen-terminal">
+                    <div class="terminal-status-row">Visual Studio Terminal: C:\AUAS\CSharp> dotnet run</div>
+                    <div id="terminalScreen" class="output-text-green">// کلیک ل (▶ کارپێکرن) بکە دا دەرئەنجامی ببینی...</div>
                 </div>
             </div>
+        </article>
 
-            <button class="btn-action-main" onclick="openExamLockdown()">📝 دەستپێکرنا تاقیکرنا ڤێ سلاێدێ (مەرجە ≥ ٥٠٪ بینیت)</button>
-        </div>
-
-        <!-- Strict Exam View -->
-        <div class="exam-section" id="examSectionView">
-            <div class="exam-bar">
-                <div class="lock-badge">
-                    🔒 شاشەیا قوفلکری (چوونەدەرڤە قەدەغەیە!)
-                </div>
-                <div style="font-size: 1.15rem; font-weight: bold; color: #38bdf8;" id="examLiveScore">نمرە: ٠٪</div>
+        <!-- Interactive Practice Quiz for Current Slide -->
+        <section class="quiz-wrapper">
+            <div class="quiz-top">
+                <h3>📝 تاقیکرن و ڕاهێنانا ڤێ سلاێدێ</h3>
+                <div style="font-size: 1.05rem; font-weight: 700; color: var(--auas-cyan);" id="quizScoreDisplay">نمرە: ٠٪</div>
             </div>
 
-            <div id="questionsContainer">
-                <!-- 3 to 4 Questions per slide injected here -->
+            <div id="quizQuestionsBox">
+                <!-- 3 to 4 questions per slide injected here -->
             </div>
 
-            <button class="btn-action-main" id="btnSubmitAnswers" onclick="evaluateStudentExam()">هەلسەنگاندنا بەرسڤان ❯</button>
-            <button class="btn-action-main" id="btnUnlockNextSlide" style="display: none; background: #059669;" onclick="proceedToNextSlide()">🎉 پیرۆزە! دەربازبە بۆ سلاێدا دویڤدا ❯</button>
-        </div>
+            <button class="btn-check-exam" onclick="evaluateQuizAnswers()">پشکنینا بەرسڤان و هەلسەنگاندن ❯</button>
+        </section>
 
-    </div>
+    </main>
 
 </div>
 
 <script>
     // ========================================================
-    // COMPLETE 19 SLIDES (Akre Technical Institute - IT Dept)
+    // COMPLETE 19 SLIDES (AUAS - Akre Technical Institute)
     // ========================================================
     const slidesData = [
         {
             id: 1,
-            title: "پێشەکی و ناڤونیشانێ بابەتێ",
+            title: "پێشەکی و ناڤونیشانێ وانێ",
             content: `
                 <p>ب خێر بێی بۆ وانەیا <strong>Fundamentals of Programming by C#</strong> ل زانکۆیا ئاکرێ یا زانستێن کرداری (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ، پشکا تەکنۆلۆژیایا زانیاری (IT).</p>
                 <ul>
-                    <li><strong>بابەت:</strong> بنەما و سەرەتایێن بەرنامەسازیێ ب زمانی C#.</li>
+                    <li><strong>بابەت:</strong> بنەما و سەرەتایێن پڕۆگرامسازیێ ب زمانێ C#.</li>
                     <li><strong>مامۆستایا بابەتێ:</strong> مامۆستا Kazheen Ismael Taher.</li>
                     <li><strong>سالا خاندنێ:</strong> 2024 - 2025.</li>
                 </ul>
-                <div class="note-highlight">💡 <strong>تێبینیا ئەزموونێ:</strong> ئەڤ وانەیە بنەڕەتێ پڕۆگرامسازیێ یە بۆ قوتابیێن پەیمانگەها تەکنیکی یا ئاکرێ بۆ فێربوونا زمانێ C#.</div>
+                <div class="gold-box">💡 <strong>تێبینی:</strong> ئەڤ مەلزەمە هەمی بنەما و ڕێسایێن سەرەکی یێن C# بخۆڤەدگریت کو د تاقیکرن و کویزان دا دهێن.</div>
             `,
-            starterCode: 'Console.WriteLine("Welcome to Akre Technical Institute (IT Department)!");',
+            starterCode: 'Console.WriteLine("Welcome to AUAS - Akre Technical Institute!");',
             questions: [
                 {
                     type: "mcq",
@@ -671,13 +668,13 @@
                 },
                 {
                     type: "costela",
-                    q: "کورتیا زانکۆیا ئاکرێ یا زانستێن کرداری بنڤیسە (وەک د لۆگۆیدا هاتی):",
+                    q: "کورتیا ناڤێ زانکۆیا ئاکرێ یا زانستێن کرداری بنڤیسە:",
                     accepted: ["AUAS", "auas"],
                     explain: "AUAS ئانکو Akre University for Applied Sciences."
                 },
                 {
                     type: "mcq",
-                    q: "ناڤێ مامۆستایا بابەتێ چییە ل دویڤ سلاێدا ئێکێ؟",
+                    q: "ناڤێ مامۆستایا بابەتێ چییە ل دویڤ سلاێدا ١؟",
                     options: ["Sara Taher", "Kazheen Ismael Taher", "Shvan Rekani", "Viyan Doski"],
                     ans: 1,
                     explain: "مامۆستا Kazheen Ismael Taher."
@@ -686,9 +683,9 @@
         },
         {
             id: 2,
-            title: "کارنامە و ناڤەرۆک (Outlines)",
+            title: "کارنامە و ناڤەرۆکێن سەرەکی (Outlines)",
             content: `
-                <p>تەوەرێن سەرەکی یێن کو د ڤێ مەلزەمێ دا هەنە:</p>
+                <p>تەوەرێن سەرەکی یێن مەلزەمێ:</p>
                 <ul>
                     <li><strong>What is C#:</strong> زمانێ C# چییە و مێژوویا وی.</li>
                     <li><strong>C# Applications:</strong> ل کیڤە و بۆ چ دهێتە بکارئینان.</li>
@@ -717,10 +714,10 @@
                 },
                 {
                     type: "mcq",
-                    q: "ئەرێ بابەتێ Comments د ناڤ کارنامەیا مەلزەمێ دا هەیە؟",
-                    options: ["بەلێ (C# Comments)", "نەخێر", "بتنێ د زمانی جافا دا هەیە", "قەدەغەیە"],
+                    q: "ئەرێ تێبینی (Comments) بەشەکن ژ کارنامەیا مەلزەمێ؟",
+                    options: ["بەلێ (C# Comments)", "نەخێر", "بتنێ بۆ وێبێ یە", "قەدەغەیە"],
                     ans: 0,
-                    explain: "بەلێ، C# Comments ئێک ژ تەوەرانە."
+                    explain: "بەلێ، C# Comments ئێک ژ ناڤەرۆکانە."
                 }
             ]
         },
@@ -782,7 +779,7 @@
                     <li><strong>Database applications:</strong> بەرنامەیێن بنکەیێ دراوەیان (داتابەیس).</li>
                 </ul>
             `,
-            starterCode: 'Console.WriteLine("C# Applications: Mobile, Desktop, Web, VR, Games");',
+            starterCode: 'Console.WriteLine("C# is used for Mobile, Desktop, Web, VR, and Games!");',
             questions: [
                 {
                     type: "costela",
@@ -816,10 +813,10 @@
                     <li>فێربوونا وی یا ب ساناهییە و ب سادەیی کار دکەت.</li>
                     <li>کۆمەڵگەهەکا گەلەک مەزن یا پشتەڤانیێ هەیە (huge community support).</li>
                     <li>پێکهاتەیا Object Oriented ڕێکێ ددەت کۆد <strong>دووبارە بهێتە بکارئینان (Code Reuse)</strong> کو تێچوویێ دروستکرنێ کێم دکەت.</li>
-                    <li>نێزیکبوونا وی ژ C++ و Java ڕێکێ ددەت پرۆگرامەر ب لەز گوهۆڕینێ بکەن.</li>
+                    <li>نێزیکبوونا وی ژ C++ و Java ڕێکێ ددەت پرۆگرامەر ب لەز فێرببن و کاری بگوهۆڕن.</li>
                 </ul>
             `,
-            starterCode: 'bool easy = true;\nConsole.WriteLine("Is C# easy to learn? " + easy);',
+            starterCode: 'bool isAwesome = true;\nConsole.WriteLine("Is C# easy and powerful? " + isAwesome);',
             questions: [
                 {
                     type: "mcq",
@@ -830,7 +827,7 @@
                 },
                 {
                     type: "costela",
-                    q: "C# یێ نێزیکی کیژ دوو زمانێن مەزنە؟ (ئێک ژ وان بنڤیسە):",
+                    q: "C# یێ نێزیکی کیژ دوو زمانێن مەزنە؟ (ئێک ژ وان بنڤیسە: C++ یان ...):",
                     accepted: ["Java", "java", "C++", "c++", "C"],
                     explain: "close to other popular languages like C++ and Java."
                 },
@@ -856,7 +853,7 @@
                     <li><strong>{ }:</strong> کەوانێن خوار بۆ سنوردارکرنا بلۆکێ کۆدی.</li>
                 </ul>
             `,
-            starterCode: 'Console.WriteLine("C# Program Structure Verified!");',
+            starterCode: 'Console.WriteLine("Hello from inside Main method!");',
             questions: [
                 {
                     type: "costela",
@@ -893,7 +890,7 @@
                     <li><strong>Main method:</strong> هەر کۆدەکێ د ناڤ کەوانێن وێ دا بیت دهێتە جێبەجێکرن.</li>
                 </ul>
             `,
-            starterCode: 'Console.WriteLine("All code runs inside a Class!");',
+            starterCode: 'Console.WriteLine("All C# code must be written inside a class!");',
             questions: [
                 {
                     type: "mcq",
@@ -962,7 +959,7 @@
                     <li><strong>Console.ReadKey():</strong> ل داویا کۆدی دهێتە دان دا شاشە ڕاوەستیت و ئێکسەر دانەخەبیت.</li>
                 </ul>
             `,
-            starterCode: 'int a = 10;\nint A = 20;\nConsole.WriteLine(a); // prints 10, not 20!',
+            starterCode: 'int a = 10;\nint A = 20;\nConsole.WriteLine("a=" + a + ", A=" + A);',
             questions: [
                 {
                     type: "costela",
@@ -996,7 +993,7 @@
                     <li><strong>Write():</strong> دەقی چاپ دکەت بەس <strong>ل سەر هەمان دێر دمینیت</strong> و ناچیتە دێرەکا نوی.</li>
                 </ul>
             `,
-            starterCode: 'Console.Write("Hello ");\nConsole.Write("World on same line!");',
+            starterCode: 'Console.Write("Hello ");\nConsole.Write("World on the same line!");',
             questions: [
                 {
                     type: "costela",
@@ -1066,7 +1063,7 @@
                     <li><strong>bool:</strong> دوو وەلات هەنە (true یان false).</li>
                 </ul>
             `,
-            starterCode: 'int age = 20;\ndouble gpa = 3.85;\nchar grade = \'A\';\nbool isPassed = true;\nstring student = "Azad";\nConsole.WriteLine(student + " is " + age + " years old.");',
+            starterCode: 'int age = 22;\ndouble price = 19.99;\nchar letter = \'A\';\nbool pass = true;\nstring name = "Akre";\nConsole.WriteLine(name + " - age: " + age);',
             questions: [
                 {
                     type: "costela",
@@ -1136,7 +1133,7 @@
                     <li><strong>خەلەتیا کویزی:</strong> نابیت متغیرەکی بێ بها بکاربینی: <code>int age; int j = age; // ERROR</code>.</li>
                 </ul>
             `,
-            starterCode: 'int age = 25;\nage = 20; // overwrites 25\nConsole.WriteLine("Age is: " + age);',
+            starterCode: 'int age = 25;\nage = 20; // overwrites 25\nConsole.WriteLine("Age is now: " + age);',
             questions: [
                 {
                     type: "costela",
@@ -1170,7 +1167,7 @@
                     <li><strong>یاسا:</strong> دڤێت دەستبەجێ ل دەمێ دروستکرنێ بهای بدەیێ، ئەگەر نە خەلەتی دروست دبیت.</li>
                 </ul>
             `,
-            starterCode: 'const double PI = 3.14;\nConsole.WriteLine("PI value is: " + PI);',
+            starterCode: 'const double PI = 3.14;\nConsole.WriteLine("Constant PI: " + PI);',
             questions: [
                 {
                     type: "costela",
@@ -1241,7 +1238,7 @@
                     </li>
                 </ul>
             `,
-            starterCode: 'int x = 10;\nint y = 5;\nConsole.WriteLine(x + y); // Prints 15\nint a = 5, b = 6, c = 50;\nConsole.WriteLine(a + b + c); // Prints 61',
+            starterCode: 'int x = 10, y = 5;\nConsole.WriteLine(x + y); // 15\nint a = 5, b = 6, c = 50;\nConsole.WriteLine(a + b + c); // 61',
             questions: [
                 {
                     type: "costela",
@@ -1276,7 +1273,7 @@
                     <li><strong>فێڵا کویزی:</strong> دشێین وان بکەینە ناڤێ متغیری بتنێ ئەگەر هێمایێ <strong>@</strong> بەری وێ دابنێین (وەک <code>@class</code>).</li>
                 </ul>
             `,
-            starterCode: 'int @class = 100;\nConsole.WriteLine("Value of @class is: " + @class);',
+            starterCode: 'int @class = 100;\nConsole.WriteLine("@class value: " + @class);',
             questions: [
                 {
                     type: "costela",
@@ -1313,7 +1310,7 @@
                     <li>هەستیارە ل سەر پیتێن مەزن و بچویک (<code>myVar</code> و <code>myvar</code> جودانە).</li>
                 </ul>
             `,
-            starterCode: 'int totalVolume = 100;\nint _score = 90;\nConsole.WriteLine("Total: " + (totalVolume + _score));',
+            starterCode: 'int totalVolume = 100;\nint _score = 90;\nConsole.WriteLine("Result: " + (totalVolume + _score));',
             questions: [
                 {
                     type: "costela",
@@ -1340,84 +1337,71 @@
     ];
 
     // ========================================================
-    // STATE & INITIALIZATION
+    // STATE & NAVIGATION (ALL 19 SLIDES UNLOCKED BY DEFAULT!)
     // ========================================================
     let currentSlideIndex = 0;
-    let maxUnlockedIndex = 0;
-    let isExamActive = false;
-    let userExamAnswers = {};
-    const TEACHER_MASTER_CODE = "19439";
+    let userQuizAnswers = {};
 
     window.addEventListener('DOMContentLoaded', () => {
-        renderSidebar();
-        loadSlide(0);
-        setupAntiCheatListeners();
+        buildSidebarTabs();
+        displaySlide(0);
     });
 
-    function renderSidebar() {
+    function buildSidebarTabs() {
         const sidebar = document.getElementById('sidebarList');
         sidebar.innerHTML = `
-            <div class="sidebar-header">
-                <span>سلاێدێن وانەیێ (قوفلکرینە 🔒)</span>
+            <div class="sidebar-title">
+                <span>سلاێدێن وانەیێ (هەمی ڤەکرینە)</span>
                 <span>١٩ سلاێد</span>
             </div>
         `;
 
         slidesData.forEach((s, idx) => {
-            const btn = document.createElement('div');
-            btn.className = 'slide-nav-btn';
+            const tab = document.createElement('div');
+            tab.className = 'slide-tab';
+            if (idx === currentSlideIndex) tab.classList.add('active');
 
-            if (idx > maxUnlockedIndex) {
-                btn.classList.add('locked');
-                btn.innerHTML = `<span>🔒 سلاێدێ ${s.id}</span>`;
-            } else {
-                if (idx === currentSlideIndex) btn.classList.add('active');
-                if (idx < maxUnlockedIndex) btn.classList.add('passed');
-                btn.innerHTML = `<span>${idx < maxUnlockedIndex ? '✓ ' : ''}سلاێدێ ${s.id}: ${s.title.substring(0, 16)}...</span>`;
-                btn.onclick = () => {
-                    if (isExamActive) {
-                        alert("⚠️ تۆ د ناڤ تاقیکرنێ دا ی! ناتوانی لڤینێ بکەی هەتا تاقیکرن بدوماهیک نەهێت.");
-                        return;
-                    }
-                    loadSlide(idx);
-                };
-            }
-            sidebar.appendChild(btn);
+            tab.innerHTML = `
+                <span>سلاێد ${s.id}: ${s.title.substring(0, 16)}...</span>
+                <span class="tab-num">S${s.id}</span>
+            `;
+
+            tab.onclick = () => {
+                displaySlide(idx);
+            };
+
+            sidebar.appendChild(tab);
         });
-
-        document.getElementById('progressLabel').innerText = `${currentSlideIndex + 1} ژ ${slidesData.length}`;
     }
 
-    function loadSlide(idx) {
+    function displaySlide(idx) {
         currentSlideIndex = idx;
         const s = slidesData[idx];
 
-        document.getElementById('slideHeading').innerText = `سلاێدێ ${s.id}: ${s.title}`;
-        document.getElementById('slideNumberBadge').innerText = `Slide ${s.id}`;
+        document.getElementById('slideTitle').innerText = `سلاێدێ ${s.id}: ${s.title}`;
+        document.getElementById('slideTag').innerText = `Slide ${s.id}`;
         document.getElementById('slideBody').innerHTML = s.content;
-        document.getElementById('ideTextarea').value = s.starterCode;
+        document.getElementById('codeEditorArea').value = s.starterCode;
 
-        // Reset console terminal
-        const term = document.getElementById('ideConsoleOutput');
-        term.className = "output-green";
+        // Reset Terminal
+        const term = document.getElementById('terminalScreen');
+        term.className = "output-text-green";
         term.innerText = "// کلیک ل (▶ کارپێکرن) بکە دا دەرئەنجامی ببینی...";
 
-        // Reset view
-        document.getElementById('slideCardView').style.display = 'block';
-        document.getElementById('examSectionView').style.display = 'none';
-        isExamActive = false;
+        // Build Quiz
+        buildSlideQuiz(s);
 
-        renderSidebar();
+        buildSidebarTabs();
     }
 
     // ========================================================
-    // VISUAL STUDIO DYNAMIC INTERPRETER ENGINE
+    // DYNAMIC VISUAL STUDIO C# EXECUTION ENGINE
     // ========================================================
-    function executeDynamicCode() {
-        const rawCode = document.getElementById('ideTextarea').value;
-        const term = document.getElementById('ideConsoleOutput');
-        term.innerText = "";
-        term.className = "output-green";
+    function runDynamicCSharp() {
+        const rawCode = document.getElementById('codeEditorArea').value;
+        const terminal = document.getElementById('terminalScreen');
+        terminal.innerText = "";
+        terminal.className = "output-text-green";
 
         const lines = rawCode.split('\n');
         let memory = {};
@@ -1427,36 +1411,36 @@
             let line = lines[i].trim();
             if (!line || line.startsWith("//") || line.startsWith("/*") || line.startsWith("*")) continue;
 
-            // 1. Missing Semicolon Check
+            // Missing semicolon check
             if (!line.endsWith(";")) {
-                term.className = "output-red";
-                term.innerText = `Program.cs(${i + 1},${line.length}): error CS1002: ; expected`;
+                terminal.className = "output-text-red";
+                terminal.innerText = `Program.cs(${i + 1},${line.length}): error CS1002: ; expected`;
                 return;
             }
 
             let stmt = line.slice(0, -1).trim();
 
-            // 2. Case Sensitivity Check
+            // Case sensitivity check for WriteLine / Write
             if (stmt.toLowerCase().startsWith("console.writeline") && !stmt.startsWith("Console.WriteLine")) {
-                term.className = "output-red";
-                term.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.WriteLine'? (C# is Case-Sensitive)`;
+                terminal.className = "output-text-red";
+                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.WriteLine'? (C# is Case-Sensitive)`;
                 return;
             }
             if (stmt.toLowerCase().startsWith("console.write") && !stmt.startsWith("Console.Write") && !stmt.startsWith("Console.WriteLine")) {
-                term.className = "output-red";
-                term.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.Write'?`;
+                terminal.className = "output-text-red";
+                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.Write'?`;
                 return;
             }
 
-            // 3. Process Console.WriteLine or Write
+            // Console.WriteLine or Console.Write
             if (stmt.startsWith("Console.WriteLine(") || stmt.startsWith("Console.Write(")) {
                 let isWriteLine = stmt.startsWith("Console.WriteLine(");
                 let startPos = isWriteLine ? 18 : 14;
                 let endPos = stmt.lastIndexOf(")");
 
                 if (endPos === -1) {
-                    term.className = "output-red";
-                    term.innerText = `Program.cs(${i + 1},${stmt.length}): error CS1026: ) expected`;
+                    terminal.className = "output-text-red";
+                    terminal.innerText = `Program.cs(${i + 1},${stmt.length}): error CS1026: ) expected`;
                     return;
                 }
 
@@ -1465,14 +1449,14 @@
                     let val = evaluateExpression(expression, memory);
                     outputText += val + (isWriteLine ? "\n" : "");
                 } catch (err) {
-                    term.className = "output-red";
-                    term.innerText = `Program.cs(${i + 1},${startPos}): error CS0103: ${err.message}`;
+                    terminal.className = "output-text-red";
+                    terminal.innerText = `Program.cs(${i + 1},${startPos}): error CS0103: ${err.message}`;
                     return;
                 }
                 continue;
             }
 
-            // 4. Variable Declaration
+            // Variable Declaration
             let declMatch = stmt.match(/^(const\s+)?(int|double|string|bool|char)\s+([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
             if (declMatch) {
                 let vName = declMatch[3];
@@ -1481,14 +1465,14 @@
                     let val = evaluateExpression(vExpr, memory);
                     memory[vName] = val;
                 } catch (err) {
-                    term.className = "output-red";
-                    term.innerText = `Program.cs(${i + 1},1): error CS0103: ${err.message}`;
+                    terminal.className = "output-text-red";
+                    terminal.innerText = `Program.cs(${i + 1},1): error CS0103: ${err.message}`;
                     return;
                 }
                 continue;
             }
 
-            // 5. Variable Assignment
+            // Variable Assignment
             let assignMatch = stmt.match(/^([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
             if (assignMatch) {
                 let vName = assignMatch[1];
@@ -1497,28 +1481,28 @@
                     let val = evaluateExpression(vExpr, memory);
                     memory[vName] = val;
                 } catch (err) {
-                    term.className = "output-red";
-                    term.innerText = `Program.cs(${i + 1},1): error: ${err.message}`;
+                    terminal.className = "output-text-red";
+                    terminal.innerText = `Program.cs(${i + 1},1): error: ${err.message}`;
                     return;
                 }
                 continue;
             }
 
-            // 6. Console.ReadKey
+            // Console.ReadKey()
             if (stmt.startsWith("Console.ReadKey")) {
                 outputText += "[Waiting for key press...]\n";
                 continue;
             }
         }
 
-        term.className = "output-green";
-        term.innerText = outputText || "[Code executed with 0 outputs]";
+        terminal.className = "output-text-green";
+        terminal.innerText = outputText || "[Code executed successfully with 0 outputs]";
     }
 
     function evaluateExpression(expr, memory) {
         if (!expr) return "";
 
-        // String literal inside quotes
+        // String literal
         if (expr.startsWith('"') && expr.endsWith('"') && expr.indexOf('"', 1) === expr.length - 1) {
             return expr.slice(1, -1);
         }
@@ -1528,12 +1512,12 @@
             return expr.slice(1, -1);
         }
 
-        // Direct variable
+        // Variable in memory
         if (memory.hasOwnProperty(expr)) {
             return memory[expr];
         }
 
-        // Replace variable tokens
+        // Tokenized evaluation
         let tokenized = expr;
         for (let v in memory) {
             let re = new RegExp(`\\b${v}\\b`, 'g');
@@ -1542,7 +1526,6 @@
         }
 
         try {
-            // Check undeclared
             let tokens = tokenized.match(/[a-zA-Z_][a-zA-Z0-9_]*/g);
             if (tokens) {
                 for (let t of tokens) {
@@ -1558,75 +1541,62 @@
     }
 
     // ========================================================
-    // STRICT EXAM SYSTEM (PASS CRITERIA: 50%)
+    // INTERACTIVE QUIZ ENGINE
     // ========================================================
-    function openExamLockdown() {
-        isExamActive = true;
-        userExamAnswers = {};
+    function buildSlideQuiz(slideObj) {
+        const box = document.getElementById('quizQuestionsBox');
+        box.innerHTML = '';
+        userQuizAnswers = {};
+        document.getElementById('quizScoreDisplay').innerText = "نمرە: ٠٪";
 
-        // Force Full Screen Mode
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-        }
-
-        document.getElementById('slideCardView').style.display = 'none';
-        document.getElementById('examSectionView').style.display = 'block';
-        document.getElementById('btnSubmitAnswers').style.display = 'block';
-        document.getElementById('btnUnlockNextSlide').style.display = 'none';
-        document.getElementById('examLiveScore').innerText = "نمرە: ٠٪";
-
-        const qBox = document.getElementById('questionsContainer');
-        qBox.innerHTML = '';
-        const currentData = slidesData[currentSlideIndex];
-
-        currentData.questions.forEach((q, idx) => {
+        slideObj.questions.forEach((q, idx) => {
             const card = document.createElement('div');
-            card.className = 'q-card';
+            card.className = 'q-card-item';
 
             if (q.type === "mcq") {
                 card.innerHTML = `
-                    <div class="q-title"><strong>پرسیارا ${idx + 1}:</strong> ${q.q}</div>
-                    <div class="opts-grid" id="optGroup_${idx}">
+                    <div class="q-text-label"><strong>پرسیارا ${idx + 1}:</strong> ${q.q}</div>
+                    <div class="options-vertical" id="optList_${idx}">
                         ${q.options.map((opt, oIdx) => `
-                            <button class="btn-opt" onclick="chooseMcqAnswer(${idx}, ${oIdx})">${opt}</button>
+                            <button class="btn-answer" onclick="selectMcqOption(${idx}, ${oIdx})">${opt}</button>
                         `).join('')}
                     </div>
-                    <div style="display:none; font-size:0.88rem; color:#38bdf8; margin-top:10px;" id="qExplain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
+                    <div class="feedback-explanation" id="expBox_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
                 `;
             } else if (q.type === "costela") {
                 card.innerHTML = `
-                    <div class="q-title"><strong>پرسیارا ${idx + 1} (کستێلا - بنڤیسە):</strong> ${q.q}</div>
-                    <div class="costela-wrap">
+                    <div class="q-text-label"><strong>پرسیارا ${idx + 1} (کستێلا - بنڤیسە):</strong> ${q.q}</div>
+                    <div class="costela-container">
                         <input type="text" id="costelaInput_${idx}" placeholder="بەرسڤێ ل ڤێرێ بنڤیسە...">
                     </div>
-                    <div style="display:none; font-size:0.88rem; color:#38bdf8; margin-top:10px;" id="qExplain_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
+                    <div class="feedback-explanation" id="expBox_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
                 `;
             }
 
-            qBox.appendChild(card);
+            box.appendChild(card);
         });
     }
 
-    function chooseMcqAnswer(qIdx, optIdx) {
-        userExamAnswers[qIdx] = optIdx;
-        const group = document.getElementById(`optGroup_${qIdx}`);
-        const btns = group.getElementsByClassName('btn-opt');
-        for (let b of btns) b.style.borderColor = 'var(--border-color)';
-        btns[optIdx].style.borderColor = 'var(--auas-gold)';
+    function selectMcqOption(qIdx, optIdx) {
+        userQuizAnswers[qIdx] = optIdx;
+        const list = document.getElementById(`optList_${qIdx}`);
+        const btns = list.getElementsByClassName('btn-answer');
+        for (let b of btns) b.style.borderColor = 'var(--border-glass)';
+        btns[optIdx].style.borderColor = 'var(--auas-cyan)';
     }
 
-    function evaluateStudentExam() {
-        const currentData = slidesData[currentSlideIndex];
+    function evaluateQuizAnswers() {
+        const slideObj = slidesData[currentSlideIndex];
         let correctCount = 0;
-        const total = currentData.questions.length;
+        const total = slideObj.questions.length;
 
-        currentData.questions.forEach((q, idx) => {
-            document.getElementById(`qExplain_${idx}`).style.display = 'block';
+        slideObj.questions.forEach((q, idx) => {
+            document.getElementById(`expBox_${idx}`).style.display = 'block';
 
             if (q.type === "mcq") {
-                const group = document.getElementById(`optGroup_${idx}`);
-                const btns = group.getElementsByClassName('btn-opt');
-                let userChoice = userExamAnswers[idx];
+                const list = document.getElementById(`optList_${idx}`);
+                const btns = list.getElementsByClassName('btn-answer');
+                let userChoice = userQuizAnswers[idx];
                 if (userChoice !== undefined) {
                     if (userChoice === q.ans) {
                         correctCount++;
@@ -1642,93 +1612,15 @@
                 let isMatch = q.accepted.map(a => a.toLowerCase()).includes(val);
                 if (isMatch) {
                     correctCount++;
-                    input.style.borderColor = 'var(--vs-green)';
+                    input.style.borderColor = 'var(--success)';
                 } else {
-                    input.style.borderColor = 'var(--vs-red)';
+                    input.style.borderColor = 'var(--danger)';
                 }
             }
         });
 
-        // 50% PASS REQUIREMENT
         const percent = Math.round((correctCount / total) * 100);
-        document.getElementById('examLiveScore').innerText = `نمرە: ${percent}٪ (${correctCount}/${total})`;
-        document.getElementById('btnSubmitAnswers').style.display = 'none';
-
-        if (percent >= 50) {
-            document.getElementById('btnUnlockNextSlide').style.display = 'block';
-            if (maxUnlockedIndex === currentSlideIndex && maxUnlockedIndex < slidesData.length - 1) {
-                maxUnlockedIndex++;
-            }
-            renderSidebar();
-        } else {
-            alert(`تە ${percent}٪ ئینا. چونکی کێمترە ژ ٥٠٪، دەرنەچووی! تکایە دووبارە تاقیبکەوە دا سلاێدا دی ڤەبیت.`);
-            setTimeout(() => {
-                openExamLockdown();
-            }, 1800);
-        }
-    }
-
-    function proceedToNextSlide() {
-        isExamActive = false;
-        if (currentSlideIndex < slidesData.length - 1) {
-            loadSlide(currentSlideIndex + 1);
-        } else {
-            alert("🌟 پیرۆزە! تە هەمی ١٩ سلاێد ب سەرکەفتی تەمام کرن!");
-        }
-    }
-
-    // ========================================================
-    // STRICT ANTI-CHEAT MECHANISMS
-    // ========================================================
-    function setupAntiCheatListeners() {
-        document.addEventListener('visibilitychange', () => {
-            if (isExamActive && document.hidden) {
-                document.getElementById('antiCheatBlackout').style.display = 'flex';
-            }
-        });
-
-        window.addEventListener('blur', () => {
-            if (isExamActive) {
-                document.getElementById('antiCheatBlackout').style.display = 'flex';
-            }
-        });
-
-        document.addEventListener('fullscreenchange', () => {
-            if (isExamActive && !document.fullscreenElement) {
-                document.getElementById('antiCheatBlackout').style.display = 'flex';
-            }
-        });
-    }
-
-    function resumeExamFromBlackout() {
-        document.getElementById('antiCheatBlackout').style.display = 'none';
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-        }
-    }
-
-    // ========================================================
-    // TEACHER MASTER CODE (19439)
-    // ========================================================
-    function openTeacherModal() {
-        document.getElementById('teacherModal').style.display = 'flex';
-        document.getElementById('teacherPassInput').value = '';
-    }
-
-    function closeTeacherModal() {
-        document.getElementById('teacherModal').style.display = 'none';
-    }
-
-    function unlockAllSlidesTeacher() {
-        const inputVal = document.getElementById('teacherPassInput').value.trim();
-        if (inputVal === TEACHER_MASTER_CODE) {
-            maxUnlockedIndex = slidesData.length - 1; // Unlock ALL 19 slides
-            renderSidebar();
-            closeTeacherModal();
-            alert("🔑 ب خێر بێی جەنابێ مامۆستا! هەمی ١٩ سلاێد دەستبەجێ هاتنە ڤەکرن.");
-        } else {
-            alert("❌ پاسکۆد شاشە!");
-        }
+        document.getElementById('quizScoreDisplay').innerText = `نمرە: ${percent}٪ (${correctCount}/${total})`;
     }
 </script>
 
