@@ -1,1628 +1,1215 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUAS - Fundamentals of Programming by C# | پلاتفۆڕما زێڕین</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-base: #060913;
-            --bg-card: rgba(15, 23, 42, 0.75);
-            --bg-card-hover: rgba(30, 41, 59, 0.85);
-            --auas-blue: #2563eb;
-            --auas-cyan: #06b6d4;
-            --auas-gold: #f59e0b;
-            --auas-gold-glow: rgba(245, 158, 11, 0.4);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-glass-active: rgba(56, 189, 248, 0.4);
-            --vs-editor: #181e29;
-            --vs-terminal: #0a0d14;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --success: #10b981;
-            --danger: #f43f5e;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دیجیتال لۆجیک - وەرگرتنا سیستمێن هژماران (٤٠ سلاید)</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --border: #334155;
+      --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', sans-serif;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        body {
-            background-color: var(--bg-base);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 10px;
+    }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--auas-cyan);
-        }
+    header {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--box-shadow);
+    }
 
-        /* Top Header */
-        .auas-header {
-            background: rgba(6, 10, 20, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-glass);
-            padding: 12px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
+    header h1 {
+      font-size: 1.4rem;
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
 
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
 
-        .auas-crest {
-            width: 52px;
-            height: 52px;
-            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
-            transition: transform 0.3s;
-        }
-        .auas-crest:hover {
-            transform: rotate(5deg) scale(1.05);
-        }
+    .controls-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
 
-        .brand-text h1 {
-            font-size: 1.25rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    select {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      flex-grow: 1;
+      max-width: 400px;
+    }
 
-        .brand-text p {
-            font-size: 0.82rem;
-            color: var(--auas-gold);
-            font-weight: 500;
-        }
+    .slide-counter {
+      font-weight: bold;
+      color: #38bdf8;
+      background: var(--card-bg);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
 
-        .header-badges {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .slide-container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--box-shadow);
+      padding: 25px 30px;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .pill-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(8px);
-        }
+    .slide {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
 
-        /* App Main Grid */
-        .app-grid {
-            display: grid;
-            grid-template-columns: 310px 1fr;
-            flex: 1;
-            height: calc(100vh - 77px);
-        }
+    .slide.active {
+      display: block;
+    }
 
-        /* Sidebar Slide Navigator */
-        .sidebar-panel {
-            background: rgba(11, 16, 29, 0.7);
-            backdrop-filter: blur(20px);
-            border-left: 1px solid var(--border-glass);
-            overflow-y: auto;
-            padding: 18px 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .sidebar-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            padding: 0 10px;
-            display: flex;
-            justify-content: space-between;
-        }
+    .slide-title {
+      font-size: 1.35rem;
+      color: #38bdf8;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
 
-        .slide-tab {
-            padding: 12px 16px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid transparent;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            transition: all 0.25s ease;
-        }
+    .content-box {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+    }
 
-        .slide-tab:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateX(-3px);
-        }
+    .highlight {
+      background: rgba(2, 132, 199, 0.2);
+      border-right: 4px solid var(--primary);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-weight: 500;
+      direction: ltr;
+      text-align: left;
+    }
 
-        .slide-tab.active {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(6, 182, 212, 0.2));
-            border-color: var(--auas-cyan);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-            color: #ffffff;
-            font-weight: 700;
-        }
+    .highlight-rtl {
+      background: rgba(16, 185, 129, 0.15);
+      border-right: 4px solid var(--accent);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 12px 0;
+    }
 
-        .slide-tab .tab-num {
-            font-size: 0.75rem;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 2px 8px;
-            border-radius: 20px;
-            color: var(--auas-cyan);
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      direction: ltr;
+      text-align: center;
+      font-size: 0.95rem;
+    }
 
-        /* Main Canvas */
-        .main-canvas {
-            padding: 30px 45px;
-            overflow-y: auto;
-        }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+    }
 
-        .lecture-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
+    th {
+      background-color: #0f172a;
+      color: #38bdf8;
+    }
 
-        .lecture-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--auas-blue), var(--auas-cyan), var(--auas-gold));
-        }
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
 
-        .lecture-hero {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-        }
+    .quiz-section {
+      margin-top: 25px;
+      border-top: 1px dashed var(--border);
+      padding-top: 15px;
+    }
 
-        .hero-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    .quiz-title {
+      font-size: 1.1rem;
+      color: #facc15;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .hero-left h2 {
-            font-size: 1.65rem;
-            font-weight: 800;
-            color: #ffffff;
-        }
+    .quiz-item {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
 
-        .tag-pill {
-            background: linear-gradient(135deg, var(--auas-blue), var(--auas-cyan));
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.3);
-        }
+    .quiz-question {
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      user-select: none;
+    }
 
-        .lecture-content {
-            font-size: 1.1rem;
-            line-height: 2.3;
-            color: #cbd5e1;
-        }
+    .quiz-question:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
 
-        .lecture-content ul {
-            list-style: none;
-            padding-right: 15px;
-            margin: 15px 0;
-        }
+    .quiz-answer {
+      display: none;
+      padding: 10px 14px;
+      background: #1e293b;
+      border-top: 1px solid var(--border);
+      color: #34d399;
+      font-size: 0.9rem;
+      direction: ltr;
+      text-align: left;
+    }
 
-        .lecture-content ul li {
-            position: relative;
-            padding-right: 24px;
-            margin-bottom: 12px;
-        }
+    .quiz-item.open .quiz-answer {
+      display: block;
+    }
 
-        .lecture-content ul li::before {
-            content: "✦";
-            color: var(--auas-cyan);
-            position: absolute;
-            right: 0;
-            font-size: 1rem;
-        }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      gap: 15px;
+    }
 
-        .gold-box {
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.25);
-            border-right: 5px solid var(--auas-gold);
-            padding: 16px 22px;
-            border-radius: 12px;
-            margin: 20px 0;
-            color: #fde68a;
-            font-size: 1rem;
-            line-height: 1.9;
-        }
+    button {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
 
-        /* Visual Studio Dynamic Playground */
-        .vs-terminal-container {
-            background: var(--vs-editor);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            margin: 30px 0;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-        }
+    button:hover {
+      background: var(--primary-dark);
+    }
 
-        .vs-tabs-bar {
-            background: #111622;
-            padding: 8px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
+    button:active {
+      transform: scale(0.98);
+    }
 
-        .tab-active-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--vs-editor);
-            padding: 6px 14px;
-            border-radius: 8px 8px 0 0;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-bottom: none;
-            color: #38bdf8;
-            font-size: 0.88rem;
-            font-family: 'Fira Code', monospace;
-        }
+    button:disabled {
+      background: #475569;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
 
-        .btn-vs-execute {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.92rem;
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
-            transition: all 0.2s;
-        }
-
-        .btn-vs-execute:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
-        }
-
-        .vs-code-editor {
-            width: 100%;
-            height: 145px;
-            background: var(--vs-editor);
-            color: #93c5fd;
-            font-family: 'Fira Code', monospace;
-            padding: 18px;
-            border: none;
-            outline: none;
-            direction: ltr;
-            text-align: left;
-            font-size: 1.02rem;
-            line-height: 1.7;
-            resize: vertical;
-            -webkit-user-select: text;
-            user-select: text;
-        }
-
-        .vs-screen-terminal {
-            background: var(--vs-terminal);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 14px 20px;
-            font-family: 'Fira Code', monospace;
-            direction: ltr;
-            text-align: left;
-            min-height: 85px;
-            max-height: 200px;
-            overflow-y: auto;
-            font-size: 0.95rem;
-        }
-
-        .terminal-status-row {
-            color: #64748b;
-            font-size: 0.78rem;
-            margin-bottom: 8px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-            padding-bottom: 4px;
-        }
-
-        .output-text-green {
-            color: #4ade80;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .output-text-red {
-            color: #f87171;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        /* Interactive Quiz Section */
-        .quiz-wrapper {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            margin-top: 30px;
-        }
-
-        .quiz-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .quiz-top h3 {
-            font-size: 1.35rem;
-            color: var(--auas-gold);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .q-card-item {
-            background: rgba(2, 6, 23, 0.6);
-            border: 1px solid var(--border-glass);
-            border-radius: 14px;
-            padding: 22px;
-            margin-bottom: 20px;
-            transition: border-color 0.2s;
-        }
-
-        .q-card-item:hover {
-            border-color: rgba(56, 189, 248, 0.3);
-        }
-
-        .q-text-label {
-            font-size: 1.12rem;
-            color: #ffffff;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .options-vertical {
-            display: grid;
-            gap: 10px;
-        }
-
-        .btn-answer {
-            background: rgba(255, 255, 255, 0.03);
-            color: #e2e8f0;
-            border: 1px solid var(--border-glass);
-            padding: 13px 20px;
-            border-radius: 10px;
-            text-align: right;
-            cursor: pointer;
-            font-size: 0.98rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-answer:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--auas-cyan);
-            transform: translateX(-4px);
-        }
-
-        .btn-answer.correct {
-            background: rgba(16, 185, 129, 0.2) !important;
-            border-color: var(--success) !important;
-            color: #6ee7b7 !important;
-            font-weight: 700;
-        }
-
-        .btn-answer.wrong {
-            background: rgba(244, 63, 94, 0.2) !important;
-            border-color: var(--danger) !important;
-            color: #fda4af !important;
-        }
-
-        .costela-container input {
-            background: rgba(15, 23, 42, 0.8);
-            border: 2px solid var(--auas-cyan);
-            color: #facc15;
-            padding: 11px 16px;
-            border-radius: 10px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1.05rem;
-            width: 100%;
-            max-width: 400px;
-            direction: ltr;
-            text-align: left;
-            outline: none;
-            -webkit-user-select: text;
-            user-select: text;
-            transition: box-shadow 0.2s;
-        }
-
-        .costela-container input:focus {
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-        }
-
-        .feedback-explanation {
-            display: none;
-            margin-top: 12px;
-            padding: 12px 18px;
-            border-radius: 8px;
-            background: rgba(37, 99, 235, 0.15);
-            border-right: 4px solid var(--auas-cyan);
-            font-size: 0.92rem;
-            color: #bae6fd;
-            line-height: 1.8;
-        }
-
-        .btn-check-exam {
-            background: linear-gradient(135deg, var(--auas-gold), #d97706);
-            color: #000000;
-            border: none;
-            padding: 14px 35px;
-            border-radius: 12px;
-            font-weight: 900;
-            font-size: 1.05rem;
-            cursor: pointer;
-            display: block;
-            margin: 25px auto 0 auto;
-            box-shadow: 0 6px 20px var(--auas-gold-glow);
-            transition: all 0.25s;
-        }
-
-        .btn-check-exam:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 30px var(--auas-gold-glow);
-        }
-
-        @media (max-width: 900px) {
-            .app-grid { grid-template-columns: 1fr; }
-            .sidebar-panel { height: 180px; }
-            .main-canvas { padding: 20px; }
-        }
-    </style>
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      background: #0284c7;
+      color: #fff;
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-<!-- AUAS Top Navigation Header -->
-<header class="auas-header">
-    <div class="brand-container">
-        <!-- SVG Vector of AUAS Official Emblem -->
-        <svg class="auas-crest" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="95" fill="#ffffff" stroke="#003b99" stroke-width="8"/>
-            <circle cx="100" cy="100" r="80" fill="none" stroke="#003b99" stroke-width="3"/>
-            <ellipse cx="100" cy="90" rx="32" ry="14" fill="none" stroke="#003b99" stroke-width="3" transform="rotate(30 100 90)"/>
-            <ellipse cx="100" cy="90" rx="32" ry="14" fill="none" stroke="#003b99" stroke-width="3" transform="rotate(-30 100 90)"/>
-            <path d="M97,93 Q100,75 103,93 Z" fill="#f59e0b"/>
-            <circle cx="100" cy="94" r="3" fill="#ef4444"/>
-            <text x="100" y="118" font-family="'Vazirmatn', sans-serif" font-weight="900" font-size="16" fill="#003b99" text-anchor="middle">AUAS</text>
-            <text x="100" y="132" font-family="'Vazirmatn', sans-serif" font-weight="bold" font-size="11" fill="#003b99" text-anchor="middle">2023</text>
-            <path id="textArcTop" d="M 25 100 A 75 75 0 0 1 175 100" fill="none"/>
-            <text font-family="'Vazirmatn', sans-serif" font-size="10.5" font-weight="bold" fill="#003b99">
-                <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">پەیمانگەها تەکنیکی ئاکرێ</textPath>
-            </text>
-            <path id="textArcBottom" d="M 175 100 A 75 75 0 0 1 25 100" fill="none"/>
-            <text font-family="'Vazirmatn', sans-serif" font-size="8.5" font-weight="bold" fill="#003b99">
-                <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">Akre Technical Institute</textPath>
-            </text>
-        </svg>
+  <header>
+    <h1>دیجیتال لۆجیک دیزاین - بەشێ ٠٢ (سیستمێن ژماران)</h1>
+    <p>مامۆستا: رێدیر عبدال صالح • تایبەت بۆ پێداچوون و سەرکەفتن د ئەزموونێ دا</p>
+  </header>
 
-        <div class="brand-text">
-            <h1>زانکۆیا ئاکرێ یا زانستێن کرداری (AUAS)</h1>
-            <p>پەیمانگەها تەکنیکی یا ئاکرێ • پشکا IT • مامۆستا: Kazheen Ismael Taher</p>
+  <div class="controls-top">
+    <button id="btnPrevTop" onclick="prevSlide()">❮ پاشڤە</button>
+    <select id="slideSelect" onchange="jumpToSlide(this.value)"></select>
+    <div class="slide-counter" id="slideCounter">سلاید ١ ژ ٤٠</div>
+    <button id="btnNextTop" onclick="nextSlide()">پێشڤە ❯</button>
+  </div>
+
+  <div class="slide-container">
+    <div id="slides-wrapper">
+
+      <!-- SLIDE 1 -->
+      <div class="slide active">
+        <h2 class="slide-title">سلاید ١: دەستپێک و ناساندنا کورسێ</h2>
+        <div class="content-box">
+          <p>بخێرهاتی برايێ من! د ئەڤێ وانەیێ دا دێ فێری <strong>سیستمێن ژماران (Number Systems)</strong> و شێوازێ ڤەگوهاستنا وان بۆ ئێکودوو بی. ئەڤ بابەتە بناغێ سەرەکیێ ئەندازیاری و کومپیۆتەری یە.</p>
+          <div class="highlight-rtl">
+            <strong>تێبینییا گرنگ:</strong> هەر سیستمەکێ هژماران بنەمایەکێ یان پێگەهەکێ (Base / Radix) هەیە کو دیار دکەت کا چەند هێما و ژمارە دهێنە بکارئینان.
+          </div>
         </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ (کلیک ل پسیارێ بکە بۆ دیتنا بەرسڤێ):</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ناڤێ وانە و بابەتێ سەرەکی چییە؟ <span>▼</span></div><div class="quiz-answer">Digital Logic Design - Lecture 02: Number Systems and Conversions.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. مەرەم ژ Radix یان Base د ژماران دا چییە؟ <span>▼</span></div><div class="quiz-answer">Base ئاماژەیە بۆ هژمارا گشتی یا هێما و ژمارێن رێپێدای د وی سیستەمی دا.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. د ئەڤێ وانەیێ دا چەند سیستمێن سەرەکی یێن هژماران دخوینین؟ <span>▼</span></div><div class="quiz-answer">٤ سیستمێن سەرەکی: Binary (2), Octal (8), Decimal (10), Hexadecimal (16).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بۆچی کۆمپیۆتەر هەمی داتایان ب شێوازێ ژمارە دبینیت؟ <span>▼</span></div><div class="quiz-answer">ژبەرکو چارەسەرکەرێن ئەلیکترۆنی بتنێ د ئاستێن ڤۆڵتیەیێ دا (0 و 1) کاردکەن.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ دەرگەهێن لۆجیکی و سیستمێن هژماران پێکڤە گرێداینە؟ <span>▼</span></div><div class="quiz-answer">بەلێ، لۆجیک دیزاین راستەوخۆ پشت ب سیستەمێ دوانەیی (Binary) دەبەستیت.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢: چوار سیستمێن سەرەکی یێن ژماران</h2>
+        <div class="content-box">
+          <p>ئەو سیستمێن د ئەڤێ لێکچەرێ دا هەی ب ڤی شێوەی نە:</p>
+          <table>
+            <tr><th>Base</th><th>Name</th><th>Valid Digits</th><th>Example</th></tr>
+            <tr><td>2</td><td>Binary</td><td>0, 1</td><td>101101₂</td></tr>
+            <tr><td>8</td><td>Octal</td><td>0 to 7</td><td>745₈</td></tr>
+            <tr><td>10</td><td>Decimal</td><td>0 to 9</td><td>983₁₀</td></tr>
+            <tr><td>16</td><td>Hexadecimal</td><td>0–9, A–F</td><td>B3F₁₆</td></tr>
+          </table>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بەیسێ سیستەمێ ئۆکتال (Octal) چەندە؟ <span>▼</span></div><div class="quiz-answer">Base = 8</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 9 د سیستەمێ Octal دا دروستە یان خەلەت؟ <span>▼</span></div><div class="quiz-answer">خەلەتە (Invalid)، چونکی د ئۆکتال دا بتنێ 0 هەتا 7 دروستن.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بەیسێ سیستەمێ Hexadecimal چەندە؟ <span>▼</span></div><div class="quiz-answer">Base = 16</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. د سیستەمێ Decimal دا چ ژمارە دهێنە بکارئینان؟ <span>▼</span></div><div class="quiz-answer">ژ 0 هەتا 9 (10 ژمارە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 101101₂ چ جورە سیستمەکە؟ <span>▼</span></div><div class="quiz-answer">Binary (ژبەرکو ژێرنڤیسێ وێ 2 یە).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣: چەمکێ گرنگ یێ رێژەیا ژماران (Valid Digits Rule)</h2>
+        <div class="content-box">
+          <p>یاسایەکا گەردونی هەیە: <strong>چ جاران چو ژمارە د ناڤ چ سیستەمەکی دا ناهێت کو یەکسان یان مەزنتر بیت ژ Base یێ وی سیستەمی!</strong></p>
+          <div class="highlight">Rule: Maximum digit value = Base - 1</div>
+          <p>بۆ نموونە: د Base 2 دا مەزنترین ژمارە ١ یە. د Base 8 دا مەزنترین ژمارە ٧ە. د Base 10 دا مەزنترین ژمارە ٩ یە.</p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ئەرێ ژمارا 128₈ یا دروستە؟ <span>▼</span></div><div class="quiz-answer">نەخێر، چونکی ژمارە 8 ل دەف ئۆکتال نینە (بتنێ 0-7 هەنە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەرێ ژمارا 102₂ یا دروستە؟ <span>▼</span></div><div class="quiz-answer">نەخێر، چونکی د باینەری دا ژمارە 2 نینە (بتنێ 0 و 1 هەنە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. مەزنترین ژمارە د سیستەمێ Base 16 دا چ هێمایە؟ <span>▼</span></div><div class="quiz-answer">هێمایێ F (کو دکەتە 15).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەگەر Base = N بیت، مەزنترین تاکە ژمارە چەندە؟ <span>▼</span></div><div class="quiz-answer">N - 1</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ ژمارا 4A9₁₆ یا دروستە؟ <span>▼</span></div><div class="quiz-answer">بەلێ، چونکی هەمی کارەکتەر د مەودایێ 0-9 و A-F دانە.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٤: تێگەهشتن ل گرانییا جهی (Positional Value)</h2>
+        <div class="content-box">
+          <p>هەر خانەیەکا ژمارەیەکێ، بارگرانی و بهایەکێ هەیە کو ژ <strong>راستێ بەرەڤ چەپێ</strong> زێدە دبیت ب شێوازێ هەڵدانا بەیسی بۆ توان (Power):</p>
+          <div class="highlight">Weight = Base<sup>position</sup> (Position: 0, 1, 2, 3, ...)</div>
+          <p>بۆ نموونە د باینەری دا (Base = 2):</p>
+          <div class="highlight">2⁰ = 1, 2¹ = 2, 2² = 4, 2³ = 8, 2⁴ = 16, 2⁵ = 32...</div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. خانەیا ئێکێ ژ دەستێ راستێ همبەری چ توانی یە؟ <span>▼</span></div><div class="quiz-answer">همبەری Power 0 (ئانکو Base⁰ = 1).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. د باینەری دا گرانییا خانەیا سیێ (Position 2) چەندە؟ <span>▼</span></div><div class="quiz-answer">2² = 4</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 2⁴ چەندە؟ <span>▼</span></div><div class="quiz-answer">16</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بوچی ژ راستێ دەست پێ دکەین نەک چەپێ؟ <span>▼</span></div><div class="quiz-answer">ژبەرکو خانەیا کێمترین بها (LSB) ل دەستێ راستێ دکەڤیتە سەر Base⁰.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. گرانییا 4 خانەیێن ئێکێ یێن باینەری بنڤیسە: <span>▼</span></div><div class="quiz-answer">8, 4, 2, 1 (ژ چەپێ بۆ راستێ).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٥: دارشتنا دیسیمال ب هێزێن دەهان (Base 10 Expansion)</h2>
+        <div class="content-box">
+          <p>وەک مێنەک د ژیانا روژانە دا، ژمارە 352₁₀ چاوا دروست دبیت؟</p>
+          <div class="highlight">
+            1. 3 × 10² = 300<br>
+            2. 5 × 10¹ = 50<br>
+            3. 2 × 10⁰ = 2<br>
+            کۆم = 300 + 50 + 2 = 352₁₀
+          </div>
+          <p>ئەڤ شێوازە بۆ هەمی سیستمێن دی ژی ب هەمان رێک دهێتە بکارئینان.</p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ژمارە 745₁₀ بەرفرەه بکە ب توانێن 10: <span>▼</span></div><div class="quiz-answer">7×10² + 4×10¹ + 5×10⁰ = 700 + 40 + 5.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 10⁰ دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">1</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. د ژمارە 352 دا گرانییا ژمارە 3 چەندە؟ <span>▼</span></div><div class="quiz-answer">100 (چونکی 3 × 10² = 300).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەگەر ژمارەک 4 خانەیی بیت دوماهیک توانێ دەستێ چەپێ چەندە؟ <span>▼</span></div><div class="quiz-answer">10³ = 1000</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بهایێ 8 × 10¹ چەندە؟ <span>▼</span></div><div class="quiz-answer">80</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٦: خشتەیێ گرانییا باینەری (Binary Place-Value Chart)</h2>
+        <div class="content-box">
+          <p>سەحکە ڤی خشتەیێ گرنگ یێ سلایدا ٦ یا وانەیێ بۆ ژمارە 101101₂:</p>
+          <table>
+            <tr><th>Bit Position</th><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+            <tr><th>Weight (2ⁿ)</th><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
+            <tr><th>Binary Digit</th><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+            <tr><th>Contribution</th><td>32</td><td>0</td><td>8</td><td>4</td><td>0</td><td>1</td></tr>
+          </table>
+          <p>کۆما هەمی بەشان: 32 + 0 + 8 + 4 + 0 + 1 = <strong>45₁₀</strong></p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بوچی ل ژێر بیتێ 4 مە ژمارە 0 دانا؟ <span>▼</span></div><div class="quiz-answer">چونکی ژمارا باینەری 0 بوو (0 × 16 = 0).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. بیتێ پۆزیشن 3 چەند دابین دکەت؟ <span>▼</span></div><div class="quiz-answer">8 (چونکی 1 × 8 = 8).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. د بیتێ 0 دا کێشە (weight) چەندە؟ <span>▼</span></div><div class="quiz-answer">1 (2⁰ = 1).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەنجامێ کۆمکرنا هەمی خانەیێن 1 بوو ئەڤێ ژمارەیێ چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">45₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ بیتێ 0 دکەڤیتە دەستێ راستێ یان چەپێ؟ <span>▼</span></div><div class="quiz-answer">دکەڤیتە دوماهیک جهـ ل دەستێ راستێ.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٧: گوهرینا باینەری بۆ دیسیمال (Binary to Decimal)</h2>
+        <div class="content-box">
+          <p>یاسا گەلەک ب ساناهی یە: <strong>بتنێ وان کێشان (Weights) کۆم بکە یێن کو ژمارا وان 1 بیت!</strong></p>
+          <div class="highlight">
+            مێنەک: ژمارا 11001010₂ بگوهۆڕە بۆ Decimal:<br>
+            • گرانییان بنڤیسە: 128, 64, 32, 16, 8, 4, 2, 1<br>
+            • یێن ژمارە 1 هەڵبژێره: 128 + 64 + 8 + 2<br>
+            • پێکڤە کۆم بکە: <strong>202₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ژمارە 1010₂ ب دیسیمال دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">8 + 2 = 10₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 1111₂ ب دیسیمال دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">8 + 4 + 2 + 1 = 15₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ژمارە 10001₂ ب دیسیمال دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">16 + 1 = 17₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بۆچی خانەیێن 0 ناهێنە کۆمکرن؟ <span>▼</span></div><div class="quiz-answer">چونکی لێکدانا هەر کێشەکێ د 0 دا هەر دکەتە 0.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 1100₂ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">8 + 4 = 12₁₀</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٨: دیسیمال بۆ باینەری (دابەشکرنا بەردەوام - Repeated Division)</h2>
+        <div class="content-box">
+          <p>رێک ئەڤەیە: ژمارێ <strong>دابەشی 2 بکە</strong>، ماوەیێ (Remainder) بنڤیسە ل دەستێ راستێ، پاشان ژێرەڤە بەرەڤ سەرێ بخوینە:</p>
+          <div class="highlight">
+            مێنەک: ژمارە 25₁₀ بگوهۆڕە بۆ باینەری:<br>
+            25 ÷ 2 = 12 (ماوە 1)  [LSB]<br>
+            12 ÷ 2 = 6  (ماوە 0)<br>
+            6 ÷ 2 = 3   (ماوە 0)<br>
+            3 ÷ 2 = 1   (ماوە 1)<br>
+            1 ÷ 2 = 0   (ماوە 1)  [MSB]<br>
+            • ژ ژێرەڤە بۆ سەرێ بنڤیسە: <strong>11001₂</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. دەمێ ژمارەیەک دابەشی 2 دبیت چ ماوە (remainder) چێدبن؟ <span>▼</span></div><div class="quiz-answer">بتنێ 0 یان 1.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. کەنگی دابەشکرنێ رادوەستینین؟ <span>▼</span></div><div class="quiz-answer">دەمێ بەشێ دابەشکرنێ (Quotient) دبیتە 0.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ماوەیان ژ کیژ ئالی بەرەڤ کیژ ئالی دنڤیسین؟ <span>▼</span></div><div class="quiz-answer">ژ ژێرەڤە بۆ سەرێ (From bottom to top).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ژمارە 6 دابەشی 2 ماوە چەندە؟ <span>▼</span></div><div class="quiz-answer">0 (چونکی 6 جووتە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 7 دابەشی 2 ماوە چەندە؟ <span>▼</span></div><div class="quiz-answer">1 (چونکی 7 تاکە).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٩: دیسیمال بۆ باینەری (رێکا هێزێن ٢ - Powers of Two)</h2>
+        <div class="content-box">
+          <p>ئەڤە بێهنڤەدانا زیرەکانە یە! مەزنترین هێزا دووێ یا کێمتر ژ ژمارێ لێ دەربینە:</p>
+          <div class="highlight">
+            مێنەک: ژمارە 45₁₀ بگوهۆڕە باینەری:<br>
+            • مەزنترین هێز ≤ 45 بریتی یە ژ 32 -> (45 - 32 = 13)<br>
+            • د ناڤ 13 دا مەزنترین 8 ە -> (13 - 8 = 5)<br>
+            • د ناڤ 5 دا مەزنترین 4 ە -> (5 - 4 = 1)<br>
+            • د ناڤ 1 دا مەزنترین 1 ە -> (1 - 1 = 0)<br>
+            • ل جهێ 32, 8, 4, 1 ژمارا 1 دابنێ و یێن دی 0: <strong>101101₂</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. مەزنترین هێزا 2 یا کێمتر ژ 50 چەندە؟ <span>▼</span></div><div class="quiz-answer">32</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 10₁₀ ب ئەڤێ رێکێ بکە باینەری: <span>▼</span></div><div class="quiz-answer">10 = 8 + 2 -> 1010₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەگەر کێشەک د کۆمکرنێ دا نەهێتە بکارئینان چ دادەنێین؟ <span>▼</span></div><div class="quiz-answer">0 دادەنێین.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ژمارە 13₁₀ چاوا دکەتە 1101₂؟ <span>▼</span></div><div class="quiz-answer">چونکی 13 = 8 + 4 + 1.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بهایێ 16 د ژمارە 45 دا بۆچی 0 بوو؟ <span>▼</span></div><div class="quiz-answer">چونکی پاش 32 بتنێ 13 مابوو، و 16 ژ 13 مەزنتر بوو.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٠: تێگەهشتنا تایبەت یا ژمارە 13 = 1101</h2>
+        <div class="content-box">
+          <p>سلایدا ١٠ یا مامۆستای بتایبەتی تیشکێ دئێخیتە سەر ڤێ ژمارەیێ:</p>
+          <div class="highlight">
+            [8] [4] [2] [1]<br>
+            13 = 8 + 4 + 1<br>
+            خانەیا 8 = 1<br>
+            خانەیا 4 = 1<br>
+            خانەیا 2 = 0<br>
+            خانەیا 1 = 1<br>
+            ئەنجام: <strong>1101₂</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بوچی خانەیا 2 بوو 0؟ <span>▼</span></div><div class="quiz-answer">چونکی ئەگەر 2 لێ زێدە بکەین دبیتە 15 نەک 13.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 15 پێدڤی ب چەند بیتا هەیە؟ <span>▼</span></div><div class="quiz-answer">4 بیت (1111₂).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ژمارە 9₁₀ ب 4 بیتان چاوایە؟ <span>▼</span></div><div class="quiz-answer">8 + 1 -> 1001₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ژمارە 7₁₀ ب 4 بیتان چاوایە؟ <span>▼</span></div><div class="quiz-answer">0111₂ (4 + 2 + 1).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 13 ب شێوازێ هێکسادیسیمال دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">D</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١١: ئۆکتال بۆ دیسیمال (Octal to Decimal)</h2>
+        <div class="content-box">
+          <p>د ئۆکتال دا بەیس 8ە. پێکهاتە ب هێزێن 8 پێشدکەڤیت: <strong>8⁰=1, 8¹=8, 8²=64, 8³=512</strong></p>
+          <div class="highlight">
+            مێنەک: 157₈ بگوهۆڕە بۆ دیسیمال:<br>
+            1. کێشان بنڤیسە: 8², 8¹, 8⁰<br>
+            2. لێکبدە: (1 × 64) + (5 × 8) + (7 × 1)<br>
+            3. کۆم بکە: 64 + 40 + 7 = <strong>111₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 8² دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">64</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. بهایێ 23₈ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">(2 × 8) + (3 × 1) = 16 + 3 = 19₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 70₈ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">(7 × 8) + 0 = 56₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ 10₈ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">(1 × 8) + 0 = 8₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. د ژمارە 157₈ دا، کێشا 5 چەند بوو؟ <span>▼</span></div><div class="quiz-answer">8¹ = 8 (5 × 8 = 40).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 12 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٢: دیسیمال بۆ ئۆکتال ب دابەشکرنێ (Decimal to Octal)</h2>
+        <div class="content-box">
+          <p>ژمارێ <strong>دابەشی 8 بکە</strong> بەردەوام، هەتا کو بەش دبیتە 0، پاشان ماوەیان ژ خوارێ بەرەڤ ژوورێ بنڤیسە:</p>
+          <div class="highlight">
+            مێنەک: ژمارە 83₁₀ بگوهۆڕە بۆ ئۆکتال:<br>
+            1. 83 ÷ 8 = 10 (ماوە 3)<br>
+            2. 10 ÷ 8 = 1 (ماوە 2)<br>
+            3. 1 ÷ 8 = 0 (ماوە 1)<br>
+            • ژێرەڤە بۆ سەرێ: <strong>123₈</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 83 دابەشی 8 بکەین بۆچی ماوە 3 یە؟ <span>▼</span></div><div class="quiz-answer">چونکی 10 × 8 = 80، و 83 - 80 = 3.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 65₁₀ ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">65 ÷ 8 = 8 (ماوە 1)، 8 ÷ 8 = 1 (ماوە 0)، 1 ÷ 8 = 0 (ماوە 1) -> 101₈</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ماوە د دابەشکرنا 8 دا چەندە ژمارە دبن؟ <span>▼</span></div><div class="quiz-answer">د ناڤبەرا 0 هەتا 7 دبن.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ژمارە 16₁₀ ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">16 ÷ 8 = 2 (ماوە 0)، 2 ÷ 8 = 0 (ماوە 2) -> 20₈</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. چاوا پشتراست بی کو 123₈ دروستە؟ <span>▼</span></div><div class="quiz-answer">1×64 + 2×8 + 3×1 = 64 + 16 + 3 = 83₁₀.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٣: هێکسادیسیمال بۆ دیسیمال (Hexadecimal to Decimal)</h2>
+        <div class="content-box">
+          <p>د سیستەمێ 16 دا، هێزێن 16 بکاردهێن: <strong>16⁰=1, 16¹=16, 16²=256</strong>.<br>
+          و پێدڤیە بزانی کو پیتیێن (A-F) رامانا ژمارەیی هەنە: A=10, B=11, C=12, D=13, E=14, F=15.</p>
+          <div class="highlight">
+            مێنەک: 2F₁₆ بگوهۆڕە بۆ دیسیمال:<br>
+            • هێمایێ F یەکسانە ب 15.<br>
+            • ئەنجام: (2 × 16¹) + (15 × 16⁰)<br>
+            • کۆم: 32 + 15 = <strong>47₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. هێمایێ C دکەتە چەند ب ژمارە؟ <span>▼</span></div><div class="quiz-answer">12</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 1A₁₆ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">(1 × 16) + 10 = 26₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 10₁₆ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">16₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ FF₁₆ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">(15 × 16) + 15 = 240 + 15 = 255₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. 16¹ دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">16</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 14 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٤: خشتەیێ زێڕین یێ هێکسادیسیمال (Hex Reference)</h2>
+        <div class="content-box">
+          <p>ئەڤ خشتەیە <strong>گرنگترین خشتەیە د تاقیکرنێ دا</strong>، پێدڤیە ژبەر بکەی:</p>
+          <table>
+            <tr><th>Hex</th><th>Dec</th><th>4-bit Binary</th><th>Hex</th><th>Dec</th><th>4-bit Binary</th></tr>
+            <tr><td>0</td><td>0</td><td>0000</td><td>8</td><td>8</td><td>1000</td></tr>
+            <tr><td>1</td><td>1</td><td>0001</td><td>9</td><td>9</td><td>1001</td></tr>
+            <tr><td>2</td><td>2</td><td>0010</td><td>A</td><td>10</td><td>1010</td></tr>
+            <tr><td>3</td><td>3</td><td>0011</td><td>B</td><td>11</td><td>1011</td></tr>
+            <tr><td>4</td><td>4</td><td>0100</td><td>C</td><td>12</td><td>1100</td></tr>
+            <tr><td>5</td><td>5</td><td>0101</td><td>D</td><td>13</td><td>1101</td></tr>
+            <tr><td>6</td><td>6</td><td>0110</td><td>E</td><td>14</td><td>1110</td></tr>
+            <tr><td>7</td><td>7</td><td>0111</td><td>F</td><td>15</td><td>1111</td></tr>
+          </table>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. پیتا B ب 4-بیت باینەری چەندە؟ <span>▼</span></div><div class="quiz-answer">1011</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. پیتا E دکەتە چەند ب دیسیمال؟ <span>▼</span></div><div class="quiz-answer">14</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. کد 1110 ب هێکسادیسیمال چییە؟ <span>▼</span></div><div class="quiz-answer">E</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. کد 0101 ب هێکسادیسیمال چییە؟ <span>▼</span></div><div class="quiz-answer">5</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بۆچی هەر هێکسەک رێک ٤ بیتان داگیردکەت؟ <span>▼</span></div><div class="quiz-answer">چونکی 2⁴ = 16.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 15 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٥: دیسیمال بۆ هێکسادیسیمال (Decimal to Hexadecimal)</h2>
+        <div class="content-box">
+          <p>ژمارێ <strong>دابەشی 16 بکە</strong>، ماوەیان بنڤیسە، ئەگەر ماوە 10 هەتا 15 بیت بکە پیت (A-F):</p>
+          <div class="highlight">
+            مێنەک: ژمارە 254₁₀ بگوهۆڕە بۆ هێکسادیسیمال:<br>
+            1. 254 ÷ 16 = 15 (ماوە 14)<br>
+            2. 15 ÷ 16 = 0 (ماوە 15)<br>
+            • هێماکرن: 14 دبیتە E ، و 15 دبیتە F.<br>
+            • ژێرەڤە بۆ سەرێ بنڤیسە: <strong>FE₁₆</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 14 د هێکسادیسیمال دا چ پیتە؟ <span>▼</span></div><div class="quiz-answer">E</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 15 د هێکسادیسیمال دا چ پیتە؟ <span>▼</span></div><div class="quiz-answer">F</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ژمارە 31₁₀ ب هێکسادیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">31 ÷ 16 = 1 (ماوە 15/F) -> 1F₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ 160₁₀ ب هێکسادیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">160 ÷ 16 = 10 (ماوە 0)، 10 ÷ 16 = 0 (ماوە 10/A) -> A0₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بوچی FE₁₆ دروستە نەک EF₁₆؟ <span>▼</span></div><div class="quiz-answer">چونکی F ژ خوارێ بوو و دکەڤیتە دەستێ چەپێ (Most Significant).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 16 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٦: باینەری بۆ ئۆکتال (گرۆپێن ٣ بیتی)</h2>
+        <div class="content-box">
+          <p>ژبەرکو 2³ = 8، هەر ژمارەکا ئۆکتال یەکسانە ب <strong>3 بیتێن باینەری</strong>. ژ راستێ 3 بیت 3 بیت جودا بکە:</p>
+          <div class="highlight">
+            مێنەک: 110101011₂ بگوهۆڕە بۆ ئۆکتال:<br>
+            • گرۆپێن 3 بیتی بکە: (110) (101) (011)<br>
+            • ڤەگوهاستن: 110=6 ، 101=5 ، 011=3<br>
+            • پێکڤە: <strong>653₈</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بوچی گرۆپێن ٣ بیتان دروست دکەین؟ <span>▼</span></div><div class="quiz-answer">ژبەرکو 2³ = 8 (بنەمایێ ئۆکتال 8ە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. گرۆپێ 101 ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">5</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. گرۆپێ 111 ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">7</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. گرۆپێ 000 ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">0</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. گرۆپکرنێ ژ کیژ ئالی دەست پێ دکەین؟ <span>▼</span></div><div class="quiz-answer">ژ دەستێ راستێ بەرەڤ چەپێ (Right to Left).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 17 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٧: باینەری بۆ ئۆکتال ب تژیپێکرنێ (Padding with Zeros)</h2>
+        <div class="content-box">
+          <p>ئەگەر ل دوماهیێ بیت کێم بوون ل دەستێ چەپێ، <strong>سفرێ زێدە بکە (Padding)</strong> چونکی بهایێ ژمارێ ناگوهۆڕیت:</p>
+          <div class="highlight">
+            مێنەک: 1011011₂ بگوهۆڕە بۆ ئۆکتال:<br>
+            1. گرۆپکرن ژ راستێ: 1 | 011 | 011<br>
+            2. دوو سفران بدە دەستێ چەپێ: <strong>001</strong> | 011 | 011<br>
+            3. بگوهۆڕە: 001=1 ، 011=3 ، 011=3<br>
+            • ئەنجام: <strong>133₈</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. مەرەم ژ پادینگ (Padding) چییە؟ <span>▼</span></div><div class="quiz-answer">زێدەکرنا سفرا ل دەستێ چەپێ بۆ تەمامکرنا گرۆپێ ٣ یان ٤ بیتی.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەگەر بتنێ ٢ بیت بمینن ل چەپێ چەند سفران لێ زێدە دکەین بۆ ئۆکتال؟ <span>▼</span></div><div class="quiz-answer">١ سفرێ (دا ببیتە ٣ بیت).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەرێ زێدەکرنا سفری ل دەستێ چەپێ بهایێ ژمارێ دگوهۆڕیت؟ <span>▼</span></div><div class="quiz-answer">نەخێر، هیچ کاریگەرییێ ناکەتە سەر بهایێ ژمارا دروست.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. گرۆپێ 011 چ ژمارەیە؟ <span>▼</span></div><div class="quiz-answer">3</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. باینەری 11011₂ ب ئۆکتال بکە: <span>▼</span></div><div class="quiz-answer">011 | 011 -> 33₈</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 18 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٨: باینەری بۆ هێکسادیسیمال (گرۆپێن ٤ بیتی)</h2>
+        <div class="content-box">
+          <p>ژبەرکو 2⁴ = 16، هەر هێکسەک یەکسانە ب <strong>4 بیتێن باینەری</strong>. ژ راستێ 4 بیت 4 بیت کەر بکە:</p>
+          <div class="highlight">
+            مێنەک: 110110101111₂ بگوهۆڕە بۆ هێکس:<br>
+            • دابەشکرن ب 4 بیتی: 1101 | 1010 | 1111<br>
+            • بگوهۆڕە: 1101=D ، 1010=A ، 1111=F<br>
+            • ئەنجام: <strong>DAF₁₆</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بوچی بو هێکسادیسیمال ٤ بیتان جودا دکەین؟ <span>▼</span></div><div class="quiz-answer">چونکی 2⁴ = 16.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 1101 چ پیتە؟ <span>▼</span></div><div class="quiz-answer">D (13)</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 1010 چ پیتە؟ <span>▼</span></div><div class="quiz-answer">A (10)</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. 1111 چ پیتە؟ <span>▼</span></div><div class="quiz-answer">F (15)</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. 0001 چ ژمارەیە؟ <span>▼</span></div><div class="quiz-answer">1</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 19 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ١٩: باینەری بۆ هێکس ب پادینگ (Binary to Hex with Padding)</h2>
+        <div class="content-box">
+          <p>ئەگەر ژمارا بیتان نەگەهشتە 4، سفرێ ل دەستێ چەپێ زێدە بکە:</p>
+          <div class="highlight">
+            مێنەک: 10110110₂ بگوهۆڕە بۆ هێکسادیسیمال:<br>
+            1. گرۆپکرن ژ راستێ: 1011 | 0110 (پێدڤی ب سفرێ نەبوو، 8 بیت بوون)<br>
+            2. 1011 یەکسانە ب B (11)<br>
+            3. 0110 یەکسانە ب 6<br>
+            • ئەنجام: <strong>B6₁₆</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 1011 چ پیتا هێکسە؟ <span>▼</span></div><div class="quiz-answer">B</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 0110 چ ژمارەیە؟ <span>▼</span></div><div class="quiz-answer">6</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەگەر ژمارە 10111₂ بیت چاوا پادینگ دکەین؟ <span>▼</span></div><div class="quiz-answer">دبیتە: 0001 | 0111 -> 17₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ 1001 چ ژمارەیە؟ <span>▼</span></div><div class="quiz-answer">9</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ پادینگ ل دەستێ راستێ دهێتە دانان؟ <span>▼</span></div><div class="quiz-answer">نەخێر، بتنێ ل دەستێ چەپێ د ژمارێن تەواو دا (Integers).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 20 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٠: هێکسادیسیمال بۆ باینەری (Hexadecimal to Binary)</h2>
+        <div class="content-box">
+          <p>ئەڤە بێگومان ب ساناهیترین کارە! <strong>هەر پیت یان ژمارەکێ بکە رێک 4 بیتێن باینەری</strong>:</p>
+          <div class="highlight">
+            مێنەک: 3A₁₆ بگوهۆڕە بۆ باینەری:<br>
+            1. ژمارە 3 = 0011<br>
+            2. پیتا A = 1010<br>
+            3. پێکڤە گرێدە: <strong>00111010₂</strong> (یان 111010₂ بێ سفرێن چەپێ)
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. پیتا F بکە باینەری: <span>▼</span></div><div class="quiz-answer">1111</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 0 ب 4 بیتان چاوایە؟ <span>▼</span></div><div class="quiz-answer">0000</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 5C₁₆ بگوهۆڕە بۆ باینەری: <span>▼</span></div><div class="quiz-answer">5 = 0101 ، C = 1100 -> 01011100₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بوچی دروستە سفرێن دەستێ چەپێ بێژین یان نەبێژین؟ <span>▼</span></div><div class="quiz-answer">چونکی Leading Zeros هیچ گۆڕانکاری د بهایێ ژمارێ دا ناکەن.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. 7 ب 4 بیتێن باینەری چەندە؟ <span>▼</span></div><div class="quiz-answer">0111</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 21 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢١: ئۆکتال بۆ باینەری (Octal to Binary)</h2>
+        <div class="content-box">
+          <p>هەمان یاسایا سەرێ یە، بەلێ لڤێرە <strong>هەر ژمارەکا ئۆکتال دبیتە رێک 3 بیت</strong>:</p>
+          <div class="highlight">
+            مێنەک: 75₈ بگوهۆڕە بۆ باینەری:<br>
+            • 7 = 111<br>
+            • 5 = 101<br>
+            • پێکڤە: <strong>111101₂</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ژمارە 2 ب 3 بیتێن باینەری چەندە؟ <span>▼</span></div><div class="quiz-answer">010</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 4 ب 3 بیتێن باینەری چەندە؟ <span>▼</span></div><div class="quiz-answer">100</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 63₈ بکە باینەری: <span>▼</span></div><div class="quiz-answer">6 = 110 ، 3 = 011 -> 110011₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ژمارە 0 ب 3 بیتان چاوایە؟ <span>▼</span></div><div class="quiz-answer">000</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. جوداهییا سەرەکی د ناڤبەرا گوهرینا ئۆکتال و هێکس چییە؟ <span>▼</span></div><div class="quiz-answer">ئۆکتال بو 3 بیتان دهێتە ڤەکردن، بەلێ هێکس بو 4 بیتان.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 22 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٢: خشتەیێ بەرانبەرکرنا بها هەڤپشکەکان (Equivalence Chart)</h2>
+        <div class="content-box">
+          <p>ئەڤ خشتەیە نیشان ددەت کا چاوا ئێک بها د هەر ٤ سیستەمان دا دەرکەڤیت:</p>
+          <table>
+            <tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hex</th></tr>
+            <tr><td>10</td><td>1010</td><td>12</td><td>A</td></tr>
+            <tr><td>15</td><td>1111</td><td>17</td><td>F</td></tr>
+            <tr><td>16</td><td>10000</td><td>20</td><td>10</td></tr>
+            <tr><td>31</td><td>11111</td><td>37</td><td>1F</td></tr>
+            <tr><td>64</td><td>1000000</td><td>100</td><td>40</td></tr>
+            <tr><td>255</td><td>11111111</td><td>377</td><td>FF</td></tr>
+          </table>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بهایێ 16 دیسیمال ب هێکس چەندە؟ <span>▼</span></div><div class="quiz-answer">10₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. بهایێ 255 دیسیمال ب هێکس چەندە؟ <span>▼</span></div><div class="quiz-answer">FF₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 64 دیسیمال ب ئۆکتال چەندە؟ <span>▼</span></div><div class="quiz-answer">100₈</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. 8 دانە 1 ب دووڤ ئێک دا د باینەری (11111111₂) دکەتە چەند ب دیسیمال؟ <span>▼</span></div><div class="quiz-answer">255₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 10₁₀ ب ئۆکتال چەند دەرکەڤیت؟ <span>▼</span></div><div class="quiz-answer">12₈</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 23 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٣: پسیارا پولێ ١ (101011₂ بۆ Decimal)</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا فەرمی یا سلایدا ٢٣-٢٤ ژ وانەیێ:</p>
+          <div class="highlight">
+            پسیار: Convert 101011₂ to decimal.<br>
+            • کێشان بنڤیسە: 32, 16, 8, 4, 2, 1<br>
+            • لێکبدە دگەل ژمارەیان: (1×32) + (0×16) + (1×8) + (0×4) + (1×2) + (1×1)<br>
+            • کۆم: 32 + 8 + 2 + 1 = <strong>43₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. خانەیا بەرامبەر 16 د ڤێ ژمارەیێ دا چەند بوو؟ <span>▼</span></div><div class="quiz-answer">0</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. کۆمکرنا کێشێن ب کارکەفتی چەند بوون؟ <span>▼</span></div><div class="quiz-answer">32 + 8 + 2 + 1 = 43.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەگەر بەس بیتێ ئێکێ ژ دەستێ راستێ ببوایە 0، ئەنجام دا چەند بیت؟ <span>▼</span></div><div class="quiz-answer">42₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەڤ ژمارەیە تاکە یان جووت؟ <span>▼</span></div><div class="quiz-answer">تاکە (Odd)، چونکی دوماهیک بیت 1ە.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. پۆزیشنا بەرزترین بیت چەندە؟ <span>▼</span></div><div class="quiz-answer">Position 5 (Weight = 32).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 24 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٤: پسیارا پولێ ٢ (38₁₀ بۆ Binary)</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا فەرمی یا سلایدا ٢٣-٢٤:</p>
+          <div class="highlight">
+            پسیار: Convert 38₁₀ to binary.<br>
+            • رێکا کێشان: مەزنترین هێزا دوو کێمتر ژ 38 بریتی یە ژ 32.<br>
+            • 38 - 32 = 6<br>
+            • 6 = 4 + 2<br>
+            • کەواتە: 38 = 32 + 4 + 2<br>
+            • جهێ (32, 4, 2) بکە 1 و یێن دی 0: <strong>100110₂</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بوچی کێشێن 16 و 8 و 1 سفر بوون؟ <span>▼</span></div><div class="quiz-answer">چونکی پشكداری د کۆمکرنا 38 دا نەکربوو.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەڤ ژمارەیە چەند بیت پێکهاتییە؟ <span>▼</span></div><div class="quiz-answer">6 بیت.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ب رێکا دابەشکرنێ 38 ÷ 2 ماوەیێ ئێکێ چەندە؟ <span>▼</span></div><div class="quiz-answer">0 (چونکی ژمارەکا جووتە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەگەر 39 بوایە دا چەند بیت؟ <span>▼</span></div><div class="quiz-answer">100111₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. دوپاتکرن: 32 + 4 + 2 یەکسانە ب؟ <span>▼</span></div><div class="quiz-answer">38</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 25 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٥: پسیارا پولێ ٣ (73₈ بۆ Decimal)</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا فەرمی:</p>
+          <div class="highlight">
+            پسیار: Convert 73₈ to decimal.<br>
+            • گرانی: (7 × 8¹) + (3 × 8⁰)<br>
+            • هژمارکرن: (7 × 8) + (3 × 1)<br>
+            • کۆم: 56 + 3 = <strong>59₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 7 × 8 دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">56</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 3 × 8⁰ دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">3 (چونکی 8⁰ = 1).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 77₈ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">56 + 7 = 63₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەرێ ژمارا 73 د سیستەمێ ئۆکتال دا دروستە؟ <span>▼</span></div><div class="quiz-answer">بەلێ، هەردوو ژمارە 7 و 3 د مەودایێ 0-7 دانە.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بهایێ 100₈ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">64₁₀</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 26 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٦: پسیارا پولێ ٤ (7C₁₆ بۆ Decimal)</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا فەرمی:</p>
+          <div class="highlight">
+            پسیار: Convert 7C₁₆ to decimal.<br>
+            • هێمایێ C = 12.<br>
+            • یاسا: (7 × 16¹) + (12 × 16⁰)<br>
+            • لێکدان: (7 × 16) + (12 × 1) = 112 + 12<br>
+            • ئەنجام: <strong>124₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 7 × 16 دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">112</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. پیتا C د هێکس دا بەرامبەر چەندێ یە؟ <span>▼</span></div><div class="quiz-answer">12</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 7A₁₆ ب دیسیمال چەند دەرکەڤیت؟ <span>▼</span></div><div class="quiz-answer">112 + 10 = 122₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ 7F₁₆ ب دیسیمال چەند دەرکەڤیت؟ <span>▼</span></div><div class="quiz-answer">112 + 15 = 127₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. کێشا پۆزیشنا 1 د بەیسێ 16 دا چەندە؟ <span>▼</span></div><div class="quiz-answer">16</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 27 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٧: پسیارا پولێ ٥ (11100101₂ بۆ Hexadecimal)</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا فەرمی:</p>
+          <div class="highlight">
+            پسیار: Convert 11100101₂ to hex.<br>
+            • جوداکرنا 4 بیت 4 بیت: 1110 | 0101<br>
+            • گروپی دەستێ چەپێ (1110) = 8 + 4 + 2 = 14 = <strong>E</strong><br>
+            • گروپی دەستێ راستێ (0101) = 4 + 1 = <strong>5</strong><br>
+            • ئەنجام: <strong>E5₁₆</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 1110 بوچی بوو E؟ <span>▼</span></div><div class="quiz-answer">چونکی کۆما وێ 14 یە، و 14 د هێکس دا پیتا E یە.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 0101 چ ژمارەیە؟ <span>▼</span></div><div class="quiz-answer">5</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەگەر ژمارە 11110101₂ بوایە ئەنجام دا چ بیت؟ <span>▼</span></div><div class="quiz-answer">F5₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بۆچی پێدڤی ب پادینگ نەبوو؟ <span>▼</span></div><div class="quiz-answer">چونکی رێک 8 بیت بوون (دوو گرۆپێن 4 بیتی یێن تەمام).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ د هێکس دا ژمارە 14 دهێتە نڤیسین وەک ژمارە؟ <span>▼</span></div><div class="quiz-answer">نەخێر، پێدڤیە ب پیتا E بهێتە نڤیسین.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 28 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٨: پسیارا کویزێ ١ - بۆچی کۆمپیۆتەر باینەری بکاریدئینیت؟</h2>
+        <div class="content-box">
+          <p>ئەڤە پسیارەکا مەزن و سەرەکی یا تێگەهشتنێ یە ژ سلایدا ٢٥-٢٦:</p>
+          <div class="highlight-rtl">
+            <strong>پسیار:</strong> Why do digital computers use binary numbers?<br>
+            <strong>بەرسڤا دروست:</strong> "Two distinguishable logical states are practical for digital hardware."<br>
+            <strong>واتە ب کوردی:</strong> چونکی د رەقەکالایێ دیجیتالی (ترانزستۆران) دا، ب ساناهی بتنێ دوو بارودۆخ دهێنە جوداکرن و ناسین (ڤۆڵتیەی هەیە ON = 1، ڤۆڵتیە نینە OFF = 0). ئەڤە کێمترین شاشیێ چێدکەت.
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بارودۆخێن منطقی (Logical states) د کۆمپیۆتەری دا چنە؟ <span>▼</span></div><div class="quiz-answer">High (1) و Low (0).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. بوچی سیستەمێ دیسیمال (10) بۆ دروستکرنا هاردوێری بکارناهێت؟ <span>▼</span></div><div class="quiz-answer">چونکی جوداکرنا 10 ئاستێن ڤۆڵتیەیێ ب هووربینی د ناڤ ترانزستۆران دا گەلەک یا ب زەحمەتە.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. پیتا "Bit" کورتکراوەیا چ وشەیەکە؟ <span>▼</span></div><div class="quiz-answer">Binary Digit.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. هاردوێر ب چ هێزەک کار دکەت؟ <span>▼</span></div><div class="quiz-answer">ب ئاماژەیێن ڤۆڵتیەیا کارەبایی.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. کلیلا بەرسڤا ئەزموونێ بو ڤێ پسیارێ چییە؟ <span>▼</span></div><div class="quiz-answer">Two distinguishable states (0 and 1) are reliable and practical.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 29 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٢٩: پسیارا کویزێ ٢ - چەند بیت دبنە ئێک هێکس؟</h2>
+        <div class="content-box">
+          <p>پسیارا دووێ یا سلایدا ٢٥-٢٦:</p>
+          <div class="highlight-rtl">
+            <strong>پسیار:</strong> How many binary digits represent one hexadecimal digit?<br>
+            <strong>بەرسڤا دروست:</strong> "Four bits represent one hexadecimal digit."<br>
+            <strong>بەڵگە و یاسا:</strong> چونکی 2⁴ = 16. کەواتە هەر ٤ بیتێن باینەری (وەک 1111) رێک دبنە ئێک ژمارە یان پیتا هێکسادیسیمال.
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. چەند بیت دبنە ئێک ئۆکتال؟ <span>▼</span></div><div class="quiz-answer">3 بیت (چونکی 2³ = 8).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 4 بیت پێکڤە بناڤێ چ دهێنە نیاسین؟ <span>▼</span></div><div class="quiz-answer">Nibble.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 8 بیت پێکڤە چێدکەن؟ <span>▼</span></div><div class="quiz-answer">Byte (کو دکەتە دوو کارەکتەرێن هێکس).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. مەزنترین ژمارە کو ب 4 بیتان بهێتە نڤیسین چەندە؟ <span>▼</span></div><div class="quiz-answer">15₁₀ (F₁₆ / 1111₂).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 3F₁₆ پێدڤی ب چەند بیتێن باینەری هەیە؟ <span>▼</span></div><div class="quiz-answer">8 بیت (4 بۆ 3 و 4 بۆ F).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 30 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٠: پسیارا کویزێ ٣ - بهایێ 10000000₂ چەندە ب دیسیمال؟</h2>
+        <div class="content-box">
+          <p>پسیارا سێیێ یا سلایدا ٢٥-٢٦:</p>
+          <div class="highlight">
+            پسیار: What is the decimal value of 10000000₂?<br>
+            • هژمارا بیتان: 8 بیتە.<br>
+            • کێشا بیتێ دەستێ چەپێ (پۆزیشنا 7) بریتی یە ژ: 2⁷<br>
+            • هەژمارکرن: 2⁷ = <strong>128₁₀</strong><br>
+            • هەمی بیتێن دی سفرن، کەواتە بەرسڤ رێک: <strong>128₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. بهایێ 2⁶ چەندە؟ <span>▼</span></div><div class="quiz-answer">64</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. بهایێ 2⁷ چەندە؟ <span>▼</span></div><div class="quiz-answer">128</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ 2⁸ چەندە؟ <span>▼</span></div><div class="quiz-answer">256</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەگەر هەمی بیتێن 10000000₂ ببانە 1 (11111111₂) دبووە چەند؟ <span>▼</span></div><div class="quiz-answer">255₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بەیسێ ئەڤێ ژمارەیێ چەند بوو؟ <span>▼</span></div><div class="quiz-answer">Base 2 (Binary).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 31 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣١: پسیارا کویزێ ٤ - بوچی سفرێ چەپێ کار ناکەتە سەر بهای؟</h2>
+        <div class="content-box">
+          <p>پسیارا چوارێ یا سلایدا ٢٥-٢٦:</p>
+          <div class="highlight-rtl">
+            <strong>پسیار:</strong> Why can a leading zero be added during binary grouping?<br>
+            <strong>بەرسڤا دروست:</strong> "Leading zeros do not change the numeric value of an integer."<br>
+            <strong>شروڤە:</strong> هەروەکی د ژیانا روژانە دا ژمارە 05 هەمان 5ە، د باینەری ژی دا دانانا سفری ل دەستێ چەپێ کێشێ ناگوهۆڕیت، بەلکو بتنێ یارمەتییا مە ددەت گرۆپێن ٣ بیتی یان ٤ بیتی تەمام بکەین.
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. مەرەم ژ Leading Zero چییە؟ <span>▼</span></div><div class="quiz-answer">سفرا دکەڤیتە پێشیا ژمارێ ل دەستێ چەپێ.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەرێ سفرێ ل دەستێ راستێ زێدە بکەین بها ناگۆڕیت؟ <span>▼</span></div><div class="quiz-answer">نەخێر! سفرێ راستێ بهایێ ژمارێ دووجار مەزنتر دکەت.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەگەر مە ژمارە 101₂ هەبیت و بکەینە هێکس چەند سفران ل چەپێ دادەنێین؟ <span>▼</span></div><div class="quiz-answer">ئێک سفر (0101) دا ببیتە 4 بیت.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەرێ 0011₂ یەکسانە ب 11₂؟ <span>▼</span></div><div class="quiz-answer">بەلێ، هەردووکان بهایێ وان 3 یە.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. وشەیا "Integer" چ رامان ددەت؟ <span>▼</span></div><div class="quiz-answer">ژمارەیێن تەواو (بێ کەرت).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 32 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٢: پسیارا کویزێ ٥ - چاوا دروستییا ژمارەکێ ل دەف بەیسەکی دپشکنی؟</h2>
+        <div class="content-box">
+          <p>پسیارا پێنجێ یا سلایدا ٢٥-٢٦:</p>
+          <div class="highlight-rtl">
+            <strong>پسیار:</strong> How do you check whether a number is valid for a base?<br>
+            <strong>بەرسڤا دروست:</strong> "Every digit must be smaller than the base."<br>
+            <strong>شروڤە:</strong> چاڤدێرییا هەمی خانەیێن ژمارێ بکە؛ پێدڤیە هەر ئێک ژ وان کێمتر بیت ژ بەیسی (Digit &lt; Base). ئەگەر ئێک ژمارە ژی یەکسان یان مەزنتر بوو ژ بەیسی، کەواتە ئەو ژمارە خەلەتە!
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ئەرێ ژمارا 487₈ دروستە؟ <span>▼</span></div><div class="quiz-answer">خەلەتە، چونکی ژمارە 8 کێمتر نینە ژ Base 8.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەرێ 10101₂ دروستە؟ <span>▼</span></div><div class="quiz-answer">دروستە، چونکی هەمی ژمارە (0 و 1) کێمترن ژ 2.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەرێ ژمارا 9G₁₆ دروستە؟ <span>▼</span></div><div class="quiz-answer">خەلەتە، چونکی پیتا G د سیستەمێ 16 دا نینە (بتنێ تا F هەیە).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. مەرجێ سەرەکیێ پشکنینێ ب ئینگلیزی چییە؟ <span>▼</span></div><div class="quiz-answer">Every digit must be strictly less than the base.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ ژمارا 304₅ د بەیسێ 5 دا دروستە؟ <span>▼</span></div><div class="quiz-answer">بەلێ، چونکی هەمی ژمارە (3, 0, 4) کێمترن ژ 5.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 33 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٣: ئەرکێ مالێ ١ - ژمارا 10110101₂ بۆ هەمی سیستەمان</h2>
+        <div class="content-box">
+          <p>ئەڤە پسیارا ئێکێ یە ژ سلایدا ٢٧ (Homework):</p>
+          <div class="highlight">
+            پسیار: Convert 10110101₂ to decimal, octal, and hexadecimal.<br><br>
+            <strong>١. بۆ Decimal:</strong><br>
+            • کێش: 128 + 32 + 16 + 4 + 1 = <strong>181₁₀</strong><br><br>
+            <strong>٢. بۆ Octal:</strong><br>
+            • گرۆپێن ٣ بیتی: 010 | 110 | 101<br>
+            • بگوهۆڕە: 2 | 6 | 5 = <strong>265₈</strong><br><br>
+            <strong>٣. بۆ Hexadecimal:</strong><br>
+            • گرۆپێن ٤ بیتی: 1011 | 0101<br>
+            • بگوهۆڕە: 1011=B ، 0101=5 = <strong>B5₁₆</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ئەنجامێ دیسیمال چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">181₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ئەنجامێ ئۆکتال چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">265₈</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ئەنجامێ هێکسادیسیمال چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">B5₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بۆ گوهرینا بۆ ئۆکتال چەند سفر مە ل چەپێ زێدە کرن؟ <span>▼</span></div><div class="quiz-answer">ئێک سفر (10 بوو 010).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بۆ گوهرینا بۆ هێکس چەند گرۆپ دروست بوون؟ <span>▼</span></div><div class="quiz-answer">دوو گرۆپێن 4 بیتی (1011 و 0101).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 34 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٤: ئەرکێ مالێ ٢ - ژمارا 197₁₀ بۆ Binary و Hex</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا پسیارا دووێ یا هۆموێرکێ:</p>
+          <div class="highlight">
+            پسیار: Convert 197₁₀ to binary and hexadecimal.<br><br>
+            <strong>١. بۆ باینەری (ب رێکا کێشان):</strong><br>
+            • 197 - 128 = 69<br>
+            • 69 - 64 = 5<br>
+            • 5 = 4 + 1<br>
+            • 197 = 128 + 64 + 4 + 1 -> <strong>11000101₂</strong><br><br>
+            <strong>٢. بۆ Hexadecimal:</strong><br>
+            • بیتان بکە 4 بیت: 1100 | 0101<br>
+            • 1100 = 12 = C ، 0101 = 5 -> <strong>C5₁₆</strong><br>
+            (یان ب دابەشکرنێ: 197 ÷ 16 = 12 ماوە 5 -> C5₁₆)
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 197₁₀ ب باینەری چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">11000101₂</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 197₁₀ ب هێکسادیسیمال چەند دەرکەت؟ <span>▼</span></div><div class="quiz-answer">C5₁₆</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. د دابەشکرنا 197 ل سەر 16، ماوە چەند بوو؟ <span>▼</span></div><div class="quiz-answer">5</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. بهایێ 12 د هێکس دا چ پیتە؟ <span>▼</span></div><div class="quiz-answer">C</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ ساناهیترە بەری هێکس بکەیە باینەری یان دابەش بکەی؟ <span>▼</span></div><div class="quiz-answer">هەردوو دروستن، بەلێ ب رێکا باینەری گەلەک بلەزترە.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 35 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٥: ئەرکێ مالێ ٣ - ژمارا 2A7₁₆ بۆ Decimal و Binary</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا پسیارا سێیێ یا هۆموێرکێ:</p>
+          <div class="highlight">
+            پسیار: Convert 2A7₁₆ to decimal and binary.<br><br>
+            <strong>١. بۆ باینەری (بلەزترین رێک):</strong><br>
+            • 2 = 0010<br>
+            • A = 1010<br>
+            • 7 = 0111<br>
+            • پێکڤە گرێدە: <strong>001010100111₂</strong> (یان 1010100111₂)<br><br>
+            <strong>٢. بۆ Decimal:</strong><br>
+            • (2 × 16²) + (10 × 16¹) + (7 × 16⁰)<br>
+            • (2 × 256) + (10 × 16) + (7 × 1)<br>
+            • 512 + 160 + 7 = <strong>679₁₀</strong>
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. 16² دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">256</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. 2 × 256 چەند دکەت؟ <span>▼</span></div><div class="quiz-answer">512</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. بهایێ دیسیمال یێ دوماهیێ چەند بوو؟ <span>▼</span></div><div class="quiz-answer">679₁₀</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. پیتا A ب 4 بیتێن باینەری چاوایە؟ <span>▼</span></div><div class="quiz-answer">1010</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ژمارە 7 ب 4 بیتێن باینەری چاوایە؟ <span>▼</span></div><div class="quiz-answer">0111</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 36 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٦: ئەرکێ مالێ ٤ - بۆچی 128₈ و 102₂ نەدروستن؟</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا پسیارا چوارێ یا هۆموێرکێ:</p>
+          <div class="highlight-rtl">
+            <strong>پسیار:</strong> Explain why 128₈ and 102₂ are invalid representations.<br><br>
+            <strong>بەرسڤا ئەکادیمی بۆ ئەزموونێ:</strong><br>
+            • <strong>ژمارە 128₈ خەلەتە:</strong> چونکی د سیستەمێ ئۆکتال (Base 8) دا، بتنێ ژمارێن 0 هەتا 7 دروستن. ژمارە 8 ژ بەیسی نە بچویکترە (8 is not allowed in base 8).<br><br>
+            • <strong>ژمارە 102₂ خەلەتە:</strong> چونکی د سیستەمێ باینەری (Base 2) دا، بتنێ ژمارێن 0 و 1 دروستن. ژمارە 2 ب چو ئاوایەک ل دەف باینەری نینە (Digit 2 is invalid in base 2).
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. کێشەیا ژمارە 128₈ چییە؟ <span>▼</span></div><div class="quiz-answer">بوونی ژمارە 8 د سیستەمێ Base 8 دا.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. کێشەیا ژمارە 102₂ چییە؟ <span>▼</span></div><div class="quiz-answer">بوونی ژمارە 2 د سیستەمێ Base 2 دا.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. د بەیسێ 8 دا چ ژمارە قەدەغەنە؟ <span>▼</span></div><div class="quiz-answer">ژمارە 8 و بەرەڤ ژوور (8, 9, ...).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. یاسایا بنەڕەتی چییە؟ <span>▼</span></div><div class="quiz-answer">All digits must be strictly less than the base.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ ژمارا 777₈ دروستە؟ <span>▼</span></div><div class="quiz-answer">بەلێ دروستە، چونکی 7 د ناڤبەرا 0 و 7 دایە.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 37 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٧: ئەرکێ مالێ ٥ - نڤیسینا بها ژ 0 هەتا 15 ب باینەری و هێکس</h2>
+        <div class="content-box">
+          <p>شروڤەکرنا پسیارا پێنجێ یا هۆموێرکێ (تەواوکرنا خشتەیێ 0 هەتا 15):</p>
+          <table>
+            <tr><th>Dec</th><th>Binary</th><th>Hex</th><th>Dec</th><th>Binary</th><th>Hex</th></tr>
+            <tr><td>0</td><td>0000</td><td>0</td><td>8</td><td>1000</td><td>8</td></tr>
+            <tr><td>1</td><td>0001</td><td>1</td><td>9</td><td>1001</td><td>9</td></tr>
+            <tr><td>2</td><td>0010</td><td>2</td><td>10</td><td>1010</td><td>A</td></tr>
+            <tr><td>3</td><td>0011</td><td>3</td><td>11</td><td>1011</td><td>B</td></tr>
+            <tr><td>4</td><td>0100</td><td>4</td><td>12</td><td>1100</td><td>C</td></tr>
+            <tr><td>5</td><td>0101</td><td>5</td><td>13</td><td>1101</td><td>D</td></tr>
+            <tr><td>6</td><td>0110</td><td>6</td><td>14</td><td>1110</td><td>E</td></tr>
+            <tr><td>7</td><td>0111</td><td>7</td><td>15</td><td>1111</td><td>F</td></tr>
+          </table>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. هێمایێ 11 د هێکس دا چییە؟ <span>▼</span></div><div class="quiz-answer">B</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. هێمایێ 13 د هێکس دا چییە؟ <span>▼</span></div><div class="quiz-answer">D</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 10 د باینەری دا چاوایە؟ <span>▼</span></div><div class="quiz-answer">1010</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. 15 د باینەری دا چاوایە؟ <span>▼</span></div><div class="quiz-answer">1111</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. چەند ژمارە د ناڤبەرا 0 تا 15 هەنە؟ <span>▼</span></div><div class="quiz-answer">16 ژمارە (ژ 0 تا 15).</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 38 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٨: فێڵێن زێڕین بۆ ئەزموونێ (Shortcuts & Tricks)</h2>
+        <div class="content-box">
+          <p>ئەڤان فێڵان د ئەزموونێ دا بکاربینە دا وەختێ تە نەچیت:</p>
+          <div class="highlight-rtl">
+            ١. <strong>ئەگەر دوماهیک بیتێ باینەری 1 بیت:</strong> ئێکسەر بزانە ژمارا تە یا دیسیمال تاکە (Odd). ئەگەر 0 بیت، جووتە (Even).<br>
+            ٢. <strong>ڤەگوهاستنا Octal ↔ Hex:</strong> چ جاران ئێکسەر ژ ئۆکتال نەچە سەر هێکس! بەری وێ بکە باینەری (3 بیت)، پاشان باینەری بکە 4 بیت بۆ هێکس.<br>
+            ٣. <strong>ژمارا خانەیان:</strong> 1, 2, 4, 8, 16, 32, 64, 128 ل بەرپەرێ ئەزموونێ ب نەرمی ل سەر سەرێ بنڤیسە دا لێکدانێ نەکەی و راستەوخۆ کۆم بکەی.
+          </div>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ئەگەر دوماهیک بیتا باینەری 0 بیت ژمارە تاکە یان جووت؟ <span>▼</span></div><div class="quiz-answer">جووتە (Even).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. چاوا ژ ئۆکتال بچینە هێکسادیسیمال؟ <span>▼</span></div><div class="quiz-answer">ب رێکا باینەری: بەری هەمیا ئۆکتال -> باینەری -> هێکس.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. 2⁷ یەکسانە ب چەندێ؟ <span>▼</span></div><div class="quiz-answer">128</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ب رێکا فێڵێ، ژمارە 11111₂ ئێکسەر دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">31 (چونکی 2⁵ - 1 = 32 - 1 = 31).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بۆچی ناکرێت ئۆکتال ئێکسەر ب 4 بیتی دابەش بکەین؟ <span>▼</span></div><div class="quiz-answer">چونکی ئۆکتال بەیسێ 8ە و بتنێ 3 بیتان قەبوول دکەت.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 39 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٣٩: ناساندنا پێشەکی یا وانەیا بهێت (Next Lecture Preview)</h2>
+        <div class="content-box">
+          <p>وەک د سلایدا ٢٨ یا مامۆستای دا هاتی:</p>
+          <div class="highlight">
+            Next lecture: <strong>Binary arithmetic (Lecture 03)</strong><br>
+            • Binary addition (کۆمکرنا باینەری: 1+1=10)<br>
+            • Subtraction (لێدەرکرن)<br>
+            • Carry bits (بیتێ گەهاندنێ بۆ خانەیا دی)<br>
+            • The foundation of digital adders (بناغێ ئامیرێن کۆمکرنێ یێن دیجیتالی)
+          </div>
+          <p>ئەڤجا تێگەهشتنا تە بۆ ئەڤرۆ، تە بۆ وێ وانەیێ ژی سەد دەرسەد ئامادە دکەت!</p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 پسیارێن تاقیکرنێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. ناڤێ وانەیا بهێت چییە؟ <span>▼</span></div><div class="quiz-answer">Lecture 03: Binary Arithmetic.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. د باینەری دا 1 + 1 دکەتە چەند؟ <span>▼</span></div><div class="quiz-answer">10₂ (0 دگەل Carry 1).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. مەرەم ژ "Carry" چییە؟ <span>▼</span></div><div class="quiz-answer">ئەو ژمارەیە یا دچیتە سەر خانەیا دووڤدا دەمێ کۆم ژ بەیسی مەزنتر بیت.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئامیرێ ئەلیکترۆنی یێ کۆمکرنێ چ پێ دهێتە گوتن؟ <span>▼</span></div><div class="quiz-answer">Adder (کۆمکەر).</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. ئەرێ د وانەیا بهێت دا ژی پێدڤی ب کێشان دبین؟ <span>▼</span></div><div class="quiz-answer">بەلێ، بەردەوام کێشێن باینەری دهێنە بکارئینان.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 40 -->
+      <div class="slide">
+        <h2 class="slide-title">سلاید ٤٠: سەرکەفتن د ئەزموونێ دا (Final Exam Motivation & Summary)</h2>
+        <div class="content-box">
+          <p>دەستخۆش برايێ من! تە هەمی ٤٠ سلاید و پسیارێن وان خلاس کرن. ئەڤە کورتییا سەرەکی یە:</p>
+          <div class="highlight-rtl">
+            ✓ <strong>Decimal ➔ Binary:</strong> دابەشی 2 بکە یان کێشێن (32, 16, 8, 4, 2, 1) دەربینە.<br>
+            ✓ <strong>Binary ➔ Decimal:</strong> وان کێشان کۆم بکە یێن ژمارا وان 1 بیت.<br>
+            ✓ <strong>Binary ➔ Octal:</strong> ژ راستێ ٣ بیت ٣ بیت جودا بکە.<br>
+            ✓ <strong>Binary ➔ Hex:</strong> ژ راستێ ٤ بیت ٤ بیت جودا بکە.<br>
+            ✓ <strong>Hex ➔ Binary:</strong> هەر پیتەکێ بکە ٤ بیت (A=1010, B=1011, ...).<br>
+            ✓ <strong>یاسایا بەیسی:</strong> نابیت چ ژمارە ل دەف چ سیستەمی یەکسان یان مەزنتر بیت ژ Base یێ وی!
+          </div>
+          <p style="text-align: center; color: #38bdf8; font-weight: bold; margin-top: 15px;">
+            تو یێ سەد دەرسەد ئامادەی، ب ئارامی بچە تاقیکرنێ و نمرەیا بەرز مسۆگەرە ب ئیزنا خودێ!
+          </p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-title">📝 دوماهیک پسیارێن خۆپشکنینێ:</div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">١. کێشا پۆزیشنا 4 د باینەری دا چەندە؟ <span>▼</span></div><div class="quiz-answer">2⁴ = 16</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٢. ژمارە 10 ب هێکس چ پیتە؟ <span>▼</span></div><div class="quiz-answer">A</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٣. ژمارە 15 ب هێکس چ پیتە؟ <span>▼</span></div><div class="quiz-answer">F</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٤. ئەرێ ژمارا 8 د ئۆکتال دا دهێت؟ <span>▼</span></div><div class="quiz-answer">نەخێر، بتنێ 0 هەتا 7.</div></div>
+          <div class="quiz-item" onclick="toggleQuiz(this)"><div class="quiz-question">٥. بهایێ 111₂ ب دیسیمال چەندە؟ <span>▼</span></div><div class="quiz-answer">4 + 2 + 1 = 7₁₀</div></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="header-badges">
-        <div class="pill-badge">🔓 هەمی سلاێد: <strong style="color: #4ade80;">١٩ سلاێد ڤەکرینە</strong></div>
-        <div class="pill-badge">پشکا: <strong style="color: var(--auas-cyan);">IT (2024 - 2025)</strong></div>
-    </div>
-</header>
-
-<div class="app-grid">
-
-    <!-- Sidebar Slider (All 19 Slides Directly Accessible!) -->
-    <aside class="sidebar-panel" id="sidebarList">
-        <div class="sidebar-title">
-            <span>سلاێدێن وانەیێ</span>
-            <span>١٩ سلاێد</span>
-        </div>
-        <!-- Slides tabs injected via JS -->
-    </aside>
-
-    <!-- Main Workspace -->
-    <main class="main-canvas">
-
-        <!-- Slide Presentation & Sandbox -->
-        <article class="lecture-card">
-            <div class="lecture-hero">
-                <div class="hero-left">
-                    <h2 id="slideTitle">سلاێدێ ١</h2>
-                    <span class="tag-pill" id="slideTag">Slide 1</span>
-                </div>
-                <div style="font-size: 0.88rem; color: var(--auas-gold); font-weight: 600;">Fundamentals of Programming by C#</div>
-            </div>
-
-            <div class="lecture-content" id="slideBody">
-                <!-- Slide content injected here -->
-            </div>
-
-            <!-- Visual Studio Integrated Interactive Runner -->
-            <div class="vs-terminal-container">
-                <div class="vs-tabs-bar">
-                    <div class="tab-active-pill">
-                        <span>📄 Program.cs</span>
-                    </div>
-                    <button class="btn-vs-execute" onclick="runDynamicCSharp()">▶ کارپێکرن (Run Code)</button>
-                </div>
-                <textarea class="vs-code-editor" id="codeEditorArea" spellcheck="false"></textarea>
-                <div class="vs-screen-terminal">
-                    <div class="terminal-status-row">Visual Studio Terminal: C:\AUAS\CSharp> dotnet run</div>
-                    <div id="terminalScreen" class="output-text-green">// کلیک ل (▶ کارپێکرن) بکە دا دەرئەنجامی ببینی...</div>
-                </div>
-            </div>
-        </article>
-
-        <!-- Interactive Practice Quiz for Current Slide -->
-        <section class="quiz-wrapper">
-            <div class="quiz-top">
-                <h3>📝 تاقیکرن و ڕاهێنانا ڤێ سلاێدێ</h3>
-                <div style="font-size: 1.05rem; font-weight: 700; color: var(--auas-cyan);" id="quizScoreDisplay">نمرە: ٠٪</div>
-            </div>
-
-            <div id="quizQuestionsBox">
-                <!-- 3 to 4 questions per slide injected here -->
-            </div>
-
-            <button class="btn-check-exam" onclick="evaluateQuizAnswers()">پشکنینا بەرسڤان و هەلسەنگاندن ❯</button>
-        </section>
-
-    </main>
-
-</div>
-
-<script>
-    // ========================================================
-    // COMPLETE 19 SLIDES (AUAS - Akre Technical Institute)
-    // ========================================================
-    const slidesData = [
-        {
-            id: 1,
-            title: "پێشەکی و ناڤونیشانێ وانێ",
-            content: `
-                <p>ب خێر بێی بۆ وانەیا <strong>Fundamentals of Programming by C#</strong> ل زانکۆیا ئاکرێ یا زانستێن کرداری (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ، پشکا تەکنۆلۆژیایا زانیاری (IT).</p>
-                <ul>
-                    <li><strong>بابەت:</strong> بنەما و سەرەتایێن پڕۆگرامسازیێ ب زمانێ C#.</li>
-                    <li><strong>مامۆستایا بابەتێ:</strong> مامۆستا Kazheen Ismael Taher.</li>
-                    <li><strong>سالا خاندنێ:</strong> 2024 - 2025.</li>
-                </ul>
-                <div class="gold-box">💡 <strong>تێبینی:</strong> ئەڤ مەلزەمە هەمی بنەما و ڕێسایێن سەرەکی یێن C# بخۆڤەدگریت کو د تاقیکرن و کویزان دا دهێن.</div>
-            `,
-            starterCode: 'Console.WriteLine("Welcome to AUAS - Akre Technical Institute!");',
-            questions: [
-                {
-                    type: "mcq",
-                    q: "ئەڤ کۆرسە تایبەتە ب کیژ پشکێ ل پەیمانگەها تەکنیکی یا ئاکرێ؟",
-                    options: ["کارگێری", "پشکا تەکنۆلۆژیایا زانیاری (IT)", "ژمێریاری", "پەرستاری"],
-                    ans: 1,
-                    explain: "تایبەتە ب پشکا تەکنۆلۆژیایا زانیاری (IT)."
-                },
-                {
-                    type: "costela",
-                    q: "کورتیا ناڤێ زانکۆیا ئاکرێ یا زانستێن کرداری بنڤیسە:",
-                    accepted: ["AUAS", "auas"],
-                    explain: "AUAS ئانکو Akre University for Applied Sciences."
-                },
-                {
-                    type: "mcq",
-                    q: "ناڤێ مامۆستایا بابەتێ چییە ل دویڤ سلاێدا ١؟",
-                    options: ["Sara Taher", "Kazheen Ismael Taher", "Shvan Rekani", "Viyan Doski"],
-                    ans: 1,
-                    explain: "مامۆستا Kazheen Ismael Taher."
-                }
-            ]
-        },
-        {
-            id: 2,
-            title: "کارنامە و ناڤەرۆکێن سەرەکی (Outlines)",
-            content: `
-                <p>تەوەرێن سەرەکی یێن مەلزەمێ:</p>
-                <ul>
-                    <li><strong>What is C#:</strong> زمانێ C# چییە و مێژوویا وی.</li>
-                    <li><strong>C# Applications:</strong> ل کیڤە و بۆ چ دهێتە بکارئینان.</li>
-                    <li><strong>Why C# is used:</strong> بۆچی C# بکاربینین و چ مفایێن وی هەنە.</li>
-                    <li><strong>C# Program Structure:</strong> پەیکەر و ڕێزبەندیا دروستکرنا کۆدی.</li>
-                    <li><strong>C# Output (WriteLine):</strong> چاپکرن ل سەر شاشەیێ.</li>
-                    <li><strong>C# Comments:</strong> نڤیسینا تێبینیان د کۆدی دا.</li>
-                    <li><strong>C# Variables, Constants:</strong> گۆڕاو و نەگۆڕەکان.</li>
-                    <li><strong>C# Keywords, Identifiers:</strong> پەیڤێن قەدەغەکری و یاسایێن ناڤلێنانێ.</li>
-                </ul>
-            `,
-            starterCode: 'Console.WriteLine("Studying C# Outlines and Structure");',
-            questions: [
-                {
-                    type: "mcq",
-                    q: "کیژ بژاردە ل سلاێدا ٢ د ناڤ Outlines دا هاتیە؟",
-                    options: ["Variables, Constants", "Web Design by CSS", "Hardware Maintenance", "Graphic Design"],
-                    ans: 0,
-                    explain: "Variables, Constants بەشەکێ سەرەکیێ Outlines یە."
-                },
-                {
-                    type: "costela",
-                    q: "ناڤێ وێ مێتۆدا چاپکرنێ بنڤیسە یا د Outlines دا دیارکری:",
-                    accepted: ["WriteLine", "writeline", "Console.WriteLine"],
-                    explain: "C# Output (WriteLine)."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەرێ تێبینی (Comments) بەشەکن ژ کارنامەیا مەلزەمێ؟",
-                    options: ["بەلێ (C# Comments)", "نەخێر", "بتنێ بۆ وێبێ یە", "قەدەغەیە"],
-                    ans: 0,
-                    explain: "بەلێ، C# Comments ئێک ژ ناڤەرۆکانە."
-                }
-            ]
-        },
-        {
-            id: 3,
-            title: "زمانێ C# چییە؟ (What is C#)",
-            content: `
-                <p>پێناسە و مێژوویا زمانێ C#:</p>
-                <ul>
-                    <li><strong>بلەفکرن:</strong> دبێژنێ <strong>"C-Sharp"</strong> یان ژی <strong>"C-Hash"</strong>.</li>
-                    <li>زمانەکێ <strong>Object-Oriented</strong> (تەوەر-کائن) یە.</li>
-                    <li>ژ لایێ کۆمپانییا <strong>Microsoft</strong> ڤە هاتیە بەرهەمئینان.</li>
-                    <li>ل سەر چارچووڤەیێ <strong>.NET Framework</strong> کار دکەت.</li>
-                    <li>ڕەچەلەکێ وی ژ بنەماڵا C هاتیە، و گەلەکێ نێزیکی <strong>C++</strong> و <strong>Java</strong> یە.</li>
-                    <li>ئێکەم وەشانا وی د سالا <strong>2002</strong> دا هاتیە بەلاڤکرن.</li>
-                </ul>
-            `,
-            starterCode: 'Console.WriteLine("C# is created by Microsoft in 2002");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "ئێکەم ڤێرژنا زمانی C# ل کیژ سالێ هاتە بەلاڤکرن؟ (بتنێ ژمارێ بنڤیسە):",
-                    accepted: ["2002"],
-                    explain: "The first version was released in year 2002."
-                },
-                {
-                    type: "costela",
-                    q: "کیش کۆمپانیا مەزن زمانێ C# دروست کریە؟",
-                    accepted: ["Microsoft", "microsoft"],
-                    explain: "created by Microsoft."
-                },
-                {
-                    type: "mcq",
-                    q: "C# ل سەر کیژ فریمۆرک کار دکەت؟",
-                    options: [".NET Framework", "Laravel", "Spring Boot", "React"],
-                    ans: 0,
-                    explain: "runs on the .NET Framework."
-                },
-                {
-                    type: "mcq",
-                    q: "بلەفکرنا دروستا پەیڤا C# چییە؟",
-                    options: ["C-Plus", "C-Sharp or C-Hash", "C-Star", "C-Zero"],
-                    ans: 1,
-                    explain: "C# is pronounced C-Sharp or C-Hash."
-                }
-            ]
-        },
-        {
-            id: 4,
-            title: "بوارێن بکارهێنانا C# (Applications)",
-            content: `
-                <p>زمانێ C# زمانەکێ گشتگیرە و د ڤان بواران دا ب کار دهێت:</p>
-                <ul>
-                    <li><strong>Mobile applications:</strong> بەرنامەیێن مۆبایلێ.</li>
-                    <li><strong>Desktop applications:</strong> بەرنامەیێن کۆمپیۆتەر و دەستکەفتی.</li>
-                    <li><strong>Web applications & Web services:</strong> ماڵپەر و خزمەتگوزاریێن ئینتەرنێتێ.</li>
-                    <li><strong>Games:</strong> یاریێن ئەلیکترۆنی (ب تایبەت دگەل Unity).</li>
-                    <li><strong>VR:</strong> ڕاستیا خەیالی (Virtual Reality).</li>
-                    <li><strong>Database applications:</strong> بەرنامەیێن بنکەیێ دراوەیان (داتابەیس).</li>
-                </ul>
-            `,
-            starterCode: 'Console.WriteLine("C# is used for Mobile, Desktop, Web, VR, and Games!");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کورتکرنا Virtual Reality ب دوو پیتان چییە وەک د سلاێدا ٤ دا هاتی؟",
-                    accepted: ["VR", "vr"],
-                    explain: "VR = Virtual Reality."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەرێ زمانێ C# بۆ چێکرنا یاریێن ئەلیکترۆنی (Games) دهێتە بکارئینان؟",
-                    options: ["بەلێ (Games)", "نەخێر، ناچێبیت", "بتنێ بۆ ژمێریاریێ یە", "بتنێ بۆ مۆبایلێ یە"],
-                    ans: 0,
-                    explain: "بەلێ، C# بۆ یاریێن ڤیدیۆیی دهێتە بکارئینان."
-                },
-                {
-                    type: "mcq",
-                    q: "کیژ بوار ل سلاێدا ٤ هاتیە بەحسکرن؟",
-                    options: ["Desktop applications", "Database applications", "Web applications", "هەمی بەرسڤ دروستن"],
-                    ans: 3,
-                    explain: "هەمی ئەڤ بوارە ل سلاێدێ ٤ هاتینە نڤیسین."
-                }
-            ]
-        },
-        {
-            id: 5,
-            title: "بۆچی C# بکاربینین؟ (Why Use C#?)",
-            content: `
-                <p>ئەگەرێن هەلبژارتن و هێزا C#:</p>
-                <ul>
-                    <li>ئێک ژ بەربلاڤترین و بەناوبانگترین زمانێن جیهانێ یە.</li>
-                    <li>فێربوونا وی یا ب ساناهییە و ب سادەیی کار دکەت.</li>
-                    <li>کۆمەڵگەهەکا گەلەک مەزن یا پشتەڤانیێ هەیە (huge community support).</li>
-                    <li>پێکهاتەیا Object Oriented ڕێکێ ددەت کۆد <strong>دووبارە بهێتە بکارئینان (Code Reuse)</strong> کو تێچوویێ دروستکرنێ کێم دکەت.</li>
-                    <li>نێزیکبوونا وی ژ C++ و Java ڕێکێ ددەت پرۆگرامەر ب لەز فێرببن و کاری بگوهۆڕن.</li>
-                </ul>
-            `,
-            starterCode: 'bool isAwesome = true;\nConsole.WriteLine("Is C# easy and powerful? " + isAwesome);',
-            questions: [
-                {
-                    type: "mcq",
-                    q: "دووبارە بکارهێنانا کۆدی (Code reuse) چ فایدە دگەهینیت؟",
-                    options: ["تێچوو و خەرجیێن دروستکرنێ کێم دکەت (lowering development costs)", "بەرنامەی تێکددەت", "شاشەی ڕەش دکەت", "چ مفای ناگەهینیت"],
-                    ans: 0,
-                    explain: "allows code to be reused, lowering development costs."
-                },
-                {
-                    type: "costela",
-                    q: "C# یێ نێزیکی کیژ دوو زمانێن مەزنە؟ (ئێک ژ وان بنڤیسە: C++ یان ...):",
-                    accepted: ["Java", "java", "C++", "c++", "C"],
-                    explain: "close to other popular languages like C++ and Java."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەرێ C# پشتەڤانیا جەماوەری (Community support) یا کێمە؟",
-                    options: ["بەلێ", "نەخێر، پشتەڤانیەکا زۆرا مەزن هەیە (Huge community support)", "بتنێ ل سالا ٢٠٠٢ هەبوو", "چ کەس بکارناهینیت"],
-                    ans: 1,
-                    explain: "It has a huge community support."
-                }
-            ]
-        },
-        {
-            id: 6,
-            title: "پەیکەرێ فەرمی یێ کۆدی (General Syntax)",
-            content: `
-                <p>پێکهاتەیا هەر کۆدەکێ دەستپێکی یێ C#:</p>
-                <ul>
-                    <li><strong>using System;</strong> ئینانا کلاسان ژ کتێبخانەیا System.</li>
-                    <li><strong>namespace test:</strong> کانتینەر و هێلانەکە بۆ ڕێکخستنا کلاسان.</li>
-                    <li><strong>class Program:</strong> کانتینەرێ دانانا داتا و مێتۆدان (هەر دێرەکا کۆدی دڤێت د ناڤ کلاسی دا بیت).</li>
-                    <li><strong>static void Main(string[] args):</strong> مێتۆدا سەرەکی یا دەستپێکرنا جێبەجێکرنێ.</li>
-                    <li><strong>{ }:</strong> کەوانێن خوار بۆ سنوردارکرنا بلۆکێ کۆدی.</li>
-                </ul>
-            `,
-            starterCode: 'Console.WriteLine("Hello from inside Main method!");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کلیلەپەیڤا دەستپێکا بەرنامەی بۆ ئینانا کتێبخانەیان چییە؟ (وەک: ... System;):",
-                    accepted: ["using", "Using"],
-                    explain: "using System means import libraries."
-                },
-                {
-                    type: "mcq",
-                    q: "جێبەجێکرنا پڕۆگرامێ C# ل کیژ مێتۆد دەستپێدکەت؟",
-                    options: ["Start()", "Main", "Begin()", "Run()"],
-                    ans: 1,
-                    explain: "Main method."
-                },
-                {
-                    type: "mcq",
-                    q: "کیژ هێما ل C# بۆ دەستپێک و دوماهیا بلۆکێ کۆدی دهێتە دانان؟",
-                    options: ["( )", "[ ]", "{ } (Curly braces)", "< >"],
-                    ans: 2,
-                    explain: "The curly braces {}."
-                }
-            ]
-        },
-        {
-            id: 7,
-            title: "یاسایێن پەیکەرێ گشتی (Syntax Deep Dive)",
-            content: `
-                <p>شروڤەیا هویر یا پشکێن پەیکەری:</p>
-                <ul>
-                    <li><strong>using System:</strong> ڕێکێ ددەت کلاسان ژ ناڤناڤێ System بکاربینین (وەک Console).</li>
-                    <li><strong>namespace:</strong> کانتینەرە بۆ ڕێکخستنا کلاسان و نەیمسپەیسێن دی.</li>
-                    <li><strong>Curly braces {}:</strong> دەستپێک و دوماهیا هەر پارچە کۆدەکێ یە.</li>
-                    <li><strong>class:</strong> کانتینەرێ داتا و مێتۆدانە. <em>هەر دێرەکا کۆدی د C# دا دڤێت د ناڤ کلاسی دا بیت.</em></li>
-                    <li><strong>Main method:</strong> هەر کۆدەکێ د ناڤ کەوانێن وێ دا بیت دهێتە جێبەجێکرن.</li>
-                </ul>
-            `,
-            starterCode: 'Console.WriteLine("All C# code must be written inside a class!");',
-            questions: [
-                {
-                    type: "mcq",
-                    q: "ئەرێ چ هێلێن کۆدی دشێن ل دەرڤەی کلاسی (outside a class) ڕاستەوخۆ کار بکەن؟",
-                    options: ["بەلێ", "نەخێر، هەر دێرەک پێدڤیە د ناڤ کلاسی دا بیت", "بتنێ ژمارە", "بتنێ تێبینی"],
-                    ans: 1,
-                    explain: "Every line of code that runs in C# must be inside a class."
-                },
-                {
-                    type: "costela",
-                    q: "ناڤێ کەوانێن {} چییە وەک ل سلاێدا ٧ هاتی؟ (ب ئینگلیزی):",
-                    accepted: ["curly braces", "Curly braces", "Curly Braces"],
-                    explain: "The curly braces {} marks beginning and end."
-                },
-                {
-                    type: "mcq",
-                    q: "د ناڤ کلاسی دا چ دهێتە دانان؟",
-                    options: ["Data and Methods", "بتنێ وێنە", "بتنێ فایل", "بتنێ داتابەیس"],
-                    ans: 0,
-                    explain: "class is a container for data and methods."
-                }
-            ]
-        },
-        {
-            id: 8,
-            title: "ئێکەم نموونە (First Example)",
-            content: `
-                <p>کۆدێ چاپکرنا ڕستەیا بناڤودەنگ:</p>
-                <p><code>Console.WriteLine("Hello World!");</code></p>
-                <p>ئەڤ فەرمانە دێ دەقێ ناڤ جووت کەوانان چاپ کەت ل سەر شاشەیا کۆنسۆلێ و دچیتە دێرەکا نوی.</p>
-            `,
-            starterCode: 'Console.WriteLine("Hello World!");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "دەرئەنجامێ ئەڤێ فەرمانێ چییە: Console.WriteLine(\"Hello World!\"); ؟",
-                    accepted: ["Hello World!", "Hello World"],
-                    explain: "Hello World! دێ چاپ بیت."
-                },
-                {
-                    type: "mcq",
-                    q: "کلاسی Console سەر ب کیژ کتێبخانێ یە؟",
-                    options: ["System", "IO", "Web", "Game"],
-                    ans: 0,
-                    explain: "System.Console."
-                },
-                {
-                    type: "mcq",
-                    q: "دەق د ناڤ کیژ کەوانان دا دهێتە نڤیسین بۆ WriteLine؟",
-                    options: ["جووت کەوان \" \"", "تاک کەوان ' '", "{ }", "[ ]"],
-                    ans: 0,
-                    explain: "String literal goes inside double quotes \" \"."
-                }
-            ]
-        },
-        {
-            id: 9,
-            title: "تێبینیێن گشتی یێن زێڕین (General Notes)",
-            content: `
-                <p>خالێن سەرەکی بۆ تاقیکرنێ:</p>
-                <ul>
-                    <li><strong>Case sensitive:</strong> زمانێ C# یێ هەستیارە ل سەر پیتێن مەزن و بچویک (پیتا <code>a</code> نە وەکی <code>A</code> یە).</li>
-                    <li><strong>Semicolon (;):</strong> هەمی دەستەواژە دڤێت ب فاریزەیا خالدار ب دوماهیک بهێن.</li>
-                    <li><strong>Execution start:</strong> دەستپێکرنا پڕۆگرامی ژ مێتۆدا Main دەستپێدکەت.</li>
-                    <li><strong>Unlike Java:</strong> ناڤێ فایلی دشێت جودا بیت ژ ناڤێ کلاسی.</li>
-                    <li><strong>Console.ReadKey():</strong> ل داویا کۆدی دهێتە دان دا شاشە ڕاوەستیت و ئێکسەر دانەخەبیت.</li>
-                </ul>
-            `,
-            starterCode: 'int a = 10;\nint A = 20;\nConsole.WriteLine("a=" + a + ", A=" + A);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کیش هێما دڤێت ل داویا هەمی دێران بهێت؟ (ب ناڤ یان هێما بنڤیسە):",
-                    accepted: [";", "semicolon", "Semicolon"],
-                    explain: "must end with a semicolon (;)."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەرێ پیتا 'a' و پیتا 'A' د C# دا هەمان تشتن؟",
-                    options: ["بەلێ", "نەخێر چونکی Case sensitive ە", "بتنێ ل هاڤینێ", "بتنێ ل داتابەیسێ"],
-                    ans: 1,
-                    explain: "C# is Case sensitive. a is differ from A."
-                },
-                {
-                    type: "mcq",
-                    q: "مفایێ Console.ReadKey() ل داویا کۆدی چییە؟",
-                    options: ["شاشەی ڕادگریت دا ئێکسەر دانەخەبیت", "کۆدی ژێردبەت", "ژمارەیان زێدە دکەت", "ویندۆزی دادخەت"],
-                    ans: 0,
-                    explain: "prevents screen from closing quickly."
-                }
-            ]
-        },
-        {
-            id: 10,
-            title: "جوداهیا WriteLine() و Write()",
-            content: `
-                <p>بەراوردکرنا دوو مێتۆدێن چاپکرنێ:</p>
-                <ul>
-                    <li><strong>WriteLine():</strong> دەقی چاپ دکەت و پاشی دچیتە <strong>دێرەکا نوی (New Line)</strong>.</li>
-                    <li><strong>Write():</strong> دەقی چاپ دکەت بەس <strong>ل سەر هەمان دێر دمینیت</strong> و ناچیتە دێرەکا نوی.</li>
-                </ul>
-            `,
-            starterCode: 'Console.Write("Hello ");\nConsole.Write("World on the same line!");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کیژ مێتۆد دەقی چاپ دکەت بەس ناچیتە دێرەکا نوی؟",
-                    accepted: ["Write", "Write()", "Console.Write"],
-                    explain: "Write() prints on the same line."
-                },
-                {
-                    type: "mcq",
-                    q: "دەرئەنجامێ ئەڤێ دێرێ چییە: Console.Write(\"A\"); Console.Write(\"B\"); ؟",
-                    options: ["AB ل سەر هەمان دێر", "A ل دێرا ١ و B ل دێرا ٢", "Error", "A B"],
-                    ans: 0,
-                    explain: "ل سەر هەمان دێر پێکڤە دبنە AB."
-                },
-                {
-                    type: "mcq",
-                    q: "کیژ مێتۆد زێدەتر بەربلاڤە بۆ چاپکرنێ د C# دا؟",
-                    options: ["WriteLine()", "Print()", "Echo()", "Show()"],
-                    ans: 0,
-                    explain: "The most common method is WriteLine()."
-                }
-            ]
-        },
-        {
-            id: 11,
-            title: "تێبینی د کۆدی دا (C# Comments)",
-            content: `
-                <p>تێبینی ناهێنە خواندن ژ لایێ کۆمپایتەری ڤە:</p>
-                <ul>
-                    <li><strong>Single-line:</strong> ب دوو سلاشان دەستپێدکەت: <code>//</code></li>
-                    <li><strong>Multi-line:</strong> ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> دوماهیک دهێت.</li>
-                </ul>
-            `,
-            starterCode: '// This is single-line comment\n/* Multi-line\n   comment */\nConsole.WriteLine("Comments are ignored!");',
-            questions: [
-                {
-                    type: "costela",
-                    q: "تێبینیا ئێک دێر (Single-line) ب کیش دوو هێمایان دەستپێدکەت؟",
-                    accepted: ["//"],
-                    explain: "Single-line comments start with //."
-                },
-                {
-                    type: "costela",
-                    q: "تێبینیا چەند دێری (Multi-line) ب چ هێما دوماهیک دهێت؟",
-                    accepted: ["*/"],
-                    explain: "ends with */."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەرێ کۆمپایلەر تێبینیان دەخوێنیت و جێبەجێ دکەت؟",
-                    options: ["بەلێ", "نەخێر، چاڤپۆشیێ ژێ دکەت", "بتنێ ئەگەر ژمارە بن", "بتنێ ل هاڤینێ"],
-                    ans: 1,
-                    explain: "کۆمێنت ناهێنە جێبەجێکرن."
-                }
-            ]
-        },
-        {
-            id: 12,
-            title: "گۆڕاو و جۆرێن سەرەکی (C# Variables)",
-            content: `
-                <p>٥ جۆرێن سەرەکی یێن داتایێ (Value Types):</p>
-                <ul>
-                    <li><strong>int:</strong> ژمارەیێن دروست (123, -123).</li>
-                    <li><strong>double:</strong> ژمارەیێن فاریزەدار (19.99, -19.99).</li>
-                    <li><strong>char:</strong> ئێک پیت د ناڤ کەوانێ تاک دا ('a', 'B').</li>
-                    <li><strong>string:</strong> دەق د ناڤ دوو کەوانان دا ("Hello World").</li>
-                    <li><strong>bool:</strong> دوو وەلات هەنە (true یان false).</li>
-                </ul>
-            `,
-            starterCode: 'int age = 22;\ndouble price = 19.99;\nchar letter = \'A\';\nbool pass = true;\nstring name = "Akre";\nConsole.WriteLine(name + " - age: " + age);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کیژ جۆرێ داتایێ بهایێ ژمارەیا فاریزەدار وەک 19.99 هەلدگریت؟ (بتنێ ناڤێ جۆری بنڤیسە):",
-                    accepted: ["double"],
-                    explain: "double stores floating point numbers, with decimals."
-                },
-                {
-                    type: "mcq",
-                    q: "بهایێ جۆرێ char د ناڤ کیژ کەوانان دا دهێتە نڤیسین؟",
-                    options: ["کەوانێ تاک ' '", "جووت کەوان \" \"", "{ }", "[ ]"],
-                    ans: 0,
-                    explain: "single quotes ' '."
-                },
-                {
-                    type: "mcq",
-                    q: "جۆرێ bool چەند بهایان وەردگریت؟",
-                    options: ["بتنێ دوو بهایان: true یان false", "١٠ بهایان", "هەمی ژمارەیان", "بتنێ دەق"],
-                    ans: 0,
-                    explain: "stores values with two states: true or false."
-                }
-            ]
-        },
-        {
-            id: 13,
-            title: "دروستکرنا گۆڕاوان (Creating Variables)",
-            content: `
-                <p>یاسایا فەرمی یا دروستکرنا گۆڕاوی:</p>
-                <p><code>type variableName = value;</code></p>
-                <p>نموونە: <code>string name = "Kurdistan";</code></p>
-            `,
-            starterCode: 'string name = "Kurdistan";\nConsole.WriteLine(name);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "هێمایێ دانانا بهایی (assignment) بۆ گۆڕاوی چییە؟",
-                    accepted: ["="],
-                    explain: "The equal sign (=) is used to assign values."
-                },
-                {
-                    type: "mcq",
-                    q: "د دەستەواژەیا string name = \"Kurdistan\"; دا پەیڤا string چ ڕۆل هەیە؟",
-                    options: ["جۆرێ داتایێ یە (type)", "ناڤێ متغیری یە", "مێتۆدە", "کۆمێنتە"],
-                    ans: 0,
-                    explain: "string جۆرێ داتایێ یە."
-                },
-                {
-                    type: "mcq",
-                    q: "دەرئەنجامێ دەستەواژەیا سلاێدا ١٣ چییە دەمێ Console.WriteLine(name); لێددەی؟",
-                    options: ["Kurdistan", "name", "string", "Error"],
-                    ans: 0,
-                    explain: "دەقێ Kurdistan چاپ دبیت."
-                }
-            ]
-        },
-        {
-            id: 14,
-            title: "ناساندن و گوهۆڕینا بهایان (Overwriting Variables)",
-            content: `
-                <p>تێبینیێن گرنگ یێن گۆڕاوان:</p>
-                <ul>
-                    <li>دشێی ئەوەل متغیری بناسینی و پاشی بهای بدەیێ:
-                        <br><code>int age; // declaration</code>
-                        <br><code>age = 25; // initialization</code>
-                    </li>
-                    <li>ئەگەر بهایەکێ نوی بدەیێ، بهایێ کەڤن لادچیت (Overwrites).</li>
-                    <li><strong>خەلەتیا کویزی:</strong> نابیت متغیرەکی بێ بها بکاربینی: <code>int age; int j = age; // ERROR</code>.</li>
-                </ul>
-            `,
-            starterCode: 'int age = 25;\nage = 20; // overwrites 25\nConsole.WriteLine("Age is now: " + age);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "ئەگەر بنڤیسی: int age = 25; age = 30; بهایێ age دبیتە چەند؟ (بتنێ ژمارێ بنڤیسە):",
-                    accepted: ["30"],
-                    explain: "بهایێ نوی جهێ یێ کەڤن دگریت."
-                },
-                {
-                    type: "mcq",
-                    q: "خەلەتیا بکارئینانا متغیرێ بێ بها چییە د C# دا؟",
-                    options: ["Use of unassigned local variable", "Out of memory", "No error", "Syntax OK"],
-                    ans: 0,
-                    explain: "Use of unassigned local variable."
-                },
-                {
-                    type: "mcq",
-                    q: "دێرا: int age; بتنێ چییە؟",
-                    options: ["Declaration (ناساندن بێ بها)", "Initialization", "Print", "Delete"],
-                    ans: 0,
-                    explain: "بتنێ Declaration ە."
-                }
-            ]
-        },
-        {
-            id: 15,
-            title: "نەگۆڕەکان (Constants - const)",
-            content: `
-                <p>پەیڤا <strong>const</strong> متغیری دکەتە نەگۆڕ و بتنێ بۆ خواندنێ (read-only):</p>
-                <ul>
-                    <li><code>const int age = 25;</code> بهایێ وی ناهێتە گوهۆڕین.</li>
-                    <li><strong>یاسا:</strong> دڤێت دەستبەجێ ل دەمێ دروستکرنێ بهای بدەیێ، ئەگەر نە خەلەتی دروست دبیت.</li>
-                </ul>
-            `,
-            starterCode: 'const double PI = 3.14;\nConsole.WriteLine("Constant PI: " + PI);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کیژ کلیلەپەیڤ بهایێ متغیری دکەتە نەگۆڕ و unchangeable؟",
-                    accepted: ["const"],
-                    explain: "The const keyword."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەگەر بنڤیسی: const int x = 10; x = 20; چ چێدبیت؟",
-                    options: ["x دبیتە 20", "خەلەتی (cannot be changed)", "x دبیتە 30", "سفر"],
-                    ans: 1,
-                    explain: "بهایێ const ناهێتە گوهۆڕین."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەگەر بنڤیسی: const int myAge; بێی بهایێ بدەیێ، چ ڕویددەت؟",
-                    options: ["خەلەتی: A const field requires a value", "سفر وەردگریت", "کۆدێ ئاسایی", "پەیج سپی دبیت"],
-                    ans: 0,
-                    explain: "A const field requires a value to be provided."
-                }
-            ]
-        },
-        {
-            id: 16,
-            title: "نیشاندان و پێکڤەنیسکاندن (Concatenation)",
-            content: `
-                <p>بکارئینانا هێمایێ (+):</p>
-                <ul>
-                    <li>دەمێ دگەل دەقێ (string) دهێت، دەقان دنیسکینیتە ئێک (Concatenation).</li>
-                    <li>نموونە: <code>"Hello " + name</code></li>
-                    <li>نموونە: <code>firstName + lastName</code></li>
-                </ul>
-            `,
-            starterCode: 'string firstName = "Salar";\nstring lastName = "Raman";\nConsole.WriteLine(firstName + " " + lastName);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "کیژ هێما بۆ Concatenation و نیسکاندنا دەقان دهێتە بکارئینان؟",
-                    accepted: ["+"],
-                    explain: "هێمایێ +."
-                },
-                {
-                    type: "mcq",
-                    q: "دەرئەنجامێ دەستەواژەیا: \"A\" + \"B\" چییە؟",
-                    options: ["AB", "A B", "Error", "A+B"],
-                    ans: 0,
-                    explain: "AB پێکڤە."
-                },
-                {
-                    type: "mcq",
-                    q: "ناڤێ کردارا پێکڤە گرێدانا دەقان چییە ب ئینگلیزی؟",
-                    options: ["Concatenation", "Subtraction", "Division", "Splitting"],
-                    ans: 0,
-                    explain: "Concatenation."
-                }
-            ]
-        },
-        {
-            id: 17,
-            title: "کۆمکرنا ژمارەیان و دروستکرنا ب فاریزێ",
-            content: `
-                <p>هێمایێ (+) دگەل ژمارەیان:</p>
-                <ul>
-                    <li>دگەل ژمارەیان (int) کارێ کۆمکرنا بیرکاریێ دکەت: <code>10 + 5 = 15</code>.</li>
-                    <li>دشێی چەندین متغیرا ب هەمان جۆر ب فاریزێ دروست بکەی:
-                        <br><code>int x = 5, y = 6, z = 50;</code>
-                    </li>
-                </ul>
-            `,
-            starterCode: 'int x = 10, y = 5;\nConsole.WriteLine(x + y); // 15\nint a = 5, b = 6, c = 50;\nConsole.WriteLine(a + b + c); // 61',
-            questions: [
-                {
-                    type: "costela",
-                    q: "دەرئەنجامێ ئەڤێ ڕستێ چییە: Console.WriteLine(10 + 5); ؟ (بتنێ ژمارێ بنڤیسە):",
-                    accepted: ["15"],
-                    explain: "10 + 5 = 15."
-                },
-                {
-                    type: "mcq",
-                    q: "ب کیش هێما چەندین متغیرا ل سەر هەمان دێر ژێک جودا دکەین؟",
-                    options: [", فاریزە (Comma)", "; فاریزەیا خالدار", ".", ":"],
-                    ans: 0,
-                    explain: "comma-separated list."
-                },
-                {
-                    type: "mcq",
-                    q: "دەرئەنجامێ: int x = 5, y = 6, z = 50; Console.WriteLine(x + y + z); چییە؟",
-                    options: ["61", "5650", "11", "Error"],
-                    ans: 0,
-                    explain: "5 + 6 + 50 = 61."
-                }
-            ]
-        },
-        {
-            id: 18,
-            title: "پەیڤێن تایبەت (C# Keywords)",
-            content: `
-                <p>پەیڤێن قەدەغەکری (Reserved words):</p>
-                <ul>
-                    <li>ئەڤ پەیڤە تایبەتن ب کۆمپایلەرێ C# ڤە و نابیت ببنە ناڤێ متغیری.</li>
-                    <li>نموونە: <code>class, int, double, const, void, static</code>.</li>
-                    <li><strong>فێڵا کویزی:</strong> دشێین وان بکەینە ناڤێ متغیری بتنێ ئەگەر هێمایێ <strong>@</strong> بەری وێ دابنێین (وەک <code>@class</code>).</li>
-                </ul>
-            `,
-            starterCode: 'int @class = 100;\nConsole.WriteLine("@class value: " + @class);',
-            questions: [
-                {
-                    type: "costela",
-                    q: "چ هێما بەری پەیڤا تایبەت دادەنێین دا بشێین وەک ناڤێ متغیری بکاربینین؟",
-                    accepted: ["@"],
-                    explain: "prefix them with the @ character."
-                },
-                {
-                    type: "mcq",
-                    q: "کیژ ژ ڤانان پەیڤەکا قەدەغەکریە د C# دا؟",
-                    options: ["class", "myNumber", "kurdistan", "total"],
-                    ans: 0,
-                    explain: "class کلیلەپەیڤە."
-                },
-                {
-                    type: "mcq",
-                    q: "ئەگەر بنڤیسی: int for = 5; بێی هێمایێ @ چ چێدبیت؟",
-                    options: ["خەلەتی (Compile error چونکی for قەدەغەیە)", "5", "سفر", "ئاساییە"],
-                    ans: 0,
-                    explain: "Keywords cannot be used as identifiers without @."
-                }
-            ]
-        },
-        {
-            id: 19,
-            title: "یاسایێن ناڤلێنانێ (Identifiers Rules)",
-            content: `
-                <p>یاسایێن دروستکرنا ناڤێ متغیری (Identifiers):</p>
-                <ul>
-                    <li>دشێت پیت، ژمارە، و هێمایێ ئەندەرسکۆر <code>(_)</code> تێدابن.</li>
-                    <li><strong>پێدڤیە ب پیت دەستپێبکەت</strong> (یان هێمایێ _).</li>
-                    <li><strong>قەدەغەیە ب ژمارە دەستپێبکەت</strong> (وەک <code>1age</code> ❌).</li>
-                    <li>نابیت بۆشایی (Whitespace) تێدابیت (وەک <code>my age</code> ❌).</li>
-                    <li>هەستیارە ل سەر پیتێن مەزن و بچویک (<code>myVar</code> و <code>myvar</code> جودانە).</li>
-                </ul>
-            `,
-            starterCode: 'int totalVolume = 100;\nint _score = 90;\nConsole.WriteLine("Result: " + (totalVolume + _score));',
-            questions: [
-                {
-                    type: "costela",
-                    q: "ئەرێ ناڤێ (1number) دروستە وەک ناڤێ متغیری؟ (بنڤیسە: نەخێر یان بەلێ):",
-                    accepted: ["نەخێر", "نه خير", "No", "no"],
-                    explain: "قەدەغەیە ب ژمارە دەستپێبکەت."
-                },
-                {
-                    type: "mcq",
-                    q: "کیژ هێما ژ ڤانان دروستە د ناڤێ متغیری دا هەبیت؟",
-                    options: ["_ ئەندەرسکۆر", "- داش", "$ دۆلار", "سپەیس"],
-                    ans: 0,
-                    explain: "underscore character (_)."
-                },
-                {
-                    type: "mcq",
-                    q: "بۆچی ناڤێ (my age) خەلەتە و ناهێتە قەبیلکرن؟",
-                    options: ["چونکی بۆشایی (Whitespace) تێدایە", "چونکی درێژە", "چونکی پیتێن بچویکە", "چ کێشە نینە"],
-                    ans: 0,
-                    explain: "cannot contain whitespace."
-                }
-            ]
-        }
-    ];
-
-    // ========================================================
-    // STATE & NAVIGATION (ALL 19 SLIDES UNLOCKED BY DEFAULT!)
-    // ========================================================
-    let currentSlideIndex = 0;
-    let userQuizAnswers = {};
-
-    window.addEventListener('DOMContentLoaded', () => {
-        buildSidebarTabs();
-        displaySlide(0);
-    });
-
-    function buildSidebarTabs() {
-        const sidebar = document.getElementById('sidebarList');
-        sidebar.innerHTML = `
-            <div class="sidebar-title">
-                <span>سلاێدێن وانەیێ (هەمی ڤەکرینە)</span>
-                <span>١٩ سلاێد</span>
-            </div>
-        `;
-
-        slidesData.forEach((s, idx) => {
-            const tab = document.createElement('div');
-            tab.className = 'slide-tab';
-            if (idx === currentSlideIndex) tab.classList.add('active');
-
-            tab.innerHTML = `
-                <span>سلاێد ${s.id}: ${s.title.substring(0, 16)}...</span>
-                <span class="tab-num">S${s.id}</span>
-            `;
-
-            tab.onclick = () => {
-                displaySlide(idx);
-            };
-
-            sidebar.appendChild(tab);
-        });
-    }
-
-    function displaySlide(idx) {
-        currentSlideIndex = idx;
-        const s = slidesData[idx];
-
-        document.getElementById('slideTitle').innerText = `سلاێدێ ${s.id}: ${s.title}`;
-        document.getElementById('slideTag').innerText = `Slide ${s.id}`;
-        document.getElementById('slideBody').innerHTML = s.content;
-        document.getElementById('codeEditorArea').value = s.starterCode;
-
-        // Reset Terminal
-        const term = document.getElementById('terminalScreen');
-        term.className = "output-text-green";
-        term.innerText = "// کلیک ل (▶ کارپێکرن) بکە دا دەرئەنجامی ببینی...";
-
-        // Build Quiz
-        buildSlideQuiz(s);
-
-        buildSidebarTabs();
-    }
-
-    // ========================================================
-    // DYNAMIC VISUAL STUDIO C# EXECUTION ENGINE
-    // ========================================================
-    function runDynamicCSharp() {
-        const rawCode = document.getElementById('codeEditorArea').value;
-        const terminal = document.getElementById('terminalScreen');
-        terminal.innerText = "";
-        terminal.className = "output-text-green";
-
-        const lines = rawCode.split('\n');
-        let memory = {};
-        let outputText = "";
-
-        for (let i = 0; i < lines.length; i++) {
-            let line = lines[i].trim();
-            if (!line || line.startsWith("//") || line.startsWith("/*") || line.startsWith("*")) continue;
-
-            // Missing semicolon check
-            if (!line.endsWith(";")) {
-                terminal.className = "output-text-red";
-                terminal.innerText = `Program.cs(${i + 1},${line.length}): error CS1002: ; expected`;
-                return;
-            }
-
-            let stmt = line.slice(0, -1).trim();
-
-            // Case sensitivity check for WriteLine / Write
-            if (stmt.toLowerCase().startsWith("console.writeline") && !stmt.startsWith("Console.WriteLine")) {
-                terminal.className = "output-text-red";
-                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.WriteLine'? (C# is Case-Sensitive)`;
-                return;
-            }
-            if (stmt.toLowerCase().startsWith("console.write") && !stmt.startsWith("Console.Write") && !stmt.startsWith("Console.WriteLine")) {
-                terminal.className = "output-text-red";
-                terminal.innerText = `Program.cs(${i + 1},1): error CS0103: The name '${stmt.split('(')[0]}' does not exist in the current context.\nDid you mean 'Console.Write'?`;
-                return;
-            }
-
-            // Console.WriteLine or Console.Write
-            if (stmt.startsWith("Console.WriteLine(") || stmt.startsWith("Console.Write(")) {
-                let isWriteLine = stmt.startsWith("Console.WriteLine(");
-                let startPos = isWriteLine ? 18 : 14;
-                let endPos = stmt.lastIndexOf(")");
-
-                if (endPos === -1) {
-                    terminal.className = "output-text-red";
-                    terminal.innerText = `Program.cs(${i + 1},${stmt.length}): error CS1026: ) expected`;
-                    return;
-                }
-
-                let expression = stmt.substring(startPos, endPos).trim();
-                try {
-                    let val = evaluateExpression(expression, memory);
-                    outputText += val + (isWriteLine ? "\n" : "");
-                } catch (err) {
-                    terminal.className = "output-text-red";
-                    terminal.innerText = `Program.cs(${i + 1},${startPos}): error CS0103: ${err.message}`;
-                    return;
-                }
-                continue;
-            }
-
-            // Variable Declaration
-            let declMatch = stmt.match(/^(const\s+)?(int|double|string|bool|char)\s+([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
-            if (declMatch) {
-                let vName = declMatch[3];
-                let vExpr = declMatch[4].trim();
-                try {
-                    let val = evaluateExpression(vExpr, memory);
-                    memory[vName] = val;
-                } catch (err) {
-                    terminal.className = "output-text-red";
-                    terminal.innerText = `Program.cs(${i + 1},1): error CS0103: ${err.message}`;
-                    return;
-                }
-                continue;
-            }
-
-            // Variable Assignment
-            let assignMatch = stmt.match(/^([a-zA-Z_@][a-zA-Z0-9_]*)\s*=\s*(.+)$/);
-            if (assignMatch) {
-                let vName = assignMatch[1];
-                let vExpr = assignMatch[2].trim();
-                try {
-                    let val = evaluateExpression(vExpr, memory);
-                    memory[vName] = val;
-                } catch (err) {
-                    terminal.className = "output-text-red";
-                    terminal.innerText = `Program.cs(${i + 1},1): error: ${err.message}`;
-                    return;
-                }
-                continue;
-            }
-
-            // Console.ReadKey()
-            if (stmt.startsWith("Console.ReadKey")) {
-                outputText += "[Waiting for key press...]\n";
-                continue;
-            }
-        }
-
-        terminal.className = "output-text-green";
-        terminal.innerText = outputText || "[Code executed successfully with 0 outputs]";
-    }
-
-    function evaluateExpression(expr, memory) {
-        if (!expr) return "";
-
-        // String literal
-        if (expr.startsWith('"') && expr.endsWith('"') && expr.indexOf('"', 1) === expr.length - 1) {
-            return expr.slice(1, -1);
-        }
-
-        // Char literal
-        if (expr.startsWith("'") && expr.endsWith("'") && expr.length === 3) {
-            return expr.slice(1, -1);
-        }
-
-        // Variable in memory
-        if (memory.hasOwnProperty(expr)) {
-            return memory[expr];
-        }
-
-        // Tokenized evaluation
-        let tokenized = expr;
-        for (let v in memory) {
-            let re = new RegExp(`\\b${v}\\b`, 'g');
-            let val = memory[v];
-            tokenized = tokenized.replace(re, typeof val === 'string' ? JSON.stringify(val) : val);
-        }
-
-        try {
-            let tokens = tokenized.match(/[a-zA-Z_][a-zA-Z0-9_]*/g);
-            if (tokens) {
-                for (let t of tokens) {
-                    if (t !== "true" && t !== "false" && t !== "null") {
-                        throw new Error(`The name '${t}' does not exist in the current context.`);
-                    }
-                }
-            }
-            return Function(`'use strict'; return (${tokenized})`)();
-        } catch (e) {
-            throw new Error(e.message || `Invalid syntax in expression: ${expr}`);
-        }
-    }
-
-    // ========================================================
-    // INTERACTIVE QUIZ ENGINE
-    // ========================================================
-    function buildSlideQuiz(slideObj) {
-        const box = document.getElementById('quizQuestionsBox');
-        box.innerHTML = '';
-        userQuizAnswers = {};
-        document.getElementById('quizScoreDisplay').innerText = "نمرە: ٠٪";
-
-        slideObj.questions.forEach((q, idx) => {
-            const card = document.createElement('div');
-            card.className = 'q-card-item';
-
-            if (q.type === "mcq") {
-                card.innerHTML = `
-                    <div class="q-text-label"><strong>پرسیارا ${idx + 1}:</strong> ${q.q}</div>
-                    <div class="options-vertical" id="optList_${idx}">
-                        ${q.options.map((opt, oIdx) => `
-                            <button class="btn-answer" onclick="selectMcqOption(${idx}, ${oIdx})">${opt}</button>
-                        `).join('')}
-                    </div>
-                    <div class="feedback-explanation" id="expBox_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
-                `;
-            } else if (q.type === "costela") {
-                card.innerHTML = `
-                    <div class="q-text-label"><strong>پرسیارا ${idx + 1} (کستێلا - بنڤیسە):</strong> ${q.q}</div>
-                    <div class="costela-container">
-                        <input type="text" id="costelaInput_${idx}" placeholder="بەرسڤێ ل ڤێرێ بنڤیسە...">
-                    </div>
-                    <div class="feedback-explanation" id="expBox_${idx}">💡 <strong>تێبینی:</strong> ${q.explain}</div>
-                `;
-            }
-
-            box.appendChild(card);
-        });
-    }
-
-    function selectMcqOption(qIdx, optIdx) {
-        userQuizAnswers[qIdx] = optIdx;
-        const list = document.getElementById(`optList_${qIdx}`);
-        const btns = list.getElementsByClassName('btn-answer');
-        for (let b of btns) b.style.borderColor = 'var(--border-glass)';
-        btns[optIdx].style.borderColor = 'var(--auas-cyan)';
-    }
-
-    function evaluateQuizAnswers() {
-        const slideObj = slidesData[currentSlideIndex];
-        let correctCount = 0;
-        const total = slideObj.questions.length;
-
-        slideObj.questions.forEach((q, idx) => {
-            document.getElementById(`expBox_${idx}`).style.display = 'block';
-
-            if (q.type === "mcq") {
-                const list = document.getElementById(`optList_${idx}`);
-                const btns = list.getElementsByClassName('btn-answer');
-                let userChoice = userQuizAnswers[idx];
-                if (userChoice !== undefined) {
-                    if (userChoice === q.ans) {
-                        correctCount++;
-                        btns[userChoice].classList.add('correct');
-                    } else {
-                        btns[userChoice].classList.add('wrong');
-                        btns[q.ans].classList.add('correct');
-                    }
-                }
-            } else if (q.type === "costela") {
-                const input = document.getElementById(`costelaInput_${idx}`);
-                let val = input.value.trim().toLowerCase();
-                let isMatch = q.accepted.map(a => a.toLowerCase()).includes(val);
-                if (isMatch) {
-                    correctCount++;
-                    input.style.borderColor = 'var(--success)';
-                } else {
-                    input.style.borderColor = 'var(--danger)';
-                }
-            }
-        });
-
-        const percent = Math.round((correctCount / total) * 100);
-        document.getElementById('quizScoreDisplay').innerText = `نمرە: ${percent}٪ (${correctCount}/${total})`;
-    }
-</script>
-
-</body>
-</html>
+    <div class="nav-buttons
