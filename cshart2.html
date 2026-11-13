@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fundamentals of Programming by C# - ئامادەکاری بۆ ئەزموونێ</title>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --primary-dark: #093154;
+      --accent: #0ea5e9;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    header p {
+      margin: 4px 0;
+      opacity: 0.92;
+      font-size: 0.98rem;
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    select, button {
+      font-family: inherit;
+      font-size: 0.92rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    select {
+      background: #f8fafc;
+      color: var(--text);
+      max-width: 300px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .btn-accent:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .btn-outline:hover {
+      background: #eff6ff;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 22px auto;
+      padding: 0 16px 50px;
+    }
+
+    .stats-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .slide-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 26px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    .slide-header {
+      background: linear-gradient(90deg, #eff6ff, #f8fafc);
+      border-bottom: 2px solid #bfdbfe;
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+    }
+
+    .slide-body {
+      padding: 20px;
+    }
+
+    .summary-box {
+      background: #f8fafc;
+      border-right: 4px solid var(--primary);
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .summary-box h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: var(--primary);
+    }
+
+    .summary-box ul {
+      margin: 6px 0;
+      padding-right: 20px;
+    }
+
+    .tip-box {
+      background: var(--warning-bg);
+      border-right: 4px solid var(--warning);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 14px 0;
+      font-size: 0.94rem;
+    }
+
+    .code-block {
+      direction: ltr;
+      text-align: left;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.55;
+      margin: 12px 0;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.9rem;
+      direction: ltr;
+      text-align: left;
+    }
+
+    table.data-table th, table.data-table td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+    }
+
+    table.data-table th {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    table.data-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .questions-section {
+      margin-top: 20px;
+      border-top: 1px dashed var(--border);
+      padding-top: 16px;
+    }
+
+    .questions-section h3 {
+      color: var(--primary-dark);
+      margin: 0 0 14px;
+      font-size: 1.08rem;
+    }
+
+    .q-card {
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .q-type {
+      font-size: 0.78rem;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 2px 9px;
+      border-radius: 6px;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+    }
+
+    .q-text {
+      direction: ltr;
+      text-align: left;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 10px;
+      font-size: 0.97rem;
+    }
+
+    .q-kurdish-hint {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .options-list {
+      direction: ltr;
+      text-align: left;
+      display: grid;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .opt-btn {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.92rem;
+      cursor: pointer;
+      color: #0f172a;
+      font-family: "Segoe UI", Consolas, sans-serif;
+    }
+
+    .opt-btn:hover {
+      background: #eff6ff;
+      border-color: var(--accent);
+    }
+
+    .opt-btn.correct {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: #14532d;
+      font-weight: 600;
+    }
+
+    .opt-btn.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+
+    .answer-box {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      font-size: 0.92rem;
+    }
+
+    .answer-box.visible {
+      display: block;
+    }
+
+    .ans-en {
+      direction: ltr;
+      text-align: left;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 4px;
+    }
+
+    .ans-ku {
+      color: #1e293b;
+    }
+
+    .toggle-ans-btn {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .toggle-ans-btn:hover {
+      background: #dbeafe;
+    }
+
+    .final-exam-banner {
+      background: linear-gradient(135deg, #093154, #0ea5e9);
+      color: #fff;
+      padding: 22px;
+      border-radius: 14px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .final-exam-banner h2 {
+      margin: 0 0 6px;
+    }
+
+    .score-panel {
+      background: #fff;
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ltr {
+      direction: ltr;
+      display: inline-block;
+      font-family: Consolas, monospace;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    @media print {
+      .top-bar, .toggle-ans-btn, .stats-box button {
+        display: none !important;
+      }
+      .answer-box {
+        display: block !important;
+      }
+      .slide-card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Fundamentals of Programming by C# (ئامادەکاری بۆ ئەزموونا نەزەری)</h1>
+  <p>زانکۆیا ئاکرێ بۆ زانستێن کرداری (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ - پشکا تەکنۆلۆژیا زانیاریان</p>
+  <p>شڕۆڤەکرنا هەمی ٢٩ سلایدان ب تێروتەسەلی + ٥ هەتا ٦ پرسیار بۆ هەر سلایدەکی + تاقیکرنا گشتی ل دوماهیێ</p>
+</header>
+
+<div class="top-bar">
+  <div class="nav-controls">
+    <label for="slideJump"><strong>چوون بۆ سلایدی:</strong></label>
+    <select id="slideJump" onchange="jumpToSlide(this.value)">
+      <option value="all">هەمی سلاید و تاقیکرنا گشتی</option>
+    </select>
+    <button class="btn-outline" onclick="toggleAllAnswers(true)">نیشاندانا هەمی بەرسڤان</button>
+    <button class="btn-outline" onclick="toggleAllAnswers(false)">ڤەشارتنا هەمی بەرسڤان</button>
+  </div>
+  <div class="nav-controls">
+    <button class="btn-accent" onclick="jumpToSlide('final-exam')">چوون بۆ تاقیکرنا گشتی (٣٠ پرسیار)</button>
+    <button class="btn-primary" onclick="window.print()">چاپکرن / PDF</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stats-box">
+    <div>
+      <span class="badge" id="totalStatsBadge">کۆمێ سلایدان: ٢٩ | کۆمێ پرسیاران: بارکرن...</span>
+    </div>
+    <div style="font-size:0.9rem; color: var(--muted);">
+      تێبینی: هەمی کۆد و پرسیارێن ئینگلیزی هەروەکی شێوازێ ئەزموونا کاغەزێ نە، و شڕۆڤە ب کوردیا بادینی یە دا کو باش تێبگەهی.
+    </div>
+  </div>
+
+  <div id="slidesContainer"></div>
+
+  <div id="final-exam" class="final-exam-banner">
+    <h2>تاقیکرنا گشتی یا هەمی سلایدان (Comprehensive Final Exam)</h2>
+    <p>ئەڤ تاقیکرنە ٣٠ پرسیارێن هەمەجۆر ب خۆڤە دگریت ژ هەمی سلایدێن (١ هەتا ٢٩) ب شێوازێ ئەزموونا نەزەری ل سەر کاغەزێ.</p>
+    <div class="score-panel">
+      <div><strong>نمرەیا تە د پرسیارێن هەڵبژارتن و ڕاست/خەلەت دا:</strong> <span id="finalScoreText">0 / 20</span></div>
+      <div>
+        <button class="btn-success" onclick="showAllFinalAnswers()">نیشاندانا هەمی بەرسڤێن تاقیکرنا گشتی</button>
+        <button class="btn-outline" onclick="resetFinalExam()">دووبارە دەستپێکرن</button>
+      </div>
+    </div>
+  </div>
+  <div id="finalExamContainer"></div>
+</div>
+
+<script>
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  const slidesData = [
+    {
+      id: "slide-1-2",
+      slideNum: "سلاید ١ و ٢",
+      title: "Introduction & Outlines (پێشەکی و ناڤەرۆکا بابەتی)",
+      summary: `
+        <ul>
+          <li><strong>سلاید ١:</strong> ناڤێ بابەتی <span class="ltr">Fundamentals of Programming by C#</span> (زانکۆیا ئاکرێ بۆ زانستێن کرداری - مامۆستا کازێن اسماعیل تاهیر، ٢٠٢٤-٢٠٢٥).</li>
+          <li><strong>سلاید ٢ (Outlines):</strong> بابەتێن سەرەکی یێن ئەڤ مەلزەمەیە ل سەر دهێتە خویندن پێکدهێن ژ ٥ تەوەران:</li>
+        </ul>
+        <ol dir="ltr" style="text-align:left; font-weight:600;">
+          <li>Data Types (جۆرێن داتایان)</li>
+          <li>Operators (ئۆپەرەیتەر / کارپێکەر)</li>
+          <li>Type Casting (گوهۆڕینا جۆرێ داتایێ ب شێوێ کاستینگ)</li>
+          <li>Type Conversion (گوهۆڕینا جۆرێ داتایێ ب ڕێیا میتۆدان)</li>
+          <li>Expressions (دەربڕین / گوزارشت)</li>
+        </ol>
+      `,
+      tip: "د ئەزموونان دا هندەک جاران پرسیار دهێت کا ناڤەرۆکا سەرەکی یا بابەتی چنە یان کا جوداهی د ناڤبەرا Type Casting و Type Conversion دا چییە.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Which of the following is NOT one of the main outlines of this lecture?",
+          hint: "کیژ ژ ئەڤێن خوارێ ژ ناڤەرۆکا سەرەکی یا ئەڤێ وانێ نینە؟",
+          options: ["A) Data Types", "B) Operators", "C) Loops and Arrays", "D) Expressions"],
+          correctIndex: 2,
+          ansEn: "C) Loops and Arrays",
+          ansKu: "سلایدێ ٢ پێکدهێت ژ: Data Types, Operators, Type Casting, Type Conversion, Expressions. بابەتێ Loops and Arrays د ئەڤێ مەلزەمێ دا نینە."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Type Casting and Type Conversion are two topics covered in the outlines of this C# lecture.",
+          hint: "ڕاست یان خەلەت: Type Casting و Type Conversion هەردوو د ناڤ ناڤەرۆکا ئەڤێ وانێ دا هەنە.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، هەردوو د خشتێ Outlines ل سلایدێ ٢ دا هاتینە."
+        },
+        {
+          type: "MCQ",
+          text: "What programming language is taught in this course?",
+          hint: "چ زمانێ پرۆگرامسازیێ د ئەڤێ وانێ دا دهێتە خویندن؟",
+          options: ["A) Python", "B) C++", "C) C#", "D) Java"],
+          correctIndex: 2,
+          ansEn: "C) C#",
+          ansKu: "ناڤێ وانێ Fundamentals of Programming by C# یە."
+        },
+        {
+          type: "Fill in the Blank",
+          text: "Fill in the blanks: The five main topics in the outline are Data Types, ________, Type Casting, Type Conversion, and ________.",
+          hint: "بۆشاییان پڕ بکە.",
+          ansEn: "Operators, Expressions",
+          ansKu: "بابەتێ دووێ Operators یە و بابەتێ پێنجێ Expressions یە."
+        },
+        {
+          type: "Short Answer",
+          text: "List all 5 main topics mentioned in the Outlines slide.",
+          hint: "هەر ٥ بابەتێن سەرەکی یێن د سلایدێ Outlines دا هاتین بێژە.",
+          ansEn: "1. Data Types  2. Operators  3. Type Casting  4. Type Conversion  5. Expressions",
+          ansKu: "١- جۆرێن داتایان ٢- ئۆپەرەیتەر ٣- تایپ کاستینگ ٤- تایپ کۆنڤێرژن ٥- ئێکسپرێشن."
+        }
+      ]
+    },
+    {
+      id: "slide-3",
+      slideNum: "سلاید ٣",
+      title: "C# Data Types (پێناسە و گرنگیا جۆرێن داتایان)",
+      summary: `
+        <ul>
+          <li><strong>C# is a strongly-typed language:</strong> زمانەکێ گرێدایی ب جۆرێ داتایانە؛ یعنی پێدڤی یە بەرێ دەستنیشان بکەین کا گۆڕاو (variable) دێ چ جۆرێ بهایان هەلگریت.</li>
+          <li><strong>Data Type:</strong> قەبارە (size) و جۆرێ (type) بهایێ گۆڕاوی دیار دکەت.</li>
+          <li><strong>بۆچی گرنگە جۆرێ دروست بکاربینین؟</strong> (١) ژ بۆ دویرکەفتن ژ خەلەتیان (avoid errors)، (٢) پاشەکەفتکرنا دەمی و میمۆریێ (save time and memory)، (٣) کۆد دێ زێدەتر قابلێ پاراستن و خواندنێ بیت (more maintainable and readable).</li>
+        </ul>
+        <div class="code-block">int myNum = 5;            // Integer (whole number)
+float floatVar = 10.2f;   // Floating point number
+char myLetter = 'D';      // Character
+bool myBool = true;       // Boolean
+string myText = "Kurdistan"; // String</div>
+      `,
+      tip: "گرنگە بزانیت کو د زمانێ C# دا پێدڤی یە حرفا 'f' ل دوماهییا بهایێ float بهێتە دانان، بۆ نموونە 10.2f.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Why is C# called a strongly-typed language?",
+          hint: "بۆچی C# ب زمانەکێ strongly-typed دهێتە ناڤکرن؟",
+          options: [
+            "A) Because it does not use variables",
+            "B) Because we must declare the type of a variable that indicates what values it stores",
+            "C) Because all variables are strings",
+            "D) Because it only works on Windows"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Because we must declare the type of a variable that indicates what values it stores",
+          ansKu: "چونکی پێدڤی یە جۆرێ هەر گۆڕاوەکی (variable) بهێتە دیارکرن کا دێ چ جۆرێ داتایێ تێدا هەلگریت."
+        },
+        {
+          type: "MCQ",
+          text: "Which of the following is a benefit of using the correct data type?",
+          hint: "کیژ ژ ئەڤێن خوارێ مفایێ بکارئینانا جۆرێ داتایێ یێ دروستە؟",
+          options: [
+            "A) Avoid errors",
+            "B) Save time and memory",
+            "C) Make code more maintainable and readable",
+            "D) All of the above"
+          ],
+          correctIndex: 3,
+          ansEn: "D) All of the above",
+          ansKu: "هەر سێ خال د سلایدێ ٣ دا وەک مفایێن بکارئینانا جۆرێ دروست هاتینە نڤێسین."
+        },
+        {
+          type: "Find Error",
+          text: "Find the error in this declaration: float x = 10.2;",
+          hint: "خەلەتی د ئەڤێ ڕێزکێ دا چییە؟",
+          ansEn: "Missing the 'f' suffix. It should be: float x = 10.2f;",
+          ansKu: "پیتا 'f' ل دوماهییا 10.2 کێمە، چونکی ب شێوێ بنەڕەتی C# ژمارێن ب پۆینت وەک double دبینیت."
+        },
+        {
+          type: "True/False",
+          text: "True or False: A data type specifies both the size and the type of variable values.",
+          hint: "ڕاست یان خەلەت: جۆرێ داتایێ قەبارە و جۆرێ بهایێ گۆڕاوی دیار دکەت.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ئەڤە ڕاستەوخۆ د خالا دووێ یا سلایدێ ٣ دا هاتیە."
+        },
+        {
+          type: "Short Answer",
+          text: "Write valid C# declarations for: an integer storing 5, a boolean storing true, and a string storing \"Kurdistan\".",
+          hint: "سێ گۆڕاوان ب C# بناسێنە.",
+          ansEn: "int myNum = 5;\nbool myBool = true;\nstring myText = \"Kurdistan\";",
+          ansKu: "پێدڤی یە هەر ڕێزکەک ب سمیکۆلۆن (;) ب دوماهیک بهێت و string د ناڤ دابل کۆتێشنێ دا بیت."
+        }
+      ]
+    },
+    {
+      id: "slide-4",
+      slideNum: "سلاید ٤",
+      title: "The Most Common Data Types (قەبارە و وەسفێ جۆرێن بەربەلاڤ)",
+      summary: `
+        <table class="data-table">
+          <tr><th>Data Type</th><th>Size</th><th>Description</th></tr>
+          <tr><td>int</td><td>4 bytes</td><td>Whole numbers: -2,147,483,648 to 2,147,483,647</td></tr>
+          <tr><td>long</td><td>8 bytes</td><td>Whole numbers: -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td></tr>
+          <tr><td>float</td><td>4 bytes</td><td>Fractional numbers (6 to 7 decimal digits)</td></tr>
+          <tr><td>double</td><td>8 bytes</td><td>Fractional numbers (15 decimal digits)</td></tr>
+          <tr><td>bool</td><td>1 bit</td><td>Stores true or false values</td></tr>
+          <tr><td>char</td><td>2 bytes</td><td>Single character/letter, surrounded by single quotes ' '</td></tr>
+          <tr><td>string</td><td>2 bytes per character</td><td>Sequence of characters, surrounded by double quotes " "</td></tr>
+        </table>
+      `,
+      tip: "خشتێ قەبارەیان (Size) گەلەک بۆ ئەزموونا کاغەزێ گرنگە! بتایبەت: bool = 1 bit، char = 2 bytes، int = 4 bytes، float = 4 bytes، long = 8 bytes، double = 8 bytes.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "How much memory does a 'double' data type take in C#?",
+          hint: "جۆرێ double چەند جهـ د میمۆریێ دا دگریت؟",
+          options: ["A) 2 bytes", "B) 4 bytes", "C) 8 bytes", "D) 1 bit"],
+          correctIndex: 2,
+          ansEn: "C) 8 bytes",
+          ansKu: "double ٨ بایتان دگریت و بۆ ١٥ رقمێن پۆینتی بەسە."
+        },
+        {
+          type: "MCQ",
+          text: "How many decimal digits is a 'float' sufficient for storing?",
+          hint: "float بەسە بۆ هەلگرتنا چەند رقمێن پشتی پۆینتی؟",
+          options: ["A) 2 to 3 digits", "B) 6 to 7 decimal digits", "C) 15 decimal digits", "D) 28 decimal digits"],
+          correctIndex: 1,
+          ansEn: "B) 6 to 7 decimal digits",
+          ansKu: "float (4 bytes) بۆ ٦ هەتا ٧ رقمێن دەقیق بەسە، لێ double (8 bytes) بۆ ١٥ رقمانە."
+        },
+        {
+          type: "MCQ",
+          text: "According to the slide table, what is the size of 'bool' and 'char'?",
+          hint: "لدویڤ خشتێ سلایدێ ٤، قەبارێ bool و char چەندە؟",
+          options: [
+            "A) bool: 1 bit, char: 2 bytes",
+            "B) bool: 4 bytes, char: 1 byte",
+            "C) bool: 2 bytes, char: 4 bytes",
+            "D) bool: 1 byte, char: 8 bytes"
+          ],
+          correctIndex: 0,
+          ansEn: "A) bool: 1 bit, char: 2 bytes",
+          ansKu: "د خشتێ سلایدێ ٤ دا هاتیە: bool = 1 bit و char = 2 bytes."
+        },
+        {
+          type: "MCQ",
+          text: "What is the memory size of a string with 5 characters (according to the slide)?",
+          hint: "ئەگەر string ٥ پیت تێدا بن، لدویڤ سلایدی قەبارێ وێ چەند بایتە؟",
+          options: ["A) 5 bytes", "B) 8 bytes", "C) 10 bytes", "D) 2 bytes"],
+          correctIndex: 2,
+          ansEn: "C) 10 bytes (2 bytes per character × 5 = 10 bytes)",
+          ansKu: "چونکی سلاید دبێژیت string = 2 bytes per character، کەواتە 5 × 2 = 10 bytes."
+        },
+        {
+          type: "True/False",
+          text: "True or False: A 'char' value is surrounded by double quotes, while a 'string' value is surrounded by single quotes.",
+          hint: "ڕاست یان خەلەت: char د ناڤ دابل کۆتێشن دا و string د ناڤ سینگل کۆتێشن دایە.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە، بەروڤاژی یە! char د ناڤ single quotes ('A') دایە و string د ناڤ double quotes (\"ABC\") دایە."
+        },
+        {
+          type: "Fill in the Blank",
+          text: "The 'int' data type takes ________ bytes, while 'long' takes ________ bytes.",
+          hint: "قەبارێ int و long چەند بایتە؟",
+          ansEn: "4, 8",
+          ansKu: "int قەبارێ وی ٤ بایتە و long ٨ بایتە."
+        }
+      ]
+    },
+    {
+      id: "slide-5",
+      slideNum: "سلاید ٥",
+      title: "C# Data Types - Numbers Hierarchy (دابەشکرنا جۆرێن ژماران)",
+      summary: `
+        <ul>
+          <li>جۆرێن ژماران دابەشی دوو گروپان دبن:</li>
+          <li><strong>Integer types:</strong> ژمارێن تەمام بێی پۆینت (دشێن پۆزەتیڤ یان نێگەتیڤ بن). پێکدهێن ژ:
+            <span class="ltr">byte / sbyte (8 bit)</span>، <span class="ltr">short / ushort (16 bit)</span>، <span class="ltr">int / uint (32 bit)</span>، <span class="ltr">long / ulong (64 bit)</span>.</li>
+          <li><strong>Floating-point types:</strong> ژمارێن ب پۆینت (decimal point). پێکدهێن ژ:
+            <span class="ltr">float (32 bit)</span>، <span class="ltr">double (64 bit)</span>، <span class="ltr">decimal (128 bit)</span>.</li>
+        </ul>
+      `,
+      tip: "هەر بیت (bit) یەکسانە ب 1/8 بایت. کەواتە 32 bit = 4 bytes، 64 bit = 8 bytes، 128 bit = 16 bytes.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Number types in C# are divided into which two groups?",
+          hint: "جۆرێن ژماران د C# دا دابەشی کیژ دوو گروپان دبن؟",
+          options: [
+            "A) Char and String",
+            "B) Integer types and Floating-point types",
+            "C) Boolean and Decimal",
+            "D) Signed and Unsigned only"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Integer types and Floating-point types",
+          ansKu: "جۆرێن ژماران دبنە دوو گروپ: Integer types (ژمارێن تەمام) و Floating-point types (ژمارێن ب پۆینت)."
+        },
+        {
+          type: "MCQ",
+          text: "Which of the following is a 128-bit floating-point type?",
+          hint: "کیژ ژ ئەڤان جۆرێ ١٢٨-بیتی یێ ژمارێن ب پۆینتە؟",
+          options: ["A) float", "B) double", "C) decimal", "D) ulong"],
+          correctIndex: 2,
+          ansEn: "C) decimal",
+          ansKu: "float ٣٢ بتە، double ٦٤ بتە، و decimal ١٢٨ بتە."
+        },
+        {
+          type: "MCQ",
+          text: "How many bits do 'short' and 'ushort' use?",
+          hint: "جۆرێن short و ushort چەند بتان بکاردهینن؟",
+          options: ["A) 8 bit", "B) 16 bit", "C) 32 bit", "D) 64 bit"],
+          correctIndex: 1,
+          ansEn: "B) 16 bit",
+          ansKu: "byte/sbyte = 8 bit، short/ushort = 16 bit، int/uint = 32 bit، long/ulong = 64 bit."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Integer type numbers can be both positive and negative whole numbers without decimal points.",
+          hint: "ڕاست یان خەلەت: ژمارێن Integer دشێن پۆزەتیڤ و نێگەتیڤ بن بێی پۆینت.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ژمارێن Integer ژمارێن تەمامن بێ پۆینت و دشێن پۆزەتیڤ یان نێگەتیڤ بن."
+        },
+        {
+          type: "Short Answer",
+          text: "Name all 3 Floating-point data types shown in the hierarchy diagram and their bit sizes.",
+          hint: "ناڤێ هەر ٣ جۆرێن Floating-point ل گەل قەبارێ وان ب بت بنڤێسە.",
+          ansEn: "float (32 bit), double (64 bit), decimal (128 bit)",
+          ansKu: "float ٣٢ بتە، double ٦٤ بتە، decimal ١٢٨ بتە."
+        }
+      ]
+    },
+    {
+      id: "slide-6",
+      slideNum: "سلاید ٦",
+      title: "Numbers Table, Suffixes & Default Values (خشتێ ژماران و سافیکس و بهایێ بنەڕەتی)",
+      summary: `
+        <table class="data-table">
+          <tr><th>Type</th><th>Description</th><th>Range</th><th>Suffix</th></tr>
+          <tr><td>byte</td><td>8-bit unsigned</td><td>0 to 255</td><td>-</td></tr>
+          <tr><td>sbyte</td><td>8-bit signed</td><td>-128 to 127</td><td>-</td></tr>
+          <tr><td>short</td><td>16-bit signed</td><td>-32,768 to 32,767</td><td>-</td></tr>
+          <tr><td>ushort</td><td>16-bit unsigned</td><td>0 to 65,535</td><td>-</td></tr>
+          <tr><td>int</td><td>32-bit signed</td><td>-2,147,483,648 to 2,147,483,647</td><td>-</td></tr>
+          <tr><td>uint</td><td>32-bit unsigned</td><td>0 to 4,294,967,295</td><td>u</td></tr>
+          <tr><td>long</td><td>64-bit signed</td><td>-9.22e18 to 9.22e18</td><td>l</td></tr>
+          <tr><td>ulong</td><td>64-bit unsigned</td><td>0 to 18,446,744,073,709,551,615</td><td>ul</td></tr>
+          <tr><td>float</td><td>32-bit single-precision</td><td>-3.402823e38 to 3.402823e38</td><td>f</td></tr>
+          <tr><td>double</td><td>64-bit double-precision</td><td>-1.79769313486232e308 to +...</td><td>d</td></tr>
+          <tr><td>decimal</td><td>128-bit financial/monetary</td><td>(+-)1.0 x 10e-28 to 7.9 x 10e28</td><td>m</td></tr>
+        </table>
+        <ul>
+          <li><strong>بهایێ بنەڕەتی (Default Value):</strong> بۆ هەمی جۆرێن integer یەکسانە ب <span class="ltr">0</span>، ژبلی <span class="ltr">long</span> کو <span class="ltr">0L</span> یە.</li>
+          <li>بۆ <span class="ltr">float</span> یەکسانە ب <span class="ltr">0.0F</span> و بۆ <span class="ltr">double</span> یەکسانە ب <span class="ltr">0.0D</span>.</li>
+        </ul>
+      `,
+      tip: "پیتێن سافیکس (Suffix) ژبیر نەکە: u بۆ uint، l بۆ long، ul بۆ ulong، f بۆ float، d بۆ double، و m بۆ decimal (م بۆ monetary/money دا ژبیر نەکەی!). و unsigned یعنی بتنێ ژمارێن پۆزەتیڤ (ژ 0 دەستپێدکەت).",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is the valid range of values for the 'byte' data type?",
+          hint: "مەودایێ بهایان بۆ جۆرێ byte چەندە؟",
+          options: ["A) -128 to 127", "B) 0 to 255", "C) 0 to 65,535", "D) -32,768 to 32,767"],
+          correctIndex: 1,
+          ansEn: "B) 0 to 255",
+          ansKu: "byte 8-bit unsigned یە، کەواتە ژ 0 هەتا 255 هەلدگریت (بەلێ sbyte ژ -128 هەتا 127 هەلدگریت)."
+        },
+        {
+          type: "MCQ",
+          text: "Which suffix is used for a 'decimal' literal?",
+          hint: "کیژ پیت وەک سافیکس بۆ جۆرێ decimal دهێتە بکارئینان؟",
+          options: ["A) d", "B) f", "C) m", "D) ul"],
+          correctIndex: 2,
+          ansEn: "C) m",
+          ansKu: "پیتا m بۆ decimal دهێتە بکارئینان (چونکی d بۆ double هاتیە تەرخانکرن)."
+        },
+        {
+          type: "MCQ",
+          text: "Which data type is specifically used for financial and monetary calculations?",
+          hint: "کیژ جۆرێ داتایێ ب تایبەت بۆ هەژمارێن دارایی و پاران دهێتە بکارئینان؟",
+          options: ["A) float", "B) double", "C) decimal", "D) long"],
+          correctIndex: 2,
+          ansEn: "C) decimal",
+          ansKu: "decimal جۆرەکێ ١٢٨-بیتی یە و بۆ هەژمارێن دارایی و پاران (financial and monetary calculations) یێ گونجایە."
+        },
+        {
+          type: "MCQ",
+          text: "What is the default value of 'long' and 'float' according to the slide note?",
+          hint: "بهایێ بنەڕەتی (default value) بۆ long و float چییە؟",
+          options: ["A) 0 and 0", "B) 0L and 0.0F", "C) 0.0D and 0L", "D) null and 0.0F"],
+          correctIndex: 1,
+          ansEn: "B) 0L and 0.0F",
+          ansKu: "لدویڤ تێبینیا سلایدێ ٦: بهایێ بنەڕەتی یێ long یەکسانە ب 0L و یێ float یەکسانە ب 0.0F."
+        },
+        {
+          type: "True/False",
+          text: "True or False: The 'sbyte' type is an 8-bit signed integer with range -128 to 127.",
+          hint: "ڕاست یان خەلەت: sbyte ژمارەکا تەمام یا ٨-بیتی یا ب نیشانە د ناڤبەرا -128 هەتا 127.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، sbyte کورتکریێ signed byte یە و مەودایێ وێ -128 هەتا 127 یە."
+        },
+        {
+          type: "Find Error",
+          text: "Will this line compile without error? byte age = 300;",
+          hint: "ئایا ئەڤ کۆدە دێ کار کەت؟ ئەگەر نە بۆچی؟",
+          ansEn: "Compile error! Because byte only stores values from 0 to 255, and 300 is out of range.",
+          ansKu: "خەلەتە! چونکی جۆرێ byte هەتا 255 هەلدگریت، ژمارا 300 ژ مەودایێ وێ دەردکەڤیت (پێدڤیە ushort یان int بکاربینی)."
+        }
+      ]
+    },
+    {
+      id: "slide-7",
+      slideNum: "سلاید ٧",
+      title: "Example (Integers): Measuring Time (نموونا ژمارێن تەمام)",
+      summary: `
+        <div class="code-block">byte centuries = 20;      // Usually a number small
+ushort years = 2000;
+uint days = 730480;
+ulong hours = 17531520;   // May be a very big number
+Console.WriteLine("{0} centuries is {1} years, or {2} days, or {3} hours.",
+    centuries, years, days, hours);
+Console.ReadKey();</div>
+        <ul>
+          <li><strong>ئەنجام:</strong> <span class="ltr">20 centuries is 2000 years, or 730480 days, or 17531520 hours.</span></li>
+          <li><strong>تێبینی:</strong> لدویڤ یەکەیا پیڤانێ (unit of measure) ئەم دشێین جۆرێن جودا یێن داتایان بکاربینین (بۆ نموونە سەدە ژمارەکا بچویکە byte بەسە، لێ دەمژمێر مەزنە ulong بکارهات).</li>
+        </ul>
+      `,
+      tip: "د Console.WriteLine دا {0} بهایێ ئێکەم گۆڕاو (centuries) دگریت، {1} یێ دووەم (years)، {2} یێ سێیەم (days)، و {3} یێ چارەم (hours). ژ 0 دەستپێدکەت!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "What is the exact output of: int a = 10, b = 20; Console.WriteLine(\"{1} and {0}\", a, b);",
+          hint: "هشیار بە! ڕیزبەندیا {1} و {0} لێرە گوهۆڕیە، ئەنجام چ دەرکەڤیت؟",
+          ansEn: "20 and 10",
+          ansKu: "{1} ئاماژێ ب پارامیتەرێ دووێ (b=20) دکەت، و {0} ب پارامیتەرێ ئێکێ (a=10) دکەت."
+        },
+        {
+          type: "MCQ",
+          text: "Why did the example use 'byte' for centuries but 'ulong' for hours?",
+          hint: "بۆچی د نموونێ دا byte بۆ centuries و ulong بۆ hours بکارهات؟",
+          options: [
+            "A) Because byte cannot be printed",
+            "B) Depending on the unit of measure and number size, we choose suitable data types",
+            "C) Because hours must be negative",
+            "D) Because ushort only works for days"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Depending on the unit of measure and number size, we choose suitable data types",
+          ansKu: "لدویڤ یەکەیا پیڤانێ و قەبارێ ژمارێ ئەم جۆرێ گونجای هەلدبژێرین دا میمۆری ب فیڕۆ نەچیت."
+        },
+        {
+          type: "MCQ",
+          text: "Could 'byte' store the value of 'years = 2000'?",
+          hint: "ئایا جۆرێ byte دشێت بهایێ 2000 هەلگریت؟",
+          options: ["A) Yes", "B) No, because byte max value is 255", "C) Yes, if we add 'b' suffix", "D) Only if negative"],
+          correctIndex: 1,
+          ansEn: "B) No, because byte max value is 255",
+          ansKu: "نەخێر، چونکی هەری زۆر byte هەتا 255 هەلدگریت، ژ بەر هندێ ushort (هەتا 65,535) هاتە بکارئینان."
+        },
+        {
+          type: "True/False",
+          text: "True or False: In Console.WriteLine(\"{0} ... {1}\", x, y), placeholders start indexing from 1.",
+          hint: "ڕاست یان خەلەت: د نڤێسینا {0} و {1} دا ژمارە ژ ١ دەستپێدکەت.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە، ژمارەکرن هەردەم ژ 0 ({0}) دەستپێدکەت."
+        },
+        {
+          type: "Short Answer",
+          text: "What is the purpose of Console.ReadKey(); at the end of the program?",
+          hint: "مەرەم ژ نڤێسینا Console.ReadKey(); ل دوماهیا کۆدی چییە؟",
+          ansEn: "It waits for the user to press a key so the console window stays open and the output can be read.",
+          ansKu: "پەنجەرەیا کۆنسۆلی (شاشا ڕەش) ڕادگریت هەتا بکارهێنەر دوگمەیەکێ دگریت دا بشێت ئەنجامی بخوینیت."
+        }
+      ]
+    },
+    {
+      id: "slide-8",
+      slideNum: "سلاید ٨",
+      title: "Example (Float): PI (π) Precision (دەقیقیا ژمارێن پۆینتی)",
+      summary: `
+        <div class="code-block">float floatPI = 3.141592653589793238f;
+double doublePI = 3.141592653589793238;
+Console.WriteLine("Float PI is: {0}", floatPI);
+Console.WriteLine("Double PI is: {0}", doublePI);
+Console.ReadKey();</div>
+        <ul>
+          <li><strong>ئەنجام:</strong>
+            <br><span class="ltr">Float PI is: 3.141593</span>
+            <br><span class="ltr">Double PI is: 3.14159265358979</span>
+          </li>
+          <li><strong>تێبینیا گرنگ:</strong> د زمانێ C# دا هەر ژمارەکا پۆینتی بێ پاشگر (بۆ نموونە <span class="ltr">3.14</span>) ب شێوێ بنەڕەتی وەک <span class="ltr">double</span> دهێتە هەژمارتن. ژ بەر هندێ پێدڤیە پیتا <span class="ltr">f</span> ل دوماهیێ بهێتە زێدەکرن دا ببیتە <span class="ltr">float</span>.</li>
+        </ul>
+      `,
+      tip: "سەرنج بدە: float بتنێ نێزیکی 7 رقمان دپارێزیت (3.141593)، لێ double نێزیکی 15 رقمان دپارێزیت (3.14159265358979).",
+      questions: [
+        {
+          type: "MCQ",
+          text: "By default, how are real (floating-point) numbers interpreted in C# if no suffix is given?",
+          hint: "ب شێوێ بنەڕەتی ژمارێن ب پۆینت د C# دا وەک چ جۆر دهێنە هەژمارتن؟",
+          options: ["A) float", "B) double", "C) decimal", "D) int"],
+          correctIndex: 1,
+          ansEn: "B) double",
+          ansKu: "هەر ژمارەکا ب پۆینت بێ پاشگر (وەک 3.14) ب شێوێ بنەڕەتی وەک double دهێتە وەرگرتن."
+        },
+        {
+          type: "Trace Output",
+          text: "What does floatPI print in Slide 8: 3.141592653589793238f?",
+          hint: "ژمارا floatPI د سلایدێ ٨ دا چ ئەنجام ددەت؟",
+          ansEn: "3.141593",
+          ansKu: "چونکی float بتنێ 6-7 رقمان هەلدگریت و رقمێ حەفتێ ژبەر (26) دهێتە گەڕکردن (round) بۆ 3."
+        },
+        {
+          type: "Find Error",
+          text: "What happens if we write: float floatPI = 3.14159;",
+          hint: "ئەگەر پیتا f نەنڤێسین دێ چ ڕویدەت؟",
+          ansEn: "Compile-time error: Cannot implicitly convert type 'double' to 'float'. Add 'f' suffix (3.14159f).",
+          ansKu: "خەلەتیا کۆمپایلێ ڕویددەت چونکی 3.14159 وەک double دهێتە دیتن و ناهێتە کرن د ناڤ float دا بێ پیتا f یان (float)."
+        },
+        {
+          type: "True/False",
+          text: "True or False: 'double' has higher precision than 'float'.",
+          hint: "ڕاست یان خەلەت: double ژ float دەقیقترە (پتر رقمان پشتی پۆینتی دپارێزیت).",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، double هەتا ١٥ رقمان دپارێزیت لێ float بتنێ ٦ بۆ ٧ رقمان."
+        },
+        {
+          type: "Short Answer",
+          text: "Why is the 'f' suffix needed in: float floatPI = 3.14f;",
+          hint: "بۆچی پیتا 'f' پێدڤی یە د ئەڤێ ڕێزکێ دا؟",
+          ansEn: "Because real numbers in C# are interpreted as double by default, so 'f' tells the compiler to treat it as float.",
+          ansKu: "چونکی ژمارێن پۆینتی ب شێوێ بنەڕەتی وەک double دهێنە ناسین، 'f' دبێژیتە کۆمپایلەری کو ئەڤە float یە."
+        }
+      ]
+    },
+    {
+      id: "slide-9",
+      slideNum: "سلاید ٩",
+      title: "C# Data Types - Boolean (جۆرێ لۆژیکی bool)",
+      summary: `
+        <ul>
+          <li>ب کلیلوشەیا <span class="ltr">bool</span> دهێتە دیارکرن.</li>
+          <li>بتنێ دوو بها هەنە: <span class="ltr">true</span> یان <span class="ltr">false</span>.</li>
+          <li>بۆ دەربڕینێن لۆژیکی (logical expressions) یێ بمفایە.</li>
+          <li>بهایێ بنەڕەتی (default value) یەکسانە ب <span class="ltr">false</span>.</li>
+        </ul>
+        <div class="code-block">int a = 1;
+int b = 2;
+bool greaterAB = (a > b);
+Console.WriteLine(greaterAB);  // False
+bool equalA1 = (a == 1);
+Console.WriteLine(equalA1);    // True
+Console.ReadKey();</div>
+      `,
+      tip: "تێبینیەکا زۆر گرنگ بۆ ئەزموونێ: د کۆدی دا ب سمۆل دهێتە نڤێسین (true / false)، بەلێ دەمێ Console.WriteLine چاپ دکەت پیتا ئێکێ کاپیتال چاپ دکەت: True و False.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is the default value of a 'bool' variable in C#?",
+          hint: "بهایێ بنەڕەتی یێ گۆڕاوەکێ bool چییە؟",
+          options: ["A) true", "B) false", "C) 0", "D) null"],
+          correctIndex: 1,
+          ansEn: "B) false",
+          ansKu: "بهایێ بنەڕەتی یێ bool یەکسانە ب false."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nint x = 5, y = 5;\nbool res = (x == y);\nConsole.WriteLine(res);",
+          hint: "ئەڤ کۆدە چ چاپ دکەت؟",
+          ansEn: "True",
+          ansKu: "چونکی 5 == 5 ڕاستە، د کۆنسۆلی دا True (ب پیتا T یا کاپیتال) چاپ دبیت."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nint a = 1, b = 2;\nConsole.WriteLine(a > b);",
+          hint: "ئەڤ کۆدە چ چاپ دکەت؟",
+          ansEn: "False",
+          ansKu: "چونکی 1 > 2 خەلەتە، False چاپ دبیت."
+        },
+        {
+          type: "True/False",
+          text: "True or False: In C#, you can assign bool b = 1; directly like in C/C++.",
+          hint: "ڕاست یان خەلەت: د C# دا دشێین ڕاستەوخۆ بهایێ 1 بدەینە گۆڕاوەکێ bool.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە! C# زمانەکێ strongly-typed یە، bool بتنێ true یان false وەردگریت نە 1 یان 0."
+        },
+        {
+          type: "MCQ",
+          text: "Which keyword is used to declare a Boolean variable in C#?",
+          hint: "ب کیژ کلیلوشێ گۆڕاوێ Boolean دهێتە ناساندن؟",
+          options: ["A) boolean", "B) bool", "C) bit", "D) logic"],
+          correctIndex: 1,
+          ansEn: "B) bool",
+          ansKu: "د C# دا کلیلوشەیا bool دهێتە بکارئینان (نە boolean)."
+        }
+      ]
+    },
+    {
+      id: "slide-10",
+      slideNum: "سلاید ١٠",
+      title: "C# Data Types - Char (جۆرێ پیتان char)",
+      summary: `
+        <ul>
+          <li>جۆرێ <span class="ltr">char</span> بۆ هەلگرتنا <strong>ئێک پیت/کاراکتەر (single character)</strong> دهێتە بکارئینان.</li>
+          <li>پێدڤیە د ناڤ سینگل کۆتێشنێ (single quotes) دا بهێتە نڤێسین، وەک <span class="ltr">'A'</span> یان <span class="ltr">'c'</span>.</li>
+          <li>بهایێ بنەڕەتی (default value) یەکسانە ب <span class="ltr">'\0'</span>.</li>
+        </ul>
+        <div class="code-block">char myGrade = 'B';
+Console.WriteLine(myGrade);   // Output: B</div>
+      `,
+      tip: "هشیار بە! 'B' جۆرەکێ char یە، لێ \"B\" جۆرەکێ string یە. ئەگەر بنڤێسی char c = \"B\"; دێ خەلەتی چێبیت!",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is the default value of a 'char' data type in C#?",
+          hint: "بهایێ بنەڕەتی یێ char چییە؟",
+          options: ["A) '0'", "B) '\\0'", "C) null", "D) ' '"],
+          correctIndex: 1,
+          ansEn: "B) '\\0'",
+          ansKu: "بهایێ بنەڕەتی یێ char کاراکتەرێ '\\0' یە (null character)."
+        },
+        {
+          type: "Find Error",
+          text: "Find the error in: char letter = \"A\";",
+          hint: "خەلەتی د ئەڤێ ڕێزکێ دا چییە؟",
+          ansEn: "Double quotes are used instead of single quotes. It should be: char letter = 'A';",
+          ansKu: "دابل کۆتێشن \"A\" بۆ string دهێتە بکارئینان. بۆ char پێدڤیە سینگل کۆتێشن 'A' بکاربینی."
+        },
+        {
+          type: "Find Error",
+          text: "Find the error in: char initials = 'AB';",
+          hint: "خەلەتی د ئەڤێ ڕێزکێ دا چییە؟",
+          ansEn: "Too many characters in character literal. 'char' can only store a single character.",
+          ansKu: "جۆرێ char بتنێ ئێک پیت هەلدگریت، نەشێت دوو پیتان 'AB' پێکڤە هەلگریت."
+        },
+        {
+          type: "True/False",
+          text: "True or False: A 'char' variable can store a digit like '5' as a character.",
+          hint: "ڕاست یان خەلەت: char دشێت رقمەکێ وەک '5' د ناڤ سینگل کۆتێشنێ دا هەلگریت.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، هەر ئێک هێما یان پیت یان رقمەک د ناڤ سینگل کۆتێشنێ دا ('5') وەک char دهێتە وەرگرتن."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nchar myGrade = 'B';\nConsole.WriteLine(myGrade);",
+          hint: "ئەنجامێ ئەڤی کۆدی چییە؟",
+          ansEn: "B",
+          ansKu: "پیتا B بێ کۆتێشن چاپ دبیت."
+        }
+      ]
+    },
+    {
+      id: "slide-11",
+      slideNum: "سلاید ١١",
+      title: "C# Data Types - String (جۆرێ ڕستە و تێکستان string)",
+      summary: `
+        <ul>
+          <li>جۆرێ <span class="ltr">string</span> بۆ هەلگرتنا زنجیرەکا پیتان (sequence of characters / text) دهێتە بکارئینان.</li>
+          <li>پێدڤیە د ناڤ دابل کۆتێشنێ (double quotes) <span class="ltr">" "</span> دا بهێتە نڤێسین.</li>
+          <li>بهایێ بنەڕەتی (default value) یەکسانە ب <span class="ltr">null</span> (چ بها نینە).</li>
+          <li>سترینگ دشێن ب ئۆپەرەیتەرێ <span class="ltr">+</span> پێکڤە بهێنە گرێدان (concatenation).</li>
+        </ul>
+        <div class="code-block">string firstName = "Dareen";
+string lastName = "Muhammed";
+Console.WriteLine("Hello, {0}!\n", firstName);
+string fullName = firstName + " " + lastName;
+Console.WriteLine("Your full name is {0}.", fullName);</div>
+      `,
+      tip: "هێمایا \\n د ناڤ string دا ڕێزکەکا نوی (new line) دئێخیتە خوارێ! ژ بەر هندێ د ئەنجامی دا ناڤبەرا Hello, Dareen! و Your full name is... ڕێزکەکا ڤالا هەیە.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is the default value of a 'string' variable in C#?",
+          hint: "بهایێ بنەڕەتی یێ گۆڕاوەکێ string چییە؟",
+          options: ["A) \"\"", "B) '\\0'", "C) null", "D) 0"],
+          correctIndex: 2,
+          ansEn: "C) null",
+          ansKu: "بهایێ بنەڕەتی یێ string یەکسانە ب null (واتە چ بها تێدا نینە)."
+        },
+        {
+          type: "MCQ",
+          text: "Which operator is used to concatenate (join) strings in C#?",
+          hint: "کیژ ئۆپەرەیتەر بۆ پێکڤەگرێدانا سترینگان دهێتە بکارئینان؟",
+          options: ["A) &", "B) +", "C) *", "D) ."],
+          correctIndex: 1,
+          ansEn: "B) +",
+          ansKu: "ئۆپەرەیتەرێ + بۆ پێکڤەگرێدانا دوو یان پتر سترینگان دهێتە بکارئینان."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nstring a = \"Akre\";\nstring b = \"IT\";\nConsole.WriteLine(a + \" \" + b);",
+          hint: "ئەنجامێ ئەڤی کۆدی چییە؟",
+          ansEn: "Akre IT",
+          ansKu: "ناڤبەرا Akre و IT دا بۆشاییەک (\" \") هاتیە زێدەکرن."
+        },
+        {
+          type: "True/False",
+          text: "True or False: In \"Hello, {0}!\\n\", the \\n creates a new line in the output.",
+          hint: "ڕاست یان خەلەت: \\n ڕێزکەکا نوی د دەرکەفتی دا دروست دکەت.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، \\n نیشانا New Line یە د ناڤ کۆنسۆلی دا."
+        },
+        {
+          type: "Fill in the Blank",
+          text: "A string value must be surrounded by ________, and its default value is ________.",
+          hint: "بۆشاییان پڕ بکە.",
+          ansEn: "double quotes, null",
+          ansKu: "سترینگ د ناڤ double quotes دا دهێتە نڤێسین و بهایێ وێ یێ بنەڕەتی null یە."
+        }
+      ]
+    },
+    {
+      id: "slide-12",
+      slideNum: "سلاید ١٢",
+      title: "Categories of Operators in C# (پۆلێنکرنا ئۆپەرەیتەران)",
+      summary: `
+        <table class="data-table">
+          <tr><th>Category</th><th>Operators</th></tr>
+          <tr><td>Arithmetic</td><td>+ &nbsp; - &nbsp; * &nbsp; / &nbsp; % &nbsp; ++ &nbsp; --</td></tr>
+          <tr><td>Logical</td><td>&amp;&amp; &nbsp; || &nbsp; ^ &nbsp; !</td></tr>
+          <tr><td>Binary (Bitwise)</td><td>&amp; &nbsp; | &nbsp; ^ &nbsp; ~ &nbsp; &lt;&lt; &nbsp; &gt;&gt;</td></tr>
+          <tr><td>Comparison</td><td>== &nbsp; != &nbsp; &lt; &nbsp; &gt; &nbsp; &lt;= &nbsp; &gt;=</td></tr>
+          <tr><td>Assignment</td><td>= &nbsp; += &nbsp; -= &nbsp; *= &nbsp; /= &nbsp; %= &nbsp; &amp;= &nbsp; |= &nbsp; ^= &nbsp; &lt;&lt;= &nbsp; &gt;&gt;=</td></tr>
+          <tr><td>String Concatenation</td><td>+</td></tr>
+          <tr><td>Type conversion</td><td>is &nbsp; as &nbsp; typeof</td></tr>
+          <tr><td>Others</td><td>. &nbsp; [] &nbsp; () &nbsp; ?: &nbsp; new</td></tr>
+        </table>
+      `,
+      tip: "جوداهیێ بکە ناڤبەرا Logical (&&, ||) کو دوو هێمانە و بۆ bool دهێنە بکارئینان، و Binary/Bitwise (&, |) کو ئێک هێمایە و ل سەر بتان کاردکەن!",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Which category do '==', '!=', '<=', and '>=' belong to?",
+          hint: "ئەڤ ئۆپەرەیتەرە سەر ب کیژ پۆلی نە؟",
+          options: ["A) Logical", "B) Assignment", "C) Comparison", "D) Arithmetic"],
+          correctIndex: 2,
+          ansEn: "C) Comparison",
+          ansKu: "ئەڤ هەمی ئۆپەرەیتەرێن بەراوردکرنێ (Comparison) نە."
+        },
+        {
+          type: "MCQ",
+          text: "Which of the following is a Type conversion operator listed in Slide 12?",
+          hint: "کیژ ژ ئەڤان د خشتێ سلایدێ ١٢ دا وەک Type conversion هاتیە؟",
+          options: ["A) new", "B) typeof", "C) ?:", "D) ^"],
+          correctIndex: 1,
+          ansEn: "B) typeof (along with 'is' and 'as')",
+          ansKu: "د سلایدێ ١٢ دا سێ ئۆپەرەیتەر ل ژێر Type conversion هاتینە: is, as, typeof."
+        },
+        {
+          type: "MCQ",
+          text: "Which operator appears in BOTH Arithmetic and String Concatenation categories?",
+          hint: "کیژ ئۆپەرەیتەر د هەردوو پۆلێن بیرکاری و پێکڤەگرێدانا سترینگان دا هەیە؟",
+          options: ["A) &", "B) *", "C) +", "D) %"],
+          correctIndex: 2,
+          ansEn: "C) +",
+          ansKu: "+ بۆ کۆمکرنا ژماران و بۆ پێکڤەگرێدانا سترینگان دهێتە بکارئینان."
+        },
+        {
+          type: "True/False",
+          text: "True or False: The operator '^' appears in both Logical and Binary operator categories.",
+          hint: "ڕاست یان خەلەت: ^ د هەردوو پۆلێن Logical و Binary دا هەیە.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، د خشتێ سلایدێ ١٢ دا ^ د هەردوویان دا هاتیە."
+        },
+        {
+          type: "Short Answer",
+          text: "Give two examples of operators from the 'Others' category in Slide 12.",
+          hint: "دوو نموونان ژ پۆلێ 'Others' بێژە.",
+          ansEn: "Any two of: .   []   ()   ?:   new",
+          ansKu: "بۆ نموونە: ?: (مەرجی) و new (دروستکرنا ئۆبجێکتی)."
+        }
+      ]
+    },
+    {
+      id: "slide-13",
+      slideNum: "سلاید ١٣",
+      title: "Arithmetic Operators (ئۆپەرەیتەرێن بیرکاری)",
+      summary: `
+        <table class="data-table">
+          <tr><th>Operator</th><th>Name</th><th>Description</th><th>Example</th></tr>
+          <tr><td>+</td><td>Addition</td><td>Sum of left and right operands</td><td>int x = 5 + 5;</td></tr>
+          <tr><td>-</td><td>Subtraction</td><td>Subtract right from left operand</td><td>int x = 5 - 1;</td></tr>
+          <tr><td>*</td><td>Multiplication</td><td>Multiply left and right operands</td><td>int x = 5 * 1;</td></tr>
+          <tr><td>/</td><td>Division</td><td>Divides left by right operand</td><td>int x = 10 / 2;</td></tr>
+          <tr><td>%</td><td>Remainder</td><td>Remainder after dividing left by right</td><td>int x = 5 % 2;</td></tr>
+          <tr><td>++</td><td>Unary increment</td><td>Increases operand by 1</td><td>x++</td></tr>
+          <tr><td>--</td><td>Unary decrement</td><td>Decreases operand by 1</td><td>x--</td></tr>
+          <tr><td>+</td><td>Unary plus</td><td>Returns value of operand</td><td>+5</td></tr>
+          <tr><td>-</td><td>Unary minus</td><td>Numeric negation of operand</td><td>-5</td></tr>
+        </table>
+      `,
+      tip: "ئۆپەرەیتەرێ % (Remainder / Modulus) ماوێ دابەشکرنێ ددەت، بۆ نموونە 5 % 2 = 1 چونکی 5 ÷ 2 = 2 و 1 دمینیت.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What does the '%' operator compute?",
+          hint: "ئۆپەرەیتەرێ % چ هەژمار دکەت؟",
+          options: [
+            "A) Percentage of a number",
+            "B) Quotient of division",
+            "C) Remainder after division",
+            "D) Power of a number"
+          ],
+          correctIndex: 2,
+          ansEn: "C) Remainder after division",
+          ansKu: "% ماوێ پشتی دابەشکرنێ (Remainder) هەژمار دکەت."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the value of x in: int x = 5 % 2;",
+          hint: "بهایێ x چەندە؟",
+          ansEn: "1",
+          ansKu: "٥ دابەشی ٢ دبیتە ٢ و ماوێ وێ ١ یە."
+        },
+        {
+          type: "MCQ",
+          text: "What does the unary decrement '--' operator do?",
+          hint: "ئۆپەرەیتەرێ -- چ دکەت؟",
+          options: [
+            "A) Decreases its operand by 2",
+            "B) Decreases its operand by 1",
+            "C) Negates the number",
+            "D) Divides by 1"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Decreases its operand by 1",
+          ansKu: "بهایێ گۆڕاوی ب ١ کێم دکەت."
+        },
+        {
+          type: "True/False",
+          text: "True or False: The '+' and '-' symbols can act as both binary and unary operators.",
+          hint: "ڕاست یان خەلەت: + و - دشێن هەم وەک دوو-ئۆپەراند و هەم وەک یەک-ئۆپەراند کار بکەن.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە! وەک Addition/Subtraction (5+5) و وەک Unary plus/minus (+5, -5)."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 10; x++; what is the new value of x?",
+          hint: "پشتی x++ بهایێ نوی یێ x چەندە؟",
+          ansEn: "11",
+          ansKu: "++ بهایێ x ب ١ زێدە دکەت، ژ 10 دبیتە 11."
+        }
+      ]
+    },
+    {
+      id: "slide-14",
+      slideNum: "سلاید ١٤",
+      title: "Arithmetic Operators Example (دابەشکرنا تەمام و ++ پێش و پاش)",
+      summary: `
+        <div class="code-block">int squarePerimeter = 17;
+double squareSide = squarePerimeter / 4.0;     // 4.25
+double squareArea = squareSide * squareSide;   // 18.0625
+int a = 5;
+int b = 4;
+Console.WriteLine(a + b);    // 9
+Console.WriteLine(a + b++);  // 9  (پشتی چاپێ b دبیتە 5)
+Console.WriteLine(a + b);    // 10
+Console.WriteLine(a + (++b));// 11 (بەری کۆمکرنێ b دبیتە 6)
+Console.WriteLine(a + b);    // 11
+Console.WriteLine(11 / 3);   // 3  (دابەشکرنا دوو ژمارێن تەمام!)
+Console.WriteLine(11 % 3);   // 2
+Console.WriteLine(12 / 3);   // 4</div>
+      `,
+      tip: "ئەڤ سلایدە گەلەک د ئەزموونان دا دهێت! (١) 11 / 3 دبیتە 3 نە 3.66 چونکی هەردوو int نە، بەلێ 17 / 4.0 دبیتە 4.25 چونکی 4.0 double یە! (٢) b++ بهایێ کەڤن بکاردهینیت پاشی زێدە دبیت، لێ ++b بەری هەر تشتەکی زێدە دبیت!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(11 / 3);",
+          hint: "ئاگەهدار بە، هەردوو ژمارە int نە!",
+          ansEn: "3",
+          ansKu: "دابەشکرنا دوو ژمارێن تەمام (int / int) پشکێ پۆینتێ دهاڤێژیت و بتنێ 3 دمینیت."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(17 / 4.0);",
+          hint: "ژبەر 4.0، ئەنجام چ دەردکەڤیت؟",
+          ansEn: "4.25",
+          ansKu: "چونکی 4.0 جۆرێ double یە، دابەشکرنا ب پۆینت ئەنجام دهێتە دان (4.25)."
+        },
+        {
+          type: "Trace Output",
+          text: "Given int a = 5, b = 4; What do these two lines print?\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);",
+          hint: "جوداهیا b++ د ڕێزکا ئێکێ و دووێ دا چییە؟",
+          ansEn: "9\n10",
+          ansKu: "د ڕێزکا ئێکێ دا b هێشتا 4 یە (5+4=9)، پاشی b دبیتە 5. د ڕێزکا دووێ دا 5+5=10."
+        },
+        {
+          type: "Trace Output",
+          text: "Given int a = 5, b = 5; What does Console.WriteLine(a + (++b)); print?",
+          hint: "لێرە ++ ل بەری b یە!",
+          ansEn: "11",
+          ansKu: "++b دەستپێکێ b دکەتە 6، پاشی 5 + 6 = 11 چاپ دکەت."
+        },
+        {
+          type: "MCQ",
+          text: "What is the result of 11 % 3?",
+          hint: "ماوێ دابەشکرنا ١١ ل سەر ٣ چەندە؟",
+          options: ["A) 3", "B) 2", "C) 1", "D) 3.66"],
+          correctIndex: 1,
+          ansEn: "B) 2",
+          ansKu: "11 = 3 * 3 + 2، کەواتە ماوە (remainder) یەکسانە ب 2."
+        },
+        {
+          type: "MCQ",
+          text: "What would squareSide be if the code wrote: double squareSide = 17 / 4; (without .0)?",
+          hint: "ئەگەر .0 نەبا و نڤێسیبا 17 / 4، بهایێ squareSide دا چ بیت؟",
+          options: ["A) 4.25", "B) 4", "C) 5", "D) Compile Error"],
+          correctIndex: 1,
+          ansEn: "B) 4",
+          ansKu: "17 / 4 وەک int division هەژمار دبیت (4) پاشی وەک double (4) دهێتە هەلگرتن و چاپکرن."
+        }
+      ]
+    },
+    {
+      id: "slide-15",
+      slideNum: "سلاید ١٥",
+      title: "Assignment Operators (ئۆپەرەیتەرێن پێدانێ)",
+      summary: `
+        <ul>
+          <li>بۆ دانانا بهایەکێ بۆ گۆڕاوەکی دهێنە بکارئینان:</li>
+          <li><span class="ltr">=</span> (پێدانا سادە)</li>
+          <li><span class="ltr">+=, -=, *=, /=, %=</span> (بیرکاری + پێدان)</li>
+          <li><span class="ltr">&lt;&lt;=, &gt;&gt;=, &amp;=, ^=, |=</span> (بتوایز + پێدان)</li>
+          <li>بۆ نموونە: <span class="ltr">C += A</span> یەکسانە ب <span class="ltr">C = C + A</span>.</li>
+        </ul>
+      `,
+      tip: "ڕێسایا گشتی بۆ هەمی ئۆپەرەیتەرێن پێدانا تێکەل: X op= Y هەمان X = X op Y یە.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Which expression is equivalent to: C /= A;",
+          hint: "C /= A یەکسانە ب چ؟",
+          options: ["A) C = A / C", "B) C = C / A", "C) A = C / A", "D) C = C % A"],
+          correctIndex: 1,
+          ansEn: "B) C = C / A",
+          ansKu: "بهایێ چەپێ (C) دابەشی یێ ڕاستێ (A) دکەت و ئەنجامی دکەتە د C دا."
+        },
+        {
+          type: "MCQ",
+          text: "What does 'C <<= 2;' mean?",
+          hint: "مانایا C <<= 2 چییە؟",
+          options: [
+            "A) C is less than or equal to 2",
+            "B) C = C << 2 (Left shift AND assignment)",
+            "C) C = 2 << C",
+            "D) C = C >> 2"
+          ],
+          correctIndex: 1,
+          ansEn: "B) C = C << 2",
+          ansKu: "بتێن C ب ٢ پێنگاڤان بۆ لایێ چەپێ دهێنە ڤەگوهاستن و د C دا دهێنە هەلگرتن."
+        },
+        {
+          type: "True/False",
+          text: "True or False: C %= A is equivalent to C = C % A.",
+          hint: "ڕاست یان خەلەت: C %= A هەمان C = C % A یە.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە."
+        },
+        {
+          type: "MCQ",
+          text: "What is the name of the '|=' operator in Slide 15?",
+          hint: "ناڤێ ئۆپەرەیتەرێ |= د سلایدێ ١٥ دا چییە؟",
+          options: [
+            "A) Bitwise AND assignment",
+            "B) Bitwise exclusive OR assignment",
+            "C) Bitwise inclusive OR and assignment",
+            "D) Logical OR assignment"
+          ],
+          correctIndex: 2,
+          ansEn: "C) Bitwise inclusive OR and assignment",
+          ansKu: "|= یێ Bitwise inclusive OR یە و ^= یێ Bitwise exclusive OR یە."
+        },
+        {
+          type: "Short Answer",
+          text: "Rewrite this statement using an assignment shorthand operator: total = total * 5;",
+          hint: "ئەڤێ ڕێزکێ ب کورتی بنڤێسە.",
+          ansEn: "total *= 5;",
+          ansKu: "total *= 5; هەمان واتا total = total * 5; یە."
+        }
+      ]
+    },
+    {
+      id: "slide-16",
+      slideNum: "سلاید ١٦",
+      title: "Assignment Operators Example 1 (تتبعکرنا گۆڕانکاریێن C)",
+      summary: `
+        <div class="code-block">int a = 21;
+int c;
+c = a;         // Line 1: c = 21
+c += a;        // Line 2: c = 21 + 21 = 42
+c -= a;        // Line 3: c = 42 - 21 = 21
+c *= a;        // Line 4: c = 21 * 21 = 441
+c /= a;        // Line 5: c = 441 / 21 = 21
+c = 200;
+c %= a;        // Line 6: 200 % 21 = 11  (چونکی 21*9 = 189، ماوە 11)
+c <<= 2;       // Line 7: 11 << 2 = 44   (00001011 -> 00101100)
+c >>= 2;       // Line 8: 44 >> 2 = 11   (00101100 -> 00001011)
+c &= 2;        // Line 9: 11 & 2 = 2     (1011 & 0010 = 0010)
+c ^= 2;        // Line 10: 2 ^ 2 = 0     (0010 ^ 0010 = 0000)
+c |= 2;        // Line 11: 0 | 2 = 2     (0000 | 0010 = 0010)</div>
+      `,
+      tip: "ئەگەر پرسیار ژ تە کر لدور Line 6 هەتا Line 11، ب باینەری حساب بکە! 11 ب باینەری 1011 یە و 2 ب باینەری 0010 یە.",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "In Slide 16, after c = 200; c %= 21; what is the value of c?",
+          hint: "پشتی 200 % 21 بهایێ c چەند دمینیت؟",
+          ansEn: "11",
+          ansKu: "21 × 9 = 189. و 200 - 189 = 11."
+        },
+        {
+          type: "Trace Output",
+          text: "Continuing from c = 11, what is c after: c <<= 2;",
+          hint: "پشتی 11 بۆ چەپێ ب ٢ بتان بهێتە ڤەگوهاستن چەندە؟",
+          ansEn: "44",
+          ansKu: "11 (1011) دەمێ ٢ بتان بۆ چەپێ دچیت دبیتە 101100 کو د دەسیمەل دا 32+8+4 = 44 یە (یان 11 × 4 = 44)."
+        },
+        {
+          type: "Trace Output",
+          text: "If c = 11, what is c after: c &= 2;",
+          hint: "11 & 2 ب باینەری چ ددەت؟",
+          ansEn: "2",
+          ansKu: "11 = 1011 و 2 = 0010. بتێن هەڤپشک بتنێ بتێ دووێ یە (0010) کو دبیتە 2."
+        },
+        {
+          type: "Trace Output",
+          text: "If c = 2, what is c after: c ^= 2;",
+          hint: "2 ^ 2 ب XOR چ ددەت؟",
+          ansEn: "0",
+          ansKu: "د XOR دا هەر دوو بتێن وەکهەڤ (0010 ^ 0010) دبنە 0."
+        },
+        {
+          type: "Trace Output",
+          text: "If c = 0, what is c after: c |= 2;",
+          hint: "0 | 2 چ ددەت؟",
+          ansEn: "2",
+          ansKu: "0000 | 0010 = 0010 کو دبیتە 2."
+        },
+        {
+          type: "Trace Output",
+          text: "In Slide 16 (Lines 1 to 4): int a = 21; int c = a; c += a; c -= a; c *= a; What is c?",
+          hint: "د ڕێزکا چارێ دا بهایێ c چەندە؟",
+          ansEn: "441",
+          ansKu: "21 -> 42 -> 21 -> 21*21 = 441."
+        }
+      ]
+    },
+    {
+      id: "slide-17",
+      slideNum: "سلاید ١٧",
+      title: "Assignment Operators Summary Table (خشتێ کورتکریێ x op= 3)",
+      summary: `
+        <p>د ئەڤێ سلایدێ دا هەمان ئۆپەرەیتەرێن پێدانێ ب نموونا <span class="ltr">x</span> و ژمارا <span class="ltr">3</span> هاتینە دووپاتکرن:</p>
+        <div class="code-block">x = 5    --> x = 5
+x += 3   --> x = x + 3
+x -= 3   --> x = x - 3
+x *= 3   --> x = x * 3
+x /= 3   --> x = x / 3
+x %= 3   --> x = x % 3
+x &= 3   --> x = x & 3
+x |= 3   --> x = x | 3
+x ^= 3   --> x = x ^ 3
+x >>= 3  --> x = x >> 3
+x <<= 3  --> x = x << 3</div>
+      `,
+      tip: "ئەگەر x = 5 بیت و x &= 3 بکەین: 5 (101) & 3 (011) = 001 = 1.",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "If int x = 5; x += 3; what is x?",
+          hint: "x چەند دبیت؟",
+          ansEn: "8",
+          ansKu: "x = 5 + 3 = 8."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 5; x %= 3; what is x?",
+          hint: "5 % 3 چەندە؟",
+          ansEn: "2",
+          ansKu: "5 ÷ 3 = 1 و ماوێ دابەشکرنێ 2 یە."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 5; x &= 3; what is x?",
+          hint: "5 = 101 و 3 = 011 ب باینەری، ئەنجام چەندە؟",
+          ansEn: "1",
+          ansKu: "101 & 011 = 001 = 1."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 5; x |= 3; what is x?",
+          hint: "101 | 011 ب باینەری چەندە؟",
+          ansEn: "7",
+          ansKu: "101 | 011 = 111 = 4 + 2 + 1 = 7."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 5; x ^= 3; what is x?",
+          hint: "101 ^ 011 ب باینەری چەندە؟",
+          ansEn: "6",
+          ansKu: "101 ^ 011 = 110 = 4 + 2 = 6."
+        }
+      ]
+    },
+    {
+      id: "slide-18",
+      slideNum: "سلاید ١٨",
+      title: "Assignment Operators Example 2 (نموونا دووێ و تێبینیا گرنگ)",
+      summary: `
+        <div class="code-block">int x = 6;
+int y = 4;
+Console.WriteLine(y *= 2); // 8
+int z = 3;
+int y = 3;                 // تێبینی: ل سلایدێ دوو جاران int y هاتیە ناساندن!
+Console.WriteLine(z);      // 3
+Console.WriteLine(x += 3); // 9
+Console.WriteLine(x -= 3); // 6
+Console.WriteLine(x /= 2); // 3
+Console.WriteLine(x *= 3); // 9</div>
+      `,
+      tip: "تێبینیا گرنگ: د سلایدێ ١٨ دا گۆڕاوێ y دوو جاران ب int هاتیە ناساندن (int y = 4; و پاشی int y = 3;)، ئەڤە د کۆمپایلەرێ ڕاستەقینە دا Compile Error ددەت (چونکی ناهێتە چێکرن هەمان ناڤ د ئێک scope دا دوو جاران بهێتە declare کرن). ئەگەر مامۆستا پرسیارا ئەنجامی ب خەتی وەک سلایدی بکەت ئەنجام (8, 3, 9, 6, 3, 9) یە، لێ ئەگەر پرسیارا خەلەتیا کۆدی بکەت خەلەتی دووبارە ناساندنا int y یە!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "What does Console.WriteLine(y *= 2); print if y = 4?",
+          hint: "دەمێ یەکێ د ناڤ WriteLine دا یە، چ چاپ دبیت؟",
+          ansEn: "8",
+          ansKu: "y *= 2 دەستپێکێ y دکەتە 8 پاشی 8 چاپ دکەت."
+        },
+        {
+          type: "Trace Output",
+          text: "Given int x = 6; Trace the value of x after: x += 3; x -= 3; x /= 2; x *= 3;",
+          hint: "هەر چار قۆناغێن x تتبع بکە.",
+          ansEn: "9, 6, 3, 9",
+          ansKu: "6+3=9، پاشی 9-3=6، پاشی 6/2=3، پاشی 3*3=9."
+        },
+        {
+          type: "Find Error",
+          text: "Look closely at Slide 18: int y = 4; ... int y = 3; Why will Visual Studio show a compile error?",
+          hint: "بۆچی د Visual Studio دا ئەڤ کۆدە خەلەتیێ ددەت؟",
+          ansEn: "Variable 'y' is already declared in this scope. You can write 'y = 3;' without 'int'.",
+          ansKu: "ناڤێ گۆڕاوی (y) ناهێتە دووبارە ناساندن ب int د ئێک بلۆک دا."
+        },
+        {
+          type: "True/False",
+          text: "True or False: In C#, an assignment expression like (x += 3) returns the newly assigned value of x.",
+          hint: "ڕاست یان خەلەت: دەربڕینا (x += 3) بهایێ نوی یێ x دزڤڕینیت.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ژ بەر هندێ د ناڤ Console.WriteLine(x += 3); دا ڕاستەوخۆ بهایێ نوی چاپ دبیت."
+        },
+        {
+          type: "Trace Output",
+          text: "If int x = 10; Console.WriteLine(x /= 4); What is printed?",
+          hint: "بهایێ چاپکری چەندە؟ (int division)",
+          ansEn: "2",
+          ansKu: "10 / 4 د ژمارێن int دا یەکسانە ب 2."
+        }
+      ]
+    },
+    {
+      id: "slide-19",
+      slideNum: "سلاید ١٩",
+      title: "Comparison Operators (ئۆپەرەیتەرێن بەراوردکرنێ)",
+      summary: `
+        <table class="data-table">
+          <tr><th>Operator</th><th>Name</th><th>Example</th></tr>
+          <tr><td>==</td><td>Equal to</td><td>x == y</td></tr>
+          <tr><td>!=</td><td>Not equal</td><td>x != y</td></tr>
+          <tr><td>&gt;</td><td>Greater than</td><td>x &gt; y</td></tr>
+          <tr><td>&lt;</td><td>Less than</td><td>x &lt; y</td></tr>
+          <tr><td>&gt;=</td><td>Greater than or equal to</td><td>x &gt;= y</td></tr>
+          <tr><td>&lt;=</td><td>Less than or equal to</td><td>x &lt;= y</td></tr>
+        </table>
+        <p>ئەنجامێ هەمی ئۆپەرەیتەرێن بەراوردکرنێ هەردەم جۆرێ <span class="ltr">bool</span> یە (<span class="ltr">True</span> یان <span class="ltr">False</span>).</p>
+      `,
+      tip: "هشیاری جوداهیا = (پێدان / Assignment) و == (بەراوردکرن / Equal to) بە! ئەڤە ژ بەربەلاڤترین پرسیارێن ئەزموونێ یە.",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is the return data type of any comparison operator (like >, ==, !=)?",
+          hint: "ئەنجامێ ئۆپەرەیتەرێن بەراوردکرنێ چ جۆرێ داتایێ یە؟",
+          options: ["A) int", "B) bool", "C) string", "D) char"],
+          correctIndex: 1,
+          ansEn: "B) bool",
+          ansKu: "هەر بەراوردکرنەک یان ڕاستە (true) یان خەلەتە (false)، کەواتە جۆرێ وێ bool یە."
+        },
+        {
+          type: "MCQ",
+          text: "Which operator checks if two values are NOT equal?",
+          hint: "کیژ ئۆپەرەیتەر دپشکنیت کا دوو بها نەیەکسانن؟",
+          options: ["A) <>", "B) =!", "C) !=", "D) =="],
+          correctIndex: 2,
+          ansEn: "C) !=",
+          ansKu: "!= بۆ پشکنینا نەیەکسانیێ (Not equal) دهێتە بکارئینان."
+        },
+        {
+          type: "True/False",
+          text: "True or False: In C#, 'x = 5' and 'x == 5' have the exact same meaning.",
+          hint: "ڕاست یان خەلەت: x = 5 و x == 5 هەمان واتا هەنە.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە! x = 5 بهایێ 5 ددەتە x (Assignment)، لێ x == 5 پرسیار دکەت کا ئایا x یەکسانە ب 5 (Comparison)."
+        },
+        {
+          type: "Trace Output",
+          text: "If x = 7 and y = 7, what is the result of (x <= y)?",
+          hint: "ئایا 7 <= 7 ڕاستە یان خەلەتە؟",
+          ansEn: "True",
+          ansKu: "چونکی 7 یەکسانە ب 7، مەرجێ 'کێمتر یان یەکسان' ڕاستە."
+        },
+        {
+          type: "Short Answer",
+          text: "List all 6 comparison operators in C#.",
+          hint: "هەر ٦ ئۆپەرەیتەرێن بەراوردکرنێ بنڤێسە.",
+          ansEn: "== , != , > , < , >= , <=",
+          ansKu: "یەکسانە (==)، نەیەکسانە (!=)، مەزنتر (>)، بچویکتر (<)، مەزنتر یان یەکسان (>=)، بچویکتر یان یەکسان (<=)."
+        }
+      ]
+    },
+    {
+      id: "slide-20",
+      slideNum: "سلاید ٢٠",
+      title: "Comparison Operators Example (تتبعکرنا بەراوردکرنێ)",
+      summary: `
+        <div class="code-block">int a = 5;
+int b = 4;
+Console.WriteLine(a >= b);   // True  (5 >= 4)
+Console.WriteLine(a != b);   // True  (5 != 4)
+Console.WriteLine(a == b);   // False (5 == 4)
+Console.WriteLine(a != ++b); // False (بەری بەراوردێ b دبیتە 5، و 5 != 5 خەلەتە!)
+Console.WriteLine(a > b);    // False (نوکە b=5 یە، و 5 > 5 خەلەتە!)</div>
+      `,
+      tip: "ل ڕێزکا a != ++b دا b ب یەکجاری دبیتە 5، ژ بەر هندێ د ڕێزکا دوماهیێ a > b دا هێشتا b=5 یە و 5 > 5 دبیتە False!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "Given a = 5, b = 4; What does Console.WriteLine(a != ++b); print?",
+          hint: "++b بەری بەراوردکرنێ کار دکەت!",
+          ansEn: "False",
+          ansKu: "++b دەستپێکێ b دکەتە 5، پاشی 5 != 5 خەلەتە (False)."
+        },
+        {
+          type: "Trace Output",
+          text: "Immediately after (a != ++b), what does Console.WriteLine(a > b); print?",
+          hint: "ژبیر نەکە b نوکە بویە 5!",
+          ansEn: "False",
+          ansKu: "a=5 و b=5 یە، کەواتە 5 > 5 دبیتە False."
+        },
+        {
+          type: "Trace Output",
+          text: "What if the line was (a != b++) instead of (a != ++b) with a=5, b=4?",
+          hint: "ئەگەر b++ با دێ چ چاپ بیت؟",
+          ansEn: "True (because 5 != 4 is True, and then b becomes 5)",
+          ansKu: "د b++ دا دەستپێکێ بەراورد ل گەل 4 دهێتە کرن (5 != 4 -> True) پاشی b دبیتە 5."
+        },
+        {
+          type: "MCQ",
+          text: "In Slide 20, how many 'True' and 'False' lines are printed in total?",
+          hint: "د سلایدێ ٢٠ دا چەند True و چەند False چاپ دبن؟",
+          options: ["A) 3 True, 2 False", "B) 2 True, 3 False", "C) 4 True, 1 False", "D) 1 True, 4 False"],
+          correctIndex: 1,
+          ansEn: "B) 2 True, 3 False",
+          ansKu: "True, True, False, False, False (دوو True و سێ False)."
+        },
+        {
+          type: "True/False",
+          text: "True or False: If a = 5 and b = 4, then (a >= b) evaluates to True.",
+          hint: "ڕاست یان خەلەت: ئەگەر a=5 و b=4 بیت، a >= b دبیتە True.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، چونکی 5 مەزنترە ژ 4."
+        }
+      ]
+    },
+    {
+      id: "slide-21",
+      slideNum: "سلاید ٢١",
+      title: "Logical Operators (ئۆپەرەیتەرێن لۆژیکی)",
+      summary: `
+        <ul>
+          <li>بهایێن <span class="ltr">bool</span> وەردگرن و ئەنجامێ <span class="ltr">bool</span> دزڤڕینن.</li>
+          <li><span class="ltr">&amp;&amp;</span> (Logical AND): بتنێ دەمێ هەردوو لا <span class="ltr">true</span> بن، ئەنجام <span class="ltr">true</span> یە.</li>
+          <li><span class="ltr">||</span> (Logical OR): ئەگەر لایەک یان هەردوو لا <span class="ltr">true</span> بن، ئەنجام <span class="ltr">true</span> یە.</li>
+          <li><span class="ltr">!</span> (Logical NOT): ئەنجامی بەرەڤاژی دکەت (<span class="ltr">!true == false</span>، <span class="ltr">!false == true</span>).</li>
+          <li><span class="ltr">^</span> (Logical XOR): بتنێ دەمێ هەردوو لا <strong>جودا بن</strong> (<span class="ltr">true ^ false</span>)، ئەنجام <span class="ltr">true</span> یە!</li>
+        </ul>
+      `,
+      tip: "یاسایا سادە بۆ لۆژیکی: AND (&&) زۆر دژوارە (پێدڤی ب هەردوو True هەیە). OR (||) نەرمە (ئێک True بەسە). XOR (^) حەز ژ جوداهیێ دکەت (وەکهەڤ بن False، جودا بن True).",
+      questions: [
+        {
+          type: "MCQ",
+          text: "When does the logical AND operator (&&) return true?",
+          hint: "کەنگی ئۆپەرەیتەرێ && ئەنجامێ true ددەت؟",
+          options: [
+            "A) When at least one statement is true",
+            "B) When both statements are true",
+            "C) When both statements are false",
+            "D) When the statements are different"
+          ],
+          correctIndex: 1,
+          ansEn: "B) When both statements are true",
+          ansKu: "&& بتنێ دەمێ هەردوو دەربڕین true بن ئەنجامێ true ددەت."
+        },
+        {
+          type: "MCQ",
+          text: "If x = 3, what is the result of: !(x < 5 && x < 10)",
+          hint: "ئەگەر x=3 بیت، ئەنجامێ ئەڤێ دەربڕینێ چییە؟",
+          options: ["A) True", "B) False", "C) 3", "D) Error"],
+          correctIndex: 1,
+          ansEn: "B) False",
+          ansKu: "3 < 5 ڕاستە و 3 < 10 ڕاستە -> (true && true) = true -> پاشی !(true) = False."
+        },
+        {
+          type: "MCQ",
+          text: "What does the '!' operator do?",
+          hint: "ئۆپەرەیتەرێ ! چ کار دکەت؟",
+          options: [
+            "A) Checks equality",
+            "B) Reverses the boolean result (true -> false, false -> true)",
+            "C) Multiplies two numbers",
+            "D) Performs bitwise shift"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Reverses the boolean result",
+          ansKu: "! ئۆپەرەیتەرێ نەفیێ (Logical NOT) یە، true دکەتە false و false دکەتە true."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Logical operators take Boolean operands and return a Boolean result.",
+          hint: "ڕاست یان خەلەت: ئۆپەرەیتەرێن لۆژیکی بهایێن bool وەردگرن و bool دزڤڕینن.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ئەڤە خالا ئێکێ یا سلایدێ ٢١ یە."
+        },
+        {
+          type: "Trace Output",
+          text: "If x = 7, what is the result of: (x < 5 || x < 4)",
+          hint: "ئەگەر x = 7 بیت، ئایا 7 < 5 یان 7 < 4 ڕاستە؟",
+          ansEn: "False",
+          ansKu: "7 < 5 خەلەتە، و 7 < 4 ژی خەلەتە -> False || False = False."
+        }
+      ]
+    },
+    {
+      id: "slide-22",
+      slideNum: "سلاید ٢٢",
+      title: "Logical Operators Example (نموونا تەواو یا &&, ||, ^, !)",
+      summary: `
+        <div class="code-block">bool a = true;
+bool b = false;
+Console.WriteLine(a && b);   // False
+Console.WriteLine(a || b);   // True
+Console.WriteLine(a ^ b);    // True  (چونکی جودانە)
+Console.WriteLine(!b);       // True
+Console.WriteLine(b || true);// True
+Console.WriteLine(b && true);// False
+Console.WriteLine(a || true);// True
+Console.WriteLine(a && true);// True
+Console.WriteLine(!a);       // False
+Console.WriteLine((5 > 7) ^ (a == b)); // False (False ^ False = False)</div>
+      `,
+      tip: "ل ڕێزکا دوماهیێ: (5 > 7) دبیتە False، و (a == b) واتە (true == false) ئەڤە ژی دبیتە False. پاشی False ^ False چونکی هەردوو وەکهەڤن، ئەنجام دبیتە False!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "Given bool a = true, b = false; What is the output of: Console.WriteLine(a ^ b);",
+          hint: "true ^ false چ ددەت؟",
+          ansEn: "True",
+          ansKu: "د XOR (^) دا دەمێ هەردوو لا جودا بن (true و false)، ئەنجام True یە."
+        },
+        {
+          type: "Trace Output",
+          text: "Given bool a = true, b = false; What is the output of: Console.WriteLine((5 > 7) ^ (a == b));",
+          hint: "پێنگاڤ ب پێنگاڤ هەر دوو کەوانان هەژمار بکە!",
+          ansEn: "False",
+          ansKu: "(5 > 7) = False و (true == false) = False. پاشی False ^ False = False (چونکی وەکهەڤن)."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(!b && a); when a = true, b = false?",
+          hint: "!b پێشتر هەژمار دبیت!",
+          ansEn: "True",
+          ansKu: "!b = !false = true. پاشی true && true = True."
+        },
+        {
+          type: "MCQ",
+          text: "Which expression evaluates to False when a = true and b = false?",
+          hint: "کیژ ژ ئەڤان ئەنجامێ False ددەت؟",
+          options: ["A) a || b", "B) a ^ b", "C) !b", "D) b && true"],
+          correctIndex: 3,
+          ansEn: "D) b && true",
+          ansKu: "b = false، کەواتە false && true هەردەم دبیتە False."
+        },
+        {
+          type: "True/False",
+          text: "True or False: (true ^ true) evaluates to True.",
+          hint: "ڕاست یان خەلەت: true ^ true دبیتە True.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە! XOR دەمێ هەردوو وەکهەڤ بن (true ^ true یان false ^ false) ئەنجامێ False ددەت."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the result of: !(5 > 3) || (10 == 10)?",
+          hint: "دەستپێکێ کەوانان هەژمار بکە.",
+          ansEn: "True",
+          ansKu: "!(true) || (true) -> false || true -> True."
+        }
+      ]
+    },
+    {
+      id: "slide-23",
+      slideNum: "سلاید ٢٣",
+      title: "Bitwise Operators (ئۆپەرەیتەرێن بتوایز / بت ب بت)",
+      summary: `
+        <ul>
+          <li>ئۆپەرەیتەرێ <span class="ltr">~</span> هەمی <span class="ltr">0</span> دکەتە <span class="ltr">1</span> و هەمی <span class="ltr">1</span> دکەتە <span class="ltr">0</span> (بت ب بت).</li>
+          <li>ئۆپەرەیتەرێن <span class="ltr">|</span>، <span class="ltr">&amp;</span>، <span class="ltr">^</span> وەک <span class="ltr">||</span>، <span class="ltr">&amp;&amp;</span>، <span class="ltr">^</span> کاردکەن لێ ل سەر ئاستێ بتان (bit by bit).</li>
+          <li><span class="ltr">&lt;&lt;</span> و <span class="ltr">&gt;&gt;</span> بتان بۆ چەپێ یان ڕاستێ ڤەدگوهێزن.</li>
+          <li>ئۆپەرەیتەرێن بتوایز ل سەر ژمارێن تەمام (integer numbers) دهێنە بکارئینان وەک: <span class="ltr">byte, sbyte, int, uint, long, ulong</span> (و <span class="ltr">short, ushort</span>).</li>
+        </ul>
+      `,
+      tip: "ئۆپەرەیتەرێن بتوایز ل سەر float یان double یان string کار ناکەن، بتنێ ل سەر ژمارێن تەمام (integers)!",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What does the bitwise '~' operator do?",
+          hint: "ئۆپەرەیتەرێ ~ چ دکەت؟",
+          options: [
+            "A) Shifts bits to the left",
+            "B) Turns all 0s to 1s and all 1s to 0s bit by bit",
+            "C) Adds 1 to the number",
+            "D) Multiplies by 2"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Turns all 0s to 1s and all 1s to 0s bit by bit",
+          ansKu: "~ بتێن 0 دکەتە 1 و بتێن 1 دکەتە 0."
+        },
+        {
+          type: "MCQ",
+          text: "On which types of data are bitwise operators used?",
+          hint: "ئۆپەرەیتەرێن بتوایز ل سەر چ جۆرێن داتایان دهێنە بکارئینان؟",
+          options: [
+            "A) Only string and char",
+            "B) Floating-point numbers (float, double)",
+            "C) Integer numbers (byte, sbyte, int, uint, long, ulong, etc.)",
+            "D) Only bool"
+          ],
+          correctIndex: 2,
+          ansEn: "C) Integer numbers",
+          ansKu: "ئۆپەرەیتەرێن بتوایز بتنێ ل سەر ژمارێن تەمام (integer types) دهێنە بکارئینان."
+        },
+        {
+          type: "MCQ",
+          text: "Which operators move bits to the left or right?",
+          hint: "کیژ ئۆپەرەیتەر بتان بۆ چەپێ یان ڕاستێ ڤەدگوهێزن؟",
+          options: ["A) <= and >=", "B) << and >>", "C) && and ||", "D) ++ and --"],
+          correctIndex: 1,
+          ansEn: "B) << and >>",
+          ansKu: "<< (left shift) بتان بۆ چەپێ دبات و >> (right shift) بۆ ڕاستێ دبات."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Bitwise operators are applied bit by bit on binary representations of numbers.",
+          hint: "ڕاست یان خەلەت: ئۆپەرەیتەرێن بتوایز بت ب بت ل سەر باینەریێ ژماران دهێنە جێبەجێکرن.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ئەڤە واتایا سەرەکی یا Bitwise یە."
+        },
+        {
+          type: "Short Answer",
+          text: "List all 6 bitwise operators mentioned in Slide 23.",
+          hint: "هەر ٦ ئۆپەرەیتەرێن بتوایز یێن د سلایدێ ٢٣ دا هاتین بنڤێسە.",
+          ansEn: "~   |   &   ^   <<   >>",
+          ansKu: "NOT (~), OR (|), AND (&), XOR (^), Left Shift (<<), Right Shift (>>)."
+        }
+      ]
+    },
+    {
+      id: "slide-24",
+      slideNum: "سلاید ٢٤",
+      title: "Bitwise Operators Example (هەژمارێن باینەری یێن a=3 و b=5)",
+      summary: `
+        <div class="code-block">ushort a = 3;                // 00000000 00000011
+ushort b = 5;                // 00000000 00000101
+Console.WriteLine(a | b);    // 00000000 00000111  --> 7
+Console.WriteLine(a & b);    // 00000000 00000001  --> 1
+Console.WriteLine(a ^ b);    // 00000000 00000110  --> 6
+Console.WriteLine(~a & b);   // 00000000 00000100  --> 4
+Console.WriteLine(a << 1);   // 00000000 00000110  --> 6
+Console.WriteLine(a >> 1);   // 00000000 00000001  --> 1</div>
+      `,
+      tip: "ژ بۆ هەژمارکرنەکا بساناهی د ئەزموونێ دا: بهێنە هزرێ خانێن باینەری ژ ڕاستێ بۆ چەپێ بریتینە ژ (1, 2, 4, 8, 16...). بۆ 3 = 2+1 (0011). بۆ 5 = 4+1 (0101). پاشی ل ژێر هەڤ بنڤێسە و بت ب بت بکە! و << 1 هەردەم ژمارێ د ٢ دا جاران دکەت (3*2=6)، و >> 1 دابەشی ٢ دکەت (3/2=1).",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "Given ushort a = 3 (0011) and ushort b = 5 (0101); What is (a | b)?",
+          hint: "0011 | 0101 چەند ددەت؟",
+          ansEn: "7 (binary: 0111)",
+          ansKu: "0011 | 0101 = 0111 = 4 + 2 + 1 = 7."
+        },
+        {
+          type: "Trace Output",
+          text: "Given a = 3 (0011) and b = 5 (0101); What is (a & b)?",
+          hint: "0011 & 0101 چەند ددەت؟",
+          ansEn: "1 (binary: 0001)",
+          ansKu: "بتنێ بتێ ئێکێ د هەردوویان دا 1 یە، کەواتە 0001 = 1."
+        },
+        {
+          type: "Trace Output",
+          text: "Given a = 3 (0011) and b = 5 (0101); What is (a ^ b)?",
+          hint: "0011 ^ 0101 چەند ددەت؟",
+          ansEn: "6 (binary: 0110)",
+          ansKu: "بتێ دووێ و سێیێ جودانە، کەواتە 0110 = 4 + 2 = 6."
+        },
+        {
+          type: "Trace Output",
+          text: "Given a = 3 (0011) and b = 5 (0101); What is (~a & b)?",
+          hint: "~a هەمی بتێن a دگوهۆڕیت پاشی & ل گەل b دکەت.",
+          ansEn: "4 (binary: 0100)",
+          ansKu: "a = 0011 -> ~a = ...1100. پاشی (...1100) & (0101) = 0100 = 4."
+        },
+        {
+          type: "Trace Output",
+          text: "Given ushort a = 3; What are (a << 1) and (a >> 1)?",
+          hint: "بۆ چەپێ و ڕاستێ ب ١ بت ڤەگوهێزە.",
+          ansEn: "a << 1 = 6, and a >> 1 = 1",
+          ansKu: "0011 << 1 = 0110 (6). و 0011 >> 1 = 0001 (1)."
+        },
+        {
+          type: "MCQ",
+          text: "What is the result of (6 << 2) for an integer?",
+          hint: "6 ب ٢ بتان بۆ چەپێ ڤەگوهێزە (6 * 4).",
+          options: ["A) 12", "B) 24", "C) 3", "D) 8"],
+          correctIndex: 1,
+          ansEn: "B) 24",
+          ansKu: "6 (000110) << 2 = 011000 = 16 + 8 = 24."
+        }
+      ]
+    },
+    {
+      id: "slide-25",
+      slideNum: "سلاید ٢٥",
+      title: "Other Operators: String Concatenation (پێکڤەگرێدانا تێکست و ژماران)",
+      summary: `
+        <ul>
+          <li>ئۆپەرەیتەرێ <span class="ltr">+</span> بۆ پێکڤەگرێدانا سترینگان دهێتە بکارئینان.</li>
+          <li>ئەگەر لایێ ئێکێ سترینگ بیت و لایێ دووێ ژمارە (یان جۆرەکێ دی) بیت، ب شێوەکێ خۆکار (automatically) دبیتە سترینگ و پێکڤە دهێنە گرێدان!</li>
+        </ul>
+        <div class="code-block">string first = "First";
+string second = "Second";
+Console.WriteLine(first + second);   // FirstSecond
+string output = "The number is : ";
+int number = 5;
+Console.WriteLine(output + number);  // The number is : 5</div>
+      `,
+      tip: "ئاگەهدار بە! \"5\" + 5 دبیتە \"55\" نە 10! چونکی ئێک ژ وان سترینگە. و 5 + 5 + \"A\" ژ چەپێ بۆ ڕاستێ هەژمار دبیت: دەستپێکێ 5+5 = 10، پاشی 10 + \"A\" = \"10A\"! بەلێ \"A\" + 5 + 5 دبیتە \"A55\"!",
+      questions: [
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nstring output = \"The number is : \";\nint number = 5;\nConsole.WriteLine(output + number);",
+          hint: "ستڕینگ + ژمارە چ ئەنجام ددەت؟",
+          ansEn: "The number is : 5",
+          ansKu: "ژمارا 5 ب شێوێ ئۆتۆماتیکی دبیتە string و دچیتە پشت تێکستی."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(\"Result: \" + 5 + 3);",
+          hint: "هشیار بە! ژ چەپێ بۆ ڕاستێ هەژمار بکە!",
+          ansEn: "Result: 53",
+          ansKu: "دەستپێکێ \"Result: \" + 5 دبیتە \"Result: 5\" (ستڕینگ)، پاشی + 3 دبیتە \"Result: 53\" (نە 8!)."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(5 + 3 + \" Result\");",
+          hint: "لێرە ژمارە ل دەستپێکێ نە!",
+          ansEn: "8 Result",
+          ansKu: "ژ چەپێ بۆ ڕاستێ: 5 + 3 = 8 (کۆمکرنا ژماران)، پاشی 8 + \" Result\" = \"8 Result\"."
+        },
+        {
+          type: "True/False",
+          text: "True or False: When concatenating a string and an int using '+', the int is automatically converted to string.",
+          hint: "ڕاست یان خەلەت: دەمێ string و int ب + پێکڤە دهێنە گرێدان، int خۆکار دبیتە string.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ئەڤە خالا دووێ یا سلایدێ ٢٥ یە."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of: Console.WriteLine(\"First\" + \"Second\");",
+          hint: "ئایا بۆشایی د ناڤبەرا وان دا هەیە؟",
+          ansEn: "FirstSecond",
+          ansKu: "چونکی چ بۆشایی (space) د ناڤبەرا وان دا نەهاتیە دانان، پێکڤە دبنە FirstSecond."
+        }
+      ]
+    },
+    {
+      id: "slide-26",
+      slideNum: "سلاید ٢٦",
+      title: "Other Operators: ?:, new, typeof, is (ئۆپەرەیتەرێن دی)",
+      summary: `
+        <ul>
+          <li><strong>Conditional operator <span class="ltr">?:</span>:</strong> شێوازێ وێ <span class="ltr">b ? x : y</span> یە (ئەگەر مەرجێ b ڕاست بیت ئەنجام x یە، نەخێر ئەنجام y یە).</li>
+          <li><strong><span class="ltr">new</span>:</strong> بۆ دروستکرنا ئۆبجێکتێن نوی (create new objects) دهێتە بکارئینان.</li>
+          <li><strong><span class="ltr">typeof</span>:</strong> ئۆبجێکتێ <span class="ltr">System.Type</span> دزڤڕینیت (reflection of a type).</li>
+          <li><strong><span class="ltr">is</span>:</strong> دپشکنیت کا ئایا ئۆبجێکتەک ل گەل جۆرەکێ دیارکری گونجایە (compatible with given type).</li>
+        </ul>
+        <div class="code-block">int x = 20;
+int y = 10;
+var result = x > y ? "x is greater than y" : "x is less than y";
+Console.WriteLine(result);   // Output: x is greater than y</div>
+      `,
+      tip: "ئۆپەرەیتەرێ ?: ب Ternary operator ژی دهێتە ناسین چونکی ٣ بەش هەنە: (مەرج) ? (ئەگەر ڕاست بیت) : (ئەگەر خەلەت بیت).",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Which operator has the form (condition ? x : y)?",
+          hint: "کیژ ئۆپەرەیتەر ئەڤ فۆرمە هەیە؟",
+          options: ["A) Logical operator", "B) Conditional operator ?:", "C) Bitwise operator", "D) typeof operator"],
+          correctIndex: 1,
+          ansEn: "B) Conditional operator ?:",
+          ansKu: "?: ئۆپەرەیتەرێ مەرجی (Conditional operator) یە."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nint x = 5, y = 10;\nvar res = x > y ? \"Yes\" : \"No\";\nConsole.WriteLine(res);",
+          hint: "ئایا 5 > 10 ڕاستە یان خەلەتە؟",
+          ansEn: "No",
+          ansKu: "چونکی 5 > 10 خەلەتە (false)، بەشێ پشتی دوو خالان (:) دهێتە هەلبژارتن کو \"No\" یە."
+        },
+        {
+          type: "MCQ",
+          text: "Which operator checks if an object is compatible with a given type?",
+          hint: "کیژ ئۆپەرەیتەر دپشکنیت کا ئۆبجێکت ل گەل جۆرەکی گونجایە؟",
+          options: ["A) new", "B) typeof", "C) is", "D) ?:"],
+          correctIndex: 2,
+          ansEn: "C) is",
+          ansKu: "ئۆپەرەیتەرێ 'is' پشکنینا گونجانا ئۆبجێکتی ل گەل جۆری دکەت."
+        },
+        {
+          type: "MCQ",
+          text: "What does the 'typeof' operator return?",
+          hint: "ئۆپەرەیتەرێ typeof چ دزڤڕینیت؟",
+          options: [
+            "A) A string size",
+            "B) System.Type object (the reflection of a type)",
+            "C) A boolean value",
+            "D) A new object instance"
+          ],
+          correctIndex: 1,
+          ansEn: "B) System.Type object (the reflection of a type)",
+          ansKu: "typeof ئۆبجێکتێ System.Type دزڤڕینیت، لێ 'new' بۆ دروستکرنا ئۆبجێکتێ نوی دهێتە بکارئینان."
+        },
+        {
+          type: "Short Answer",
+          text: "What is the output of: int a = 15, b = 15; Console.WriteLine(a == b ? 100 : 200);",
+          hint: "ئەگەر a و b یەکسان بن چ چاپ دبیت؟",
+          ansEn: "100",
+          ansKu: "چونکی 15 == 15 ڕاستە (true)، بهایێ ئێکێ (100) دزڤڕیت و چاپ دبیت."
+        }
+      ]
+    },
+    {
+      id: "slide-27",
+      slideNum: "سلاید ٢٧",
+      title: "C# Type Casting (گوهۆڕینا جۆری: Implicit و Explicit)",
+      summary: `
+        <ul>
+          <li><strong>Type Casting:</strong> دەمێ بهایێ جۆرەکێ داتایێ ددەینە جۆرەکێ دی. دوو جۆر هەنە:</li>
+          <li><strong>1. Implicit Casting (خۆکار / Automatically):</strong> ژ جۆرێ بچویک بۆ جۆرێ مەزنتر:
+            <br><span class="ltr">char -&gt; int -&gt; long -&gt; float -&gt; double</span></li>
+          <li><strong>2. Explicit Casting (ب دەست / Manually):</strong> ژ جۆرێ مەزن بۆ جۆرێ بچویکتر:
+            <br><span class="ltr">double -&gt; float -&gt; long -&gt; int -&gt; char</span></li>
+        </ul>
+        <div class="code-block">// Implicit:
+int myInt = 9;
+double myDouble = myInt;      // Outputs: 9 and 9
+
+// Explicit:
+double d = 9.78;
+int i = (int) d;              // Outputs: 9.78 and 9 (پۆینت دهێتە بڕین!)</div>
+      `,
+      tip: "هشیار بە! دەمێ ژ double دکەیە int ب ڕێیا (int) 9.78، ئەنجام دبیتە 9 (نە 10!) چونکی Explicit Casting پشکێ پۆینتێ دهاڤێژیت (truncates) نە کو گرد دکەت (round).",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is Implicit Casting in C#?",
+          hint: "Implicit Casting چییە؟",
+          options: [
+            "A) Manually converting a larger type to a smaller type",
+            "B) Automatically converting a smaller type to a larger type size",
+            "C) Using Convert.ToString()",
+            "D) Converting string to int"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Automatically converting a smaller type to a larger type size",
+          ansKu: "Implicit ب شێوێ خۆکار ژ جۆرێ بچویک بۆ مەزن دهێتە کرن، وەک char -> int -> long -> float -> double."
+        },
+        {
+          type: "MCQ",
+          text: "Which order represents valid Implicit Casting?",
+          hint: "کیژ زنجیرە کاستینگا خۆکار (Implicit) یا دروستە؟",
+          options: [
+            "A) double -> float -> long -> int -> char",
+            "B) char -> int -> long -> float -> double",
+            "C) int -> char -> double -> float",
+            "D) string -> int -> double"
+          ],
+          correctIndex: 1,
+          ansEn: "B) char -> int -> long -> float -> double",
+          ansKu: "ژ بچویک بۆ مەزن: char -> int -> long -> float -> double."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\ndouble myDouble = 9.78;\nint myInt = (int) myDouble;\nConsole.WriteLine(myInt);",
+          hint: "ئاگەهدار بە کاستینگا (int) پۆینتان دهاڤێژیت!",
+          ansEn: "9",
+          ansKu: "(int) 9.78 پشکێ .78 دهاڤێژیت و بتنێ 9 دمینیت."
+        },
+        {
+          type: "Find Error",
+          text: "Find the error: double d = 5.5; int x = d;",
+          hint: "بۆچی ئەڤ کۆدە خەلەتە؟",
+          ansEn: "Cannot implicitly convert 'double' to 'int'. Needs explicit cast: int x = (int) d;",
+          ansKu: "ژ جۆرێ مەزن (double) بۆ جۆرێ بچویک (int) پێدڤی ب Explicit Casting یا (int) هەیە."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Explicit casting is done automatically by the C# compiler without writing the target type in parentheses.",
+          hint: "ڕاست یان خەلەت: Explicit casting خۆکار ژ لایێ کۆمپایلەری ڤە دهێتە کرن بێ نڤێسینا جۆری.",
+          options: ["True", "False"],
+          correctIndex: 1,
+          ansEn: "False",
+          ansKu: "خەلەتە! Explicit casting ب دەست (manually) دهێتە کرن ب نڤێسینا جۆری د ناڤ کەوانان دا وەک (int)."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nint myInt = 9;\ndouble myDouble = myInt;\nConsole.WriteLine(myDouble);",
+          hint: "بهایێ myDouble چ چاپ دبیت؟",
+          ansEn: "9",
+          ansKu: "کاستینگا خۆکار 9 دکەتە د double دا و د کۆنسۆلی دا 9 چاپ دبیت."
+        }
+      ]
+    },
+    {
+      id: "slide-28",
+      slideNum: "سلاید ٢٨",
+      title: "C# Type Conversion (میتۆدێن Convert)",
+      summary: `
+        <ul>
+          <li>دشێین ب ڕێیا میتۆدێن ئامادەکری (built-in methods) جۆرێن داتایان بگوهۆڕین:</li>
+          <li><span class="ltr">Convert.ToBoolean</span>, <span class="ltr">Convert.ToDouble</span>, <span class="ltr">Convert.ToString</span>, <span class="ltr">Convert.ToInt32</span> (بۆ <span class="ltr">int</span>), <span class="ltr">Convert.ToInt64</span> (بۆ <span class="ltr">long</span>).</li>
+        </ul>
+        <div class="code-block">int myInt = 10;
+double myDouble = 5.25;
+bool myBool = true;
+Console.WriteLine(Convert.ToString(myInt));     // "10"
+Console.WriteLine(Convert.ToDouble(myInt));     // 10
+Console.WriteLine(Convert.ToInt32(myDouble));   // 5
+Console.WriteLine(Convert.ToString(myBool));    // "True"</div>
+      `,
+      tip: "گرنگ: Convert.ToInt32 بۆ int (32-bit) یە و Convert.ToInt64 بۆ long (64-bit) یە! هەروەسا Convert.ToInt32(5.25) دبیتە 5، لێ ئەگەر 5.75 با دا بیتە 6 چونکی Convert گرد دکەت (round)!",
+      questions: [
+        {
+          type: "MCQ",
+          text: "Which built-in method converts a value to a 'long' (64-bit integer)?",
+          hint: "کیژ میتۆد بهایەکێ دگوهۆڕیت بۆ long؟",
+          options: ["A) Convert.ToInt16", "B) Convert.ToInt32", "C) Convert.ToInt64", "D) Convert.ToDouble"],
+          correctIndex: 2,
+          ansEn: "C) Convert.ToInt64",
+          ansKu: "int = 32-bit (Convert.ToInt32)، لێ long = 64-bit (Convert.ToInt64)."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\ndouble myDouble = 5.25;\nConsole.WriteLine(Convert.ToInt32(myDouble));",
+          hint: "5.25 دەمێ دبیتە Int32 چەند ددەت؟",
+          ansEn: "5",
+          ansKu: "5.25 نێزیکی 5 یە، کەواتە 5 چاپ دبیت."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the output of:\nbool myBool = true;\nConsole.WriteLine(Convert.ToString(myBool));",
+          hint: "Convert.ToString(true) چ ددەت؟",
+          ansEn: "True",
+          ansKu: "بهایێ bool true دەمێ دبیتە سترینگ، \"True\" چاپ دکەت."
+        },
+        {
+          type: "MCQ",
+          text: "Which method is used to convert an integer to a string explicitly?",
+          hint: "کیژ میتۆد ژمارا تەمام دگوهۆڕیت بۆ سترینگ؟",
+          options: ["A) Convert.ToBoolean", "B) Convert.ToInt32", "C) Convert.ToString", "D) Convert.ToDouble"],
+          correctIndex: 2,
+          ansEn: "C) Convert.ToString",
+          ansKu: "Convert.ToString(myInt) بهایێ ژمارێ دکەتە سترینگ."
+        },
+        {
+          type: "True/False",
+          text: "True or False: Convert.ToInt32 converts a value to the 'int' data type.",
+          hint: "ڕاست یان خەلەت: Convert.ToInt32 بهایان دگوهۆڕیت بۆ جۆرێ int.",
+          options: ["True", "False"],
+          correctIndex: 0,
+          ansEn: "True",
+          ansKu: "ڕاستە، ئەڤە د سلایدێ ٢٨ دا هاتیە."
+        }
+      ]
+    },
+    {
+      id: "slide-29",
+      slideNum: "سلاید ٢٩",
+      title: "C# Expressions (دەربڕین و ڕێزبەندیا هەژمارکرنێ)",
+      summary: `
+        <ul>
+          <li><strong>Expressions:</strong> زنجیرەیەکن ژ ئۆپەرەیتەران (operators)، بهایێن ڕاستەوخۆ (literals)، و گۆڕاوان (variables) کو دهێنە هەژمارکرن بۆ بهایەکی.</li>
+          <li>هەر دەربڕینەک (Expression) دوو تشتان هەیە: <strong>Type</strong> (جۆر: integer, real, Boolean...) و <strong>Value</strong> (بها).</li>
+        </ul>
+        <div class="code-block">int r = (150 - 20) / 2 + 5;
+// (130) / 2 + 5 = 65 + 5 = 70
+
+int a = 2 + 3;                                   // a = 5
+int b = (a + 3) * (a - 4) + (2 * a + 7) / 4;
+// b = (8) * (1) + (17) / 4 = 8 + 4 = 12  (چونکی 17/4 = 4 د int دا!)
+bool g = (a > b) || ((a == 0) && (b == 0));
+// g = (5 > 12) || (false && false) = false || false = False</div>
+      `,
+      tip: "ل نموونا دوماهیێ: (2 * 5 + 7) / 4 دبیتە 17 / 4. چونکی هەردوو ژمارێن تەمامن (int)، 17 / 4 دبیتە 4 (نە 4.25)! و 8 + 4 = 12. ئەڤ پرسیارە گەلەک موحتەمەلە د ئەزموونێ دا بهێت!",
+      questions: [
+        {
+          type: "MCQ",
+          text: "What is an 'Expression' in C#?",
+          hint: "پێناسا Expression د سلایدێ ٢٩ دا چییە؟",
+          options: [
+            "A) Only a comment in code",
+            "B) Sequences of operators, literals, and variables evaluated to some value",
+            "C) A data type size",
+            "D) Only a string variable"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Sequences of operators, literals, and variables evaluated to some value",
+          ansKu: "دەربڕین (Expression) پێکدهێت ژ ئۆپەرەیتەران، بهایان، و گۆڕاوان کو بۆ بهایەکێ دهێتە هەژمارکرن."
+        },
+        {
+          type: "Trace Output",
+          text: "Evaluate: int r = (150 - 20) / 2 + 5;",
+          hint: "دەستپێکێ کەوان، پاشی دابەش، پاشی کۆمکرن!",
+          ansEn: "70",
+          ansKu: "150 - 20 = 130. پاشی 130 / 2 = 65. پاشی 65 + 5 = 70."
+        },
+        {
+          type: "Trace Output",
+          text: "Given int a = 2 + 3; Evaluate:\nint b = (a + 3) * (a - 4) + (2 * a + 7) / 4;",
+          hint: "a = 5 یە، پێنگاڤ ب پێنگاڤ و ب int division حساب بکە!",
+          ansEn: "12",
+          ansKu: "(5+3) * (5-4) + (10+7) / 4 = 8 * 1 + 17 / 4 = 8 + 4 = 12."
+        },
+        {
+          type: "Trace Output",
+          text: "Given a = 5 and b = 12; Evaluate:\nbool g = (a > b) || ((a == 0) && (b == 0));",
+          hint: "بهایێ g چییە؟",
+          ansEn: "False",
+          ansKu: "(5 > 12) = false، و (5 == 0) = false -> false || false = False."
+        },
+        {
+          type: "MCQ",
+          text: "According to Slide 29, what two things does an Expression have?",
+          hint: "هەر دەربڕینەک چ دوو تشتان هەیە؟",
+          options: [
+            "A) Size and Suffix",
+            "B) Type and Value",
+            "C) Loop and Condition",
+            "D) Single quote and Double quote"
+          ],
+          correctIndex: 1,
+          ansEn: "B) Type and Value",
+          ansKu: "د سلایدێ ٢٩ دا هاتیە: Expressions has: Type (integer, real, Boolean, ...) Value."
+        },
+        {
+          type: "Trace Output",
+          text: "What is the exact 3 lines of output at the bottom of Slide 29?",
+          hint: "سێ ڕێزکێن ئەنجامی یێن سلایدێ ٢٩ بنڤێسە.",
+          ansEn: " a is= 5\n b is= 12\n g is= False",
+          ansKu: "سەرنج بدە بۆشاییەک ل بەری a، b، g هەیە د ناڤ \" a is= \" دا و False ب F یا کاپیتال چاپ دبیت."
+        }
+      ]
+    }
+  ];
+
+  const finalExamQuestions = [
+    {
+      type: "MCQ",
+      text: "1. Why must we declare variable types in C#?",
+      options: [
+        "A) Because C# is a strongly-typed language",
+        "B) To save time and memory and avoid errors",
+        "C) To make code more readable and maintainable",
+        "D) All of the above"
+      ],
+      correctIndex: 3,
+      ansEn: "D) All of the above",
+      ansKu: "سلایدێ ٣: C# زمانەکێ strongly-typed یە و جۆرێ دروست بۆ دویرکەفتن ژ خەلەتیان و پاشەکەفتکرنا دەم و میمۆریێ و جوانیا کۆدی یە."
+    },
+    {
+      type: "MCQ",
+      text: "2. Which data type has a size of 8 bytes and stores fractional numbers up to 15 decimal digits?",
+      options: ["A) float", "B) long", "C) double", "D) decimal"],
+      correctIndex: 2,
+      ansEn: "C) double",
+      ansKu: "سلایدێ ٤: double قەبارێ وێ 8 bytes یە و هەتا 15 decimal digits دپارێزیت."
+    },
+    {
+      type: "MCQ",
+      text: "3. Which suffix is used for a 'decimal' number literal?",
+      options: ["A) d", "B) f", "C) m", "D) l"],
+      correctIndex: 2,
+      ansEn: "C) m",
+      ansKu: "سلایدێ ٦: سافیکسێ decimal پیتا m یە."
+    },
+    {
+      type: "MCQ",
+      text: "4. What is the range of 'sbyte' (8-bit signed integer)?",
+      options: ["A) 0 to 255", "B) -128 to 127", "C) -32,768 to 32,767", "D) 0 to 65,535"],
+      correctIndex: 1,
+      ansEn: "B) -128 to 127",
+      ansKu: "سلایدێ ٦: byte ژ 0 هەتا 255 یە، لێ sbyte ژ -128 هەتا 127 یە."
+    },
+    {
+      type: "MCQ",
+      text
