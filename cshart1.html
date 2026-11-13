@@ -1,664 +1,361 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>بنەمایێن پرۆگرامسازیێ ب C# - شروڤە و تاقیکرنا نەزەری</title>
-  <style>
-    :root {
-      --primary: #0b4f6c;
-      --secondary: #145da0;
-      --accent: #e67e22;
-      --bg: #f4f7fa;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #4b5563;
-      --border: #d1d5db;
-      --code-bg: #1e293b;
-      --code-text: #f8fafc;
-      --success-bg: #ecfdf5;
-      --success-border: #10b981;
-      --warn-bg: #fff7ed;
-      --warn-border: #f97316;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.85;
-    }
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      padding: 28px 18px;
-      text-align: center;
-      border-bottom: 5px solid var(--accent);
-    }
-    header h1 { margin: 0 0 8px; font-size: 1.85rem; }
-    header p { margin: 4px 0; opacity: 0.95; font-size: 1rem; }
-
-    .container {
-      max-width: 1000px;
-      margin: 22px auto;
-      padding: 0 14px 50px;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-      position: sticky;
-      top: 8px;
-      z-index: 100;
-      background: rgba(244, 247, 250, 0.95);
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .btn {
-      border: none;
-      padding: 9px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.92rem;
-      font-weight: bold;
-      transition: 0.2s;
-    }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--secondary); }
-    .btn-accent { background: var(--accent); color: #fff; }
-    .btn-accent:hover { opacity: 0.9; }
-    .btn-outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
-
-    .tips-box {
-      background: var(--warn-bg);
-      border-right: 5px solid var(--warn-border);
-      padding: 16px 20px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-    }
-    .tips-box h3 { margin-top: 0; color: #c2410c; }
-
-    .slide-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 24px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-      border-top: 5px solid var(--primary);
-    }
-    .slide-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-    }
-    .slide-header h2 {
-      margin: 0;
-      color: var(--primary);
-      font-size: 1.35rem;
-    }
-    .badge {
-      background: #e0f2fe;
-      color: var(--primary);
-      padding: 3px 12px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.85rem;
-    }
-
-    .explain-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 16px;
-    }
-    .explain-box ul { margin: 8px 0; padding-right: 20px; }
-    .explain-box li { margin-bottom: 6px; }
-
-    .note {
-      background: #fefce8;
-      border-right: 4px solid #eab308;
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin: 10px 0;
-      font-size: 0.95rem;
-    }
-
-    pre, code {
-      font-family: Consolas, "Courier New", monospace;
-      direction: ltr;
-      text-align: left;
-      unicode-bidi: isolate;
-    }
-    code.inline {
-      background: #e2e8f0;
-      color: #b91c1c;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 0.92em;
-      font-weight: bold;
-    }
-    pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 14px 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      line-height: 1.55;
-      margin: 10px 0;
-      font-size: 0.93rem;
-    }
-    .output-box {
-      background: #000;
-      color: #4ade80;
-      font-family: Consolas, monospace;
-      direction: ltr;
-      text-align: left;
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin: 8px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-      font-size: 0.94rem;
-    }
-    th, td {
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      text-align: right;
-    }
-    th {
-      background: var(--primary);
-      color: #fff;
-    }
-    tr:nth-child(even) { background: #f9fafb; }
-    .ltr-table td, .ltr-table th { direction: ltr; text-align: center; font-family: Consolas, monospace; }
-
-    .questions-section {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 2px dashed #cbd5e1;
-    }
-    .questions-section h3 {
-      color: var(--secondary);
-      margin: 0 0 12px;
-      font-size: 1.12rem;
-    }
-    .q-item {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-right: 4px solid var(--secondary);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 12px;
-    }
-    .q-text { font-weight: bold; margin-bottom: 6px; }
-    .q-options { list-style: none; padding: 0; margin: 6px 0; }
-    .q-options li { padding: 2px 0; }
-
-    .ans-btn {
-      background: #e0f2fe;
-      color: var(--primary);
-      border: 1px solid #7dd3fc;
-      padding: 4px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-top: 6px;
-    }
-    .ans-btn:hover {
-      background: #bae6fd;
-    }
-    .ans-box {
-      display: none;
-      margin-top: 8px;
-      background: var(--success-bg);
-      border: 1px solid var(--success-border);
-      padding: 8px 12px;
-      border-radius: 6px;
-      color: #065f46;
-      font-size: 0.94rem;
-    }
-    .ans-box.show { display: block; }
-
-    .final-exam {
-      border-top: 6px solid #b91c1c;
-      background: #fff;
-    }
-    .final-exam .slide-header h2 { color: #b91c1c; }
-
-    @media print {
-      .toolbar, .ans-btn { display: none !important; }
-      .ans-box { display: block !important; }
-      .slide-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEHAD ZEBARE - C# Midterm Study Guide</title>
+<style>
+  :root {
+    --primary: #0b3c5d;
+    --accent: #0077b6;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --success: #0f766e;
+    --border: #cbd5e1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #072540, #006688);
+    color: #fff;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .badge {
+    display: inline-block;
+    background: #fbbf24;
+    color: #111827;
+    font-weight: bold;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+  header h1 { margin: 6px 0; font-size: 1.55rem; }
+  header p { margin: 4px 0; opacity: 0.92; font-size: 0.95rem; }
+  .container { max-width: 920px; margin: 20px auto; padding: 0 14px 40px; }
+  .nav-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .nav-box a {
+    display: inline-block;
+    margin: 4px;
+    padding: 5px 10px;
+    background: #e0f2fe;
+    color: #0369a1;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .nav-box a:hover { background: var(--accent); color: #fff; }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 22px;
+    border-right: 6px solid var(--accent);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  }
+  .card h2 {
+    margin-top: 0;
+    color: var(--primary);
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+    font-size: 1.25rem;
+  }
+  .explain {
+    background: #f8fafc;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 14px;
+  }
+  .explain ul { margin: 6px 0; padding-right: 20px; }
+  pre, code {
+    direction: ltr;
+    text-align: left;
+    font-family: Consolas, 'Courier New', monospace;
+  }
+  code {
+    background: #e2e8f0;
+    color: #9f1239;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.92em;
+  }
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 13px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+  .q-title {
+    font-weight: bold;
+    color: #0f172a;
+    margin: 14px 0 8px;
+    font-size: 1.05rem;
+  }
+  .q-item {
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  .q-text { font-weight: 600; margin-bottom: 8px; }
+  details {
+    margin-top: 6px;
+  }
+  summary {
+    cursor: pointer;
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    list-style: none;
+    user-select: none;
+    transition: 0.2s;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--primary); }
+  details[open] summary { background: var(--success); }
+  .ans {
+    margin-top: 8px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .exam-card {
+    border-right: 6px solid #b91c1c;
+    background: #fff;
+  }
+  .exam-card h2 { color: #991b1b; }
+  .note {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    color: #92400e;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 0.94rem;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.95rem;
+  }
+</style>
 </head>
 <body>
 
 <header>
-  <h1>بنەمایێن پرۆگرامسازیێ ب زمانێ #C</h1>
-  <p>زانکۆیا ئاکرێ بۆ زانستێن کرداری (AUAS) - پەیمانگەها تەکنیکی یا ئاکرێ - بەشێ IT</p>
-  <p>شروڤەکرنا تەمام ب بادینی + پسیارێن هەر سلایدەکی + تاقیکرنا گشتی یا نەزەری (سەر وەرەقێ)</p>
+  <div class="badge">🎓 قوتابی: JEHAD ZEBARE | Akre Technical Institute (IT)</div>
+  <h1>شەرحا تێر و تەسەل یا C# و تاقیکرنا مێدتێرم (١٩ سلاید)</h1>
+  <p>Akre University for Applied Science (AUAS) — Fundamentals of Programming by C# (2024 - 2025)</p>
+  <p>💡 تبلێ ل دگمەیا شین بدە دا بەرسڤا هەر پسیارەکێ بێتە دیتن — تایبەت بۆ JEHAD ZEBARE</p>
 </header>
 
 <div class="container">
 
-  <div class="toolbar">
-    <button type="button" class="btn btn-primary" onclick="toggleAllAnswers(true)">نیشاندانا هەمی بەرسڤان</button>
-    <button type="button" class="btn btn-outline" onclick="toggleAllAnswers(false)">ڤەشارتنا هەمی بەرسڤان</button>
-    <button type="button" class="btn btn-accent" onclick="window.print()">چاپکرن / خەزنکرن وەک PDF</button>
+  <div class="nav-box">
+    <strong>بزڤڕە سەر هەر سلایدەکێ (JEHAD ZEBARE):</strong><br>
+    <a href="#s1">سلاید ١</a><a href="#s2">سلاید ٢</a><a href="#s3">سلاید ٣</a>
+    <a href="#s4">سلاید ٤</a><a href="#s5">سلاید ٥</a><a href="#s6">سلاید ٦</a>
+    <a href="#s7">سلاید ٧</a><a href="#s8">سلاید ٨</a><a href="#s9">سلاید ٩</a>
+    <a href="#s10">سلاید ١٠</a><a href="#s11">سلاید ١١</a><a href="#s12">سلاید ١٢</a>
+    <a href="#s13">سلاید ١٣</a><a href="#s14">سلاید ١٤</a><a href="#s15">سلاید ١٥</a>
+    <a href="#s16">سلاید ١٦</a><a href="#s17">سلاید ١٧</a><a href="#s18">سلاید ١٨</a>
+    <a href="#s19">سلاید ١٩</a>
+    <a href="#exam" style="background:#fee2e2;color:#991b1b;">📝 تاقیکرنا مێدتێرم (سەر وەرەقێ)</a>
   </div>
 
-  <!-- ئامۆژگاریێن گرنگ -->
-  <div class="tips-box">
-    <h3>ئامۆژگاریێن زێڕین بۆ تاقیکرنا نەزەری (ل سەر وەرەقێ) رۆژا ئێکشەمبێ:</h3>
-    <ul>
-      <li><strong>سیمی کۆڵۆن <code class="inline">;</code> ژبیر نەکە:</strong> د وەرەقێ دا گەلەک قوتابی د نڤیسینا کۆدی دا <code class="inline">;</code> ل دوماھیا ڕێزێ ژبیر دکەن، ئەڤە د تاقیکرنێ دا نمرەیان دئینیتە خوارێ.</li>
-      <li><strong>پیتێن مەزن و بچووک (Case Sensitive):</strong> د #C دا <code class="inline">Console.WriteLine</code> و <code class="inline">Main</code> و <code class="inline">System</code> پیتا وان یا ئێکێ مەزنە، و <code class="inline">int</code>، <code class="inline">string</code>، <code class="inline">class</code>، <code class="inline">namespace</code> هەمی ب پیتێن بچووکن.</li>
-      <li><strong>کۆتەیشنێن تاک و دوو لێڤ (' ' و " "):</strong> بۆ <code class="inline">char</code> تەنێ تاک کۆتەیشن <code class="inline">'A'</code> و بۆ <code class="inline">string</code> دوو کۆتەیشن <code class="inline">"Hello"</code> دهێتە بکارئینان.</li>
-      <li><strong>سەر و بنێن کۆدی <code class="inline">{ }</code>:</strong> ل بیرت بیت هەر کڤانەکا تو ڤەدکەی دڤێت ل دوماهیێ بگری.</li>
-    </ul>
-  </div>
-
-  <!-- SLIDE 1 & 2 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١ و ٢: دەستپێک و بابەتێن سەرەکی (Outlines)</h2>
-      <span class="badge">Slide 1 &amp; 2</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>پوختە:</strong> د سلایدێ ئێکێ دا ناڤێ ماددێ مە <strong>Fundamentals of Programming by C#</strong> یە، ل بەشێ تەکنۆلۆژیا زانیاری (IT) ل پەیمانگەها تەکنیکی یا ئاکرێ / زانکۆیا ئاکرێ، ژ لایێ مامۆستا <strong>کەژین ئیسماعیل تاهیر</strong> ڤە هاتیە ئامادەکرن.</p>
-      <p>د سلایدێ دووێ دا <strong>بابەتێن سەرەکی (Outlines)</strong> یێن ئەڤێ لێکچەرێ دیار دکەت کو ئەو ژی ئەڤەنە:</p>
+  <!-- SLIDE 1 -->
+  <section class="card" id="s1">
+    <h2>🔹 سلاید ١: لاپەڕێ سەرەکی (Title Slide)</h2>
+    <div class="explain">
       <ul>
-        <li>زمانێ #C چییە؟ (What is C#)</li>
-        <li>بکارئینانێن #C (C# Applications)</li>
-        <li>بۆچی #C دهێتە بکارئینان؟ (Why C# is used)</li>
-        <li>پێکھاتەیێ پرۆگرامێ #C (C# Program Structure)</li>
-        <li>دەرئێخستن یان چاپکرن د #C دا (C# Output - WriteLine)</li>
-        <li>کۆمێنت د #C دا (C# Comments)</li>
-        <li>گۆڕاو و نەگۆڕ د #C دا (C# Variables, Constants)</li>
-        <li>پەیڤێن گرێدای/پاراستی و ناڤلێنان (C# Keywords, Identifiers)</li>
+        <li><strong>زانکۆ:</strong> Akre University for Applied Science (AUAS 2023)</li>
+        <li><strong>پەیمانگەهـ و بەش:</strong> Akre Technical Institute — Information Technology Department</li>
+        <li><strong>ناڤێ بابەتی:</strong> Fundamentals of Programming by C#</li>
+        <li><strong>مامۆستا:</strong> Kazheen Ismael Taher | <strong>ساڵا خواندنێ:</strong> 2024 - 2025</li>
+        <li><strong>قوتابیێ زیرەک:</strong> JEHAD ZEBARE</li>
       </ul>
     </div>
+    <div class="q-title">📝 پسیارێن سلاید ١ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. ناڤێ بابەتێ مە ب ئینگلیزی چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Fundamentals of Programming by C#</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەم ل کیژ زانکۆ و پەیمانگەهێ ئەڤێ ماددێ دخوینین؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Akre University for Applied Science / Akre Technical Institute</div></details></div>
+    <div class="q-item"><div class="q-text">٣. ناڤێ مامۆستایا بابەتی کی یە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Kazheen Ismael Taher</div></details></div>
+    <div class="q-item"><div class="q-text">٤. سالا خواندنێ یا د سلایدێ ئێکێ دا کیژ سالە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">2024 - 2025</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ناڤێ بەشێ مە یێ خواندنێ چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Information Technology Department</div></details></div>
+  </section>
 
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١ و ٢ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. هەلبژێرە: کیژ ژ ئەڤان بابەتان د ناڤ Outlines یێن ڤێ لێکچەرێ دا هاتیە باسکرن؟</div>
-        <ul class="q-options">
-          <li>A) Loops and Arrays</li>
-          <li>B) C# Output (WriteLine)</li>
-          <li>C) Object Inheritance</li>
-          <li>D) File Handling</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) C# Output (WriteLine)</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. راست یان خەلەت: زمانێ سەرەکی یێ فێربوونێ د ڤی کۆرسی دا زمانێ #C یە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>راست (True)</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. ڤالاتیێ پڕ بکە: ئامرازێ سەرەکی یێ چاپکرنێ (Output) یێ د Outlines دا هاتی ناڤێ وی _________ یە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>WriteLine</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. پێنج ژ وان بابەتێن سەرەکی بژمێرە یێن د Outlines دا هاتین؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. What is C#، ٢. C# Applications، ٣. Why C# is used، ٤. C# Program Structure، ٥. C# Comments (یان Variables, Constants, Keywords, Identifiers).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: د سلایدێن Outlines دا هاتیە کو دێ بەحسێ Keywords و Identifiers ژی کەین.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>راست (True)</strong></div>
-      </div>
+  <!-- SLIDE 2 -->
+  <section class="card" id="s2">
+    <h2>🔹 سلاید ٢: ناڤەرۆکا بابەتی (Outlines)</h2>
+    <div class="explain">
+      ئەڤ سلایدە نەخشەیێ وان هەشت تەوەرێن سەرەکی یە یێن دڤێ لێکچەرێ دا <strong>JEHAD ZEBARE</strong> دێ فێر بیت:
+      <ul>
+        <li>What is C# (C# چیە؟)</li>
+        <li>C# Applications (بکارئینانێن C#)</li>
+        <li>Why C# is used (بۆچی C# دهێتە بکارئینان؟)</li>
+        <li>C# Program Structure (پێکهاتێ پرۆگرامێ C#)</li>
+        <li>C# Output (WriteLine) (دەرخستنا ئەنجامی)</li>
+        <li>C# Comments (کۆمێنت د C# دا)</li>
+        <li>C# Variables, Constants (گۆڕاو و نەگۆڕ)</li>
+        <li>C# Keywords, Identifiers (پەیڤێن حەجزکری و ناسکەر)</li>
+      </ul>
     </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٢ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. د تەوەرێ <code>C# Output</code> دا کیژ فرمانا سەرەکی هاتیە دیارکرن؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>WriteLine</code></div></details></div>
+    <div class="q-item"><div class="q-text">٢. چەند تەوەرێن سەرەکی د لیستا Outlines دا هەنە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">٨ تەوەرێن سەرەکی (8 topics).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. بابەتێ گۆڕاو و نەگۆڕان د C# دا ناڤێ وی ب ئینگلیزی چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">C# Variables, Constants</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ناڤێ تەوەرێ چوارێ دەربارەی چێکرنا پێکهاتێ کۆدێ C# چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">C# Program Structure</div></details></div>
+    <div class="q-item"><div class="q-text">٥. تەوەرێ دوماهیێ یێ ئەڤێ لێکچەرێ چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">C# Keywords, Identifiers</div></details></div>
+  </section>
 
   <!-- SLIDE 3 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٣: زمانێ #C چییە؟ (What is C#)</h2>
-      <span class="badge">Slide 3</span>
-    </div>
-    <div class="explain-box">
-      <p>د ڤی سلایدی دا پێناسا زمانێ #C و دیرۆکا وی ب کورتی هاتیە:</p>
+  <section class="card" id="s3">
+    <h2>🔹 سلاید ٣: C# چیە؟ (What is C#)</h2>
+    <div class="explain">
       <ul>
-        <li><strong>چەوا دهێتە گوتن (Pronunciation):</strong> #C ب <strong>"C-Sharp"</strong> یان <strong>"C-Hash"</strong> دهێتە گوتن. <span class="note">(ل سەر وەرەقێ ئەڤ هەردوو ناڤە گرنگن چونکی سلایدی ب خۆ وەسا نڤیسییە!)</span></li>
-        <li><strong>جۆرێ زمانی و کۆمپانی:</strong> زمانەکێ پرۆگرامسازیێ یە یێ <strong>Object-Oriented (ئاراستەکری ب ئۆبجێکتان)</strong> کو ژ لایێ کۆمپانیا <strong>Microsoft (مایکرۆسۆفت)</strong> ڤە هاتیە چێکرن و ل سەر <strong>.NET Framework</strong> کار دکەت.</li>
-        <li><strong>ڕەگ و ڕیشێن وی:</strong> #C ژ خێزانا زمانێ <strong>C</strong> هاتیە، و گەلەک نێزیکی زمانێن بەرنیاسێن دی یە وەک <strong>++C</strong> و <strong>Java</strong>.</li>
-        <li><strong>ساڵا دەرچوونێ:</strong> ئێکەم ڤێرژنا #C د ساڵا <strong>2002</strong> دا دەرچوو.</li>
+        <li><strong>خاندنا ناڤی:</strong> C# دهێتە خواندن <strong>"C-Sharp or C-Hash"</strong>.</li>
+        <li><strong>پێناسە:</strong> زمانەکێ پرۆگرامسازیێ یێ <strong>Object-Oriented (OOP)</strong>ە کو ژ لایێ کۆمپانیا <strong>Microsoft</strong> ڤە هاتیە چێکرن و ل سەر <strong>.NET Framework</strong> کاردکەت.</li>
+        <li><strong>رەگ و ریشال:</strong> ژ خێزانا زمانێ <strong>C</strong> یە، و گەلەک نێزیکی زمانێن بەرنیاسێن وەک <strong>C++</strong> و <strong>Java</strong> یە.</li>
+        <li><strong>ئێکەم دەرچوون:</strong> ڤێرژنا ئێکێ ل ساڵا <strong>2002</strong> بەلاڤبوویە.</li>
       </ul>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٣ (٦ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پێناسا زمانێ #C بکە (What is C#?) ب گۆرەی سلایدی.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: #C زمانەکێ پرۆگرامسازیێ یێ Object-Oriented یە ژ لایێ Microsoft ڤە هاتیە چێکرن، ل سەر .NET Framework کار دکەت، ڕەگێ وی ژ خێزانا C یە و نێزیکی ++C و Java یە، ئێکەم ڤێرژنا وی د ساڵا 2002 دا دەرچوو.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. هەلبژێرە: زمانێ #C ژ لایێ کیژ کۆمپانیێ ڤە هاتیە چێکرن؟</div>
-        <ul class="q-options">
-          <li>A) Google</li>
-          <li>B) Apple</li>
-          <li>C) Microsoft</li>
-          <li>D) Oracle</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>C) Microsoft</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. هەلبژێرە: ئێکەم ڤێرژنا زمانێ #C د کیژ ساڵێ دا دەرچوو؟</div>
-        <ul class="q-options">
-          <li>A) 1995</li>
-          <li>B) 2000</li>
-          <li>C) 2002</li>
-          <li>D) 2010</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>C) 2002</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. ڤالاتیا پڕ بکە: #C ب ________ یان ________ دهێتە خوێندن (Pronounced).</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>C-Sharp</strong> ، <strong>C-Hash</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: #C ل سەر .NET Framework کار دکەت و ژ خێزانا زمانێ Python هاتیە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — چونکی ژ خێزانا زمانێ <strong>C</strong> هاتیە، نە Python.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٦. #C نێزیکی کیژ دوو زمانێن دی یێن بەرنیاسە؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>++C</strong> و <strong>Java</strong>.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٣ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. زمانێ C# چەوا دهێتە خواندن (Pronounced) ل دویڤ سلایدی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">"C-Sharp or C-Hash"</div></details></div>
+    <div class="q-item"><div class="q-text">٢. کیژ کۆمپانیێ زمانێ C# دروستکریە و ل سەر چ پلاتفۆرمەکێ کاردکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">کۆمپانیا Microsoft دروستکریە و ل سەر <code>.NET Framework</code> کاردکەت.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. ڤێرژنا ئێکێ یا زمانێ C# ل کیژ ساڵێ هاتیە بەلاڤکرن؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ل ساڵا 2002.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. C# رەگێ خۆ ژ کیژ خێزانێ وەردگریت و نێزیکی کیژ زمانانە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ژ خێزانا زمانێ C یە و نێزیکی C++ و Java یە.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ئەرێ C# زمانەکێ Object-Oriented یە؟ (True / False)</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">True (بەلێ، زمانەکێ Object-Oriented programming languageە).</div></details></div>
+  </section>
 
   <!-- SLIDE 4 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٤: بکارئینانێن #C (C# Applications)</h2>
-      <span class="badge">Slide 4</span>
-    </div>
-    <div class="explain-box">
-      <p>زمانێ #C زمانەکێ گەلەک بهێزە و بۆ چێکرنا ئەڤان جۆرە بەرنامان دهێتە بکارئینان:</p>
+  <section class="card" id="s4">
+    <h2>🔹 سلاید ٤: بکارئینانێن C# (C# Applications)</h2>
+    <div class="explain">
+      زمانێ C# بۆ چێکرنا گەلەک بواران دهێتە بکارئینان:
       <ul>
-        <li><strong>Mobile applications:</strong> بەرنامێن تێلەفۆنێ.</li>
-        <li><strong>Desktop applications:</strong> بەرنامێن کۆمپیوتەری.</li>
-        <li><strong>Web applications:</strong> بەرنامێن وێبێ.</li>
-        <li><strong>Web services:</strong> خزمەتگوزاریێن وێبێ.</li>
-        <li><strong>Web sites:</strong> ماڵپەڕ (وێبسایت).</li>
-        <li><strong>Games:</strong> یاری (یاریێن ئەلیکترۆنی، وەک ب بزوێنەرێ Unity).</li>
-        <li><strong>VR:</strong> ڕاستیا خەیاڵی (Virtual Reality).</li>
-        <li><strong>Database applications:</strong> بەرنامێن داتابەیسێ.</li>
-        <li>و گەلەک تشتێن دی ژی!</li>
+        <li>Mobile applications (ئەپلیکەیشنێن مۆبایلێ)</li>
+        <li>Desktop applications (پرۆگرامێن کۆمپیۆتەری)</li>
+        <li>Web applications (ئەپلیکەیشنێن وێبێ)</li>
+        <li>Web services (خزمەتگوزاریێن وێبێ)</li>
+        <li>Web sites (مالپەڕێن وێبێ)</li>
+        <li>Games (یاری) &amp; VR (جیهانا خەیالی / Virtual Reality)</li>
+        <li>Database applications (پرۆگرامێن داتابەیسی) — و گەلەکێن دی!</li>
       </ul>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٤ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پێنج ژ بکارئینانێن زمانێ #C (C# Applications) بژمێرە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. Mobile applications، ٢. Desktop applications، ٣. Web applications، ٤. Games، ٥. Database applications (یان Web services, Web sites, VR).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. راست یان خەلەت: #C تەنێ بۆ چێکرنا بەرنامێن کۆمپیوتەری (Desktop) دهێتە بکارئینان و بۆ یاریان بکارناهێت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — بۆ Games، Mobile، Web، VR و Database ژی دهێتە بکارئینان.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. هەلبژێرە: کیژ ژ ئەڤان بکارئینانەکا دروست یا #C یە؟</div>
-        <ul class="q-options">
-          <li>A) VR (Virtual Reality)</li>
-          <li>B) Web services</li>
-          <li>C) Database applications</li>
-          <li>D) All of the above (هەمی یێن سەرێ)</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>D) All of the above</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. ڤالاتیا پڕ بکە: زمانێ #C دکاریت بۆ چێکرنا _________ و _________ یێن وێبێ و تێلەفۆنان بهێتە بکارئینان.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>Web applications (یان Web sites/Web services)</strong> و <strong>Mobile applications</strong>.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: #C دکاریت بۆ چێکرنا Database applications و VR بهێتە بکارئینان.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>راست (True)</strong></div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٤ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. چوار بکارئینانێن (Applications) سەرەکی یێن C# بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Mobile applications, Desktop applications, Web applications, Games (یان هەر ٤ ژ سلایدی).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەرێ ب C# دێ شێین یاریان (Games) و VR دروست بکەین؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بەلێ (True)، هەردوو د سلایدی دا هەنە.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. سێ بکارئینانێن C# یێن گرێدای وێبێ و ئینتەرنێتێ ژ سلایدی بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Web applications, Web services, Web sites.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ C# بتنێ بۆ پرۆگرامێن Desktop دهێتە بکارئینان؟ (True / False)</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">False (خەلەتە، بۆ مۆبایل، وێب، یاری، VR، داتابەیس و گەلەکێن دی ژی دهێتە بکارئینان).</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ناڤێ وێ بکارئینانێ چیە یا پەیوەندی ب هەڵگرتنا داتا و تۆماران ڤە هەی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Database applications.</div></details></div>
+  </section>
 
   <!-- SLIDE 5 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٥: بۆچی #C دهێتە بکارئینان؟ (Why Use C# ?)</h2>
-      <span class="badge">Slide 5</span>
-    </div>
-    <div class="explain-box">
-      <p>٥ ئەگەرێن سەرەکی کو زمانێ #C گەلەک دهێتە بکارئینان ئەڤەنە:</p>
-      <ol>
-        <li>ئێکە ژ زمانێن پرۆگرامسازیێ یێن هەرە بەرنیاس (Popular) ل جیهانێ.</li>
-        <li>فێربوونا وی یا بساناهی یە و بکارئینانا وی یا سادەیە (Easy to learn and simple to use).</li>
-        <li>پشتەڤانیەکا مەزن یا جەماوەری و پرۆگرامەران هەیە (Huge community support).</li>
-        <li>زمانەکێ Object-Oriented یە کو پێکھاتەیەکێ زەلال (Clear structure) ددەتە پرۆگرامان و ڕێکێ ددەت <strong>کۆد دوبارە بهێتە بکارئینان (Code reused)</strong>، و ئەڤە ژی <strong>تێچوویا گەشەپێدانێ کێم دکەت (Lowering development costs)</strong>.</li>
-        <li>چونکی نێزیکی <strong>C, ++C و Java</strong> یە، بساناهی یە بۆ پرۆگرامەران ژ وان زمانان بچنە سەر #C یان بەروڤاژی (Vice versa).</li>
-      </ol>
-    </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٥ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. سێ ئەگەران بنڤیسە بۆچی #C دهێتە بکارئینان؟ (Why use C#?)</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. فێربوونا وی بساناهی یە و بکارئینانا وی سادەیە. ٢. پشتەڤانیا کۆمەڵگەهەکا مەزن هەیە. ٣. زمانەکێ Object-Oriented یە و کۆد دوبارە تێدا دهێتە بکارئینان و تێچوویێ کێم دکەت.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. چەوا بوونا #C ب زمانەکێ Object-Oriented مفای دگەهینیتە کۆمپانی و پرۆگرامەران؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: پێکھاتەیەکێ زەلال ددەتە پرۆگرامان و ڕێکێ ددەت کۆد دوبارە بهێتە بکارئینان (Code reused)، ئەڤە ژی تێچوویا گەشەپێدانێ (Development costs) کێم دکەت.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. هەلبژێرە: بۆچی بساناهی یە پرۆگرامەرێن C و ++C و Java فێری #C ببن؟</div>
-        <ul class="q-options">
-          <li>A) چونکی چ پەیوەندی ب وان ڤە نینە</li>
-          <li>B) چونکی #C نێزیکی C, ++C و Java یە</li>
-          <li>C) چونکی ب عەرەبی دهێتە نڤیسین</li>
-          <li>D) چونکی تەنێ بۆ وێبێ یە</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) چونکی #C نێزیکی C, ++C و Java یە</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. راست یان خەلەت: #C فێربوونا وی گەلەک ب زەحمەتە و پشتەڤانیا جڤاکی (Community support) یا کێم هەیە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — فێربوونا وی بساناهی یە و Huge community support هەیە.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. ڤالاتیێ پڕ بکە: ئەو زمانێ ڕێکێ ددەت کۆد دوبارە بهێتە بکارئینان، _________ کێم دکەت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>تێچوویا گەشەپێدانێ (Development costs)</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 6 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٦: پێکھاتەیێ گشتی یێ #C (C# General Syntax - نەخشە)</h2>
-      <span class="badge">Slide 6</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤە قاڵبێ سەرەکی یێ هەر پرۆگرامەکێ #C یە. د وەرەقێ دا گەلەک جاران دهێتە پسیارکرن کو نەخشەیێ کۆدێ #C بنڤیسی یان هەر ڕێزەکێ شروڤە بکەی کا چییە:</p>
-<pre>using System;                 // ١. ئینانا پەرتووکخانان (Import libraries)
-
-namespace test                // ٢. ناڤێ Namespace (ل ڤێرە ناڤێ وێ test یە)
-{
-    class Program             // ٣. ناڤێ Class (ل ڤێرە ناڤێ وی Program یە)
-    {
-        static void Main(string[] args)   // ٤. مێثودێ Main (خاڵا دەستپێکێ)
-        {
-            C# statements...              // ٥. فەرمان و کۆدێن #C ل ڤێرە دهێنە نڤیسین
-        }
-    }
-}                             // ٦. دوماھیا Namespace (End of the NameSpace)</pre>
-    </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٦ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پێکھاتەیێ گشتی یێ پرۆگرامێ #C (C# General Syntax) ب ڕێکوپێکی بنڤیسە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ:
-          <pre>using System;
-namespace test
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // C# statements
-        }
-    }
-}</pre>
-        </div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. د کۆدێ <code class="inline">using System;</code> دا، ئەرکێ ئەڤێ ڕێزێ چییە ب گۆرەی نەخشێ سلایدێ ٦؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ئینانا پەرتووکخانێ (<strong>Import libraries</strong>).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. د کۆدێ سلایدێ ٦ دا، ناڤێ <code class="inline">namespace</code> چییە و ناڤێ <code class="inline">class</code> چییە؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ناڤێ namespace <strong>test</strong> یە، و ناڤێ class <strong>Program</strong> یە.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. کۆد و فەرمانێن مە (C# statements) د ناڤ کیژ بەشێ پرۆگرامی دا دهێنە نڤیسین؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: د ناڤ کڤانێن <code class="inline">{ }</code> یێن مێثودێ <strong>Main</strong> (<code class="inline">static void Main(string[] args)</code>) دا.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: دوایین کڤانا <code class="inline">}</code> د نەخشێ سلایدێ ٦ دا دوماھیا <code class="inline">namespace</code> دیار دکەت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>راست (True)</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 7 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٧: شروڤەکرنا پێکھاتەیێ گشتی (C# General Syntax)</h2>
-      <span class="badge">Slide 7</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤ سلایدە گەلەک گرنگە بۆ پسیارێن پێناسە و ئەرکی (What is the function of...):</p>
+  <section class="card" id="s5">
+    <h2>🔹 سلاید ٥: بۆچی C# بکار بینین؟ (Why Use C# ?)</h2>
+    <div class="explain">
       <ul>
-        <li><strong><code class="inline">using System</code>:</strong> ڕامانا وێ ئەوە ئەم دکارین وان کلاسان (Classes) بکاربینین یێن د ناڤ <code class="inline">System</code> namespace دا هەین.</li>
-        <li><strong><code class="inline">namespace</code>:</strong> بۆ ڕێکخستنا کۆدێ تە دهێتە بکارئینان، و وەک قووتیکەکێ (Container) یە بۆ کلاسان و namespaceێن دی.</li>
-        <li><strong>کڤانێن پێچاوی <code class="inline">{}</code> (Curly braces):</strong> دەستپێک و دوماھیا بلۆکەکێ کۆدی (A block of code) نیشان ددەن.</li>
-        <li><strong><code class="inline">class</code>:</strong> قووتیکەکە (Container) بۆ داتایان و مێثودان، کو کارکرنێ (Functionality) دئینیتە ناڤ پرۆگرامێ تە. <strong>هەر ڕێزەکا کۆدی کو د #C دا کار دکەت دڤێت د ناڤ کلاسەکێ دا بیت.</strong> (د نموونێ دا مە ناڤێ کلاسی کرە Program).</li>
-        <li><strong>مێثودێ <code class="inline">Main</code>:</strong> تشتەکێ دی یە کو هەردەم د پرۆگرامێ #C دا دیار دبیت. هەر کۆدەکێ د ناڤ کڤانێن <code class="inline">{}</code> یێن وێ دا بیت دێ هێتە جێبەجێکرن (Executed).</li>
+        <li>ئێک ژ بەربەلاڤترین زمانێن پرۆگرامسازیێ یە ل جیهانێ.</li>
+        <li>فێربوونا وی یا ب ساناهی یە (Easy to learn) و بکارئینانا وی سادەیە (Simple to use).</li>
+        <li>کۆمەڵگەهەکا مەزن یا پشتگیریێ هەیە (Huge community support).</li>
+        <li>زمانەکێ Object-Orientedە: پێکهاتەکێ رۆهن (Clear structure) ددەتە پرۆگرامان و رێکێ ددەت کۆد دووبارە بهێتە بکارئینان (Reused)، ئەڤە ژی خەرجیێن دروستکرنێ کێم دکەت (Lowering development costs).</li>
+        <li>ژبەر کو نێزیکی <strong>C, C++, Java</strong> یە، بۆ پرۆگرامسازان ب ساناهی یە ژ وان زمانان بهێنە سەر C# یان بەروڤاژی.</li>
       </ul>
     </div>
+    <div class="q-title">📝 پسیارێن سلاید ٥ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. چەوا C# خەرجیێن دروستکرنا پرۆگرامان (Development costs) کێم دکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی Object-Orientedە و رێکێ ددەت کۆد دووبارە بهێتە بکارئینان (Allows code to be reused).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. بۆچی بۆ پرۆگرامسازێن Java یان C++ ب ساناهی یە بێنە سەر C#؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی زمانێ C# گەلەک نێزیکی C, C++, و Java یە.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. دوو ئەگەران ژ سلاید ٥ بنڤیسە بۆچی خەلک C# بکار دئینیت.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">١) Easy to learn and simple to use. ٢) Huge community support (یان پۆپیولەرە / OOPە).</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ فێربوونا زمانێ C# یا ب زەحمەت و ئالۆزە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر (False)، یا ب ساناهی یە (Easy to learn and simple to use).</div></details></div>
+    <div class="q-item"><div class="q-text">٥. OOP بوونا C# چ ددەتە پێکهاتێ پرۆگرامان؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">پێکهاتەکێ رۆهن (Clear structure) ددەتە پرۆگرامان.</div></details></div>
+  </section>
 
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٧ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. ئەرکێ <code class="inline">using System</code> و <code class="inline">namespace</code> چییە؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ:
-          <br>• <strong>using System:</strong> ڕامانا وێ ئەم دکارین کلاسان ژ ناڤ System namespace بکاربینین.
-          <br>• <strong>namespace:</strong> بۆ ڕێکخستنا کۆدی دهێتە بکارئینان و Container یە بۆ کلاسان و namespaceێن دی.
-        </div>
-      </div>
+  <!-- SLIDE 6 -->
+  <section class="card" id="s6">
+    <h2>🔹 سلاید ٦: پێکهاتێ گشتی یێ C# (General Syntax)</h2>
+    <div class="explain">
+      پێکهاتێ کۆدێ C# ژ ئەڤان بەشان پێکدهێت — بەش ب بەش دێ ب شێوێ د وەرەقێ دا ژبەر کەی <strong>JEHAD ZEBARE</strong>:
+      <pre><code>using System;               // Import libraries (ئینانا پەرتووکخانان)
 
-      <div class="q-item">
-        <div class="q-text">٢. ئەرکێ کڤانێن <code class="inline">{}</code> (Curly braces) چییە د #C دا؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: دەستپێک و دوماھیا بلۆکەکێ کۆدی دیار دکەن (Marks the beginning and the end of a block of code).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. پێناسا <code class="inline">class</code> بکە د زمانێ #C دا.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: Container یە بۆ داتایان (data) و مێثودان (methods)، کو کارکرنێ ددەتە پرۆگرامی. هەر ڕێزەکا کۆدی د #C دا کار بکەت دڤێت د ناڤ کلاسەکێ دا بیت.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. راست یان خەلەت: د #C دا دشێین ڕێزەکا کۆدی ل دەرڤەی هەمی کلاسان بنڤیسین و کار بکەت (ب گۆرەی سلایدێ ٧).</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — چونکی د سلایدی دا هاتیە: Every line of code that runs in C# must be inside a class.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. هەلبژێرە: چ د ناڤ کڤانێن <code class="inline">{}</code> یێن مێثودێ <code class="inline">Main</code> دا بهێتە نڤیسین چ ب سەری دهێت؟</div>
-        <ul class="q-options">
-          <li>A) دهێتە ژێبرن</li>
-          <li>B) دێ هێتە جێبەجێکرن (Executed)</li>
-          <li>C) دبیتە کۆمێنت</li>
-          <li>D) خەلەتیەکا کۆمپایلەری ددەت</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) دێ هێتە جێبەجێکرن (Executed)</strong></div>
-      </div>
+namespace test              // NameSpace: test
+{
+    class Program           // className: Program
+    {
+        static void Main(string[] args)   // Main Method
+        {
+            C# statements...              // C# statements (کۆدێن مە)
+        }
+    }
+}                           // End of the NameSpace</code></pre>
     </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٦ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. فرمانا <code>using System;</code> د سەرێ پرۆگرامی دا چ دکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">پەرتووکخانان ئیمپۆرت دکەت (Import libraries).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. د نموونێ سلاید ٦ دا، ناڤێ <code>namespace</code> چیە و ناڤێ <code>class</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">NameSpace: <code>test</code> | className: <code>Program</code>.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. کڤانێ <code>}</code> یێ هەرە دوماهیێ نیشانا چیە د سلاید ٦ دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">دوماهیا بۆشاییا ناڤان (End of the NameSpace).</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ڕستەیێن کۆدی (C# statements) د ناڤ کیژ بەشێ دا دهێنە نڤیسین؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">د ناڤ <code>Main Method</code> دا (<code>static void Main(string[] args)</code>).</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ئەو رێزا ناڤێ وێ <code>static void Main(string[] args)</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Main Method.</div></details></div>
+    <div class="q-item"><div class="q-text">٦. دڤی کۆدی دا چەند جۆتێن کڤانێن <code>{ }</code> هەنە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">٣ جۆت (ئێک بۆ namespace، ئێک بۆ class، ئێک بۆ Main method).</div></details></div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="card" id="s7">
+    <h2>🔹 سلاید ٧: شەرحا پێکهاتێ گشتی (Syntax Details)</h2>
+    <div class="explain">
+      <ul>
+        <li><code>using System</code>: مانا وێ ئەوە ئەم دشێین کلاسێن ژ ناڤ <code>System</code> namespace بکار بینین.</li>
+        <li><code>namespace</code>: بۆ رێکخستنا کۆدی دهێتە بکارئینان، و قووتیکەکە (Container) بۆ هەڵگرتنا کلاسان و namespaceێن دی.</li>
+        <li><strong>کڤانێن <code>{}</code>:</strong> دەستپێک و دوماهیا بلۆکەکێ کۆدی دیار دکەن.</li>
+        <li><code>class</code>: قووتیکەکە بۆ داتا و مێسۆدان (Data &amp; Methods) کو کار ددەتە پرۆگرامی. <strong>هەر رێزەکا کۆدی یا کاربکەت د C# دا دڤێت د ناڤ کلاسی دا بیت.</strong></li>
+        <li><code>Main</code> method: هەردەم د پرۆگرامێ C# دا هەیە؛ هەر کۆدەکێ د ناڤ <code>{}</code> یێن وێ دا بیت دێ هێتە جێبەجێکرن (Executed).</li>
+      </ul>
+    </div>
+    <div class="q-title">📝 پسیارێن سلاید ٧ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. پێناسەیا <code>namespace</code> بکە ل دویڤ سلاید ٧.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بۆ رێکخستنا کۆدی دهێتە بکارئینان، و قووتیکەکە (Container) بۆ کلاسان و namespaceێن دی.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. کارێ کڤانێن <code>{}</code> (Curly braces) چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">دەستپێک و دوماهیا بلۆکەکێ کۆدی دیار دکەن.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. پێناسەیا <code>class</code> بکە د C# دا.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">قووتیکەکە (Container) بۆ داتا و مێسۆدان کو کار و چالاکیێ ددەتە پرۆگرامی.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ دبیت رێزەکا کۆدی ل دەرڤەی <code>class</code> د C# دا بهێتە جێبەجێکرن؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر، هەر رێزەکا کۆدی یا کاربکەت د C# دا دڤێت د ناڤ کلاسی دا بیت.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. چ کۆدەک د پرۆگرامی دا دهێتە جێبەجێکرن (Executed)؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">هەر کۆدەکێ د ناڤ کڤانێن <code>{}</code> یێن <code>Main</code> method دا بیت.</div></details></div>
+  </section>
 
   <!-- SLIDE 8 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٨: ئێکەم نموونە (First Example)</h2>
-      <span class="badge">Slide 8</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤە ئێکەم پرۆگرامێ تەمام یێ #C یە کو پەیڤا <strong>Hello World!</strong> ل سەر شاشێ چاپ دکەت:</p>
-<pre>using System;
-
+  <section class="card" id="s8">
+    <h2>🔹 سلاید ٨: نموونەیا ئێکێ (First Example)</h2>
+    <div class="explain">
+      ئەڤە ئێکەم پرۆگرامێ تەمامە، و ب هەمان شێوە بۆ <strong>JEHAD ZEBARE</strong> کاردکەت:
+      <pre><code>using System;
 namespace test
 {
     class Program
@@ -668,507 +365,282 @@ namespace test
             Console.WriteLine("Hello World!");
         }
     }
-}</pre>
-      <p><strong>دەرئەنجام (Output):</strong></p>
-      <div class="output-box">Hello World!</div>
-      <p>تێبینی: ل ڤێرە <code class="inline">Console</code> کلاسەکێ ناڤ System یە، و <code class="inline">WriteLine</code> مێثودەکە کو دەقی چاپ دکەت.</p>
+}</code></pre>
+      <strong>ئەنجام (Output):</strong> <code>Hello World!</code>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٨ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پرۆگرامەکێ #C بنڤیسە کو ڕستەیا <code class="inline">Hello World!</code> چاپ بکەت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: هەمان کۆدێ سلایدێ ٨ (دڤێت <code class="inline">using System;</code> و <code class="inline">namespace</code> و <code class="inline">class</code> و <code class="inline">Main</code> و <code class="inline">Console.WriteLine("Hello World!");</code> تێدا بن).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. دەرئەنجامێ (Output) کۆدێ ل خوارێ چییە؟
-          <pre>Console.WriteLine("Hello Akre!");</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <code class="inline">Hello Akre!</code></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. خەلەتیێ د ڤی کۆدی دا ببینە:
-          <pre>Console.writeline("Hello World!")</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: دوو خەلەتی تێدانە: ١) <code class="inline">writeline</code> دڤێت پیتێن <code class="inline">W</code> و <code class="inline">L</code> مەزن بن (<code class="inline">WriteLine</code>). ٢) سیمی کۆڵۆن <code class="inline">;</code> ل دوماهیێ نینە.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. راست یان خەلەت: د کۆدێ <code class="inline">Console.WriteLine("Hello World!");</code> دا نیشانێن دوو کۆتەیشن <code class="inline">" "</code> ژی ل سەر شاشێ دهێنە چاپکرن.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — تەنێ دەقێ د ناڤ دا (Hello World!) دهێتە چاپکرن.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. ئەگەر <code class="inline">using System;</code> ژ سەرێ پرۆگرامێ سلایدێ ٨ بهێتە لادان و <code class="inline">Console.WriteLine</code> ب تنێ بهێتە نڤیسین، چ ڕووددەت؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: کۆمپایلەر دێ خەلەتیێ (Error) دەت چونکی <code class="inline">Console</code> د ناڤ <code class="inline">System</code> دایە.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٨ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. ئەنجامێ (Output) کۆدێ سلاید ٨ چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>Hello World!</code></div></details></div>
+    <div class="q-item"><div class="q-text">٢. کیژ رێز بەرپرسە ژ چاپکرنێ دڤی کۆدی دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>Console.WriteLine("Hello World!");</code></div></details></div>
+    <div class="q-item"><div class="q-text">٣. ئەگەر تە بڤێت ناڤێ <code>JEHAD ZEBARE</code> ل سەر شاشێ دەرکەڤیت، دێ وێ رێزێ چەوا نڤیسی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>Console.WriteLine("JEHAD ZEBARE");</code></div></details></div>
+    <div class="q-item"><div class="q-text">٤. پەیڤا <code>Console</code> د ناڤ کیژ namespace دایە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>System</code></div></details></div>
+    <div class="q-item"><div class="q-text">٥. دەبل کۆتەیشن <code>" "</code> د ناڤ <code>WriteLine("Hello World!")</code> دا بۆچی هاتینە دانان؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی دەق (Text / String) د C# دا د ناڤ دەبل کۆتەیشن <code>" "</code> دا دهێنە نڤیسین.</div></details></div>
+  </section>
 
   <!-- SLIDE 9 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ٩: تێبینیێن گشتی (General Notes)</h2>
-      <span class="badge">Slide 9</span>
+  <section class="card" id="s9">
+    <h2>🔹 سلاید ٩: تێبینیێن گشتی (General Notes)</h2>
+    <div class="explain">
+      <ul>
+        <li><strong>Case sensitive:</strong> زمانێ C# هەستیارە بۆ پیتێن مەزن و بچویک؛ <code>a</code> جودایە ژ <code>A</code>.</li>
+        <li><strong>Semicolon (<code>;</code>):</strong> هەمی ڕستە و دەربڕین (Statements &amp; expressions) دڤێت ب خاڵ-کۆما (<code>;</code>) بدوماهیک بهێن.</li>
+        <li><strong>Main method:</strong> جێبەجێکرنا پرۆگرامی ژ <code>Main</code> method دەستپێدکەت.</li>
+        <li><strong>جوداهیا ژ Java:</strong> بەروڤاژی Java، ناڤێ فایلێ پرۆگرامی دشێت جودا بیت ژ ناڤێ کلاسی.</li>
+        <li><strong><code>Console.ReadKey()</code>:</strong> ل دوماهیێ دهێتە زێدەکرن دا پرۆگرام چاڤەڕێی لێدانا کلیتەکێ بکەت و شاشە ب لەز نەهێتە گرتن دەمێ ژ Visual Studio .NET کار پێ دکەی.</li>
+      </ul>
     </div>
-    <div class="explain-box">
-      <p>ئەڤ ٥ تێبینیێن گشتی گەلەک د گرنگن و هەردەم د تاقیکرنان دا ژێ دهێن:</p>
-      <ol>
-        <li><strong>#C هەستیارە بۆ پیتێن مەزن و بچووک (Case sensitive):</strong> پیتا <code class="inline">a</code> جودایە ژ <code class="inline">A</code>.</li>
-        <li><strong>هەمی فەرمان و دەربڕین (Statements &amp; expressions) دڤێت ب سیمی کۆڵۆن <code class="inline">;</code> ب دوماهی بهێن.</strong></li>
-        <li><strong>جێبەجێکرنا پرۆگرامی (Execution) ژ مێثودێ <code class="inline">Main</code> دەستپێدکەت.</strong></li>
-        <li><strong>بەروڤاژی زمانێ Java:</strong> د #C دا ناڤێ فایلێ پرۆگرامی دشێت جودا بیت ژ ناڤێ کلاسی (Program file name could be different from the class name).</li>
-        <li><strong><code class="inline">Console.ReadKey()</code>:</strong> دشێت ل دوماهیێ بهێتە زێدەکرن. ئەڤە وەدکەت پرۆگرام ل هیڤیا لێدانا کلیلەکی (Key press) ڕاوەستیت و ڕێگریێ دکەت کو شاشە ب لەز ڤەبیت و بێتە گرتن دەما پرۆگرام ژ Visual Studio .NET دهێتە کارپێکرن.</li>
-      </ol>
-    </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ٩ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. ئەرکێ فەرمانا <code class="inline">Console.ReadKey()</code> چییە ل دوماھیا پرۆگرامێ #C؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: پرۆگرام ل هیڤیا لێدانا کلیلەکی (Key press) دمینیت و ناهێلیت شاشا دەرئەنجامی ب لەز بێتە گرتن دەما ژ Visual Studio .NET دهێتە کارپێکرن.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. جیاوازیا د ناڤبەرا #C و Java دا چییە دەربارەی ناڤێ فایلی و ناڤێ کلاسی؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: بەروڤاژی Java، د #C دا ناڤێ فایلێ پرۆگرامی دشێت جودا بیت ژ ناڤێ کلاسی (Could be different from the class name).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. ڤالاتیێ پڕ بکە: جێبەجێکرنا پرۆگرامێ #C ژ مێثودێ _________ دەستپێدکەت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>Main</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. هەلبژێرە: هەمی Statements و Expressions د #C دا دڤێت ب چ ب دوماهی بهێن؟</div>
-        <ul class="q-options">
-          <li>A) : (Colon)</li>
-          <li>B) . (Dot)</li>
-          <li>C) ; (Semicolon)</li>
-          <li>D) , (Comma)</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>C) ; (Semicolon)</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: #C زمانەکێ Case sensitive نینە، واتە <code class="inline">a</code> و <code class="inline">A</code> وەکی ئێکن.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — #C زمانەکێ Case sensitive یە، <code class="inline">a</code> جودایە ژ <code class="inline">A</code>.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ٩ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. رامانا <code>C# is Case sensitive</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">پیتێن مەزن (Capital) جودانە ژ پیتێن بچویک (Small)، بۆ نموونە <code>a</code> جودایە ژ <code>A</code>.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. هەمی ڕستەیێن C# دڤێت ب چ هێمایەکێ بدوماهیک بهێن؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ب Semicolon (<code>;</code>).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. جێبەجێکرنا پرۆگرامی ل کیرێ دەستپێدکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ل <code>Main</code> method.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ د C# دا وەک Java مەرجە ناڤێ فایلی هەمان ناڤێ کلاسی بیت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر (Unlike Java)، ناڤێ فایلی دشێت جودا بیت ژ ناڤێ کلاسی.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. کارێ <code>Console.ReadKey()</code> ل دوماهیا کۆدی چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">وەدکەت پرۆگرام چاڤەڕێی لێدانا کلیتەکێ (Key press) بکەت دا شاشە ب لەز نەهێتە گرتن د Visual Studio .NET دا.</div></details></div>
+  </section>
 
   <!-- SLIDE 10 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١٠: جیاوازیا WriteLine و Write د #C دا</h2>
-      <span class="badge">Slide 10</span>
-    </div>
-    <div class="explain-box">
-      <p>مێثودێ هەرە بەربەلاڤ بۆ چاپکرنێ د #C دا <code class="inline">WriteLine()</code> یە، بەلێ تو دشێی <code class="inline">Write()</code> ژی بکاربینی.</p>
-      <p><strong>جیاوازیا د ناڤبەرا وان دا:</strong></p>
+  <section class="card" id="s10">
+    <h2>🔹 سلاید ١٠: جوداهیا <code>WriteLine</code> و <code>Write</code></h2>
+    <div class="explain">
       <ul>
-        <li><strong><code class="inline">WriteLine()</code>:</strong> هەر جارەکا چاپ دکەت، دەقی ل سەر <strong>ڕێزەکا نوی (New line)</strong> دئینیتە خوارێ (پشتی چاپکرنێ Enter لێ ددەت).</li>
-        <li><strong><code class="inline">Write()</code>:</strong> ل سەر <strong>هەمان ڕێزێ (Same line)</strong> چاپ دکەت و ناچیتە ڕێزا نوی.</li>
+        <li>بەربەلاڤترین رێک بۆ چاپکرنێ <code>WriteLine()</code>ە، بەلێ دشێی <code>Write()</code> ژی بکار بینی.</li>
+        <li><strong>جوداهی:</strong> <code>WriteLine()</code> هەر جار ل سەر <strong>رێزەکا نوی (New line)</strong> چاپ دکەت، بەلێ <code>Write()</code> ل سەر <strong>هەمان رێزێ (Same line)</strong> چاپ دکەت.</li>
       </ul>
-      <p><strong>نموونە:</strong></p>
-<pre>Console.WriteLine("Hello World!");
+      <pre><code>Console.WriteLine("Hello World!");
 Console.WriteLine("I will print on a new line.");
 Console.Write("Hello World! ");
-Console.Write("I will print on the same line.");</pre>
-      <p><strong>دەرئەنجام (Result):</strong></p>
-      <div class="output-box">Hello World!<br>I will print on a new line.<br>Hello World! I will print on the same line.</div>
+Console.Write("I will print on the same line.");</code></pre>
+      <div class="note"><strong>ئەنجامێ ئەڤی کۆدی ٣ رێزن (ب وردی سەحکێ JEHAD ZEBARE!):</strong><br>
+      رێزا ١: <code>Hello World!</code><br>
+      رێزا ٢: <code>I will print on a new line.</code><br>
+      رێزا ٣: <code>Hello World! I will print on the same line.</code></div>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١٠ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. جیاوازیا د ناڤبەرا <code class="inline">Console.WriteLine()</code> و <code class="inline">Console.Write()</code> دا چییە؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <code class="inline">WriteLine()</code> هەر جارەکی دەرئەنجامی ل سەر ڕێزەکا نوی چاپ دکەت، بەلێ <code class="inline">Write()</code> ل سەر هەمان ڕێزێ چاپ دکەت.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. دەرئەنجامێ (Output) ئەڤی کۆدی بنڤیسە وەک یێ سەر شاشێ:
-<pre>Console.Write("Akre ");
-Console.WriteLine("IT");
-Console.Write("Dept");</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ:
-          <div class="output-box">Akre IT<br>Dept</div>
-          (تێبینی: چونکی ڕێزا ئێکێ Write بوو، IT چوو تەنیشتا Akre، بەلێ پاشی WriteLine چوو ڕێزا نوی بۆ Dept!)
-        </div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. دەرئەنجامێ ئەڤی کۆدی چییە؟
-<pre>Console.Write("A");
-Console.Write("B");
-Console.Write("C");</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <code class="inline">ABC</code> (هەمی ل سەر ئێک ڕێز دبن).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. هەلبژێرە: مێثودێ هەرە بەربەلاڤ بۆ چاپکرنێ (Output) د #C دا کیژە؟</div>
-        <ul class="q-options">
-          <li>A) Print()</li>
-          <li>B) WriteLine()</li>
-          <li>C) ReadKey()</li>
-          <li>D) Output()</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) WriteLine()</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: <code class="inline">Console.Write()</code> پشتی چاپکرنێ دهێتە سەر ڕێزەکا نوی.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — ل سەر هەمان ڕێزێ دمینیت.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٠ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. جوداهیا سەرەکی د ناڤبەرا <code>WriteLine()</code> و <code>Write()</code> دا چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>WriteLine()</code> ل سەر رێزەکا نوی چاپ دکەت (پشتی چاپێ دچیتە رێزا خوارێ)، بەلێ <code>Write()</code> ل سەر هەمان رێزێ دمینیت.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەنجامێ <code>Console.Write("JEHAD "); Console.Write("ZEBARE");</code> چەوا دێ دەرکەڤیت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ل سەر ئێک رێز: <code>JEHAD ZEBARE</code></div></details></div>
+    <div class="q-item"><div class="q-text">٣. ئەنجامێ ئەڤی کۆدی چەند رێزە و چیە؟ <code>Console.WriteLine("1"); Console.Write("2"); Console.WriteLine("3");</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">دوو رێز:<br>رێزا ١: <code>1</code><br>رێزا ٢: <code>23</code></div></details></div>
+    <div class="q-item"><div class="q-text">٤. د نموونەیا سلاید ١٠ دا، بۆچی <code>"Hello World! "</code> و <code>"I will print on the same line."</code> ل سەر ئێک رێز چاپ بوون؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی فرمانا ئێکێ یا رێزا سێیێ <code>Console.Write(...)</code> بوو و نەچوو رێزەکا نوی.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. کیژ مێسۆد پتر بەربەلاڤە بۆ نیشاندانا ئەنجامی د C# دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>WriteLine()</code></div></details></div>
+    <div class="q-item"><div class="q-text">٦. ئەگەر <code>Console.Write("Akre"); Console.WriteLine("IT");</code> بهێتە جێبەجێکرن، ئەنجام چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>AkreIT</code> (ل سەر ئێک رێز و بێ سپەیس).</div></details></div>
+  </section>
 
   <!-- SLIDE 11 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١١: کۆمێنت د #C دا (C# Comments)</h2>
-      <span class="badge">Slide 11</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>بۆچی کۆمێنت دهێنە بکارئینان؟</strong></p>
+  <section class="card" id="s11">
+    <h2>🔹 سلاید ١١: کۆمێنت د C# دا (C# Comments)</h2>
+    <div class="explain">
       <ul>
-        <li>بۆ شروڤەکرنا کۆدێ #C و زێدەکرنا تێگەهشتنێ (Make it more readable).</li>
-        <li>بۆ ڕێگریکرن ژ جێبەجێبوونا کۆدەکی دەما ئەم کۆدەکێ دی تاقی دکەین (Prevent execution when testing alternative code).</li>
+        <li>کۆمێنت بۆ <strong>شەرحکرنا کۆدی</strong> دا جوانتر بهێتە خواندن، هەروەسا بۆ <strong>راوەستاندنا جێبەجێکرنا کۆدی</strong> دەمێ تاقیکرنا کۆدەکێ دی دهێتە بکارئینان.</li>
+        <li><strong>Single-line comment:</strong> ب دوو هێلێن خوار <code>//</code> دەستپێدکەت.</li>
+        <li><strong>Multi-line comment:</strong> ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> بدوماهیک دهێت.</li>
       </ul>
-      <p><strong>جۆرێن کۆمێنتان د #C دا دوو جۆرن:</strong></p>
-      <ol>
-        <li><strong>کۆمێنتا ئێک-ڕێز (Single-line comments):</strong> ب دوو فۆرۆرد سلاش <code class="inline">//</code> دەستپێدکەت.
-<pre>// This is a comment
-Console.WriteLine("Hello World!"); // This is another comment</pre>
-        </li>
-        <li><strong>کۆمێنتا چەند-ڕێزی (Multi-line comments):</strong> ب <code class="inline">/*</code> دەستپێدکەت و ب <code class="inline">*/</code> ب دوماهی دهێت.
-<pre>/* The code below will print the words Hello World to the 
-screen, and it is amazing */
-Console.WriteLine("Hello World!");</pre>
-        </li>
-      </ol>
+      <pre><code>// Single-line comment for JEHAD ZEBARE
+Console.WriteLine("Hello World!"); // Another comment
+
+/* Multi-line comment:
+   prints Hello World to the screen */
+Console.WriteLine("Hello World!");</code></pre>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١١ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. دوو مفایێن بکارئینانا کۆمێنتان د #C دا بنڤیسە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. بۆ شروڤەکرنا کۆدی و بساناهیکرنا خواندنا وی. ٢. بۆ ڕێگریکرن ژ جێبەجێکرنا کۆدەکی دەما کۆدەکێ دی دهێتە تاقیکرن.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. جۆرێن کۆمێنتان د #C دا چنە دگەل نیشانا هەر ئێکێ؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. Single-line comments ب <code class="inline">//</code> دەستپێدکەت. ٢. Multi-line comments ب <code class="inline">/*</code> دەستپێدکەت و ب <code class="inline">*/</code> ب دوماهی دهێت.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. دەرئەنجامێ (Output) ئەڤی کۆدی چییە؟
-<pre>// Console.WriteLine("One");
-Console.WriteLine("Two");
-/* Console.WriteLine("Three"); */</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: تەنێ <code class="inline">Two</code> چاپ دبیت، چونکی ڕێزا ئێکێ و سێیێ کۆمێنتن و جێبەجێ نابن.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. هەلبژێرە: کۆمێنتا چەند-ڕێزی (Multi-line) ب چ دەستپێدکەت و ب چ دگریت؟</div>
-        <ul class="q-options">
-          <li>A) // ... //</li>
-          <li>B) /* ... */</li>
-          <li>C) # ... #</li>
-          <li>D) &lt;!-- ... --&gt;</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) /* ... */</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: ناهێتە رێپێدان کۆمێنت د هەمان ڕێزێ دا پشتی فەرمانا <code class="inline">Console.WriteLine("Hello");</code> بهێتە نڤیسین.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — دروستە د پشت سیمی کۆڵۆنێ دا بهێتە نڤیسین وەک <code class="inline">Console.WriteLine("Hello"); // comment</code>.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ١١ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. دوو مفا یان ئارمانجێن کۆمێنتان د C# دا بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">١) شەرحکرنا کۆدی و ب ساناهیکرنا خواندنا وی. ٢) راوەستاندنا جێبەجێکرنا کۆدی دەمێ تاقیکرنا کۆدەکێ جێگر.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. کۆمێنتا ئێک رێزی (Single-line) ب چ هێمایەکێ دەستپێدکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>//</code> (دوو forward slashes).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. کۆمێنتا فرە-رێزی (Multi-line) ب چ دەستپێدکەت و ب چ بدوماهیک دهێت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ب <code>/*</code> دەستپێدکەت و ب <code>*/</code> بدوماهیک دهێت.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەنجامێ ئەڤی کۆدی چیە؟<br><code>// Console.WriteLine("Test");</code><br><code>Console.WriteLine("JEHAD ZEBARE");</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بتنێ <code>JEHAD ZEBARE</code> دێ چاپ بیت.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ئەگەر تو <code>/*</code> بنڤیسی لێ ژبیر بکەی <code>*/</code> ل دوماهیێ بنڤیسی، چ چێدبیت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">کۆدێ پشتی وێ هەمی وەک کۆمێنت دێ هێتە هژمارتن و خەلەتی (Error) دێ دروست بیت.</div></details></div>
+  </section>
 
   <!-- SLIDE 12 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١٢: گۆڕاو و جۆرێن داتایان (C# Variables)</h2>
-      <span class="badge">Slide 12</span>
+  <section class="card" id="s12">
+    <h2>🔹 سلاید ١٢: گۆڕاو و جۆرێن داتایان (C# Variables)</h2>
+    <div class="explain">
+      <strong>Variables:</strong> قووتیکانن بۆ هەڵگرتنا بەهایێن داتایان (Containers for storing data values).<br>
+      جۆرێن سەرەکی د سلایدی دا:
+      <ul>
+        <li><code>int</code>: ژمارێن تمام (بێ پۆینت)، وەک <code>123</code> یان <code>-123</code>.</li>
+        <li><code>double</code>: ژمارێن دەهی (ب پۆینت)، وەک <code>19.99</code> یان <code>-19.99</code>.</li>
+        <li><code>char</code>: ئێک پیت یان هێما د ناڤ <strong>تاک کۆتەیشن</strong> دا، وەک <code>'a'</code> یان <code>'B'</code>.</li>
+        <li><code>string</code>: نڤیسین و دەق د ناڤ <strong>دەبل کۆتەیشن</strong> دا، وەک <code>"Hello World"</code> یان <code>"JEHAD ZEBARE"</code>.</li>
+        <li><code>bool</code>: دوو بەها هەنە: <code>true</code> یان <code>false</code>.</li>
+      </ul>
     </div>
-    <div class="explain-box">
-      <p><strong>گۆڕاو (Variables):</strong> قووتیک یان دەفرن بۆ هەڵگرتنا بهایێن داتایان (Containers for storing data values). د #C دا جۆرێن جودا یێن گۆڕاوان هەنە:</p>
-      <table>
-        <tr>
-          <th>جۆر (Type)</th>
-          <th>چ هەڵدگریت؟</th>
-          <th>نموونە</th>
-          <th>تێبینیەکا گرنگ</th>
-        </tr>
-        <tr>
-          <td><code class="inline">int</code></td>
-          <td>ژمارێن تەمام (بێ پۆینت / فاریزە)</td>
-          <td><code class="inline">123</code> یان <code class="inline">-123</code></td>
-          <td>دەعیمال (پۆینت) نابت تێدا بیت</td>
-        </tr>
-        <tr>
-          <td><code class="inline">double</code></td>
-          <td>ژمارێن ب پۆینت (Floating point)</td>
-          <td><code class="inline">19.99</code> یان <code class="inline">-19.99</code></td>
-          <td>پۆینت تێدا هەیە</td>
-        </tr>
-        <tr>
-          <td><code class="inline">char</code></td>
-          <td>ئێک پیت یان ئێک نیشان (Single character)</td>
-          <td><code class="inline">'a'</code> یان <code class="inline">'B'</code></td>
-          <td>د ناڤ تاک کۆتەیشن <code class="inline">' '</code> دا</td>
-        </tr>
-        <tr>
-          <td><code class="inline">string</code></td>
-          <td>دەق و ڕستە (Text)</td>
-          <td><code class="inline">"Hello World"</code></td>
-          <td>د ناڤ دوو کۆتەیشن <code class="inline">" "</code> دا</td>
-        </tr>
-        <tr>
-          <td><code class="inline">bool</code></td>
-          <td>دوو حالەت هەنە: راست یان خەلەت</td>
-          <td><code class="inline">true</code> یان <code class="inline">false</code></td>
-          <td>ب بێ کۆتەیشن دهێتە نڤیسین</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١٢ (٦ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پێناسا Variables بکە و ٥ جۆرێن سەرەکی (Basic value types) دگەل نموونێ هەر ئێکی بنڤیسە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: Variables قووتیکن بۆ هەڵگرتنا بهایێن داتایان. پێنج جۆر: <code class="inline">int</code> (123)، <code class="inline">double</code> (19.99)، <code class="inline">char</code> ('a')، <code class="inline">string</code> ("Hello")، <code class="inline">bool</code> (true).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. جیاوازیا د ناڤبەرا <code class="inline">char</code> و <code class="inline">string</code> دا چییە؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <code class="inline">char</code> تەنێ ئێک پیت/نیشان هەڵدگریت و د ناڤ تاک کۆتەیشن <code class="inline">' '</code> دایە، بەلێ <code class="inline">string</code> دەقان هەڵدگریت و د ناڤ دوو کۆتەیشن <code class="inline">" "</code> دایە.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. هەلبژێرە: کیژ جۆرێ گۆڕاوی بۆ هەڵگرتنا ژمارا <code class="inline">-19.99</code> یێ گونجایە؟</div>
-        <ul class="q-options">
-          <li>A) int</li>
-          <li>B) double</li>
-          <li>C) char</li>
-          <li>D) bool</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) double</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. خەلەتیێ د ئەڤێ ڕێزا کۆدی دا ببینە: <code class="inline">char grade = "A";</code></div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: بهایێ <code class="inline">char</code> دڤێت د ناڤ تاک کۆتەیشن دا بیت، واتە <code class="inline">'A'</code> نەک <code class="inline">"A"</code>.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. ڤالاتیێ پڕ بکە: جۆرێ <code class="inline">bool</code> بهایان ب دوو حالەتان هەڵدگریت کو ئەو ژی _________ یان _________ نە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>true</strong> ، <strong>false</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٦. راست یان خەلەت: جۆرێ <code class="inline">int</code> ژمارێن نێگەتیڤ (وەک <code class="inline">-123</code>) هەڵناگریت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — <code class="inline">int</code> ژمارێن تەمام یێن پۆزەتیڤ و نێگەتیڤ هەردووکان هەڵدگریت (وەک <code class="inline">123</code> یان <code class="inline">-123</code>).</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٢ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. پێناسەیا Variables بکە د C# دا.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">قووتیکانن بۆ هەڵگرتنا بەهایێن داتایان (Containers for storing data values).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. جوداهی د ناڤبەرا <code>char</code> و <code>string</code> دا چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>char</code> بتنێ ئێک پیت هەڵدگریت د ناڤ تاک کۆتەیشن <code>' '</code> دا، بەلێ <code>string</code> دەق هەڵدگریت د ناڤ دەبل کۆتەیشن <code>" "</code> دا.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. بۆ هەر ئێک ژ (<code>-123</code>, <code>19.99</code>, <code>'J'</code>, <code>"JEHAD"</code>, <code>false</code>) کیژ جۆر دهێتە بکارئینان؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>-123</code> &rarr; <code>int</code> | <code>19.99</code> &rarr; <code>double</code> | <code>'J'</code> &rarr; <code>char</code> | <code>"JEHAD"</code> &rarr; <code>string</code> | <code>false</code> &rarr; <code>bool</code>.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ <code>int</code> دشێت ژمارەکا ب پۆینت وەک <code>5.5</code> هەڵبگریت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر، <code>int</code> بتنێ ژمارێن تمام (بێ پۆینت) هەڵدگریت.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. جۆرێ <code>bool</code> چەند حالەت یان بەهایان هەڵدگریت؟ کیژن؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">دوو حالەتان: <code>true</code> یان <code>false</code>.</div></details></div>
+    <div class="q-item"><div class="q-text">٦. بۆچی <code>char c = "A";</code> خەلەتە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی بەهایێ <code>char</code> دڤێت د ناڤ تاک کۆتەیشن <code>'A'</code> دا بیت نە دەبل کۆتەیشن.</div></details></div>
+  </section>
 
   <!-- SLIDE 13 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١٣: دروستکرنا گۆڕاوان و نەگۆڕان (Variables &amp; Constants)</h2>
-      <span class="badge">Slide 13</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>١. شێوازێ دروستکرنا گۆڕاوی (Declaring Variables):</strong></p>
-<pre>type variableName = value;</pre>
-      <p><strong>نموونە:</strong></p>
-<pre>string name = "John";
-int myNum = 15;
-myNum = 20; // ل ڤێرە بهایێ myNum بوو 20 چونکی گۆڕاوە</pre>
-
-      <p><strong>٢. نەگۆڕ (Constants - <code class="inline">const</code>):</strong></p>
+  <section class="card" id="s13">
+    <h2>🔹 سلاید ١٣: چەوا گۆڕاوی دروست بکەین؟ (Variables Syntax)</h2>
+    <div class="explain">
+      <strong>Syntax:</strong> <code>type variableName = value;</code>
       <ul>
-        <li>ئەگەر تە نەڤێت بهایێ گۆڕاوی د پاشەڕۆژێ دا بهێتە گوهۆڕین، پەیڤا <code class="inline">const</code> ل پێشیا جۆرێ وی بنڤیسە.</li>
-        <li>ئەڤە گۆڕاوی دکەتە <strong>Unchangeable</strong> و <strong>Read-only</strong> (تەنێ بۆ خوێندنێ یە و ناهێتە گوهۆڕین).</li>
-        <li><strong>تێبینیەکا گرنگ:</strong> دەمێ <code class="inline">const</code> چێدکەی، دڤێت د هەمان ڕێزێ دا بهایەکێ بدەیێ، و بێی بها ناهێتە چێکرن.</li>
+        <li><code>type</code>: جۆرێ گۆڕاوی (وەک <code>int</code> یان <code>string</code>).</li>
+        <li><code>variableName</code>: ناڤێ گۆڕاوی (وەک <code>x</code> یان <code>name</code>).</li>
+        <li><code>=</code>: بۆ دانانا بەهای بۆ گۆڕاوی دهێتە بکارئینان.</li>
       </ul>
-<pre>const int myNum = 15;
-myNum = 20; // خەلەتی (Error) دەت چونکی const ناگوهۆڕیت!</pre>
+      <pre><code>string name = "Kurdistan";
+Console.WriteLine(name);   // ئەنجام: Kurdistan</code></pre>
     </div>
-
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١٣ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پەیڤا <code class="inline">const</code> بۆ چ دهێتە بکارئینان د #C دا؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: بۆ دروستکرنا نەگۆڕی (Constant) دهێتە بکارئینان دا کو بها نەگوهۆڕیت (Unchangeable and Read-only).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. دەرئەنجامێ ئەڤی کۆدی چییە؟
-<pre>const int x = 10;
-x = 25;
-Console.WriteLine(x);</pre>
-        </div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەتی (Error)</strong> ددەت، چونکی نەگۆڕ (<code class="inline">const</code>) ناهێتە گوهۆڕین.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. شێوازێ گشتی (Syntax) یێ دروستکرنا گۆڕاوەکی بنڤیسە و نموونەیەکێ بۆ <code class="inline">string</code> بدە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <code class="inline">type variableName = value;</code> — نموونە: <code class="inline">string name = "Ali";</code></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. هەلبژێرە: کیژ ژ ئەڤان دروستە بۆ پێناسەکرنا نەگۆڕەکی؟</div>
-        <ul class="q-options">
-          <li>A) constant int x = 5;</li>
-          <li>B) const int x = 5;</li>
-          <li>C) int const x; x = 5;</li>
-          <li>D) final int x = 5;</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>B) const int x = 5;</strong></div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: دشێین گۆڕاوەکێ <code class="inline">const</code> بێی بها دروست بکەین و پاشی بهایەکی بدەینێ.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — دەمێ <code class="inline">const</code> دهێتە دروستکرن، دڤێت د هەمان دەم دا بهایێ خۆ وەربگریت.</div>
-      </div>
-    </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٣ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. یاسایا گشتی (Syntax) یا دروستکرنا گۆڕاوی د C# دا بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>type variableName = value;</code></div></details></div>
+    <div class="q-item"><div class="q-text">٢. کارێ نیشانا <code>=</code> د ناساندنا گۆڕاوی دا چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بۆ دانانا بەهای بۆ گۆڕاوی (Assign values to the variable).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. گۆڕاوەکێ ب ناڤێ <code>student</code> ژ جۆرێ <code>string</code> چێبکە و بەهایێ <code>"JEHAD ZEBARE"</code> بدەیێ و چاپ بکە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>string student = "JEHAD ZEBARE";</code><br><code>Console.WriteLine(student);</code></div></details></div>
+    <div class="q-item"><div class="q-text">٤. جوداهی د ناڤبەرا <code>Console.WriteLine(name);</code> و <code>Console.WriteLine("name");</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">یا ئێکێ بەهایێ د ناڤ گۆڕاوێ <code>name</code> دا چاپ دکەت، یا دووێ راستەوخۆ پەیڤا <code>name</code> چاپ دکەت.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. ئەنجامێ <code>string name = "Kurdistan"; Console.WriteLine(name);</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>Kurdistan</code></div></details></div>
+  </section>
 
   <!-- SLIDE 14 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <h2>سلایدێ ١٤: پەیڤێن پاراستی و ناڤلێنان (Keywords &amp; Identifiers)</h2>
-      <span class="badge">Slide 14</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>١. پەیڤێن پاراستی (C# Keywords / Reserved Words):</strong></p>
-      <p>پەیڤێن تایبەتن کو کۆمپایلەرێ #C وان دناسێت و واتایا تایبەت د زمانێ #C دا هەیە. <strong>نابیت وەک ناڤێ گۆڕاوان (Identifiers) بهێنە بکارئینان</strong> (وەک: <code class="inline">int</code>، <code class="inline">double</code>، <code class="inline">class</code>، <code class="inline">using</code>، <code class="inline">namespace</code>، <code class="inline">const</code>، <code class="inline">void</code>، <code class="inline">static</code>، <code class="inline">true</code>، <code class="inline">false</code>).</p>
+  <section class="card" id="s14">
+    <h2>🔹 سلاید ١٤: ناساندن، گۆڕین و خەلەتیا بەهایێ نەدانای</h2>
+    <div class="explain">
+      <pre><code>int age;          // declaration (ناساندن)
+age = 25;         // initialization (دانانا بەهای)
+Console.WriteLine(age); // 25
 
-      <p><strong>٢. ناڤلێنان (C# Identifiers):</strong></p>
-      <p>هەمی گۆڕاو (Variables) دڤێت ب ناڤێن تاک (Unique names) بهێنە نیاسین، ئەڤ ناڤە دبێژنێ <strong>Identifiers</strong> (وەک <code class="inline">x</code>، <code class="inline">age</code>، <code class="inline">minutesPerHour</code>).</p>
-      <p><strong>مەرج و ڕێسایێن گشتی یێن نڤیسینا Identifiers:</strong></p>
+int age2 = 25;
+age2 = 20;        // overwrite (بەهایێ کەڤن دسڕیتەڤە، نوکە 20ە)
+Console.WriteLine(age2); // 20
+
+int x;
+int j = x;        // Error! Use of unassigned local variable 'x'</code></pre>
+    </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٤ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. جوداهی د ناڤبەرا <code>int age;</code> و <code>age = 25;</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>int age;</code> بریتیە ژ ناساندن (Declaration)، و <code>age = 25;</code> بریتیە ژ بەها دانان (Initialization).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەنجامێ ئەڤی کۆدی چیە؟ <code>int age = 25; age = 20; Console.WriteLine(age);</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>20</code> (بەهایێ ٢٥ هاتە گۆڕین بۆ ٢٠).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. بۆچی <code>int age; int j = age;</code> خەلەتیێ (Compile-time error) ددەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی گۆڕاوێ <code>age</code> بەری بهێتە بکارئینان چ بەها نەهاتیە دانێ (Use of unassigned local variable 'age').</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ د C# دا دشێین گۆڕاوەکی بناسینین و پاشی ل رێزا دی بەهای بدەینێ؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بەلێ (True)، وەک <code>int age; age = 25;</code>.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. دەما بەهایەکێ نوی ددەینە گۆڕاوەکێ بەرێ هەی، چ ب سەرێ بەهایێ کەڤن دهێت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بەهایێ نوی ل سەر یێ کەڤن دهێتە نڤیسین (Overwrite) و بەهایێ کەڤن نامینیت.</div></details></div>
+    <div class="q-item"><div class="q-text">٦. ئەنجامێ <code>int m = 10; m = 50; m = 99; Console.WriteLine(m);</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>99</code></div></details></div>
+  </section>
+
+  <!-- SLIDE 15 -->
+  <section class="card" id="s15">
+    <h2>🔹 سلاید ١٥: نەگۆڕەکان (Constants) و نموونێن جۆران</h2>
+    <div class="explain">
       <ul>
-        <li>ناڤ دشێت <strong>پیت (Letters)</strong>، <strong>ژمارە (Digits)</strong>، و نیشانا <strong>ئەندەرسکۆر (<code class="inline">_</code>)</strong> تێدا بن.</li>
-        <li>ناڤ دڤێت ب <strong>پیتەکێ یان <code class="inline">_</code></strong> دەستپێبکەت (<strong>نابیت ب ژمارە دەستپێبکەت!</strong>).</li>
-        <li>باشترە ناڤ ب پیتەکا بچووک دەستپێبکەت و <strong>نابیت ڤالاتی (Whitespace/Space) تێدا بیت</strong>.</li>
-        <li>ناڤ هەستیارن بۆ پیتێن مەزن و بچووک (<code class="inline">myVar</code> و <code class="inline">myvar</code> دوو ناڤێن جودانە).</li>
-        <li>پەیڤێن پاراستی (Keywords وەک <code class="inline">int</code> یان <code class="inline">double</code>) <strong>نابنە ناڤ</strong>.</li>
+        <li>پەیڤا <code>const</code> گۆڕاوی دکەتە <strong>نەگۆڕ و بتنێ-خواندن (Unchangeable and read-only)</strong>؛ کەس نەشێت بگۆڕیت.</li>
+        <li><strong>یاسایا گرنگ:</strong> نەشێی <code>const</code> بێ بەها بناسینی! دڤێت د هەمان رێز دا بەهای بدەیێ (ئەگەر نە خەلەتی: <em>A const field requires a value to be provided</em>).</li>
+      </ul>
+      <pre><code>const int age = 25;
+// age = 30;  // Error! cannot be changed
+
+int myAge = 15;
+double myDoubleNum = 5.99D;
+char myLetter = 'D';
+bool myBool = true;
+string myText = "Hello";</code></pre>
+    </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٥ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. کارێ پەیڤا <code>const</code> چیە د C# دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">گۆڕاوی دکەتە نەگۆڕ (Constant)، ئانکو بەهایێ وێ ناهێتە گۆڕین و بتنێ بۆ خواندنێ یە (Unchangeable and read-only).</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەنجامێ ئەڤی کۆدی چیە؟ <code>const int age = 25; age = 30;</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">خەلەتی (Error)، چونکی بەهایێ <code>const</code> ناهێتە گۆڕین.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. بۆچی <code>const int x; x = 10;</code> خەلەتە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">چونکی ناهێتە ناساندن بێ دانانا بەهای د هەمان رێز دا (A const field requires a value to be provided).</div></details></div>
+    <div class="q-item"><div class="q-text">٤. د <code>double myDoubleNum = 5.99D;</code> دا، پیتا <code>D</code> چ نیشان ددەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">دیاردکەت کو ژمارە ژ جۆرێ <code>double</code>ە.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. گۆڕاوەکێ نەگۆڕ بۆ سالا <code>2025</code> بۆ <strong>JEHAD ZEBARE</strong> چێبکە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>const int year = 2025;</code></div></details></div>
+    <div class="q-item"><div class="q-text">٦. ئەرێ راستە بێژین گۆڕاوێ <code>const</code> دشێت ب درێژاهیا پرۆگرامی دوو جاران بهێتە گۆڕین؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">False (خەلەتە، چ جاران ناهێتە گۆڕین).</div></details></div>
+  </section>
+
+  <!-- SLIDE 16 -->
+  <section class="card" id="s16">
+    <h2>🔹 سلاید ١٦: نیشاندانا گۆڕاوان (Concatenation)</h2>
+    <div class="explain">
+      فەنکشنا <code>WriteLine()</code> بۆ نیشاندانا بەهایێ گۆڕاوان دهێتە بکارئینان. ب هێمایا <code>+</code> ئەم دەقان و گۆڕاوێن دەقی ب ئێکڤە دگرێدەین (ئەڤێ کریارێ دبێژنێ <strong>Concatenation</strong>):
+      <pre><code>string name = "Aram";
+Console.WriteLine("Hello " + name);     // ئەنجام: Hello Aram
+
+string firstName = "Salar";
+string lastName = "Raman";
+string fullName = firstName + lastName;
+Console.WriteLine(fullName);            // ئەنجام: SalarRaman</code></pre>
+    </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٦ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. ناڤێ کریارا لێکدانا دەق و گۆڕاوێن دەقی ب نیشانا <code>+</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Concatenation.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەنجامێ <code>string firstName = "Salar"; string lastName = "Raman"; Console.WriteLine(firstName + lastName);</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>SalarRaman</code> (بێ سپەیس د ناڤبەرا وان دا).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. ئەنجامێ <code>string name = "JEHAD ZEBARE"; Console.WriteLine("Hello " + name);</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>Hello JEHAD ZEBARE</code></div></details></div>
+    <div class="q-item"><div class="q-text">٤. چەوا دێ سپەیسەکێ بێخیە ناڤبەرا <code>firstName</code> و <code>lastName</code> ل دەمێ لێکدانێ دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>string fullName = firstName + " " + lastName;</code></div></details></div>
+    <div class="q-item"><div class="q-text">٥. کیژ هێما بۆ تێکەلکرنا دەق و گۆڕاوێ <code>string</code> دهێتە بکارئینان؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نیشانا <code>+</code>.</div></details></div>
+  </section>
+
+  <!-- SLIDE 17 -->
+  <section class="card" id="s17">
+    <h2>🔹 سلاید ١٧: کارێ <code>+</code> دگەل ژماران، و چەند گۆڕاو پێکڤە</h2>
+    <div class="explain">
+      <ul>
+        <li>بۆ بەهایێن ژمارەیی (<code>int</code>, <code>double</code>)، نیشانا <code>+</code> وەک <strong>کردارەکا ماتماتیکی</strong> (کۆمکرن) کاردکەت.</li>
+        <li>بۆ ناساندنا پتر ژ گۆڕاوەکێ ژ <strong>هەمان جۆر</strong>، کۆما (<code>,</code>) دهێتە بکارئینان:</li>
+      </ul>
+      <pre><code>int x = 10;
+int y = 5;
+Console.WriteLine(x + y);           // ئەنجام: 15
+
+int a = 5, b = 6, z = 50;
+Console.WriteLine(a + b + z);       // ئەنجام: 61</code></pre>
+    </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٧ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. دگەل ژمارەیان (<code>int</code>)، نیشانا <code>+</code> چەوا کاردکەت؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">وەک کردارەکا ماتماتیکی (Mathematical operator) کۆم دکەت.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەنجامێ <code>int x = 5, y = 6, z = 50; Console.WriteLine(x + y + z);</code> چیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>61</code></div></details></div>
+    <div class="q-item"><div class="q-text">٣. چ هێمایەکێ د ناڤبەرا گۆڕاوان دا ددانین دەمێ پتر ژ گۆڕاوەکێ ژ هەمان جۆر د ئێک رێز دا دناسینین؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">کۆما (<code>,</code>) — Comma-separated list.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەنجامێ <code>Console.WriteLine(10 + 5);</code> دگەل <code>Console.WriteLine("10" + "5");</code> چ جوداهی هەیە؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">یا ئێکێ <code>15</code> چاپ دکەت (کۆمکرن)، یا دووێ <code>105</code> چاپ دکەت (Concatenation).</div></details></div>
+    <div class="q-item"><div class="q-text">٥. سێ گۆڕاوێن <code>int</code> ب ناڤێن <code>n1=1</code>, <code>n2=2</code>, <code>n3=3</code> د ئێک رێز دا بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>int n1 = 1, n2 = 2, n3 = 3;</code></div></details></div>
+  </section>
+
+  <!-- SLIDE 18 -->
+  <section class="card" id="s18">
+    <h2>🔹 سلاید ١٨: پەیڤێن حەجزکری (C# Keywords)</h2>
+    <div class="explain">
+      <ul>
+        <li><strong>Keywords:</strong> پەیڤێن حەجزکرینە (Reserved words) کو پێشوەخت بۆ کۆمپایلەرێ C# هاتینە دیارکرن.</li>
+        <li>نابیت وەک ناڤێ گۆڕاوی (Identifiers) بهێنە بکارئینان.</li>
+        <li>بەلێ ئەگەر بڤێت وەک ناڤ بکار بینی، دڤێت نیشانا <strong><code>@</code></strong> بێخیە بەراهیا وێ (وەک <code>@class</code>).</li>
+        <li><strong>نموونێن جدولێ سلاید ١٨:</strong> <code>abstract, as, base, bool, break, byte, case, catch, char, checked, class, const, continue, decimal, default, delegate, do, double, else, enum, event, explicit, extern, false, finally, fixed, float, for</code>.</li>
       </ul>
     </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٨ (٥ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. پێناسەیا <code>Keywords</code> بکە د C# دا.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">ئەو پەیڤێن حەجزکرینە (Reserved words) یێن پێشوەخت بۆ کۆمپایلەرێ C# هاتینە دیارکرن.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. چ هێمایەکێ ل بەراهیا Keywordێ ددانین ئەگەر مە بڤێت بکەینە ناڤێ گۆڕاوی (Identifier)؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">هێمایا <code>@</code> (بۆ نموونە <code>@class</code> یان <code>@int</code>).</div></details></div>
+    <div class="q-item"><div class="q-text">٣. ئەرێ <code>int bool = 5;</code> دروستە؟ بۆچی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر خەلەتە، چونکی <code>bool</code> Keywordە و نیشانا <code>@</code> ل گەل نینە.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. پێنج نموونان ژ جدولێ Reserved Keywords یێ سلاید ١٨ بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>abstract, bool, break, class, const</code> (یان هەر ٥ ژ جدولی).</div></details></div>
+    <div class="q-item"><div class="q-text">٥. کیژ ژ ئەڤان خەلەتە: <code>int @for = 1;</code> یان <code>int for = 1;</code>؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans"><code>int for = 1;</code> خەلەتە، چونکی <code>for</code> پەیڤەکا حەجزکریە.</div></details></div>
+  </section>
 
-    <div class="questions-section">
-      <h3>پسیارێن سلایدێ ١٤ (٥ پسیار):</h3>
-      <div class="q-item">
-        <div class="q-text">١. پێناسا Identifiers و Keywords بکە د زمانێ #C دا.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>Identifiers</strong> ئەو ناڤێن تاکن یێن دهێنە دان بۆ گۆڕاو و کلاسان. <strong>Keywords</strong> ئەو پەیڤێن پاراستینە کو واتایا تایبەت بۆ کۆمپایلەری هەیە و نابنە ناڤێ گۆڕاوان.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٢. هەلبژێرە: کیژ ژ ئەڤان ناڤان بۆ گۆڕاوی (Identifier) <strong>خەلەتە</strong>؟</div>
-        <ul class="q-options">
-          <li>A) _age</li>
-          <li>B) user1</li>
-          <li>C) 1user</li>
-          <li>D) my_Name</li>
-        </ul>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا دروست: <strong>C) 1user</strong> (چونکی ب ژمارە دەستپێکرییە).</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٣. سێ مەرجان ژ ڕێسایێن ناڤلێنانا Identifiers بنڤیسە.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: ١. ب پیت یان ئەندەرسکۆر (_) دەستپێدکەت و نابیت ب ژمارە دەستپێبکەت. ٢. نابیت ڤالاتی (Space) تێدا بیت. ٣. نابیت Keyword بیت و Case sensitive یە.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٤. بۆچی ناهێتە رێپێدان بنڤیسین <code class="inline">int class = 5;</code> ؟</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: چونکی <code class="inline">class</code> پەیڤەکا پاراستی (Keyword) یە د #C دا و نابیت ببیتە ناڤێ گۆڕاوی.</div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">٥. راست یان خەلەت: ناڤێ <code class="inline">my Age</code> وەک ناڤێ گۆڕاوی دروستە، و <code class="inline">age</code> و <code class="inline">Age</code> هەمان تشتن.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤ: <strong>خەلەت (False)</strong> — ڤالاتی د ناڤ <code class="inline">my Age</code> دا قەدەغەیە، هەروەسا <code class="inline">age</code> و <code class="inline">Age</code> ژ بەر Case sensitivity ژ ئێک جودانە.</div>
-      </div>
+  <!-- SLIDE 19 -->
+  <section class="card" id="s19">
+    <h2>🔹 سلاید ١٩: ناسکەر و یاسایێن ناڤدانانێ (C# Identifiers)</h2>
+    <div class="explain">
+      هەمی گۆڕاوێن C# دڤێت ناڤێن تایبەت (Unique names) هەبن، دبێژنێ <strong>Identifiers</strong> (وەک <code>x</code>, <code>age</code>, <code>sum</code>, <code>totalVolume</code>).
+      <br><strong>یاسایێن گشتی ل دویڤ سلاید ١٩:</strong>
+      <ul>
+        <li>ناڤ دشێن پیت (Letters)، ژمارە (Digits) و ئەندەرسکۆر (<code>_</code>) تێدا بن.</li>
+        <li>ناڤ دڤێت ب <strong>پیتەکێ (Letter)</strong> دەستپێبکەن.</li>
+        <li>باشترە ناڤ ب پیتەکا بچویک (Lowercase) دەستپێبکەت و <strong>نابیت ڤالایی (Whitespace)</strong> تێدا بیت.</li>
+        <li>ناڤ <strong>Case sensitive</strong>ن: <code>myVar</code> و <code>myvar</code> دوو گۆڕاوێن جودانە.</li>
+        <li>پەیڤێن حەجزکری (Keywords وەک <code>int</code> یان <code>double</code>) نابیت ببنە ناڤ.</li>
+      </ul>
     </div>
-  </div>
+    <div class="q-title">📝 پسیارێن سلاید ١٩ (٦ پسیار):</div>
+    <div class="q-item"><div class="q-text">١. ناڤێ وان ناڤێن تاک و تایبەت چیە یێن ددەینە گۆڕاوێن C#؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">Identifiers.</div></details></div>
+    <div class="q-item"><div class="q-text">٢. ئەرێ <code>jehad zebare</code> (ب سپەیس) ناڤەکێ دروستە بۆ گۆڕاوی؟ بۆچی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر خەلەتە، چونکی نابیت ڤالایی (Whitespace) د ناڤ ناڤی دا هەبیت.</div></details></div>
+    <div class="q-item"><div class="q-text">٣. ئەرێ <code>myVar</code> و <code>myvar</code> هەمان گۆڕاون د C# دا؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر، دوو گۆڕاوێن جودانە چونکی Case sensitiveن.</div></details></div>
+    <div class="q-item"><div class="q-text">٤. ئەرێ <code>2student</code> ناڤەکێ دروستە ل دویڤ یاسایێن سلاید ١٩؟ بۆچی؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">نەخێر خەلەتە، چونکی ناڤ دڤێت ب پیتەکێ (Letter) دەستپێبکەت نە ب ژمارە.</div></details></div>
+    <div class="q-item"><div class="q-text">٥. سێ یاسایێن گشتی یێن نڤیسینا Identifiers بنڤیسە.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">١) دشێت پیت، ژمارە، و <code>_</code> تێدا بن. ٢) دڤێت ب پیت دەستپێبکەت و ڤالایی تێدا نەبیت. ٣) نابیت Keywords بن (و Case sensitiveن).</div></details></div>
+    <div class="q-item"><div class="q-text">٦. کیژ ژ ئەڤان ناڤان دروستە: <code>jehad_2025</code> ، <code>9jehad</code> ، <code>jehad zebare</code> ، <code>int</code>؟</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">بتنێ <code>jehad_2025</code> دروستە!</div></details></div>
+  </section>
 
-  <!-- FINAL EXAM -->
-  <div class="slide-card final-exam">
-    <div class="slide-header">
-      <h2>تاقیکرنا گشتی یا نەزەری (نموونا پسیارێن سەر وەرەقێ)</h2>
-      <span class="badge">Final Exam Practice</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤ تاقیکرنە هەمی سلایدان ب خۆ ڤە دگریت دا خۆ بۆ رۆژا تاقیکرنێ تاقی بکەی:</p>
+  <!-- MOCK MIDTERM EXAM -->
+  <section class="card exam-card" id="exam">
+    <h2>📝 تاقیکرنا مێدتێرم یا سەر وەرەقێ (Mock Midterm Exam) — JEHAD ZEBARE</h2>
+    <div class="note">
+      <strong>Akre Technical Institute — IT Department | Student: JEHAD ZEBARE | Time: 60 Min | Mark: 50</strong><br>
+      خۆ ل سەر هەمی پسیارێن وەرەقێ تاقی بکە پاشی تبلێ ل بەرسڤێ بدە!
     </div>
 
-    <div class="questions-section">
-      <div class="q-item">
-        <div class="q-text">پ١. پرۆگرامەکێ #C یێ تەمام بنڤیسە کو دوو گۆڕاوان چێبکەت: یێ ئێکێ ناڤێ تە ب جۆرێ <code class="inline">string</code>، یێ دووێ ژی ژمارەکا نەگۆڕ (<code class="inline">const</code>) یا ساڵا ٢٠٢٦ ب جۆرێ <code class="inline">int</code>، و هەردووکان چاپ بکەت.</div>
-        <button type="button" class="ans-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="ans-box">بەرسڤا نموونەیی:
-<pre>using System;
+    <div class="q-title">Q1 / Choose the correct answer (هەڵبژێرە):</div>
+    <div class="q-item"><div class="q-text">1. C# was created by ________ and first released in ________.<br>a) Oracle, 1995 &nbsp; b) Microsoft, 2002 &nbsp; c) Google, 2009 &nbsp; d) Apple, 2002</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">b) Microsoft, 2002</div></details></div>
+    <div class="q-item"><div class="q-text">2. All statements in C# must end with:<br>a) <code>:</code> &nbsp; b) <code>,</code> &nbsp; c) <code>;</code> &nbsp; d) <code>.</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">c) <code>;</code> (Semicolon)</div></details></div>
+    <div class="q-item"><div class="q-text">3. Which symbol is used for a single-line comment in C#?<br>a) <code>/*</code> &nbsp; b) <code>#</code> &nbsp; c) <code>//</code> &nbsp; d) <code>@</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">c) <code>//</code></div></details></div>
+    <div class="q-item"><div class="q-text">4. Which keyword makes a variable unchangeable and read-only?<br>a) <code>static</code> &nbsp; b) <code>void</code> &nbsp; c) <code>const</code> &nbsp; d) <code>class</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">c) <code>const</code></div></details></div>
+    <div class="q-item"><div class="q-text">5. Which one is a valid C# identifier?<br>a) <code>2jehad</code> &nbsp; b) <code>first name</code> &nbsp; c) <code>double</code> &nbsp; d) <code>jehad_1</code></div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">d) <code>jehad_1</code></div></details></div>
 
-namespace test
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            string name = "Ahmed";
-            const int year = 2026;
-            Console.WriteLine(name);
-            Console.WriteLine(year);
-        }
-    }
-}</pre>
-        </div>
-      </div>
-
-      <div class="q-item">
-        <div class="q-text">پ٢. دەرئەنجامێ (Output) ئەڤی کۆدی وەک خۆ بنڤیسە:
-<
+    <div class="q-title">Q2 / Put (True) or (False) (راست و خەلەت):</div>
+    <div class="q-item"><div class="q-text">1. C# is a case-sensitive language (<code>a</code> differs from <code>A</code>).</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">True</div></details></div>
+    <div class="q-item"><div class="q-text">2. Just like Java, the C# program file name must be the same as the class name.</div><details><summary>👇 تبلێ لێبدە بۆ بەرسڤێ</summary><div class="ans">False (Unlike J
