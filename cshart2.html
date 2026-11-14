@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>فێربوونا C# و ئەزموونا تەمام (سلاید 1 - 29) | AUAS</title>
+  <title>Fundamentals of Programming by C# | شڕۆڤە و ئەزموون</title>
   <style>
     :root {
-      --primary: #0f4c81;
-      --primary-dark: #093257;
-      --accent: #0ea5e9;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #475569;
-      --border: #cbd5e1;
-      --success: #16a34a;
-      --success-bg: #dcfce7;
-      --danger: #dc2626;
-      --danger-bg: #fee2e2;
-      --warn: #d97706;
-      --warn-bg: #fef3c7;
-      --code-bg: #0f172a;
-      --code-text: #e2e8f0;
+      --bg-dark: #0b1120;
+      --bg-card: rgba(17, 24, 39, 0.88);
+      --bg-code: #060a14;
+      --border: rgba(56, 189, 248, 0.22);
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --gold: #fbbf24;
+      --green: #22c55e;
+      --red: #ef4444;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
     }
 
     * {
@@ -30,1642 +25,1096 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.16), transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(129, 140, 248, 0.16), transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.12), transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      line-height: 1.85;
       padding-bottom: 60px;
     }
 
     /* Header */
-    header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #1d6fa5);
-      color: #fff;
-      padding: 28px 20px;
+    .hero {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(99, 102, 241, 0.22));
+      border-bottom: 1px solid var(--border);
+      padding: 36px 20px 28px;
       text-align: center;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    header h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-
-    header p {
-      font-size: 1rem;
-      opacity: 0.95;
+      backdrop-filter: blur(12px);
     }
 
     .badge-uni {
       display: inline-block;
-      background: rgba(255, 255, 255, 0.18);
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 0.88rem;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      background: linear-gradient(90deg, #38bdf8, #a5b4fc, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 750px;
+      margin: 0 auto;
     }
 
     /* Sticky Nav */
-    .top-nav {
+    .nav-bar {
       position: sticky;
       top: 0;
-      z-index: 999;
-      background: #fff;
-      border-bottom: 2px solid var(--border);
+      z-index: 100;
+      background: rgba(11, 17, 32, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
       padding: 10px 15px;
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .top-nav a {
+    .nav-bar a {
       text-decoration: none;
-      color: var(--primary-dark);
-      background: #e2e8f0;
+      color: var(--text-main);
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.2);
       padding: 6px 13px;
-      border-radius: 18px;
+      border-radius: 10px;
       font-size: 0.88rem;
-      font-weight: 600;
-      transition: 0.2s;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
-    .top-nav a:hover, .top-nav a.final-link {
-      background: var(--primary);
-      color: #fff;
+    .nav-bar a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
     }
 
-    .top-nav a.final-link {
-      background: #b91c1c;
+    .nav-bar a.exam-link {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      border-color: transparent;
+      font-weight: 700;
     }
 
     /* Container */
     .container {
       max-width: 980px;
-      margin: 24px auto;
-      padding: 0 15px;
-    }
-
-    /* Score Bar */
-    .score-bar {
-      background: #fff;
-      border: 2px solid var(--primary);
-      border-radius: 12px;
-      padding: 12px 18px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .score-bar span {
-      font-weight: bold;
-      color: var(--primary-dark);
+      margin: 28px auto;
+      padding: 0 16px;
     }
 
     /* Slide Card */
-    .slide-card {
-      background: var(--card);
-      border-radius: 16px;
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
       padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.07);
-      border-top: 5px solid var(--primary);
+      margin-bottom: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
     }
 
-    .slide-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
+    .slide-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2));
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 3px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    .slide-num {
-      background: var(--primary);
-      color: #fff;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
+    h2 {
+      font-size: 1.45rem;
+      color: #ffffff;
+      margin-bottom: 14px;
+      border-right: 4px solid var(--accent);
+      padding-right: 12px;
     }
 
-    .slide-title {
-      font-size: 1.3rem;
-      color: var(--primary-dark);
-      font-weight: bold;
+    h3 {
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin: 16px 0 8px;
     }
 
-    .explain-box {
-      margin-bottom: 16px;
-      font-size: 1.02rem;
-    }
-
-    .explain-box ul {
+    ul, ol {
       padding-right: 22px;
-      margin-top: 8px;
+      margin-bottom: 12px;
     }
 
-    .explain-box li {
+    li {
       margin-bottom: 6px;
     }
 
-    /* Code blocks (LTR!) */
-    pre, code {
-      font-family: Consolas, "Courier New", monospace;
+    /* LTR Technical / Code Styling */
+    .ltr, code, pre {
       direction: ltr;
+      unicode-bidi: embed;
       text-align: left;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    code {
+      background: rgba(56, 189, 248, 0.13);
+      color: #7dd3fc;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.92rem;
     }
 
     pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 16px;
-      border-radius: 10px;
-      overflow-x: auto;
-      margin: 14px 0;
-      font-size: 0.94rem;
-      line-height: 1.6;
+      background: var(--bg-code);
+      border: 1px solid rgba(148, 163, 184, 0.2);
       border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 15px 18px;
+      overflow-x: auto;
+      margin: 12px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e2e8f0;
     }
 
-    .inline-code {
-      background: #e2e8f0;
-      color: #b91c1c;
-      padding: 2px 7px;
-      border-radius: 5px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      direction: ltr;
-      display: inline-block;
-    }
-
-    .output-box {
-      background: #000;
-      color: #4ade80;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-family: Consolas, monospace;
-      direction: ltr;
-      text-align: left;
-      margin: 10px 0 16px;
-      font-size: 0.92rem;
-      white-space: pre-wrap;
-    }
-
-    .output-label {
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
+    .kw { color: #60a5fa; font-weight: bold; }
+    .str { color: #fca5a5; }
+    .num { color: #fde047; }
+    .com { color: #4ade80; }
+    .cls { color: #38bdf8; }
 
     /* Tables */
     .table-wrap {
       overflow-x: auto;
       margin: 14px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.94rem;
-      background: #fff;
-    }
-
-    th, td {
-      border: 1px solid var(--border);
-      padding: 10px 12px;
-      text-align: right;
     }
 
     th {
-      background: var(--primary);
-      color: #fff;
+      background: rgba(30, 58, 138, 0.65);
+      color: #ffffff;
+      padding: 11px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
     }
 
-    tr:nth-child(even) {
-      background: #f8fafc;
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(15, 23, 42, 0.55);
     }
 
-    .ltr-cell {
-      direction: ltr;
-      text-align: left;
-      font-family: Consolas, monospace;
+    tr:hover td {
+      background: rgba(30, 41, 59, 0.75);
     }
 
-    /* Exam Note Box */
-    .tip-box {
-      background: var(--warn-bg);
-      border-right: 5px solid var(--warn);
-      padding: 14px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-      color: #78350f;
+    /* Callouts */
+    .note {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      border-right: 5px solid var(--gold);
+      border-radius: 12px;
+      padding: 13px 16px;
+      margin: 14px 0;
+      color: #fef3c7;
     }
 
-    .tip-box strong {
-      display: block;
-      margin-bottom: 4px;
+    .tip {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-right: 5px solid var(--green);
+      border-radius: 12px;
+      padding: 13px 16px;
+      margin: 14px 0;
+      color: #dcfce7;
+    }
+
+    .warn {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-right: 5px solid var(--red);
+      border-radius: 12px;
+      padding: 13px 16px;
+      margin: 14px 0;
+      color: #fee2e2;
+    }
+
+    /* Mini Quiz Box inside Slides */
+    .mini-quiz {
+      background: rgba(79, 70, 229, 0.12);
+      border: 1px dashed rgba(129, 140, 248, 0.5);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .mini-quiz-title {
+      color: #a5b4fc;
+      font-weight: 700;
+      margin-bottom: 8px;
       font-size: 1rem;
     }
 
-    /* Mini Quiz Section inside each slide */
-    .quiz-section {
-      background: #f8fafc;
-      border: 2px dashed #94a3b8;
-      border-radius: 12px;
-      padding: 18px;
-      margin-top: 20px;
+    /* Buttons & Answers */
+    .btn-toggle {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: transform 0.15s ease, opacity 0.2s;
     }
 
-    .quiz-section-title {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 1.08rem;
-      margin-bottom: 14px;
-      display: flex;
+    .btn-toggle:hover {
+      transform: scale(1.02);
+      opacity: 0.95;
+    }
+
+    .answer-box {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 15px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      border-radius: 10px;
+      color: #d1fae5;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .answer-box.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Final Exam Styling */
+    .exam-header {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.28), rgba(79, 70, 229, 0.28));
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .score-board {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
+      background: rgba(11, 17, 32, 0.85);
+      border: 1px solid var(--accent);
+      padding: 10px 22px;
+      border-radius: 14px;
+      margin-top: 14px;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .score-num {
+      color: var(--gold);
+      font-size: 1.25rem;
     }
 
     .q-item {
-      background: #fff;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-
-    .q-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .q-type-badge {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: bold;
-      padding: 2px 9px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      background: #e0f2fe;
-      color: #0369a1;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
     }
 
     .q-text {
       font-weight: 600;
-      margin-bottom: 10px;
-      color: #0f172a;
+      margin-bottom: 12px;
+      color: #f8fafc;
     }
 
     .options-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 8px;
+      gap: 10px;
     }
 
     .opt-btn {
-      background: #f1f5f9;
-      border: 2px solid #cbd5e1;
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.28);
       padding: 10px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 0.95rem;
+      text-align: left;
+      direction: ltr;
       font-family: inherit;
-      font-weight: 600;
-      color: #1e293b;
-      transition: all 0.2s;
-      text-align: center;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
     }
 
     .opt-btn:hover:not(:disabled) {
-      background: #e0f2fe;
       border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.14);
     }
 
     .opt-btn.correct {
-      background: var(--success-bg);
-      border-color: var(--success);
-      color: #14532d;
+      background: rgba(34, 197, 94, 0.25) !important;
+      border-color: #22c55e !important;
+      color: #86efac !important;
+      font-weight: 700;
     }
 
     .opt-btn.wrong {
-      background: var(--danger-bg);
-      border-color: var(--danger);
-      color: #7f1d1d;
+      background: rgba(239, 68, 68, 0.25) !important;
+      border-color: #ef4444 !important;
+      color: #fca5a5 !important;
     }
 
-    /* Written input */
-    .write-row {
+    .tf-wrap {
       display: flex;
-      gap: 8px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 8px;
     }
 
-    .write-input {
-      flex: 1;
-      min-width: 200px;
-      padding: 10px 12px;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 0.96rem;
-      direction: ltr;
-      text-align: left;
-      font-family: Consolas, monospace;
+    .tf-btn {
+      min-width: 120px;
+      text-align: center;
     }
 
-    .write-input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .check-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-family: inherit;
-      font-size: 0.94rem;
-    }
-
-    .check-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    .feedback {
+    .q-feedback {
       margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
       font-size: 0.93rem;
       display: none;
-      font-weight: 600;
-    }
-
-    .feedback.ok {
-      display: block;
-      background: var(--success-bg);
-      color: #14532d;
-      border: 1px solid var(--success);
-    }
-
-    .feedback.no {
-      display: block;
-      background: var(--danger-bg);
-      color: #7f1d1d;
-      border: 1px solid var(--danger);
-    }
-
-    /* Final Exam Styling */
-    .final-exam-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 26px;
-      border: 3px solid #b91c1c;
-      box-shadow: 0 6px 24px rgba(185, 28, 28, 0.12);
-    }
-
-    .final-exam-header {
-      text-align: center;
-      border-bottom: 2px solid #fecaca;
-      padding-bottom: 16px;
-      margin-bottom: 22px;
-    }
-
-    .final-exam-header h2 {
-      color: #991b1b;
-      font-size: 1.6rem;
-    }
-
-    .final-submit-btn {
-      display: block;
-      width: 100%;
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-      font-family: inherit;
-    }
-
-    .final-submit-btn:hover {
-      background: #15803d;
-    }
-
-    .final-result-box {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 12px;
-      background: #eff6ff;
-      border: 2px solid var(--primary);
-      text-align: center;
-      font-size: 1.15rem;
-      font-weight: bold;
-    }
-
-    .reset-btn {
-      background: #64748b;
-      color: #fff;
-      border: none;
-      padding: 7px 14px;
+      padding: 8px 12px;
       border-radius: 8px;
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    .q-feedback.show {
+      display: block;
+    }
+
+    .btn-reset {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      padding: 8px 16px;
+      border-radius: 10px;
       cursor: pointer;
       font-family: inherit;
       font-weight: 600;
     }
 
-    .diagram-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      margin: 12px 0;
-      direction: ltr;
+    .btn-reset:hover {
+      background: rgba(239, 68, 68, 0.35);
+    }
+
+    footer {
       text-align: center;
-    }
-
-    .tree-group {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .tree-col {
-      background: #fff;
-      border: 2px solid var(--primary);
-      border-radius: 10px;
-      padding: 12px;
-      min-width: 240px;
-      flex: 1;
-    }
-
-    .tree-col h4 {
-      background: var(--primary);
-      color: #fff;
-      padding: 6px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-
-    .tree-item {
-      display: inline-block;
-      background: #e0f2fe;
-      border: 1px solid #0284c7;
-      padding: 5px 10px;
-      border-radius: 6px;
-      margin: 4px;
-      font-family: Consolas, monospace;
-      font-size: 0.88rem;
-      font-weight: bold;
+      color: var(--text-muted);
+      margin-top: 36px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="badge-uni">زانکۆیا ئاکرێ بۆ زانستێن کرداری (AUAS) • پەیمانگەها تەکنیکی یا ئاکرێ • پشکا IT</div>
-  <h1>پێداچوونا تەمام یا C# (هەمی ٢٩ سلاید + ئەزموون)</h1>
-  <p>ئامادەکرن ب زمانێ بادینی یێ سادە بۆ تاقیکرنا ل سەر وەرەقێ — شڕۆڤەکرنا هەمی سلایدان دگەل تێبینی و تاقیکرنان</p>
-</header>
+  <!-- Header -->
+  <header class="hero">
+    <div class="badge-uni">زانکۆیا ئاکرێ بۆ زانستێن کرداری • پەیمانگەها تەکنیکی ئاکرێ • بەشێ IT (2024-2025)</div>
+    <h1>Fundamentals of Programming by C#</h1>
+    <p>شڕۆڤەکرنا تەمام یا هەر ٢٩ سڵایدان ب زمانێ کوردی (بەهدینی)، دگەل پسیارێن شێوازێ وەرەقەی و تاقیکرنا گشتی یا کلیکێ</p>
+  </header>
 
-<nav class="top-nav">
-  <a href="#s1-2">سلاید ١-٢</a>
-  <a href="#s3-4">سلاید ٣-٤ (Data Types)</a>
-  <a href="#s5-6">سلاید ٥-٦ (Numbers)</a>
-  <a href="#s7-8">سلاید ٧-٨ (Examples)</a>
-  <a href="#s9-11">سلاید ٩-١١ (Bool/Char/String)</a>
-  <a href="#s12-14">سلاید ١٢-١٤ (Arithmetic)</a>
-  <a href="#s15-18">سلاید ١٥-١٨ (Assignment)</a>
-  <a href="#s19-20">سلاید ١٩-٢٠ (Comparison)</a>
-  <a href="#s21-22">سلاید ٢١-٢٢ (Logical)</a>
-  <a href="#s23-24">سلاید ٢٣-٢٤ (Bitwise)</a>
-  <a href="#s25-26">سلاید ٢٥-٢٦ (Other Ops)</a>
-  <a href="#s27-28">سلاید ٢٧-٢٨ (Casting/Convert)</a>
-  <a href="#s29">سلاید ٢٩ (Expressions)</a>
-  <a href="#final-exam" class="final-link">🔥 تاقیکرنا دووماهیێ</a>
-</nav>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <a href="#s1-4">سڵاید ١-٤ (Data Types)</a>
+    <a href="#s5-8">سڵاید ٥-٨ (Numbers)</a>
+    <a href="#s9-11">سڵاید ٩-١١ (Bool/Char/String)</a>
+    <a href="#s12-18">سڵاید ١٢-١٨ (Arithmetic &amp; Assign)</a>
+    <a href="#s19-22">سڵاید ١٩-٢٢ (Compare &amp; Logic)</a>
+    <a href="#s23-26">سڵاید ٢٣-٢٦ (Bitwise &amp; Others)</a>
+    <a href="#s27-29">سڵاید ٢٧-٢٩ (Casting &amp; Expr)</a>
+    <a href="#final-exam" class="exam-link">📝 تاقیکرنا گشتی (ئەزموون)</a>
+  </nav>
 
-<div class="container">
+  <main class="container">
 
-  <div class="score-bar">
-    <span>📊 نمرەیا تە د پسیارێن سلایدان دا: <b id="practice-score">0</b> ژ <b id="practice-total">0</b> پسیاران</span>
-    <button class="reset-btn" onclick="location.reload()">🔄 دووبارە دەستپێکرن</button>
-  </div>
+    <!-- SLIDES 1 - 4 -->
+    <section class="card" id="s1-4">
+      <div class="slide-tag">سڵاید ١ تا ٤</div>
+      <h2>پێشەکی، پێکهاتە و جۆرێن سەرەکی یێن داتایان (C# Data Types)</h2>
 
-  <!-- ================= SLIDE 1 & 2 ================= -->
-  <section class="slide-card" id="s1-2">
-    <div class="slide-header">
-      <span class="slide-title">ناساندن و ناڤەڕۆکا وانەیێ (Outlines)</span>
-      <span class="slide-num">سلاید ١ و ٢</span>
-    </div>
-    <div class="explain-box">
-      <p>سلایدێ ١ ناڤونیشانێ وانەیێ یە: <strong>Fundamentals of Programming by C#</strong> (م. کژین اسماعیل طاهر، ٢٠٢٤-٢٠٢٥).</p>
-      <p>سلایدێ ٢ ناڤەڕۆکا سەرەکی یا ڤی بابەتی نیشان ددەت کو پێکدهێت ژ ٥ بابەتێن سەرەکی:</p>
+      <h3>📌 سڵاید ١ و ٢: بابەتێن سەرەکی (Outlines)</h3>
       <ul>
-        <li><strong>Data Types:</strong> جۆرێن داتایان (ژمارە، پیت، ڕستە، بەڵێ/نەخێر).</li>
-        <li><strong>Operators:</strong> ئۆپەرەیتەر (کۆمکرن، لێدەرکردن، بەراوردکرن، لۆژیک، بیتی).</li>
-        <li><strong>Type Casting:</strong> گوهۆڕینا جۆرێ داتایێ ب شێوەیێ خۆکارانە یان دەستی.</li>
-        <li><strong>Type Conversion:</strong> گوهۆڕینا جۆرێ داتایێ ب ڕێکا فەنکشنێن ئامادەکری (<span class="inline-code">Convert</span>).</li>
-        <li><strong>Expressions:</strong> دەربڕینێن ماتماتیکی و لۆژیکی و هەژمارتنا وان.</li>
-      </ul>
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ١ و ٢</div>
-      <div class="q-item">
-        <span class="q-type-badge">راست و خەلەت</span>
-        <div class="q-text">١. د زمانێ C# دا بابەتێ Type Casting و Type Conversion هەمان تشتن و جیاوازی د ناڤبەرا واندا نینە.</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkTF(this, true, false, 'خەلەتە! Type Casting گوهۆڕینە ب رێکا پێناسەکرنێ (یان خۆکارانە یان ب (int))، بەلێ Type Conversion ب رێکا میسۆدێن Convert دهێتە کرن.')">دروستە (True)</button>
-          <button class="opt-btn" onclick="checkTF(this, false, false, 'دروستە! ئەڤ رەستەیە خەلەتە، چونکی Type Casting جودایە ژ Type Conversion یا ب Convert.')">خەلەتە (False)</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SLIDE 3 & 4 ================= -->
-  <section class="slide-card" id="s3-4">
-    <div class="slide-header">
-      <span class="slide-title">جۆرێن داتایان د C# دا (C# Data Types)</span>
-      <span class="slide-num">سلاید ٣ و ٤</span>
-    </div>
-    <div class="explain-box">
-      <ul>
-        <li>زمانێ <strong>C#</strong> زمانەکێ <strong>Strongly-typed</strong>ـە: واتە بەری تو گوهۆڕەکێ (Variable) بکاربینی، <strong>دڤێت</strong> جۆرێ وێ دیار بکەی کا دێ چ تشت تێدا هێتە خەزنکرن.</li>
-        <li><strong>Data Type</strong> قەبارەیێ وێ د میمۆریێ دا و جۆرێ نرخێ وێ دیار دکەت.</li>
-        <li>هەلبژارتنا جۆرێ دروست: رێگریێ ل خەلەتیان دگریت، دەم و میمۆریێ خەرج ناکەت، و کۆدێ تە خواندەڤان و سادە دکەت.</li>
+        <li>پێنج تەوەرێن سەرەکی د ڤێ لێکچەرێ دا هەنە: <strong>Data Types</strong> (جۆرێن داتایان)، <strong>Operators</strong> (ئۆپەرەیتەر)، <strong>Type Casting</strong>، <strong>Type Conversion</strong>، و <strong>Expressions</strong> (دەربڕین).</li>
       </ul>
 
-      <pre>int myNum = 5;              // Integer (ژمارەیا تەمام)
-float floatVar = 10.2f;     // Floating point (ژمارەیا ب پۆینت، پاشگرێ f پێدڤییە)
-char myLetter = 'D';        // Character (ئێک پیت د ناڤ تاکە قەوسان دا ' ')
-bool myBool = true;         // Boolean (بتنێ true یان false)
-string myText = "Kurdistan"; // String (رستە د ناڤ جۆت قەوسان دا " ")</pre>
+      <h3>📌 سڵاید ٣: زمانێ C# و گرنگییا Data Type</h3>
+      <ul>
+        <li><strong>C# زمانەکێ Strongly-typedـە:</strong> یانی بەری تو هەر گوهۆڕەکێ (Variable) بکاربینی، <strong>دڤێت</strong> جۆرێ وی دیار بکەی کا دێ چ تێدا هێتە هەلگرتن.</li>
+        <li><strong>Data Type</strong> قەبارێ مێمۆریێ (Size) و جۆرێ بهایێ گوهۆڕی دیار دکەت.</li>
+        <li><strong>بۆچی گرنگە جۆرێ دروست هەلبژێرین؟</strong> (پسیارا گرنگ یا وەرەقەی!):
+          <ol>
+            <li>دا خەلەتی (Errors) چێنەبن.</li>
+            <li>دا دەم و مێمۆری (Time &amp; Memory) بهێنە پاراستن.</li>
+            <li>دا کۆدێ مە جوانتر، خواندەڤانتر و بساناهیتر بیت بۆ پاراستنێ (Readable &amp; Maintainable).</li>
+          </ol>
+        </li>
+      </ul>
 
+<pre><span class="kw">int</span> myNum = <span class="num">5</span>;              <span class="com">// ژمارا ساخ (Integer)</span>
+<span class="kw">float</span> floatVar = <span class="num">10.2f</span>;     <span class="com">// ژمارا ب فاریزە (پێدڤی ب پیتا fـە)</span>
+<span class="kw">char</span> myLetter = <span class="str">'D'</span>;        <span class="com">// ئێک پیت د ناڤ تاکە کۆما ' ' دا</span>
+<span class="kw">bool</span> myBool = <span class="kw">true</span>;         <span class="com">// راست یان خەلەت (Boolean)</span>
+<span class="kw">string</span> myText = <span class="str">"Kurdistan"</span>;<span class="com">// نڤیسین د ناڤ جوت کۆما " " دا</span></pre>
+
+      <h3>📌 سڵاید ٤: خشتەیا گرنگترین Data Typeـان (باش ژبەر بکە!)</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Data Type</th>
               <th>قەبارە (Size)</th>
-              <th>وەسف و سنۆر (Description)</th>
+              <th>شڕۆڤە و مەودا</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="ltr-cell">int</td>
-              <td class="ltr-cell">4 bytes</td>
-              <td>ژمارەیێن تەمام ژ <span class="inline-code">-2,147,483,648</span> تا <span class="inline-code">2,147,483,647</span></td>
+              <td><code>int</code></td>
+              <td><strong>4 bytes</strong></td>
+              <td>ژمارێن ساخ ژ <span class="ltr">-2,147,483,648</span> تا <span class="ltr">2,147,483,647</span></td>
             </tr>
             <tr>
-              <td class="ltr-cell">long</td>
-              <td class="ltr-cell">8 bytes</td>
-              <td>ژمارەیێن تەمام یێن مەزن ژ <span class="inline-code">-9,223,372,036,854,775,808</span> تا <span class="inline-code">9,223,372,036,854,775,807</span></td>
+              <td><code>long</code></td>
+              <td><strong>8 bytes</strong></td>
+              <td>ژمارێن ساخ یێن گەلەک مەزن (<span class="ltr">-9.2×10¹⁸</span> تا <span class="ltr">+9.2×10¹⁸</span>)</td>
             </tr>
             <tr>
-              <td class="ltr-cell">float</td>
-              <td class="ltr-cell">4 bytes</td>
-              <td>ژمارەیێن ب پۆینت، بەسە بۆ خەزنکرنا <strong>6 تا 7</strong> ژمارەیان پشتی پۆینتێ</td>
+              <td><code>float</code></td>
+              <td><strong>4 bytes</strong></td>
+              <td>ژمارێن ب فاریزە، بەسە بۆ <strong>6 تا 7</strong> رەقەمێن پشتی فاریزێ</td>
             </tr>
             <tr>
-              <td class="ltr-cell">double</td>
-              <td class="ltr-cell">8 bytes</td>
-              <td>ژمارەیێن ب پۆینت، بەسە بۆ خەزنکرنا <strong>15</strong> ژمارەیان پشتی پۆینتێ</td>
+              <td><code>double</code></td>
+              <td><strong>8 bytes</strong></td>
+              <td>ژمارێن ب فاریزە، بەسە بۆ <strong>15</strong> رەقەمێن پشتی فاریزێ</td>
             </tr>
             <tr>
-              <td class="ltr-cell">bool</td>
-              <td class="ltr-cell">1 bit</td>
-              <td>بتنێ نرخێن <span class="inline-code">true</span> یان <span class="inline-code">false</span> خەزن دکەت</td>
+              <td><code>bool</code></td>
+              <td><strong>1 bit</strong> *(ب سڵایدی)*</td>
+              <td>بهایێ <code>true</code> یان <code>false</code> هەلدگریت</td>
             </tr>
             <tr>
-              <td class="ltr-cell">char</td>
-              <td class="ltr-cell">2 bytes</td>
-              <td>بتنێ ئێک پیت یان هێما، د ناڤ تاکە قەوسان دا <span class="inline-code">' '</span></td>
+              <td><code>char</code></td>
+              <td><strong>2 bytes</strong></td>
+              <td>ئێک پیت/هێما د ناڤ تاکە کۆما <code>' '</code> دا</td>
             </tr>
             <tr>
-              <td class="ltr-cell">string</td>
-              <td class="ltr-cell">2 bytes per character</td>
-              <td>زنجیرەکا پیتان (نڤیسین)، د ناڤ جۆت قەوسان دا <span class="inline-code">" "</span></td>
+              <td><code>string</code></td>
+              <td><strong>2 bytes بۆ هەر پیتەکێ</strong></td>
+              <td>زنجیرەکا پیتان د ناڤ جوت کۆما <code>" "</code> دا</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا زێڕین بۆ ئەزموونا ل سەر وەرەقێ:</strong>
-      د سلایدێ ٤ دا قەبارێ <span class="inline-code">bool</span> نڤیسییە <strong>1 bit</strong>، و قەبارێ <span class="inline-code">char</span> <strong>2 bytes</strong>، و <span class="inline-code">float</span> <strong>4 bytes (6-7 digits)</strong> و <span class="inline-code">double</span> <strong>8 bytes (15 digits)</strong>. ڤێ خشتەیێ وەکی خۆ ژبەر بکە! هەروەسا ل سەر وەرەقێ ژبیر نەکە <span class="inline-code">char</span> ب <span class="inline-code">' '</span> و <span class="inline-code">string</span> ب <span class="inline-code">" "</span> دهێتە نڤیسین، و د دووماهییا هەر رستەیەکا کۆدی <span class="inline-code">;</span> دڤێت.
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٣ و ٤</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. قەبارێ جۆرێ داتایا <span class="inline-code">double</span> چەندە و چەند ژمارەیان پشتی پۆینتێ هەلدگریت؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ئەو floatـە کو 4 bytes و 6-7 ژمارەیانە.')">4 bytes، و 6 تا 7 ژمارە</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! double قەبارێ وێ 8 bytesـە و دشێت 15 ژمارەیێن دەسمالی هەلبگریت.')">8 bytes، و 15 ژمارە</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 2 bytes قەبارێ charـە.')">2 bytes، و 15 ژمارە</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 8 bytes بۆ double دروستە بەلێ 7 ژمارە خەلەتە.')">8 bytes، و 7 ژمارە</button>
-        </div>
-        <div class="feedback"></div>
+      <div class="note">
+        ⚠️ <strong>تێبینی بۆ ئەزموونێ:</strong> د ڕاستیێ دا مێمۆریا کۆمپیۆتەری 1 byte بۆ <code>bool</code> تەرخان دکەت، بەلێ د خشتەیا سڵاید ٤ یێ مامۆستای دا نڤیسییە <strong>1 bit</strong>؛ د ئەزموونێ دا لدویڤ سڵایدی <strong>1 bit</strong> بنڤیسە!
       </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">راست و خەلەت</span>
-        <div class="q-text">٢. د زمانێ C# دا زمانەکێ Strongly-typedـە، واتە پێدڤی ناکەت جۆرێ Variable بهێتە دیارکرن بەری بکارهینانێ.</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkTF(this, true, false, 'خەلەتە! Strongly-typed واتە دڤێت بێگومان جۆرێ Variable دیار بکەی.')">دروستە (True)</button>
-          <button class="opt-btn" onclick="checkTF(this, false, false, 'دروستە! چونکی د Strongly-typed دا پێدڤییە جۆرێ وێ بهێتە دیارکرن.')">خەلەتە (False)</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١-٤ (شێوازێ وەرەقەی):</div>
+        <div>Why is C# called a strongly-typed language, and what is the size of <code>double</code> and <code>char</code>?</div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong><br>
+          1) Strongly-typed یانی دڤێت بەری بکارئینانێ جۆرێ گوهۆڕی بهێتە ناساندن (declare).<br>
+          2) قەبارێ <code>double</code> = <strong>8 bytes</strong> و قەبارێ <code>char</code> = <strong>2 bytes</strong>.
         </div>
-        <div class="feedback"></div>
       </div>
+    </section>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٣. ئەگەر تە بڤێت گوهۆڕەکا ب ناڤێ <span class="inline-code">grade</span> دروست بکەی بۆ پیتا <span class="inline-code">A</span>، دێ چاوا د ئێک ڕێزدا نڤیسی؟ (کۆدی بنڤیسە دگەل <span class="inline-code">;</span>)</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s3" placeholder="char grade = 'A';" />
-          <button class="check-btn" onclick="checkWrite('w-s3', [&quot;char grade = 'A';&quot;, &quot;char grade='A';&quot;], 'بەرسڤا دروست: char grade = \'A\';')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
+    <!-- SLIDES 5 - 8 -->
+    <section class="card" id="s5-8">
+      <div class="slide-tag">سڵاید ٥ تا ٨</div>
+      <h2>جۆرێن ژماران (Integer &amp; Floating-Point Numbers)</h2>
 
-  <!-- ================= SLIDE 5 & 6 ================= -->
-  <section class="slide-card" id="s5-6">
-    <div class="slide-header">
-      <span class="slide-title">جۆرێن ژمارەیان د C# دا (Numbers)</span>
-      <span class="slide-num">سلاید ٥ و ٦</span>
-    </div>
-    <div class="explain-box">
-      <p>ژمارە د C# دا دابەشی <strong>دوو گرۆپان</strong> دبن:</p>
+      <h3>📌 سڵاید ٥ و ٦: دابەشبوونا ژماران و پاشگرێن وان</h3>
       <ul>
-        <li><strong>Integer types (ژمارەیێن تەمام):</strong> بێی پۆینت (نێگەتیڤ یان پۆزەتیڤ).</li>
-        <li><strong>Floating-point types (ژمارەیێن ب پۆینت):</strong> یێن ب ئێک یان پتر پۆینتێن دەسمالی.</li>
+        <li><strong>Integer Types (ژمارێن ساخ):</strong> بێ فاریزەنە (موجەب یان سالب): <code>byte</code>, <code>sbyte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>.</li>
+        <li><strong>Floating-Point Types (ژمارێن ب فاریزە):</strong> خودان خاڵا دەهانەنە: <code>float</code> (32 bit)، <code>double</code> (64 bit)، <code>decimal</code> (128 bit).</li>
       </ul>
-
-      <div class="diagram-box">
-        <strong>Numbers Hierarchy (سلاید ٥)</strong>
-        <div class="tree-group">
-          <div class="tree-col">
-            <h4>Integer Types</h4>
-            <div class="tree-item">byte / sbyte (8-bit)</div>
-            <div class="tree-item">short / ushort (16-bit)</div>
-            <div class="tree-item">int / uint (32-bit)</div>
-            <div class="tree-item">long / ulong (64-bit)</div>
-          </div>
-          <div class="tree-col">
-            <h4>Floating Point Types</h4>
-            <div class="tree-item">float (32-bit)</div>
-            <div class="tree-item">double (64-bit)</div>
-            <div class="tree-item">decimal (128-bit)</div>
-          </div>
-        </div>
-      </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Type</th>
-              <th>وەسف (Description)</th>
-              <th>سنۆر (Range)</th>
+              <th>شڕۆڤە</th>
+              <th>مەودا (Range)</th>
               <th>پاشگر (Suffix)</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="ltr-cell">byte</td><td>8-bit unsigned integer (بێ نیشانە)</td><td class="ltr-cell">0 to 255</td><td>-</td></tr>
-            <tr><td class="ltr-cell">sbyte</td><td>8-bit signed integer (ب نیشانە)</td><td class="ltr-cell">-128 to 127</td><td>-</td></tr>
-            <tr><td class="ltr-cell">short</td><td>16-bit signed integer</td><td class="ltr-cell">-32,768 to 32,767</td><td>-</td></tr>
-            <tr><td class="ltr-cell">ushort</td><td>16-bit unsigned integer</td><td class="ltr-cell">0 to 65,535</td><td>-</td></tr>
-            <tr><td class="ltr-cell">int</td><td>32-bit signed integer</td><td class="ltr-cell">-2,147,483,648 to 2,147,483,647</td><td>-</td></tr>
-            <tr><td class="ltr-cell">uint</td><td>32-bit unsigned integer</td><td class="ltr-cell">0 to 4,294,967,295</td><td class="ltr-cell">u</td></tr>
-            <tr><td class="ltr-cell">long</td><td>64-bit signed integer</td><td class="ltr-cell">-9.22×10¹⁸ to 9.22×10¹⁸</td><td class="ltr-cell">l (یان L)</td></tr>
-            <tr><td class="ltr-cell">ulong</td><td>64-bit unsigned integer</td><td class="ltr-cell">0 to 18,446,744,073,709,551,615</td><td class="ltr-cell">ul</td></tr>
-            <tr><td class="ltr-cell">float</td><td>32-bit Single-precision</td><td class="ltr-cell">-3.402823e38 to 3.402823e38</td><td class="ltr-cell">f</td></tr>
-            <tr><td class="ltr-cell">double</td><td>64-bit Double-precision</td><td class="ltr-cell">-1.797e308 to 1.797e308</td><td class="ltr-cell">d</td></tr>
-            <tr><td class="ltr-cell">decimal</td><td>128-bit بۆ کاروبارێن دارایی و دراڤی</td><td class="ltr-cell">(±)1.0e-28 to 7.9e28</td><td class="ltr-cell">m</td></tr>
+            <tr><td><code>byte</code></td><td>8-bit unsigned (بێ سالب)</td><td class="ltr">0 to 255</td><td>-</td></tr>
+            <tr><td><code>sbyte</code></td><td>8-bit signed (ب سالب)</td><td class="ltr">-128 to 127</td><td>-</td></tr>
+            <tr><td><code>short</code></td><td>16-bit signed</td><td class="ltr">-32,768 to 32,767</td><td>-</td></tr>
+            <tr><td><code>ushort</code></td><td>16-bit unsigned</td><td class="ltr">0 to 65,535</td><td>-</td></tr>
+            <tr><td><code>int</code></td><td>32-bit signed</td><td class="ltr">-2,147,483,648 to 2,147,483,647</td><td>-</td></tr>
+            <tr><td><code>uint</code></td><td>32-bit unsigned</td><td class="ltr">0 to 4,294,967,295</td><td><code>u</code></td></tr>
+            <tr><td><code>long</code></td><td>64-bit signed</td><td class="ltr">-9,223,372,036,854,775,808 to +...807</td><td><code>l</code></td></tr>
+            <tr><td><code>ulong</code></td><td>64-bit unsigned</td><td class="ltr">0 to 18,446,744,073,709,551,615</td><td><code>ul</code></td></tr>
+            <tr><td><code>float</code></td><td>32-bit Single-precision</td><td class="ltr">-3.402823e38 to 3.402823e38</td><td><code>f</code></td></tr>
+            <tr><td><code>double</code></td><td>64-bit Double-precision</td><td class="ltr">-1.79e308 to 1.79e308</td><td><code>d</code></td></tr>
+            <tr><td><code>decimal</code></td><td>128-bit (بۆ کارێن <strong>دارایی و پارەی</strong>)</td><td class="ltr">(±)1.0×10⁻²⁸ to 7.9×10²⁸</td><td><code>m</code></td></tr>
           </tbody>
         </table>
       </div>
-    </div>
 
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا سلایدێ ٦ (گەلەک یا گرنگە!):</strong>
-      • نرخێ بنەڕەتی (Default value) بۆ جۆرێن ژمارەیێن تەمام <strong>(0)</strong>ـە، ژبلی <span class="inline-code">long</span> کو <strong>(0L)</strong>ـە.<br>
-      • نرخێ بنەڕەتی بۆ <span class="inline-code">float</span> بریتییە ژ <strong>0.0F</strong> و بۆ <span class="inline-code">double</span> بریتییە ژ <strong>0.0D</strong>.<br>
-      • پیتا <span class="inline-code">u</span> ل پێش ناڤان (وەک <span class="inline-code">uint, ushort, ulong</span>) واتە <strong>Unsigned</strong> (بتنێ ژمارەیێن پۆزەتیڤ ژ ٠ سەرڤە). بەلێ <span class="inline-code">sbyte</span> پیتا <span class="inline-code">s</span> یا <strong>Signed</strong>ـە (سالب و مۆجەب هەردوکان وەردگریت ژ -128 تا 127).<br>
-      • پاشگرێ <span class="inline-code">decimal</span> پیتا <span class="inline-code">m</span>ـە و ١٢٨ بتە (بۆ پارە و ژمێریاریێ دهێتە بکارهینان).
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٥ و ٦</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. کیژ پاشگر (Suffix) بۆ جۆرێ <span class="inline-code">decimal</span> دهێتە بکارهینان؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! d بۆ double دهێتە بکارهینان.')">d</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! f بۆ float دهێتە بکارهینان.')">f</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! m پاشگرێ تایبەتێ جۆرێ decimalـە.')">m</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ul بۆ ulongـە.')">ul</button>
-        </div>
-        <div class="feedback"></div>
+      <div class="tip">
+        💡 <strong>بهایێن بنەرەتی (Default Values - سڵاید ٦):</strong>
+        بۆ هەمی جۆرێن Integer: <code>0</code> (ژبلی <code>long</code> کو <code>0L</code>ـە). بۆ <code>float</code>: <code>0.0F</code> و بۆ <code>double</code>: <code>0.0D</code>.
       </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">٢. سنۆرێ (Range) جۆرێ <span class="inline-code">byte</span> چەندە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ئەو سنۆرێ sbyteـە.')">-128 to 127</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! byte 8-bit unsignedـە، واتە ژ 0 تا 255.')">0 to 255</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ئەو سنۆرێ ushortـە.')">0 to 65,535</button>
-        </div>
-        <div class="feedback"></div>
+      <h3>📌 سڵاید ٧: چاپکرن ب شێوازێ Placeholder (<code>{0}</code>, <code>{1}</code>)</h3>
+<pre><span class="kw">byte</span> centuries = <span class="num">20</span>;
+<span class="kw">ushort</span> years = <span class="num">2000</span>;
+<span class="kw">uint</span> days = <span class="num">730480</span>;
+<span class="kw">ulong</span> hours = <span class="num">17531520</span>;
+<span class="cls">Console</span>.WriteLine(<span class="str">"{0} centuries is {1} years, or {2} days, or {3} hours."</span>, centuries, years, days, hours);</pre>
+      <p>🔹 <strong>چاوا کار دکەت؟</strong> <code>{0}</code> بهایێ ئێکەم گوهۆڕ (<code>centuries</code>) وەردگریت، <code>{1}</code> یێ دووەم، <code>{2}</code> یێ سێیەم و <code>{3}</code> یێ چارەم.<br>
+      <strong>ئەنجام:</strong> <code class="ltr">20 centuries is 2000 years, or 730480 days, or 17531520 hours.</code></p>
+
+      <h3>📌 سڵاید ٨: نموونەیا پی (π) و جیاوازییا <code>float</code> و <code>double</code></h3>
+<pre><span class="kw">float</span> floatPI = <span class="num">3.141592653589793238f</span>;
+<span class="kw">double</span> doublePI = <span class="num">3.141592653589793238</span>;
+<span class="cls">Console</span>.WriteLine(<span class="str">"Float PI is: {0}"</span>, floatPI);   <span class="com">// Float PI is: 3.141593</span>
+<span class="cls">Console</span>.WriteLine(<span class="str">"Double PI is: {0}"</span>, doublePI); <span class="com">// Double PI is: 3.14159265358979</span></pre>
+      <div class="note">
+        ⚠️ هەر ژمارەکا ب فاریزە د C# دا بێ پاشگر بهێتە نڤیسین، ئۆتۆماتیکی وەک <strong><code>double</code></strong> دهێتە خاندن! لەوما بۆ <code>float</code> پێدڤییە پاشگرێ <strong><code>f</code></strong> بنڤیسی.
       </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٣. نرخێ بنەڕەتی (Default value) بۆ جۆرێ <span class="inline-code">float</span> چییە دویڤ تێبینیا سلایدێ ٦؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s6" placeholder="بۆ نموونە: 0.0F" />
-          <button class="check-btn" onclick="checkWrite('w-s6', ['0.0F', '0.0f'], 'دروستە: 0.0F')">پشکنین</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٥-٨:</div>
+        <div>ئەگەر ژمارا <code class="ltr">300</code> بکەینە د ناڤ گوهۆڕەکێ ژ جۆرێ <code>byte</code> دا، دێ رازی بیت یان خەلەتی چێبیت؟ بۆچی؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> خەلەتی چێدبیت (Compile Error)! چونکی مەودایێ <code>byte</code> بتنێ ژ <strong>0 تا 255</strong>ـە و ژمارا 300 ژ وێ مەزنترە.
         </div>
-        <div class="feedback"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= SLIDE 7 & 8 ================= -->
-  <section class="slide-card" id="s7-8">
-    <div class="slide-header">
-      <span class="slide-title">نموونەیێن ژمارەیان: پێڤانا دەمێ و وردبینیا PI (π)</span>
-      <span class="slide-num">سلاید ٧ و ٨</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>نموونەیا سلاید ٧ (Measuring Time):</strong> ل دویڤ یەکەیا پێڤانێ ئەم جۆرێن جودا یێن ژمارەیان بکاردهینین:</p>
-      <pre>byte centuries = 20;     // ژمارەیەکا بچووک (0..255)
-ushort years = 2000;     // ژمارەیەکا ناڤنجی (0..65,535)
-uint days = 730480;
-ulong hours = 17531520;  // دبیت ژمارە گەلەک مەزن بیت
-Console.WriteLine("{0} centuries is {1} years, or {2} days, or {3} hours.",
-                  centuries, years, days, hours);
-Console.ReadKey();</pre>
-      <div class="output-label">ئەنجام (Result):</div>
-      <div class="output-box">20 centuries is 2000 years, or 730480 days, or 17531520 hours.</div>
+    <!-- SLIDES 9 - 11 -->
+    <section class="card" id="s9-11">
+      <div class="slide-tag">سڵاید ٩ تا ١١</div>
+      <h2>جۆرێن Boolean و Char و String</h2>
 
-      <p><strong>نموونەیا سلاید ٨ (PI precision):</strong> جیاوازی د ناڤبەرا <span class="inline-code">float</span> و <span class="inline-code">double</span> دا:</p>
-      <pre>float floatPI = 3.141592653589793238f;
-double doublePI = 3.141592653589793238;
-Console.WriteLine("Float PI is: {0}", floatPI);
-Console.WriteLine("Double PI is: {0}", doublePI);
-Console.ReadKey();</pre>
-      <div class="output-label">ئەنجام (Result):</div>
-      <div class="output-box">Float PI is: 3.141593
-Double PI is: 3.14159265358979</div>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا گرنگ ژ سلایدێ ٨:</strong>
-      د C# دا هەر ژمارەیەکا ب پۆینت (Real number) ب شێوەیێ خۆکارانە (Default) وەک <span class="inline-code">double</span> دهێتە خواندن! ئەگەر تە پیتا <span class="inline-code">f</span> ل دووماهییا <span class="inline-code">3.14f</span> نەنڤیسی، کۆمپایلەر دێ خەلەتیێ (Error) دەت! وە د ئەنجامیدا <span class="inline-code">float</span> ژمارە ڕووند کر بۆ <span class="inline-code">3.141593</span> (تەنها ٧ ژماران)، بەلێ <span class="inline-code">double</span> ١٥ ژماران نیشان دا.
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٧ و ٨</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">راست و خەلەت</span>
-        <div class="q-text">١. د C# دا ئەگەر بنڤیسین <span class="inline-code">float x = 3.5;</span> بێی نڤیسینا پاشگرێ <span class="inline-code">f</span>، کۆد بێ کێشە دێ کار کەت.</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkTF(this, true, false, 'خەلەتە! ژمارەیا ب پۆینت ب شێوەیێ default وەک double دهێتە هژمارتن، لەوما دڤێت f ل دووماهیێ بهێتە نڤیسین.')">دروستە (True)</button>
-          <button class="opt-btn" onclick="checkTF(this, false, false, 'دروستە! چونکی بێی f دێ ئیرۆر (Error) دەرکەڤیت.')">خەلەتە (False)</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر بنڤیسین <span class="inline-code">Console.WriteLine("{0} + {1}", 10, 20);</span> ئەنجامێ ل سەر شاشێ دێ چ دەرکەڤیت؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s7" placeholder="ئەنجامی بنڤیسە..." />
-          <button class="check-btn" onclick="checkWrite('w-s7', ['10 + 20', '10+20'], 'دروستە: 10 + 20 چونکی {0} جهێ 10 و {1} جهێ 20 دگریت.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SLIDE 9, 10, 11 ================= -->
-  <section class="slide-card" id="s9-11">
-    <div class="slide-header">
-      <span class="slide-title">جۆرێن Boolean، Char و String</span>
-      <span class="slide-num">سلاید ٩، ١٠ و ١١</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>١. Boolean (سلاید ٩):</strong> ب پەیڤا <span class="inline-code">bool</span> دهێتە راگەهاندن، بتنێ دوو نرخ هەنە: <span class="inline-code">true</span> یان <span class="inline-code">false</span>. نرخێ بنەڕەتی (Default) <span class="inline-code">false</span>ـە.</p>
-      <pre>int a = 1;
-int b = 2;
-bool greaterAB = (a > b);
-Console.WriteLine(greaterAB); // False
-bool equalA1 = (a == 1);
-Console.WriteLine(equalA1);   // True</pre>
-
-      <p><strong>٢. Char (سلاید ١٠):</strong> بۆ خەزنکرنا <strong>ئێک پیت</strong> د ناڤ تاکە قەوسان دا (<span class="inline-code">'A'</span>). نرخێ بنەڕەتی (Default) بریتییە ژ <span class="inline-code">'\0'</span>.</p>
-      <pre>char myGrade = 'B';
-Console.WriteLine(myGrade); // B</pre>
-
-      <p><strong>٣. String (سلاید ١١):</strong> بۆ خەزنکرنا زنجیرەکا پیتان (نڤیسین) د ناڤ جۆت قەوسان دا (<span class="inline-code">"..."</span>). نرخێ بنەڕەتی <span class="inline-code">null</span>ـە. ب نیشانا <span class="inline-code">+</span> دوو سترینگ پێکڤە دهێنە گرێدان (Concatenation)، و <span class="inline-code">\n</span> هێلەکا نوی (New line) چێدکەت.</p>
-      <pre>string firstName = "Dareen";
-string lastName = "Muhammed";
-Console.WriteLine("Hello, {0}!\n", firstName);
-string fullName = firstName + " " + lastName;
-Console.WriteLine("Your full name is {0}.", fullName);</pre>
-      <div class="output-label">ئەنجام (Result):</div>
-      <div class="output-box">Hello, Dareen!
-
-Your full name is Dareen Muhammed.</div>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا ئەزموونێ بۆ سلاید ٩-١١:</strong>
-      • دەمێ <span class="inline-code">Console.WriteLine</span> نرخەکێ <span class="inline-code">bool</span> چاپ دکەت، ب پیتا مەزن دەردکەڤیت: <strong>True</strong> یان <strong>False</strong>.<br>
-      • جیاوازیا نرخێن بنەڕەتی (Default Values) ژبەر بکە: <span class="inline-code">bool</span> ➔ <strong>false</strong> | <span class="inline-code">char</span> ➔ <strong>'\0'</strong> | <span class="inline-code">string</span> ➔ <strong>null</strong>.<br>
-      • تەماشەی <span class="inline-code">\n</span> بکە د ناڤ <span class="inline-code">WriteLine</span> دا: <span class="inline-code">WriteLine</span> بخۆ دچیتە ڕێزا نوی، و <span class="inline-code">\n</span> ژی دچیتە ڕێزەکا دی، لەوما ڕێزەکا ڤاڵا د ناڤبەرێدا چێدبیت!
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٩، ١٠ و ١١</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. نرخێ بنەڕەتی (Default value) یێ <span class="inline-code">char</span> و <span class="inline-code">string</span> ب ڕیزبەندی چنە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ئەڤە بەروڤاژییە.')">null و '\0'</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! char نرخێ بنەڕەتییێ وێ \0ـە و string ژی nullـە.')">'\0' و null</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! false بۆ boolـە.')">false و null</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە!')">0 و ""</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر <span class="inline-code">int x = 5; bool res = (x == 10);</span> بیت، نرخێ <span class="inline-code">res</span> دێ چ بیت دەمێ چاپ دبیت؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s9" placeholder="True یان False" />
-          <button class="check-btn" onclick="checkWrite('w-s9', ['False', 'false'], 'دروستە: False چونکی 5 یەکسان نینە ب 10.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SLIDE 12, 13, 14 ================= -->
-  <section class="slide-card" id="s12-14">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن C# و ئۆپەرەیتەرێن بیرکاری (Arithmetic)</span>
-      <span class="slide-num">سلاید ١٢، ١٣ و ١٤</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>سلاید ١٢ (Categories of operators):</strong> ئۆپەرەیتەرێن C# ئەڤ گرۆپەنە:</p>
+      <h3>📌 سڵاید ٩: Boolean (<code>bool</code>)</h3>
       <ul>
-        <li><strong>Arithmetic:</strong> <span class="inline-code">+  -  *  /  %  ++  --</span></li>
-        <li><strong>Logical:</strong> <span class="inline-code">&&  ||  ^  !</span></li>
-        <li><strong>Binary (Bitwise):</strong> <span class="inline-code">&  |  ^  ~  <<  >></span></li>
-        <li><strong>Comparison:</strong> <span class="inline-code">==  !=  <  >  <=  >=</span></li>
-        <li><strong>Assignment:</strong> <span class="inline-code">=  +=  -=  *=  /=  %=  &=  |=  ^=  <<=  >>=</span></li>
-        <li><strong>String Concatenation:</strong> <span class="inline-code">+</span></li>
-        <li><strong>Type conversion:</strong> <span class="inline-code">is  as  typeof</span></li>
-        <li><strong>Others:</strong> <span class="inline-code">.  []  ()  ?:  new</span></li>
+        <li>بتنێ دوو بها هەنە: <code>true</code> و <code>false</code>. بهایێ بنەرەتی (Default): <strong><code>false</code></strong>.</li>
+        <li>د ئەنجامێ <code>Console.WriteLine</code> دا پیتا ئێکێ ب مەزنی دەردکەڤیت (<code>True</code> / <code>False</code>).</li>
+      </ul>
+<pre><span class="kw">int</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
+<span class="kw">bool</span> greaterAB = (a &gt; b);
+<span class="cls">Console</span>.WriteLine(greaterAB); <span class="com">// False</span>
+<span class="kw">bool</span> equalA1 = (a == <span class="num">1</span>);
+<span class="cls">Console</span>.WriteLine(equalA1);   <span class="com">// True</span></pre>
+
+      <h3>📌 سڵاید ١٠: Character (<code>char</code>)</h3>
+      <ul>
+        <li>بتنێ <strong>ئێک</strong> پیت دهەلگریت د ناڤ تاکە کۆما <code>' '</code> دا (وەک <code>'B'</code>).</li>
+        <li>بهایێ بنەرەتی (Default): <strong><code>'\0'</code></strong>.</li>
       </ul>
 
-      <p style="margin-top:12px;"><strong>سلاید ١٣ (Arithmetic Operators):</strong></p>
+      <h3>📌 سڵاید ١١: String (<code>string</code>)</h3>
       <ul>
-        <li><span class="inline-code">+</span> کۆمکرن | <span class="inline-code">-</span> لێدەرکردن | <span class="inline-code">*</span> لێکدان | <span class="inline-code">/</span> دابەشکرن</li>
-        <li><span class="inline-code">%</span> (Remainder): ماوێ دابەشکرنێ (بۆ نموونە <span class="inline-code">5 % 2 = 1</span>).</li>
-        <li><span class="inline-code">++</span> نرخێ گوهۆڕێ ب ١ زێدە دکەت | <span class="inline-code">--</span> ب ١ کێم دکەت.</li>
-        <li><span class="inline-code">+5</span> (Unary plus) و <span class="inline-code">-5</span> (Unary minus: ژمارێ دکەتە نێگەتیڤ).</li>
+        <li>نڤیسین (زنجیرەکا پیتان) د ناڤ جوت کۆما <code>" "</code> دا.</li>
+        <li>بهایێ بنەرەتی (Default): <strong><code>null</code></strong> (بێ بها).</li>
+        <li>دکاری ب نیشانا <code>+</code> دوو <code>string</code>ـان پێکڤە گرێبدەی، و نیشانا <code>\n</code> دێڕەکا نوو چێدکەت.</li>
       </ul>
+<pre><span class="kw">string</span> firstName = <span class="str">"Dareen"</span>;
+<span class="kw">string</span> lastName = <span class="str">"Muhammed"</span>;
+<span class="cls">Console</span>.WriteLine(<span class="str">"Hello, {0}!\n"</span>, firstName);
+<span class="kw">string</span> fullName = firstName + <span class="str">" "</span> + lastName;
+<span class="cls">Console</span>.WriteLine(<span class="str">"Your full name is {0}."</span>, fullName);
+<span class="com">/* ئەنجام:
+Hello, Dareen!
 
-      <p style="margin-top:12px;"><strong>سلاید ١٤ (نموونەیا پراکتیکی - گەلەک گرنگە!):</strong></p>
-      <pre>int squarePerimeter = 17;
-double squareSide = squarePerimeter / 4.0;  // 4.25 چونکی 4.0 doubleـە
-double squareArea = squareSide * squareSide; // 18.0625
-Console.WriteLine(squareSide);  // 4.25
-Console.WriteLine(squareArea);  // 18.0625
+Your full name is Dareen Muhammed. */</span></pre>
 
-int a = 5;
-int b = 4;
-Console.WriteLine(a + b);     // 9
-Console.WriteLine(a + b++);   // 9  (بەراهیێ b=4 کۆم دکەت، پاشان b دبیتە 5!)
-Console.WriteLine(a + b);     // 10 (ئەڤجا b=5ـە، 5+5=10)
-Console.WriteLine(a + (++b)); // 11 (بەراهیێ b دبیتە 6، پاشان 5+6=11!)
-Console.WriteLine(a + b);     // 11
-Console.WriteLine(11 / 3);    // 3  (دابەشکرنا int پۆینتی دەردهاڤێژیت!)
-Console.WriteLine(11 % 3);    // 2  (ماوێ 11 لسەر 3 = 2، چونکی 3*3=9، 11-9=2)
-Console.WriteLine(12 / 3);    // 4</pre>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا ئەزموونێ (ب هشیاری ڤان سێ خاڵان بخوینە!):</strong>
-      1️⃣ <strong>Post-increment (<span class="inline-code">b++</span>):</strong> بەراهیێ نرخێ کەڤن یێ <span class="inline-code">b</span> د ناڤ هاوکێشێدا بکاردهینیت، <strong>پاشان</strong> ١ لسەر زێدە دکەت.<br>
-      2️⃣ <strong>Pre-increment (<span class="inline-code">++b</span>):</strong> بەراهیێ ١ لسەر <span class="inline-code">b</span> زێدە دکەت، <strong>پاشان</strong> نرخێ نوی بکاردهینیت.<br>
-      3️⃣ <strong>Integer Division:</strong> <span class="inline-code">11 / 3</span> د C# دا ئەنجامێ وێ <span class="inline-code">3</span>ـە نەک <span class="inline-code">3.66</span>، چونکی هەردوو <span class="inline-code">int</span>ـن! بەلێ <span class="inline-code">17 / 4.0</span> ئەنجامێ وێ <span class="inline-code">4.25</span>ـە چونکی <span class="inline-code">4.0</span> ژ جۆرێ <span class="inline-code">double</span>ـە.
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ١٢، ١٣ و ١٤</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. ئەنجامێ <span class="inline-code">Console.WriteLine(14 / 4);</span> چییە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! هەردوو ژمارە intـن لەوما پۆینت ناهێتە هژمارتن.')">3.5</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! دابەشکرنا دوو ژمارێن تەمام پۆینتێ لاددەت و بتنێ 3 دمینیت.')">3</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 2 ماوێ دابەشکرنێیە (14 % 4).')">2</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە!')">4</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٩-١١:</div>
+        <div>ئایا <code>char x = "A";</code> دروستە د C# دا؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> نەخێر خەلەتە! چونکی بۆ <code>char</code> دڤێت تاکە کۆما بهێتە بکارئینان: <code>char x = 'A';</code> (جوت کۆما <code>" "</code> بتنێ بۆ <code>string</code>ـە).
         </div>
-        <div class="feedback"></div>
       </div>
+    </section>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر <span class="inline-code">int x = 10; int y = 3;</span> بن، ئەنجامێ <span class="inline-code">Console.WriteLine(x + y++);</span> چ دەرکەڤیت؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s14a" placeholder="ژمارەیەکێ بنڤیسە..." />
-          <button class="check-btn" onclick="checkWrite('w-s14a', ['13'], 'دروستە: 13 چونکی y++ بەراهیێ نرخێ 3 بکاردهینیت (10+3=13) پاشان y دبیتە 4.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
+    <!-- SLIDES 12 - 18 -->
+    <section class="card" id="s12-18">
+      <div class="slide-tag">سڵاید ١٢ تا ١٨</div>
+      <h2>ئۆپەرەیتەرێن حسابی و بها دانانێ (Arithmetic &amp; Assignment)</h2>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٣. ئەنجامێ <span class="inline-code">17 % 5</span> چەندە؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s14b" placeholder="ماوێ دابەشکرنێ..." />
-          <button class="check-btn" onclick="checkWrite('w-s14b', ['2'], 'دروستە: 2 چونکی 5*3=15 و 17-15=2.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SLIDE 15, 16, 17, 18 ================= -->
-  <section class="slide-card" id="s15-18">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن پێدانێ (Assignment Operators)</span>
-      <span class="slide-num">سلاید ١٥، ١٦، ١٧ و ١٨</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤ ئۆپەرەیتەرە بۆ دانانا نرخەکێ د ناڤ Variableـەکێ دا دهێنە بکارهینان:</p>
+      <h3>📌 سڵاید ١٢: پۆلێن ئۆپەرەیتەران</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Operator</th><th>نموونە</th><th>وەک چی یە (Same As)</th></tr></thead>
+          <thead><tr><th>پۆل (Category)</th><th>ئۆپەرەیتەر (Operators)</th></tr></thead>
           <tbody>
-            <tr><td class="ltr-cell">=</td><td class="ltr-cell">x = 5</td><td class="ltr-cell">x = 5</td></tr>
-            <tr><td class="ltr-cell">+=</td><td class="ltr-cell">x += 3</td><td class="ltr-cell">x = x + 3</td></tr>
-            <tr><td class="ltr-cell">-=</td><td class="ltr-cell">x -= 3</td><td class="ltr-cell">x = x - 3</td></tr>
-            <tr><td class="ltr-cell">*=</td><td class="ltr-cell">x *= 3</td><td class="ltr-cell">x = x * 3</td></tr>
-            <tr><td class="ltr-cell">/=</td><td class="ltr-cell">x /= 3</td><td class="ltr-cell">x = x / 3</td></tr>
-            <tr><td class="ltr-cell">%=</td><td class="ltr-cell">x %= 3</td><td class="ltr-cell">x = x % 3</td></tr>
-            <tr><td class="ltr-cell">&lt;&lt;=</td><td class="ltr-cell">x &lt;&lt;= 3</td><td class="ltr-cell">x = x &lt;&lt; 3</td></tr>
-            <tr><td class="ltr-cell">&gt;&gt;=</td><td class="ltr-cell">x &gt;&gt;= 3</td><td class="ltr-cell">x = x &gt;&gt; 3</td></tr>
-            <tr><td class="ltr-cell">&amp;=</td><td class="ltr-cell">x &amp;= 3</td><td class="ltr-cell">x = x &amp; 3</td></tr>
-            <tr><td class="ltr-cell">^=</td><td class="ltr-cell">x ^= 3</td><td class="ltr-cell">x = x ^ 3</td></tr>
-            <tr><td class="ltr-cell">|=</td><td class="ltr-cell">x |= 3</td><td class="ltr-cell">x = x | 3</td></tr>
+            <tr><td>Arithmetic</td><td class="ltr"><code>+  -  *  /  %  ++  --</code></td></tr>
+            <tr><td>Logical</td><td class="ltr"><code>&amp;&amp;  ||  ^  !</code></td></tr>
+            <tr><td>Binary (Bitwise)</td><td class="ltr"><code>&amp;  |  ^  ~  &lt;&lt;  &gt;&gt;</code></td></tr>
+            <tr><td>Comparison</td><td class="ltr"><code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code></td></tr>
+            <tr><td>Assignment</td><td class="ltr"><code>=  +=  -=  *=  /=  %=  &amp;=  |=  ^=  &lt;&lt;=  &gt;&gt;=</code></td></tr>
+            <tr><td>String Concatenation</td><td class="ltr"><code>+</code></td></tr>
+            <tr><td>Type Conversion</td><td class="ltr"><code>is  as  typeof</code> *(د سڵایدی دا Is نڤیسییە)*</td></tr>
+            <tr><td>Others</td><td class="ltr"><code>.  []  ()  ?:  new</code></td></tr>
           </tbody>
         </table>
       </div>
 
-      <p><strong>شڕۆڤەکرنا ئەنجامێن سلاید ١٦ (گەلەک گرنگە!):</strong></p>
-      <pre>int a = 21;
-int c;
-c = a;     // Line 1: c = 21
-c += a;    // Line 2: c = 21 + 21 = 42
-c -= a;    // Line 3: c = 42 - 21 = 21
-c *= a;    // Line 4: c = 21 * 21 = 441
-c /= a;    // Line 5: c = 441 / 21 = 21
-c = 200;
-c %= a;    // Line 6: c = 200 % 21 = 11  (چونکی 21*9=189، 200-189=11)
-c &lt;&lt;= 2;   // Line 7: 11 (1011) لێدانا چەپێ ب 2 بت ➔ 44 (101100)
-c &gt;&gt;= 2;   // Line 8: 44 لێدانا راستێ ب 2 بت ➔ 11
-c &amp;= 2;    // Line 9: 11 (1011) &amp; 2 (0010) ➔ 0010 = 2
-c ^= 2;    // Line 10: 2 (0010) ^ 2 (0010) ➔ 0000 = 0
-c |= 2;    // Line 11: 0 (0000) | 2 (0010) ➔ 0010 = 2</pre>
-
-      <p><strong>نموونەیا سلاید ١٨:</strong></p>
-      <pre>int x = 6;
-int y = 4;
-Console.WriteLine(y *= 2); // 8
-int z = 3;
-// تێبینی: د سلایدێ ١٨ دا جارەکا دی (int y = 3;) نڤیسییە کو د C# دا خەلەتییە چونکی y بەری نها هاتییە پێناسەکرن
-Console.WriteLine(z);      // 3
-Console.WriteLine(x += 3); // 9  (6+3)
-Console.WriteLine(x -= 3); // 6  (9-3)
-Console.WriteLine(x /= 2); // 3  (6/2)
-Console.WriteLine(x *= 3); // 9  (3*3)</pre>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا گرنگ بۆ سلاید ١٦ و ١٨:</strong>
-      ل سەر وەرەقێ دەما کۆدەکی ددوتە دەست تە بۆ دیارکرنا ئەنجامی (Trace the output)، ئاگەهدار بە نرخێ گوهۆڕێ (وەک <span class="inline-code">x</span> یان <span class="inline-code">c</span>) هەر ڕێز ب ڕێز دهێتە گوهۆڕین! نرخێ نوی بۆ هێلا دویڤدا دهێتە بکارهینان، نەک نرخێ دەستپێکێ!
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ١٥ تا ١٨</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. ئەگەر <span class="inline-code">int x = 10; x += 5; x *= 2;</span> نرخێ دووماهیێ یێ <span class="inline-code">x</span> چەندە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! x += 5 دکەتە 15، پاشان 15 * 2 = 30.')">20</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! بەراهیێ 10+5=15، پاشان 15*2=30.')">30</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە!')">15</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە!')">25</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. د سلایدێ ١٦ دا، ئەگەر <span class="inline-code">c = 200; a = 21;</span> بیت، ئەنجامێ <span class="inline-code">c %= a;</span> چەندە؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s16" placeholder="ژمارە..." />
-          <button class="check-btn" onclick="checkWrite('w-s16', ['11'], 'دروستە: 11 چونکی 21 * 9 = 189، و 200 - 189 = 11.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SLIDE 19 & 20 ================= -->
-  <section class="slide-card" id="s19-20">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن بەراوردکرنێ (Comparison Operators)</span>
-      <span class="slide-num">سلاید ١٩ و ٢٠</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤ ئۆپەرەیتەرە دوو نرخان بەراورد دکەن و ئەنجامێ وان هەردەم <span class="inline-code">True</span> یان <span class="inline-code">False</span>ـە:</p>
+      <h3>📌 سڵاید ١٣ و ١٤: ئۆپەرەیتەرێن حسابی و نهێنیێن ئەزموونێ!</h3>
       <ul>
-        <li><span class="inline-code">==</span> یەکسانە ب | <span class="inline-code">!=</span> یەکسان نینە ب</li>
-        <li><span class="inline-code">&gt;</span> مەزنترە ژ | <span class="inline-code">&lt;</span> بچووکترە ژ</li>
-        <li><span class="inline-code">&gt;=</span> مەزنترە یان یەکسانە | <span class="inline-code">&lt;=</span> بچووکترە یان یەکسانە</li>
+        <li><code>11 / 3</code> چونکی هەردوو <code>int</code>ـن، پاشماوێ پشتی فاریزێ دهاڤێژیت -> ئەنجام <strong><code>3</code></strong>ـە!</li>
+        <li><code>17 / 4.0</code> چونکی <code>4.0</code> جۆرێ <code>double</code>ـە -> ئەنجام <strong><code>4.25</code></strong>ـە!</li>
+        <li><code>11 % 3</code> یانی ماوێ دابەشکرنا ١١ ل سەر ٣ -> ئەنجام <strong><code>2</code></strong>ـە!</li>
+        <li><code>b++</code> (Post-increment): پێشییێ بهایێ کەڤن بکاردئینیت، پاشی ١ زێدە دکەت.</li>
+        <li><code>++b</code> (Pre-increment): پێشییێ ١ زێدە دکەت، پاشی بهایێ نوو بکاردئینیت.</li>
       </ul>
+<pre><span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">4</span>;
+<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 9</span>
+<span class="cls">Console</span>.WriteLine(a + b++);   <span class="com">// 9  (پێشییێ 5+4=9 پاشی b دبیتە 5)</span>
+<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 10 (چونکی b بوو 5)</span>
+<span class="cls">Console</span>.WriteLine(a + (++b)); <span class="com">// 11 (پێشییێ b دبیتە 6 پاشی 5+6=11)</span>
+<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 11</span></pre>
 
-      <p><strong>نموونەیا سلاید ٢٠ (گەلەک فێڵ تێدایە، ئاگەهدار بە!):</strong></p>
-      <pre>int a = 5;
-int b = 4;
-Console.WriteLine(a >= b);   // True  (5 >= 4)
-Console.WriteLine(a != b);   // True  (5 != 4)
-Console.WriteLine(a == b);   // False (5 == 4)
-Console.WriteLine(a != ++b); // False! (چونکی ++b بەراهیێ b دکەتە 5، پاشان 5 != 5 دبیتە False!)
-Console.WriteLine(a > b);    // False! (چونکی b نها 5ـە، و 5 > 5 خەلەتە!)</pre>
-    </div>
+      <h3>📌 سڵاید ١٥، ١٦، ١٧، ١٨: ئۆپەرەیتەرێن بها دانانێ (Assignment)</h3>
+      <p>کورتکرنا کریارانە، بۆ نموونە <code>c += a</code> یانی <code>c = c + a</code>. ئەڤە ئەنجامێن تەمام یێن <strong>سڵاید ١٦</strong>نە (چونکی ل سڵایدی ئەنجام نەهاتبوونە نڤیسین):</p>
+<pre><span class="kw">int</span> a = <span class="num">21</span>, c;
+c = a;    <span class="com">// Line 1: 21</span>
+c += a;   <span class="com">// Line 2: 21 + 21 = 42</span>
+c -= a;   <span class="com">// Line 3: 42 - 21 = 21</span>
+c *= a;   <span class="com">// Line 4: 21 * 21 = 441</span>
+c /= a;   <span class="com">// Line 5: 441 / 21 = 21</span>
+c = <span class="num">200</span>;
+c %= a;   <span class="com">// Line 6: 200 % 21 = 11  (چونکی 21*9 = 189، ماوە 11ـە)</span>
+c &lt;&lt;= <span class="num">2</span>;  <span class="com">// Line 7: 11 * 4 = 44</span>
+c &gt;&gt;= <span class="num">2</span>;  <span class="com">// Line 8: 44 / 4 = 11</span>
+c &amp;= <span class="num">2</span>;   <span class="com">// Line 9: 1011 &amp; 0010 = 0010 = 2</span>
+c ^= <span class="num">2</span>;   <span class="com">// Line 10: 0010 ^ 0010 = 0000 = 0</span>
+c |= <span class="num">2</span>;   <span class="com">// Line 11: 0000 | 0010 = 0010 = 2</span></pre>
 
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا ئەزموونێ بۆ سلاید ٢٠:</strong>
-      ل ڤان هەردوو ڕێزێن دووماهیێ بباشی تەماشە بکە: <span class="inline-code">a != ++b</span> و <span class="inline-code">a &gt; b</span>! گەلەک قوتابی هزر دکەن <span class="inline-code">b</span> هێشتا 4ـە، بەلێ ژ بەر <span class="inline-code">++b</span>، <span class="inline-code">b</span> بوو <strong>5</strong>، لەوما هەردوو ڕێزێن دووماهیێ بووینە <strong>False</strong>! هەروەسا <span class="inline-code">=</span> ئۆپەرەیتەرێ پێدانێ یە (Assignment) بەلێ <span class="inline-code">==</span> بۆ بەراوردکرنێ یە!
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ١٩ و ٢٠</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">راست و خەلەت</span>
-        <div class="q-text">١. د C# دا هێمایا <span class="inline-code">=</span> بۆ پشکنینا یەکسانیێ د ناڤبەرا دوو نرخان دا دهێتە بکارهینان.</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkTF(this, true, false, 'خەلەتە! = بۆ پێدانێ یە (Assignment)، بۆ بەراوردکرنا یەکسانیێ == دهێتە بکارهینان.')">دروستە (True)</button>
-          <button class="opt-btn" onclick="checkTF(this, false, false, 'دروستە! ئەڤە خەلەتە، چونکی == بۆ بەراوردکرنا یەکسانیێ دهێتە بکارهینان.')">خەلەتە (False)</button>
-        </div>
-        <div class="feedback"></div>
+      <div class="warn">
+        🚨 <strong>هشیاربوون ل سڵاید ١٨:</strong> د سڵاید ١٨ دا مامۆستای دوو جاران <code>int y = 4;</code> و پاشی <code>int y = 3;</code> نڤیسییە. د C# دا دوو جاران ناساندنا هەمان ناڤ ب <code>int</code> خەلەتییە (دڤێت دێڕا دووێ بێ <code>int</code> بیت: <code>y = 3;</code>). ئەنجامێن سڵاید ١٨ ئەڤەنە: <code>8, 3, 9, 6, 3, 9</code>.
       </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر <span class="inline-code">int x = 8; int y = 7;</span> بن، ئەنجامێ <span class="inline-code">Console.WriteLine(x == ++y);</span> دێ چ بیت؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s20" placeholder="True یان False" />
-          <button class="check-btn" onclick="checkWrite('w-s20', ['True', 'true'], 'دروستە: True چونکی ++y بەراهیێ y دکەتە 8، پاشان 8 == 8 دبیتە True.')">پشکنین</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١٢-١٨:</div>
+        <div>ئەنجامێ ئەڤی کۆدی چییە؟ <code class="ltr">int x = 10; Console.WriteLine(x++ + ++x);</code></div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> <strong><code>22</code></strong>!<br>
+          روونکرن: پێشییێ <code>x++</code> بهایێ <code>10</code> ددەت و <code>x</code> دبیتە <code>11</code>. پاشی <code>++x</code> ژ <code>11</code> دکەتە <code>12</code>. ئەنجام: <code>10 + 12 = 22</code>.
         </div>
-        <div class="feedback"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= SLIDE 21 & 22 ================= -->
-  <section class="slide-card" id="s21-22">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن لۆژیکی (Logical Operators)</span>
-      <span class="slide-num">سلاید ٢١ و ٢٢</span>
-    </div>
-    <div class="explain-box">
-      <p>ئەڤ ئۆپەرەیتەرە نرخێن Boolean (<span class="inline-code">true/false</span>) وەردگرن و <span class="inline-code">true/false</span> دزڤڕینن:</p>
+    <!-- SLIDES 19 - 22 -->
+    <section class="card" id="s19-22">
+      <div class="slide-tag">سڵاید ١٩ تا ٢٢</div>
+      <h2>ئۆپەرەیتەرێن بەراوردکاری و لۆجیکی (Comparison &amp; Logical)</h2>
+
+      <h3>📌 سڵاید ١٩ و ٢٠: بەراوردکاری (<code>== != &gt; &lt; &gt;= &lt;=</code>)</h3>
+      <p>ئەنجامێ وان هەردەم <code>True</code> یان <code>False</code>ـە.</p>
+<pre><span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">4</span>;
+<span class="cls">Console</span>.WriteLine(a &gt;= b);   <span class="com">// True</span>
+<span class="cls">Console</span>.WriteLine(a != b);   <span class="com">// True</span>
+<span class="cls">Console</span>.WriteLine(a == b);   <span class="com">// False</span>
+<span class="cls">Console</span>.WriteLine(a != ++b); <span class="com">// False (پێشییێ b دبیتە 5، پاشی 5 != 5 خەلەتە)</span>
+<span class="cls">Console</span>.WriteLine(a &gt; b);    <span class="com">// False (5 &gt; 5 خەلەتە)</span></pre>
+
+      <h3>📌 سڵاید ٢١ و ٢٢: لۆجیکی (<code>&amp;&amp; || ^ !</code>)</h3>
       <ul>
-        <li><strong><span class="inline-code">&&</span> (Logical AND):</strong> بتنێ دەمێ <strong>هەردوو لایەن</strong> <span class="inline-code">true</span> بن، ئەنجام <span class="inline-code">true</span>ـە.</li>
-        <li><strong><span class="inline-code">||</span> (Logical OR):</strong> ئەگەر <strong>هەر ئێک</strong> ژ لایەنان <span class="inline-code">true</span> بیت، ئەنجام <span class="inline-code">true</span>ـە.</li>
-        <li><strong><span class="inline-code">!</span> (Logical NOT):</strong> بەروڤاژی دکەت (<span class="inline-code">!true = false</span> و <span class="inline-code">!false = true</span>).</li>
-        <li><strong><span class="inline-code">^</span> (Logical XOR):</strong> ئەگەر هەردوو لایەن ژ ئێک جودا بن (ئێک true و ئێک false) ئەنجام <span class="inline-code">true</span>ـە، ئەگەر وەکی ئێک بن <span class="inline-code">false</span>ـە!</li>
+        <li><strong><code>&amp;&amp;</code> (AND):</strong> بتنێ دەمێ <strong>هەردوو True</strong> بن ئەنجام <code>True</code>ـە.</li>
+        <li><strong><code>||</code> (OR):</strong> ئەگەر <strong>ئێک ژ وان True</strong> بیت ئەنجام <code>True</code>ـە.</li>
+        <li><strong><code>!</code> (NOT):</strong> ئەنجامی بەرۆڤاژی دکەت.</li>
+        <li><strong><code>^</code> (XOR):</strong> بتنێ دەمێ <strong>ژێک جودا بن</strong> (ئێک True و ئێک False) ئەنجام <code>True</code>ـە! ئەگەر وەکی ئێک بن -> <code>False</code>.</li>
       </ul>
+<pre><span class="kw">bool</span> a = <span class="kw">true</span>, b = <span class="kw">false</span>;
+<span class="cls">Console</span>.WriteLine(a &amp;&amp; b);  <span class="com">// False</span>
+<span class="cls">Console</span>.WriteLine(a || b);  <span class="com">// True</span>
+<span class="cls">Console</span>.WriteLine(a ^ b);   <span class="com">// True (ژێک جودانە)</span>
+<span class="cls">Console</span>.WriteLine(!b);      <span class="com">// True</span>
+<span class="cls">Console</span>.WriteLine((<span class="num">5</span> &gt; <span class="num">7</span>) ^ (a == b)); <span class="com">// False ^ False -&gt; False</span></pre>
 
-      <pre>bool a = true;
-bool b = false;
-Console.WriteLine(a && b);              // False
-Console.WriteLine(a || b);              // True
-Console.WriteLine(a ^ b);               // True  (جودانە: true و false)
-Console.WriteLine(!b);                  // True
-Console.WriteLine(b || true);           // True
-Console.WriteLine(b && true);           // False
-Console.WriteLine(a || true);           // True
-Console.WriteLine(a && true);           // True
-Console.WriteLine(!a);                  // False
-Console.WriteLine((5 > 7) ^ (a == b));  // False (چونکی false ^ false = False)</pre>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا زێڕین بۆ <span class="inline-code">^</span> (XOR):</strong>
-      د سلایدێ ٢٢ دا رێزا دووماهیێ <span class="inline-code">(5 &gt; 7) ^ (a == b)</span>:
-      <span class="inline-code">5 &gt; 7</span> دبیتە <span class="inline-code">false</span>، و <span class="inline-code">a == b</span> (<span class="inline-code">true == false</span>) دبیتە <span class="inline-code">false</span>.
-      و د XOR دا <span class="inline-code">false ^ false = False</span> (چونکی هەردوو وەکی ئێکن!).
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٢١ و ٢٢</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. ئەنجامێ <span class="inline-code">(true ^ true)</span> چییە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! XOR بتنێ دەمێ لایەن ژ ئێک جودا بن True دەردکەڤیت.')">True</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! چونکی هەردوو وەکی ئێکن (true و true)، ئەنجامێ XOR دبیتە False.')">False</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١٩-٢٢:</div>
+        <div>ئەنجامێ ئەڤێ چییە؟ <code class="ltr">!(10 &gt; 5) || (3 == 3 &amp;&amp; 4 &lt; 2)</code></div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> <strong><code>False</code></strong>!<br>
+          روونکرن: <code>!(True)</code> دبیتە <code>False</code>. لایێ دی: <code>(True &amp;&amp; False)</code> دبیتە <code>False</code>. کەواتە <code>False || False = False</code>.
         </div>
-        <div class="feedback"></div>
       </div>
+    </section>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەنجامێ <span class="inline-code">!(5 &lt; 10 && 3 &gt; 8)</span> چ دەرکەڤیت؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s22" placeholder="True یان False" />
-          <button class="check-btn" onclick="checkWrite('w-s22', ['True', 'true'], 'دروستە: True! چونکی 5<10 دروستە بەلێ 3>8 خەلەتە، لەوما ناڤ کەوانێ دبیتە false و ب ! دبیتە True.')">پشکنین</button>
-        </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
+    <!-- SLIDES 23 - 26 -->
+    <section class="card" id="s23-26">
+      <div class="slide-tag">سڵاید ٢٣ تا ٢٦</div>
+      <h2>ئۆپەرەیتەرێن بت-ب-بت و یێن دی (Bitwise &amp; Other Operators)</h2>
 
-  <!-- ================= SLIDE 23 & 24 ================= -->
-  <section class="slide-card" id="s23-24">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن بیتی (Bitwise Operators)</span>
-      <span class="slide-num">سلاید ٢٣ و ٢٤</span>
-    </div>
-    <div class="explain-box">
-      <p>ئۆپەرەیتەرێن Bitwise ل سەر ژمارێن تەمام (وەک <span class="inline-code">byte, sbyte, int, uint, long, ulong, ushort</span>) کار دکەن و <strong>بت ب بت (bit by bit)</strong> ل دویڤ سیستەمێ دوویی (Binary: 0 و 1) کارێ خۆ دکەن:</p>
+      <h3>📌 سڵاید ٢٣ و ٢٤: Bitwise Operators (بت ب بت)</h3>
+      <p>ل سەر ژمارێن ساخ (<code>byte, sbyte, int, uint, long, ulong</code>) د سیستەمێ Binary (0 و 1) دا کار دکەن:</p>
+<pre><span class="kw">ushort</span> a = <span class="num">3</span>; <span class="com">// 00000000 00000011</span>
+<span class="kw">ushort</span> b = <span class="num">5</span>; <span class="com">// 00000000 00000101</span>
+<span class="cls">Console</span>.WriteLine(a | b);  <span class="com">// 00000111 = 7  (ئەگەر ئێک ژی 1 بیت -&gt; 1)</span>
+<span class="cls">Console</span>.WriteLine(a &amp; b);  <span class="com">// 00000001 = 1  (بتنێ 1 &amp; 1 -&gt; 1)</span>
+<span class="cls">Console</span>.WriteLine(a ^ b);  <span class="com">// 00000110 = 6  (ئەگەر ژێک جودا بن -&gt; 1)</span>
+<span class="cls">Console</span>.WriteLine(~a &amp; b); <span class="com">// 1100 &amp; 0101 = 0100 = 4</span>
+<span class="cls">Console</span>.WriteLine(a &lt;&lt; <span class="num">1</span>); <span class="com">// 00000110 = 6  (بۆ چەپێ = جارانی 2)</span>
+<span class="cls">Console</span>.WriteLine(a &gt;&gt; <span class="num">1</span>); <span class="com">// 00000001 = 1  (بۆ راستێ = دابەشی 2)</span></pre>
+
+      <h3>📌 سڵاید ٢٥ و ٢٦: گرێدانا String و ئۆپەرەیتەرێ مەرجی (<code>?:</code>)</h3>
       <ul>
-        <li><span class="inline-code">~</span> هەمی 0 دکەتە 1 و هەمی 1 دکەتە 0.</li>
-        <li><span class="inline-code">|</span> (OR): ئەگەر ئێک ژ بتان 1 بیت ئەنجام 1ـە.</li>
-        <li><span class="inline-code">&amp;</span> (AND): بتنێ ئەگەر هەردوو بت 1 بن ئەنجام 1ـە.</li>
-        <li><span class="inline-code">^</span> (XOR): ئەگەر بت جودا بن (1 و 0) ئەنجام 1ـە.</li>
-        <li><span class="inline-code">&lt;&lt;</span> (Left shift): بتان بۆ لایێ چەپێ دهەلینیت (وەک لێکدانا ب ٢).</li>
-        <li><span class="inline-code">&gt;&gt;</span> (Right shift): بتان بۆ لایێ راستێ دهەلینیت (وەک دابەشکرنا ب ٢).</li>
+        <li><strong>لێکدانا String + ژمارە (سڵاید ٢٥):</strong> <code>"The number is : " + 5</code> ئۆتۆماتیکی ژمارێ دکەتە string و دبیتە <code>"The number is : 5"</code>.</li>
+        <li><strong>ئۆپەرەیتەرێ مەرجی <code>?:</code> (سڵاید ٢٦):</strong> <code>condition ? ifTrue : ifFalse</code></li>
+        <li><code>new</code> (دروستکرنا ئۆبجێکتی)، <code>typeof</code> (زڤراندنا System.Type)، <code>is</code> (پشکنینا گونجانا جۆری).</li>
       </ul>
+<pre><span class="kw">int</span> x = <span class="num">20</span>, y = <span class="num">10</span>;
+<span class="kw">var</span> result = x &gt; y ? <span class="str">"x is greater than y"</span> : <span class="str">"x is less than y"</span>;
+<span class="cls">Console</span>.WriteLine(result); <span class="com">// x is greater than y</span></pre>
 
-      <pre>ushort a = 3; // 00000000 00000011
-ushort b = 5; // 00000000 00000101
-
-Console.WriteLine(a | b);   // 00000111 ➔ 7
-Console.WriteLine(a &amp; b);   // 00000001 ➔ 1
-Console.WriteLine(a ^ b);   // 00000110 ➔ 6
-Console.WriteLine(~a &amp; b);  // 00000100 ➔ 4
-Console.WriteLine(a &lt;&lt; 1);  // 00000110 ➔ 6  (3 * 2 = 6)
-Console.WriteLine(a &gt;&gt; 1);  // 00000001 ➔ 1  (3 / 2 = 1)</pre>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا ئەزموونێ بۆ سلاید ٢٤:</strong>
-      بۆ ل سەر وەرەقێ، هەردەم ژمارێ بکە باینەری (8-4-2-1):
-      <br>• <span class="inline-code">3 = 0011</span> و <span class="inline-code">5 = 0101</span>.
-      <br>• د <span class="inline-code">~a &amp; b</span> دا: <span class="inline-code">~3</span> هەمی بتان بەروڤاژی دکەت (<span class="inline-code">...11111100</span>)، پاشان دگەل <span class="inline-code">5 (...00000101)</span> ب AND دەرکەڤیتە <span class="inline-code">0100</span> کو دبیتە <strong>4</strong>!
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٢٣ و ٢٤</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. ئەگەر <span class="inline-code">ushort a = 3; ushort b = 5;</span> بن، ئەنجامێ <span class="inline-code">a ^ b</span> چەندە؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 7 ئەنجامێ (a | b)ـە.')">7</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! 0011 ^ 0101 = 0110 کو دبیتە 6.')">6</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 1 ئەنجامێ (a & b)ـە.')">1</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! 4 ئەنجامێ (~a & b)ـە.')">4</button>
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٢٣-٢٦:</div>
+        <div>ئەنجامێ <code class="ltr">4 &lt;&lt; 2</code> چەندە؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> <strong><code>16</code></strong>!<br>
+          روونکرن: دوو جاران خشاندن بۆ چەپێ یانی دوو جاران جارانی ٢: <code>4 × 2 × 2 = 16</code> (یان د باینەری دا <code>00100</code> دبیتە <code>10000</code>).
         </div>
-        <div class="feedback"></div>
       </div>
+    </section>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر <span class="inline-code">int x = 6;</span> بیت، ئەنجامێ <span class="inline-code">x &lt;&lt; 1</span> چەندە؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s24" placeholder="ژمارە..." />
-          <button class="check-btn" onclick="checkWrite('w-s24', ['12'], 'دروستە: 12! چونکی 6 (0110) ب 1 بت بۆ چەپێ دبیتە (1100) = 12.')">پشکنین</button>
+    <!-- SLIDES 27 - 29 -->
+    <section class="card" id="s27-29">
+      <div class="slide-tag">سڵاید ٢٧ تا ٢٩</div>
+      <h2>Type Casting و Type Conversion و Expressions</h2>
+
+      <h3>📌 سڵاید ٢٧: Type Casting (گوهۆڕینا جۆرێ داتایان)</h3>
+      <ol>
+        <li><strong>Implicit Casting (ئۆتۆماتیکی):</strong> ژ جۆرەکێ بچیک بۆ جۆرەکێ مەزنتر (بێ خەتەر):<br>
+          <code class="ltr">char -&gt; int -&gt; long -&gt; float -&gt; double</code>
+        </li>
+        <li><strong>Explicit Casting (ب دەست):</strong> ژ جۆرەکێ مەزنتر بۆ جۆرەکێ بچیکتر (ب رێکا کڤانێن <code>( )</code>):<br>
+          <code class="ltr">double -&gt; float -&gt; long -&gt; int -&gt; char</code>
+        </li>
+      </ol>
+<pre><span class="kw">int</span> myInt = <span class="num">9</span>;
+<span class="kw">double</span> myDouble = myInt;         <span class="com">// Implicit: 9</span>
+
+<span class="kw">double</span> d2 = <span class="num">9.78</span>;
+<span class="kw">int</span> i2 = (<span class="kw">int</span>) d2;               <span class="com">// Explicit: 9 (پشتی فاریزێ دبرێت، نابیتە 10!)</span></pre>
+
+      <h3>📌 سڵاید ٢٨: Type Conversion (مێسۆدێن <code>Convert</code>)</h3>
+      <p>فەرمانێن حازر: <code>Convert.ToBoolean</code>، <code>Convert.ToDouble</code>، <code>Convert.ToString</code>، <code>Convert.ToInt32</code> (بۆ <code>int</code>)، <code>Convert.ToInt64</code> (بۆ <code>long</code>).</p>
+
+      <h3>📌 سڵاید ٢٩: Expressions (دەربڕین)</h3>
+      <p>دەربڕین زنجیرەیەکە ژ ئۆپەرەیتەر و بها و گوهۆڕان، و هەر دەربڕینەکێ دوو تشت هەنە: <strong>Type</strong> (جۆر) و <strong>Value</strong> (بها).</p>
+<pre><span class="kw">int</span> r = (<span class="num">150</span> - <span class="num">20</span>) / <span class="num">2</span> + <span class="num">5</span>; <span class="com">// 130 / 2 + 5 = 65 + 5 = 70</span>
+
+<span class="kw">int</span> a = <span class="num">2</span> + <span class="num">3</span>;            <span class="com">// a = 5</span>
+<span class="kw">int</span> b = (a+<span class="num">3</span>) * (a-<span class="num">4</span>) + (<span class="num">2</span>*a + <span class="num">7</span>) / <span class="num">4</span>;
+<span class="com">// = 8 * 1 + 17 / 4 = 8 + 4 = 12 (هشیار بە 17/4 = 4ـە نە 4.25!)</span>
+<span class="kw">bool</span> g = (a &gt; b) || ((a == <span class="num">0</span>) &amp;&amp; (b == <span class="num">0</span>));
+<span class="com">// = false || (false &amp;&amp; false) = False</span></pre>
+
+      <div class="mini-quiz">
+        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٢٧-٢٩:</div>
+        <div>جیاوازییا دەرئەنجامێ <code class="ltr">(int) 9.78</code> چییە و ئایا نێزیکی 10 دکەت؟</div>
+        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ:</strong> نەخێر نێزیک ناکەت؛ ئەنجام هەر <strong><code>9</code></strong>ـە چونکی Explicit Casting بتنێ بەشێ پشتی فاریزێ ژێدبەت (Truncate).
         </div>
-        <div class="feedback"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= SLIDE 25 & 26 ================= -->
-  <section class="slide-card" id="s25-26">
-    <div class="slide-header">
-      <span class="slide-title">ئۆپەرەیتەرێن دی (String Concatenation, Conditional ?:, new, typeof, is)</span>
-      <span class="slide-num">سلاید ٢٥ و ٢٦</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>سلاید ٢٥ (String Concatenation <span class="inline-code">+</span>):</strong></p>
-      <ul>
-        <li>بۆ پێکڤەگرێدانا دوو سترینگان دهێتە بکارهینان.</li>
-        <li>ئەگەر لایەنێ دووێ سترینگ نەبیت (وەک <span class="inline-code">int</span>)، ب شێوەیێ خۆکارانە دبیتە سترینگ!</li>
-      </ul>
-      <pre>string first = "First";
-string second = "Second";
-Console.WriteLine(first + second); // FirstSecond
-string output = "The number is : ";
-int number = 5;
-Console.WriteLine(output + number); // The number is : 5</pre>
-
-      <p><strong>سلاید ٢٦ (Other Operators):</strong></p>
-      <ul>
-        <li><strong>Conditional operator <span class="inline-code">?:</span></strong> شێوازێ وێ: <span class="inline-code">b ? x : y</span> (ئەگەر مەرجێ <span class="inline-code">b</span> دروست بیت، ئەنجام <span class="inline-code">x</span>ـە، ئەگەر خەلەت بیت ئەنجام <span class="inline-code">y</span>ـە).</li>
-        <li><strong><span class="inline-code">new</span>:</strong> بۆ دروستکرنا ئۆبجێکتێن نوی (Objects) دهێتە بکارهینان.</li>
-        <li><strong><span class="inline-code">typeof</span>:</strong> ئۆبجێکتێ <span class="inline-code">System.Type</span> دزڤڕینیت (جۆرێ داتایێ).</li>
-        <li><strong><span class="inline-code">is</span>:</strong> پشکنین دکەت کا ئەرێ ئۆبجێکتەک دگەل جۆرەکێ دیارکری دگونجیت یان نە.</li>
-      </ul>
-      <pre>int x = 20;
-int y = 10;
-var result = x > y ? "x is greater than y" : "x is less than y";
-Console.WriteLine(result); // x is greater than y</pre>
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٢٥ و ٢٦</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. کیژ ئۆپەرەیتەر ئۆبجێکتێ <span class="inline-code">System.Type</span> دزڤڕینیت؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! new بۆ دروستکرنا ئۆبجێکتێن نوی یە.')">new</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! is بۆ پشکنینا گونجانا جۆرێ ئۆبجێکتی یە.')">is</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! typeof ئۆبجێکتێ System.Type دزڤڕینیت.')">typeof</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ?: ئۆپەرەیتەرێ مەرجی یە.')">?:</button>
+    <!-- FINAL COMPREHENSIVE EXAM -->
+    <section id="final-exam">
+      <div class="exam-header">
+        <div class="slide-tag">تاقیکرنا تەمام • هەمی ٢٩ سڵاید</div>
+        <h2 style="border:none; padding:0; text-align:center;">📝 ئەزموونا نموونەیی ل سەر شێوازێ وەرەقەی</h2>
+        <p style="color:var(--text-muted)">پسیاران ب کلیککرنێ هەلبژێرە یان ل سەر وەرەقەی شیکار بکە و پاشی بەرسڤێ ببینە!</p>
+        <div class="score-board">
+          <span>نمرەیا تە (هەلبژارتن و راست/خەلەت): <span class="score-num" id="scoreVal">0</span> / <span id="totalAuto">18</span></span>
+          <button class="btn-reset" onclick="resetExam()">🔄 دووبارە دەستپێکرن</button>
         </div>
-        <div class="feedback"></div>
       </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەنجامێ کۆدێ خوارێ چ دەرکەڤیت؟<br><span class="inline-code">int a = 5, b = 10; Console.WriteLine(a > b ? "Yes" : "No");</span></div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s26" placeholder="Yes یان No" />
-          <button class="check-btn" onclick="checkWrite('w-s26', ['No'], 'دروستە: No چونکی 5 > 10 خەلەتە، لەوما پشکا پشتی (:) دهێتە هەلبژارتن.')">پشکنین</button>
+      <!-- Part 1: MCQ -->
+      <div class="card">
+        <h2>بەشێ ١: هەلبژارتن (Multiple Choice - 10 Questions)</h2>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">1. Which data type is 128-bit and best for financial and monetary calculations?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">a) float</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">b) double</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">c) decimal</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">d) long</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= SLIDE 27 & 28 ================= -->
-  <section class="slide-card" id="s27-28">
-    <div class="slide-header">
-      <span class="slide-title">گوهۆڕینا جۆرێ داتایان (Type Casting &amp; Type Conversion)</span>
-      <span class="slide-num">سلاید ٢٧ و ٢٨</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>سلاید ٢٧ (C# Type Casting):</strong> گوهۆڕینا نرخێ جۆرەکێ داتایێ بۆ جۆرەکێ دی، دوو جۆر هەنە:</p>
-      <ul>
-        <li><strong>Implicit Casting (خۆکارانە / بچووک بۆ مەزن):</strong><br>
-          <span class="inline-code">char -&gt; int -&gt; long -&gt; float -&gt; double</span></li>
-        <li><strong>Explicit Casting (دەستی / مەزن بۆ بچووک):</strong> دڤێت ب دەست د ناڤ کەواناندا جۆرێ مەبەست بنڤیسی.<br>
-          <span class="inline-code">double -&gt; float -&gt; long -&gt; int -&gt; char</span></li>
-      </ul>
-      <pre>// Implicit Casting:
-int myInt = 9;
-double myDouble = myInt;       // خۆکارانە int دبیتە double
-Console.WriteLine(myInt);      // 9
-Console.WriteLine(myDouble);   // 9
-
-// Explicit Casting:
-double myDouble2 = 9.78;
-int myInt2 = (int) myDouble2;  // ب دەست double دبیتە int (پۆینتێ لاددەت!)
-Console.WriteLine(myDouble2);  // 9.78
-Console.WriteLine(myInt2);     // 9</pre>
-
-      <p><strong>سلاید ٢٨ (C# Type Conversion):</strong> گوهۆڕین ب ڕێکا میسۆدێن ئامادەکری یێن <span class="inline-code">Convert</span>:</p>
-      <ul>
-        <li><span class="inline-code">Convert.ToBoolean</span></li>
-        <li><span class="inline-code">Convert.ToDouble</span></li>
-        <li><span class="inline-code">Convert.ToString</span></li>
-        <li><span class="inline-code">Convert.ToInt32</span> (بۆ <span class="inline-code">int</span>)</li>
-        <li><span class="inline-code">Convert.ToInt64</span> (بۆ <span class="inline-code">long</span>)</li>
-      </ul>
-      <pre>int myInt = 10;
-double myDouble = 5.25;
-bool myBool = true;
-
-Console.WriteLine(Convert.ToString(myInt));   // "10"
-Console.WriteLine(Convert.ToDouble(myInt));   // 10
-Console.WriteLine(Convert.ToInt32(myDouble)); // 5
-Console.WriteLine(Convert.ToString(myBool));  // "True"</pre>
-    </div>
-
-    <div class="tip-box">
-      <strong>⚠️ تێبینیا زێڕین بۆ سلاید ٢٧ و ٢٨:</strong>
-      • ئەگەر گۆت <strong>int بۆ double</strong> ➔ ئەڤە <strong>Implicit</strong>ـە (خۆکارانە، بێ کەوانە).<br>
-      • ئەگەر گۆت <strong>double بۆ int</strong> ➔ ئەڤە <strong>Explicit</strong>ـە (ب دەست، دڤێت <span class="inline-code">(int)</span> بنڤیسی، و ژمارا پشتی پۆینتێ تەلەف دبیت: <span class="inline-code">9.78</span> دبیتە <span class="inline-code">9</span> نەک <span class="inline-code">10</span>!).<br>
-      • د <span class="inline-code">Convert</span> دا ژبیر نەکە: <span class="inline-code">ToInt32</span> بۆ <strong>int</strong>ـە (چونکی int 32-bitـە) و <span class="inline-code">ToInt64</span> بۆ <strong>long</strong>ـە (چونکی long 64-bitـە)!
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٢٧ و ٢٨</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">١. کیژ ژ ڤان ڕێزبەندییا دروست یا <strong>Implicit Casting</strong> نیشان ددەت؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! ژ بچووک بۆ مەزن: char -> int -> long -> float -> double.')">char -&gt; int -&gt; long -&gt; float -&gt; double</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ئەڤە رێزبەندییا Explicit Castingـە.')">double -&gt; float -&gt; long -&gt; int -&gt; char</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! double مەزنترە ژ float.')">char -&gt; int -&gt; double -&gt; float -&gt; long</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">2. What is the default value of a <code>string</code> data type in C#?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">a) ""</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">b) '\0'</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! string بهایێ وێ یێ بنەرەتی nullـە (سڵاید ١١)')">c) null</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">d) 0</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
-      </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">هەلبژارتن</span>
-        <div class="q-text">٢. د <span class="inline-code">Convert</span> دا، بۆ گوهۆڕینا داتایەکێ بۆ جۆرێ <span class="inline-code">long</span> کیژ میسۆد دهێتە بکارهینان؟</div>
-        <div class="options-grid">
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! ToInt32 بۆ intـە.')">Convert.ToInt32</button>
-          <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! چونکی long 64-bitـە، Convert.ToInt64 بۆ دهێتە بکارهینان.')">Convert.ToInt64</button>
-          <button class="opt-btn" onclick="checkMCQ(this, false, 'خەلەتە! وەکی وی میسۆدی نینە.')">Convert.ToLong</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">3. What is the size of <code>char</code> data type in C#?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">a) 1 byte</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! 2 bytesـە (سڵاید ٤)')">b) 2 bytes</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">c) 4 bytes</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">d) 1 bit</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
-      </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٣. ئەگەر <span class="inline-code">double d = 7.95; int i = (int) d;</span> بیت، نرخێ <span class="inline-code">i</span> چەندە؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s27" placeholder="ژمارە..." />
-          <button class="check-btn" onclick="checkWrite('w-s27', ['7'], 'دروستە: 7 چونکی (int) پۆینتێ لاددەت بێی ڕووندکرن.')">پشکنین</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">4. Which suffix must be placed at the end of a <code>float</code> number literal?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">a) d</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">b) m</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! پاشگرێ f بۆ floatـە (سڵاید ٦ و ٨)')">c) f</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">d) ul</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= SLIDE 29 ================= -->
-  <section class="slide-card" id="s29">
-    <div class="slide-header">
-      <span class="slide-title">دەربڕینێن C# (C# Expressions)</span>
-      <span class="slide-num">سلاید ٢٩</span>
-    </div>
-    <div class="explain-box">
-      <p><strong>Expressions (دەربڕین):</strong> زنجیرەیەکن ژ ئۆپەرەیتەران، نرخان (literals) و گوهۆڕان (variables) کو دهێنە هژمارتن بۆ نرخەکێ دیارکری. هەر دەربڕینەکێ <strong>Type</strong> (جۆر: integer, real, Boolean...) و <strong>Value</strong> (نرخ) هەیە.</p>
-
-      <pre>// نموونەیا ١:
-int r = (150 - 20) / 2 + 5; // 130 / 2 + 5 = 65 + 5 = 70
-Console.WriteLine(r);       // 70
-
-// نموونەیا ٢:
-int a = 2 + 3;                                 // a = 5
-int b = (a + 3) * (a - 4) + (2 * a + 7) / 4;   // b = 12
-bool g = (a > b) || ((a == 0) && (b == 0));    // g = False
-Console.WriteLine(" a is= " + a);
-Console.WriteLine(" b is= " + b);
-Console.WriteLine(" g is= " + g);</pre>
-
-      <p><strong>هژمارتنا <span class="inline-code">b</span> ب هێمنی و هەنگاڤ ب هەنگاڤ:</strong></p>
-      <ul>
-        <li><span class="inline-code">a = 5</span></li>
-        <li><span class="inline-code">(a + 3) = (5 + 3) = 8</span></li>
-        <li><span class="inline-code">(a - 4) = (5 - 4) = 1</span></li>
-        <li><span class="inline-code">(2 * a + 7) = (10 + 7) = 17</span></li>
-        <li><span class="inline-code">17 / 4 = 4</span> (بێ پۆینت چونکی هەردوو intـن!)</li>
-        <li>کۆمکرن: <span class="inline-code">8 * 1 + 4 = 8 + 4 = 12</span>!</li>
-        <li>بۆ <span class="inline-code">g</span>: <span class="inline-code">(5 &gt; 12)</span> خەلەتە، <span class="inline-code">(5 == 0)</span> خەلەتە، لەوما <span class="inline-code">false || false = False</span>!</li>
-      </ul>
-    </div>
-
-    <div class="quiz-section">
-      <div class="quiz-section-title">📝 ئەزموونا سلاید ٢٩</div>
-
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">١. نرخێ <span class="inline-code">r</span> هژمارە بکە: <span class="inline-code">int r = (100 - 40) / 3 + 10;</span></div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s29a" placeholder="نرخێ r..." />
-          <button class="check-btn" onclick="checkWrite('w-s29a', ['30'], 'دروستە: 30 چونکی 60 / 3 = 20، پاشان 20 + 10 = 30.')">پشکنین</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">5. Which of the following is an example of <strong>Implicit Casting</strong>?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">a) double to int</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! ژ بچیک بۆ مەزن ب شێوازێ ئۆتۆماتیکی (سڵاید ٢٧)')">b) int to double</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">c) float to long</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">d) int to char</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
-      </div>
 
-      <div class="q-item">
-        <span class="q-type-badge">نڤیسین</span>
-        <div class="q-text">٢. ئەگەر <span class="inline-code">int a = 4; int b = (a + 2) * 2 + (a + 5) / 4;</span> بیت، نرخێ <span class="inline-code">b</span> چەندە؟</div>
-        <div class="write-row">
-          <input type="text" class="write-input" id="w-s29b" placeholder="نرخێ b..." />
-          <button class="check-btn" onclick="checkWrite('w-s29b', ['14'], 'دروستە: 14! چونکی (6)*2 + 9/4 = 12 + 2 = 14 (دابەشکرنا int: 9/4 = 2).')">پشکنین</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">6. What does <code>Convert.ToInt64</code> convert a value to?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">a) int</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">b) short</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! long 64-bitـە (سڵاید ٢٨)')">c) long</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">d) double</button>
+          </div>
+          <div class="q-feedback"></div>
         </div>
-        <div class="feedback"></div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">7. What is the result of <code class="ltr">15 / 4</code> in C#?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">a) 3.75</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! دابەشکرنا دوو intـان بەشێ پشتی فاریزێ دهاڤێژیت')">b) 3</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">c) 4</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">d) 3.0</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">8. Which operator checks if an object is compatible with a given type?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">a) typeof</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">b) new</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! (سڵاید ٢٦)')">c) is</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">d) ?:</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">9. What is the result of <code class="ltr">true ^ true</code>?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">a) true</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! چونکی هەردوو وەکی ئێکن دبیتە false (سڵاید ٢٢)')">b) false</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">c) 1</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">d) Error</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">10. What is the range of <code>byte</code> data type?</div>
+          <div class="options-grid">
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە، -128 تا 127 یێ sbyteـە (سڵاید ٦)')">a) -128 to 127</button>
+            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! (سڵاید ٦)')">b) 0 to 255</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە، 0 تا 65,535 یێ ushortـە (سڵاید ٦)')">c) 0 to 65,535</button>
+            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە (سڵاید ٦)')">d) -32,768 to 32,767</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ================= COMPREHENSIVE FINAL EXAM ================= -->
-  <section class="final-exam-card" id="final-exam">
-    <div class="final-exam-header">
-      <h2>🎓 تاقیکرنا دووماهیێ یا گشتی (هەمی ٢٩ سلاید)</h2>
-      <p>ئەڤە وەک ئەزموونا ل سەر وەرەقێ یە! هەمی پسیاران بەرسڤ بدە و ل دووماهیێ نمرەیا خۆ ببینە (ژ ٢٠ نمرەیان).</p>
-    </div>
+      <!-- Part 2: True / False -->
+      <div class="card">
+        <h2>بەشێ ٢: راست و خەلەت (True / False - 8 Questions)</h2>
 
-    <!-- Q1 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١ • هەلبژارتن</span>
-      <div class="q-text">کیژ جۆرێ داتایێ 128-bitـە و بۆ کاروبارێن دارایی و دراڤی دهێتە بکارهینان؟</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f1" data-ans="false" onclick="selectFinalOpt(this)">double</button>
-        <button class="opt-btn final-opt" data-q="f1" data-ans="true" onclick="selectFinalOpt(this)">decimal</button>
-        <button class="opt-btn final-opt" data-q="f1" data-ans="false" onclick="selectFinalOpt(this)">float</button>
-        <button class="opt-btn final-opt" data-q="f1" data-ans="false" onclick="selectFinalOpt(this)">ulong</button>
+        <div class="q-item" data-answered="false">
+          <div class="q-text">1. C# is a strongly-typed language, meaning variables must have a declared data type.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٣)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! C# زمانەکێ strongly-typedـە (سڵاید ٣)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">2. Real numbers with decimal points (like 3.14) are interpreted as <code>float</code> by default in C#.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! ب شێوازێ بنەرەتی وەک double دهێنە خاندن (سڵاید ٨)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! چونکی ب شێوازێ بنەرەتی وەک double دهێنە خاندن (سڵاید ٨)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">3. A <code>char</code> value must be surrounded by double quotes <code>""</code>.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! char ب تاکە کۆما (single quotes) دهێتە نڤیسین (سڵاید ١٠)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! char ب تاکە کۆما \'\' دهێتە نڤیسین (سڵاید ١٠)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">4. The default value of <code>bool</code> is <code>false</code>.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٩)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! بهایێ بنەرەتی یێ bool بریتییە ژ false (سڵاید ٩)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">5. Explicit casting converts a smaller data type to a larger data type automatically.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! ئەو کارێ Implicitـە؛ Explicit ژ مەزن بۆ بچیکە ب دەست (سڵاید ٢٧)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! ئەو کارێ Implicit Castingـە (سڵاید ٢٧)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">6. In <code>ushort</code>, the letter <code>u</code> stands for unsigned (zero and positive numbers only).</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٥ و ٦)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! u یانی unsigned (بێ سالب) (سڵاید ٥ و ٦)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">7. Expressions in C# have both a Type and a Value.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٢٩)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! هەر Expressionـەکی Type و Value هەنە (سڵاید ٢٩)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-item" data-answered="false">
+          <div class="q-text">8. Bitwise operators (<code>&amp;</code>, <code>|</code>, <code>~</code>) can be used on <code>float</code> and <code>double</code> numbers.</div>
+          <div class="tf-wrap">
+            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! بتنێ ل سەر ژمارێن ساخ (Integer) کار دکەن (سڵاید ٢٣)')">True</button>
+            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! Bitwise بتنێ بۆ ژمارێن ساخە (سڵاید ٢٣)')">False</button>
+          </div>
+          <div class="q-feedback"></div>
+        </div>
       </div>
-      <div class="feedback" id="fb-f1"></div>
-    </div>
 
-    <!-- Q2 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٢ • هەلبژارتن</span>
-      <div class="q-text">سنۆرێ (Range) جۆرێ <span class="inline-code">sbyte</span> چییە؟</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f2" data-ans="false" onclick="selectFinalOpt(this)">0 to 255</button>
-        <button class="opt-btn final-opt" data-q="f2" data-ans="true" onclick="selectFinalOpt(this)">-128 to 127</button>
-        <button class="opt-btn final-opt" data-q="f2" data-ans="false" onclick="selectFinalOpt(this)">-32,768 to 32,767</button>
-        <button class="opt-btn final-opt" data-q="f2" data-ans="false" onclick="selectFinalOpt(this)">0 to 65,535</button>
-      </div>
-      <div class="feedback" id="fb-f2"></div>
-    </div>
+      <!-- Part 3: Find the Output -->
+      <div class="card">
+        <h2>بەشێ ٣: ئەنجامێ کۆدی چییە؟ (Find the Output - 6 Questions)</h2>
+        <p style="color:var(--text-muted); margin-bottom:16px;">پێشییێ ل سەر وەرەقەیا خۆ ئەنجامی بنڤیسە، پاشان کلیکێ ل سەر دوگما بەرسڤێ بکە!</p>
 
-    <!-- Q3 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٣ • راست و خەلەت</span>
-      <div class="q-text">نرخێ بنەڕەتی (Default value) یێ جۆرێ <span class="inline-code">long</span> بریتییە ژ <span class="inline-code">0L</span>.</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f3" data-ans="true" onclick="selectFinalOpt(this)">دروستە (True)</button>
-        <button class="opt-btn final-opt" data-q="f3" data-ans="false" onclick="selectFinalOpt(this)">خەلەتە (False)</button>
-      </div>
-      <div class="feedback" id="fb-f3"></div>
-    </div>
+        <!-- Q1 -->
+        <div class="q-item">
+          <div class="q-text">کۆدێ ١:</div>
+<pre><span class="kw">int</span> a = <span class="num">6</span>;
+<span class="kw">int</span> b = <span class="num">3</span>;
+<span class="cls">Console</span>.WriteLine(a + b++);
+<span class="cls">Console</span>.WriteLine(a + ++b);
+<span class="cls">Console</span>.WriteLine(<span class="num">14</span> % <span class="num">4</span>);</pre>
+          <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا ئەنجامی</button>
+          <div class="answer-box">
+<pre>9
+11
+2</pre>
+            <strong>روونکرن:</strong> دێڕا ١: <code>6 + 3 = 9</code> (پاشی <code>b</code> دبیتە <code>4</code>). دێڕا ٢: <code>++b</code> پێشییێ <code>b</code> دکەتە <code>5</code>، پاشی <code>6 + 5 = 11</code>. دێڕا ٣: ماوێ ١٤ دابەشی ٤ = <code>2</code>.
+          </div>
+        </div>
 
-    <!-- Q4 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٤ • راست و خەلەت</span>
-      <div class="q-text">د زمانێ C# دا قەبارێ <span class="inline-code">char</span> 1 byteـە و د ناڤ جۆت قەوسان دا (<span class="inline-code">" "</span>) دهێتە نڤیسین.</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f4" data-ans="false" onclick="selectFinalOpt(this)">دروستە (True)</button>
-        <button class="opt-btn final-opt" data-q="f4" data-ans="true" onclick="selectFinalOpt(this)">خەلەتە (False)</button>
-      </div>
-      <div class="feedback" id="fb-f4"></div>
-    </div>
+        <!-- Q2 -->
+        <div class="q-item">
+          <div class="q-text">کۆدێ ٢:</div>
+<pre><span class="kw">double</span> x = <span class="num">8.95</span>;
+<span class="kw">int</span> y = (<span class="kw">int</span>) x;
+<span class="cls">Console</span>.WriteLine(y);</pre>
+          <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا ئەنجامی</button>
+          <div class="answer-box">
+<pre>8</pre>
+            <strong>روونکرن:</strong> <code>(int)</code> بەشێ پشتی فاریزێ ژێدبەت و نێزیک ناکەت!
+          </div>
+        </div>
 
-    <!-- Q5 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٥ • هەلبژارتن</span>
-      <div class="q-text">ئۆپەرەیتەرێن <span class="inline-code">is</span>، <span class="inline-code">as</span> و <span class="inline-code">typeof</span> دکەڤنە د کیژ گرۆپێ ئۆپەرەیتەران دا (ل دویڤ سلاید ١٢)؟</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f5" data-ans="false" onclick="selectFinalOpt(this)">Comparison</button>
-        <button class="opt-btn final-opt" data-q="f5" data-ans="false" onclick="selectFinalOpt(this)">Logical</button>
-        <button class="opt-btn final-opt" data-q="f5" data-ans="true" onclick="selectFinalOpt(this)">Type conversion</button>
-        <button class="opt-btn final-opt" data-q="f5" data-ans="false" onclick="selectFinalOpt(this)">Binary</button>
-      </div>
-      <div class="feedback" id="fb-f5"></div>
-    </div>
-
-    <!-- Q6 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٦ • نڤیسین (دیارکرنا ئەنجامی)</span>
-      <div class="q-text">ئەنجامێ ڤێ پارچە کۆدێ چ دێ دەرکەڤیت؟<br><span class="inline-code">int a = 10, b = 3; Console.WriteLine(a + ++b);</span></div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f6" placeholder="ئەنجام..." />
-      </div>
-      <div class="feedback" id="fb-f6"></div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٧ • نڤیسین (دیارکرنا ئەنجامی)</span>
-      <div class="q-text">ئەنجامێ ڤێ پارچە کۆدێ چ دێ دەرکەڤیت؟<br><span class="inline-code">int a = 10, b = 3; Console.WriteLine(a + b++);</span></div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f7" placeholder="ئەنجام..." />
-      </div>
-      <div class="feedback" id="fb-f7"></div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٨ • نڤیسین (دیارکرنا ئەنجامی)</span>
-      <div class="q-text">ئەنجامێ ڤێ چەندە؟<br><span class="inline-code">Console.WriteLine(25 / 4);</span></div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f8" placeholder="ئەنجام..." />
-      </div>
-      <div class="feedback" id="fb-f8"></div>
-    </div>
-
-    <!-- Q9 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ٩ • نڤیسین (دیارکرنا ئەنجامی)</span>
-      <div class="q-text">ئەنجامێ ڤێ چەندە؟<br><span class="inline-code">Console.WriteLine(25 % 4);</span></div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f9" placeholder="ئەنجام..." />
-      </div>
-      <div class="feedback" id="fb-f9"></div>
-    </div>
-
-    <!-- Q10 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١٠ • هەلبژارتن</span>
-      <div class="q-text">ئەگەر <span class="inline-code">int x = 12; x /= 4; x += 5;</span> نرخێ <span class="inline-code">x</span> چەندە؟</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f10" data-ans="false" onclick="selectFinalOpt(this)">3</button>
-        <button class="opt-btn final-opt" data-q="f10" data-ans="true" onclick="selectFinalOpt(this)">8</button>
-        <button class="opt-btn final-opt" data-q="f10" data-ans="false" onclick="selectFinalOpt(this)">17</button>
-        <button class="opt-btn final-opt" data-q="f10" data-ans="false" onclick="selectFinalOpt(this)">5</button>
-      </div>
-      <div class="feedback" id="fb-f10"></div>
-    </div>
-
-    <!-- Q11 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١١ • نڤیسین</span>
-      <div class="q-text">ئەگەر <span class="inline-code">int a = 6; int b = 5;</span> بن، ئەنجامێ <span class="inline-code">Console.WriteLine(a != ++b);</span> چ دەرکەڤیت؟</div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f11" placeholder="True یان False" />
-      </div>
-      <div class="feedback" id="fb-f11"></div>
-    </div>
-
-    <!-- Q12 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١٢ • هەلبژارتن</span>
-      <div class="q-text">ئەگەر <span class="inline-code">bool a = true; bool b = false;</span> بن، ئەنجامێ <span class="inline-code">(a ^ b) &amp;&amp; !b</span> چییە؟</div>
-      <div class="options-grid">
-        <button class="opt-btn final-opt" data-q="f12" data-ans="true" onclick="selectFinalOpt(this)">True</button>
-        <button class="opt-btn final-opt" data-q="f12" data-ans="false" onclick="selectFinalOpt(this)">False</button>
-      </div>
-      <div class="feedback" id="fb-f12"></div>
-    </div>
-
-    <!-- Q13 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١٣ • نڤیسین (Bitwise)</span>
-      <div class="q-text">ئەگەر <span class="inline-code">ushort a = 3; ushort b = 5;</span> بن، ئەنجامێ <span class="inline-code">Console.WriteLine(a | b);</span> چەندە؟</div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f13" placeholder="ژمارە..." />
-      </div>
-      <div class="feedback" id="fb-f13"></div>
-    </div>
-
-    <!-- Q14 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١٤ • نڤیسین (Bitwise)</span>
-      <div class="q-text">ئەگەر <span class="inline-code">ushort a = 3; ushort b = 5;</span> بن، ئەنجامێ <span class="inline-code">Console.WriteLine(a &amp; b);</span> چەندە؟</div>
-      <div class="write-row">
-        <input type="text" class="write-input" id="f14" placeholder="ژمارە..." />
-      </div>
-      <div class="feedback" id="fb-f14"></div>
-    </div>
-
-    <!-- Q15 -->
-    <div class="q-item">
-      <span class="q-type-badge">پسیارا ١٥ • نڤیسین (String Concatenation)</span>
-      <div class="q-text
+        <!-- Q3 -->
+        <div class="q-item">
+          <div class="q-text">کۆدێ ٣:</div>
+<pre><span class="kw">int</span>
