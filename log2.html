@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lecture 01: Digital Logic Design - شڕۆڤەیا تەمام ب بادینی و ئینگلیزی</title>
+  <style>
+    :root {
+      --navy: #0f2537;
+      --navy-light: #16354d;
+      --blue: #1d6fa5;
+      --blue-soft: #e8f3fa;
+      --teal: #0f766e;
+      --teal-soft: #e6f7f5;
+      --amber: #b45309;
+      --amber-soft: #fef3c7;
+      --red: #b91c1c;
+      --red-soft: #fee2e2;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: #fff;
+      padding: 2.2rem 1.2rem;
+      text-align: center;
+      border-bottom: 5px solid #38bdf8;
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.9rem;
+    }
+
+    header p {
+      margin: 0.3rem auto;
+      max-width: 800px;
+      color: #e2e8f0;
+      font-size: 1.05rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Sticky Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 8px rgba(15, 37, 55, 0.08);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--navy);
+      background: var(--blue-soft);
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-print {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1050px;
+      margin: 1.5rem auto;
+      padding: 0 1rem 3rem;
+    }
+
+    .section-title {
+      background: var(--navy);
+      color: #fff;
+      padding: 0.9rem 1.3rem;
+      border-radius: 12px;
+      margin: 2.2rem 0 1.2rem;
+      font-size: 1.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .section-title span.en {
+      direction: ltr;
+      font-size: 0.95rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.2rem 0.7rem;
+      border-radius: 6px;
+    }
+
+    /* Slide Cards */
+    .slide-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 1.4rem;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(15, 37, 55, 0.05);
+    }
+
+    .slide-header {
+      background: linear-gradient(90deg, var(--blue-soft), #f8fafc);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .slide-num {
+      background: var(--blue);
+      color: #fff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .slide-en-title {
+      direction: ltr;
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 1.1rem;
+    }
+
+    .slide-body {
+      padding: 1.2rem 1.3rem;
+    }
+
+    .en-box {
+      direction: ltr;
+      text-align: left;
+      background: #f8fafc;
+      border-left: 4px solid var(--blue);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.96rem;
+      color: #0f172a;
+    }
+
+    .ku-box {
+      background: #ffffff;
+      padding: 0.2rem 0;
+    }
+
+    .ku-box h4 {
+      margin: 0.3rem 0 0.5rem;
+      color: var(--blue);
+      font-size: 1.05rem;
+    }
+
+    .exam-tip {
+      background: var(--amber-soft);
+      border-right: 4px solid var(--amber);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .exam-tip strong {
+      color: var(--amber);
+    }
+
+    .key-term {
+      display: inline-block;
+      direction: ltr;
+      background: var(--blue-soft);
+      color: var(--navy);
+      font-weight: 700;
+      padding: 0.05rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.92em;
+      margin: 0 2px;
+    }
+
+    /* Flow Diagram */
+    .flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin: 1rem 0;
+      direction: ltr;
+    }
+
+    .flow-box {
+      background: var(--blue-soft);
+      border: 2px solid var(--blue);
+      color: var(--navy);
+      padding: 0.7rem 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 700;
+      min-width: 140px;
+    }
+
+    .flow-box small {
+      display: block;
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .arrow {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--amber);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.9rem 0;
+      direction: ltr;
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    th {
+      background: var(--navy);
+      color: #fff;
+      padding: 0.65rem;
+      border: 1px solid var(--navy);
+    }
+
+    td {
+      padding: 0.55rem;
+      border: 1px solid var(--border);
+    }
+
+    tr:nth-child(even) td {
+      background: #f1f5f9;
+    }
+
+    .rtl-table {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .rtl-table th {
+      text-align: right;
+    }
+
+    /* Grid for comparisons */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    .mini-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      background: #f8fafc;
+    }
+
+    .mini-card h5 {
+      margin: 0 0 0.4rem;
+      color: var(--navy);
+      font-size: 1.02rem;
+    }
+
+    /* Formula */
+    .formula {
+      direction: ltr;
+      text-align: center;
+      background: var(--navy);
+      color: #fff;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-family: Consolas, monospace;
+      font-size: 1.05rem;
+      margin: 0.7rem 0;
+      letter-spacing: 0.4px;
+    }
+
+    /* Exam Section */
+    .exam-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .q-en {
+      direction: ltr;
+      text-align: left;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1.03rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .options-en {
+      direction: ltr;
+      text-align: left;
+      list-style: none;
+      padding-left: 0.4rem;
+      margin: 0.4rem 0 0.7rem;
+    }
+
+    .options-en li {
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .toggle-btn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .toggle-btn:hover {
+      background: var(--navy);
+    }
+
+    .answer-box {
+      display: none;
+      margin-top: 0.8rem;
+      background: var(--teal-soft);
+      border-right: 4px solid var(--teal);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+    }
+
+    .answer-box.show {
+      display: block;
+    }
+
+    .exam-controls {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .btn-all {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-hide {
+      background: var(--muted);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    ul.clean {
+      padding-right: 1.3rem;
+      margin: 0.4rem 0;
+    }
+
+    ul.clean li {
+      margin-bottom: 0.35rem;
+    }
+
+    @media print {
+      nav, .toggle-btn, .exam-controls, .btn-print {
+        display: none !important;
+      }
+      .answer-box {
+        display: block !important;
+      }
+      body {
+        background: #fff;
+      }
+      .slide-card, .exam-card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>دیزاینا لۆجیکا دیجیتاڵ — شڕۆڤەیا ١٠٠/١٠٠ ب بادینی</h1>
+  <p>Lecture 01: Introduction to Digital Logic Design (Instructor: Redeer Avdal Saleh)</p>
+  <p>هەمی ٢٥ سلاید ب تێر و تەسەلی، دگەڵ پەیڤێن ئینگلیزی یێن ئەزموونێ، ئەرکێن ماڵێ و نموونەیا ئەزموونا مێدتێرمێ (١٠٠ نمرە)</p>
+  <div class="badge-row">
+    <span class="badge">٢٥ سلاید ب تەمامی</span>
+    <span class="badge">فەرهەنگا ئەزموونێ</span>
+    <span class="badge">ئەرکێ ماڵێ (Homework)</span>
+    <span class="badge">مێدتێرم: ٥ هەلبژارتن + ٥ فەراغ + ٥ T/F + ٥ پسیار</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#slides-part1">سلاید ١ - ٩ (بنەما و باینەری)</a>
+  <a href="#slides-part2">سلاید ١٠ - ١٧ (دەرگەهێن لۆجیکی)</a>
+  <a href="#slides-part3">سلاید ١٨ - ٢٥ (Multisim و ئەرک)</a>
+  <a href="#dictionary">فەرهەنگا ئینگلیزی</a>
+  <a href="#midterm">ئەزموونا مێدتێرمێ (١٠٠ نمرە)</a>
+  <button class="btn-print" onclick="window.print()">چاپکرن / PDF</button>
+</nav>
+
+<div class="container">
+
+  <!-- Quick Study Plan -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">پەیاما برایێ تە بەری دەستپێبکەی</span>
+      <span class="slide-en-title">How to get 100/100 in Midterm</span>
+    </div>
+    <div class="slide-body">
+      <p>سڵاڤ برا! خۆ قەت نەترسە. ئەزموونا مێدتێرمێ یا مامۆستایی ب ئینگلیزییە و ب ڤی شێوەی دابەش دبیت:</p>
+      <ul class="clean">
+        <li><strong>٥ پرسیارێن هەلبژارتن (Multiple Choice):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
+        <li><strong>٥ پرسیارێن بۆشایی/فەراغات (Fill in the Blanks):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
+        <li><strong>٥ پرسیارێن ڕاست و خەلەت (True / False):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
+        <li><strong>٥ پرسیارێن دی (حەلکرن، گوهارتنا باینەری، خشتێ ڕاستیێ، پێناسە):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
+      </ul>
+      <div class="exam-tip">
+        <strong>نهێنیا سەرکەفتنێ:</strong> ل دەمێ خواندنێ، هەر تشتەکی ب <strong>بادینی تێبگەهە</strong>، پاشی وان <strong>پەیڤێن ئینگلیزی یێن د ناڤ قەوسان و ڕەنگێ شین دا</strong> د مێشکێ خۆ دا بپارێزە دا کو دەمێ ل ئەزموونێ دبینى ئێکسەر تێبگەهی کا چی ژ تە دڤێت!
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 1 ==================== -->
+  <div class="section-title" id="slides-part1">
+    <span>پشکا ئێکێ: بنەمایێن لۆجیکێ، سیگناڵ، و سیستەمێ باینەری (سلاید ١ - ٩)</span>
+    <span class="en">Pages 1 – 9 (Slides 01 – 11)</span>
+  </div>
+
+  <!-- Page 1 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١ (سلاید 01)</span>
+      <span class="slide-en-title">Introduction to Digital Logic Design</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>LECTURE 01 • FOUNDATIONS:</strong> Introduction to Digital Logic Design<br>
+        Topics: Signals • Binary • Logic Gates • Circuits | Instructor: Redeer Avdal Saleh
+      </div>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>ئەڤە لاپەڕێ دەستپێکێ یێ وانەیێ یە. بابەتێ سەرەکی <span class="key-term">Digital Logic Design</span> (دیزاینا لۆجیکا دیجیتاڵ)ە و د ڤێ وانەیێ دا ئەم دێ فێری ٤ تشتێن سەرەکی بین:</p>
+        <ul class="clean">
+          <li><span class="key-term">Signals</span>: سیگناڵ (پێلێن کارەبایی).</li>
+          <li><span class="key-term">Binary</span>: سیستەمێ دوویی (ژمارەیێن 0 و 1).</li>
+          <li><span class="key-term">Logic Gates</span>: دەرگەهێن لۆجیکی (وەک AND, OR, NOT).</li>
+          <li><span class="key-term">Circuits</span>: سێرکیت یان خولگەیێن ئەلیکترۆنی.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٢ (سلاید 03)</span>
+      <span class="slide-en-title">What is Digital Logic Design?</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        1. Digital logic design is the study of circuits that process <strong>discrete electrical states</strong>.<br>
+        2. A digital system represents information mainly using <strong>binary 0 and 1</strong>.<br>
+        3. Logic gates combine input states according to defined <strong>Boolean rules</strong>.<br>
+        4. Groups of gates create useful building blocks such as <strong>adders and memory</strong>.<br>
+        Flow: <strong>INPUTS (0/1) → LOGIC → OUTPUT</strong>
+      </div>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>دیزاینا لۆجیکا دیجیتاڵ چییە؟ ئەڤ خالە بۆ پێناسە، هەلبژارتن و فەراغات گەلەک د گرنگن:</p>
+        <ul class="clean">
+          <li><strong>١.</strong> زانستەکە ل سەر خواندنا وان سێرکیتان (خۆلگەیان) یێن کو کار ل سەر <strong>دۆخێن کارەبایی یێن جودا و دیارکری</strong> (<span class="key-term">discrete electrical states</span>) دکەن (ئانکو تەنها دوو دۆخ، نە بەردەوام).</li>
+          <li><strong>٢.</strong> سیستەمێ دیجیتاڵ زانیارییان ب شێوەکێ سەرەکی ب ڕێکا ژمارەیێن باینەری (<span class="key-term">binary 0 and 1</span>) نیشان ددەت.</li>
+          <li><strong>٣.</strong> دەرگەهێن لۆجیکی (<span class="key-term">Logic gates</span>) داتایێن هاتنەژوور (<span class="key-term">input states</span>) تێکەل دکەن ل گۆرەی یاسایێن بیرکاری یێن تایبەت کو دبێژنێ <strong>یاسایێن بۆلی</strong> (<span class="key-term">Boolean rules</span>).</li>
+          <li><strong>٤.</strong> دەمێ کۆمەکا دەرگەهان دگەل ئێک دهێنە گرێدان، پارچەیێن گرنگ دروست دبن وەک: <strong>کۆمکەر</strong> (<span class="key-term">adders</span>) و <strong>بیرگەهـ / میمۆری</strong> (<span class="key-term">memory</span>).</li>
+        </ul>
+      </div>
+      <div class="exam-tip">
+        <strong>تێبینیا ئەزموونێ:</strong> ئەگەر د فەراغێ دا هات: <em>"Digital logic design is the study of circuits that process _______ electrical states."</em> ئێکسەر بنڤیسە <span class="key-term">discrete</span>. و ئەگەر گۆت: <em>"Logic gates combine input states according to _______ rules."</em> بنڤیسە <span class="key-term">Boolean</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٣ (سلاید 05)</span>
+      <span class="slide-en-title">Analog vs. digital signals</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>ANALOG:</strong> continuously varying values. Example: microphone voltage or temperature sensor output.<br>
+        <strong>DIGITAL:</strong> distinct logic levels. Example: binary signal from a push-button or processor.
+      </div>
+      <div class="ku-box">
+        <h4>جوداهییا ناڤبەرا سیگناڵێ ئەنالۆگ و دیجیتاڵ:</h4>
+        <div class="grid-2">
+          <div class="mini-card">
+            <h5>١. سیگناڵێ ئەنالۆگ (<span class="key-term">Analog Signal</span>)</h5>
+            <p>بهایێن وی ب شێوەکێ <strong>بەردەوام</strong> دهێنە گوهارتن (<span class="key-term">continuously varying values</span>) وەک شەپۆلەکا نەرم (Sine wave).<br>
+            <strong>نموونە:</strong> ڤۆڵتیا مایکرۆفۆنێ (<span class="key-term">microphone voltage</span>) یان دەرکەفتنا هەستەوەرێ گەرمێ (<span class="key-term">temperature sensor output</span>).</p>
+          </div>
+          <div class="mini-card">
+            <h5>٢. سیگناڵێ دیجیتاڵ (<span class="key-term">Digital Signal</span>)</h5>
+            <p>بهایێن وی د <strong>ئاستێن دیارکری و جودا</strong> دا نە (<span class="key-term">distinct logic levels</span>)، ئانکو یان سەری (1) یان خوارێ (0) وەک شەپۆلا چوارگۆشە.<br>
+            <strong>نموونە:</strong> سیگناڵێ باینەری ژ دوگمەیەکێ (<span class="key-term">push-button</span>) یان پڕۆسێسەرێ کۆمپیوتەری (<span class="key-term">processor</span>).</p>
+          </div>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <strong>تێبینیا ئەزموونێ:</strong> ئێک ژ پسیارێن ژمارە (١) د سلاید ٢٣ دا ئەڤەیە! ب ئینگلیزی بەرسڤا کورت ئەڤەیە: <em>"Analog is continuous; digital uses discrete (distinct) levels."</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٤ (سلاید 06)</span>
+      <span class="slide-en-title">Two logic states</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>Logic 0:</strong> LOW state; commonly represented near <strong>0 V</strong> in a 5 V logic example.<br>
+        <strong>Logic 1:</strong> HIGH state; commonly represented near <strong>5 V</strong> in a 5 V logic example.<br>
+        <strong>Important:</strong> Real HIGH/LOW voltage thresholds depend on the <strong>logic family and supply voltage</strong>.
+      </div>
+      <div class="ku-box">
+        <h4>دوو دۆخێن لۆجیکێ (0 و 1 د کارەبێ دا چ نە؟):</h4>
+        <ul class="clean">
+          <li><strong>Logic 0 (<span class="key-term">LOW state</span>):</strong> دۆخێ نزمە (کوژای/OFF)، د نموونەیا سیستەمێ 5V دا نێزیکی <strong>0 ڤۆڵت</strong> (<span class="key-term">0 V</span>) دهێتە هژمارتن.</li>
+          <li><strong>Logic 1 (<span class="key-term">HIGH state</span>):</strong> دۆخێ بلندە (هەلکری/ON)، د نموونەیا سیستەمێ 5V دا نێزیکی <strong>5 ڤۆڵت</strong> (<span class="key-term">5 V</span>) دهێتە هژمارتن.</li>
+          <li><strong>خالا گرنگ (<span class="key-term">Important</span>):</strong> د ژیانا ڕاستەقینە دا، سنوورێن ڤۆڵتیێ بۆ HIGH و LOW نە هەردەم هەر 0V و 5V نە، بەڵکو دکەڤنە سەر جۆرێ خێزانا لۆجیکێ (<span class="key-term">logic family</span>، وەک TTL یان CMOS) و ڤۆڵتیا سەرچاوەیی (<span class="key-term">supply voltage</span>، بۆ نموونە هندەک ئامیر ب 3.3V کار دکەن).</li>
+        </ul>
+      </div>
+      <div class="exam-tip">
+        <strong>تێبینیا ئەزموونێ:</strong> هشیار بە د پرسیارێن (True/False) دا! ئەگەر گۆت: <em>"Logic 1 is always exactly 5 V in all digital circuits."</em> -> ئەڤە <strong>False (خەلەت)</strong>ە، چونکی دکەڤیتە سەر <span class="key-term">logic family and supply voltage</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 5 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٥ (سلاید 07)</span>
+      <span class="slide-en-title">Bits, bytes, and binary digits</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        1. A <strong>bit</strong> is one binary digit, either 0 or 1.<br>
+        2. <strong>Eight bits</strong> make one <strong>byte</strong>.<br>
+        3. A binary number uses <strong>powers of two</strong> rather than powers of ten.<br>
+        4. The binary number 1011₂ equals 11₁₀.
+      </div>
+      <div class="ku-box">
+        <h4>بیت (Bit)، بایت (Byte)، و ژمارەیێن باینەری:</h4>
+        <ul class="clean">
+          <li><strong>بیت (<span class="key-term">Bit</span>):</strong> کورتکرییا (Binary Digit)ە، ئانکو ئێک خانەیا باینەرییە کو <strong>ب تنێ دوو دۆخ هەنە</strong>: یان <span class="key-term">0</span> یان <span class="key-term">1</span>.</li>
+          <li><strong>بایت (<span class="key-term">Byte</span>):</strong> هەر <strong>٨ بیت</strong> (<span class="key-term">Eight bits</span>) دبنە ئێک بایت (<span class="key-term">1 Byte = 8 Bits</span>).</li>
+          <li>ژمارەیێن ئاسایی (دەهی / Decimal) هێزێن ژمارە ١٠ بکاردهینن ($1, 10, 100, 1000$)، بەلێ ژمارەیێن باینەری <strong>هێزێن ژمارە ٢</strong> (<span class="key-term">powers of two</span>) بکاردهینن، کو ئەڤەنە: $2^0=1, \; 2^1=2, \; 2^2=4, \; 2^3=8, \; 2^4=16 \dots$</li>
+          <li>ژمارەیا باینەری $1011_2$ د سیستەمێ دەهی دا دبیتە $11_{10}$.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 6 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٦ (سلاید 08)</span>
+      <span class="slide-en-title">Worked Example: Binary 1011₂ to Decimal</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        Convert the binary number <strong>1011₂</strong> to decimal.<br>
+        STEP 1: Write place values from right to left: 1, 2, 4, 8.<br>
+        STEP 2: Multiply each digit by its place value: (1×8) + (0×4) + (1×2) + (1×1).<br>
+        STEP 3: Add: 8 + 0 + 2 + 1 = 11.<br>
+        RESULT: <strong>1011₂ = 11₁₀</strong>
+      </div>
+      <div class="ku-box">
+        <h4>چاوا ژمارەیا باینەری بگوهەرین بۆ دەهی (Decimal)؟ — قاعیدا زێڕین!</h4>
+        <p>هەردەم ڤان ٣ پێنگاڤان بکاربینە بۆ هەر ژمارەیەکا باینەری (چ $1011_2$ بیت یان $110_2$ یان $1010_2$ یان $1111_2$):</p>
+        <ul class="clean">
+          <li><strong>پێنگاڤا ١:</strong> ژ لایێ <strong>ڕاستێ بۆ چەپێ</strong>، بهایێن جهی (هێزێن ٢) د بن هەر ژمارەیەکی دا بنڤیسە، هەردەم ژ $1$ دەستپێبکە و هەر جارێ لێکدانی ٢ بکە: <strong>8, 4, 2, 1</strong>.</li>
+        </ul>
+        <table>
+          <tr>
+            <th>ژمارەیا باینەری (Binary)</th>
+            <td><strong>1</strong></td>
+            <td><strong>0</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>1</strong></td>
+          </tr>
+          <tr>
+            <th>بهایێ جهی (Place Value)</th>
+            <td>8</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <th>لێکدان (Multiply)</th>
+            <td>1 × 8 = <strong>8</strong></td>
+            <td>0 × 4 = <strong>0</strong></td>
+            <td>1 × 2 = <strong>2</strong></td>
+            <td>1 × 1 = <strong>1</strong></td>
+          </tr>
+        </table>
+        <ul class="clean">
+          <li><strong>پێنگاڤا ٢ و ٣:</strong> بەس ئەنجامێن جهێن ژمارە (1) لێ هەی کۆم بکە! <br>
+          $8 + 0 + 2 + 1 = \mathbf{11}$. کەواتە $1011_2 = 11_{10}$. (ئەو ٢ یا بچووک ئانکو سیستەمێ باینەری، و ١٠ ئانکو سیستەمێ دەهی).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 7 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٧ (سلاید 09)</span>
+      <span class="slide-en-title">Inside a simple digital system</span>
+    </div>
+    <div class="slide-body">
+      <div class="ku-box">
+        <h4>ناڤخۆیا سیستەمەکێ دیجیتاڵ یێ سادە ژ چ پێکدهێت؟</h4>
+        <p>هەر سیستەمەکێ دیجیتاڵ ژ ٣ قۆناغێن سەرەکی پێکدهێت:</p>
+        <div class="flow">
+          <div class="flow-box">INPUT<small>Switch / sensor</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box" style="background:#dbeafe;">PROCESS<small>Logic gates / circuit</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box">OUTPUT<small>LED / buzzer / display</small></div>
+        </div>
+        <ul class="clean">
+          <li><strong>١. هاتنەژوور (<span class="key-term">INPUT</span>):</strong> ئەو پارچەنە یێن زانیارییێ ددەنە سیستەمی وەک سویچ (<span class="key-term">Switch</span>) یان هەستەوەر (<span class="key-term">Sensor</span>).</li>
+          <li><strong>٢. پڕۆسێسکرن (<span class="key-term">PROCESS</span>):</strong> دەرگەهێن لۆجیکی و سێرکیت (<span class="key-term">Logic gates / circuit</span>) کو بڕیارێ ددەن.</li>
+          <li><strong>٣. دەرکەفتن (<span class="key-term">OUTPUT</span>):</strong> ئەنجامی نیشان ددەن وەک گڵۆپێ بچووک (<span class="key-term">LED</span>)، زەنگ (<span class="key-term">buzzer</span>)، یان شاشە (<span class="key-term">display</span>).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 8 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٨ (سلاید 10)</span>
+      <span class="slide-en-title">Core parts of a digital circuit</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        1. <strong>Inputs:</strong> switches, sensors, clock or other digital signals.<br>
+        2. <strong>Logic gates:</strong> AND, OR, NOT, NAND, NOR, XOR and XNOR.<br>
+        3. <strong>Outputs:</strong> LEDs, indicators, displays or control signals.<br>
+        4. <strong>Power and ground:</strong> essential electrical connections in hardware.<br>
+        5. <strong>Storage elements:</strong> latches and flip-flops hold state.
+      </div>
+      <div class="ku-box">
+        <h4>٥ پارچەیێن سەرەکی یێن سێرکیتەکێ دیجیتاڵ:</h4>
+        <ul class="clean">
+          <li><strong>١. <span class="key-term">Inputs</span>:</strong> سویچ، هەستەوەر، کڵۆک (<span class="key-term">clock</span> - پێلا دەمێ) یان هەر سیگناڵەکێ دی یێ دیجیتاڵ.</li>
+          <li><strong>٢. <span class="key-term">Logic gates</span>:</strong> هەمی ٧ دەرگەهێن لۆجیکی (AND, OR, NOT, NAND, NOR, XOR, XNOR).</li>
+          <li><strong>٣. <span class="key-term">Outputs</span>:</strong> گڵۆپ (LED)، نیشاندەر (<span class="key-term">indicators</span>)، شاشە (<span class="key-term">displays</span>) یان سیگناڵێن کۆنتڕۆڵکرنێ.</li>
+          <li><strong>٤. <span class="key-term">Power and ground</span>:</strong> کارەب (VCC) و ئەرزی (GND) — گرێدانێن گەلەک پێدڤی نە د هاروێری دا (بێی وان چ سێرکیت کار ناکەت).</li>
+          <li><strong>٥. <span class="key-term">Storage elements</span>:</strong> پارچەیێن هەڵگرتنا داتایان (بیرگەهـ)، کو ژ <span class="key-term">latches</span> و <span class="key-term">flip-flops</span> پێکدهێن بۆ هەڵگرتنا دۆخی (<span class="key-term">hold state</span>).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 9 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٩ (سلاید 11)</span>
+      <span class="slide-en-title">Combinational and sequential logic</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>Combinational:</strong> Output depends on the <strong>current input values</strong>. Example: AND gate or half adder.<br>
+        <strong>Sequential:</strong> Output depends on <strong>current inputs and stored state</strong>. Example: counter or flip-flop.
+      </div>
+      <div class="ku-box">
+        <h4>جوداهییا ناڤبەرا لۆجیکا کۆمبینەیشنال و سیکوێنشاڵ (گەلەک گرنگە بۆ ئەزموونێ!):</h4>
+        <div class="grid-2">
+          <div class="mini-card">
+            <h5>١. <span class="key-term">Combinational Logic</span> (پێکڤەگرێدای / بێ بیرگەهـ)</h5>
+            <p>دەرکەفتن (Output) <strong>ب تنێ ل سەر بهایێن هاتنەژوور یێن نوکە</strong> (<span class="key-term">current input values</span>) دکەڤیت. ئانکو رابردوو ل بیرا وێ نینە.<br>
+            <strong>نموونە:</strong> <span class="key-term">AND gate</span> یان <span class="key-term">half adder</span>.</p>
+          </div>
+          <div class="mini-card">
+            <h5>٢. <span class="key-term">Sequential Logic</span> (یەک ل دیف یەک / ب بیرگەهـ)</h5>
+            <p>دەرکەفتن (Output) دکەڤیتە سەر هاتنەژوورێن نوکە <strong>و دۆخێ هەڵگرتی یێ بەری نوکە ژی</strong> (<span class="key-term">current inputs and stored state</span>).<br>
+            <strong>نموونە:</strong> ژمێرەر (<span class="key-term">counter</span>) یان فلیپ-فلۆپ (<span class="key-term">flip-flop</span>).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 2 ==================== -->
+  <div class="section-title" id="slides-part2">
+    <span>پشکا دووێ: دەرگەهێن لۆجیکی، خشتێن ڕاستیێ، و نموونەیێن کارپێکرنێ (سلاید ١٠ - ١٧)</span>
+    <span class="en">Pages 10 – 17 (Slides 12 – 19)</span>
+  </div>
+
+  <!-- Page 10 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٠ (سلاید 12)</span>
+      <span class="slide-en-title">Meet the three basic logic gates</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        • <strong>AND:</strong> Y = A · B<br>
+        • <strong>OR:</strong> Y = A + B<br>
+        • <strong>NOT:</strong> Y = NOT A<br>
+        Note: Conceptual functional blocks — use standard ANSI/IEC gate symbols when drawing formal schematics.
+      </div>
+      <div class="ku-box">
+        <h4>ناسینا سێ دەرگەهێن لۆجیکی یێن سەرەکی:</h4>
+        <ul class="clean">
+          <li><strong>دەرگەهێ AND:</strong> نیشانا وێ خالە (یان لێکدان) $Y = A \cdot B$. دوو هاتنەژوور (A, B) و ئێک دەرکەفتن (Y) هەیە.</li>
+          <li><strong>دەرگەهێ OR:</strong> نیشانا وێ زێدەکرنە $Y = A + B$. دوو هاتنەژوور (A, B) و ئێک دەرکەفتن (Y) هەیە.</li>
+          <li><strong>دەرگەهێ NOT:</strong> پێچەوانەکەر (Inverter)ە، $Y = \text{NOT } A$ (یان $\overline{A}$). ب تنێ ئێک هاتنەژوور (A) و ئێک دەرکەفتن (Y) هەیە.</li>
+          <li><strong>تێبینیا ل خوارێ سلایدێ:</strong> ئەو بازنێن د سلایدان دا هاتینە دانان تەنها بۆ تێگەهشتنێ نە (<span class="key-term">Conceptual functional blocks</span>)؛ دەمێ نەخشەیێن فەرمی (<span class="key-term">formal schematics</span>) دکێشی، پێدڤیە هێمایێن ستاندارد یێن <span class="key-term">ANSI/IEC</span> بکاربینی.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 11 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١١ (سلاید 13)</span>
+      <span class="slide-en-title">AND gate truth table</span>
+    </div>
+    <div class="slide-body">
+      <div class="formula">Y = A · B (Y = A AND B)</div>
+      <table>
+        <tr><th>A</th><th>B</th><th>Y = A AND B</th></tr>
+        <tr><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+        <tr><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+        <tr><td>1</td><td>0</td><td><strong>0</strong></td></tr>
+        <tr><td>1</td><td>1</td><td><strong style="color:#0f766e;">1</strong></td></tr>
+      </table>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>دەرگەهێ <strong>AND</strong> گەلەکێ توندە! وەک پەیڤا (و) یا کوردی یە: <strong>ب تنێ دەمێ هەردوو هاتنەژوور A و B ببنە 1</strong>، دەرکەفتن Y دبیتە 1. ئەگەر ئێک ژ وان (یان هەردوو) ببیتە 0، ئەنجام ئێکسەر دبیتە 0.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 12 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٢ (سلاید 14)</span>
+      <span class="slide-en-title">OR gate truth table</span>
+    </div>
+    <div class="slide-body">
+      <div class="formula">Y = A + B (Y = A OR B)</div>
+      <table>
+        <tr><th>A</th><th>B</th><th>Y = A OR B</th></tr>
+        <tr><td>0</td><td>0</td><td><strong style="color:#b91c1c;">0</strong></td></tr>
+        <tr><td>0</td><td>1</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td>0</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+      </table>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>دەرگەهێ <strong>OR</strong> گەلەکێ نەرمە! وەک پەیڤا (یان) یا کوردی یە: <strong>بەس ئێک ژ هاتنەژووران (یان هەردوو) ببیتە 1</strong>، دەرکەفتن Y دبیتە 1. ب تنێ دەمێ هەردوو هاتنەژوور ببنە 0، ئەنجام دبیتە 0.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 13 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٣ (سلاید 15)</span>
+      <span class="slide-en-title">NOT gate truth table</span>
+    </div>
+    <div class="slide-body">
+      <div class="formula">Y = NOT A</div>
+      <table>
+        <tr><th>A</th><th>Y = NOT A</th></tr>
+        <tr><td>0</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td><strong>0</strong></td></tr>
+      </table>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>دەرگەهێ <strong>NOT</strong> ب تنێ ئاوێنەکا پێچەوانەکەرە (<span class="key-term">complement / inverter</span>): ئەگەر هاتنەژوور 0 بیت دکەتە 1، و ئەگەر 1 بیت دکەتە 0.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 14 & 15 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٤ و ١٥ (سلاید 16 و 17)</span>
+      <span class="slide-en-title">Example: Safety Permission Circuit (Two-switch AND control)</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>Problem:</strong> A machine runs <strong>only when SWITCH A and SWITCH B are both ON</strong>.<br>
+        STEP 1: Choose an <strong>AND gate</strong> because <strong>both conditions must be true</strong>.<br>
+        STEP 2: Connect switches A and B to the two gate inputs.<br>
+        STEP 3: Connect the gate output to an indicator labeled RUN.<br>
+        <strong>RESULT:</strong> RUN = A AND B; when Switch A = 1 and Switch B = 1 → <strong>RUN = 1</strong>.
+      </div>
+      <div class="ku-box">
+        <h4>شڕۆڤەیا نموونەیا سێرکیتا پاراستنێ (Safety permission circuit):</h4>
+        <p>ئەڤ نموونە ل دوو لاپەڕان هاتیە شڕۆڤەکرن (لاپەڕ ١٤ پێنگاڤێن حەلکرنێ نە، و لاپەڕ ١٥ وێنێ سێرکیتێ یە):</p>
+        <ul class="clean">
+          <li>پرسیار دبێژیت: ئامیرەک (Machine) ب تنێ دەمێ کار دکەت ئەگەر <strong>هەردوو</strong> سویچێن A و B هەلکری بن (ON = 1).</li>
+          <li>چونکی پێدڤیە <strong>هەردوو مەرج</strong> (<span class="key-term">both conditions</span>) پێکڤە هەبن، دەرگەهێ گونجای <span class="key-term">AND gate</span>ە.</li>
+          <li>هاوکێشە: $\text{RUN} = A \text{ AND } B$ (یان $A \cdot B$).</li>
+          <li>د لاپەڕ ١٥ دا نیشان ددەت ئەگەر Switch A = 1 و Switch B = 1 بن، دێ دەرکەفتنا RUN ببیتە 1 (ئامیر کار دکەت).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 16 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٦ (سلاید 18)</span>
+      <span class="slide-en-title">Where digital logic is used</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        1. Computer processors and arithmetic logic units (ALU).<br>
+        2. Smartphones, embedded devices and microcontrollers.<br>
+        3. Digital clocks, calculators and electronic counters.<br>
+        4. Traffic-light control and industrial automation.<br>
+        5. Communication interfaces and data storage.
+      </div>
+      <div class="ku-box">
+        <h4>لۆجیکا دیجیتاڵ ل کیڤە دهێتە بکارئینان؟</h4>
+        <ul class="clean">
+          <li><strong>١.</strong> پڕۆسێسەرێن کۆمپیوتەران (<span class="key-term">processors</span>) و یەکەیێن ژمارە و لۆجیکێ (<span class="key-term">ALU</span>).</li>
+          <li><strong>٢.</strong> مۆبایلێن زیرەک (<span class="key-term">Smartphones</span>)، ئامیرێن چاندی (<span class="key-term">embedded devices</span>) و مایکرۆکۆنتڕۆڵەران.</li>
+          <li><strong>٣.</strong> دەمژمێرێن دیجیتاڵ، حاسیبە (<span class="key-term">calculators</span>) و ژمێرەرێن ئەلیکترۆنی.</li>
+          <li><strong>٤.</strong> کۆنتڕۆڵکرنا ترافیک لایتان (<span class="key-term">Traffic-light control</span>) و کارگەهێن ئۆتۆماتیکی (<span class="key-term">industrial automation</span>).</li>
+          <li><strong>٥.</strong> ئامیرێن پەیوەندیان و هەڵگرتنا داتایان (<span class="key-term">data storage</span>).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 17 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٧ (سلاید 19)</span>
+      <span class="slide-en-title">Digital design workflow</span>
+    </div>
+    <div class="slide-body">
+      <div class="ku-box">
+        <h4>٥ پێنگاڤێن کارکرنێ بۆ دیزاینکرنا هەر سێرکیتەکا دیجیتاڵ (ڕێزبەندی گەلەک گرنگە!):</h4>
+        <div class="flow">
+          <div class="flow-box">01. Define the problem<small>دیارکرنا ئاریشێ</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box">02. Make a truth table<small>دروستکرنا خشتێ ڕاستیێ</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box">03. Choose gates<small>هەلبژارتنا دەرگەهان</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box">04. Draw the circuit<small>کێشانا سێرکیتێ</small></div>
+          <div class="arrow">➜</div>
+          <div class="flow-box">05. Simulate &amp; test<small>تاقیکرن ب بەرنامەی</small></div>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <strong>تێبینیا ئەزموونێ:</strong> رەنگە بێژیت: <em>"What is the first step in digital design workflow?"</em> -> بەرسڤ: <span class="key-term">Define the problem</span>. و پێنگاڤا دووماهیکێ: <span class="key-term">Simulate &amp; test</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 3 ==================== -->
+  <div class="section-title" id="slides-part3">
+    <span>پشکا سێیێ: بەرنامێ Multisim، نموونەیێن پرەکتیک، تاقیکرن، و ئەرکێ ماڵێ (سلاید ١٨ - ٢٥)</span>
+    <span class="en">Pages 18 – 25 (Slides 20 – 29)</span>
+  </div>
+
+  <!-- Page 18 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٨ (سلاید 20)</span>
+      <span class="slide-en-title">Introduction to Multisim</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        1. <strong>Multisim</strong> is a circuit simulation environment used for electronic circuit exercises.<br>
+        2. Create a new design and place digital input sources, gate components and logic probes.<br>
+        3. Connect all terminals with wires and check the connections.<br>
+        4. Start simulation and change input states to observe the output.<br>
+        5. Confirm that your measured output matches the truth table.
+      </div>
+      <div class="ku-box">
+        <h4>ناساندنا بەرنامێ Multisim:</h4>
+        <ul class="clean">
+          <li><strong>١.</strong> بەرنامێ <span class="key-term">Multisim</span> ژینگەهەکا <strong>تاقیکرنا سێرکیتانە ل سەر کۆمپیوتەری</strong> (<span class="key-term">circuit simulation environment</span>) بۆ کارێن ئەلیکترۆنی.</li>
+          <li><strong>٢.</strong> دیزاینەکا نوی ڤەکە و سەرچاوەیێن هاتنەژوور (<span class="key-term">digital input sources</span>)، دەرگەهان (<span class="key-term">gate components</span>)، و پشکنەرێ لۆجیکێ (<span class="key-term">logic probes</span> - وەک گڵۆپێ پشکنینێ) دابنێ.</li>
+          <li><strong>٣.</strong> هەمی سەران ب وایەران گرێبدە و پشکنینا گرێدانان بکە.</li>
+          <li><strong>٤.</strong> تاقیکرنێ دەستپێبکە (Run) و دۆخێن هاتنەژوور بگوهەرە دا دەرکەفتنێ ببینی.</li>
+          <li><strong>٥.</strong> دڵنیا ببە کو ئەنجامێ پێڤایی وەک خشتێ ڕاستیێ (<span class="key-term">truth table</span>) یە.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 19 & 20 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ١٩ و ٢٠ (سلاید 21 و 22)</span>
+      <span class="slide-en-title">Multisim Activity: AND Gate &amp; Results Table</span>
+    </div>
+    <div class="slide-body">
+      <div class="ku-box">
+        <h4>چالاکییا ناڤ پۆلێ ب Multisim بۆ دەرگەهێ AND:</h4>
+        <p>ئارمانج (<span class="key-term">Objective</span>): سەلماندن کو دەرگەهێ AND ب تنێ دەمێ هەردوو هاتنەژوور 1 بن دەرکەفتنا 1 ددەت. د لاپەڕ ٢٠ دا خشتێ ئەنجامان هەیە کو دڤێت (Observed Y - یا دیتی) وەک (Expected Y - یا پێشبینیکری) تۆمار بکەی:</p>
+        <table>
+          <tr>
+            <th>Input A</th>
+            <th>Input B</th>
+            <th>Expected Y (پێشبینیکری)</th>
+            <th>Observed Y (ئەوا د بەرنامەی دا دەردکەڤیت)</th>
+          </tr>
+          <tr><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td><strong style="color:#0f766e;">1</strong></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 21 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٢١ (سلاید 23)</span>
+      <span class="slide-en-title">Practice Problem 1: OR logic</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>Problem:</strong> An alarm should sound if <strong>either door A OR door B opens</strong>.<br>
+        STEP 1: Select the logic operation that satisfies “either input” → <strong>OR gate</strong>.<br>
+        STEP 2: Write the output expression: <strong>ALARM = A + B</strong>.<br>
+        STEP 3: Evaluate A = 0 and B = 1.<br>
+        <strong>RESULT:</strong> ALARM = 0 + 1 = <strong>1 (ON)</strong>
+      </div>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>زەنگێ ئاگادارکرنێ (ALARM) دڤێت لێبدەت ئەگەر <strong>دەرگەهێ A یان دەرگەهێ B</strong> (<span class="key-term">either door A OR door B</span>) ڤەبیت. چونکی گۆت (یان / either input)، ئەم دەرگەهێ <strong>OR</strong> هەڵدبژێرین ($A + B$). ئەگەر $A=0$ (گرتی) و $B=1$ (ڤەکری) بیت، دێ $0 + 1 = 1$، کەواتە زەنگ دێ لێدەت (ON).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 22 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٢٢ (سلاید 24)</span>
+      <span class="slide-en-title">Practice Problem 2: NOT logic</span>
+    </div>
+    <div class="slide-body">
+      <div class="en-box">
+        <strong>Problem:</strong> A warning light turns ON when the <strong>sensor reports 0</strong>.<br>
+        STEP 1: Recognize that the output is the <strong>complement</strong> of the input.<br>
+        STEP 2: Write the Boolean expression: <strong>WARNING = NOT SENSOR</strong>.<br>
+        STEP 3: For SENSOR = 0, apply the NOT truth table.<br>
+        <strong>RESULT:</strong> WARNING = <strong>1 (ON)</strong>
+      </div>
+      <div class="ku-box">
+        <h4>شڕۆڤە ب بادینی:</h4>
+        <p>گڵۆپێ ئاگادارکرنێ (WARNING) هەلدبیت (دبیتە 1) دەمێ هەستەوەر (<span class="key-term">sensor</span>) ژمارە <strong>0</strong> بدەت. ئانکو دەرکەفتن <strong>پێچەوانە/تەواوکەر</strong> (<span class="key-term">complement</span>)ێ هاتنەژوورێ یە! کەواتە دەرگەهێ <strong>NOT</strong> بکاردهێت: دەمێ SENSOR = 0 بیت، WARNING = 1 (ON).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 23 & 24 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٢٣ و ٢٤ (سلاید 26 و 27)</span>
+      <span class="slide-en-title">Knowledge Check &amp; Answers</span>
+    </div>
+    <div class="slide-body">
+      <div class="ku-box">
+        <h4>پێداچوونا زانینێ (پرسیار و بەرسڤێن ناڤ سلایدان + ڕوونکرن):</h4>
+        <ol>
+          <li><strong>What is the difference between analog and digital signals?</strong><br>
+          <em>بەرسڤا ئینگلیزی:</em> Analog is continuous; digital uses discrete levels.<br>
+          <em>تێگەهشتن:</em> ئەنالۆگ یێ بەردەوامە، دیجیتاڵ ئاستێن دیارکری بکاردهینیت.</li>
+          <li><strong>How many possible states does one bit have?</strong><br>
+          <em>بەرسڤا ئینگلیزی:</em> Two states: 0 and 1.<br>
+          <em>تێگەهشتن:</em> ئێک بیت ب تنێ ٢ دۆخ هەنە (0 و 1).</li>
+          <li><strong>Which gate outputs 1 only when both inputs are 1?</strong><br>
+          <em>بەرسڤا ئینگلیزی:</em> AND gate.<br>
+          <em>تێگەهشتن:</em> ب تنێ دەرگەهێ AND دەمێ هەردوو 1 بن 1 ددەت.</li>
+          <li><strong>Convert binary 110₂ to decimal.</strong><br>
+          <em>بەرسڤا ئینگلیزی:</em> 110₂ = 6₁₀.<br>
+          <em>چاوا؟</em> بهایێن جهی ژ ڕاست بۆ چەپ (1, 2, 4) نە: $(1\times 4) + (1\times 2) + (0\times 1) = 4 + 2 + 0 = 6$.</li>
+          <li><strong>In an OR gate, what is Y when A=0 and B=1?</strong><br>
+          <em>بەرسڤا ئینگلیزی:</em> Y = 1.<br>
+          <em>چاوا؟</em> چونکی $0 + 1 = 1$.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 25 -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">لاپەڕ ٢٥ (سلاید 29)</span>
+      <span class="slide-en-title">Homework &amp; Preparation for Lecture 2 (ب تەمامی حەلکری!)</span>
+    </div>
+    <div class="slide-body">
+      <div class="ku-box">
+        <h4>حەلکرنا هەمی ئەرکێن ماڵێ یێن د سلاید ٢٩ دا:</h4>
+
+        <p><strong>ئەرکێ ١:</strong> Write one real-world example of a digital system and label its input and output.<br>
+        <em>بەرسڤ:</em> <strong>Automatic Door System (دەرگەهێ ئۆتۆماتیکی):</strong><br>
+        • <strong>Input:</strong> Motion sensor (هەستەوەرێ لڤینێ: 1 = کەس هەیە، 0 = کەس نینە).<br>
+        • <strong>Process:</strong> Digital logic controller.<br>
+        • <strong>Output:</strong> Door motor (1 = ڤەبیت، 0 = گرتی بیت).</p>
+
+        <p><strong>ئەرکێ ٢:</strong> Create truth tables for AND, OR and NOT gates.<br>
+        <em>بەرسڤ:</em> د لاپەڕێن ١١، ١٢، و ١٣ دا ل سەری ب تەمامی هەنە.</p>
+
+        <p><strong>ئەرکێ ٣:</strong> Convert <strong>1010₂</strong> and <strong>1111₂</strong> to decimal.</p>
+        <div class="en-box">
+          • <strong>1010₂ to decimal:</strong> Place values (8, 4, 2, 1) → (1×8) + (0×4) + (1×2) + (0×1) = 8 + 0 + 2 + 0 = <strong>10₁₀</strong>.<br>
+          • <strong>1111₂ to decimal:</strong> Place values (8, 4, 2, 1) → (1×8) + (1×4) + (1×2) + (1×1) = 8 + 4 + 2 + 1 = <strong>15₁₀</strong>.
+        </div>
+
+        <p><strong>ئەرکێ ٤:</strong> Simulate an OR gate in Multisim and screenshot its four test cases.<br>
+        <em>چاوا د Multisim دا دکەی:</em> دوو <span class="key-term">Interactive Digital Constants</span> دابنێ، ب دەرگەهێ <span class="key-term">OR (74LS32 یان 2-input OR)</span> ڤە گرێبدە، و <span class="key-term">Logic Probe</span> ب دەرکەفتنێ ڤە گرێبدە. هەر ٤ باران تاقی بکە: (00→0), (01→1), (10→1), (11→1).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DICTIONARY ==================== -->
+  <div class="section-title" id="dictionary">
+    <span>فەرهەنگا پەیڤێن ئینگلیزی یێن ئەزموونێ (دا هەمی پرسیاران تێبگەهی)</span>
+    <span class="en">Exam Vocabulary</span>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-body">
+      <table class="rtl-table">
+        <tr>
+          <th>پەیڤا ئینگلیزی</th>
+          <th>واتا ب بادینی</th>
+          <th>پەیڤا ئینگلیزی</th>
+          <th>واتا ب بادینی</th>
+        </tr>
+        <tr>
+          <td><strong>Discrete / Distinct</strong></td><td>جودا و دیارکری (بێ پچڕان نینە)</td>
+          <td><strong>Continuous</strong></td><td>بەردەوام (تایبەت ب Analog)</td>
+        </tr>
+        <tr>
+          <td><strong>State / Level</strong></td><td>دۆخ / ئاست</td>
+          <td><strong>Threshold</strong></td><td>سنوورێ ڤۆڵتیێ</td>
+        </tr>
+        <tr>
+          <td><strong>Complement / Inverter</strong></td><td>پێچەوانەکرن (کارێ NOT)</td>
+          <td><strong>Boolean expression</strong></td><td>هاوکێشەیا لۆجیکی (وەک Y=A+B)</td>
+        </tr>
+        <tr>
+          <td><strong>Truth table</strong></td><td>خشتێ ڕاستیێ</td>
+          <td><strong>Convert</strong></td><td>گوهارتن (بۆ نموونە ژ باینەری بۆ دەهی)</td>
+        </tr>
+        <tr>
+          <td><strong>Both / Only when</strong></td><td>هەردوو / ب تنێ دەمێ (ئیشارەتا AND)</td>
+          <td><strong>Either / At least one</strong></td><td>ئێک ژ وان (ئیشارەتا OR)</td>
+        </tr>
+        <tr>
+          <td><strong>Stored state</strong></td><td>دۆخێ هەڵگرتی (تایبەت ب Sequential)</td>
+          <td><strong>Current input</strong></td><td>هاتنەژوورێن نوکە</td>
+        </tr>
+        <tr>
+          <td><strong>Simulation / Probe</strong></td><td>تاقیکرنا کۆمپیوتەری / پشکنەر</td>
+          <td><strong>Powers of two</strong></td><td>هێزێن ژمارە ٢ (1, 2, 4, 8, 16...)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== MIDTERM EXAM ==================== -->
+  <div class="section-title" id="midterm">
+    <span>نموونەیا ئەزموونا مێدتێرمێ یا ڕاستەقینە — ١٠٠ نمرە (پسیار ب ئینگلیزی + حەل ب بادینی)</span>
+    <span class="en">Mock Midterm Exam (100 Marks)</span>
+  </div>
+
+  <div class="exam-controls">
+    <button class="btn-all" onclick="toggleAll(true)">نیشاندانا هەمی بەرسڤان</button>
+    <button class="btn-hide" onclick="toggleAll(false)">ڤەشارتنا هەمی بەرسڤان (بۆ تاقیکرنا خۆ)</button>
+  </div>
+
+  <!-- Q1: 5 MCQ (25 Marks) -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">Question 1: Multiple Choice (5 × 5 = 25 Marks)</span>
+      <span class="slide-en-title">پێنج پرسیارێن هەلبژارتن</span>
+    </div>
+    <div class="slide-body">
+
+      <!-- MCQ 1 -->
+      <div class="exam-card">
+        <div class="q-en">1. How many bits make one byte?</div>
+        <ul class="options-en">
+          <li>a) 2 bits</li>
+          <li>b) 4 bits</li>
+          <li>c) 8 bits</li>
+          <li>d) 16 bits</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤا ڕاست: c) 8 bits</strong><br>
+          <em>شڕۆڤە:</em> چەند بیت دبنە ئێک بایت؟ د سلاید ٥ (07) دا هاتیە کو ٨ بیت دبنە ئێک بایت (1 Byte = 8 Bits).
+        </div>
+      </div>
+
+      <!-- MCQ 2 -->
+      <div class="exam-card">
+        <div class="q-en">2. Which logic gate outputs 1 ONLY when both inputs are 1?</div>
+        <ul class="options-en">
+          <li>a) OR gate</li>
+          <li>b) AND gate</li>
+          <li>c) NOT gate</li>
+          <li>d) Sensor gate</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤا ڕاست: b) AND gate</strong><br>
+          <em>شڕۆڤە:</em> کیژ دەرگەهـ دەرکەفتنا 1 ددەت ب تنێ دەمێ هەردوو هاتنەژوور 1 بن؟ دەرگەهێ AND.
+        </div>
+      </div>
+
+      <!-- MCQ 3 -->
+      <div class="exam-card">
+        <div class="q-en">3. Which of the following is an example of an ANALOG signal?</div>
+        <ul class="options-en">
+          <li>a) Binary signal from a processor</li>
+          <li>b) Output of a push-button switch</li>
+          <li>c) Microphone voltage</li>
+          <li>d) Logic probe value (0 or 1)</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤا ڕاست: c) Microphone voltage</strong><br>
+          <em>شڕۆڤە:</em> کیژ ژ ڤان نموونەیا سیگناڵێ ئەنالۆگە؟ ڤۆڵتیا مایکرۆفۆنێ (یان هەستەوەرێ گەرمێ)، چونکی ب شێوەکێ بەردەوام دهێتە گوهارتن.
+        </div>
+      </div>
+
+      <!-- MCQ 4 -->
+      <div class="exam-card">
+        <div class="q-en">4. In which type of logic does the output depend on current inputs AND stored state?</div>
+        <ul class="options-en">
+          <li>a) Combinational logic</li>
+          <li>b) Sequential logic</li>
+          <li>c) Analog logic</li>
+          <li>d) Decimal logic</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤا ڕاست: b) Sequential logic</strong><br>
+          <em>شڕۆڤە:</em> چونکی پەیڤا (stored state - دۆخێ هەڵگرتی) هات، ئەڤە لۆجیکا Sequentialە (وەک counter و flip-flop).
+        </div>
+      </div>
+
+      <!-- MCQ 5 -->
+      <div class="exam-card">
+        <div class="q-en">5. What is the first step in the digital design workflow?</div>
+        <ul class="options-en">
+          <li>a) Simulate &amp; test</li>
+          <li>b) Draw the circuit</li>
+          <li>c) Make a truth table</li>
+          <li>d) Define the problem</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤا ڕاست: d) Define the problem</strong><br>
+          <em>شڕۆڤە:</em> پێنگاڤا ئێکێ یا کارێ دیزاینێ هەردەم دیارکرنا ئاریشێ یە (Define the problem).
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q2: 5 Fill in the blanks (25 Marks) -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">Question 2: Fill in the Blanks (5 × 5 = 25 Marks)</span>
+      <span class="slide-en-title">پێنج پرسیارێن بۆشایی (فەراغات)</span>
+    </div>
+    <div class="slide-body">
+
+      <div class="exam-card">
+        <div class="q-en">1. Digital logic design is the study of circuits that process __________ electrical states.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: discrete</strong> (جودا و دیارکری — ژ سلاید ٢ / لاپەڕ ٢).
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">2. In a 5 V logic example, Logic 0 represents the __________ state (near 0 V), and Logic 1 represents the __________ state (near 5 V).</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: LOW , HIGH</strong> (سلاید ٤ / لاپەڕ ٤).
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">3. A binary number uses powers of __________ rather than powers of ten.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: two (2)</strong> (سلاید ٥ / لاپەڕ ٥).
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">4. Storage elements in a digital circuit, such as __________ and __________, hold state.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: latches , flip-flops</strong> (سلاید ٨ / لاپەڕ ٨).
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">5. __________ is a circuit simulation environment used for electronic circuit exercises.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: Multisim</strong> (سلاید ١٨ / لاپەڕ ١٨).
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q3: 5 True / False (25 Marks) -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">Question 3: True or False (5 × 5 = 25 Marks)</span>
+      <span class="slide-en-title">پێنج پرسیارێن ڕاست و خەلەت</span>
+    </div>
+    <div class="slide-body">
+
+      <div class="exam-card">
+        <div class="q-en">1. One bit can have only two possible states: 0 and 1. (True / False)</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: True (ڕاست)</strong> — ئێک بیت ب تنێ دوو دۆخ هەنە (0 و 1).
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">2. Real HIGH and LOW voltage thresholds are always identical regardless of logic family or supply voltage. (True / False)</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: False (خەلەت)</strong> — ژ بەر کو د سلاید ٤ دا گۆتیە: دکەڤنە سەر جۆرێ <span class="key-term">logic family and supply voltage</span>.
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">3. A NOT gate has two inputs and one output. (True / False)</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: False (خەلەت)</strong> — دەرگەهێ NOT ب تنێ <strong>ئێک هاتنەژوور</strong> (one input) و ئێک دەرکەفتن هەیە.
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">4. In an OR gate, if A = 0 and B = 1, the output Y equals 1. (True / False)</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: True (ڕاست)</strong> — د دەرگەهێ OR دا $0 + 1 = 1$.
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="q-en">5. An AND gate is an example of sequential logic. (True / False)</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <strong>بەرسڤ: False (خەلەت)</strong> — دەرگەهێ AND نموونەیا لۆجیکا <strong>Combinational</strong>ە، نە Sequential.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q4: 5 Problem Solving / Direct Questions (25 Marks) -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <span class="slide-num">Question 4: Short Answers &amp; Problems (5 × 5 = 25 Marks)</span>
+      <span class="slide-en-title">پێنج پرسیارێن حەلکرن و نڤیسینێ</span>
+    </div>
+    <div class="slide-body">
+
+      <!-- P1 -->
+      <div class="exam-card">
+        <div class="q-en">1. Convert the binary number 1011₂ to decimal (show steps).</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <div class="en-box" style="margin-bottom:0.4rem;">
+            Place values (right to left): 1, 2, 4, 8<br>
+            (1 × 8) + (0 × 4) + (1 × 2) + (1 × 1) = 8 + 0 + 2 + 1 = <strong>11₁₀</strong>
+          </div>
+          <em>تێبینی:</em> ئەگەر د ئەزموونێ دا ژمارەیەکا دی هات (وەک $110_2 = 6$, یان $1010_2 = 10$, یان $1111_2 = 15$)، هەر ب هەمان ڕێک پێنگاڤان بنڤیسە!
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="exam-card">
+        <div class="q-en">2. Write the truth table for the OR gate (Y = A + B).</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <table>
+            <tr><th>A</th><th>B</th><th>Y = A + B</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="exam-card">
+        <div class="q-en">3. A safety alarm sounds if either door A OR door B opens. Write the Boolean expression and find ALARM when A = 0 and B = 1.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <div class="en-box" style="margin-bottom:0.4rem;">
+            Boolean Expression: <strong>ALARM = A + B</strong> (OR gate)<br>
+            For A = 0, B = 1: ALARM = 0 + 1 = <strong>1 (ON)</strong>
+          </div>
+          <em>تێگەهشتن:</em> چونکی گۆت (either A OR B)، ئانکو OR gate.
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="exam-card">
+        <div class="q-en">4. State the difference between Combinational logic and Sequential logic, with one example for each.</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <div class="en-box" style="margin-bottom:0.4rem;">
+            • <strong>Combinational:</strong> Output depends only on current input values. Example: AND gate (or half adder).<br>
+            • <strong>Sequential:</strong> Output depends on current inputs and stored state. Example: Flip-flop (or counter).
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="exam-card">
+        <div class="q-en">5. List the three main parts of a simple digital system (with an example for each).</div>
+        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
+        <div class="answer-box">
+          <div class="en-box" style="margin-bottom:0.4rem;">
+            1. <strong>INPUT:</strong> Switch / sensor<br>
+            2. <strong>PROCESS:</strong> Logic gates / circuit<br>
+            3. <strong>OUTPUT:</strong> LED / buzzer / display
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleAns(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle("show");
+    btn.textContent = box.classList.contains("show")
+      ? "ڤەشارتنا بەرسڤێ"
+      : "نیشاندانا بەرسڤێ";
+  }
+
+  function toggleAll(show) {
+    const boxes = document.querySelectorAll(".answer-box");
+    const buttons = document.querySelectorAll(".toggle-btn");
+    boxes.forEach((b) => {
+      if (show) b.classList.add("show");
+      else b.classList.remove("show");
+    });
+    buttons.forEach((btn) => {
+      btn.textContent = show ? "ڤەشارتنا بەرسڤێ" : "نیشاندانا بەرسڤێ";
+    });
+  }
+</script>
+
+</body>
+</html>
