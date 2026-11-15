@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>وانا ٢: سیستەمێ ژماران و گوهۆڕین - ئەزموونا کامل ب بادینی</title>
+  <title>وانەیا ٢: سیستەمێن ژمارەیان و گوهۆڕین - شروڤە و ئەزموونا ١٠٠ نمرەیى</title>
   <style>
     :root {
-      --navy: #0f2137;
-      --navy-light: #1a3352;
+      --navy: #0f2537;
       --teal: #0e9aa7;
-      --teal-soft: #e6f6f8;
-      --bg: #f3f6fa;
+      --teal-dark: #097984;
+      --blue: #165b8c;
+      --bg: #f3f7fa;
       --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #dbe4ef;
-      --green: #15803d;
-      --green-bg: #dcfce7;
-      --red: #b91c1c;
-      --red-bg: #fee2e2;
-      --amber: #b45309;
-      --amber-bg: #fef3c7;
+      --text: #1c2b36;
+      --muted: #566877;
+      --border: #d9e4ec;
+      --success-bg: #e7f8ef;
+      --success-border: #1e9e5a;
+      --error-bg: #fdecec;
+      --error-border: #d93838;
+      --note-bg: #fff8e6;
+      --note-border: #e6a817;
     }
 
     * {
@@ -29,1257 +29,1526 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.75;
     }
 
-    .ltr {
+    .math-ltr {
       direction: ltr;
       unicode-bidi: isolate;
       display: inline-block;
-      font-family: "Consolas", "Courier New", monospace;
+      font-family: Consolas, "Courier New", monospace;
+      background: #edf3f8;
+      color: #0b2d48;
+      padding: 1px 7px;
+      border-radius: 6px;
       font-weight: 700;
-    }
-
-    .math-box {
-      direction: ltr;
-      text-align: left;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--teal);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin: 10px 0;
-      font-family: "Consolas", "Courier New", monospace;
-      font-size: 0.96rem;
-      overflow-x: auto;
-      color: #0f172a;
+      font-size: 0.96em;
     }
 
     header {
-      background: linear-gradient(135deg, var(--navy), #163250);
+      background: linear-gradient(135deg, var(--navy), var(--blue));
       color: #fff;
-      padding: 24px 16px;
+      padding: 26px 18px 20px;
+      text-align: center;
       border-bottom: 5px solid var(--teal);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.65rem;
+    }
+
+    header p {
+      margin: 0;
+      color: #d7ebf5;
+      font-size: 1rem;
+    }
+
+    .nav-bar {
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 14px rgba(15, 33, 55, 0.2);
-    }
-
-    .header-inner {
-      max-width: 1000px;
-      margin: 0 auto;
+      background: #ffffff;
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 2px 10px rgba(15, 37, 55, 0.08);
+      padding: 10px 14px;
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
       align-items: center;
-      justify-content: space-between;
-      gap: 14px;
     }
 
-    .header-title h1 {
-      margin: 0;
-      font-size: 1.35rem;
+    .nav-btn {
+      border: 2px solid var(--teal);
+      background: #fff;
+      color: var(--navy);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .nav-btn.active,
+    .nav-btn:hover {
+      background: var(--teal);
       color: #fff;
     }
 
-    .header-title p {
-      margin: 4px 0 0;
-      font-size: 0.9rem;
-      color: #bae6fd;
+    .nav-btn.exam-tab {
+      border-color: var(--navy);
     }
 
-    .stats-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .stat-pill {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
+    .nav-btn.exam-tab.active,
+    .nav-btn.exam-tab:hover {
+      background: var(--navy);
+      color: #fff;
     }
 
     .container {
-      max-width: 1000px;
-      margin: 24px auto 60px;
+      max-width: 980px;
+      margin: 22px auto 60px;
       padding: 0 14px;
     }
 
-    .nav-card {
+    .section-view {
+      display: none;
+    }
+
+    .section-view.active {
+      display: block;
+    }
+
+    .jump-box {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 22px;
-      box-shadow: 0 2px 8px rgba(15, 33, 55, 0.05);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
     }
 
-    .nav-title {
-      font-weight: 700;
-      margin-bottom: 10px;
+    .jump-box h3 {
+      margin: 0 0 10px;
+      font-size: 1.02rem;
       color: var(--navy);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
     }
 
-    .slide-pills {
+    .jump-links {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    .slide-pill {
+    .jump-links a {
       text-decoration: none;
-      background: #f1f5f9;
+      background: #eaf3f8;
       color: var(--navy);
-      border: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 0.85rem;
       padding: 4px 10px;
       border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: 0.2s;
+      border: 1px solid #c9dce8;
     }
 
-    .slide-pill:hover {
+    .jump-links a:hover {
       background: var(--teal);
       color: #fff;
       border-color: var(--teal);
-    }
-
-    .slide-pill.done-correct {
-      background: var(--green-bg);
-      color: var(--green);
-      border-color: #86efac;
-    }
-
-    .slide-pill.done-wrong {
-      background: var(--red-bg);
-      color: var(--red);
-      border-color: #fca5a5;
     }
 
     .slide-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      margin-bottom: 24px;
+      border-radius: 14px;
+      margin-bottom: 22px;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(15, 33, 55, 0.06);
-      scroll-margin-top: 120px;
+      box-shadow: 0 4px 14px rgba(15, 37, 55, 0.05);
     }
 
-    .slide-head {
-      background: var(--navy);
+    .slide-header {
+      background: linear-gradient(90deg, var(--navy), var(--blue));
       color: #fff;
-      padding: 14px 20px;
+      padding: 14px 18px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 8px;
-      border-bottom: 3px solid var(--teal);
     }
 
     .slide-badge {
       background: var(--teal);
       color: #fff;
-      padding: 3px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: 0.85rem;
       font-weight: 700;
     }
 
-    .slide-head h2 {
+    .slide-title {
       margin: 0;
-      font-size: 1.12rem;
+      font-size: 1.15rem;
       font-weight: 700;
     }
 
     .slide-body {
-      padding: 18px 20px;
+      padding: 18px;
     }
 
-    .section-label {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--teal);
-      margin-bottom: 6px;
+    .explain-box {
+      margin-bottom: 14px;
     }
 
-    .tip-box {
-      background: var(--amber-bg);
-      border: 1px solid #fde68a;
-      border-right: 4px solid var(--amber);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin: 12px 0;
-      font-size: 0.94rem;
-      color: #78350f;
+    .explain-box h4,
+    .note-box h4,
+    .example-box h4,
+    .mini-test h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
     }
 
-    .answer-highlight {
-      background: var(--green-bg);
-      border: 1px solid #86efac;
-      color: #14532d;
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin: 10px 0;
-      font-weight: 700;
+    .note-box {
+      background: var(--note-bg);
+      border-right: 5px solid var(--note-border);
+      padding: 11px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
     }
 
-    table {
+    .example-box {
+      background: #f0f7fb;
+      border-right: 5px solid var(--blue);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    table.data-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
-      font-size: 0.93rem;
-      overflow-x: auto;
+      margin: 10px 0;
+      font-size: 0.94rem;
+      direction: ltr;
     }
 
-    th, td {
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      text-align: center;
-    }
-
-    th {
+    table.data-table th {
       background: var(--navy);
       color: #fff;
+      padding: 8px 10px;
+      text-align: center;
+      border: 1px solid #2b455c;
     }
 
-    tr:nth-child(even) td {
-      background: #f8fafc;
+    table.data-table td {
+      padding: 7px 10px;
+      text-align: center;
+      border: 1px solid var(--border);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
     }
 
-    .quiz-box {
-      margin-top: 16px;
-      background: var(--teal-soft);
-      border: 1px solid #bae6fd;
-      border-radius: 12px;
-      padding: 14px 16px;
+    table.data-table tr:nth-child(even) td {
+      background: #f6fafc;
     }
 
-    .quiz-title {
+    .mini-test {
+      background: #f8fbfd;
+      border: 2px dashed #9fc5d8;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .mini-test p.q-text {
+      margin: 0 0 10px;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 8px;
+    }
+
+    .mini-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .mini-opt {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .quiz-q {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #0f172a;
-    }
-
-    .options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    .opt-btn {
-      background: #fff;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 10px 12px;
-      text-align: right;
+    .mini-opt:hover {
+      border-color: var(--teal);
+      background: #eef9fa;
+    }
+
+    .btn-check-mini {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.94rem;
-      font-weight: 600;
-      color: var(--text);
-      transition: 0.15s;
     }
 
-    .opt-btn:hover:not(:disabled) {
-      border-color: var(--teal);
-      background: #f0fdfa;
+    .btn-check-mini:hover {
+      background: var(--teal-dark);
     }
 
-    .opt-btn.correct {
-      background: var(--green-bg);
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .opt-btn.wrong {
-      background: var(--red-bg);
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .opt-btn:disabled {
-      cursor: default;
-    }
-
-    .feedback {
+    .mini-feedback {
       margin-top: 10px;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 8px;
-      font-size: 0.92rem;
       font-weight: 600;
       display: none;
     }
 
-    .feedback.show {
+    .mini-feedback.ok {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: #105d35;
+    }
+
+    .mini-feedback.bad {
+      display: block;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: #8f1d1d;
+    }
+
+    /* Exam Styling */
+    .exam-intro {
+      background: linear-gradient(135deg, #ffffff, #eef6fb);
+      border: 2px solid var(--blue);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .exam-intro h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+    }
+
+    .exam-part {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(15, 37, 55, 0.05);
+    }
+
+    .exam-part-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 13px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exam-part-header h3 {
+      margin: 0;
+      font-size: 1.12rem;
+    }
+
+    .marks-pill {
+      background: var(--teal);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .exam-q {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exam-q:last-child {
+      border-bottom: none;
+    }
+
+    .exam-q.correct-card {
+      background: #f2fbf6;
+      border-right: 6px solid var(--success-border);
+    }
+
+    .exam-q.wrong-card {
+      background: #fff5f5;
+      border-right: 6px solid var(--error-border);
+    }
+
+    .exam-q-title {
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q-mark-tag {
+      font-size: 0.85rem;
+      background: #eaf2f8;
+      color: var(--blue);
+      padding: 2px 9px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    .exam-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 9px;
+    }
+
+    .exam-opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f9fbfd;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .exam-opt:hover {
+      border-color: var(--teal);
+      background: #eef9fa;
+    }
+
+    .exam-input {
+      width: 100%;
+      max-width: 340px;
+      padding: 10px 14px;
+      font-size: 1.05rem;
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+      border: 2px solid #b8cddb;
+      border-radius: 9px;
+      direction: ltr;
+      text-align: center;
+      outline: none;
+    }
+
+    .exam-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14, 154, 167, 0.16);
+    }
+
+    .exam-feedback {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.94rem;
+      display: none;
+    }
+
+    .exam-feedback.show-ok {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: #0e5932;
+    }
+
+    .exam-feedback.show-bad {
+      display: block;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: #8c1919;
+    }
+
+    .exam-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 24px 0;
+    }
+
+    .btn-submit-exam {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 6px 18px rgba(14, 154, 167, 0.3);
+    }
+
+    .btn-submit-exam:hover {
+      opacity: 0.94;
+      transform: translateY(-1px);
+    }
+
+    .btn-reset-exam {
+      background: #fff;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .score-banner {
+      display: none;
+      background: linear-gradient(135deg, var(--navy), #16486e);
+      color: #fff;
+      border-radius: 16px;
+      padding: 24px 18px;
+      text-align: center;
+      margin-bottom: 26px;
+      border: 4px solid var(--teal);
+      box-shadow: 0 10px 25px rgba(15, 37, 55, 0.2);
+    }
+
+    .score-banner.visible {
       display: block;
     }
 
-    .feedback.ok {
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid #86efac;
-    }
-
-    .feedback.bad {
-      background: var(--red-bg);
-      color: var(--red);
-      border: 1px solid #fca5a5;
-    }
-
-    .btn-reset {
-      background: var(--teal);
-      color: #fff;
-      border: none;
-      padding: 7px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.86rem;
-    }
-
-    .btn-reset:hover {
-      opacity: 0.9;
-    }
-
-    ul {
+    .score-big {
+      font-size: 2.7rem;
+      font-weight: 900;
+      color: #5eead4;
       margin: 6px 0;
-      padding-right: 20px;
     }
 
-    li {
-      margin-bottom: 5px;
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
     }
 
-    @media (max-width: 600px) {
-      .slide-body { padding: 14px; }
-      .slide-head { padding: 12px 14px; }
+    .score-sub {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
-    <div class="header-title">
-      <h1>Digital Logic Design — وانا ٢: سیستەمێ ژماران و گوهۆڕین</h1>
-      <p>پوختەیا هەمی ٢٨ سلایدان ب بادینی + ئەزموون ل سەر هەر سلایدەکی</p>
-    </div>
-    <div class="stats-bar">
-      <div class="stat-pill">ئەنجام: <span id="scoreText">0 / 28</span></div>
-      <div class="stat-pill">بەرسڤدای: <span id="answeredText">0 / 28</span></div>
-      <button class="btn-reset" onclick="resetQuiz()">ئەزموونێ ژ نوو دەستپێبکە</button>
-    </div>
-  </div>
+  <h1>دیزاینێ لۆجیکێ دیجیتاڵى — وانەیا ٠٢: سیستەمێن ژمارەیان و گوهۆڕین</h1>
+  <p>شروڤەکرنا تەمام یا هەمی ٢٨ سلایدان ب بادینى + تاقیکردنا هەر سلایدەکى + ئەزموونا میدترێم لسەر ١٠٠ نمرەیان</p>
 </header>
+
+<div class="nav-bar">
+  <button class="nav-btn active" id="tab-slides-btn" onclick="switchTab('slides')">📚 شروڤەکرنا هەمی سلایدان (٢٨ سلاید)</button>
+  <button class="nav-btn exam-tab" id="tab-exam-btn" onclick="switchTab('exam')">📝 ئەزموونا میدترێم (١٠٠ نمرە)</button>
+</div>
 
 <div class="container">
 
-  <div class="nav-card">
-    <div class="nav-title">
-      <span>هەڵبژارتنا سلایدی (ب زوویی بچە هەر سلایدەکی):</span>
-      <span style="font-size:0.84rem; color:var(--muted);">کەسک = ڕاست | سوور = خەلەت</span>
+  <!-- ==================== SECTION 1: ALL 28 SLIDES ==================== -->
+  <div id="slides-view" class="section-view active">
+    <div class="jump-box">
+      <h3>دەروازەیا ب لەز بۆ هەمی ٢٨ سلایدان (پەڕێن PDF):</h3>
+      <div class="jump-links">
+        <a href="#slide-1">سلاید ١</a><a href="#slide-2">سلاید ٢</a><a href="#slide-3">سلاید ٣</a><a href="#slide-4">سلاید ٤</a>
+        <a href="#slide-5">سلاید ٥</a><a href="#slide-6">سلاید ٦</a><a href="#slide-7">سلاید ٧</a><a href="#slide-8">سلاید ٨</a>
+        <a href="#slide-9">سلاید ٩</a><a href="#slide-10">سلاید ١٠</a><a href="#slide-11">سلاید ١١</a><a href="#slide-12">سلاید ١٢</a>
+        <a href="#slide-13">سلاید ١٣</a><a href="#slide-14">سلاید ١٤</a><a href="#slide-15">سلاید ١٥</a><a href="#slide-16">سلاید ١٦</a>
+        <a href="#slide-17">سلاید ١٧</a><a href="#slide-18">سلاید ١٨</a><a href="#slide-19">سلاید ١٩</a><a href="#slide-20">سلاید ٢٠</a>
+        <a href="#slide-21">سلاید ٢١</a><a href="#slide-22">سلاید ٢٢</a><a href="#slide-23">سلاید ٢٣</a><a href="#slide-24">سلاید ٢٤</a>
+        <a href="#slide-25">سلاید ٢٥</a><a href="#slide-26">سلاید ٢٦</a><a href="#slide-27">سلاید ٢٧</a><a href="#slide-28">سلاید ٢٨</a>
+      </div>
     </div>
-    <div class="slide-pills" id="slideNav"></div>
+
+    <!-- SLIDE 1 -->
+    <div class="slide-card" id="slide-1">
+      <div class="slide-header">
+        <h3 class="slide-title">١. پەڕێ سەرەکى — ناڤونیشانێ وانەیێ (Lecture 02: Number Systems and Conversions)</h3>
+        <span class="slide-badge">پەڕێ ١ ژ ٢٨</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ سلایدە دەستپێکا وانەیا دووێ یە ژ بابەتێ <strong>دیزاینێ لۆجیکێ دیجیتاڵى (Digital Logic Design)</strong> ل پەیمانگەها تەکنیکى ژ لایێ مامۆستا <strong>رەدێر ئاڤدەل ساڵح (Redeer Avdal Saleh)</strong>. بابەتێ سەرەکى بریتییە ژ ناسینا سیستەمێن ژمارەیان (باینەری، هەشتکى، دەهى، شازدەهى) و ڕێکێن گوهۆڕینا ژمارەیان ژ سیستەمەکى بۆ سیستەمەکێ دیتر.</p>
+        </div>
+        <div class="note-box">
+          <h4>تێبینى:</h4>
+          <p>ژبەر کو کۆمپیوتەر و ئامیرێن دیجیتاڵى بتنێ دکارن ب سیگنالێن کارەبایى (هەبوون = 1 و نەبوون = 0) کار بکەن، لەوڕا تێگەهشتنا گوهۆڕینا ژمارەیان بنەمایێ سەرەکى یێ هەمی وانەیێن داهاتى یە.</p>
+        </div>
+        <div class="mini-test" id="mini-1">
+          <h4>تاقیکردنا سلایدێ ١:</h4>
+          <p class="q-text">بابەتێ سەرەکى یێ وانەیا ٠٢ (Lecture 02) چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m1" value="a"> سیستەمێن ژمارەیان و گوهۆڕینا وان</label>
+            <label class="mini-opt"><input type="radio" name="m1" value="b"> دەرگەهێن لۆجیکى بتنێ (Logic Gates)</label>
+            <label class="mini-opt"><input type="radio" name="m1" value="c"> فلیپ فلۆپ و کۆنتەر (Flip-Flops)</label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(1, 'a', 'دروستە! ناڤونیشانێ وانەیا ٠٢ بریتییە ژ Number Systems and Conversions.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide-card" id="slide-2">
+      <div class="slide-header">
+        <h3 class="slide-title">٢. دیگیتێن ڕێپێدایى د هەر بنچینەیەکێ دا (Digits allowed in each base)</h3>
+        <span class="slide-badge">پەڕێ ٢ (سلاید 04)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>د ڤى سلایدى دا ئەم فێرى ٤ سیستەمێن سەرەکى یێن ژمارەیان دبین و کا کیژ ژمارە و پیت د ناڤ هەر ئێکى دا د دروستن:</p>
+          <table class="data-table">
+            <tr><th>Base (بنچینە)</th><th>Name (ناڤ)</th><th>Valid digits (دیگیتێن دروست)</th><th>Example (نموونە)</th></tr>
+            <tr><td>2</td><td>Binary (دووکى)</td><td>0, 1</td><td>101101₂</td></tr>
+            <tr><td>8</td><td>Octal (هەشتکى)</td><td>0 to 7</td><td>745₈</td></tr>
+            <tr><td>10</td><td>Decimal (دەهى)</td><td>0 to 9</td><td>983₁₀</td></tr>
+            <tr><td>16</td><td>Hexadecimal (شازدەهى)</td><td>0–9, A–F</td><td>B3F₁₆</td></tr>
+          </table>
+        </div>
+        <div class="note-box">
+          <h4>تێبینى یا زێڕین بۆ ئەزموونێ:</h4>
+          <p>هەردەم هەر دیگیتەک د ناڤ ژمارێ دا دڤێت ژ بنچینەى (Base) **بچویکتر** بیت! بۆ نموونە د بنچینە ٨ دا ژمارا ٨ یان ٩ نە دروستن، و د بنچینە ٢ دا ژمارا ٢ نە دروستە. د شازدەهى دا پیتێن <span class="math-ltr">A=10, B=11, C=12, D=13, E=14, F=15</span> بکاردهێن.</p>
+        </div>
+        <div class="mini-test" id="mini-2">
+          <h4>تاقیکردنا سلایدێ ٢:</h4>
+          <p class="q-text">کیژ ژ ڤان ژمارەیان د سیستەمێ هەشتکى (Octal - Base 8) دا یا **دروستە**؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m2" value="a"> <span class="math-ltr">745₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m2" value="b"> <span class="math-ltr">785₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m2" value="c"> <span class="math-ltr">912₈</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(2, 'a', 'دروستە! د هەشتکى دا بتنێ ژمارێن ٠ تا ٧ دروستن، و 745₈ هەمی دیگیتێن وێ ژ ٨ بچویکترن.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide-card" id="slide-3">
+      <div class="slide-header">
+        <h3 class="slide-title">٣. تێگەهشتنا به‌هایێ جهى (Understanding positional value)</h3>
+        <span class="slide-badge">پەڕێ ٣ (سلاید 05)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>د سیستەمێن ژمارەیان دا، به‌هایێ هەر دیگیتەکێ گرێدایى جهێ وێ یە د ناڤ ژمارێ دا. د سیستەمێ باینەری دا، هەر پێنگاڤەک ژ لایێ ڕاستێ بەرەف چەپێ به‌هایێ وێ دوجار دبتەڤە (چونکی بنچینە ٢ یە): <span class="math-ltr">1, 2, 4, 8, 16, 32...</span></p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى:</h4>
+          <p>د ژمارا باینەری <span class="math-ltr">1011₂</span> دا، به‌هایێ جهێن وێ ژ ڕاست بۆ چەپ بریتییە ژ: <span class="math-ltr">1, 2, 4, 8</span>. ئانکو بیتا ئێکێ یا ڕاستێ (1) ب ٢⁰=1، یا دووێ (1) ب ٢¹=2، یا سێیێ (0) ب ٢²=4، و یا چوارێ (1) ب ٢³=8 دهێتە هژمارتن.</p>
+        </div>
+        <div class="mini-test" id="mini-3">
+          <h4>تاقیکردنا سلایدێ ٣:</h4>
+          <p class="q-text">د ژمارا <span class="math-ltr">1011₂</span> دا، به‌هایێ دیگیتا لایێ چەپێ (یا ئێکێ ژ چەپێ) چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m3" value="a"> <span class="math-ltr">4</span></label>
+            <label class="mini-opt"><input type="radio" name="m3" value="b"> <span class="math-ltr">8</span></label>
+            <label class="mini-opt"><input type="radio" name="m3" value="c"> <span class="math-ltr">16</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(3, 'b', 'دروستە! ژ ڕاستێ بۆ چەپێ به‌ها بریتیینە ژ 1، 2، 4، 8؛ لەوڕا یا چەپێ 8 یە.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide-card" id="slide-4">
+      <div class="slide-header">
+        <h3 class="slide-title">٤. نڤیسینا جهى د دەهى دا (Worked Example: Positional notation: decimal)</h3>
+        <span class="slide-badge">پەڕێ ٤ (سلاید 06)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ زانینا چەوانیا کارکرنا جهێ ژمارەیان، ئەم ژمارا دەهى ب هێزێن ١٠ ڤەدکەین. دیگیتا لایێ ڕاستێ ب <span class="math-ltr">10⁰ = 1</span>، دیگیتا دویف دا ب <span class="math-ltr">10¹ = 10</span>، و یا سێیێ ب <span class="math-ltr">10² = 100</span> دهێتە جارانکرن.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — شروڤەکرنا <span class="math-ltr">352₁₀</span>:</h4>
+          <p>١) <span class="math-ltr">3 × 10² = 300</span><br>٢) <span class="math-ltr">5 × 10¹ = 50</span><br>٣) <span class="math-ltr">2 × 10⁰ = 2</span><br>ئەنجام: <span class="math-ltr">352₁₀ = 300 + 50 + 2</span></p>
+        </div>
+        <div class="mini-test" id="mini-4">
+          <h4>تاقیکردنا سلایدێ ٤:</h4>
+          <p class="q-text">د شروڤەکرنا <span class="math-ltr">352₁₀</span> دا، جارانکرنا <span class="math-ltr">5 × 10¹</span> دکەتە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m4" value="a"> <span class="math-ltr">5</span></label>
+            <label class="mini-opt"><input type="radio" name="m4" value="b"> <span class="math-ltr">50</span></label>
+            <label class="mini-opt"><input type="radio" name="m4" value="c"> <span class="math-ltr">500</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(4, 'b', 'دروستە! چونکی 10¹ = 10 و 5 × 10 = 50.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide-card" id="slide-5">
+      <div class="slide-header">
+        <h3 class="slide-title">٥. گوهۆڕینا باینەری بۆ دەهى (Worked Example: Binary to decimal)</h3>
+        <span class="slide-badge">پەڕێ ٥ (سلاید 07)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ گوهۆڕینا هەر ژمارەکا باینەری بۆ دەهى، ئەم سێ پێنگاڤان دهاڤێژین:<br>
+          ١) به‌هایێ جهێن باینەری ژ ڕاستێ بۆ چەپێ بنڤیسە (<span class="math-ltr">1, 2, 4, 8, 16, 32...</span>).<br>
+          ٢) هەر دیگیتەکا باینەری ب به‌هایێ جهێ وێ جاران بکە.<br>
+          ٣) ئەنجامان کۆم بکە (بتنێ یێن ١ ل بن هەبن حساب دبن، یێن سفر هەر دبنە ٠).</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">101101₂</span>:</h4>
+          <p><span class="math-ltr">1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1 = 32 + 8 + 4 + 1 = 45₁₀</span></p>
+        </div>
+        <div class="mini-test" id="mini-5">
+          <h4>تاقیکردنا سلایدێ ٥:</h4>
+          <p class="q-text">ژمارا باینەری <span class="math-ltr">101101₂</span> د دەهى دا دکەتە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m5" value="a"> <span class="math-ltr">43₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m5" value="b"> <span class="math-ltr">45₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m5" value="c"> <span class="math-ltr">53₁₀</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(5, 'b', 'دروستە! 32 + 8 + 4 + 1 = 45₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide-card" id="slide-6">
+      <div class="slide-header">
+        <h3 class="slide-title">٦. جدولێ به‌هایێ جهى یێ باینەری (Binary place-value chart)</h3>
+        <span class="slide-badge">پەڕێ ٦ (سلاید 08)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ جدولە ب شێوەیەکێ ڕوون نیشا ددەت چەوا هەر بیتەک (Bit position) ژ سفر دەستپێدکەت و به‌هایێ وێ (Weight = 2ⁿ) چەندە بۆ ژمارا <span class="math-ltr">101101₂</span>:</p>
+          <table class="data-table">
+            <tr><th>Bit position</th><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+            <tr><th>Weight (2ⁿ)</th><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
+            <tr><th>Binary digit</th><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+            <tr><th>Contribution</th><td>32</td><td>0</td><td>8</td><td>4</td><td>0</td><td>1</td></tr>
+          </table>
+        </div>
+        <div class="note-box">
+          <h4>تێبینى:</h4>
+          <p>هشيار بە د ژمارتنا (Bit position) دا ژ **٠** دەستپێدکەت ل لایێ ڕاستێ (Bit 0)، نەک ژ ١! لەوڕا Bit 5 به‌هایێ وێ <span class="math-ltr">2⁵ = 32</span> یە.</p>
+        </div>
+        <div class="mini-test" id="mini-6">
+          <h4>تاقیکردنا سلایدێ ٦:</h4>
+          <p class="q-text">ل دویڤ جدولى، به‌هایێ (Weight) یێ بیتا جهێ ٥ (Bit position 5) چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m6" value="a"> <span class="math-ltr">16</span></label>
+            <label class="mini-opt"><input type="radio" name="m6" value="b"> <span class="math-ltr">32</span></label>
+            <label class="mini-opt"><input type="radio" name="m6" value="c"> <span class="math-ltr">64</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(6, 'b', 'دروستە! Bit position 5 یەکسانە ب 2⁵ = 32.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-6"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide-card" id="slide-7">
+      <div class="slide-header">
+        <h3 class="slide-title">٧. نموونەکا دی یا گوهۆڕینا باینەری بۆ دەهى (Another binary-to-decimal example)</h3>
+        <span class="slide-badge">پەڕێ ٧ (سلاید 09)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ ژمارەیێن ٨-بیتى (Byte)، به‌هایێ جهێن وێ ژ ڕاست بۆ چەپ بریتیینە ژ: <span class="math-ltr">1, 2, 4, 8, 16, 32, 64, 128</span>. پێدڤى ناکەت یێن سفر جاران بکەى، بتنێ ئەو جهێن ژمارا **١** تێدا نە کۆم بکە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">11001010₂</span>:</h4>
+          <p>جهێن ژمارا ١ تێدا: <span class="math-ltr">128 + 64 + 8 + 2 = 202₁₀</span></p>
+        </div>
+        <div class="mini-test" id="mini-7">
+          <h4>تاقیکردنا سلایدێ ٧:</h4>
+          <p class="q-text">ژمارا باینەری <span class="math-ltr">11001010₂</span> یەکسانە ب کیژ کۆمکرنا به‌هایان؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m7" value="a"> <span class="math-ltr">128 + 64 + 8 + 2</span></label>
+            <label class="mini-opt"><input type="radio" name="m7" value="b"> <span class="math-ltr">128 + 32 + 8 + 2</span></label>
+            <label class="mini-opt"><input type="radio" name="m7" value="c"> <span class="math-ltr">64 + 32 + 8 + 4</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(7, 'a', 'دروستە! کۆما وان دکەتە 202₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-7"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide-card" id="slide-8">
+      <div class="slide-header">
+        <h3 class="slide-title">٨. دەهى بۆ باینەری ب ڕێکا دابەشکرنا دووبارە (Decimal to binary: repeated division)</h3>
+        <span class="slide-badge">پەڕێ ٨ (سلاید 10)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ ڕێکە گەلەک ب ناڤودەنگە: ژمارا دەهى ب سەر **٢** دا دابەش بکە هەتا ئەنجام (Quotient) دبیتە **٠**. هەر جارێ ماوەى (Remainder: 0 یان 1) بنڤیسە، ل دوماهیێ ماوەکان **ژ بن بۆ سەر (Bottom to top)** بخوینە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">25₁₀</span> بۆ باینەری:</h4>
+          <p><span class="math-ltr">25 ÷ 2 = 12 R 1</span><br>
+             <span class="math-ltr">12 ÷ 2 = 6 R 0</span><br>
+             <span class="math-ltr">6 ÷ 2 = 3 R 0</span><br>
+             <span class="math-ltr">3 ÷ 2 = 1 R 1</span><br>
+             <span class="math-ltr">1 ÷ 2 = 0 R 1</span><br>
+             ژ بن بۆ سەر: <span class="math-ltr">25₁₀ = 11001₂</span></p>
+        </div>
+        <div class="mini-test" id="mini-8">
+          <h4>تاقیکردنا سلایدێ ٨:</h4>
+          <p class="q-text">د گوهۆڕینا <span class="math-ltr">25₁₀</span> بۆ باینەری دا ب ڕێکا دابەشکرنێ، ئەنجام چ دەرکەفت؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m8" value="a"> <span class="math-ltr">10011₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m8" value="b"> <span class="math-ltr">11001₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m8" value="c"> <span class="math-ltr">11011₂</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(8, 'b', 'دروستە! ماوە ژ بن بۆ سەر دبنە 11001₂.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-8"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide-card" id="slide-9">
+      <div class="slide-header">
+        <h3 class="slide-title">٩. دەهى بۆ باینەری ب ڕێکا هێزێن دووێ (Decimal to binary: powers of two)</h3>
+        <span class="slide-badge">پەڕێ ٩ (سلاید 11)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ڕێکا دووێ یا ب لەز (بێ دابەشکرن): ل مەزنترین هێزا ٢ بگەڕێ کو ژ ژمارا مە بچویکتر یان یەکسان بیت، لێ بێخە (ژێ ببە)، پاشان بۆ ماوەى ژى هەمان کارى بکە هەتا دگەهییە سفر. ئەو هێزێن تە بکارهیناین بکە **1** و یێن دی هەمییان بکە **0**.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">45₁₀</span>:</h4>
+          <p>١) مەزنترین هێز ≤ 45 بریتییە ژ <span class="math-ltr">32</span> (ماوە: 13).<br>
+             ٢) پاش <span class="math-ltr">8</span> بکاردهینین (ماوە: 5)، پاش <span class="math-ltr">4</span> (ماوە: 1)، پاش <span class="math-ltr">1</span>.<br>
+             ٣) جهێن 32, 8, 4, 1 دبنە 1، و جهێن 16 و 2 دبنە 0 ⬅️ <span class="math-ltr">45₁₀ = 101101₂</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-9">
+          <h4>تاقیکردنا سلایدێ ٩:</h4>
+          <p class="q-text">بۆ گوهۆڕینا <span class="math-ltr">45₁₀</span> ب ڕێکا هێزێن ٢، مەزنترین هێزا ٢ یا ژ ٤٥ بچویکتر یان یەکسان چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m9" value="a"> <span class="math-ltr">16</span></label>
+            <label class="mini-opt"><input type="radio" name="m9" value="b"> <span class="math-ltr">32</span></label>
+            <label class="mini-opt"><input type="radio" name="m9" value="c"> <span class="math-ltr">64</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(9, 'b', 'دروستە! چونکی 64 ژ 45 مەزنترە، لەوڕا 32 مەزنترین هێزە.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-9"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 -->
+    <div class="slide-card" id="slide-10">
+      <div class="slide-header">
+        <h3 class="slide-title">١٠. نموونەکا سادە: دەهى ١٣ = باینەری ١١٠١ (Decimal 13 = binary 1101)</h3>
+        <span class="slide-badge">پەڕێ ١٠ (سلاید 12)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ ژمارەیێن ٤-بیتى، ئەم هەردەم ژمارەیێن <span class="math-ltr">8, 4, 2, 1</span> ل بەر چاڤێ خۆ دگرین. ب کۆمکرنا وان دکارین هەر ژمارەکێ ژ ٠ تا ١٥ ب لەز بکەینە باینەری.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى:</h4>
+          <p><span class="math-ltr">13 = 8 + 4 + 1</span> (ئانکو جهێ 8=1، جهێ 4=1، جهێ 2=0، جهێ 1=1). کەواتە شێوێ باینەری دبیتە <span class="math-ltr">1 1 0 1</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-10">
+          <h4>تاقیکردنا سلایدێ ١٠:</h4>
+          <p class="q-text">ژمارا دەهى <span class="math-ltr">13</span> ب کۆمکرنا کیژ هێزێن باینەری دروست دبیت؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m10" value="a"> <span class="math-ltr">8 + 4 + 1</span></label>
+            <label class="mini-opt"><input type="radio" name="m10" value="b"> <span class="math-ltr">8 + 4 + 2</span></label>
+            <label class="mini-opt"><input type="radio" name="m10" value="c"> <span class="math-ltr">8 + 2 + 1</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(10, 'a', 'دروستە! 8 + 4 + 1 = 13، ئانکو 1101₂.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-10"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11 -->
+    <div class="slide-card" id="slide-11">
+      <div class="slide-header">
+        <h3 class="slide-title">١١. هەشتکى بۆ دەهى (Worked Example: Octal to decimal)</h3>
+        <span class="slide-badge">پەڕێ ١١ (سلاید 13)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ گوهۆڕینا ژمارەکا هەشتکى (Base 8) بۆ دەهى، هەر دیگیتەکێ ب هێزێن ٨ یێن جهێ وێ (<span class="math-ltr">8⁰=1, 8¹=8, 8²=64, 8³=512</span>) جاران بکە و پاشان کۆم بکە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">157₈</span>:</h4>
+          <p>١) به‌هایێ جهێن وێ: <span class="math-ltr">8² (64), 8¹ (8), 8⁰ (1)</span>.<br>
+             ٢) جارانکرن: <span class="math-ltr">1×64 + 5×8 + 7×1</span><br>
+             ٣) کۆمکرن: <span class="math-ltr">64 + 40 + 7 = 111₁₀</span></p>
+        </div>
+        <div class="mini-test" id="mini-11">
+          <h4>تاقیکردنا سلایدێ ١١:</h4>
+          <p class="q-text">ئەنجامێ گوهۆڕینا <span class="math-ltr">157₈</span> بۆ دەهى چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m11" value="a"> <span class="math-ltr">109₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m11" value="b"> <span class="math-ltr">111₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m11" value="c"> <span class="math-ltr">121₁₀</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(11, 'b', 'دروستە! 64 + 40 + 7 = 111₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-11"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12 -->
+    <div class="slide-card" id="slide-12">
+      <div class="slide-header">
+        <h3 class="slide-title">١٢. دەهى بۆ هەشتکى (Worked Example: Decimal to octal)</h3>
+        <span class="slide-badge">پەڕێ ١٢ (سلاید 14)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ گوهۆڕینا دەهى بۆ هەشتکى، هەمان ڕێکا دابەشکرنا دووبارە بکاردهینین، بەلێ ئەڤ جارە لسەر **٨** دابەش دکەین هەتا ئەنجام دبیتە ٠، و ماوەکان ژ بن بۆ سەر دخوینین.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">83₁₀</span> بۆ هەشتکى:</h4>
+          <p><span class="math-ltr">83 ÷ 8 = 10 R 3</span><br>
+             <span class="math-ltr">10 ÷ 8 = 1 R 2</span><br>
+             <span class="math-ltr">1 ÷ 8 = 0 R 1</span><br>
+             ژ بن بۆ سەر: <span class="math-ltr">83₁₀ = 123₈</span></p>
+        </div>
+        <div class="mini-test" id="mini-12">
+          <h4>تاقیکردنا سلایدێ ١٢:</h4>
+          <p class="q-text">ژمارا دەهى <span class="math-ltr">83₁₀</span> د سیستەمێ هەشتکى دا دبیتە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m12" value="a"> <span class="math-ltr">321₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m12" value="b"> <span class="math-ltr">123₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m12" value="c"> <span class="math-ltr">132₈</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(12, 'b', 'دروستە! ماوێن دابەشکرنێ ژ بن بۆ سەر دبنە 123₈.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-12"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13 -->
+    <div class="slide-card" id="slide-13">
+      <div class="slide-header">
+        <h3 class="slide-title">١٣. شازدەهى بۆ دەهى (Worked Example: Hexadecimal to decimal)</h3>
+        <span class="slide-badge">پەڕێ ١٣ (سلاید 15)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>د سیستەمێ شازدەهى (Base 16) دا، بەرى هەر تشتەکى پیتان بگوهۆڕە بۆ به‌هایێن وان یێن دەهى (<span class="math-ltr">A=10..F=15</span>)، پاشان هەر دیگیتەکێ ب هێزا ١٦ یێ جهێ وێ (<span class="math-ltr">16⁰=1, 16¹=16, 16²=256</span>) جاران بکە و کۆم بکە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">2F₁₆</span>:</h4>
+          <p>١) پیتا <span class="math-ltr">F = 15</span>.<br>
+             ٢) <span class="math-ltr">2×16¹ + 15×16⁰ = 32 + 15 = 47₁₀</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-13">
+          <h4>تاقیکردنا سلایدێ ١٣:</h4>
+          <p class="q-text">د گوهۆڕینا <span class="math-ltr">2F₁₆</span> بۆ دەهى دا، پیتا <span class="math-ltr">F</span> نوێنەراتیا کیژ ژمارا دەهى دکەت؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m13" value="a"> <span class="math-ltr">14</span></label>
+            <label class="mini-opt"><input type="radio" name="m13" value="b"> <span class="math-ltr">15</span></label>
+            <label class="mini-opt"><input type="radio" name="m13" value="c"> <span class="math-ltr">16</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(13, 'b', 'دروستە! F = 15، لەوڕا 2×16 + 15 = 47₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-13"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14 -->
+    <div class="slide-card" id="slide-14">
+      <div class="slide-header">
+        <h3 class="slide-title">١٤. جدولێ پێداچوونا دیگیتێن شازدەهى (Hexadecimal digit reference)</h3>
+        <span class="slide-badge">پەڕێ ١٤ (سلاید 16)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ جدولە پەیوەندیا د ناڤبەرا شازدەهى (0–F)، دەهى (0–15)، و ٤-بیتا باینەری (0000–1111) نیشا ددەت. گەلەک گرنگە ژ بەر بکەى یان ب ڕێکا <span class="math-ltr">8-4-2-1</span> دەرئێخى:</p>
+          <table class="data-table">
+            <tr><th>Hex</th><th>Dec</th><th>4-bit Bin</th><th>Hex</th><th>Dec</th><th>4-bit Bin</th></tr>
+            <tr><td>0</td><td>0</td><td>0000</td><td>8</td><td>8</td><td>1000</td></tr>
+            <tr><td>1</td><td>1</td><td>0001</td><td>9</td><td>9</td><td>1001</td></tr>
+            <tr><td>2</td><td>2</td><td>0010</td><td>A</td><td>10</td><td>1010</td></tr>
+            <tr><td>3</td><td>3</td><td>0011</td><td>B</td><td>11</td><td>1011</td></tr>
+            <tr><td>4</td><td>4</td><td>0100</td><td>C</td><td>12</td><td>1100</td></tr>
+            <tr><td>5</td><td>5</td><td>0101</td><td>D</td><td>13</td><td>1101</td></tr>
+            <tr><td>6</td><td>6</td><td>0110</td><td>E</td><td>14</td><td>1110</td></tr>
+            <tr><td>7</td><td>7</td><td>0111</td><td>F</td><td>15</td><td>1111</td></tr>
+          </table>
+        </div>
+        <div class="mini-test" id="mini-14">
+          <h4>تاقیکردنا سلایدێ ١٤:</h4>
+          <p class="q-text">نوێنەراتیا ٤-بیتا باینەری یا پیتا شازدەهى <span class="math-ltr">D</span> (کو ١٣ یە) چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m14" value="a"> <span class="math-ltr">1011</span></label>
+            <label class="mini-opt"><input type="radio" name="m14" value="b"> <span class="math-ltr">1101</span></label>
+            <label class="mini-opt"><input type="radio" name="m14" value="c"> <span class="math-ltr">1110</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(14, 'b', 'دروستە! D = 13 = 8 + 4 + 1 = 1101.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-14"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15 -->
+    <div class="slide-card" id="slide-15">
+      <div class="slide-header">
+        <h3 class="slide-title">١٥. دەهى بۆ شازدەهى (Worked Example: Decimal to hexadecimal)</h3>
+        <span class="slide-badge">پەڕێ ١٥ (سلاید 17)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بۆ گوهۆڕینا دەهى بۆ شازدەهى، ژمارێ لسەر **١٦** دابەش بکە هەتا ئەنجام دبیتە ٠. ئەگەر ماوەک د ناڤبەرا ١٠ تا ١٥ دا بوو، بگوهۆڕە بۆ پیتا گونجایى (<span class="math-ltr">A–F</span>)، و ماوەکان ژ بن بۆ سەر بخوینە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">254₁₀</span>:</h4>
+          <p>١) <span class="math-ltr">254 ÷ 16 = 15</span> ماوە <span class="math-ltr">14 (E)</span>.<br>
+             ٢) <span class="math-ltr">15 ÷ 16 = 0</span> ماوە <span class="math-ltr">15 (F)</span>.<br>
+             ٣) ژ بن بۆ سەر: <span class="math-ltr">254₁₀ = FE₁₆</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-15">
+          <h4>تاقیکردنا سلایدێ ١٥:</h4>
+          <p class="q-text">ئەنجامێ گوهۆڕینا <span class="math-ltr">254₁₀</span> بۆ شازدەهى چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m15" value="a"> <span class="math-ltr">EF₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m15" value="b"> <span class="math-ltr">FE₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m15" value="c"> <span class="math-ltr">FF₁₆</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(15, 'b', 'دروستە! ماوە 14(E) ل ڕاستێ و 15(F) ل چەپێ ⬅️ FE₁₆.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-15"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16 -->
+    <div class="slide-card" id="slide-16">
+      <div class="slide-header">
+        <h3 class="slide-title">١٦. باینەری بۆ هەشتکى: گرۆپێن ٣-بیتى (Binary to octal: groups of 3)</h3>
+        <span class="slide-badge">پەڕێ ١٦ (سلاید 18)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>چونکی <span class="math-ltr">2³ = 8</span>، هەر **٣ بیتێن** باینەری یەکسانن ب **١ دیگیتا هەشتکى**! لەوڕا بێى بچییە دەهى، ژ لایێ ڕاستێ ڤە ب سەر گرۆپێن ٣-بیتى دا دابەش بکە و هەر گرۆپەکى بکە ژمارەکا هەشتکى ب ڕێکا <span class="math-ltr">4-2-1</span>.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى:</h4>
+          <p>ژمارا <span class="math-ltr">110101011₂</span> دابەش دکەین: <span class="math-ltr">110 | 101 | 011</span><br>
+             <span class="math-ltr">110 = 6</span> ، <span class="math-ltr">101 = 5</span> ، <span class="math-ltr">011 = 3</span> ⬅️ ئەنجام: <span class="math-ltr">653₈</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-16">
+          <h4>تاقیکردنا سلایدێ ١٦:</h4>
+          <p class="q-text">گرۆپێن باینەری یێن <span class="math-ltr">110 | 101 | 011</span> د هەشتکى دا دبنە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m16" value="a"> <span class="math-ltr">653₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m16" value="b"> <span class="math-ltr">356₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m16" value="c"> <span class="math-ltr">635₈</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(16, 'a', 'دروستە! 110=6، 101=5، 011=3 ⬅️ 653₈.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-16"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17 -->
+    <div class="slide-card" id="slide-17">
+      <div class="slide-header">
+        <h3 class="slide-title">١٧. باینەری بۆ هەشتکى ب زێدەکرنا سفران (Binary to octal with padding)</h3>
+        <span class="slide-badge">پەڕێ ١٧ (سلاید 19)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەگەر ژمارا بیتان ژ ٣ کێمتر بوو ل لایێ چەپێ پشتى گرۆپکرنێ، ئەم سفران (Leading zeros) ل **لایێ چەپێ** زێدە دکەین هەتا ببیتە ٣ بیت (چونکی سفر ل چەپێ به‌هایێ ژمارێ ناگوهۆڕیت).</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">1011011₂</span>:</h4>
+          <p>١) ژ ڕاستێ گرۆپ بکە: <span class="math-ltr">1 | 011 | 011</span><br>
+             ٢) گرۆپێ چەپێ ب سفران تەمام بکە: <span class="math-ltr">001 | 011 | 011</span><br>
+             ٣) هەر گرۆپەکى بگوهۆڕە: <span class="math-ltr">1 | 3 | 3</span> ⬅️ <span class="math-ltr">133₈</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-17">
+          <h4>تاقیکردنا سلایدێ ١٧:</h4>
+          <p class="q-text">پشتى تەمامکرنا <span class="math-ltr">1011011₂</span> ب سفران ل لایێ چەپێ، گرۆپێن وێ چەوا دێ هێنە نڤیسین؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m17" value="a"> <span class="math-ltr">001 | 011 | 011</span></label>
+            <label class="mini-opt"><input type="radio" name="m17" value="b"> <span class="math-ltr">100 | 011 | 011</span></label>
+            <label class="mini-opt"><input type="radio" name="m17" value="c"> <span class="math-ltr">101 | 101 | 100</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(17, 'a', 'دروستە! هەردەم ژ ڕاستێ گرۆپ دکەین و سفران ل چەپێ زێدە دکەین.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-17"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18 -->
+    <div class="slide-card" id="slide-18">
+      <div class="slide-header">
+        <h3 class="slide-title">١٨. باینەری بۆ شازدەهى: گرۆپێن ٤-بیتى (Binary to hex: groups of 4)</h3>
+        <span class="slide-badge">پەڕێ ١٨ (سلاید 20)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>چونکی <span class="math-ltr">2⁴ = 16</span>، هەر **٤ بیتێن** باینەری بەرامبەر **١ دیگیتا شازدەهى** نە. ژ لایێ ڕاستێ ب سەر گرۆپێن ٤-بیتى دا دابەش بکە و ب ڕێکا <span class="math-ltr">8-4-2-1</span> بگوهۆڕە بۆ 0–F.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى:</h4>
+          <p><span class="math-ltr">110110101111₂</span> ⬅️ <span class="math-ltr">1101 | 1010 | 1111</span><br>
+             <span class="math-ltr">1101 = 13 (D)</span> ، <span class="math-ltr">1010 = 10 (A)</span> ، <span class="math-ltr">1111 = 15 (F)</span> ⬅️ ئەنجام: <span class="math-ltr">DAF₁₆</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-18">
+          <h4>تاقیکردنا سلایدێ ١٨:</h4>
+          <p class="q-text">ژمارا باینەری <span class="math-ltr">110110101111₂</span> د شازدەهى دا دبیتە چ؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m18" value="a"> <span class="math-ltr">FAD₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m18" value="b"> <span class="math-ltr">DAF₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m18" value="c"> <span class="math-ltr">CAF₁₆</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(18, 'b', 'دروستە! 1101=D، 1010=A، 1111=F ⬅️ DAF₁₆.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-18"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 19 -->
+    <div class="slide-card" id="slide-19">
+      <div class="slide-header">
+        <h3 class="slide-title">١٩. باینەری بۆ شازدەهى ل گەل گرۆپکرن (Binary to hexadecimal with padding)</h3>
+        <span class="slide-badge">پەڕێ ١٩ (سلاید 21)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>د ڤى سلایدى دا، ئەم ژمارا باینەری ژ ڕاستێ ب سەر ٤-بیتان دا دابەش دکەین. ئەگەر گرۆپێ چەپێ ژ ٤ بیتان کێمتر بوو، ب سفران ل لایێ چەپێ تەمام دکەین (پادینگ). د نموونا سلایدى دا ٨ بیت هەنە لەوڕا ڕێک دبیتە دوو گرۆپێن ٤-بیتى.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">10110110₂</span>:</h4>
+          <p>١) گرۆپ بکە ژ ڕاستێ: <span class="math-ltr">1011 | 0110</span><br>
+             ٢) <span class="math-ltr">1011 = 11 (B)</span><br>
+             ٣) <span class="math-ltr">0110 = 6</span> ⬅️ ئەنجام: <span class="math-ltr">B6₁₆</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-19">
+          <h4>تاقیکردنا سلایدێ ١٩:</h4>
+          <p class="q-text">ژمارا <span class="math-ltr">10110110₂</span> د شازدەهى دا دبیتە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m19" value="a"> <span class="math-ltr">A6₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m19" value="b"> <span class="math-ltr">B6₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m19" value="c"> <span class="math-ltr">C6₁₆</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(19, 'b', 'دروستە! 1011 = B و 0110 = 6 ⬅️ B6₁₆.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-19"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 20 -->
+    <div class="slide-card" id="slide-20">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٠. شازدەهى بۆ باینەری (Worked Example: Hexadecimal to binary)</h3>
+        <span class="slide-badge">پەڕێ ٢٠ (سلاید 22)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>پێچەوانەیا گاڤا بەرێ یە و گەلەک ب ساناهی یە: هەر دیگیتەکا شازدەهى بگوهۆڕە بۆ **٤ بیتێن باینەری ب دروستى** (ئەگەر کێمتر بوو سفران ل چەپێ بنڤیسە بۆ نموونە <span class="math-ltr">3 = 0011</span>) و پاشان پێکڤە گرێبدە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">3A₁₆</span>:</h4>
+          <p>١) <span class="math-ltr">3 = 0011</span><br>
+             ٢) <span class="math-ltr">A (10) = 1010</span><br>
+             ٣) پێکڤە: <span class="math-ltr">00111010₂</span> (یان <span class="math-ltr">111010₂</span> بێی سفرێن دەستپێکێ).</p>
+        </div>
+        <div class="mini-test" id="mini-20">
+          <h4>تاقیکردنا سلایدێ ٢٠:</h4>
+          <p class="q-text">ژمارا شازدەهى <span class="math-ltr">3A₁₆</span> ب ٨ بیتێن باینەری دبیتە چ؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m20" value="a"> <span class="math-ltr">00111010₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m20" value="b"> <span class="math-ltr">00111100₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m20" value="c"> <span class="math-ltr">01011010₂</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(20, 'a', 'دروستە! 3 = 0011 و A = 1010 ⬅️ 00111010₂.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-20"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 21 -->
+    <div class="slide-card" id="slide-21">
+      <div class="slide-header">
+        <h3 class="slide-title">٢١. هەشتکى بۆ باینەری (Worked Example: Octal to binary)</h3>
+        <span class="slide-badge">پەڕێ ٢١ (سلاید 23)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>هەر دیگیتەکا هەشتکى بگوهۆڕە بۆ **٣ بیتێن باینەری ب دروستى** (ب ڕێکا <span class="math-ltr">4-2-1</span>) و پاشان گرۆپان پێکڤە بنڤیسە.</p>
+        </div>
+        <div class="example-box">
+          <h4>نموونە ژ سلایدى — گوهۆڕینا <span class="math-ltr">75₈</span>:</h4>
+          <p><span class="math-ltr">7 = 111</span> ، <span class="math-ltr">5 = 101</span> ⬅️ پێکڤە: <span class="math-ltr">111101₂</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-21">
+          <h4>تاقیکردنا سلایدێ ٢١:</h4>
+          <p class="q-text">ئەنجامێ گوهۆڕینا <span class="math-ltr">75₈</span> بۆ باینەری چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m21" value="a"> <span class="math-ltr">111011₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m21" value="b"> <span class="math-ltr">111101₂</span></label>
+            <label class="mini-opt"><input type="radio" name="m21" value="c"> <span class="math-ltr">101111₂</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(21, 'b', 'دروستە! 7 = 111 و 5 = 101 ⬅️ 111101₂.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-21"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 22 -->
+    <div class="slide-card" id="slide-22">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٢. بەراوردکرنا به‌هایێن یەکسان (Compare equivalent values)</h3>
+        <span class="slide-badge">پەڕێ ٢٢ (سلاید 24)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ جدولە به‌هایێ هەمان ژمارە د هەر چوار سیستەمان دا نیشا ددەت دا کو ئاستێ گەشەکرنا تە لێ ڕوون ببیت:</p>
+          <table class="data-table">
+            <tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hex</th></tr>
+            <tr><td>10</td><td>1010</td><td>12</td><td>A</td></tr>
+            <tr><td>15</td><td>1111</td><td>17</td><td>F</td></tr>
+            <tr><td>16</td><td>10000</td><td>20</td><td>10</td></tr>
+            <tr><td>31</td><td>11111</td><td>37</td><td>1F</td></tr>
+            <tr><td>64</td><td>1000000</td><td>100</td><td>40</td></tr>
+            <tr><td>255</td><td>11111111</td><td>377</td><td>FF</td></tr>
+          </table>
+        </div>
+        <div class="note-box">
+          <h4>تێبینى یا گرنگ:</h4>
+          <p>ژمارا <span class="math-ltr">255₁₀</span> مەزنترین ژمارەیا ٨-بیتى یە (<span class="math-ltr">11111111₂ = 377₈ = FF₁₆</span>). هەروەسا <span class="math-ltr">16₁₀ = 10₁₆</span> و <span class="math-ltr">64₁₀ = 100₈</span> و <span class="math-ltr">15₁₀ = 17₈ = F₁₆</span>.</p>
+        </div>
+        <div class="mini-test" id="mini-22">
+          <h4>تاقیکردنا سلایدێ ٢٢:</h4>
+          <p class="q-text">کیژ ڕێز بەرامبەر ژمارا دەهى <span class="math-ltr">31</span> یە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m22" value="a"> <span class="math-ltr">11111₂ / 37₈ / 1F₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m22" value="b"> <span class="math-ltr">10000₂ / 20₈ / 10₁₆</span></label>
+            <label class="mini-opt"><input type="radio" name="m22" value="c"> <span class="math-ltr">1111₂ / 17₈ / F₁₆</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(22, 'a', 'دروستە! 31₁₀ = 11111₂ = 37₈ = 1F₁₆.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-22"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 23 -->
+    <div class="slide-card" id="slide-23">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٣. چالاکیا پۆلێ — ب خۆ تاقى بکە (Classroom activity — try it yourself)</h3>
+        <span class="slide-badge">پەڕێ ٢٣ (سلاید 27)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤە ٥ پسیارێن ڕاهێنانێ نە د پۆلێ دا کو ژ هەمی بابەتێن بەرێ هاتینە دانان:</p>
+          <ul>
+            <li><span class="math-ltr">101011₂</span> بگوهۆڕە بۆ دەهى.</li>
+            <li><span class="math-ltr">38₁₀</span> بگوهۆڕە بۆ باینەری.</li>
+            <li><span class="math-ltr">73₈</span> بگوهۆڕە بۆ دەهى.</li>
+            <li><span class="math-ltr">7C₁₆</span> بگوهۆڕە بۆ دەهى.</li>
+            <li><span class="math-ltr">11100101₂</span> بگوهۆڕە بۆ شازدەهى.</li>
+          </ul>
+        </div>
+        <div class="mini-test" id="mini-23">
+          <h4>تاقیکردنا سلایدێ ٢٣:</h4>
+          <p class="q-text">ژمارا باینەری <span class="math-ltr">101011₂</span> د دەهى دا چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m23" value="a"> <span class="math-ltr">41₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m23" value="b"> <span class="math-ltr">43₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m23" value="c"> <span class="math-ltr">45₁₀</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(23, 'b', 'دروستە! 32 + 8 + 2 + 1 = 43₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-23"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 24 -->
+    <div class="slide-card" id="slide-24">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٤. کلیدێ بەرسڤێن چالاکیا پۆلێ (Classroom activity — answer key)</h3>
+        <span class="slide-badge">پەڕێ ٢٤ (سلاید 28)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>بەرسڤێن تمام یێن ٥ پسیارێن چالاکیا پۆلێ ب هزرا ب لەز (Quick reasoning):</p>
+          <table class="data-table">
+            <tr><th>Question</th><th>Answer</th><th>Quick reasoning</th></tr>
+            <tr><td>101011₂ → decimal</td><td>43₁₀</td><td>32 + 8 + 2 + 1</td></tr>
+            <tr><td>38₁₀ → binary</td><td>100110₂</td><td>32 + 4 + 2</td></tr>
+            <tr><td>73₈ → decimal</td><td>59₁₀</td><td>7×8 + 3</td></tr>
+            <tr><td>7C₁₆ → decimal</td><td>124₁₀</td><td>7×16 + 12</td></tr>
+            <tr><td>11100101₂ → hex</td><td>E5₁₆</td><td>1110 | 0101</td></tr>
+          </table>
+        </div>
+        <div class="mini-test" id="mini-24">
+          <h4>تاقیکردنا سلایدێ ٢٤:</h4>
+          <p class="q-text">د گوهۆڕینا <span class="math-ltr">7C₁₆</span> بۆ دەهى دا، <span class="math-ltr">7×16 + 12</span> دکەتە چەند؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m24" value="a"> <span class="math-ltr">112₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m24" value="b"> <span class="math-ltr">124₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m24" value="c"> <span class="math-ltr">126₁₀</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(24, 'b', 'دروستە! 7×16 = 112، و C = 12 ⬅️ 112 + 12 = 124₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-24"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 25 -->
+    <div class="slide-card" id="slide-25">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٥. پسیارێن کورت بۆ پشکنینا تێگەهشتنێ (Mini quiz — check understanding)</h3>
+        <span class="slide-badge">پەڕێ ٢٥ (سلاید 29)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ ٥ پسیارێن تیۆرى (زۆر گرنگن بۆ ئەزموونا کاغەزێ!) پێداچوونا تێگەهشتنا تە دکەن:<br>
+          ١) بۆچى کۆمپیوتەرێن دیجیتاڵى باینەری بکاردهینن؟<br>
+          ٢) چەند دیگیتێن باینەری (Bits) ئێک دیگیتا شازدەهى نیشان ددەن؟<br>
+          ٣) به‌هایێ دەهى یێ <span class="math-ltr">10000000₂</span> چەندە؟<br>
+          ٤) بۆچى ل دەمێ گرۆپکرنا باینەری دا دکارین سفرا دەستپێکێ (Leading zero) زێدە بکەین؟<br>
+          ٥) چەوا دپشکنى کا ژمارەک بۆ بنچینەیەکى یا دروستە؟</p>
+        </div>
+        <div class="mini-test" id="mini-25">
+          <h4>تاقیکردنا سلایدێ ٢٥:</h4>
+          <p class="q-text">بهایێ دەهى یێ <span class="math-ltr">10000000₂</span> چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m25" value="a"> <span class="math-ltr">64₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m25" value="b"> <span class="math-ltr">128₁₀</span></label>
+            <label class="mini-opt"><input type="radio" name="m25" value="c"> <span class="math-ltr">256₁₀</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(25, 'b', 'دروستە! 2⁷ = 128₁₀.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-25"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 26 -->
+    <div class="slide-card" id="slide-26">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٦. بەرسڤێن پێشنیارکرى یێن کورتەپسیاران (Mini quiz — suggested answers)</h3>
+        <span class="slide-badge">پەڕێ ٢٦ (سلاید 30)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى (بەرسڤێن ستاندارد یێن سلایدى):</h4>
+          <ol>
+            <li><strong>دوو بارودۆخێن لۆجیکى یێن ژێکجودا</strong> (وەک ON/OFF یان 5V/0V) بۆ هاردوێرێ دیجیتاڵى گەلەک د پراکتیکى نە.</li>
+            <li><strong>٤ بیت (Four bits)</strong> ئێک دیگیتا شازدەهى نیشان ددەن.</li>
+            <li><span class="math-ltr">10000000₂ = 128₁₀</span>.</li>
+            <li><strong>سفرێن دەستپێکێ (Leading zeros)</strong> به‌هایێ ژمارەیى یێ ژمارا تەمام ناگوهۆڕن.</li>
+            <li><strong>هەر دیگیتەک دڤێت ژ بنچینەى (Base) بچویکتر بیت</strong> (Every digit must be smaller than the base).</li>
+          </ol>
+        </div>
+        <div class="mini-test" id="mini-26">
+          <h4>تاقیکردنا سلایدێ ٢٦:</h4>
+          <p class="q-text">ڕێسایێ پشکنینا دروستیا ژمارەکێ بۆ بنچینەیەکى (Base) چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m26" value="a"> هەر دیگیتەک دڤێت ژ بنچینەى مەزنتر بیت</label>
+            <label class="mini-opt"><input type="radio" name="m26" value="b"> هەر دیگیتەک دڤێت ژ بنچینەى بچویکتر بیت</label>
+            <label class="mini-opt"><input type="radio" name="m26" value="c"> دڤێت ژمارا دیگیتان جووت بیت</label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(26, 'b', 'دروستە! Every digit must be smaller than the base.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-26"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 27 -->
+    <div class="slide-card" id="slide-27">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٧. ئەرکێ ماڵێ — ڕاهێنانا سەربەخۆ (Homework — independent practice)</h3>
+        <span class="slide-badge">پەڕێ ٢٧ (سلاید 31)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن و شیکارکرنا تەمام یا ئەرکێ ماڵێ ب بادینى:</h4>
+          <p>د ناڤ سلایدى دا ٥ پسیارێن ئەرکێ ماڵێ هەنە بێى بەرسڤ، مە ئەڤە هەمی بۆ تە ب دروستى شیکار کرن دا بۆ ئەزموونێ یا ئامادە بیت:</p>
+        </div>
+        <div class="example-box">
+          <h4>شیکارێ تەمام:</h4>
+          <p><strong>١) <span class="math-ltr">10110101₂</span> بگوهۆڕە بۆ دەهى، هەشتکى، و شازدەهى:</strong><br>
+          • دەهى: <span class="math-ltr">128 + 32 + 16 + 4 + 1 = 181₁₀</span><br>
+          • هەشتکى: <span class="math-ltr">010 | 110 | 101 = 265₈</span><br>
+          • شازدەهى: <span class="math-ltr">1011 | 0101 = B5₁₆</span></p>
+
+          <p><strong>٢) <span class="math-ltr">197₁₀</span> بگوهۆڕە بۆ باینەری و شازدەهى:</strong><br>
+          • باینەری: <span class="math-ltr">128 + 64 + 4 + 1 = 11000101₂</span><br>
+          • شازدەهى: <span class="math-ltr">1100 | 0101 = C5₁₆</span> (یان <span class="math-ltr">197÷16 = 12(C) R 5</span>)</p>
+
+          <p><strong>٣) <span class="math-ltr">2A7₁₆</span> بگوهۆڕە بۆ دەهى و باینەری:</strong><br>
+          • دەهى: <span class="math-ltr">2×256 + 10×16 + 7×1 = 512 + 160 + 7 = 679₁₀</span><br>
+          • باینەری: <span class="math-ltr">2=0010, A=1010, 7=0111</span> ⬅️ <span class="math-ltr">001010100111₂</span> (یان <span class="math-ltr">1010100111₂</span>)</p>
+
+          <p><strong>٤) بۆچى <span class="math-ltr">128₈</span> و <span class="math-ltr">102₂</span> نە د دروستن؟</strong><br>
+          • <span class="math-ltr">128₈</span> نە دروستە چونکی د بنچینە ٨ دا بتنێ ٠ تا ٧ هەنە، دیگیتا ٨ ڕێپێدایى نینە (نابیت ببیتە ٨ یان مەزنتر).<br>
+          • <span class="math-ltr">102₂</span> نە دروستە چونکی د بنچینە ٢ دا بتنێ ٠ و ١ هەنە، دیگیتا ٢ تێدا نینە.</p>
+
+          <p><strong>٥) هەمی به‌هایێن ٠ تا ١٥ ب باینەری و شازدەهى بنڤیسە:</strong> (هەمان جدولێ سلایدێ ١٤ یە ژ <span class="math-ltr">0=0000=0</span> تا <span class="math-ltr">15=1111=F</span>).</p>
+        </div>
+        <div class="mini-test" id="mini-27">
+          <h4>تاقیکردنا سلایدێ ٢٧:</h4>
+          <p class="q-text">ئەنجامێ گوهۆڕینا <span class="math-ltr">10110101₂</span> بۆ هەشتکى (Octal) چەندە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m27" value="a"> <span class="math-ltr">265₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m27" value="b"> <span class="math-ltr">255₈</span></label>
+            <label class="mini-opt"><input type="radio" name="m27" value="c"> <span class="math-ltr">365₈</span></label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(27, 'a', 'دروستە! 010 | 110 | 101 = 265₈.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-27"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 28 -->
+    <div class="slide-card" id="slide-28">
+      <div class="slide-header">
+        <h3 class="slide-title">٢٨. وانەیا داهاتى: ژمارەکاریا باینەری (Next lecture: Binary arithmetic)</h3>
+        <span class="slide-badge">پەڕێ ٢٨ (سلاید 33)</span>
+      </div>
+      <div class="slide-body">
+        <div class="explain-box">
+          <h4>شروڤەکرن ب بادینى:</h4>
+          <p>ئەڤ سلایدێ دوماهیێ ئاماژێ ب ناڤەرۆکا وانەیا بهێت (<strong>Lecture 03: Binary arithmetic</strong>) ددەت کو بریتییە ژ: کۆمکرنا باینەری (Binary addition)، ژێبرن (Subtraction)، بتێن هەڵگر (Carry bits)، و بنیاتێ کۆمکەرێن دیجیتاڵى (Digital adders).</p>
+        </div>
+        <div class="mini-test" id="mini-28">
+          <h4>تاقیکردنا سلایدێ ٢٨:</h4>
+          <p class="q-text">ناڤونیشانێ وانەیا ٣ (Lecture 03) چییە؟</p>
+          <div class="mini-options">
+            <label class="mini-opt"><input type="radio" name="m28" value="a"> Binary arithmetic</label>
+            <label class="mini-opt"><input type="radio" name="m28" value="b"> Octal memory design</label>
+            <label class="mini-opt"><input type="radio" name="m28" value="c"> Hexadecimal compilers</label>
+          </div>
+          <button class="btn-check-mini" onclick="checkMini(28, 'a', 'دروستە! وانەیا داهاتى دەربارەى Binary arithmetic یە.')">پشکنینا ڤى سلایدى</button>
+          <div class="mini-feedback" id="mf-28"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+      <button class="btn-submit-exam" onclick="switchTab('exam'); window.scrollTo({top:0, behavior:'smooth'});">
+        هەمی سلاید تەمام بوون؟ بچۆ ناڤ ئەزموونا ١٠٠ نمرەیى 🚀
+      </button>
+    </div>
   </div>
 
-  <!-- SLIDE 1 -->
-  <section class="slide-card" id="slide-1">
-    <div class="slide-head">
-      <h2>١. ناڤونیشانێ وانێ (Lecture 02)</h2>
-      <span class="slide-badge">سلاید ١ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ئەڤە پەڕا دەستپێکێ یا وانا دوویێ یە د بابەتێ <strong>Digital Logic Design</strong> دا، ل پەیمانگەها تەکنیکی (Technical Institute)، مامۆستا: <strong>Redeer Avdal Saleh</strong>. بابەتێ سەرەکی ل سەر <strong>سیستەمێ ژماران (Number Systems)</strong> و <strong>گوهۆڕینا د ناڤبەرا وان دا (Conversions)</strong> یە.</p>
-      <div class="tip-box"><strong>بۆ ئەزموونێ:</strong> د ڤێ وانێ دا چوار سیستەم هەنە: دوویی (Binary)، هەشتایی (Octal)، دەیی (Decimal)، شازدەیی (Hexadecimal). هەمی ئەزموون ل سەر گوهۆڕینا ئەڤان چوار سیستەمانە بۆ ئێکودو!</div>
-      <div class="quiz-box" data-slide="1"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 2 -->
-  <section class="slide-card" id="slide-2">
-    <div class="slide-head">
-      <h2>٢. ژمارێن ڕێگەپێدای د هەر بنەمایەکی دا (Digits Allowed)</h2>
-      <span class="slide-badge">سلاید ٢ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>هەر سیستەمەکی بنەمایەکێ (<span class="ltr">Base</span>) خۆ هەیە. ژمارێن ڕێگەپێدای هەردەم ژ <strong>0 تا (Base - 1)</strong> نە:</p>
-      <table>
-        <thead>
-          <tr><th>بنەما (Base)</th><th>ناڤ</th><th>ژمارێن دروست (Valid digits)</th><th>نموونە</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="ltr">2</span></td><td>Binary (دوویی)</td><td>تەنێ <span class="ltr">0, 1</span></td><td><span class="ltr">101101₂</span></td></tr>
-          <tr><td><span class="ltr">8</span></td><td>Octal (هەشتایی)</td><td>ژ <span class="ltr">0</span> تا <span class="ltr">7</span></td><td><span class="ltr">745₈</span></td></tr>
-          <tr><td><span class="ltr">10</span></td><td>Decimal (دەیی)</td><td>ژ <span class="ltr">0</span> تا <span class="ltr">9</span></td><td><span class="ltr">983₁₀</span></td></tr>
-          <tr><td><span class="ltr">16</span></td><td>Hexadecimal (شازدەیی)</td><td><span class="ltr">0–9</span> و پیتێن <span class="ltr">A–F</span></td><td><span class="ltr">B3F₁₆</span></td></tr>
-        </tbody>
-      </table>
-      <div class="tip-box"><strong>خالا گرنگ بۆ ئەزموونێ:</strong> د بنەما 8 دا ژمارا 8 و 9 نینن! د بنەما 2 دا ژمارا 2 نینە! د بنەما 16 دا پیتێن A=10, B=11, C=12, D=13, E=14, F=15 نە.</div>
-      <div class="quiz-box" data-slide="2"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 3 -->
-  <section class="slide-card" id="slide-3">
-    <div class="slide-head">
-      <h2>٣. تێگەهشتنا بهایێ جهی (Positional Value)</h2>
-      <span class="slide-badge">سلاید ٣ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>د هەر ژمارەکا باینەری (Base 2) دا، بهایێ هەر جهەکی ژ <strong>ڕاستێ بۆ چەپێ</strong> دوو جاران زێدە دبیت: <span class="ltr">1, 2, 4, 8, 16, 32, 64, 128...</span></p>
-      <div class="math-box">
-        Binary:  1   0   1   1₂<br>
-        Weights: 8   4   2   1   (ژ ڕاستێ بۆ چەپێ: 1, 2, 4, 8)
-      </div>
-      <div class="tip-box"><strong>بۆ ئەزموونێ:</strong> هەردەم ژمێریارییا جهی ژ لایێ <strong>ڕاستێ</strong> دەستپێدکەت ب <span class="ltr">2⁰ = 1</span>.</div>
-      <div class="quiz-box" data-slide="3"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 4 -->
-  <section class="slide-card" id="slide-4">
-    <div class="slide-head">
-      <h2>٤. نموونا شیکارکری: نڤیسینا جهی بۆ دەیی (Decimal)</h2>
-      <span class="slide-badge">سلاید ٤ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: ژمارا <span class="ltr">352₁₀</span> ڤەکە ل سەر هێزێن ژمارە 10 (Powers of ten):</p>
-      <div class="math-box">
-        1) 3 × 10² = 3 × 100 = 300<br>
-        2) 5 × 10¹ = 5 × 10  = 50<br>
-        3) 2 × 10⁰ = 2 × 1   = 2<br>
-        -----------------------------<br>
-        352₁₀ = 300 + 50 + 2
-      </div>
-      <div class="tip-box"><strong>بیر نەکە:</strong> هەر ژمارەک هێزا سفرێ (<span class="ltr">10⁰, 2⁰, 8⁰, 16⁰</span>) هەردەم یەکسانە ب <strong>1</strong>!</div>
-      <div class="quiz-box" data-slide="4"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 5 -->
-  <section class="slide-card" id="slide-5">
-    <div class="slide-head">
-      <h2>٥. گوهۆڕینا باینەری بۆ دەیی (Binary to Decimal)</h2>
-      <span class="slide-badge">سلاید ٥ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: ژمارا <span class="ltr">101101₂</span> بگوهۆڕە بۆ سیستەمێ دەیی (Decimal).</p>
+  <!-- ==================== SECTION 2: 100-MARK MIDTERM EXAM ==================== -->
+  <div id="exam-view" class="section-view">
+    <div class="exam-intro">
+      <h2>ئەزموونا میدترێم — وانەیا ٠٢: سیستەمێن ژمارەیان و گوهۆڕین (١٠٠ نمرە)</h2>
+      <p>ئەزموون ب هەمان شێوازێ پەرێ زانکۆیێ هاتییە بەرهەڤکرن ژ ٤ بەشان (هەر بەشەک ٢٥ نمرە = ٥ پسیار × ٥ نمرە):</p>
       <ul>
-        <li>پێنگاڤا ١: بهایێن جهی ل سەر بنڤیسە (ژ ڕاستێ بۆ چەپێ: <span class="ltr">1, 2, 4, 8, 16, 32</span>).</li>
-        <li>پێنگاڤا ٢: هەر ژمارەکا باینەری لێکبدە دگەل بهایێ وێ.</li>
-        <li>پێنگاڤا ٣: تەنێ ئەو جهێن کو <span class="ltr">1</span> تێدانە کۆبکە.</li>
+        <li><strong>بەشێ ١ (٢٥ نمرە):</strong> هەلبژارتن — ٥ پسیار</li>
+        <li><strong>بەشێ ٢ (٢٥ نمرە):</strong> فەراغات — ٥ پسیار</li>
+        <li><strong>بەشێ ٣ (٢٥ نمرە):</strong> تاقیکردن لسەر بابەت و گوهۆڕینێن د سلایدان دا — ٥ پسیار</li>
+        <li><strong>بەشێ ٤ (٢٥ نمرە):</strong> پسیارێن تێگەهشتن، دروستیا ژماران و ڕاست/خەلەت — ٥ پسیار</li>
       </ul>
-      <div class="math-box">
-        1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1<br>
-        = 32 + 8 + 4 + 1 = 45₁₀
+      <p style="color:#097984; font-weight:700; margin-bottom:0;">تێبینى بۆ فەراغات و تاقیکردن: بتنێ ژمارێ یان پیتان بنڤیسە بێی ژێرنڤیس (وەک <span class="math-ltr">B5</span> یان <span class="math-ltr">11000101</span>).</p>
+    </div>
+
+    <!-- SCORE RESULT BANNER -->
+    <div class="score-banner" id="score-banner">
+      <div style="font-size:1.15rem; font-weight:700;">ئەنجامێ تە یێ دوماهیێ د ئەزموونێ دا:</div>
+      <div class="score-big" id="score-total">0 / 100</div>
+      <div id="score-status" style="font-size:1.15rem; font-weight:700;"></div>
+      <div class="score-grid">
+        <div class="score-sub" id="sub-s1">هەلبژارتن: 0 / 25</div>
+        <div class="score-sub" id="sub-s2">فەراغات: 0 / 25</div>
+        <div class="score-sub" id="sub-s3">تاقیکردنا سلایدان: 0 / 25</div>
+        <div class="score-sub" id="sub-s4">تێگەهشتن و ڕاست/خەلەت: 0 / 25</div>
       </div>
-      <div class="quiz-box" data-slide="5"></div>
     </div>
-  </section>
 
-  <!-- SLIDE 6 -->
-  <section class="slide-card" id="slide-6">
-    <div class="slide-head">
-      <h2>٦. خشتێ بهایێ جهی یێ باینەری (Place-Value Chart)</h2>
-      <span class="slide-badge">سلاید ٦ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ئەڤ خشتە ئەو نموونا سلایدێ ٥ (<span class="ltr">101101₂ = 45₁₀</span>) ب ڕێکوپێکی نیشان ددەت:</p>
-      <table>
-        <thead>
-          <tr><th>جهێ بتێ (Bit position)</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>سەنگ / بها (Weight)</strong></td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
-          <tr><td><strong>ژمارا باینەری</strong></td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td><strong>بەشداربوون (Contribution)</strong></td><td>32</td><td>0</td><td>8</td><td>4</td><td>0</td><td>1</td></tr>
-        </tbody>
-      </table>
-      <div class="tip-box"><strong>تیبینی:</strong> هەر بتەکا <span class="ltr">0</span> بیت بەشداربوونا وێ د کۆمکرنێ دا دبیتە <span class="ltr">0</span>.</div>
-      <div class="quiz-box" data-slide="6"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 7 -->
-  <section class="slide-card" id="slide-7">
-    <div class="slide-head">
-      <h2>٧. نموونەکا دی یا باینەری بۆ دەیی (8-bit)</h2>
-      <span class="slide-badge">سلاید ٧ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">11001010₂</span> بگوهۆڕە بۆ دەیی.</p>
-      <div class="math-box">
-        Bits:    1    1   0   0   1  0  1  0<br>
-        Weights: 128  64  32  16  8  4  2  1<br>
-        ------------------------------------<br>
-        تەنێ یێن 1 تێدا هەلبژێرە: 128 + 64 + 8 + 2 = 202₁₀
-      </div>
-      <div class="tip-box"><strong>بۆ ئەزموونێ:</strong> ڤان ٨ هێزێن دوویێ ژبەر بکە دا د ئەزموونێ دا ب لەز شیکار بکەی: <span class="ltr">128, 64, 32, 16, 8, 4, 2, 1</span>.</div>
-      <div class="quiz-box" data-slide="7"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 8 -->
-  <section class="slide-card" id="slide-8">
-    <div class="slide-head">
-      <h2>٨. گوهۆڕینا دەیی بۆ باینەری: دابەشکرنا بەردەوام</h2>
-      <span class="slide-badge">سلاید ٨ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">25₁₀</span> بگوهۆڕە بۆ باینەری ب ڕێکا دابەشکرنا ل سەر 2 (Repeated Division).</p>
-      <div class="math-box">
-        25 ÷ 2 = 12   remainder (بەرماوە) 1  ↑<br>
-        12 ÷ 2 = 6    remainder (بەرماوە) 0  |<br>
-         6 ÷ 2 = 3    remainder (بەرماوە) 0  |<br>
-         3 ÷ 2 = 1    remainder (بەرماوە) 1  |<br>
-         1 ÷ 2 = 0    remainder (بەرماوە) 1  |<br>
-        ---------------------------------------<br>
-        ژ خوارێ بۆ ژوور بخوینە: 25₁₀ = 11001₂
-      </div>
-      <div class="tip-box"><strong>گەلەک گرنگە:</strong> بەرماوە هەردەم ژ <strong>خوارێ بۆ ژوور</strong> (Bottom to Top) دهێنە نڤیسین!</div>
-      <div class="quiz-box" data-slide="8"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 9 -->
-  <section class="slide-card" id="slide-9">
-    <div class="slide-head">
-      <h2>٩. گوهۆڕینا دەیی بۆ باینەری: هێزێن ژمارە ٢ (Powers of Two)</h2>
-      <span class="slide-badge">سلاید ٩ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">45₁₀</span> بگوهۆڕە بۆ باینەری ب ڕێکا هێزێن دوویێ (ڕێکا خێرا).</p>
-      <ul>
-        <li>مەزنترین هێزا 2 ی کو ژ 45 بچووکتر یان یەکسان بیت = <strong>32</strong> (مای: <span class="ltr">45 - 32 = 13</span>).</li>
-        <li>ژ 13، مەزنترین هێز = <strong>8</strong> (مای: <span class="ltr">13 - 8 = 5</span>).</li>
-        <li>ژ 5، مەزنترین هێز = <strong>4</strong> (مای: <span class="ltr">5 - 4 = 1</span>)، و <strong>1</strong> دبەین.</li>
-        <li>ل جهێن 32, 8, 4, 1 ژمارە <strong>1</strong> دانە و یێن دی <strong>0</strong>.</li>
-      </ul>
-      <div class="math-box">
-        Weights: 32  16  8  4  2  1<br>
-        Binary:   1   0  1  1  0  1  => 45₁₀ = 101101₂
-      </div>
-      <div class="quiz-box" data-slide="9"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 10 -->
-  <section class="slide-card" id="slide-10">
-    <div class="slide-head">
-      <h2>١٠. نموونا سادە: 13₁₀ = 1101₂</h2>
-      <span class="slide-badge">سلاید ١٠ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ژبۆ دروستکرنا ژمارە <strong>13</strong> ب سەنگێن <span class="ltr">8, 4, 2, 1</span>:</p>
-      <div class="math-box">
-        13 = 8 + 4 + 1   (ئانکو سەنگا 2 ناهێتە بکارئینان)<br>
-        Weights: 8   4   2   1<br>
-        Binary:  1   1   0   1  =>  13₁₀ = 1101₂
-      </div>
-      <div class="quiz-box" data-slide="10"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 11 -->
-  <section class="slide-card" id="slide-11">
-    <div class="slide-head">
-      <h2>١١. گوهۆڕینا هەشتایی بۆ دەیی (Octal to Decimal)</h2>
-      <span class="slide-badge">سلاید ١١ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">157₈</span> بگوهۆڕە بۆ دەیی. هەر ژمارەکێ لێکبدە دگەل هێزا 8 (<span class="ltr">8², 8¹, 8⁰</span> = <span class="ltr">64, 8, 1</span>).</p>
-      <div class="math-box">
-        157₈ = (1 × 8²) + (5 × 8¹) + (7 × 8⁰)<br>
-             = (1 × 64) + (5 × 8) + (7 × 1)<br>
-             = 64 + 40 + 7 = 111₁₀
-      </div>
-      <div class="quiz-box" data-slide="11"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 12 -->
-  <section class="slide-card" id="slide-12">
-    <div class="slide-head">
-      <h2>١٢. گوهۆڕینا دەیی بۆ هەشتایی (Decimal to Octal)</h2>
-      <span class="slide-badge">سلاید ١٢ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">83₁₀</span> بگوهۆڕە بۆ هەشتایی ب دابەشکرنا ل سەر 8.</p>
-      <div class="math-box">
-        83 ÷ 8 = 10   remainder 3  ↑<br>
-        10 ÷ 8 = 1    remainder 2  |<br>
-         1 ÷ 8 = 0    remainder 1  |<br>
-        ----------------------------<br>
-        ژ خوارێ بۆ ژوور: 83₁₀ = 123₈
-      </div>
-      <div class="tip-box"><strong>ئاگاداربە:</strong> ژمارا <span class="ltr">123₈</span> نە سەد و بیست و سێ یە، بەلکو ل بنەمایێ ٨ دا یەکسانە ب 83 یا دەیی!</div>
-      <div class="quiz-box" data-slide="12"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 13 -->
-  <section class="slide-card" id="slide-13">
-    <div class="slide-head">
-      <h2>١٣. گوهۆڕینا شازدەیی بۆ دەیی (Hexadecimal to Decimal)</h2>
-      <span class="slide-badge">سلاید ١٣ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">2F₁₆</span> بگوهۆڕە بۆ دەیی.</p>
-      <ul>
-        <li>پیتا <span class="ltr">F</span> د شازدەیی دا یەکسانە ب <strong>15</strong>.</li>
-        <li>سەنگێن جهی یێن بنەما 16 بریتینە ژ <span class="ltr">16¹ = 16</span> و <span class="ltr">16⁰ = 1</span>.</li>
-      </ul>
-      <div class="math-box">
-        2F₁₆ = (2 × 16¹) + (15 × 16⁰)<br>
-             = (2 × 16) + (15 × 1)<br>
-             = 32 + 15 = 47₁₀
-      </div>
-      <div class="quiz-box" data-slide="13"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 14 -->
-  <section class="slide-card" id="slide-14">
-    <div class="slide-head">
-      <h2>١٤. خشتێ ژمارێن شازدەیی (Hexadecimal Reference Table)</h2>
-      <span class="slide-badge">سلاید ١٤ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ئەڤ خشتە گەلەک گرنگە بۆ ئەزموونێ، هەر ژمارەکا شازدەیی یەکسانە ب <strong>4 بتێن (4-bit)</strong> باینەری:</p>
-      <table>
-        <thead>
-          <tr><th>Hex</th><th>Decimal</th><th>4-bit Binary</th><th>Hex</th><th>Decimal</th><th>4-bit Binary</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>0</td><td>0</td><td><span class="ltr">0000</span></td><td>8</td><td>8</td><td><span class="ltr">1000</span></td></tr>
-          <tr><td>1</td><td>1</td><td><span class="ltr">0001</span></td><td>9</td><td>9</td><td><span class="ltr">1001</span></td></tr>
-          <tr><td>2</td><td>2</td><td><span class="ltr">0010</span></td><td>A</td><td>10</td><td><span class="ltr">1010</span></td></tr>
-          <tr><td>3</td><td>3</td><td><span class="ltr">0011</span></td><td>B</td><td>11</td><td><span class="ltr">1011</span></td></tr>
-          <tr><td>4</td><td>4</td><td><span class="ltr">0100</span></td><td>C</td><td>12</td><td><span class="ltr">1100</span></td></tr>
-          <tr><td>5</td><td>5</td><td><span class="ltr">0101</span></td><td>D</td><td>13</td><td><span class="ltr">1101</span></td></tr>
-          <tr><td>6</td><td>6</td><td><span class="ltr">0110</span></td><td>E</td><td>14</td><td><span class="ltr">1110</span></td></tr>
-          <tr><td>7</td><td>7</td><td><span class="ltr">0111</span></td><td>F</td><td>15</td><td><span class="ltr">1111</span></td></tr>
-        </tbody>
-      </table>
-      <div class="quiz-box" data-slide="14"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 15 -->
-  <section class="slide-card" id="slide-15">
-    <div class="slide-head">
-      <h2>١٥. گوهۆڕینا دەیی بۆ شازدەیی (Decimal to Hexadecimal)</h2>
-      <span class="slide-badge">سلاید ١٥ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">254₁₀</span> بگوهۆڕە بۆ شازدەیی ب دابەشکرنا ل سەر 16.</p>
-      <div class="math-box">
-        254 ÷ 16 = 15   remainder 14  (14 = E)  ↑<br>
-         15 ÷ 16 = 0    remainder 15  (15 = F)  |<br>
-        ----------------------------------------<br>
-        ژ خوارێ بۆ ژوور: 254₁₀ = FE₁₆
-      </div>
-      <div class="tip-box"><strong>تێبینی:</strong> دەمێ بەرماوە د ناڤبەرا 10 تا 15 بیت، ئێکسەر بگوهۆڕە بۆ پیتێ (<span class="ltr">10=A, 11=B, 12=C, 13=D, 14=E, 15=F</span>)!</div>
-      <div class="quiz-box" data-slide="15"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 16 -->
-  <section class="slide-card" id="slide-16">
-    <div class="slide-head">
-      <h2>١٦. باینەری بۆ هەشتایی: گروپێن ٣ بتی (Groups of 3)</h2>
-      <span class="slide-badge">سلاید ١٦ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>بۆ گوهۆڕینا باینەری بۆ هەشتایی (Octal)، ژمارێ ژ ڕاستێ بۆ چەپێ بکە <strong>گروپێن ٣ بتی</strong>، پاشان ب سەنگێن <span class="ltr">4-2-1</span> هەر گروپەکێ بنڤیسە:</p>
-      <div class="math-box">
-        110101011₂  =>  110 | 101 | 011<br>
-                        (6) | (5) | (3)  =>  653₈
-      </div>
-      <div class="quiz-box" data-slide="16"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 17 -->
-  <section class="slide-card" id="slide-17">
-    <div class="slide-head">
-      <h2>١٧. باینەری بۆ هەشتایی دگەل پڕکرنا سفران (With Padding)</h2>
-      <span class="slide-badge">سلاید ١٧ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">1011011₂</span> بگوهۆڕە بۆ هەشتایی. ئەگەر گروپا هەری چەپێ ٣ ژمارە تێدا نەبن، ل لایێ چەپێ <strong>سفرێ (0)</strong> لێ زێدە دکەین:</p>
-      <div class="math-box">
-        1) ژ ڕاستێ پارچە بکە:  1 | 011 | 011<br>
-        2) ل چەپێ سفران دانە: 001 | 011 | 011<br>
-        3) هەر گروپەکی بگوهۆڕە: 1 | 3 | 3  =>  133₈
-      </div>
-      <div class="quiz-box" data-slide="17"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 18 -->
-  <section class="slide-card" id="slide-18">
-    <div class="slide-head">
-      <h2>١٨. باینەری بۆ شازدەیی: گروپێن ٤ بتی (Groups of 4)</h2>
-      <span class="slide-badge">سلاید ١٨ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>بۆ گوهۆڕینا باینەری بۆ شازدەیی (Hex)، ژمارێ ژ ڕاستێ بۆ چەپێ بکە <strong>گروپێن ٤ بتی</strong>، ب سەنگێن <span class="ltr">8-4-2-1</span>:</p>
-      <div class="math-box">
-        110110101111₂  =>  1101 | 1010 | 1111<br>
-                           (13) | (10) | (15)<br>
-                            D   |  A   |  F   =>  DAF₁₆
-      </div>
-      <div class="quiz-box" data-slide="18"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 19 -->
-  <section class="slide-card" id="slide-19">
-    <div class="slide-head">
-      <h2>١٩. نموونا باینەری بۆ شازدەیی (Binary to Hex)</h2>
-      <span class="slide-badge">سلاید ١٩ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">10110110₂</span> بگوهۆڕە بۆ شازدەیی:</p>
-      <div class="math-box">
-        1) ژ ڕاستێ بکە ٤ بت ٤ بت: 1011 | 0110<br>
-        2) 1011 = 8+2+1 = 11 = B<br>
-        3) 0110 = 4+2 = 6<br>
-        => 10110110₂ = B6₁₆
-      </div>
-      <div class="tip-box"><strong>تێبینی ل سەر سەرناڤێ سلایدی:</strong> د سلایدی دا نڤیسییە "with padding"، د ڤێ نموونێ دا 8 بت هەنە و ئێکسەر دبنە دوو گروپێن ٤ بتی. ئەگەر ژمارەک کێمتر بوو وەکی <span class="ltr">101101₂</span> (6 بت)، ل چەپێ دوو سفران زێدە دکەین: <span class="ltr">0010 | 1101 = 2D₁₆</span>.</div>
-      <div class="quiz-box" data-slide="19"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 20 -->
-  <section class="slide-card" id="slide-20">
-    <div class="slide-head">
-      <h2>٢٠. شازدەیی بۆ باینەری (Hexadecimal to Binary)</h2>
-      <span class="slide-badge">سلاید ٢٠ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">3A₁₆</span> بگوهۆڕە بۆ باینەری. هەر ژمارە یان پیتەکا شازدەیی دڤێت ب <strong>٤ بتان</strong> بهێتە نڤیسین:</p>
-      <div class="math-box">
-        Hex 3 = 0011<br>
-        Hex A (10) = 1010<br>
-        پێکڤە گرێبدە: 00111010₂  (یان بێی سفرێن چەپێ: 111010₂)
-      </div>
-      <div class="tip-box"><strong>هشیاربە:</strong> ژمارا د ناڤەڕاستێ دا ئەگەر کێمتر ژ ٤ بتان بوو، سفران ل چەپێ وێ ژمارێ ب پارێزە! بۆ نموونە <span class="ltr">A3₁₆ = 1010 0011₂</span> (نابیت سفرێن 0011 ب هاڤێژی!).</div>
-      <div class="quiz-box" data-slide="20"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 21 -->
-  <section class="slide-card" id="slide-21">
-    <div class="slide-head">
-      <h2>٢١. هەشتایی بۆ باینەری (Octal to Binary)</h2>
-      <span class="slide-badge">سلاید ٢١ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>پرسیار: <span class="ltr">75₈</span> بگوهۆڕە بۆ باینەری. هەر ژمارەکا هەشتایی یەکسانە ب <strong>٣ بتان</strong>:</p>
-      <div class="math-box">
-        7 = 111   (4+2+1)<br>
-        5 = 101   (4+1)<br>
-        پێکڤە گرێبدە: 75₈ = 111101₂
-      </div>
-      <div class="quiz-box" data-slide="21"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 22 -->
-  <section class="slide-card" id="slide-22">
-    <div class="slide-head">
-      <h2>٢٢. بەراوردکرنا بهایێن وەکهەڤ (Equivalent Values)</h2>
-      <span class="slide-badge">سلاید ٢٢ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ئەڤ خشتە نیشان ددەت کا چاوا ئێک ژمارە د هەر چوار سیستەمان دا ب شێوەیێن جودا دهێتە نڤیسین:</p>
-      <table>
-        <thead>
-          <tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hex</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>10</td><td><span class="ltr">1010</span></td><td><span class="ltr">12</span></td><td><span class="ltr">A</span></td></tr>
-          <tr><td>15</td><td><span class="ltr">1111</span></td><td><span class="ltr">17</span></td><td><span class="ltr">F</span></td></tr>
-          <tr><td>16</td><td><span class="ltr">10000</span></td><td><span class="ltr">20</span></td><td><span class="ltr">10</span></td></tr>
-          <tr><td>31</td><td><span class="ltr">11111</span></td><td><span class="ltr">37</span></td><td><span class="ltr">1F</span></td></tr>
-          <tr><td>64</td><td><span class="ltr">1000000</span></td><td><span class="ltr">100</span></td><td><span class="ltr">40</span></td></tr>
-          <tr><td>255</td><td><span class="ltr">11111111</span></td><td><span class="ltr">377</span></td><td><span class="ltr">FF</span></td></tr>
-        </tbody>
-      </table>
-      <div class="quiz-box" data-slide="22"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 23 -->
-  <section class="slide-card" id="slide-23">
-    <div class="slide-head">
-      <h2>٢٣. چالاکییا پۆلێ — بخۆ تاقی بکە (Classroom Activity)</h2>
-      <span class="slide-badge">سلاید ٢٣ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پرسیارێن چالاکییا پۆلێ:</span>
-      <ul>
-        <li><span class="ltr">101011₂</span> بگوهۆڕە بۆ دەیی (Decimal).</li>
-        <li><span class="ltr">38₁₀</span> بگوهۆڕە بۆ باینەری (Binary).</li>
-        <li><span class="ltr">73₈</span> بگوهۆڕە بۆ دەیی (Decimal).</li>
-        <li><span class="ltr">7C₁₆</span> بگوهۆڕە بۆ دەیی (Decimal).</li>
-        <li><span class="ltr">11100101₂</span> بگوهۆڕە بۆ شازدەیی (Hexadecimal).</li>
-      </ul>
-      <div class="tip-box"><strong>ئامۆژگاری:</strong> بەری بچیە سلایدێ ٢٤، پێنج خولەکان ئەڤان ب قەلەم و کاغەزێ شیکار بکە!</div>
-      <div class="quiz-box" data-slide="23"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 24 -->
-  <section class="slide-card" id="slide-24">
-    <div class="slide-head">
-      <h2>٢٤. بەرسڤێن چالاکییا پۆلێ (Answer Key)</h2>
-      <span class="slide-badge">سلاید ٢٤ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">بەرسڤێن دروست و شیکارکرنا خێرا:</span>
-      <table>
-        <thead>
-          <tr><th>پرسیار</th><th>بەرسڤ</th><th>هۆکارێ خێرا (Reasoning)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="ltr">101011₂ → decimal</span></td><td><span class="ltr">43₁₀</span></td><td><span class="ltr">32 + 8 + 2 + 1</span></td></tr>
-          <tr><td><span class="ltr">38₁₀ → binary</span></td><td><span class="ltr">100110₂</span></td><td><span class="ltr">32 + 4 + 2</span></td></tr>
-          <tr><td><span class="ltr">73₈ → decimal</span></td><td><span class="ltr">59₁₀</span></td><td><span class="ltr">7×8 + 3</span></td></tr>
-          <tr><td><span class="ltr">7C₁₆ → decimal</span></td><td><span class="ltr">124₁₀</span></td><td><span class="ltr">7×16 + 12</span></td></tr>
-          <tr><td><span class="ltr">11100101₂ → hex</span></td><td><span class="ltr">E5₁₆</span></td><td><span class="ltr">1110 | 0101</span></td></tr>
-        </tbody>
-      </table>
-      <div class="quiz-box" data-slide="24"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 25 -->
-  <section class="slide-card" id="slide-25">
-    <div class="slide-head">
-      <h2>٢٥. کورتە ئەزموون — پشکنینا تێگەهشتنێ (Mini Quiz)</h2>
-      <span class="slide-badge">سلاید ٢٥ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">٥ پرسیارێن تێۆری (زۆر د ئەزموونان دا دهێن):</span>
-      <ol>
-        <li>بۆچی کۆمپیوتەرێن دیجیتاڵ ژمارێن باینەری (Binary) بکاردئینن؟</li>
-        <li>چەند ژمارێن باینەری نوێنەرایەتی ئێک ژمارا شازدەیی (Hex) دکەن؟</li>
-        <li>بهایێ دەیی یێ <span class="ltr">10000000₂</span> چەندە؟</li>
-        <li>بۆچی دەمێ گروپکرنا باینەری دکارین سفرەکێ ل چەپێ زێدە بکەین؟</li>
-        <li>چاوا دێ پشکنینێ کەی کا ژمارەک بۆ بنەمایەکی (Base) دروستە یان نە؟</li>
-      </ol>
-      <div class="quiz-box" data-slide="25"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 26 -->
-  <section class="slide-card" id="slide-26">
-    <div class="slide-head">
-      <h2>٢٦. بەرسڤێن کورتە ئەزموونێ (Mini Quiz Answers)</h2>
-      <span class="slide-badge">سلاید ٢٦ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">بەرسڤێن پێشنیارکری ب بادینی و ئینگلیزی:</span>
-      <ol>
-        <li>چونکی دوو حالەتێن لۆجیکی یێن جودا (<span class="ltr">0</span> و <span class="ltr">1</span> / هەلکرن و ڤەمراندن) بۆ ئامیرێن دیجیتاڵ گونجایی و پراکتیکینە.<br><em>(Two distinguishable logical states are practical for digital hardware.)</em></li>
-        <li><strong>چوار بت (Four bits)</strong> ئێک ژمارا شازدەیی نیشان ددەن.</li>
-        <li><span class="ltr">10000000₂ = 128₁₀</span> (ئەڤە <span class="ltr">2⁷</span> یە).</li>
-        <li>چونکی سفرێن ل پێشییا چەپێ (Leading zeros) بهایێ ژمارێ ناگوهۆڕن.</li>
-        <li>دڤێت هەر ژمارەکا د ناڤ وێ ژمارێ دا هەی <strong>ژ بنەمایێ (Base) بچووکتر بیت</strong> (<span class="ltr">Every digit must be smaller than the base</span>).</li>
-      </ol>
-      <div class="quiz-box" data-slide="26"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 27 -->
-  <section class="slide-card" id="slide-27">
-    <div class="slide-head">
-      <h2>٢٧. ئەرکێ مالێ — Homework (دگەل هەمی شیکاران!)</h2>
-      <span class="slide-badge">سلاید ٢٧ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">شیکارکرنا کامل یا هەمی پێنج پرسیارێن Homework ی:</span>
-
-      <div class="answer-highlight">
-        <strong>١) <span class="ltr">10110101₂</span> بگوهۆڕە بۆ دەیی، هەشتایی، و شازدەیی:</strong>
-      </div>
-      <div class="math-box">
-        • Decimal: 128 + 32 + 16 + 4 + 1 = 181₁₀<br>
-        • Octal (3-bit): 010 | 110 | 101 = 265₈<br>
-        • Hex (4-bit): 1011 | 0101 = B5₁₆
+    <!-- PART 1: MULTIPLE CHOICE (25 MARKS) -->
+    <div class="exam-part">
+      <div class="exam-part-header">
+        <h3>بەشێ ئێکێ: هەلبژارتن (Multiple Choice)</h3>
+        <span class="marks-pill">٢٥ نمرە (٥ × ٥)</span>
       </div>
 
-      <div class="answer-highlight">
-        <strong>٢) <span class="ltr">197₁₀</span> بگوهۆڕە بۆ باینەری و شازدەیی:</strong>
-      </div>
-      <div class="math-box">
-        • Binary: 197 = 128 + 64 + 4 + 1 = 11000101₂<br>
-        • Hex: 1100 | 0101 = C5₁₆  (یان 197÷16 = 12 r 5 => C5₁₆)
-      </div>
-
-      <div class="answer-highlight">
-        <strong>٣) <span class="ltr">2A7₁₆</span> بگوهۆڕە بۆ دەیی و باینەری:</strong>
-      </div>
-      <div class="math-box">
-        • Decimal: (2×16²) + (10×16¹) + (7×16⁰) = 512 + 160 + 7 = 679₁₀<br>
-        • Binary: 2(0010) A(1010) 7(0111) = 001010100111₂ (یان 1010100111₂)
+      <div class="exam-q" id="eq-1">
+        <div class="exam-q-title">
+          <span>١. د سیستەمێ هەشتکى (Octal - Base 8) دا، کیژ ژ ڤان ژمارەیان نەیا دروستە (Invalid)؟</span>
+          <span class="q-mark-tag">٥ نمرە</span>
+        </div>
+        <div class="exam-options">
+          <label class="exam-opt"><input type="radio" name="q1" value="a"> <span class="math-ltr">745₈</span></label>
+          <label class="exam-opt"><input type="radio" name="q1" value="b"> <span class="math-ltr">157₈</span></label>
+          <label class="exam-opt"><input type="radio" name="q1" value="c"> <span class="math-ltr">128₈</span></label>
+          <label class="exam-opt"><input type="radio" name="q1" value="d"> <span class="math-ltr">377₈</span></label>
+        </div>
+        <div class="exam-feedback" id="fb-1"></div>
       </div>
 
-      <div class="answer-highlight">
-        <strong>٤) بۆچی <span class="ltr">128₈</span> و <span class="ltr">102₂</span> نەدروستن (Invalid)؟</strong>
+      <div class="exam-q" id="eq-2">
+        <div class="exam-q-title">
+          <span>٢. ئەگەر ژمارا دەهى <span class="math-ltr">254₁₀</span> بگوهۆڕین بۆ شازدەهى (Hexadecimal)، ئەنجام دێ چ بیت؟</span>
+          <span class="q-mark-tag">٥ نمرە</span>
+        </div>
+        <div class="exam-options">
+          <label class="exam-opt"><input type="radio" name="q2" value="a"> <span class="math-ltr">EF₁₆</span></label>
+          <label class="exam-opt"><input type="radio" name="q2" value="b"> <span class="math-ltr">FE₁₆</span></label>
+          <label class="exam-opt"><input type="radio" name="q2" value="c"> <span class="math-ltr">FA₁₆</span></label>
+          <label class="exam-opt"><input type="radio" name="q2" value="d"> <span class="math-ltr">DF₁₆</span></label>
+        </div>
+        <div class="exam-feedback" id="fb-2"></div>
       </div>
-      <ul>
-        <li><span class="ltr">128₈</span> نەدروستە چونکی د بنەما 8 (Octal) دا تەنێ ژمارێن <strong>0 تا 7</strong> ڕێگەپێداینە، ژمارا <strong>8</strong> تێدا نینە.</li>
-        <li><span class="ltr">102₂</span> نەدروستە چونکی د بنەما 2 (Binary) دا تەنێ <strong>0 و 1</strong> هەنە، ژمارا <strong>2</strong> تێدا نینە.</li>
-      </ul>
 
-      <div class="answer-highlight">
-        <strong>٥) هەمی بهایێن ژ 0 تا 15 ب باینەری و شازدەیی:</strong>
-      </div>
-      <p>وەکی خشتێ سلایدێ ١٤ یە: <span class="ltr">0 (0000, 0), 1 (0001, 1), ... 10 (1010, A), ... 15 (1111, F)</span>.</p>
-
-      <div class="quiz-box" data-slide="27"></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 28 -->
-  <section class="slide-card" id="slide-28">
-    <div class="slide-head">
-      <h2>٢٨. وانا داهاتی — Lecture 03</h2>
-      <span class="slide-badge">سلاید ٢٨ ژ ٢٨</span>
-    </div>
-    <div class="slide-body">
-      <span class="section-label">پوختە ب بادینی:</span>
-      <p>ئەڤە دویماهی سلایدە و پێشبینییا وانا سێیێ یە (<strong>Lecture 03: Binary Arithmetic</strong>): کۆکردنەوە و لێدەرکرنا باینەری، بەرماوێ کۆکردنەوێ (Carry bits)، و بنەمایێ دروستکرنا کۆکەرەوێن دیجیتاڵ (Digital Adders).</p>
-      <div class="tip-box"><strong>سەرکەفتی بی براێ من!</strong> ئەگەر تە هەمی ٢٨ ئەزموونێن سەری ڕاست شیکار کرن، ب هێزا خودێ دێ نمرەکا فول د ئەزموونێ دا ئینی!</div>
-      <div class="quiz-box" data-slide="28"></div>
-    </div>
-  </section>
-
-</div>
-
-<script>
-  const quizData = {
-    1: {
-      q: "بابەتێ سەرەکی یێ وانا دوویێ (Lecture 02) چییە؟",
-      opts: [
-        "سیستەمێ ژماران و گوهۆڕین (Number Systems & Conversions)",
-        "تۆڕێن کۆمپیوتەری (Computer Networks)",
-        "پرۆگرامسازی ب زمانێ C++",
-        "سیستەمێ کارپێکرنێ (Operating Systems)"
-      ],
-      ans: 0,
-      exp: "وانا ٢ تایبەتە ب سیستەمێ ژماران (Binary, Octal, Decimal, Hex) و گوهۆڕینا د ناڤبەرا وان دا."
-    },
-    2: {
-      q: "کیژ ژ ئەڤان ژماران د سیستەمێ هەشتایی (Octal / Base 8) دا خەلەتە (Invalid)؟",
-      opts: ["745₈", "107₈", "382₈", "601₈"],
-      ans: 2,
-      exp: "د بنەما 8 دا تەنێ ژمارێن 0 تا 7 ڕێگەپێداینە، لەوما 382₈ خەلەتە چونکی ژمارا 8 تێدایە."
-    },
-    3: {
-      q: "د ژمارا 1011₂ دا، سەنگ یان بهایێ جهێ ژمارا '1' یا هەری چەپێ چەندە؟",
-      opts: ["1", "2", "4", "8"],
-      ans: 3,
-      exp: "ژ ڕاستێ بۆ چەپێ سەنگ بریتینە ژ: 1، 2، 4، 8. یێ هەری چەپێ یەکسانە ب 8."
-    },
-    4: {
-      q: "د ژمارا 479₁₀ دا، بهایێ 7 د ڤەکرنا هێزێن دەیی دا چەندە؟",
-      opts: ["7 × 10⁰ = 7", "7 × 10¹ = 70", "7 × 10² = 700", "7 × 10³ = 7000"],
-      ans: 1,
-      exp: "ژمارا 7 د جهێ دەییان دایە (10¹)، لەوما 7 × 10¹ = 70."
-    },
-    5: {
-      q: "ژمارا باینەری 10101₂ د دەیی (Decimal) دا چەندە؟",
-      opts: ["19₁₀", "21₁₀", "25₁₀", "23₁₀"],
-      ans: 1,
-      exp: "سەنگێن 16, 8, 4, 2, 1 بکاردئینین: 16 + 4 + 1 = 21₁₀."
-    },
-    6: {
-      q: "د خشتێ بهایێ جهی یێ باینەری دا، سەنگا (Weight) جهێ بتا چوارێ (Bit position 4) چەندە؟",
-      opts: ["8", "16", "32", "64"],
-      ans: 1,
-      exp: "2⁴ = 16 (جهێ 0=1، 1=2، 2=4، 3=8، 4=16)."
-    },
-    7: {
-      q: "ژمارا 11000011₂ د دەیی (Decimal) دا یەکسانە ب چەند؟",
-      opts: ["193₁₀", "195₁₀", "199₁₀", "202₁₀"],
-      ans: 1,
-      exp: "128 + 64 + 2 + 1 = 195₁₀."
-    },
-    8: {
-      q: "ئەگەر 19₁₀ ب دابەشکرنا ل سەر 2 بگوهۆڕین بۆ باینەری، بەرسڤ دێ چ بیت؟",
-      opts: ["10011₂", "11001₂", "10101₂", "10001₂"],
-      ans: 0,
-      exp: "19÷2=9 r1, 9÷2=4 r1, 4÷2=2 r0, 2÷2=1 r0, 1÷2=0 r1. ژ خوارێ بۆ ژوور = 10011₂."
-    },
-    9: {
-      q: "ژمارا 37₁₀ ب ڕێکا هێزێن دوویێ (32 + 4 + 1) د باینەری دا چەندە؟",
-      opts: ["101001₂", "100101₂", "100110₂", "110101₂"],
-      ans: 1,
-      exp: "ل جهێن 32, 4, 1 ژمارە 1 دادەنێین: 100101₂."
-    },
-    10: {
-      q: "کیژ ژمارا دەیی یەکسانە ب باینەری 1110₂؟",
-      opts: ["12₁₀", "13₁₀", "14₁₀", "15₁₀"],
-      ans: 2,
-      exp: "8 + 4 + 2 + 0 = 14₁₀."
-    },
-    11: {
-      q: "ژمارا هەشتایی 124₈ د دەیی (Decimal) دا چەندە؟",
-      opts: ["84₁₀", "80₁₀", "100₁₀", "76₁₀"],
-      ans: 0,
-      exp: "1×64 + 2×8 + 4×1 = 64 + 16 + 4 = 84₁₀."
-    },
-    12: {
-      q: "ژمارا دەیی 65₁₀ د هەشتایی (Octal) دا چەندە؟",
-      opts: ["101₈", "110₈", "79₈", "102₈"],
-      ans: 0,
-      exp: "65÷8=8 r1, 8÷8=1 r0, 1÷8=0 r1 => ژ خوارێ بۆ ژوور = 101₈."
-    },
-    13: {
-      q: "ژمارا شازدەیی 3C₁₆ د دەیی (Decimal) دا چەندە؟ (C = 12)",
-      opts: ["58₁₀", "60₁₀", "62₁₀", "48₁₀"],
-      ans: 1,
-      exp: "3×16 + 12×1 = 48 + 12 = 60₁₀."
-    },
-    14: {
-      q: "نوێنەرایەتییا 4-bit یا باینەری بۆ پیتا D (یا شازدەیی) کیژە؟",
-      opts: ["1100", "1101", "1110", "1011"],
-      ans: 1,
-      exp: "D = 13 د دەیی دا، و 13 = 8 + 4 + 1 = 1101₂."
-    },
-    15: {
-      q: "ژمارا دەیی 175₁₀ د شازدەیی (Hexadecimal) دا چەندە؟",
-      opts: ["AE₁₆", "AF₁₆", "BF₁₆", "FA₁₆"],
-      ans: 1,
-      exp: "175 ÷ 16 = 10 (A) و بەرماوە 15 (F). ژ خوارێ بۆ ژوور = AF₁₆."
-    },
-    16: {
-      q: "ژمارا باینەری 111010010₂ د هەشتایی (Octal) دا چەندە؟",
-      opts: ["722₈", "732₈", "622₈", "724₈"],
-      ans: 0,
-      exp: "دکەینە ٣ بت: 111 | 010 | 010 => 7 | 2 | 2 = 722₈."
-    },
-    17: {
-      q: "ژمارا 1101011₂ ب زێدەکرنا سفرا چەپێ د هەشتایی دا چەندە؟",
-      opts: ["153₈", "163₈", "152₈", "651₈"],
-      ans: 0,
-      exp: "001 | 101 | 011 => 1 | 5 | 3 = 153₈."
-    },
-    18: {
-      q: "ژمارا 101011001110₂ د شازدەیی (Hex) دا چەندە؟",
-      opts: ["ACE₁₆", "ADE₁₆", "BCE₁₆", "A9E₁₆"],
-      ans: 0,
-      exp: "1010(A) | 1100(C) | 1110(E) = ACE₁₆."
-    },
-    19: {
-      q: "ژمارا 111011₂ ب زێدەکرنا سفرێن چەپێ د شازدەیی دا چەندە؟",
-      opts: ["3B₁₆", "3A₁₆", "73₁₆", "EB₁₆"],
-      ans: 0,
-      exp: "دکەینە ٤ بت: 0011 | 1011 => 3 | 11(B) = 3B₁₆."
-    },
-    20: {
-      q: "ژمارا شازدەیی 5E₁₆ د باینەری دا چەندە؟",
-      opts: ["01011110₂", "01011100₂", "01101110₂", "01011010₂"],
-      ans: 0,
-      exp: "5 = 0101 و E(14) = 1110، پێکڤە = 01011110₂."
-    },
-    21: {
-      q: "ژمارا هەشتایی 64₈ د باینەری دا چەندە؟",
-      opts: ["110100₂", "101100₂", "110010₂", "111100₂"],
-      ans: 0,
-      exp: "6 = 110 و 4 = 100، پێکڤە = 110100₂."
-    },
-    22: {
-      q: "د خشتێ بەراوردکرنێ دا، ژمارا دەیی 31 د Binary و Octal و Hex دا چییە؟",
-      opts: [
-        "11111₂ / 37₈ / 1F₁₆",
-        "11110₂ / 36₈ / 1E₁₆",
-        "100000₂ / 40₈ / 20₁₆",
-        "11111₂ / 35₈ / 1D₁₆"
-      ],
-      ans: 0,
-      exp: "31₁₀ = 11111₂ = 011|111 (37₈) = 0001|1111 (1F₁₆)."
-    },
-    23: {
-      q: "ژ چالاکییا پۆلێ: ژمارا 101011₂ د دەیی دا چەندە؟",
-      opts: ["41₁₀", "43₁₀", "45₁₀", "39₁₀"],
-      ans: 1,
-      exp: "32 + 8 + 2 + 1 = 43₁₀."
-    },
-    24: {
-      q: "ژ چالاکییا پۆلێ: ژمارا 7C₁₆ د دەیی دا چەندە؟",
-      opts: ["120₁₀", "124₁₀", "126₁₀", "112₁₀"],
-      ans: 1,
-      exp: "7×16 + 12 = 112 + 12 = 124₁₀."
-    },
-    25: {
-      q: "بۆچی کۆمپیوتەرێن دیجیتاڵ ژمارێن باینەری (0 و 1) بکاردئینن؟",
-      opts: [
-        "چونکی دوو حالەتێن لۆجیکی بۆ ئامیرێن کارەبایی و دیجیتاڵ گونجایی و پراکتیکینە",
-        "چونکی ژمارێن باینەری ژ ژمارێن دەیی کورتترن",
-        "چونکی مرۆڤ ب ساناهیتر تێدگەهیت",
-        "چونکی بنەما 10 کار ناکەت"
-      ],
-      ans: 0,
-      exp: "بۆ کارەبێ و ترانزیستۆران دوو حالەت (هەیە/نینە یان 1/0) گەلەک ب سادەیی و بێ خەلەتی کار دکەن."
-    },
-    26: {
-      q: "بۆچی دکارین سفران ل لایێ چەپێ زێدە بکەین دەمێ باینەری دکەینە گروپ؟",
-      opts: [
-        "چونکی سفرێن ل پێشییا چەپێ بهایێ ژمارێ ناگوهۆڕن",
-        "چونکی بهایێ ژمارێ دوو جاران زێدە دکەت",
-        "چونکی هەر سفرەک یەکسانە ب 10",
-        "تەنێ بۆ جوانکارییە"
-      ],
-      ans: 0,
-      exp: "سفرا ل چەپێ (وەکی 05 د دەیی دا) هیچ بهایەکێ ژمارەیی ناگوهۆڕیت."
-    },
-    27: {
-      q: "ژ Homework ی: ژمارا 10110101₂ د شازدەیی (Hex) دا چەندە؟",
-      opts: ["A5₁₆", "B5₁₆", "B4₁₆", "C5₁₆"],
-      ans: 1,
-      exp: "دکەینە ٤ بت: 1011 (11=B) | 0101 (5) = B5₁₆."
-    },
-    28: {
-      q: "بابەتێ وانا سێیێ (Lecture 03) یێ داهاتی دێ ل سەر چ بیت؟",
-      opts: [
-        "ژمێریارییا باینەری (Binary arithmetic)",
-        "گوهۆڕینا شازدەیی",
-        "مێژوویا کۆمپیوتەری",
-        "کێشانا خشتێن دەیی"
-      ],
-      ans: 0,
-      exp: "وانا سێیێ ل سەر Binary addition, subtraction, carry bits, و digital adders یە."
-    }
-  };
-
-  const userAnswers = {};
-
-  function renderNavAndQuizzes() {
-    const nav = document.getElementById("slideNav");
-    nav.innerHTML = "";
-    for (let i = 1; i <= 28; i++) {
-      const a = document.createElement("a");
-      a.href = `#slide-${i}`;
-      a.className = "slide-pill";
-      a.id = `nav-pill-${i}`;
-      a.textContent = `سلاید ${i}`;
-      nav.appendChild(a);
-    }
-
-    document.querySelectorAll(".quiz-box").forEach(box => {
-      const s = Number(box.dataset.slide);
-      const data = quizData[s];
-      box.innerHTML = `
-        <div class="quiz-title">📝 ئەزموونا سلایدێ ${s}:</div>
-        <div class="quiz-q">${data.q}</div>
-        <div class="options" id="opts-${s}"></div>
-        <div class="feedback" id="fb-${s}"></div>
-      `;
-      const optsDiv = box.querySelector(`#opts-${s}`);
-      data.opts.forEach((optText, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "opt-btn";
-        btn.textContent = optText;
-        btn.onclick = () => checkAnswer(s, idx);
-        optsDiv.appendChild(btn);
-      });
-    });
-  }
-
-  function checkAnswer(slideNum, chosenIdx) {
-    if (userAnswers[slideNum] !== undefined) return;
-    const data = quizData[slideNum];
-    const isCorrect = chosenIdx === data.ans;
-    userAnswers[slideNum] = isCorrect;
-
-    const optsDiv = document.getElementById(`opts-${slideNum}`);
-    const buttons = optsDiv.querySelectorAll(".opt-btn");
-    buttons.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === data.ans) b.classList.add("correct");
-      if (idx === chosenIdx && !isCorrect) b.classList.add("wrong");
-    });
-
-    const fb = document.getElementById(`fb-${slideNum}`);
-    fb.className = `feedback show ${isCorrect ? "ok" : "bad"}`;
-    fb.textContent = (isCorrect ? "✅ دەستخۆش ڕاستە! " : "❌ خەلەتە! ") + data.exp;
-
-    const pill = document.getElementById(`nav-pill-${slideNum}`);
-    pill.classList.add(isCorrect ? "done-correct" : "done-wrong");
-
-    updateScore();
-  }
-
-  function updateScore() {
-    const answered = Object.keys(userAnswers).length;
-    const correct = Object.values(userAnswers).filter(Boolean).length;
-    document.getElementById("scoreText").textContent = `${correct} / 28`;
-    document.getElementById("answeredText").textContent = `${answered} / 28`;
-  }
-
-  function resetQuiz() {
-    for (const k in userAnswers) delete userAnswers[k];
-    renderNavAndQuizzes();
-    updateScore();
-  }
-
-  renderNavAndQuizzes();
-</script>
-
-</body>
-</html>
+      <div class="exam-q" id="eq-3">
+        <div class="exam-q-title">
