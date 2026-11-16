@@ -1,351 +1,2537 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku" dir="rtl" data-theme="dark" data-accent="gold">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ب خێر هاتی | تاقیکردن</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Vazirmatn', Tahoma, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#0b0f19" />
+  <meta name="description" content="دەروازێ فەرمی یێ تاقیکرنان - پۆلا ١٢ (٢٠٢٥-٢٠٢٦)" />
+  <title>دەروازێ تاقیکرنان | پۆلا ١٢</title>
 
-        body {
-            min-height: 100vh;
-            background: #070913;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-        }
+  <!-- فۆنتێن جوان یێن کوردی و عەرەبی -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-        /* ڕەنگ و ڕۆناهیێن پشتێ */
-        .bg-glow {
-            position: fixed;
-            width: 380px;
-            height: 380px;
-            border-radius: 50%;
-            filter: blur(110px);
-            z-index: 0;
-            opacity: 0.55;
-            animation: floatGlow 8s ease-in-out infinite alternate;
-        }
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & LUXURY THEMING SYSTEM
+       ========================================================================== */
+    :root {
+      --font-main: 'Vazirmatn', 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
+      --font-display: 'Noto Kufi Arabic', 'Vazirmatn', sans-serif;
 
-        .glow-1 {
-            background: #6c2bd9;
-            top: -80px;
-            right: -80px;
-        }
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
 
-        .glow-2 {
-            background: #0ea5e9;
-            bottom: -100px;
-            left: -80px;
-            animation-delay: 2s;
-        }
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-        .glow-3 {
-            background: #ec4899;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 260px;
-            height: 260px;
-            opacity: 0.25;
-        }
+      /* ڕەنگێ سەرەکی (Accent Default: Royal Gold) */
+      --accent: #f59e0b;
+      --accent-2: #fbbf24;
+      --accent-soft: rgba(245, 158, 11, 0.14);
+      --accent-glow: rgba(245, 158, 11, 0.35);
+      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+    }
 
-        @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(25px, -25px) scale(1.12); }
-        }
+    /* ڕەنگێن جودا یێن گوهۆڕینێ */
+    [data-accent="gold"] {
+      --accent: #f59e0b;
+      --accent-2: #fcd34d;
+      --accent-soft: rgba(245, 158, 11, 0.14);
+      --accent-glow: rgba(245, 158, 11, 0.35);
+      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+    }
 
-        /* کارتێ سەرەکی */
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 560px;
-            background: rgba(17, 24, 39, 0.65);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 28px;
-            padding: 36px 26px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    [data-accent="emerald"] {
+      --accent: #10b981;
+      --accent-2: #34d399;
+      --accent-soft: rgba(16, 185, 129, 0.14);
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --accent-gradient: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+    }
 
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+    [data-accent="sapphire"] {
+      --accent: #3b82f6;
+      --accent-2: #60a5fa;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --accent-glow: rgba(59, 130, 246, 0.35);
+      --accent-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+    }
 
-        /* تاگێ سەرێ */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 6px 16px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 18px;
-            animation: pulseBorder 2s infinite;
-        }
+    [data-accent="royal"] {
+      --accent: #8b5cf6;
+      --accent-2: #a78bfa;
+      --accent-soft: rgba(139, 92, 246, 0.15);
+      --accent-glow: rgba(139, 92, 246, 0.35);
+      --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c084fc 100%);
+    }
 
-        @keyframes pulseBorder {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
-            50% { box-shadow: 0 0 16px 2px rgba(239, 68, 68, 0.25); }
-        }
+    /* دۆخێ تاریک (Dark Luxury Mode) */
+    [data-theme="dark"] {
+      --bg-body: #070b14;
+      --bg-surface: rgba(15, 23, 42, 0.72);
+      --bg-surface-solid: #0f172a;
+      --bg-card: rgba(17, 25, 46, 0.76);
+      --bg-card-hover: rgba(24, 35, 64, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --bg-input: rgba(15, 23, 42, 0.9);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.65);
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
 
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
+    /* دۆخێ ڕۆناهی (Light Pearl Mode) */
+    [data-theme="light"] {
+      --bg-body: #f1f5f9;
+      --bg-surface: rgba(255, 255, 255, 0.84);
+      --bg-surface-solid: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(15, 23, 42, 0.04);
+      --bg-input: #f8fafc;
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-strong: rgba(15, 23, 42, 0.16);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.1);
+      --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.14);
+      --success: #059669;
+      --danger: #dc2626;
+      --warning: #d97706;
+    }
 
-        .header h1 {
-            font-size: 1.9rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
+    /* ==========================================================================
+       2. RESET & BASE STYLES
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* سندۆقا گۆتنێ */
-        .roast-box {
-            background: rgba(255, 255, 255, 0.04);
-            border-right: 4px solid #f43f5e;
-            border-radius: 16px;
-            padding: 18px 20px;
-            margin-bottom: 28px;
-            color: #e2e8f0;
-            font-size: 1.03rem;
-            line-height: 1.9;
-            font-weight: 500;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.25);
-        }
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .roast-box span {
-            color: #fb7185;
-            font-weight: 800;
-        }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    }
 
-        /* ناڤنیشانێ فایلان */
-        .section-title {
-            font-size: 0.95rem;
-            color: #94a3b8;
-            margin-bottom: 14px;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
+    ::selection {
+      background: var(--accent);
+      color: #070b14;
+    }
 
-        /* لیستا دوگمەیان */
-        .links-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+    /* سکڕۆڵ بارەکی جوان */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-body);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: var(--radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
 
-        .file-card {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px 20px;
-            border-radius: 18px;
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .file-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-            transition: left 0.6s ease;
-        }
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+      color: inherit;
+    }
 
-        .file-card:hover::before {
-            left: 100%;
-        }
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
 
-        .file-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: rgba(56, 189, 248, 0.6);
-            background: rgba(56, 189, 248, 0.12);
-            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.25);
-        }
+    /* ==========================================================================
+       3. PRELOADER & ANIMATED BACKDROP
+       ========================================================================== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg-body);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
 
-        .file-card:nth-child(2):hover {
-            border-color: rgba(168, 85, 247, 0.6);
-            background: rgba(168, 85, 247, 0.12);
-            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.25);
-        }
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-        .file-card:nth-child(3):hover {
-            border-color: rgba(236, 72, 153, 0.6);
-            background: rgba(236, 72, 153, 0.12);
-            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.25);
-        }
+    .loader-orb {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
 
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+    .loader-orb::before,
+    .loader-orb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid transparent;
+    }
 
-        .icon-box {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+    .loader-orb::before {
+      border-top-color: var(--accent);
+      border-right-color: var(--accent-2);
+      animation: spin 1s linear infinite;
+    }
 
-        .icon-1 { background: linear-gradient(135deg, #0284c7, #38bdf8); box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35); }
-        .icon-2 { background: linear-gradient(135deg, #7e22ce, #c084fc); box-shadow: 0 4px 15px rgba(192, 132, 252, 0.35); }
-        .icon-3 { background: linear-gradient(135deg, #be185d, #f472b6); box-shadow: 0 4px 15px rgba(244, 114, 182, 0.35); }
+    .loader-orb::after {
+      inset: 8px;
+      border-bottom-color: var(--accent);
+      animation: spinReverse 1.4s linear infinite;
+    }
 
-        .file-text h3 {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 2px;
-            direction: ltr;
-            text-align: right;
-        }
+    .loader-core {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      box-shadow: 0 0 24px var(--accent-glow);
+      animation: pulseScale 1.4s ease-in-out infinite;
+    }
 
-        .file-text p {
-            font-size: 0.82rem;
-            color: #94a3b8;
-        }
+    .loader-text {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
 
-        .arrow {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
+    /* کانڤاس و ڕۆناهیێن پاشبنەما */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+    }
 
-        .file-card:hover .arrow {
-            transform: translateX(-5px);
-            background: rgba(255, 255, 255, 0.2);
-        }
+    .ambient-orbs {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-        .footer {
-            margin-top: 26px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.28;
+      animation: floatOrb 18s ease-in-out infinite;
+    }
 
-        @media (max-width: 480px) {
-            .container { padding: 26px 18px; }
-            .header h1 { font-size: 1.55rem; }
-            .roast-box { font-size: 0.95rem; padding: 15px; }
-        }
-    </style>
+    [data-theme="light"] .orb {
+      opacity: 0.18;
+    }
+
+    .orb-1 {
+      width: 480px;
+      height: 480px;
+      background: var(--accent);
+      top: -140px;
+      right: -120px;
+    }
+
+    .orb-2 {
+      width: 420px;
+      height: 420px;
+      background: #6366f1;
+      bottom: -120px;
+      left: -100px;
+      animation-delay: -7s;
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: #06b6d4;
+      top: 45%;
+      left: 42%;
+      animation-delay: -12s;
+      opacity: 0.16;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--border-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 25%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 80%);
+      opacity: 0.45;
+    }
+
+    /* ==========================================================================
+       4. LAYOUT & HEADER NAVBAR
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 14px;
+      z-index: 100;
+      margin: 14px auto 0;
+      width: calc(100% - 28px);
+      max-width: 1240px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-smooth);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--accent-gradient);
+      display: grid;
+      place-items: center;
+      color: #070b14;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 24px var(--accent-glow);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%);
+      transform: translateX(-100%);
+      animation: sheen 4.5s infinite;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-glass);
+      padding: 5px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .nav-link {
+      padding: 7px 15px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-primary);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      display: grid;
+      place-items: center;
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .accent-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--radius-full);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .accent-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      border: 2px solid transparent;
+    }
+
+    .accent-dot[data-set-accent="gold"] { background: #f59e0b; }
+    .accent-dot[data-set-accent="emerald"] { background: #10b981; }
+    .accent-dot[data-set-accent="sapphire"] { background: #3b82f6; }
+    .accent-dot[data-set-accent="royal"] { background: #8b5cf6; }
+
+    .accent-dot.active {
+      transform: scale(1.22);
+      border-color: var(--text-primary);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       5. HERO & PROGRESS DASHBOARD
+       ========================================================================== */
+    .hero {
+      padding: 36px 0 24px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-gradient);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: var(--accent-soft);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--accent-2);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    [data-theme="light"] .hero-badge {
+      color: var(--accent);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent-glow);
+      animation: radarPulse 2s infinite;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero-title .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      max-width: 580px;
+      margin-bottom: 22px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .meta-pill strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    /* لایێ چەپێ یێ هیرۆ - بازنێ پێشکەفتنێ */
+    .hero-stats-panel {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .progress-ring-wrap {
+      position: relative;
+      width: 124px;
+      height: 124px;
+      flex-shrink: 0;
+    }
+
+    .progress-ring {
+      width: 124px;
+      height: 124px;
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring-bg {
+      fill: none;
+      stroke: var(--border-subtle);
+      stroke-width: 10;
+    }
+
+    .progress-ring-fill {
+      fill: none;
+      stroke: url(#ringGradient);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 326.72;
+      stroke-dashoffset: 326.72;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .progress-ring-center .pct {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .progress-ring-center .lbl {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .stats-list {
+      flex: 1;
+      display: grid;
+      gap: 10px;
+    }
+
+    .stat-mini {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+    }
+
+    .stat-mini span {
+      color: var(--text-secondary);
+    }
+
+    .stat-mini strong {
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    [data-theme="light"] .stat-mini strong {
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       6. TOOLBAR: SEARCH & FILTERS
+       ========================================================================== */
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 26px 0 18px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .section-title h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .section-title p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .search-box svg {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 11px 42px 11px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .chip.active {
+      background: var(--accent-gradient);
+      color: #070b14;
+      border-color: transparent;
+      box-shadow: 0 6px 18px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       7. MODULE CARDS GRID (THE 5 REQUESTED FILES)
+       ========================================================================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 22px;
+      margin-bottom: 44px;
+    }
+
+    .module-card {
+      position: relative;
+      background: var(--bg-card);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--transition-smooth), border-color var(--transition-fast), box-shadow var(--transition-smooth);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      animation: fadeUp 0.55s ease backwards;
+    }
+
+    .module-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg), 0 0 30px var(--accent-soft);
+    }
+
+    .module-card.completed {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .card-glow-spot {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+      top: -60px;
+      left: -60px;
+      pointer-events: none;
+      transition: transform 0.3s ease;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-icon-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .card-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-mini-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      display: grid;
+      place-items: center;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .card-mini-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.06);
+    }
+
+    .card-mini-btn.fav-active {
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.14);
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .card-mini-btn.done-active {
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .card-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .file-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-xs);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: var(--accent-2);
+      direction: ltr;
+      margin-bottom: 10px;
+    }
+
+    [data-theme="light"] .file-pill {
+      color: var(--accent);
+    }
+
+    .card-body p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .tag.status-ready {
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .card-footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      background: var(--accent-gradient);
+      color: #070b14;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 20px var(--accent-glow);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px var(--accent-glow);
+      filter: brightness(1.06);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.86rem;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 52px 24px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-xl);
+    }
+
+    /* ==========================================================================
+       8. STUDY TOOLS HUB (POMODORO, NOTES, SCORE CALCULATOR, QUOTES)
+       ========================================================================== */
+    .tools-hub {
+      background: var(--bg-card);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 44px;
+    }
+
+    .tools-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 24px;
+    }
+
+    .tool-tab {
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .tool-tab.active {
+      background: var(--accent-gradient);
+      color: #070b14;
+      border-color: transparent;
+      box-shadow: 0 6px 18px var(--accent-glow);
+    }
+
+    .tool-panel {
+      display: none;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .tool-panel.active {
+      display: block;
+    }
+
+    /* پۆمۆدۆرۆ تایمەر */
+    .pomodoro-box {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .timer-display-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .timer-clock {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(2.5rem, 6vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin: 10px 0 18px;
+      color: var(--accent-2);
+      direction: ltr;
+    }
+
+    [data-theme="light"] .timer-clock {
+      color: var(--accent);
+    }
+
+    .timer-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .preset-btn {
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .preset-btn.active,
+    .preset-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* تێبینیێن خواندنێ */
+    .notes-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .notes-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      outline: none;
+    }
+
+    .notes-form input:focus {
+      border-color: var(--accent);
+    }
+
+    .notes-list {
+      display: grid;
+      gap: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .note-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-fast);
+    }
+
+    .note-item.checked span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .note-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .note-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border-strong);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .note-item.checked .note-check {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+
+    .note-del {
+      color: var(--danger);
+      padding: 6px;
+      border-radius: 8px;
+    }
+
+    .note-del:hover {
+      background: rgba(239, 68, 68, 0.14);
+    }
+
+    /* هەژمارتنا نمرەیان */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .calc-field label {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .calc-field input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      outline: none;
+    }
+
+    .calc-field input:focus {
+      border-color: var(--accent);
+    }
+
+    .calc-result {
+      padding: 18px 22px;
+      border-radius: var(--radius-lg);
+      background: var(--accent-soft);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* گوتنێن هاندانێ */
+    .quote-card {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+
+    .quote-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .quote-author {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    /* ==========================================================================
+       9. MODALS (PREVIEW IFRAME & SHORTCUTS)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(4, 7, 15, 0.78);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-smooth);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 1080px;
+      height: 86vh;
+      background: var(--bg-surface-solid);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.95) translateY(14px);
+      transition: transform var(--transition-smooth);
+    }
+
+    .modal-box.compact {
+      max-width: 540px;
+      height: auto;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-glass);
+    }
+
+    .modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .modal-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    .shortcut-list {
+      padding: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .shortcut-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+    }
+
+    kbd {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-strong);
+      font-family: ui-monospace, monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       10. TOASTS, FOOTER & MOBILE BOTTOM NAV
+       ========================================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 84px;
+      left: 20px;
+      z-index: 1500;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-solid);
+      border: 1px solid var(--accent);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInToast 0.35s ease;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 28px 20px 100px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 90;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: #070b14;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px var(--accent-glow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px);
+      transition: all var(--transition-fast);
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 12px;
+      left: 14px;
+      right: 14px;
+      z-index: 95;
+      background: var(--bg-surface);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 8px;
+      justify-content: space-around;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .mobile-nav-item.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ==========================================================================
+       11. KEYFRAMES & RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes pulseScale {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(35px, -25px) scale(1.06); }
+      66% { transform: translate(-25px, 30px) scale(0.95); }
+    }
+
+    @keyframes sheen {
+      0% { transform: translateX(-120%); }
+      30%, 100% { transform: translateX(140%); }
+    }
+
+    @keyframes radarPulse {
+      0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+      70% { box-shadow: 0 0 0 10px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInToast {
+      from {
+        opacity: 0;
+        transform: translateX(-24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+
+      .pomodoro-box {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar-inner {
+        padding: 10px 14px;
+      }
+
+      .accent-dots {
+        display: none;
+      }
+
+      .hero-stats-panel {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+      }
+
+      .scroll-top-btn {
+        bottom: 86px;
+        right: 16px;
+      }
+
+      .toast-container {
+        bottom: 92px;
+        left: 12px;
+        right: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- شاشا چاڤەڕێبوونێ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="loader-orb"><div class="loader-core"></div></div>
+    <div class="loader-text">پلاتفۆرما تاقیکرنێن پۆلا ١٢ دهێتە ئامادەکرن...</div>
+  </div>
 
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
-    <div class="bg-glow glow-3"></div>
+  <!-- پاشبنەمایا گەردیلەیی و ڕۆناهی -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="ambient-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-grid"></div>
 
-    <main class="container">
-        <div class="header">
-            <div class="badge">⚠️ ئاگەهداری بۆ مێڤانێن بێ خاندن</div>
-            <h1>ئەرێ ب راستی تو هاتی؟ 😂</h1>
+  <!-- ناڤباری سەرەکی -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="#top" class="brand">
+        <div class="brand-logo">١٢</div>
+        <div class="brand-text">
+          <h1>تاقیکرنا ویزاری</h1>
+          <span>پۆلا ١٢ • ٢٠٢٥ - ٢٠٢٦</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="لینکێن سەرەکی">
+        <a href="#top" class="nav-link active">سەرەتا</a>
+        <a href="#modules-section" class="nav-link">تاقیکرن (٥)</a>
+        <a href="#tools-section" class="nav-link">ئامرازێن خواندنێ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="accent-dots" title="گوهۆڕینا ڕەنگێ ستایلی">
+          <button class="accent-dot active" data-set-accent="gold" aria-label="زێڕی"></button>
+          <button class="accent-dot" data-set-accent="emerald" aria-label="زمڕودی"></button>
+          <button class="accent-dot" data-set-accent="sapphire" aria-label="شین"></button>
+          <button class="accent-dot" data-set-accent="royal" aria-label="مۆر"></button>
         </div>
 
-        <div class="roast-box">
-            <span>راوستە!</span> تو ب چ رووی هاتیە د ڤێرە دا؟ تە پەرتووک نەڤەکرینە و هێشتا هیڤیا تە ب ڤان لاپەڕانە؟ ئەگەر تو یێ زیرەک بای، دا نها ل سەر خاندنا خۆ بی نەک ل ڤێرە ل رێکا ئاسان بگەڕی! دەی فەرموو، ئەڤە ئەو فایلن یێن تو نەشێی بێی وان دەرباز ببی!
+        <button class="icon-btn" id="theme-toggle" title="تاریک / ڕۆناهی (T)" aria-label="گوهۆڕینا دۆخی">
+          <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="shortcuts-btn" title="کورتبڕێن کیبۆردی" aria-label="زانیاری">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <!-- پشکا هیرۆ -->
+    <section class="hero">
+      <div class="hero-card">
+        <div>
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span id="greeting-text">بخێرهاتی قوتابیێ هێژا</span>
+          </div>
+
+          <h2 class="hero-title">
+            دەروازێ هەڵبژارتی یێ
+            <span class="highlight">تاقیکرن و دیزاینان</span>
+          </h2>
+
+          <p class="hero-desc">
+            هەمی ٥ پەڕێن پێدڤی ب ستایلەکێ ڕاقی و بێ کێماسی ل ئێک جهـ هاتینە کۆمکرن. دشێی راستەوخۆ ڤەبکەی، د ناڤ پەنجەرێ دا پێشبینینێ بکەی، و پێشکەفتنا خۆ تۆمار بکەی.
+          </p>
+
+          <div class="hero-meta-row">
+            <div class="meta-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>دەمژمێر: <strong id="live-clock">--:--:--</strong></span>
+            </div>
+
+            <div class="meta-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span id="live-date">---</span>
+            </div>
+          </div>
         </div>
 
-        <p class="section-title">فایلا خۆ هەلبژێرە و بچۆ ژوور 👇</p>
+        <!-- پانێلا پێشکەفتنێ -->
+        <div class="hero-stats-panel">
+          <div class="progress-ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f59e0b" />
+                  <stop offset="100%" stop-color="#10b981" />
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="progress-ring-fill" id="progress-ring-fill" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="progress-ring-center">
+              <span class="pct" id="progress-pct">0%</span>
+              <span class="lbl">پێشکەفتن</span>
+            </div>
+          </div>
 
-        <div class="links-grid">
-            <a href="cshart1.html" class="file-card">
-                <div class="file-info">
-                    <div class="icon-box icon-1">📊</div>
-                    <div class="file-text">
-                        <h3>cshart1.html</h3>
-                        <p>کلیک بکە بۆ ڤەکرنا بەشێ ئێکێ</p>
-                    </div>
-                </div>
-                <div class="arrow">←</div>
-            </a>
+          <div class="stats-list">
+            <div class="stat-mini">
+              <span>سەرجەمێ فایلان</span>
+              <strong id="stat-total">٥ فایل</strong>
+            </div>
+            <div class="stat-mini">
+              <span>تەمامکری</span>
+              <strong id="stat-done">٠ ژ ٥</strong>
+            </div>
+            <div class="stat-mini">
+              <span>دڵخواز</span>
+              <strong id="stat-fav">٠</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <a href="cshart2.html" class="file-card">
-                <div class="file-info">
-                    <div class="icon-box icon-2">📈</div>
-                    <div class="file-text">
-                        <h3>cshart2.html</h3>
-                        <p>کلیک بکە بۆ ڤەکرنا بەشێ دووێ</p>
-                    </div>
-                </div>
-                <div class="arrow">←</div>
-            </a>
-                        <a href="log2.html" class="file-card">
-                <div class="file-info">
-                    <div class="icon-box icon-3">⚡</div>
-                    <div class="file-text">
-                        <h3>logdesign2.html</h3>
-                        <p>کلیک بکە بۆ ڤەکرنا دیزاین و لۆگێ</p>
-                    </div>
-                </div>
-                <div class="arrow">←</div>
-            </a>
+    <!-- پشکا تاقیکرنان -->
+    <section id="modules-section">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h2>پەڕێن دەستنیشانکری</h2>
+            <p>بتنێ ئەو ٥ فایلێن هاتینە هەڵبژارتن ل خوارێ نە</p>
+          </div>
+        </div>
+      </div>
 
-            <a href="logdesign2.html" class="file-card">
-                <div class="file-info">
-                    <div class="icon-box icon-3">⚡</div>
-                    <div class="file-text">
-                        <h3>logdesign2.html</h3>
-                        <p>کلیک بکە بۆ ڤەکرنا دیزاین و لۆگێ</p>
-                    </div>
-                </div>
-                <div class="arrow">←</div>
-            </a>
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" placeholder="ل ناڤێ فایلی یان بابەتی بگەڕێ... (فشاری / بدە)" />
         </div>
 
-        <div class="footer">
-            ب هیڤیا سەرکەفتنێ (ئەگەر تە پیچەک خاندبیت) ✨
+        <div class="filter-chips" id="filter-chips">
+          <button class="chip active" data-filter="all">هەمی (٥)</button>
+          <button class="chip" data-filter="cshart">Cshart</button>
+          <button class="chip" data-filter="log">Log</button>
+          <button class="chip" data-filter="english">English</button>
+          <button class="chip" data-filter="favorites">دڵخواز ★</button>
+          <button class="chip" data-filter="completed">تەمامکری ✓</button>
         </div>
-    </main>
+      </div>
 
-</body>
-</html>
+      <div class="cards-grid" id="cards-grid"></div>
+    </section>
+
+    <!-- پشکا ئامرازێن خواندنێ -->
+    <section id="tools-section">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div>
+            <h2>ئامرازێن هاریکار یێن قوتابی</h2>
+            <p>تایمەرێ تەرکیزێ، تێبینی، هەژمارتنا نمرەیان، و هاندان</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-hub">
+        <div class="tools-tabs">
+          <button class="tool-tab active" data-tool="pomodoro">⏱ تایمەرێ خواندنێ</button>
+          <button class="tool-tab" data-tool="notes">📝 تێبینی و پلان</button>
+          <button class="tool-tab" data-tool="calculator">📊 هەژمارتنا ڕێژێ</button>
+          <button class="tool-tab" data-tool="quotes">✨ گوتنێن هاندانێ</button>
+        </div>
+
+        <!-- ئامرازێ ١: پۆمۆدۆرۆ -->
+        <div class="tool-panel active" id="panel-pomodoro">
+          <div class="pomodoro-box">
+            <div class="timer-display-card">
+              <div style="font-size: 0.85rem; color: var(--text-secondary);" id="timer-status">ئامادەیە بۆ دەستپێکرنا خواندنێ</div>
+              <div class="timer-clock" id="timer-display">25:00</div>
+              <div class="timer-controls">
+                <button class="btn-primary" id="timer-start">دەستپێک</button>
+                <button class="btn-secondary" id="timer-pause">ڕاوەستاندن</button>
+                <button class="btn-secondary" id="timer-reset">ژ نوو</button>
+              </div>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom: 10px; font-family: var(--font-display);">دەمێ هەڵبژارتی</h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;">
+                ب شێوازێ پۆمۆدۆرۆ بخوینە: ٢٥ خولەک تەرکیزا تەمام و پاشی ٥ خولەک بێهنڤەدان. دەمێ خەلاس دبیت دەنگەکی ئاگاداریێ لێ ددەت.
+              </p>
+              <div class="preset-grid">
+                <button class="preset-btn active" data-minutes="25">٢٥ خولەک<br><small>خواندن</small></button>
+                <button class="preset-btn" data-minutes="5">٥ خولەک<br><small>بێهنڤەدان</small></button>
+                <button class="preset-btn" data-minutes="45">٤٥ خولەک<br><small>تاقیکرن</small></button>
+              </div>
+              <div class="stat-mini">
+                <span>گەڕێن ئەڤرۆ تەمامکرین</span>
+                <strong id="pomodoro-sessions">٠ گەڕ</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ئامرازێ ٢: تێبینی -->
+        <div class="tool-panel" id="panel-notes">
+          <form class="notes-form" id="notes-form">
+            <input type="text" id="note-input" placeholder="تێبینیەکێ یان ئەرکەکێ بنڤیسە (بۆ نموونە: خەلاسکرنا log2.html)..." required />
+            <button type="submit" class="btn-primary">زێدەکرن +</button>
+          </form>
+          <div class="notes-list" id="notes-list"></div>
+        </div>
+
+        <!-- ئامرازێ ٣: هەژمارتنا نمرەیان -->
+        <div class="tool-panel" id="panel-calculator">
+          <div class="calc-grid">
+            <div class="calc-field">
+              <label for="score-1">نمرەیا Cshart 1 (ژ ١٠٠)</label>
+              <input type="number" id="score-1" min="0" max="100" placeholder="بۆ نموونە: 92" />
+            </div>
+            <div class="calc-field">
+              <label for="score-2">نمرەیا Cshart 2 (ژ ١٠٠)</label>
+              <input type="number" id="score-2" min="0" max="100" placeholder="بۆ نموونە: 88" />
+            </div>
+            <div class="calc-field">
+              <label for="score-3">نمرەیا Log Design 2 (ژ ١٠٠)</label>
+              <input type="number" id="score-3" min="0" max="100" placeholder="بۆ نموونە: 95" />
+            </div>
+            <div class="calc-field">
+              <label for="score-4">نمرەیا Log 2 (ژ ١٠٠)</label>
+              <input type="number" id="score-4" min="0" max="100" placeholder="بۆ نموونە: 90" />
+            </div>
+            <div class="calc-field">
+              <label for="score-5">نمرەیا English 1.2 (ژ ١٠٠)</label>
+              <input type="number" id="score-5" min="0" max="100" placeholder="بۆ نموونە: 94" />
+            </div>
+          </div>
+
+          <div class="calc-result">
+            <div>
+              <div style="font-size: 0.85rem; color: var(--text-secondary);">تێکڕایا گشتی (المعدل)</div>
+              <div style="font-size: 1.6rem; font-weight: 800;" id="calc-avg">٠.٠٠٪</div>
+            </div>
+            <div id="calc-grade-badge" class="tag status-ready" style="font-size: 0.92rem; padding: 8px 16px;">
+              نمرەیان بنڤیسە بۆ هەژمارتنێ
+            </div>
+          </div>
+        </div>
+
+        <!-- ئامرازێ ٤: گوتنێن هاندانێ -->
+        <div class="tool-panel" id="panel-quotes">
+          <div class="quote-card">
+            <div class="quote-text" id="quote-text">«سەرکەفتن ب رێکەفت چێ نابیت، بەلکو ئەنجامێ ماندیبوون و بەردەوامبوونێ یە.»</div>
+            <div class="quote-author" id="quote-author">— پەیاما سەرکەفتنێ</div>
+            <button class="btn-primary" id="next-quote-btn">گوتنەکا دی ↻</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- فوتر -->
+  <footer class="footer">
+    <p>ب ستایلەکێ تایبەت و ڕاقی هاتیە دروستکرن بۆ <strong>پۆلا ١٢ • خولا دووی (٢٠٢٥-٢٠٢٦)</strong></p>
+    <p style="margin-top: 6px; font-size: 0.8rem; color: var(--text-muted);">
+      هەمی زانیاری و پێشکەفتن ب شێوەیەکێ ئۆتۆماتیکی ل سەر ئامێرێ تە دهێنە پاراستن.
+    </p>
+  </footer>
+
+  <!-- مۆدالا پێشبینینا فایلی (Iframe Preview) -->
+  <div class="modal-overlay" id="preview-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="modal-file-name" style="direction: ltr; font-family: monospace;">file.html</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <a href="#" id="modal-external-link" target="_blank" rel="noopener" class="btn-secondary" style="padding: 7px 12px; font-size: 0.82rem;">
+            ڤەکرن د تابەکی نوێ دا ↗
+          </a>
+          <button class="icon-btn" id="close-preview-modal" aria-label="داخستن">✕</button>
+        </div>
+      </div>
+      <iframe id="preview-iframe" class="modal-iframe" title="پێشبینینا پەڕی"></iframe>
+    </div>
+  </div>
+
+  <!-- مۆدالا کورتبڕێن کیبۆردی -->
+  <div class="modal-overlay" id="shortcuts-modal" role="dialog" aria-modal="true">
+    <div class="modal-box compact">
+      <div class="modal-header">
+        <div class="modal-title">کورتبڕ و ڕێنمایی</div>
+        <button class="icon-btn" id="close-shortcuts-modal" aria-label="داخستن">✕</button>
+      </div>
+      <div class="shortcut-list">
+        <div class="shortcut-row"><span>لێگەڕیان ل فایلان</span><kbd>/</kbd></div>
+        <div class="shortcut-row"><span>گوهۆڕینا دۆخێ تاریک / ڕۆناهی</span><kbd>T</kbd></div>
+        <div class="shortcut-row"><span>داخستنا پەنجەرەیان</span><kbd>Esc</kbd></div>
+        <div class="shortcut-row"><span>پێشبینینا راستەوخۆ د ناڤ پەڕی دا</span><span>دوگما چاڤی 👁</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ناڤباری مۆبایلێ -->
+  <nav class="mobile-bottom-nav" aria-label="گەڕیانا مۆبایلێ">
+    <a href="#top" class="mobile-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      <span>سەرەتا</span>
+    </a>
+    <a href="#modules-section" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span>فایل (٥)</span>
+    </a>
+    <a href="#tools-section" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span>ئامراز</span>
+    </a>
+  </nav>
+
+  <!-- دوگما چوونە سەری -->
+  <button class="scroll-top-btn" id="scroll-top-btn" aria-label="چوونە سەری">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- جهێ ئاگادارکرنان (Toasts) -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script>
+    /* ==========================================================================
+       1. DATA: ONLY THE 5 REQUESTED FILES (EXACT FILENAMES FROM REPO)
+       ========================================================================== */
+    const MODULES = [
+      {
+        id: 'cshart1',
+        title: 'بەشێ ئێکێ — Cshart 1',
+        file: 'cshart1.html',
+        category: 'cshart',
+        badge: 'C1',
+        gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
+        description: 'ڤەکرنا راستەوخۆ یا پەڕێ cshart1.html ب ڕێکخستنەکا جوان و بێ کێماسی بۆ خواندن و تاقیکرنێ.',
+        tags: ['ئامادەیە', 'پشکا ئێکێ', 'HTML']
+      },
+      {
+        id: 'cshart2',
+        title: 'بەشێ دووێ — Cshart 2',
+        file: 'cshart2.html',
+        category: 'cshart',
+        badge: 'C2',
+        gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+        description: 'پەڕێ تمامکەر یێ cshart2.html دگەل پێشبینینا خێرا و تۆمارکرنا تەمامبوونێ.',
+        tags: ['ئامادەیە', 'پشکا دووێ', 'HTML']
+      },
+      {
+        id: 'logdesign2',
+        title: 'دیزاینا لۆگ — Log Design 2',
+        file: 'logdesign2.html',
+        category: 'log',
+        badge: 'LD',
+        gradient: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+        description: 'دیزاین و پەڕێ تایبەت یێ logdesign2.html ب ستایلەکێ مۆدێرن و ئامادە بۆ کارپێکرنێ.',
+        tags: ['دیزاین', 'تازە', 'Log Design']
+      },
+      {
+        id: 'log2',
+        title: 'تاقیکرن / پەڕێ Log 2',
+        file: 'log2.html',
+        category: 'log',
+        badge: 'L2',
+        gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+        description: 'ڤەکرنا پەڕێ log2.html راستەوخۆ یان د ناڤ پەنجەرا پێشبینینێ دا ل سەر هەمان شاشە.',
+        tags: ['ئامادەیە', 'تازە', 'Log']
+      },
+      {
+        id: 'english12',
+        title: 'زمانی ئینگلیزی — English 1.2',
+        file: 'engilsh1.2.html',
+        category: 'english',
+        badge: 'EN',
+        gradient: 'linear-gradient(135deg, #10b981, #059669)',
+        description: 'پەڕێ تاقیکرنا ئینگلیزی (engilsh1.2.html) ب ناڤونیشانێ دروست یێ گیتهەبی دا بێ کێشە ڤەبیت.',
+        tags: ['English 1.2', 'نوێ', 'ئامادەیە']
+      }
+    ];
+
+    const QUOTES = [
+      {
+        text: '«سەرکەفتن ب رێکەفت چێ نابیت، بەلکو ئەنجامێ ماندیبوون و بەردەوامبوونا رۆژانە یە.»',
+        author: '— پەیاما سەرکەفتنێ'
+      },
+      {
+        text: '«هەر دەمژمێرەکا تو ئەڤرۆ تێدا دخوینی، پێنگاڤەکێ نێزیکی خەونێن خۆ یێن مەزن دبی.»',
+        author: '— بۆ قوتابیێن پۆلا ١٢'
+      },
+      {
+        text: '«باوەری بخۆ بوون نیڤا سەرکەفتنێ یە، و ڕێکخستنا دەمی نیڤا دی یە.»',
+        author: '— ڕێنمایا خواندنێ'
+      },
+      {
+        text: '«نەترسە ژ زەحمەتییا رێکێ، چونکی ئەنجامێ دوماهیێ ژ هەمی ماندیبوونان جوانترە.»',
+        author: '— هاندانا بەردەوام'
+      }
+    ];
+
+    /* ==========================================================================
+       2. STATE MANAGEMENT (LOCALSTORAGE)
+       ========================================================================== */
+    const STORAGE_KEY = 'kurdish_exam_portal_v2';
+    const defaultState = {
+      theme: 'dark',
+      accent: 'gold',
+      favorites: [],
+      completed: [],
+      notes: [
+        { id: 1, text: 'پێداچوونا cshart1.html و cshart2.html', done: false },
+        { id: 2, text: 'تەمامکرنا engilsh1.2.html', done: false }
+      ],
+      pomodoroSessions: 0
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultState);
+        return { ...structuredClone(defaultState), ...JSON.parse(raw) };
+      } catch {
+        return structuredClone(defaultState);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch {
+        /* ignore storage quota errors */
+      }
+    }
+
+    let state = loadState();
+    let activeFilter = 'all';
+    let searchQuery = '';
+    let currentQuoteIndex = 0;
+
+    /* ==========================================================================
+       3. HELPERS & TOAST SYSTEM
+       ========================================================================== */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span style="color: var(--accent);">●</span><span>${escapeHtml(message)}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-20px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    /* ==========================================================================
+       4. THEME & ACCENT ENGINE
+       ========================================================================== */
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', state.theme);
+      document.documentElement.setAttribute('data-accent', state.accent);
+
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {
+        metaTheme.setAttribute('content', state.theme === 'dark' ? '#070b14' : '#f1f5f9');
+      }
+
+      document.querySelectorAll('.accent-dot').forEach((dot) => {
+        dot.classList.toggle('active', dot.dataset.setAccent === state.accent);
+      });
+
+      const icon = document.getElementById('theme-icon');
+      if (state.theme === 'dark') {
+        icon.innerHTML = `
+          <circle cx="12" cy="12" r="5"></circle>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        `;
+      } else {
+        icon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+      }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      saveState();
+      applyTheme();
+      showToast(state.theme === 'dark' ? 'دۆخێ تاریک هاتە چالاککرن' : 'دۆخێ ڕۆناهی هاتە چالاککرن');
+    });
+
+    document.querySelectorAll('.accent-dot').forEach((dot) => {
+      dot.addEventListener('click', () => {
+        state.accent = dot.dataset.setAccent;
+        saveState();
+        applyTheme();
+        showToast('ڕەنگێ ستایلی هاتە گوهۆڕین');
+      });
+    });
+
+    /* ==========================================================================
+       5. CLOCK, DATE & PROGRESS RING
+       ========================================================================== */
+    function updateClockAndGreeting() {
+      const now = new Date();
+      const hour = now.getHours();
+      let greet = 'شەڤ باش قوتابیێ هێژا';
+      if (hour >= 5 && hour < 12) greet = 'سپێدە باش قوتابیێ هێژا';
+      else if (hour >= 12 && hour < 17) greet = 'رۆژ باش قوتابیێ هێژا';
+      else if (hour >= 17 && hour < 21) greet = 'ئێڤار باش قوتابیێ هێژا';
+
+      document.getElementById('greeting-text').textContent = greet;
+      document.getElementById('live-clock').textContent = now.toLocaleTimeString('en-GB');
+      document.getElementById('live-date').textContent = now.toLocaleDateString('ku-Arab', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    function updateProgressStats() {
+      const total = MODULES.length;
+      const done = state.completed.length;
+      const fav = state.favorites.length;
+      const pct = Math.round((done / total) * 100);
+
+      const circumference = 2 * Math.PI * 52;
+      const offset = circumference - (pct / 100) * circumference;
+
+      document.getElementById('progress-ring-fill').style.strokeDashoffset = offset;
+      document.getElementById('progress-pct').textContent = `${pct}%`;
+      document.getElementById('stat-total').textContent = `${total} فایل`;
+      document.getElementById('stat-done').textContent = `${done} ژ ${total}`;
+      document.getElementById('stat-fav').textContent = `${fav}`;
+    }
+
+    /* ==========================================================================
+       6. CARDS RENDERER & 3D INTERACTIONS
+       ========================================================================== */
+    function renderCards() {
+      const grid = document.getElementById('cards-grid');
+      const query = searchQuery.trim().toLowerCase();
+
+      const filtered = MODULES.filter((item) => {
+        const matchesQuery =
+          !query ||
+          item.title.toLowerCase().includes(query) ||
+          item.file.toLowerCase().includes(query) ||
+          item.description.toLowerCase().includes(query);
+
+        if (!matchesQuery) return false;
+
+        if (activeFilter === 'all') return true;
+        if (activeFilter === 'favorites') return state.favorites.includes(item.id);
+        if (activeFilter === 'completed') return state.completed.includes(item.id);
+        return item.category === activeFilter;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin-bottom: 8px;">چ فایل ب ڤی ناڤی نەهاتنە دیتن</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">پێشنیارا مە: فلتەری بگوهۆڕە یان لێگەڕیانێ پاقژ بکە.</p>
+            <button class="btn-primary" id="reset-filters-btn">نیشاندانا هەمی ٥ فایلان</button>
+          </div>
+        `;
+        document.getElementById('reset-filters-btn').addEventListener('click', () => {
+          activeFilter = 'all';
+          searchQuery = '';
+          document.getElementById('search-input').value = '';
+          document.querySelectorAll('.chip').forEach((c) => c.classList.toggle('active', c.dataset.filter === 'all'));
+          renderCards();
+        });
+        return;
+      }
+
+      grid.innerHTML = filtered
+        .map((item, idx) => {
+          const isFav = state.favorites.includes(item.id);
+          const isDone = state.completed.includes(item.id);
+
+          return `
+            <article class="module-card ${isDone ? 'completed' : ''}" style="animation-delay: ${idx * 0.08}s" data-card-id="${item.id}">
+              <div class="card-glow-spot"></div>
+              <div>
+                <div class="card-top">
+                  <div class="card-icon-badge" style="background: ${item.gradient}">${item.badge}</div>
+                  <div class="card-top-actions">
+                    <button class="card-mini-btn ${isFav ? 'fav-active' : ''}" data-action="fav" data-id="${item.id}" title="زێدەکرن بۆ دڵخوازان">
+                      ${isFav ? '★' : '☆'}
+                    </button>
+                    <button class="card-mini-btn ${isDone ? 'done-active' : ''}" data-action="done" data-id="${item.id}" title="نیشانکرن وەک تەمامکری">
+                      ✓
+                    </button>
+                    <button class="card-mini-btn" data-action="copy" data-file="${item.file}" title="کۆپیکرنا ناڤێ فایلی">
+                      ⧉
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-body" style="margin-top: 16px;">
+                  <h3>${escapeHtml(item.title)}</h3>
+                  <div class="file-pill">
+                    <span>📄</span>
+                    <span>${escapeHtml(item.file)}</span>
+                  </div>
+                  <p>${escapeHtml(item.description)}</p>
+                  <div class="card-tags">
+                    <span class="tag status-ready">${isDone ? 'تەمام بوو ✓' : 'ئامادەیە بۆ ڤەکرن'}</span>
+                    ${item.tags.map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join('')}
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <a href="${encodeURI(item.file)}" class="btn-primary">
+                  <span>ڤەکرنا پەڕی</span>
+                  <span>←</span>
+                </a>
+                <button class="btn-secondary" data-action="preview" data-file="${item.file}" data-title="${escapeHtml(item.title)}" title="پێشبینینا د ناڤ پەڕی دا">
+                  <span>👁</span>
+                  <span>پێشبینین</span>
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+
+      attachCardTiltEffect();
+    }
+
+    function attachCardTiltEffect() {
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      document.querySelectorAll('.module-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const rotateX = ((y - rect.height / 2) / rect.height) * -5;
+          const rotateY = ((x - rect.width / 2) / rect.width) * 5;
+          card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+    }
+
+    document.getElementById('cards-grid').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+
+      const action = btn.dataset.action;
+      const id = btn.dataset.id;
+
+      if (action === 'fav') {
+        if (state.favorites.includes(id)) {
+          state.favorites = state.favorites.filter((x) => x !== id);
+          showToast('ژ لیستا دڵخوازان هاتە لادان');
+        } else {
+          state.favorites.push(id);
+          showToast('ل لیستا دڵخوازان هاتە زێدەکرن ★');
+        }
+        saveState();
+        updateProgressStats();
+        renderCards();
+      } else if (action === 'done') {
+        if (state.completed.includes(id)) {
+          state.completed = state.completed.filter((x) => x !== id);
+          showToast('نیشانا تەمامبوونێ هاتە لادان');
+        } else {
+          state.completed.push(id);
+          showToast('پیرۆزە! ئەڤ پەڕە وەک تەمامکری هاتە تۆمارکرن ✓');
+        }
+        saveState();
+        updateProgressStats();
+        renderCards();
+      } else if (action === 'copy') {
+        const file = btn.dataset.file;
+        navigator.clipboard?.writeText(file).then(() => {
+          showToast(`کۆپی بوو: ${file}`);
+        });
+      } else if (action === 'preview') {
+        openPreviewModal(btn.dataset.file, btn.dataset.title);
+      }
+    });
+
+    /* لێگەڕیان و فلتەر */
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderCards();
+    });
+
+    document.getElementById('filter-chips').addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      activeFilter = chip.dataset.filter;
+      document.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderCards();
+    });
+
+    /* ==========================================================================
+       7. PREVIEW & SHORTCUTS MODALS
+       ========================================================================== */
+    const previewModal = document.getElementById('preview-modal');
+    const previewIframe = document.getElementById('preview-iframe');
+    const shortcutsModal = document.getElementById('shortcuts-modal');
+
+    function openPreviewModal(file, title) {
+      document.getElementById('modal-file-name').textContent = `${title} (${file})`;
+      document.getElementById('modal-external-link').href = encodeURI(file);
+      previewIframe.src = encodeURI(file);
+      previewModal.classList.add('open');
+    }
+
+    function closeAllModals() {
+      previewModal.classList.remove('open');
+      shortcutsModal.classList.remove('open');
+      setTimeout(() => {
+        previewIframe.src = 'about:blank';
+      }, 280);
+    }
+
+    document.getElementById('close-preview-modal').addEventListener('click', closeAllModals);
+    document.getElementById('shortcuts-btn').addEventListener('click', () => shortcutsModal.classList.add('open'));
+    document.getElementById('close-shortcuts-modal').addEventListener('click', closeAllModals);
+
+    [previewModal, shortcutsModal].forEach((overlay) => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeAllModals();
+      });
+    });
+
+    /* ==========================================================================
+       8. STUDY TOOLS HUB: TABS, POMODORO, NOTES, CALCULATOR, QUOTES
+       ========================================================================== */
+    document.querySelectorAll('.tool-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tool;
+        document.querySelectorAll('.tool-tab').forEach((t) => t.classList.remove('active'));
+        document.querySelectorAll('.tool-panel').forEach((p) => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`panel-${target}`).classList.add('active');
+      });
+    });
+
+    /* --- پۆمۆدۆرۆ تایمەر + دەنگێ Web Audio API --- */
+    let timerDuration = 25 * 60;
+    let timerRemaining = timerDuration;
+    let timerInterval = null;
+
+    function playChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = ctx.currentTime;
+        [523.25, 659.25, 783.99].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.15, now + i * 0.14);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.14 + 0.45);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.14);
+          osc.stop(now + i * 0.14 + 0.45);
+        });
+      } catch {
+        /* ignore audio restrictions */
+      }
+    }
+
+    function renderTimer() {
+      const m = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+      const s = String(timerRemaining % 60).padStart(2, '0');
+      document.getElementById('timer-display').textContent = `${m}:${s}`;
+      document.getElementById('pomodoro-sessions').textContent = `${state.pomodoroSessions} گەڕ`;
+    }
+
+    document.getElementById('timer-start').addEventListener('click', () => {
+      if (timerInterval) return;
+      document.getElementById('timer-status').textContent = 'دەم یێ د ڕێڤەچوونێ دا... تەرکیزێ بکە';
+      timerInterval = setInterval(() => {
+        if (timerRemaining > 0) {
+          timerRemaining--;
+          renderTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          state.pomodoroSessions++;
+          saveState();
+          renderTimer();
+          playChime();
+          document.getElementById('timer-status').textContent = 'گەڕ ب دوماهی هات! دەستخۆش';
+          showToast('دەمێ تایمەری ب دوماهی هات!');
+        }
+      }, 1000);
+    });
+
+    document.getElementById('timer-pause').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById('timer-status').textContent = 'تایمەر هاتە ڕاوەستاندن';
+    });
+
+    document.getElementById('timer-reset').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerRemaining = timerDuration;
+      document.getElementById('timer-status').textContent = 'ئامادەیە بۆ دەستپێکرنا خواندنێ';
+      renderTimer();
+    });
+
+    document.querySelectorAll('.preset-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.querySelectorAll('.preset-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        timerDuration = Number(btn.dataset.minutes) * 60;
+        timerRemaining = timerDuration;
+        renderTimer();
+      });
+    });
+
+    /* --- تێبینی و پلانا خواندنێ --- */
+    function renderNotes() {
+      const list = document.getElementById('notes-list');
+      if (state.notes.length === 0) {
+        list.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">هێشتا چ تێبینی نەهاتینە زێدەکرن.</div>`;
+        return;
+      }
+
+      list.innerHTML = state.notes
+        .map(
+          (note) => `
+          <div class="note-item ${note.done ? 'checked' : ''}">
+            <div class="note-left" data-toggle-note="${note.id}" style="cursor: pointer;">
+              <div class="note-check">${note.done ? '✓' : ''}</div>
+              <span>${escapeHtml(note.text)}</span>
+            </div>
+            <button class="note-del" data-del-note="${note.id}" aria-label="ژێبرن">✕</button>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    document.getElementById('notes-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('note-input');
+      const val = input.value.trim();
+      if (!val) return;
+      state.notes.unshift({ id: Date.now(), text: val, done: false });
+      input.value = '';
+      saveState();
+      renderNotes();
+      showToast('تێبینی هاتە زێدەکرن');
+    });
+
+    document.getElementById('notes-list').addEventListener('click', (e) => {
+      const toggleEl = e.target.closest('[data-toggle-note]');
+      const delEl = e.target.closest('[data-del-note]');
+      if (toggleEl) {
+        const id = Number(toggleEl.dataset.toggleNote);
+        state.notes = state.notes.map((n) => (n.id === id ? { ...n, done: !n.done } : n));
+        saveState();
+        renderNotes();
+      } else if (delEl) {
+        const id = Number(delEl.dataset.delNote);
+        state.notes = state.notes.filter((n) => n.id !== id);
+        saveState();
+        renderNotes();
+      }
+    });
+
+    /* --- هەژمارتنا ڕێژا نمرەیان --- */
+    const scoreInputs = ['score-1', 'score-2', 'score-3', 'score-4', 'score-5'].map((id) =>
+      document.getElementById(id)
+    );
+
+    function calculateAverage() {
+      const values = scoreInputs
+        .map((inp) => parseFloat(inp.value))
+        .filter((v) => !Number.isNaN(v) && v >= 0 && v <= 100);
+
+      const avgEl = document.getElementById('calc-avg');
+      const badgeEl = document.getElementById('calc-grade-badge');
+
+      if (values.length === 0) {
+        avgEl.textContent = '٠.٠٠٪';
+        badgeEl.textContent = 'نمرەیان بنڤیسە بۆ هەژمارتنێ';
+        return;
+      }
+
+      const avg = values.reduce((a, b) => a + b, 0) / values.length;
+      avgEl.textContent = `${avg.toFixed(2)}%`;
+
+      if (avg >= 90) badgeEl.textContent = 'نایاب (ممتاز) 🌟';
+      else if (avg >= 80) badgeEl.textContent = 'زۆر باش (جيد جداً) ✨';
+      else if (avg >= 70) badgeEl.textContent = 'باش (جيد) 👍';
+      else if (avg >= 50) badgeEl.textContent = 'پەسەند (مقبول)';
+      else badgeEl.textContent = 'پێدڤی ب پێداچوونا زێدەتر هەیە';
+    }
+
+    scoreInputs.forEach((inp) => inp.addEventListener('input', calculateAverage));
+
+    /* --- گوتنێن هاندانێ --- */
+    document.getElementById('next-quote-btn').addEventListener('click', () => {
+      currentQuoteIndex = (curren
