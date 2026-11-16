@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <meta name="theme-color" content="#0b0f19" />
-  <meta name="description" content="دەروازێ فەرمی یێ تاقیکرنان - پۆلا ١٢ (٢٠٢٥-٢٠٢٦)" />
-  <title>دەروازێ تاقیکرنان | پۆلا ١٢</title>
+  <meta name="theme-color" content="#070b14" />
+  <meta name="description" content="دەروازێ فەرمی یێ خواندن، پڕۆژە و تاقیکرنان (٢٠٢٥-٢٠٢٦)" />
+  <title>دەروازێ تاقیکرن و پڕۆژان</title>
 
   <!-- فۆنتێن جوان یێن کوردی و عەرەبی -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,9 +32,7 @@
 
       --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-smooth: 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-      --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-      /* ڕەنگێ سەرەکی (Accent Default: Royal Gold) */
       --accent: #f59e0b;
       --accent-2: #fbbf24;
       --accent-soft: rgba(245, 158, 11, 0.14);
@@ -42,7 +40,6 @@
       --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
     }
 
-    /* ڕەنگێن جودا یێن گوهۆڕینێ */
     [data-accent="gold"] {
       --accent: #f59e0b;
       --accent-2: #fcd34d;
@@ -75,13 +72,11 @@
       --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c084fc 100%);
     }
 
-    /* دۆخێ تاریک (Dark Luxury Mode) */
     [data-theme="dark"] {
       --bg-body: #070b14;
       --bg-surface: rgba(15, 23, 42, 0.72);
       --bg-surface-solid: #0f172a;
       --bg-card: rgba(17, 25, 46, 0.76);
-      --bg-card-hover: rgba(24, 35, 64, 0.9);
       --bg-glass: rgba(255, 255, 255, 0.04);
       --bg-input: rgba(15, 23, 42, 0.9);
       --border-subtle: rgba(255, 255, 255, 0.08);
@@ -94,16 +89,13 @@
       --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.65);
       --success: #10b981;
       --danger: #ef4444;
-      --warning: #f59e0b;
     }
 
-    /* دۆخێ ڕۆناهی (Light Pearl Mode) */
     [data-theme="light"] {
       --bg-body: #f1f5f9;
       --bg-surface: rgba(255, 255, 255, 0.84);
       --bg-surface-solid: #ffffff;
       --bg-card: rgba(255, 255, 255, 0.88);
-      --bg-card-hover: #ffffff;
       --bg-glass: rgba(15, 23, 42, 0.04);
       --bg-input: #f8fafc;
       --border-subtle: rgba(15, 23, 42, 0.08);
@@ -116,24 +108,13 @@
       --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.14);
       --success: #059669;
       --danger: #dc2626;
-      --warning: #d97706;
     }
 
     /* ==========================================================================
        2. RESET & BASE STYLES
        ========================================================================== */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-tap-highlight-color: transparent;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: var(--font-main);
@@ -146,44 +127,15 @@
       transition: background-color var(--transition-smooth), color var(--transition-smooth);
     }
 
-    ::selection {
-      background: var(--accent);
-      color: #070b14;
-    }
+    ::selection { background: var(--accent); color: #070b14; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    /* سکڕۆڵ بارەکی جوان */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-body);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-strong);
-      border-radius: var(--radius-full);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
 
     /* ==========================================================================
        3. PRELOADER & ANIMATED BACKDROP
@@ -198,7 +150,7 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
-      transition: opacity 0.55s ease, visibility 0.55s ease;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
     }
 
     #preloader.hidden {
@@ -208,16 +160,15 @@
     }
 
     .loader-orb {
-      width: 68px;
-      height: 68px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       position: relative;
       display: grid;
       place-items: center;
     }
 
-    .loader-orb::before,
-    .loader-orb::after {
+    .loader-orb::before, .loader-orb::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -250,10 +201,8 @@
       font-family: var(--font-display);
       font-size: 0.95rem;
       color: var(--text-secondary);
-      letter-spacing: 0.5px;
     }
 
-    /* کانڤاس و ڕۆناهیێن پاشبنەما */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -279,36 +228,10 @@
       animation: floatOrb 18s ease-in-out infinite;
     }
 
-    [data-theme="light"] .orb {
-      opacity: 0.18;
-    }
-
-    .orb-1 {
-      width: 480px;
-      height: 480px;
-      background: var(--accent);
-      top: -140px;
-      right: -120px;
-    }
-
-    .orb-2 {
-      width: 420px;
-      height: 420px;
-      background: #6366f1;
-      bottom: -120px;
-      left: -100px;
-      animation-delay: -7s;
-    }
-
-    .orb-3 {
-      width: 300px;
-      height: 300px;
-      background: #06b6d4;
-      top: 45%;
-      left: 42%;
-      animation-delay: -12s;
-      opacity: 0.16;
-    }
+    [data-theme="light"] .orb { opacity: 0.18; }
+    .orb-1 { width: 480px; height: 480px; background: var(--accent); top: -140px; right: -120px; }
+    .orb-2 { width: 420px; height: 420px; background: #6366f1; bottom: -120px; left: -100px; animation-delay: -7s; }
+    .orb-3 { width: 300px; height: 300px; background: #06b6d4; top: 45%; left: 42%; animation-delay: -12s; opacity: 0.16; }
 
     .bg-grid {
       position: fixed;
@@ -327,12 +250,7 @@
     /* ==========================================================================
        4. LAYOUT & HEADER NAVBAR
        ========================================================================== */
-    .container {
-      width: 100%;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
     .navbar {
       position: sticky;
@@ -358,11 +276,7 @@
       gap: 16px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; }
 
     .brand-logo {
       width: 44px;
@@ -373,7 +287,7 @@
       place-items: center;
       color: #070b14;
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       box-shadow: 0 8px 24px var(--accent-glow);
       flex-shrink: 0;
       position: relative;
@@ -389,18 +303,8 @@
       animation: sheen 4.5s infinite;
     }
 
-    .brand-text h1 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .brand-text span {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      display: block;
-    }
+    .brand-text h1 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+    .brand-text span { font-size: 0.78rem; color: var(--text-secondary); display: block; }
 
     .nav-links {
       display: flex;
@@ -419,23 +323,15 @@
       font-weight: 500;
       color: var(--text-secondary);
       transition: all var(--transition-fast);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .nav-link:hover,
-    .nav-link.active {
+    .nav-link:hover, .nav-link.active {
       color: var(--text-primary);
       background: var(--bg-card);
       box-shadow: var(--shadow-sm);
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
 
     .icon-btn {
       width: 40px;
@@ -447,7 +343,6 @@
       place-items: center;
       color: var(--text-primary);
       transition: all var(--transition-fast);
-      position: relative;
     }
 
     .icon-btn:hover {
@@ -489,9 +384,7 @@
     /* ==========================================================================
        5. HERO & PROGRESS DASHBOARD
        ========================================================================== */
-    .hero {
-      padding: 36px 0 24px;
-    }
+    .hero { padding: 36px 0 24px; }
 
     .hero-card {
       position: relative;
@@ -533,9 +426,7 @@
       margin-bottom: 16px;
     }
 
-    [data-theme="light"] .hero-badge {
-      color: var(--accent);
-    }
+    [data-theme="light"] .hero-badge { color: var(--accent); }
 
     .pulse-dot {
       width: 8px;
@@ -568,11 +459,7 @@
       margin-bottom: 22px;
     }
 
-    .hero-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .hero-meta-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
     .meta-pill {
       display: inline-flex;
@@ -586,12 +473,8 @@
       color: var(--text-secondary);
     }
 
-    .meta-pill strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
+    .meta-pill strong { color: var(--text-primary); font-weight: 700; }
 
-    /* لایێ چەپێ یێ هیرۆ - بازنێ پێشکەفتنێ */
     .hero-stats-panel {
       background: var(--bg-glass);
       border: 1px solid var(--border-subtle);
@@ -602,25 +485,9 @@
       gap: 22px;
     }
 
-    .progress-ring-wrap {
-      position: relative;
-      width: 124px;
-      height: 124px;
-      flex-shrink: 0;
-    }
-
-    .progress-ring {
-      width: 124px;
-      height: 124px;
-      transform: rotate(-90deg);
-    }
-
-    .progress-ring-bg {
-      fill: none;
-      stroke: var(--border-subtle);
-      stroke-width: 10;
-    }
-
+    .progress-ring-wrap { position: relative; width: 124px; height: 124px; flex-shrink: 0; }
+    .progress-ring { width: 124px; height: 124px; transform: rotate(-90deg); }
+    .progress-ring-bg { fill: none; stroke: var(--border-subtle); stroke-width: 10; }
     .progress-ring-fill {
       fill: none;
       stroke: url(#ringGradient);
@@ -640,22 +507,10 @@
       justify-content: center;
     }
 
-    .progress-ring-center .pct {
-      font-size: 1.45rem;
-      font-weight: 800;
-      line-height: 1.1;
-    }
+    .progress-ring-center .pct { font-size: 1.45rem; font-weight: 800; line-height: 1.1; }
+    .progress-ring-center .lbl { font-size: 0.72rem; color: var(--text-secondary); }
 
-    .progress-ring-center .lbl {
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-    }
-
-    .stats-list {
-      flex: 1;
-      display: grid;
-      gap: 10px;
-    }
+    .stats-list { flex: 1; display: grid; gap: 10px; }
 
     .stat-mini {
       display: flex;
@@ -668,18 +523,9 @@
       font-size: 0.85rem;
     }
 
-    .stat-mini span {
-      color: var(--text-secondary);
-    }
-
-    .stat-mini strong {
-      font-weight: 700;
-      color: var(--accent-2);
-    }
-
-    [data-theme="light"] .stat-mini strong {
-      color: var(--accent);
-    }
+    .stat-mini span { color: var(--text-secondary); }
+    .stat-mini strong { font-weight: 700; color: var(--accent-2); }
+    [data-theme="light"] .stat-mini strong { color: var(--accent); }
 
     /* ==========================================================================
        6. TOOLBAR: SEARCH & FILTERS
@@ -693,11 +539,7 @@
       margin: 26px 0 18px;
     }
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .section-title { display: flex; align-items: center; gap: 12px; }
 
     .section-icon {
       width: 42px;
@@ -710,16 +552,8 @@
       border: 1px solid rgba(245, 158, 11, 0.2);
     }
 
-    .section-title h2 {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    .section-title p {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-    }
+    .section-title h2 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
+    .section-title p { font-size: 0.84rem; color: var(--text-secondary); }
 
     .toolbar {
       display: flex;
@@ -735,11 +569,7 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .search-box {
-      position: relative;
-      flex: 1;
-      min-width: 240px;
-    }
+    .search-box { position: relative; flex: 1; min-width: 240px; }
 
     .search-box svg {
       position: absolute;
@@ -766,11 +596,7 @@
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
-    .filter-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .chip {
       padding: 8px 14px;
@@ -781,15 +607,9 @@
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
       transition: all var(--transition-fast);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .chip:hover {
-      border-color: var(--accent);
-      color: var(--text-primary);
-    }
+    .chip:hover { border-color: var(--accent); color: var(--text-primary); }
 
     .chip.active {
       background: var(--accent-gradient);
@@ -799,7 +619,7 @@
     }
 
     /* ==========================================================================
-       7. MODULE CARDS GRID (THE 5 REQUESTED FILES)
+       7. MODULE CARDS GRID (THE 5 FILES)
        ========================================================================== */
     .cards-grid {
       display: grid;
@@ -832,9 +652,7 @@
       box-shadow: var(--shadow-lg), 0 0 30px var(--accent-soft);
     }
 
-    .module-card.completed {
-      border-color: rgba(16, 185, 129, 0.45);
-    }
+    .module-card.completed { border-color: rgba(16, 185, 129, 0.45); }
 
     .card-glow-spot {
       position: absolute;
@@ -845,15 +663,9 @@
       top: -60px;
       left: -60px;
       pointer-events: none;
-      transition: transform 0.3s ease;
     }
 
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 
     .card-icon-badge {
       width: 54px;
@@ -868,11 +680,7 @@
       flex-shrink: 0;
     }
 
-    .card-top-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .card-top-actions { display: flex; align-items: center; gap: 8px; }
 
     .card-mini-btn {
       width: 36px;
@@ -886,34 +694,11 @@
       transition: all var(--transition-fast);
     }
 
-    .card-mini-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: scale(1.06);
-    }
+    .card-mini-btn:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.06); }
+    .card-mini-btn.fav-active { color: #f59e0b; background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.35); }
+    .card-mini-btn.done-active { color: #10b981; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); }
 
-    .card-mini-btn.fav-active {
-      color: #f59e0b;
-      background: rgba(245, 158, 11, 0.14);
-      border-color: rgba(245, 158, 11, 0.35);
-    }
-
-    .card-mini-btn.done-active {
-      color: #10b981;
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.4);
-    }
-
-    .card-body h3 {
-      font-family: var(--font-display);
-      font-size: 1.18rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .card-body h3 { font-family: var(--font-display); font-size: 1.18rem; font-weight: 700; margin-bottom: 6px; }
 
     .file-pill {
       display: inline-flex;
@@ -930,22 +715,10 @@
       margin-bottom: 10px;
     }
 
-    [data-theme="light"] .file-pill {
-      color: var(--accent);
-    }
+    [data-theme="light"] .file-pill { color: var(--accent); }
+    .card-body p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
 
-    .card-body p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
     .tag {
       padding: 4px 10px;
@@ -986,11 +759,7 @@
       transition: all var(--transition-fast);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 26px var(--accent-glow);
-      filter: brightness(1.06);
-    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px var(--accent-glow); filter: brightness(1.06); }
 
     .btn-secondary {
       display: inline-flex;
@@ -1007,11 +776,7 @@
       transition: all var(--transition-fast);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 
     .empty-state {
       grid-column: 1 / -1;
@@ -1023,7 +788,7 @@
     }
 
     /* ==========================================================================
-       8. STUDY TOOLS HUB (POMODORO, NOTES, SCORE CALCULATOR, QUOTES)
+       8. STUDY TOOLS HUB
        ========================================================================== */
     .tools-hub {
       background: var(--bg-card);
@@ -1065,22 +830,10 @@
       box-shadow: 0 6px 18px var(--accent-glow);
     }
 
-    .tool-panel {
-      display: none;
-      animation: fadeUp 0.35s ease;
-    }
+    .tool-panel { display: none; animation: fadeUp 0.35s ease; }
+    .tool-panel.active { display: block; }
 
-    .tool-panel.active {
-      display: block;
-    }
-
-    /* پۆمۆدۆرۆ تایمەر */
-    .pomodoro-box {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 28px;
-      align-items: center;
-    }
+    .pomodoro-box { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; align-items: center; }
 
     .timer-display-card {
       background: var(--bg-glass);
@@ -1100,23 +853,10 @@
       direction: ltr;
     }
 
-    [data-theme="light"] .timer-clock {
-      color: var(--accent);
-    }
+    [data-theme="light"] .timer-clock { color: var(--accent); }
+    .timer-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 
-    .timer-controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .preset-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
+    .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
 
     .preset-btn {
       padding: 12px;
@@ -1128,20 +868,9 @@
       transition: all var(--transition-fast);
     }
 
-    .preset-btn.active,
-    .preset-btn:hover {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
+    .preset-btn.active, .preset-btn:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 
-    /* تێبینیێن خواندنێ */
-    .notes-form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
+    .notes-form { display: flex; gap: 10px; margin-bottom: 18px; }
     .notes-form input {
       flex: 1;
       padding: 12px 16px;
@@ -1150,17 +879,9 @@
       border: 1px solid var(--border-subtle);
       outline: none;
     }
+    .notes-form input:focus { border-color: var(--accent); }
 
-    .notes-form input:focus {
-      border-color: var(--accent);
-    }
-
-    .notes-list {
-      display: grid;
-      gap: 10px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
+    .notes-list { display: grid; gap: 10px; max-height: 300px; overflow-y: auto; }
 
     .note-item {
       display: flex;
@@ -1171,20 +892,10 @@
       border-radius: var(--radius-md);
       background: var(--bg-glass);
       border: 1px solid var(--border-subtle);
-      transition: all var(--transition-fast);
     }
 
-    .note-item.checked span {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    .note-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-    }
+    .note-item.checked span { text-decoration: line-through; color: var(--text-muted); }
+    .note-left { display: flex; align-items: center; gap: 12px; flex: 1; }
 
     .note-check {
       width: 22px;
@@ -1196,37 +907,12 @@
       flex-shrink: 0;
     }
 
-    .note-item.checked .note-check {
-      background: var(--success);
-      border-color: var(--success);
-      color: #fff;
-    }
+    .note-item.checked .note-check { background: var(--success); border-color: var(--success); color: #fff; }
+    .note-del { color: var(--danger); padding: 6px; border-radius: 8px; }
+    .note-del:hover { background: rgba(239, 68, 68, 0.14); }
 
-    .note-del {
-      color: var(--danger);
-      padding: 6px;
-      border-radius: 8px;
-    }
-
-    .note-del:hover {
-      background: rgba(239, 68, 68, 0.14);
-    }
-
-    /* هەژمارتنا نمرەیان */
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .calc-field label {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-    }
-
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .calc-field label { display: block; font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 6px; }
     .calc-field input {
       width: 100%;
       padding: 11px 14px;
@@ -1235,10 +921,7 @@
       border: 1px solid var(--border-subtle);
       outline: none;
     }
-
-    .calc-field input:focus {
-      border-color: var(--accent);
-    }
+    .calc-field input:focus { border-color: var(--accent); }
 
     .calc-result {
       padding: 18px 22px;
@@ -1252,7 +935,6 @@
       gap: 12px;
     }
 
-    /* گوتنێن هاندانێ */
     .quote-card {
       padding: 28px;
       border-radius: var(--radius-lg);
@@ -1261,22 +943,11 @@
       text-align: center;
     }
 
-    .quote-text {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      line-height: 1.8;
-    }
-
-    .quote-author {
-      color: var(--accent);
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
+    .quote-text { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; line-height: 1.8; }
+    .quote-author { color: var(--accent); font-size: 0.9rem; margin-bottom: 18px; }
 
     /* ==========================================================================
-       9. MODALS (PREVIEW IFRAME & SHORTCUTS)
+       9. MODALS
        ========================================================================== */
     .modal-overlay {
       position: fixed;
@@ -1293,10 +964,7 @@
       transition: all var(--transition-smooth);
     }
 
-    .modal-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
 
     .modal-box {
       width: 100%;
@@ -1313,14 +981,8 @@
       transition: transform var(--transition-smooth);
     }
 
-    .modal-box.compact {
-      max-width: 540px;
-      height: auto;
-    }
-
-    .modal-overlay.open .modal-box {
-      transform: scale(1) translateY(0);
-    }
+    .modal-box.compact { max-width: 540px; height: auto; }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
 
     .modal-header {
       display: flex;
@@ -1331,25 +993,10 @@
       background: var(--bg-glass);
     }
 
-    .modal-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-    }
+    .modal-title { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .modal-iframe { flex: 1; width: 100%; border: none; background: #fff; }
 
-    .modal-iframe {
-      flex: 1;
-      width: 100%;
-      border: none;
-      background: #fff;
-    }
-
-    .shortcut-list {
-      padding: 20px;
-      display: grid;
-      gap: 10px;
-    }
+    .shortcut-list { padding: 20px; display: grid; gap: 10px; }
 
     .shortcut-row {
       display: flex;
@@ -1428,11 +1075,7 @@
       transition: all var(--transition-fast);
     }
 
-    .scroll-top-btn.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
+    .scroll-top-btn.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 
     .mobile-bottom-nav {
       display: none;
@@ -1462,113 +1105,38 @@
       border-radius: var(--radius-sm);
     }
 
-    .mobile-nav-item.active {
-      color: var(--accent);
-      background: var(--accent-soft);
-    }
+    .mobile-nav-item.active { color: var(--accent); background: var(--accent-soft); }
 
     /* ==========================================================================
-       11. KEYFRAMES & RESPONSIVE MEDIA QUERIES
+       11. KEYFRAMES & RESPONSIVE
        ========================================================================== */
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes spinReverse {
-      to { transform: rotate(-360deg); }
-    }
-
-    @keyframes pulseScale {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
-    }
-
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spinReverse { to { transform: rotate(-360deg); } }
+    @keyframes pulseScale { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
     @keyframes floatOrb {
       0%, 100% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(35px, -25px) scale(1.06); }
       66% { transform: translate(-25px, 30px) scale(0.95); }
     }
-
-    @keyframes sheen {
-      0% { transform: translateX(-120%); }
-      30%, 100% { transform: translateX(140%); }
-    }
-
-    @keyframes radarPulse {
-      0% { box-shadow: 0 0 0 0 var(--accent-glow); }
-      70% { box-shadow: 0 0 0 10px transparent; }
-      100% { box-shadow: 0 0 0 0 transparent; }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInToast {
-      from {
-        opacity: 0;
-        transform: translateX(-24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+    @keyframes sheen { 0% { transform: translateX(-120%); } 30%, 100% { transform: translateX(140%); } }
+    @keyframes radarPulse { 0% { box-shadow: 0 0 0 0 var(--accent-glow); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInToast { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
 
     @media (max-width: 960px) {
-      .hero-card {
-        grid-template-columns: 1fr;
-        padding: 24px;
-      }
-
-      .pomodoro-box {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        display: none;
-      }
+      .hero-card { grid-template-columns: 1fr; padding: 24px; }
+      .pomodoro-box { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
 
     @media (max-width: 640px) {
-      .navbar-inner {
-        padding: 10px 14px;
-      }
-
-      .accent-dots {
-        display: none;
-      }
-
-      .hero-stats-panel {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .mobile-bottom-nav {
-        display: flex;
-      }
-
-      .scroll-top-btn {
-        bottom: 86px;
-        right: 16px;
-      }
-
-      .toast-container {
-        bottom: 92px;
-        left: 12px;
-        right: 12px;
-      }
+      .navbar-inner { padding: 10px 14px; }
+      .accent-dots { display: none; }
+      .hero-stats-panel { flex-direction: column; text-align: center; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .mobile-bottom-nav { display: flex; }
+      .scroll-top-btn { bottom: 86px; right: 16px; }
+      .toast-container { bottom: 92px; left: 12px; right: 12px; }
     }
   </style>
 </head>
@@ -1576,10 +1144,9 @@
   <!-- شاشا چاڤەڕێبوونێ -->
   <div id="preloader" aria-hidden="true">
     <div class="loader-orb"><div class="loader-core"></div></div>
-    <div class="loader-text">پلاتفۆرما تاقیکرنێن پۆلا ١٢ دهێتە ئامادەکرن...</div>
+    <div class="loader-text">دەروازێ تاقیکرن و پڕۆژان دهێتە ئامادەکرن...</div>
   </div>
 
-  <!-- پاشبنەمایا گەردیلەیی و ڕۆناهی -->
   <canvas id="bg-canvas"></canvas>
   <div class="ambient-orbs">
     <div class="orb orb-1"></div>
@@ -1592,16 +1159,16 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="#top" class="brand">
-        <div class="brand-logo">١٢</div>
+        <div class="brand-logo">&lt;/&gt;</div>
         <div class="brand-text">
-          <h1>تاقیکرنا ویزاری</h1>
-          <span>پۆلا ١٢ • ٢٠٢٥ - ٢٠٢٦</span>
+          <h1>دەروازێ تاقیکرنان</h1>
+          <span>خواندن و پڕۆژە • ٢٠٢٥ - ٢٠٢٦</span>
         </div>
       </a>
 
       <nav class="nav-links" aria-label="لینکێن سەرەکی">
         <a href="#top" class="nav-link active">سەرەتا</a>
-        <a href="#modules-section" class="nav-link">تاقیکرن (٥)</a>
+        <a href="#modules-section" class="nav-link">پەڕێن من (٥)</a>
         <a href="#tools-section" class="nav-link">ئامرازێن خواندنێ</a>
       </nav>
 
@@ -1671,7 +1238,6 @@
           </div>
         </div>
 
-        <!-- پانێلا پێشکەفتنێ -->
         <div class="hero-stats-panel">
           <div class="progress-ring-wrap">
             <svg class="progress-ring" viewBox="0 0 120 120">
@@ -1708,7 +1274,7 @@
       </div>
     </section>
 
-    <!-- پشکا تاقیکرنان -->
+    <!-- پشکا فایلان -->
     <section id="modules-section">
       <div class="section-header">
         <div class="section-title">
@@ -1771,7 +1337,6 @@
           <button class="tool-tab" data-tool="quotes">✨ گوتنێن هاندانێ</button>
         </div>
 
-        <!-- ئامرازێ ١: پۆمۆدۆرۆ -->
         <div class="tool-panel active" id="panel-pomodoro">
           <div class="pomodoro-box">
             <div class="timer-display-card">
@@ -1802,7 +1367,6 @@
           </div>
         </div>
 
-        <!-- ئامرازێ ٢: تێبینی -->
         <div class="tool-panel" id="panel-notes">
           <form class="notes-form" id="notes-form">
             <input type="text" id="note-input" placeholder="تێبینیەکێ یان ئەرکەکێ بنڤیسە (بۆ نموونە: خەلاسکرنا log2.html)..." required />
@@ -1811,7 +1375,6 @@
           <div class="notes-list" id="notes-list"></div>
         </div>
 
-        <!-- ئامرازێ ٣: هەژمارتنا نمرەیان -->
         <div class="tool-panel" id="panel-calculator">
           <div class="calc-grid">
             <div class="calc-field">
@@ -1847,10 +1410,9 @@
           </div>
         </div>
 
-        <!-- ئامرازێ ٤: گوتنێن هاندانێ -->
         <div class="tool-panel" id="panel-quotes">
           <div class="quote-card">
-            <div class="quote-text" id="quote-text">«سەرکەفتن ب رێکەفت چێ نابیت، بەلکو ئەنجامێ ماندیبوون و بەردەوامبوونێ یە.»</div>
+            <div class="quote-text" id="quote-text">«سەرکەفتن ب رێکەفت چێ نابیت، بەلکو ئەنجامێ ماندیبوون و بەردەوامبوونا رۆژانە یە.»</div>
             <div class="quote-author" id="quote-author">— پەیاما سەرکەفتنێ</div>
             <button class="btn-primary" id="next-quote-btn">گوتنەکا دی ↻</button>
           </div>
@@ -1859,15 +1421,14 @@
     </section>
   </main>
 
-  <!-- فوتر -->
   <footer class="footer">
-    <p>ب ستایلەکێ تایبەت و ڕاقی هاتیە دروستکرن بۆ <strong>پۆلا ١٢ • خولا دووی (٢٠٢٥-٢٠٢٦)</strong></p>
+    <p>ب ستایلەکێ تایبەت و ڕاقی هاتیە دروستکرن بۆ <strong>دەروازێ تاقیکرن و پڕۆژان (٢٠٢٥-٢٠٢٦)</strong></p>
     <p style="margin-top: 6px; font-size: 0.8rem; color: var(--text-muted);">
       هەمی زانیاری و پێشکەفتن ب شێوەیەکێ ئۆتۆماتیکی ل سەر ئامێرێ تە دهێنە پاراستن.
     </p>
   </footer>
 
-  <!-- مۆدالا پێشبینینا فایلی (Iframe Preview) -->
+  <!-- مۆدالا پێشبینینا فایلی -->
   <div class="modal-overlay" id="preview-modal" role="dialog" aria-modal="true">
     <div class="modal-box">
       <div class="modal-header">
@@ -1927,19 +1488,17 @@
     </a>
   </nav>
 
-  <!-- دوگما چوونە سەری -->
   <button class="scroll-top-btn" id="scroll-top-btn" aria-label="چوونە سەری">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
   </button>
 
-  <!-- جهێ ئاگادارکرنان (Toasts) -->
   <div class="toast-container" id="toast-container"></div>
 
   <script>
     /* ==========================================================================
-       1. DATA: ONLY THE 5 REQUESTED FILES (EXACT FILENAMES FROM REPO)
+       1. DATA: ONLY THE 5 REQUESTED FILES
        ========================================================================== */
     const MODULES = [
       {
@@ -1989,7 +1548,7 @@
         category: 'english',
         badge: 'EN',
         gradient: 'linear-gradient(135deg, #10b981, #059669)',
-        description: 'پەڕێ تاقیکرنا ئینگلیزی (engilsh1.2.html) ب ناڤونیشانێ دروست یێ گیتهەبی دا بێ کێشە ڤەبیت.',
+        description: 'پەڕێ تاقیکرنا ئینگلیزی (engilsh1.2.html) ب ناڤونیشانێ دروست یێ فایلی دا بێ کێشە ڤەبیت.',
         tags: ['English 1.2', 'نوێ', 'ئامادەیە']
       }
     ];
@@ -2001,7 +1560,7 @@
       },
       {
         text: '«هەر دەمژمێرەکا تو ئەڤرۆ تێدا دخوینی، پێنگاڤەکێ نێزیکی خەونێن خۆ یێن مەزن دبی.»',
-        author: '— بۆ قوتابیێن پۆلا ١٢'
+        author: '— بۆ قوتابیێن سەرکەفتی'
       },
       {
         text: '«باوەری بخۆ بوون نیڤا سەرکەفتنێ یە، و ڕێکخستنا دەمی نیڤا دی یە.»',
@@ -2016,7 +1575,7 @@
     /* ==========================================================================
        2. STATE MANAGEMENT (LOCALSTORAGE)
        ========================================================================== */
-    const STORAGE_KEY = 'kurdish_exam_portal_v2';
+    const STORAGE_KEY = 'kurdish_portal_v3';
     const defaultState = {
       theme: 'dark',
       accent: 'gold',
@@ -2029,22 +1588,24 @@
       pomodoroSessions: 0
     };
 
+    function cloneDefault() {
+      return JSON.parse(JSON.stringify(defaultState));
+    }
+
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return structuredClone(defaultState);
-        return { ...structuredClone(defaultState), ...JSON.parse(raw) };
-      } catch {
-        return structuredClone(defaultState);
+        if (!raw) return cloneDefault();
+        return Object.assign(cloneDefault(), JSON.parse(raw));
+      } catch (e) {
+        return cloneDefault();
       }
     }
 
     function saveState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch {
-        /* ignore storage quota errors */
-      }
+      } catch (e) {}
     }
 
     let state = loadState();
@@ -2105,12 +1666,14 @@
       }
     }
 
-    document.getElementById('theme-toggle').addEventListener('click', () => {
+    function toggleTheme() {
       state.theme = state.theme === 'dark' ? 'light' : 'dark';
       saveState();
       applyTheme();
       showToast(state.theme === 'dark' ? 'دۆخێ تاریک هاتە چالاککرن' : 'دۆخێ ڕۆناهی هاتە چالاککرن');
-    });
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     document.querySelectorAll('.accent-dot').forEach((dot) => {
       dot.addEventListener('click', () => {
@@ -2134,12 +1697,16 @@
 
       document.getElementById('greeting-text').textContent = greet;
       document.getElementById('live-clock').textContent = now.toLocaleTimeString('en-GB');
-      document.getElementById('live-date').textContent = now.toLocaleDateString('ku-Arab', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      try {
+        document.getElementById('live-date').textContent = now.toLocaleDateString('ku-Arab', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } catch (e) {
+        document.getElementById('live-date').textContent = now.toLocaleDateString();
+      }
     }
 
     function updateProgressStats() {
@@ -2173,7 +1740,6 @@
           item.description.toLowerCase().includes(query);
 
         if (!matchesQuery) return false;
-
         if (activeFilter === 'all') return true;
         if (activeFilter === 'favorites') return state.favorites.includes(item.id);
         if (activeFilter === 'completed') return state.completed.includes(item.id);
@@ -2265,10 +1831,7 @@
           const rotateY = ((x - rect.width / 2) / rect.width) * 5;
           card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
         });
-
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
       });
     }
 
@@ -2303,15 +1866,16 @@
         renderCards();
       } else if (action === 'copy') {
         const file = btn.dataset.file;
-        navigator.clipboard?.writeText(file).then(() => {
-          showToast(`کۆپی بوو: ${file}`);
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(file).then(() => showToast(`کۆپی بوو: ${file}`));
+        } else {
+          showToast(file);
+        }
       } else if (action === 'preview') {
         openPreviewModal(btn.dataset.file, btn.dataset.title);
       }
     });
 
-    /* لێگەڕیان و فلتەر */
     document.getElementById('search-input').addEventListener('input', (e) => {
       searchQuery = e.target.value;
       renderCards();
@@ -2343,9 +1907,7 @@
     function closeAllModals() {
       previewModal.classList.remove('open');
       shortcutsModal.classList.remove('open');
-      setTimeout(() => {
-        previewIframe.src = 'about:blank';
-      }, 280);
+      setTimeout(() => { previewIframe.src = 'about:blank'; }, 280);
     }
 
     document.getElementById('close-preview-modal').addEventListener('click', closeAllModals);
@@ -2371,7 +1933,6 @@
       });
     });
 
-    /* --- پۆمۆدۆرۆ تایمەر + دەنگێ Web Audio API --- */
     let timerDuration = 25 * 60;
     let timerRemaining = timerDuration;
     let timerInterval = null;
@@ -2392,9 +1953,7 @@
           osc.start(now + i * 0.14);
           osc.stop(now + i * 0.14 + 0.45);
         });
-      } catch {
-        /* ignore audio restrictions */
-      }
+      } catch (e) {}
     }
 
     function renderTimer() {
@@ -2450,7 +2009,6 @@
       });
     });
 
-    /* --- تێبینی و پلانا خواندنێ --- */
     function renderNotes() {
       const list = document.getElementById('notes-list');
       if (state.notes.length === 0) {
@@ -2459,8 +2017,7 @@
       }
 
       list.innerHTML = state.notes
-        .map(
-          (note) => `
+        .map((note) => `
           <div class="note-item ${note.done ? 'checked' : ''}">
             <div class="note-left" data-toggle-note="${note.id}" style="cursor: pointer;">
               <div class="note-check">${note.done ? '✓' : ''}</div>
@@ -2468,8 +2025,7 @@
             </div>
             <button class="note-del" data-del-note="${note.id}" aria-label="ژێبرن">✕</button>
           </div>
-        `
-        )
+        `)
         .join('');
     }
 
@@ -2490,7 +2046,7 @@
       const delEl = e.target.closest('[data-del-note]');
       if (toggleEl) {
         const id = Number(toggleEl.dataset.toggleNote);
-        state.notes = state.notes.map((n) => (n.id === id ? { ...n, done: !n.done } : n));
+        state.notes = state.notes.map((n) => (n.id === id ? Object.assign({}, n, { done: !n.done }) : n));
         saveState();
         renderNotes();
       } else if (delEl) {
@@ -2501,7 +2057,6 @@
       }
     });
 
-    /* --- هەژمارتنا ڕێژا نمرەیان --- */
     const scoreInputs = ['score-1', 'score-2', 'score-3', 'score-4', 'score-5'].map((id) =>
       document.getElementById(id)
     );
@@ -2532,6 +2087,127 @@
 
     scoreInputs.forEach((inp) => inp.addEventListener('input', calculateAverage));
 
-    /* --- گوتنێن هاندانێ --- */
     document.getElementById('next-quote-btn').addEventListener('click', () => {
-      currentQuoteIndex = (curren
+      currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
+      document.getElementById('quote-text').textContent = QUOTES[currentQuoteIndex].text;
+      document.getElementById('quote-author').textContent = QUOTES[currentQuoteIndex].author;
+    });
+
+    /* ==========================================================================
+       9. KEYBOARD SHORTCUTS, SCROLL & NAVIGATION
+       ========================================================================== */
+    document.addEventListener('keydown', (e) => {
+      const tag = (document.activeElement && document.activeElement.tagName) || '';
+      const isTyping = tag === 'INPUT' || tag === 'TEXTAREA';
+
+      if (e.key === 'Escape') {
+        closeAllModals();
+        return;
+      }
+
+      if (isTyping) return;
+
+      if (e.key === '/') {
+        e.preventDefault();
+        document.getElementById('search-input').focus();
+      } else if (e.key.toLowerCase() === 't') {
+        toggleTheme();
+      }
+    });
+
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.nav-link').forEach((l) => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.mobile-nav-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.mobile-nav-item').forEach((i) => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    /* ==========================================================================
+       10. BACKGROUND PARTICLES CANVAS
+       ========================================================================== */
+    function initParticles() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const count = Math.min(45, Math.floor((width * height) / 28000));
+      const particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.8 + 0.8
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+        ctx.fillStyle = isDark ? 'rgba(245, 158, 11, 0.35)' : 'rgba(15, 23, 42, 0.2)';
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* ==========================================================================
+       11. INITIALIZE EVERYTHING & HIDE PRELOADER SAFELY
+       ========================================================================== */
+    function hidePreloader() {
+      const preloader = document.getElementById('preloader');
+      if (preloader) preloader.classList.add('hidden');
+    }
+
+    function initApp() {
+      applyTheme();
+      updateClockAndGreeting();
+      setInterval(updateClockAndGreeting, 1000);
+      updateProgressStats();
+      renderCards();
+      renderTimer();
+      renderNotes();
+      initParticles();
+      setTimeout(hidePreloader, 300);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+    setTimeout(hidePreloader, 1200);
+  </script>
+</body>
+</html>
