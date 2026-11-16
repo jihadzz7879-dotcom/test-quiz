@@ -1,27 +1,72 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شڕۆڤەکرنا ئینگلیزیێ و تاقیکرنا میتێرمێ (Week 1 & Week 2)</title>
+  <title>شڕۆڤەکرنا ئینگلیزیێ و تاقیکرنا میتێرمێ (Week 1 &amp; Week 2)</title>
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 50%, #f5f3ff 100%);
+      --bg-page: #f1f5f9;
+      --bg-gradient: radial-gradient(circle at top right, #e0e7ff 0%, #f0fdfa 45%, #f8fafc 100%);
       --card-bg: #ffffff;
+      --card-sub: #f8fafc;
       --primary: #4338ca;
+      --primary-hover: #3730a3;
       --primary-light: #e0e7ff;
       --secondary: #0f766e;
+      --secondary-hover: #115e59;
       --secondary-light: #ccfbf1;
+      --exam: #be123c;
+      --exam-light: #ffe4e6;
       --accent: #b45309;
       --accent-light: #fef3c7;
       --danger: #be123c;
       --danger-light: #ffe4e6;
       --success: #15803d;
       --success-light: #dcfce7;
-      --text-main: #1e293b;
+      --text-main: #0f172a;
       --text-muted: #475569;
       --border: #cbd5e1;
-      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --border-soft: #e2e8f0;
+      --en-bg: #eef2ff;
+      --en-text: #1e1b4b;
+      --table-head: #1e293b;
+      --table-stripe: #f8fafc;
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.1), 0 4px 12px -4px rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 18px 36px -10px rgba(15, 23, 42, 0.14);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0b1120;
+      --bg-gradient: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 55%, #020617 100%);
+      --card-bg: #1e293b;
+      --card-sub: #0f172a;
+      --primary: #818cf8;
+      --primary-hover: #6366f1;
+      --primary-light: rgba(99, 102, 241, 0.2);
+      --secondary: #2dd4bf;
+      --secondary-hover: #14b8a6;
+      --secondary-light: rgba(20, 184, 166, 0.2);
+      --exam: #fb7185;
+      --exam-light: rgba(225, 29, 72, 0.2);
+      --accent: #fbbf24;
+      --accent-light: rgba(217, 119, 6, 0.18);
+      --danger: #fda4af;
+      --danger-light: rgba(190, 18, 60, 0.25);
+      --success: #86efac;
+      --success-light: rgba(21, 128, 61, 0.25);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --border-soft: #334155;
+      --en-bg: #312e81;
+      --en-text: #e0e7ff;
+      --table-head: #0f172a;
+      --table-stripe: #162032;
+      --nav-bg: rgba(15, 23, 42, 0.9);
+      --shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.45);
+      --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.55);
     }
 
     * {
@@ -30,56 +75,113 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--bg-gradient);
+      background: var(--bg-page);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
       color: var(--text-main);
       line-height: 1.85;
       min-height: 100vh;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* English LTR isolation so mixed sentences never break */
+    /* English LTR isolation */
     .en {
       direction: ltr;
       unicode-bidi: isolate;
       display: inline-block;
       font-family: "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      color: #0f172a;
-      background: #f1f5f9;
-      padding: 1px 7px;
-      border-radius: 6px;
+      font-weight: 700;
+      color: var(--en-text);
+      background: var(--en-bg);
+      padding: 1px 8px;
+      border-radius: 7px;
       margin: 0 2px;
+      border: 1px solid rgba(99, 102, 241, 0.18);
     }
 
     .en-block {
       direction: ltr;
       text-align: left;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-left: 4px solid var(--primary);
-      padding: 10px 14px;
-      border-radius: 10px;
-      margin: 8px 0;
+      background: var(--card-sub);
+      border: 1px solid var(--border-soft);
+      border-left: 5px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin: 10px 0;
+      line-height: 1.9;
     }
 
     /* Header */
     header {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #0f766e 100%);
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #0f766e 100%);
       color: #ffffff;
-      padding: 28px 18px 24px;
+      padding: 32px 18px 28px;
       text-align: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      border-bottom-left-radius: 26px;
-      border-bottom-right-radius: 26px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -70px;
+      right: -40px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(45,212,191,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      font-weight: 700;
     }
 
     header h1 {
-      font-size: 1.7rem;
-      margin-bottom: 8px;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
       font-weight: 800;
+      letter-spacing: -0.2px;
     }
 
     header p {
@@ -89,27 +191,27 @@
       margin: 0 auto;
     }
 
-    .badge-top {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 4px 14px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    /* Navigation Tabs */
+    /* Sticky Navigation */
     .nav-wrapper {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(248, 250, 252, 0.92);
-      backdrop-filter: blur(10px);
-      padding: 12px 12px;
-      border-bottom: 1px solid #e2e8f0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      z-index: 999;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .nav-tabs {
@@ -117,103 +219,133 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
-      max-width: 1050px;
-      margin: 0 auto;
+      flex: 1;
     }
 
     .tab-btn {
-      border: 2px solid transparent;
-      background: #ffffff;
+      border: 2px solid var(--border-soft);
+      background: var(--card-bg);
       color: var(--text-main);
       padding: 10px 16px;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      border-radius: 14px;
+      font-size: 0.94rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      transition: all 0.22s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .tab-btn:hover {
       transform: translateY(-2px);
+      border-color: var(--primary);
     }
 
     .tab-btn.active-w1 {
-      background: var(--primary);
-      color: #fff;
+      background: linear-gradient(135deg, #4338ca, #4f46e5);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.35);
     }
 
     .tab-btn.active-w2 {
-      background: var(--secondary);
-      color: #fff;
+      background: linear-gradient(135deg, #0f766e, #0d9488);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(15, 118, 110, 0.35);
     }
 
     .tab-btn.active-exam {
-      background: #be123c;
-      color: #fff;
+      background: linear-gradient(135deg, #be123c, #e11d48);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(190, 18, 60, 0.35);
     }
 
     .tab-btn.active-all {
-      background: #0f172a;
-      color: #fff;
+      background: linear-gradient(135deg, #0f172a, #334155);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.35);
     }
 
-    /* Container */
+    .theme-btn {
+      border: 2px solid var(--border-soft);
+      background: var(--card-bg);
+      color: var(--text-main);
+      padding: 9px 14px;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--primary);
+    }
+
+    /* Container & Sections */
     .container {
-      max-width: 1020px;
+      max-width: 1040px;
       margin: 24px auto 0;
       padding: 0 14px;
     }
 
     .pdf-section {
       display: none;
-      animation: fadeIn 0.35s ease;
+      animation: fadeSlide 0.35s ease;
     }
 
     .pdf-section.visible {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Banner for each PDF */
+    /* Section Banners */
     .pdf-banner {
-      border-radius: 18px;
-      padding: 20px 22px;
+      border-radius: 22px;
+      padding: 22px 24px;
       color: #fff;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
 
-    .banner-w1 {
-      background: linear-gradient(135deg, #3730a3, #4f46e5);
-    }
-
-    .banner-w2 {
-      background: linear-gradient(135deg, #0f766e, #0d9488);
-    }
-
-    .banner-exam {
-      background: linear-gradient(135deg, #9f1239, #e11d48);
-    }
+    .banner-w1 { background: linear-gradient(135deg, #312e81, #4f46e5); }
+    .banner-w2 { background: linear-gradient(135deg, #115e59, #0d9488); }
+    .banner-exam { background: linear-gradient(135deg, #881337, #e11d48); }
 
     .pdf-banner h2 {
       font-size: 1.45rem;
       margin-bottom: 6px;
+      font-weight: 800;
+    }
+
+    .pdf-banner p {
+      color: rgba(255, 255, 255, 0.92);
     }
 
     /* Slide Card */
     .slide-card {
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 22px;
+      border-radius: 22px;
+      padding: 24px;
       margin-bottom: 28px;
       box-shadow: var(--shadow);
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-soft);
+      transition: box-shadow 0.25s ease;
+    }
+
+    .slide-card:hover {
+      box-shadow: var(--shadow-hover);
     }
 
     .slide-header {
@@ -224,7 +356,7 @@
       gap: 10px;
       padding-bottom: 14px;
       margin-bottom: 18px;
-      border-bottom: 2px dashed #cbd5e1;
+      border-bottom: 2px dashed var(--border);
     }
 
     .slide-title {
@@ -240,7 +372,7 @@
     .slide-pill {
       background: var(--primary-light);
       color: var(--primary);
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 800;
@@ -251,50 +383,57 @@
       color: var(--secondary);
     }
 
-    /* Subsections inside slide */
+    /* Sub-boxes */
     .topic-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 16px;
+      background: var(--card-sub);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 18px;
       margin-bottom: 16px;
     }
 
     .topic-box h3 {
-      font-size: 1.1rem;
-      color: #0f172a;
+      font-size: 1.12rem;
+      color: var(--text-main);
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
+      font-weight: 800;
+    }
+
+    .topic-box h4 {
+      color: var(--text-main);
+      margin-bottom: 8px;
+      font-weight: 800;
     }
 
     .tip-box {
       background: var(--accent-light);
       border-right: 5px solid #d97706;
-      padding: 13px 16px;
-      border-radius: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
       margin: 14px 0;
-      color: #78350f;
+      color: var(--text-main);
       font-weight: 600;
     }
 
     .omitted-box {
-      background: #eff6ff;
-      border: 2px solid #2563eb;
-      padding: 12px 16px;
-      border-radius: 12px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 2px solid #3b82f6;
+      padding: 13px 16px;
+      border-radius: 14px;
       margin: 14px 0;
-      color: #1e3a8a;
+      color: var(--text-main);
       font-weight: 700;
     }
 
-    ul.clean-list {
+    ul.clean-list, ol.clean-list {
       padding-right: 22px;
       margin: 8px 0;
     }
 
-    ul.clean-list li {
+    ul.clean-list li, ol.clean-list li {
       margin-bottom: 8px;
     }
 
@@ -302,50 +441,59 @@
     .table-wrap {
       overflow-x: auto;
       margin: 12px 0;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      border: 1px solid var(--border);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       min-width: 540px;
-      background: #fff;
+      background: var(--card-bg);
     }
 
     th {
-      background: #1e293b;
-      color: #fff;
-      padding: 11px 12px;
+      background: var(--table-head);
+      color: #ffffff;
+      padding: 12px 14px;
       text-align: right;
       font-size: 0.92rem;
     }
 
     td {
-      padding: 10px 12px;
-      border-top: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      border-top: 1px solid var(--border-soft);
       font-size: 0.94rem;
       vertical-align: top;
+      color: var(--text-main);
     }
 
     tr:nth-child(even) td {
-      background: #f8fafc;
+      background: var(--table-stripe);
     }
 
     .col-omitted {
-      background: #fee2e2 !important;
-      color: #991b1b;
+      background: rgba(225, 29, 72, 0.12) !important;
+      color: #e11d48;
       font-weight: 700;
       text-decoration: line-through;
     }
 
-    /* Quiz Styling inside each slide */
+    .solved-box {
+      background: var(--success-light);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    /* Quiz Styling */
     .quiz-section {
       margin-top: 22px;
-      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 2px solid #cbd5e1;
-      border-radius: 16px;
-      padding: 18px;
+      background: var(--card-sub);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
     }
 
     .quiz-header {
@@ -359,118 +507,149 @@
 
     .quiz-header h4 {
       font-size: 1.12rem;
-      color: #0f172a;
+      color: var(--text-main);
+      font-weight: 800;
+    }
+
+    .part-divider {
+      background: linear-gradient(135deg, #1e293b, #334155);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin: 22px 0 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .q-item {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .q-item:hover {
+      border-color: var(--primary);
     }
 
     .q-type-tag {
       display: inline-block;
       font-size: 0.78rem;
       font-weight: 800;
-      padding: 2px 9px;
-      border-radius: 6px;
-      margin-bottom: 6px;
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
     }
 
-    .tag-mcq { background: #e0e7ff; color: #3730a3; }
-    .tag-blank { background: #fef3c7; color: #92400e; }
-    .tag-tf { background: #ccfbf1; color: #0f766e; }
+    .tag-mcq { background: var(--primary-light); color: var(--primary); }
+    .tag-blank { background: var(--accent-light); color: var(--accent); }
+    .tag-tf { background: var(--secondary-light); color: var(--secondary); }
+
+    .q-text-ku {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
 
     .q-text {
       font-weight: 700;
-      margin-bottom: 10px;
-      color: #0f172a;
+      margin-bottom: 12px;
+      color: var(--text-main);
       direction: ltr;
       text-align: left;
-      font-size: 1rem;
-    }
-
-    .q-text-ku {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      font-size: 1.04rem;
+      background: var(--card-sub);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
     }
 
     .options-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
       direction: ltr;
     }
 
     .opt-label {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #f8fafc;
-      border: 1.5px solid #cbd5e1;
-      padding: 8px 12px;
-      border-radius: 10px;
+      gap: 10px;
+      background: var(--card-sub);
+      border: 2px solid var(--border-soft);
+      padding: 10px 14px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: 600;
-      transition: 0.15s;
+      color: var(--text-main);
+      transition: all 0.16s ease;
     }
 
     .opt-label:hover {
       border-color: var(--primary);
-      background: #eef2ff;
+      background: var(--primary-light);
+    }
+
+    .opt-label input[type="radio"] {
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
     }
 
     .blank-input {
       width: 100%;
-      max-width: 340px;
-      padding: 9px 12px;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
+      max-width: 380px;
+      padding: 11px 14px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-main);
+      border-radius: 12px;
       font-size: 1rem;
       direction: ltr;
-      font-weight: 600;
+      font-weight: 700;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .blank-input:focus {
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
     }
 
     .btn-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
     .btn {
       border: none;
-      padding: 10px 18px;
-      border-radius: 10px;
+      padding: 11px 20px;
+      border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: 0.2s;
+      transition: transform 0.15s, opacity 0.15s, box-shadow 0.2s;
+      color: #fff;
     }
 
-    .btn-check { background: #16a34a; color: #fff; }
-    .btn-check:hover { background: #15803d; }
-
-    .btn-show { background: #2563eb; color: #fff; }
-    .btn-show:hover { background: #1d4ed8; }
-
-    .btn-reset { background: #64748b; color: #fff; }
-    .btn-reset:hover { background: #475569; }
+    .btn:active { transform: scale(0.98); }
+    .btn-check { background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
+    .btn-show { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+    .btn-reset { background: linear-gradient(135deg, #64748b, #475569); }
 
     .feedback {
-      margin-top: 9px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.9rem;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.92rem;
       font-weight: 700;
       display: none;
     }
@@ -479,62 +658,87 @@
       display: block;
       background: var(--success-light);
       color: var(--success);
-      border: 1px solid #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.45);
     }
 
     .feedback.wrong {
       display: block;
       background: var(--danger-light);
       color: var(--danger);
-      border: 1px solid #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.45);
     }
 
     .feedback.info {
       display: block;
-      background: #eff6ff;
-      color: #1e40af;
-      border: 1px solid #93c5fd;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid rgba(99, 102, 241, 0.45);
     }
 
     .score-banner {
-      margin-top: 14px;
-      padding: 14px 18px;
-      border-radius: 12px;
+      margin-top: 16px;
+      padding: 16px 20px;
+      border-radius: 14px;
       font-weight: 800;
       font-size: 1.08rem;
       display: none;
       text-align: center;
+      border: 2px solid transparent;
     }
 
-    .solved-box {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      border-radius: 12px;
-      padding: 14px;
-      margin-top: 10px;
+    /* Back to Top Floating Button */
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 990;
+      border: none;
+      background: linear-gradient(135deg, #4338ca, #0f766e);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
     }
 
-    @media (max-width: 600px) {
+    #topBtn:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 640px) {
       header h1 { font-size: 1.35rem; }
-      .slide-card { padding: 15px; }
-      .tab-btn { font-size: 0.86rem; padding: 8px 12px; }
+      .slide-card { padding: 16px; }
+      .tab-btn { font-size: 0.84rem; padding: 8px 11px; }
+      .theme-btn { width: 100%; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="badge-top">ئامادەکارییا ١٠٠٪ بۆ ئەزموونا میتێرمێ (سەر وەرەقی)</div>
-  <h1>شڕۆڤەکرنا تەمام ب بادینی: دەمێ نۆکە یێ سادە و بەردەوام</h1>
-  <p>هەردوو PDF ب تەمامی ژێک جودانە، هەر سلایدەک ب شڕۆڤەکرن و ٦ پسیاران (هەلبژارتن، فەراغات، ساح و خەلەت) دگەل وەلامێن ١٠٠٪ دروست، و ل دوماهیێ تاقیکرنا مەزن یا میتێرمێ!</p>
+  <div class="header-inner">
+    <div class="badge-top">🎓 ئامادەکارییا ١٠٠٪ بۆ ئەزموونا میتێرمێ (سەر وەرەقی)</div>
+    <h1>شڕۆڤەکرنا تەمام ب بادینی: دەمێ نۆکە یێ سادە و بەردەوام</h1>
+    <p>هەردوو PDF ب تەمامی ژێک جودانە، هەر سلایدەک ب شڕۆڤەکرن و ٦ پسیاران (هەلبژارتن، فەراغات، ساح و خەلەت) دگەل وەلامێن ١٠٠٪ دروست، و ل دوماهیێ تاقیکرنا مەزن یا میتێرمێ!</p>
+  </div>
 </header>
 
 <div class="nav-wrapper">
-  <div class="nav-tabs">
-    <button class="tab-btn active-w1" onclick="switchTab('w1', this)">📘 PDF 1 (Week 1): Present Simple</button>
-    <button class="tab-btn" onclick="switchTab('w2', this)">📗 PDF 2 (Week 2): Present Continuous</button>
-    <button class="tab-btn" onclick="switchTab('exam', this)">📝 تاقیکرنا میتێرمێ (Midterm Exam)</button>
-    <button class="tab-btn" onclick="switchTab('all', this)">📚 هەمی پێکڤە ببینە</button>
+  <div class="nav-inner">
+    <div class="nav-tabs">
+      <button type="button" class="tab-btn active-w1" data-tab="w1" onclick="switchTab('w1', this)">📘 PDF 1 (Week 1): Present Simple</button>
+      <button type="button" class="tab-btn" data-tab="w2" onclick="switchTab('w2', this)">📗 PDF 2 (Week 2): Present Continuous</button>
+      <button type="button" class="tab-btn" data-tab="exam" onclick="switchTab('exam', this)">📝 تاقیکرنا میتێرمێ (Midterm Exam)</button>
+      <button type="button" class="tab-btn" data-tab="all" onclick="switchTab('all', this)">📚 هەمی پێکڤە ببینە</button>
+    </div>
+    <button type="button" class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙 شەڤ / رۆژ</button>
   </div>
 </div>
 
@@ -612,7 +816,7 @@
 
       <div class="topic-box">
         <h3>✍️ یاسایێن نڤیسینێ بۆ کەسێ سێیێ تاک (<span class="en">he, she, it</span>)</h3>
-        <ol class="clean-list" style="padding-right:22px;">
+        <ol class="clean-list">
           <li><strong>پتریا کاران:</strong> تەنها <span class="en">-s</span> زێدە بکە: <span class="en">walk → walks</span> ، <span class="en">read → reads</span>.</li>
           <li><strong>کارێن ب <span class="en">-ch, -s, -sh, -x, -z</span> (و هەروەسا <span class="en">-o</span> وەکی go) ب دوماهی دهێن:</strong> <span class="en">-es</span> زێدە بکە: <span class="en">watch → watches</span> ، <span class="en">wash → washes</span> ، <span class="en">fix → fixes</span>.</li>
           <li><strong>کارێن ب (پیتا نەبزوێن + <span class="en">-y</span>) ب دوماهی دهێن:</strong> پیتا <span class="en">-y</span> بکە <span class="en">-ies</span>: <span class="en">study → studies</span> ، <span class="en">fly → flies</span>.</li>
@@ -646,7 +850,7 @@
       <div class="topic-box">
         <h3>4️⃣ شیکارکرنا راهێنانێن PDFـێ (Practice Exercises - Solved 100%)</h3>
         <div class="solved-box">
-          <ol class="clean-list" style="padding-right:22px;">
+          <ol class="clean-list">
             <li><span class="en">She <strong>goes</strong> (go) to the gym three times a week.</span> ← چنکو بکەر <span class="en">She</span> یە و <span class="en">go</span> ب <span class="en">-o</span> دوماهی دهێت، دبیتە <span class="en">goes</span>.</li>
             <li><span class="en">They <strong>do not like / don't like</strong> (not / like) cold weather.</span> ← <span class="en">They</span> ل گەل <span class="en">do not</span> دهێت.</li>
             <li><span class="en"><strong>Do</strong> you <strong>speak</strong> (speak) English fluently?</span> ← د پسیارێ دا بۆ <span class="en">you</span> ئەم <span class="en">Do</span> د دانینە دەستپێکێ.</li>
@@ -1065,7 +1269,7 @@
       <div class="topic-box">
         <h3>8️⃣ شیکارکرنا هەمی ٧ راهێنانێن پەڕا ٥ ب دروستاهی ١٠٠٪</h3>
         <div class="solved-box">
-          <ol class="clean-list" style="padding-right:22px;">
+          <ol class="clean-list">
             <li><span class="en">Look! It <strong>is raining</strong> (rain) outside.</span> ← چنکو پەیڤا <span class="en">Look!</span> هەیە (هەر نۆکە) و <span class="en">It</span> کارێ <span class="en">is</span> وەردگریت.</li>
             <li><span class="en">They <strong>are not playing / aren't playing</strong> (not / play) football at the moment.</span> ← <span class="en">They</span> ل گەل <span class="en">are not</span> دهێت.</li>
             <li><span class="en"><strong>Are</strong> you <strong>listening</strong> (listen) to me?</span> ← د پسیارێ دا <span class="en">Are</span> دهێتە بەر <span class="en">you</span>، و <span class="en">listen</span> نابیتە دەبل ن.</li>
@@ -1097,17 +1301,21 @@
 
 </div>
 
+<button type="button" id="topBtn" title="بچە سەری" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆</button>
+
 <script>
   // ==========================================================
-  // TAB SWITCHING LOGIC
+  // TAB SWITCHING & THEME TOGGLE
   // ==========================================================
   function switchTab(mode, btn) {
-    const w1 = document.getElementById("sec-w1");
-    const w2 = document.getElementById("sec-w2");
-    const ex = document.getElementById("sec-exam");
-    const allBtns = document.querySelectorAll(".tab-btn");
+    var w1 = document.getElementById("sec-w1");
+    var w2 = document.getElementById("sec-w2");
+    var ex = document.getElementById("sec-exam");
+    var allBtns = document.querySelectorAll(".tab-btn");
 
-    allBtns.forEach(b => b.classList.remove("active-w1", "active-w2", "active-exam", "active-all"));
+    for (var i = 0; i < allBtns.length; i++) {
+      allBtns[i].classList.remove("active-w1", "active-w2", "active-exam", "active-all");
+    }
 
     if (mode === "w1") {
       w1.classList.add("visible");
@@ -1133,558 +1341,177 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function toggleTheme() {
+    var html = document.documentElement;
+    var current = html.getAttribute("data-theme") || "light";
+    var next = current === "light" ? "dark" : "light";
+    html.setAttribute("data-theme", next);
+    document.getElementById("themeToggle").innerHTML = next === "dark" ? "☀️ رۆژ" : "🌙 شەڤ / رۆژ";
+  }
+
+  window.addEventListener("scroll", function () {
+    var btn = document.getElementById("topBtn");
+    if (window.scrollY > 320) {
+      btn.style.display = "flex";
+    } else {
+      btn.style.display = "none";
+    }
+  });
+
   // ==========================================================
-  // QUESTION BANK FOR EACH SLIDE (6 QUESTIONS PER SLIDE)
+  // HELPER FUNCTIONS
   // ==========================================================
-  const slideQuizzes = {
+  function normalizeText(str) {
+    return (str || "").trim().toLowerCase().replace(/\s+/g, " ").replace(/’/g, "'");
+  }
+
+  // ==========================================================
+  // SLIDE QUIZZES (6 QUESTIONS EACH)
+  // ==========================================================
+  var slideQuizzes = {
     "quiz-w1-s1": {
       title: "📝 پسیارێن سلاید ١ (Week 1 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. راستیا زانستی (Present Simple) هەلبژێرە:",
-          q: "Water ________ at 100°C.",
-          options: ["boil", "boils", "boiling", "are boiling"],
-          ans: ["boils"],
-          exp: "چنکو راستیا زانستی یە و Water (= It) تاکە، پێدڤی ب (-s) یە ← boils."
-        },
-        {
-          type: "mcq",
-          ku: "٢. کیژ کارێ هاریکار بۆ پسیارا Present Simple دگەل She دهێت؟",
-          q: "________ she work every day?",
-          options: ["Do", "Does", "Is", "Are"],
-          ans: ["Does"],
-          exp: "د دەمێ نۆکە یێ سادە دا بۆ He / She / It ئەم Does بکاردهینین."
-        },
-        {
-          type: "blank",
-          ku: "٣. فەراغێ پڕ بکە (تێبینی: watch ب -ch ب دوماهی دهێت):",
-          q: "He ________ (watch) TV every evening.",
-          ans: ["watches"],
-          exp: "کارێن ب -ch ب دوماهی دهێن دگەل He/She/It پاشگرێ -es وەردگرن ← watches."
-        },
-        {
-          type: "blank",
-          ku: "٤. پسیارێ تەمام بکە:",
-          q: "________ they work on Mondays?",
-          ans: ["do"],
-          exp: "بۆ they د پسیارا Present Simple دا ئەم Do بکاردهینین."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "The sentence 'She does not works every day.' is grammatically CORRECT.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! پشتی does not کار دزڤڕیتە بنەڕەت (work بێ s)، نەک works."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "For he/she/it, verbs ending in consonant + -y (like 'study') change -y to -ies (studies).",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! پیتا نەبزوێن + y دگۆهۆڕیت بۆ ies (study → studies)."
-        }
+        { type: "mcq", ku: "١. راستیا زانستی (Present Simple) هەلبژێرە:", q: "Water ________ at 100°C.", options: ["boil", "boils", "boiling", "are boiling"], ans: ["boils"], exp: "چنکو راستیا زانستی یە و Water (= It) تاکە، پێدڤی ب (-s) یە ← boils." },
+        { type: "mcq", ku: "٢. کیژ کارێ هاریکار بۆ پسیارا Present Simple دگەل She دهێت؟", q: "________ she work every day?", options: ["Do", "Does", "Is", "Are"], ans: ["Does"], exp: "د دەمێ نۆکە یێ سادە دا بۆ He / She / It ئەم Does بکاردهینین." },
+        { type: "blank", ku: "٣. فەراغێ پڕ بکە (تێبینی: watch ب -ch ب دوماهی دهێت):", q: "He ________ (watch) TV every evening.", ans: ["watches"], exp: "کارێن ب -ch ب دوماهی دهێن دگەل He/She/It پاشگرێ -es وەردگرن ← watches." },
+        { type: "blank", ku: "٤. پسیارێ تەمام بکە:", q: "________ they work on Mondays?", ans: ["do"], exp: "بۆ they د پسیارا Present Simple دا ئەم Do بکاردهینین." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "The sentence 'She does not works every day.' is grammatically CORRECT.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پشتی does not کار دزڤڕیتە بنەڕەت (work بێ s)، نەک works." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "For he/she/it, verbs ending in consonant + -y (like 'study') change -y to -ies (studies).", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! پیتا نەبزوێن + y دگۆهۆڕیت بۆ ies (study → studies)." }
       ]
     },
-
     "quiz-w1-s2": {
       title: "📝 پسیارێن سلاید ٢ (Week 1 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. هەڤواتایا (Synonym) پەیڤا Essential کیژکە؟",
-          q: "Choose a synonym for 'Essential':",
-          options: ["Optional", "Vital", "Destroy", "Seldom"],
-          ans: ["Vital"],
-          exp: "هەڤواتایێن Essential ئەڤەنە: Vital, crucial, required."
-        },
-        {
-          type: "mcq",
-          ku: "٢. دژواتایا (Antonym) پەیڤا Difficult کیژکە؟",
-          q: "Choose an antonym for 'Difficult':",
-          options: ["Hard", "Tough", "Easy", "Challenging"],
-          ans: ["Easy"],
-          exp: "Difficult ئانکو زەحمەت؛ دژواتایا وێ Easy (بساناهی) یە."
-        },
-        {
-          type: "blank",
-          ku: "٣. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Begin بنڤیسە:",
-          q: "An antonym of 'Begin' is: ________",
-          ans: ["end", "finish", "stop"],
-          exp: "دژواتایێن Begin د پەڕێ دا: End, finish, stop."
-        },
-        {
-          type: "blank",
-          ku: "٤. شێوازێ دروست یێ Present Simple بنڤیسە:",
-          q: "He always ________ (study) late at night.",
-          ans: ["studies"],
-          exp: "چنکو He تاکە و always ئاماژەیە بۆ Present Simple ← studies."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "'Seldom' and 'Rarely' are Synonyms of 'Frequently'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! Seldom و Rarely دژواتایێن (Antonyms) پەیڤا Frequently نە."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "'Make, produce, build' are Synonyms of 'Create'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! هەڤواتایێن Create ئەڤەنە: Make, produce, build."
-        }
+        { type: "mcq", ku: "١. هەڤواتایا (Synonym) پەیڤا Essential کیژکە؟", q: "Choose a synonym for 'Essential':", options: ["Optional", "Vital", "Destroy", "Seldom"], ans: ["Vital"], exp: "هەڤواتایێن Essential ئەڤەنە: Vital, crucial, required." },
+        { type: "mcq", ku: "٢. دژواتایا (Antonym) پەیڤا Difficult کیژکە؟", q: "Choose an antonym for 'Difficult':", options: ["Hard", "Tough", "Easy", "Challenging"], ans: ["Easy"], exp: "Difficult ئانکو زەحمەت؛ دژواتایا وێ Easy (بساناهی) یە." },
+        { type: "blank", ku: "٣. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Begin بنڤیسە:", q: "An antonym of 'Begin' is: ________", ans: ["end", "finish", "stop"], exp: "دژواتایێن Begin د پەڕێ دا: End, finish, stop." },
+        { type: "blank", ku: "٤. شێوازێ دروست یێ Present Simple بنڤیسە:", q: "He always ________ (study) late at night.", ans: ["studies"], exp: "چنکو He تاکە و always ئاماژەیە بۆ Present Simple ← studies." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "'Seldom' and 'Rarely' are Synonyms of 'Frequently'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Seldom و Rarely دژواتایێن (Antonyms) پەیڤا Frequently نە." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Make, produce, build' are Synonyms of 'Create'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! هەڤواتایێن Create ئەڤەنە: Make, produce, build." }
       ]
     },
-
     "quiz-w1-s3": {
       title: "📝 پسیارێن سلاید ٣ (Week 1 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Go چیە؟",
-          q: "What is the Past Participle (V3) of 'Go'?",
-          options: ["Went", "Gone", "Goed", "Going"],
-          ans: ["Gone"],
-          exp: "Go (V1) → Went (V2) → Gone (V3)."
-        },
-        {
-          type: "mcq",
-          ku: "٢. کیژ ژ ڤان کاران کارەکێ ئاسایی (Regular Verb) یە؟",
-          q: "Which verb is a Regular Verb?",
-          options: ["Be", "Go", "Help", "Take"],
-          ans: ["Help"],
-          exp: "Help کارەکێ ئاسایی یە (Helped / Helped)، یێن دی هەمی نەئاساینە."
-        },
-        {
-          type: "blank",
-          ku: "٣. بۆریێ سادە (Simple Past - V2) یێ کارێ Take بنڤیسە:",
-          q: "Simple Past (V2) of 'Take' = ________",
-          ans: ["took"],
-          exp: "Take (V1) → Took (V2) → Taken (V3)."
-        },
-        {
-          type: "blank",
-          ku: "٤. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Be بنڤیسە:",
-          q: "Past Participle (V3) of 'Be' = ________",
-          ans: ["been"],
-          exp: "Be (V1) → Was / Were (V2) → Been (V3)."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "Both V2 and V3 of the verb 'Make' are 'Made'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! Make → Made → Made."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "'Play' is an irregular verb.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! Play کارەکێ ئاسایی (Regular) یە: Play → Played → Played."
-        }
+        { type: "mcq", ku: "١. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Go چیە؟", q: "What is the Past Participle (V3) of 'Go'?", options: ["Went", "Gone", "Goed", "Going"], ans: ["Gone"], exp: "Go (V1) → Went (V2) → Gone (V3)." },
+        { type: "mcq", ku: "٢. کیژ ژ ڤان کاران کارەکێ ئاسایی (Regular Verb) یە؟", q: "Which verb is a Regular Verb?", options: ["Be", "Go", "Help", "Take"], ans: ["Help"], exp: "Help کارەکێ ئاسایی یە (Helped / Helped)، یێن دی هەمی نەئاساینە." },
+        { type: "blank", ku: "٣. بۆریێ سادە (Simple Past - V2) یێ کارێ Take بنڤیسە:", q: "Simple Past (V2) of 'Take' = ________", ans: ["took"], exp: "Take (V1) → Took (V2) → Taken (V3)." },
+        { type: "blank", ku: "٤. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Be بنڤیسە:", q: "Past Participle (V3) of 'Be' = ________", ans: ["been"], exp: "Be (V1) → Was / Were (V2) → Been (V3)." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Both V2 and V3 of the verb 'Make' are 'Made'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Make → Made → Made." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Play' is an irregular verb.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Play کارەکێ ئاسایی (Regular) یە: Play → Played → Played." }
       ]
     },
-
     "quiz-w2-s1": {
       title: "📝 پسیارێن سلاید ١ (Week 2 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. پلانا مسۆگەر بۆ داهاتووی (Present Continuous) تەمام بکە:",
-          q: "We ________ John tomorrow.",
-          options: ["is meeting", "are meeting", "am meeting", "meets"],
-          ans: ["are meeting"],
-          exp: "We کارێ هاریکار are وەردگریت دگەل Verb-ing ← are meeting."
-        },
-        {
-          type: "mcq",
-          ku: "٢. کیژ کارێ هاریکار دگەل I دهێت؟",
-          q: "I ________ reading a book right now.",
-          options: ["is", "are", "am", "does"],
-          ans: ["am"],
-          exp: "I هەردەم am وەردگریت ← I am reading."
-        },
-        {
-          type: "blank",
-          ku: "٣. رستێ ب Present Continuous تەمام بکە:",
-          q: "She ________ (study) for her exam right now.",
-          ans: ["is studying"],
-          exp: "She ل گەل is دهێت و study دبیتە studying ← is studying."
-        },
-        {
-          type: "blank",
-          ku: "٤. پسیارێ تەمام بکە:",
-          q: "________ they working today?",
-          ans: ["are"],
-          exp: "بۆ they د پسیارا Present Continuous دا Are دهێتە دەستپێکێ."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "Present Continuous can be used for temporary situations like 'She is living in London for three months.'",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! ئێک ژ بکارهێنانێن Present Continuous بارودۆخێن بەروەختە."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "The negative sentence 'He are not working.' is correct.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! He کارێ is وەردگریت، دروستە بێژین: He is not (isn't) working."
-        }
+        { type: "mcq", ku: "١. پلانا مسۆگەر بۆ داهاتووی (Present Continuous) تەمام بکە:", q: "We ________ John tomorrow.", options: ["is meeting", "are meeting", "am meeting", "meets"], ans: ["are meeting"], exp: "We کارێ هاریکار are وەردگریت دگەل Verb-ing ← are meeting." },
+        { type: "mcq", ku: "٢. کیژ کارێ هاریکار دگەل I دهێت؟", q: "I ________ reading a book right now.", options: ["is", "are", "am", "does"], ans: ["am"], exp: "I هەردەم am وەردگریت ← I am reading." },
+        { type: "blank", ku: "٣. رستێ ب Present Continuous تەمام بکە:", q: "She ________ (study) for her exam right now.", ans: ["is studying"], exp: "She ل گەل is دهێت و study دبیتە studying ← is studying." },
+        { type: "blank", ku: "٤. پسیارێ تەمام بکە:", q: "________ they working today?", ans: ["are"], exp: "بۆ they د پسیارا Present Continuous دا Are دهێتە دەستپێکێ." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Present Continuous can be used for temporary situations like 'She is living in London for three months.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئێک ژ بکارهێنانێن Present Continuous بارودۆخێن بەروەختە." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The negative sentence 'He are not working.' is correct.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! He کارێ is وەردگریت، دروستە بێژین: He is not (isn't) working." }
       ]
     },
-
     "quiz-w2-s2": {
       title: "📝 پسیارێن سلاید ٢ (Week 2 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. نڤیسینا دروست یا کارێ write دگەل -ing کیژکە؟",
-          q: "What is the correct '-ing' form of 'write'?",
-          options: ["writeing", "writing", "writting", "writeng"],
-          ans: ["writing"],
-          exp: "یاسایا Silent -e: پیتا e یا دوماهیێ ژێدچیت ← writing."
-        },
-        {
-          type: "mcq",
-          ku: "٢. نڤیسینا دروست یا کارێ lie دگەل -ing کیژکە؟",
-          q: "What is the correct '-ing' form of 'lie'?",
-          options: ["lieing", "liing", "lying", "lyeing"],
-          ans: ["lying"],
-          exp: "یاسایا -ie: پیتێن -ie دگۆهۆڕن بۆ -y و -ing زێدە دبیت ← lying."
-        },
-        {
-          type: "blank",
-          ku: "٣. پاشگرێ -ing ل سەر کارێ stop زێدە بکە:",
-          q: "stop + -ing = ________",
-          ans: ["stopping"],
-          exp: "یاسایا CVC (١ بڕگە): پیتا p دبیتە دوو قات ← stopping."
-        },
-        {
-          type: "blank",
-          ku: "٤. پاشگرێ -ing ل سەر کارێ agree زێدە بکە:",
-          q: "agree + -ing = ________",
-          ans: ["agreeing"],
-          exp: "کارێن ب -ee ب دوماهی دهێن پیتا e ژێنابەن ← agreeing."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "In 'Who is she talking to on the phone?', 'Who' asks about a person.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! Who بۆ پسیارکرنێ دەربارەی کەسان (کی) بکاردهێت."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "The '-ing' form of 'run' is 'runing' with a single 'n'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! run یاسایا CVC یە، دروست: running ب دوو n."
-        }
+        { type: "mcq", ku: "١. نڤیسینا دروست یا کارێ write دگەل -ing کیژکە؟", q: "What is the correct '-ing' form of 'write'?", options: ["writeing", "writing", "writting", "writeng"], ans: ["writing"], exp: "یاسایا Silent -e: پیتا e یا دوماهیێ ژێدچیت ← writing." },
+        { type: "mcq", ku: "٢. نڤیسینا دروست یا کارێ lie دگەل -ing کیژکە؟", q: "What is the correct '-ing' form of 'lie'?", options: ["lieing", "liing", "lying", "lyeing"], ans: ["lying"], exp: "یاسایا -ie: پیتێن -ie دگۆهۆڕن بۆ -y و -ing زێدە دبیت ← lying." },
+        { type: "blank", ku: "٣. پاشگرێ -ing ل سەر کارێ stop زێدە بکە:", q: "stop + -ing = ________", ans: ["stopping"], exp: "یاسایا CVC (١ بڕگە): پیتا p دبیتە دوو قات ← stopping." },
+        { type: "blank", ku: "٤. پاشگرێ -ing ل سەر کارێ agree زێدە بکە:", q: "agree + -ing = ________", ans: ["agreeing"], exp: "کارێن ب -ee ب دوماهی دهێن پیتا e ژێنابەن ← agreeing." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "In 'Who is she talking to on the phone?', 'Who' asks about a person.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Who بۆ پسیارکرنێ دەربارەی کەسان (کی) بکاردهێت." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The '-ing' form of 'run' is 'runing' with a single 'n'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! run یاسایا CVC یە، دروست: running ب دوو n." }
       ]
     },
-
     "quiz-w2-s3": {
       title: "📝 پسیارێن سلاید ٣ (Week 2 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. نڤیسینا ١٠٠٪ دروست یا یاسایا دوو بڕگەیی (Stress) کیژکە؟",
-          q: "Which '-ing' spelling is CORRECT?",
-          options: ["begining", "visitting", "openning", "beginning"],
-          ans: ["beginning"],
-          exp: "begin فشار ل سەر بڕگا دووێ یە لەورا n دبیتە دوو قات (beginning)؛ بەلێ open و visit نابنە دەبل."
-        },
-        {
-          type: "mcq",
-          ku: "٢. کیژ رستە ژ ئالیێ رێزمانێ ڤە دروستە (Stative Verbs Warning)؟",
-          q: "Which sentence is CORRECT?",
-          options: ["I am wanting an ice cream.", "I want an ice cream.", "I is wanting an ice cream.", "I wanting an ice cream."],
-          ans: ["I want an ice cream."],
-          exp: "want کارەکێ Stative یە، ب شێوازێ -ing ناهێت، پێدڤیە Present Simple بکاربهینی."
-        },
-        {
-          type: "blank",
-          ku: "٣. ژ خشتەیێ فەرهەنگێ، هەڤواتایەکێ (Synonym) بۆ پەیڤا Generous بنڤیسە:",
-          q: "A synonym of 'Generous' is: ________",
-          ans: ["charitable", "giving", "unselfish"],
-          exp: "هەڤواتایێن Generous د پەڕێ دا: Charitable, giving, unselfish."
-        },
-        {
-          type: "blank",
-          ku: "٤. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Expand بنڤیسە:",
-          q: "An antonym of 'Expand' is: ________",
-          ans: ["shrink", "reduce"],
-          exp: "دژواتایێن Expand د پەڕێ دا: Shrink, reduce."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "Stative verbs such as 'know', 'love', and 'believe' are rarely used in the continuous (-ing) form.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! کارێن هەست و رەوشێ ب گشتی د دەمێ بەردەوام دا بکارناهێن."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "'Modern, recent, new' are Synonyms of 'Ancient'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! ئەو دژواتایێن (Antonyms) پەیڤا Ancientـن."
-        }
+        { type: "mcq", ku: "١. نڤیسینا ١٠٠٪ دروست یا یاسایا دوو بڕگەیی (Stress) کیژکە؟", q: "Which '-ing' spelling is CORRECT?", options: ["begining", "visitting", "openning", "beginning"], ans: ["beginning"], exp: "begin فشار ل سەر بڕگا دووێ یە لەورا n دبیتە دوو قات (beginning)؛ بەلێ open و visit نابنە دەبل." },
+        { type: "mcq", ku: "٢. کیژ رستە ژ ئالیێ رێزمانێ ڤە دروستە (Stative Verbs Warning)؟", q: "Which sentence is CORRECT?", options: ["I am wanting an ice cream.", "I want an ice cream.", "I is wanting an ice cream.", "I wanting an ice cream."], ans: ["I want an ice cream."], exp: "want کارەکێ Stative یە، ب شێوازێ -ing ناهێت، پێدڤیە Present Simple بکاربهینی." },
+        { type: "blank", ku: "٣. ژ خشتەیێ فەرهەنگێ، هەڤواتایەکێ (Synonym) بۆ پەیڤا Generous بنڤیسە:", q: "A synonym of 'Generous' is: ________", ans: ["charitable", "giving", "unselfish"], exp: "هەڤواتایێن Generous د پەڕێ دا: Charitable, giving, unselfish." },
+        { type: "blank", ku: "٤. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Expand بنڤیسە:", q: "An antonym of 'Expand' is: ________", ans: ["shrink", "reduce"], exp: "دژواتایێن Expand د پەڕێ دا: Shrink, reduce." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Stative verbs such as 'know', 'love', and 'believe' are rarely used in the continuous (-ing) form.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! کارێن هەست و رەوشێ ب گشتی د دەمێ بەردەوام دا بکارناهێن." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Modern, recent, new' are Synonyms of 'Ancient'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! ئەو دژواتایێن (Antonyms) پەیڤا Ancientـن." }
       ]
     },
-
     "quiz-w2-s4": {
       title: "📝 پسیارێن سلاید ٤ (Week 2 - ٦ پسیار دگەل وەلامان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. دژواتایا (Antonym) پەیڤا Temporary کیژکە؟",
-          q: "Choose an antonym for 'Temporary':",
-          options: ["Short-term", "Provisional", "Permanent", "Visiting"],
-          ans: ["Permanent"],
-          exp: "دژواتایێن Temporary ئەڤەنە: Permanent, lasting, constant."
-        },
-        {
-          type: "mcq",
-          ku: "٢. شێوازێ V2 و V3 یێ کارێ Break کیژکن؟",
-          q: "What are the V2 and V3 forms of 'Break'?",
-          options: ["Breaked / Breaked", "Broke / Broken", "Broken / Broke", "Broke / Breaked"],
-          ans: ["Broke / Broken"],
-          exp: "Break (V1) → Broke (V2) → Broken (V3)."
-        },
-        {
-          type: "blank",
-          ku: "٣. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Drive بنڤیسە:",
-          q: "Past Participle (V3) of 'Drive' = ________",
-          ans: ["driven"],
-          exp: "Drive (V1) → Drove (V2) → Driven (V3)."
-        },
-        {
-          type: "blank",
-          ku: "٤. شێوازێ V-ing یێ کارێ Write بنڤیسە:",
-          q: "Present Continuous (V-ing) of 'Write' = ________",
-          ans: ["writing"],
-          exp: "پیتا e ژێدچیت و -ing زێدە دبیت ← Writing."
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "'Short-term' and 'provisional' are Synonyms of 'Temporary'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! هەردوو هەڤواتایێن Temporary نە."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "The Simple Past (V2) of 'Eat' is 'Eated'.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! Eat کارەکێ نەئاسایی یە: Eat → Ate → Eaten."
-        }
+        { type: "mcq", ku: "١. دژواتایا (Antonym) پەیڤا Temporary کیژکە؟", q: "Choose an antonym for 'Temporary':", options: ["Short-term", "Provisional", "Permanent", "Visiting"], ans: ["Permanent"], exp: "دژواتایێن Temporary ئەڤەنە: Permanent, lasting, constant." },
+        { type: "mcq", ku: "٢. شێوازێ V2 و V3 یێ کارێ Break کیژکن؟", q: "What are the V2 and V3 forms of 'Break'?", options: ["Breaked / Breaked", "Broke / Broken", "Broken / Broke", "Broke / Breaked"], ans: ["Broke / Broken"], exp: "Break (V1) → Broke (V2) → Broken (V3)." },
+        { type: "blank", ku: "٣. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Drive بنڤیسە:", q: "Past Participle (V3) of 'Drive' = ________", ans: ["driven"], exp: "Drive (V1) → Drove (V2) → Driven (V3)." },
+        { type: "blank", ku: "٤. شێوازێ V-ing یێ کارێ Write بنڤیسە:", q: "Present Continuous (V-ing) of 'Write' = ________", ans: ["writing"], exp: "پیتا e ژێدچیت و -ing زێدە دبیت ← Writing." },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "'Short-term' and 'provisional' are Synonyms of 'Temporary'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! هەردوو هەڤواتایێن Temporary نە." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The Simple Past (V2) of 'Eat' is 'Eated'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Eat کارەکێ نەئاسایی یە: Eat → Ate → Eaten." }
       ]
     },
-
     "quiz-w2-s5": {
       title: "📝 پسیارێن سلاید ٥ (Week 2 - ٦ پسیار ل سەر راهێنانان):",
       questions: [
-        {
-          type: "mcq",
-          ku: "١. بکارهێنانی دەمێ نۆکە یێ بەردەوام هەلبژێرە:",
-          q: "Look! It ________ outside.",
-          options: ["rain", "rains", "is raining", "are raining"],
-          ans: ["is raining"],
-          exp: "Look! نیشانا نۆکە یە، و It کارێ is وەردگریت ← is raining."
-        },
-        {
-          type: "mcq",
-          ku: "٢. نڤیسین و رێزمانا دروست هەلبژێرە:",
-          q: "The workers ________ a new strategy today.",
-          options: ["is planing", "are planing", "is planning", "are planning"],
-          ans: ["are planning"],
-          exp: "The workers کۆمن (= They → are) و plan دبیتە planning ب دوو n."
-        },
-        {
-          type: "blank",
-          ku: "٣. رستێ ب شێوازێ نەرێ (Negative) د Present Continuous دا تەمام بکە:",
-          q: "They ________ (not / play) football at the moment.",
-          ans: ["are not playing", "aren't playing"],
-          exp: "They → are not playing (یان aren't playing)."
-        },
-        {
-          type: "blank",
-          ku: "٤. تەنها پەیڤا بەرزە یا پسیارێ بنڤیسە:",
-          q: "What ________ she cooking for dinner?",
-          ans: ["is"],
-          exp: "بۆ she د پسیارێ دا is بکاردهێت: What is she cooking for dinner?"
-        },
-        {
-          type: "tf",
-          ku: "٥. ساح یان خەلەت (True or False):",
-          q: "In 'Why are they running so fast?', 'running' has two 'n's because of the CVC rule.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["True (ساح)"],
-          exp: "ساحە! run → running."
-        },
-        {
-          type: "tf",
-          ku: "٦. ساح یان خەلەت (True or False):",
-          q: "The sentence 'Are you listen to me?' is grammatically correct.",
-          options: ["True (ساح)", "False (خەلەت)"],
-          ans: ["False (خەلەت)"],
-          exp: "خەلەتە! پشتی Are پێدڤیە کار -ing وەربگریت ← Are you listening to me?"
-        }
+        { type: "mcq", ku: "١. بکارهێنانی دەمێ نۆکە یێ بەردەوام هەلبژێرە:", q: "Look! It ________ outside.", options: ["rain", "rains", "is raining", "are raining"], ans: ["is raining"], exp: "Look! نیشانا نۆکە یە، و It کارێ is وەردگریت ← is raining." },
+        { type: "mcq", ku: "٢. نڤیسین و رێزمانا دروست هەلبژێرە:", q: "The workers ________ a new strategy today.", options: ["is planing", "are planing", "is planning", "are planning"], ans: ["are planning"], exp: "The workers کۆمن (= They → are) و plan دبیتە planning ب دوو n." },
+        { type: "blank", ku: "٣. رستێ ب شێوازێ نەرێ (Negative) د Present Continuous دا تەمام بکە:", q: "They ________ (not / play) football at the moment.", ans: ["are not playing", "aren't playing"], exp: "They → are not playing (یان aren't playing)." },
+        { type: "blank", ku: "٤. تەنها پەیڤا بەرزە یا پسیارێ بنڤیسە:", q: "What ________ she cooking for dinner?", ans: ["is"], exp: "بۆ she د پسیارێ دا is بکاردهێت: What is she cooking for dinner?" },
+        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "In 'Why are they running so fast?', 'running' has two 'n's because of the CVC rule.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! run → running." },
+        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The sentence 'Are you listen to me?' is grammatically correct.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پشتی Are پێدڤیە کار -ing وەربگریت ← Are you listening to me?" }
       ]
     }
   };
 
-  // Render all Slide Quizzes
+  function buildQuestionHTML(item, qId) {
+    var tagClass = item.type === "mcq" ? "tag-mcq" : item.type === "blank" ? "tag-blank" : "tag-tf";
+    var tagName = item.type === "mcq" ? "هەلبژارتن (MCQ)" : item.type === "blank" ? "فەراغات (Blank)" : "ساح و خەلەت (T/F)";
+
+    var html = '<div class="q-item" id="' + qId + '">';
+    html += '<span class="q-type-tag ' + tagClass + '">' + tagName + '</span>';
+    html += '<div class="q-text-ku">' + item.ku + '</div>';
+    html += '<div class="q-text">' + item.q + '</div>';
+
+    if (item.type === "blank") {
+      html += '<input type="text" class="blank-input" id="' + qId + '-input" placeholder="وەلامێ خۆ ل ڤێرە بنڤیسە..." />';
+    } else {
+      html += '<div class="options-grid">';
+      for (var o = 0; o < item.options.length; o++) {
+        var opt = item.options[o];
+        html += '<label class="opt-label"><input type="radio" name="' + qId + '-radio" value="' + opt + '" /><span>' + opt + '</span></label>';
+      }
+      html += '</div>';
+    }
+    html += '<div class="feedback" id="' + qId + '-fb"></div></div>';
+    return html;
+  }
+
   function renderSlideQuiz(containerId) {
-    const data = slideQuizzes[containerId];
-    const container = document.getElementById(containerId);
+    var data = slideQuizzes[containerId];
+    var container = document.getElementById(containerId);
     if (!data || !container) return;
 
-    let html = `
-      <div class="quiz-header">
-        <h4>${data.title}</h4>
-      </div>
-    `;
+    var html = '<div class="quiz-header"><h4>' + data.title + '</h4></div>';
+    for (var i = 0; i < data.questions.length; i++) {
+      html += buildQuestionHTML(data.questions[i], containerId + '-q' + i);
+    }
 
-    data.questions.forEach((item, idx) => {
-      const qId = `${containerId}-q${idx}`;
-      const tagClass = item.type === "mcq" ? "tag-mcq" : item.type === "blank" ? "tag-blank" : "tag-tf";
-      const tagName = item.type === "mcq" ? "هەلبژارتن (MCQ)" : item.type === "blank" ? "فەراغات (Blank)" : "ساح و خەلەت (T/F)";
-
-      html += `<div class="q-item" id="${qId}">
-        <span class="q-type-tag ${tagClass}">${tagName}</span>
-        <div class="q-text-ku">${item.ku}</div>
-        <div class="q-text">${item.q}</div>`;
-
-      if (item.type === "blank") {
-        html += `<input type="text" class="blank-input" id="${qId}-input" placeholder="وەلامێ خۆ ل ڤێرە بنڤیسە..." />`;
-      } else {
-        html += `<div class="options-grid">`;
-        item.options.forEach((opt, oIdx) => {
-          html += `
-            <label class="opt-label">
-              <input type="radio" name="${qId}-radio" value="${opt}" />
-              <span>${opt}</span>
-            </label>`;
-        });
-        html += `</div>`;
-      }
-
-      html += `<div class="feedback" id="${qId}-fb"></div></div>`;
-    });
-
-    html += `
-      <div class="btn-row">
-        <button class="btn btn-check" onclick="gradeSlide('${containerId}')">✅ پشکنینا وەلامان</button>
-        <button class="btn btn-show" onclick="showSlideAnswers('${containerId}')">👁️ نیشاندانا وەلامێن ١٠٠٪ دروست</button>
-        <button class="btn btn-reset" onclick="resetSlide('${containerId}')">🔄 دووبارەکرن</button>
-      </div>
-      <div class="score-banner" id="${containerId}-score"></div>
-    `;
+    html += '<div class="btn-row">' +
+      '<button type="button" class="btn btn-check" onclick="gradeQuiz(\'' + containerId + '\', false)">✅ پشکنینا وەلامان</button>' +
+      '<button type="button" class="btn btn-show" onclick="showAnswers(\'' + containerId + '\', false)">👁️ نیشاندانا وەلامێن ١٠٠٪ دروست</button>' +
+      '<button type="button" class="btn btn-reset" onclick="resetQuiz(\'' + containerId + '\', false)">🔄 دووبارەکرن</button>' +
+      '</div><div class="score-banner" id="' + containerId + '-score"></div>';
 
     container.innerHTML = html;
   }
 
-  function normalizeText(str) {
-    return str.trim().toLowerCase().replace(/\s+/g, " ").replace(/’/g, "'");
-  }
-
-  function gradeSlide(containerId) {
-    const data = slideQuizzes[containerId];
-    let score = 0;
-
-    data.questions.forEach((item, idx) => {
-      const qId = `${containerId}-q${idx}`;
-      const fb = document.getElementById(`${qId}-fb`);
-      let userAns = "";
-
-      if (item.type === "blank") {
-        userAns = normalizeText(document.getElementById(`${qId}-input`).value);
-      } else {
-        const checked = document.querySelector(`input[name="${qId}-radio"]:checked`);
-        if (checked) userAns = normalizeText(checked.value);
-      }
-
-      const validAns = item.ans.map(a => normalizeText(a));
-      if (userAns !== "" && validAns.includes(userAns)) {
-        score++;
-        fb.className = "feedback correct";
-        fb.innerHTML = `✅ دەست خۆش! ١٠٠٪ دروستە. (${item.exp})`;
-      } else {
-        fb.className = "feedback wrong";
-        fb.innerHTML = `❌ خەلەتە یان بەتالە! وەلامێ دروست: <span class="en">${item.ans[0]}</span> — ${item.exp}`;
-      }
-    });
-
-    const sb = document.getElementById(`${containerId}-score`);
-    sb.style.display = "block";
-    const pct = Math.round((score / data.questions.length) * 100);
-    sb.style.background = pct === 100 ? "#dcfce7" : pct >= 50 ? "#fef3c7" : "#ffe4e6";
-    sb.style.color = pct === 100 ? "#15803d" : pct >= 50 ? "#92400e" : "#be123c";
-    sb.innerHTML = `ئەنجامێ تە ل ڤێ سلایدێ: ${score} ژ ${data.questions.length} (${pct}%)`;
-  }
-
-  function showSlideAnswers(containerId) {
-    const data = slideQuizzes[containerId];
-    data.questions.forEach((item, idx) => {
-      const qId = `${containerId}-q${idx}`;
-      const fb = document.getElementById(`${qId}-fb`);
-      fb.className = "feedback info";
-      fb.innerHTML = `💡 وەلامێ ١٠٠٪ دروست: <span class="en">${item.ans[0]}</span> — ${item.exp}`;
-    });
-  }
-
-  function resetSlide(containerId) {
-    const data = slideQuizzes[containerId];
-    data.questions.forEach((item, idx) => {
-      const qId = `${containerId}-q${idx}`;
-      const fb = document.getElementById(`${qId}-fb`);
-      fb.className = "feedback";
-      fb.innerHTML = "";
-      if (item.type === "blank") {
-        document.getElementById(`${qId}-input`).value = "";
-      } else {
-        document.querySelectorAll(`input[name="${qId}-radio"]`).forEach(r => r.checked = false);
-      }
-    });
-    const sb = document.getElementById(`${containerId}-score`);
-    sb.style.display = "none";
-  }
-
-  // Render all 8 slides
-  Object.keys(slideQuizzes).forEach(renderSlideQuiz);
-
   // ==========================================================
   // COMBINED MIDTERM EXAM (30 QUESTIONS: 12 MCQ + 10 BLANK + 8 T/F)
   // ==========================================================
-  const midtermQuestions = [
-    // --- PART 1: MULTIPLE CHOICE (12) ---
+  var midtermQuestions = [
+    // Part 1: 12 MCQ
     { part: "پشکا ئێکێ: هەلبژارتن (Multiple Choice - ١٢ پسیار)", type: "mcq", ku: "١. راستیا زانستی (Week 1):", q: "The sun ________ in the east.", options: ["rise", "rises", "is rising", "rising"], ans: ["rises"], exp: "راستیا گشتی یە (Present Simple)، The sun تاکە ← rises." },
     { type: "mcq", ku: "٢. ئاماژەیا right now (Week 2):", q: "Listen! Someone ________ at the door right now.", options: ["knock", "knocks", "is knocking", "are knocking"], ans: ["is knocking"], exp: "Listen! و right now نیشانێن Present Continuousـن، Someone تاکە ← is knocking." },
     { type: "mcq", ku: "٣. کارێ نەبزاڤ (Stative Verb - Week 2):", q: "I ________ the answer to this question.", options: ["am knowing", "knowing", "know", "is knowing"], ans: ["know"], exp: "know کارەکێ Stative یە، دگەل -ing ناهێت! ← I know." },
     { type: "mcq", ku: "٤. نەرێ د Present Simple دا (Week 1):", q: "She ________ work on Fridays.", options: ["do not", "does not", "is not", "are not"], ans: ["does not"], exp: "بۆ کارێ بنەڕەت work د Present Simple دا دگەل She ئەم does not بکاردهینین." },
     { type: "mcq", ku: "٥. یاسایا نڤیسینا -ing (Week 2):", q: "What is the correct '-ing' form of 'die'?", options: ["dieing", "dying", "diing", "dyeing"], ans: ["dying"], exp: "یاسایا -ie: پیتێن -ie دگۆهۆڕن بۆ -y و -ing زێدە دبیت ← dying." },
-    { type: "mcq", ku: "٦. یاسایا دوو بڕگەیی Stress (Week 2):", q: "Which '-ing' form is CORRECT?", options: ["prefering", "visitting", "opening", "begining"], ans: ["opening"], exp: "open فشار ل سەر بڕگا ئێکێ یە لەورا نابیتە دەبل (opening). یێن دی هەمی خەلەت هاتینە نڤیسین." },
+    { type: "mcq", ku: "٦. یاسایا دوو بڕگەیی Stress (Week 2):", q: "Which '-ing' form is CORRECT?", options: ["prefering", "visitting", "opening", "begining"], ans: ["opening"], exp: "open فشار ل سەر بڕگا ئێکێ یە لەورا نابیتە دەبل (opening). یێن دی هەمی خەلەتن." },
     { type: "mcq", ku: "٧. هەڤواتا (Synonym - Week 1):", q: "Which word is a Synonym of 'Create'?", options: ["Destroy", "Ruin", "Produce", "Stop"], ans: ["Produce"], exp: "هەڤواتایێن Create: Make, produce, build." },
     { type: "mcq", ku: "٨. دژواتا (Antonym - Week 2):", q: "Which word is an Antonym of 'Generous'?", options: ["Charitable", "Stingy", "Giving", "Unselfish"], ans: ["Stingy"], exp: "دژواتایێن Generous: Stingy, selfish, greedy." },
     { type: "mcq", ku: "٩. هەڤواتا (Synonym - Week 2):", q: "Which word is a Synonym of 'Achieve'?", options: ["Fail", "Lose", "Give up", "Reach"], ans: ["Reach"], exp: "هەڤواتایێن Achieve: get, reach." },
@@ -1692,7 +1519,7 @@
     { type: "mcq", ku: "١١. کارێ نەئاسایی (Irregular Verb - Week 2):", q: "What is the Past Participle (V3) of 'Write'?", options: ["Wrote", "Writed", "Written", "Writing"], ans: ["Written"], exp: "Write (V1) → Wrote (V2) → Written (V3)." },
     { type: "mcq", ku: "١٢. پلانا داهاتووی (Week 2) دگەل کۆمێ:", q: "We ________ for the airport at 6:00 PM tonight.", options: ["am leaving", "is leaving", "are leaving", "leaves"], ans: ["are leaving"], exp: "We ل گەل are دهێت و leave پیتا e ژێدبەت ← are leaving." },
 
-    // --- PART 2: FILL IN THE BLANKS (10) ---
+    // Part 2: 10 Blank
     { part: "پشکا دووێ: فەراغات / پڕکرنا بۆشاییان (Fill in the Blanks - ١٠ پسیار)", type: "blank", ku: "١٣. یاسایا CVC (Present Continuous - Week 2):", q: "Look! The kids ________ (swim) in the pool right now.", ans: ["are swimming"], exp: "The kids کۆمن (= They → are)، و swim دبیتە swimming ب دوو m." },
     { type: "blank", ku: "١٤. عادەتێ رۆژانە (Present Simple - Week 1):", q: "She ________ (go) to the gym three times a week.", ans: ["goes"], exp: "She تاکە و عادەتە، go دبیتە goes." },
     { type: "blank", ku: "١٥. نەرێ د Present Simple دا (Week 1):", q: "They ________ (not / like) cold weather.", ans: ["do not like", "don't like"], exp: "They ل گەل do not like (یان don't like) دهێت." },
@@ -1704,8 +1531,37 @@
     { type: "blank", ku: "٢١. کارێ نەئاسایی (V2 - Week 2):", q: "Simple Past (V2) of 'Speak' = ________", ans: ["spoke"], exp: "Speak (V1) → Spoke (V2) → Spoken (V3)." },
     { type: "blank", ku: "٢٢. کارێ نەئاسایی (V3 - Week 1):", q: "Past Participle (V3) of 'Have' = ________", ans: ["had"], exp: "Have (V1) → Had (V2) → Had (V3)." },
 
-    // --- PART 3: TRUE OR FALSE (8) ---
+    // Part 3: 8 T/F
     { part: "پشکا سێیێ: ساح و خەلەت (True or False - ٨ پسیار)", type: "tf", ku: "٢٣. یاسایا vowel + y (Week 1):", q: "With 'he/she/it', the verb 'play' becomes 'plaies'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پێش y پیتا بزوێن (a) هەیە، لەورا تەنها s زێدە دبیت ← plays." },
     { type: "tf", ku: "٢٤. خشتێ جێگیر (Fixed Timetables - Week 1):", q: "We use the Present Simple for fixed timetables like 'The train departs at 8:00 AM.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئێک ژ بکارهێنانێن Present Simple خشتە و کاتێن دیارکری نە." },
     { type: "tf", ku: "٢٥. یاسایا Silent -e (Week 2):", q: "The '-ing' form of 'canoe' drops the 'e' to become 'canoing'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! canoe ب -oe ب دوماهی دهێت، e ژێناچیت ← canoeing." },
-    { type: "tf", ku: "٢٦. یاسایا Stative Verbs (Week 2):", q: "'She is understanding the lesson now.' is better written as 'She understands the lesson now.'", options: ["True (ساح)", "False (خەلەت)"
+    { type: "tf", ku: "٢٦. یاسایا Stative Verbs (Week 2):", q: "'She is understanding the lesson now.' is better written as 'She understands the lesson now.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! understand کارەکێ Stative یە و ب Present Simple دهێتە نڤیسین." },
+    { type: "tf", ku: "٢٧. کارێ نەئاسایی (Week 1):", q: "The Past Participle (V3) of the verb 'Go' is 'Went'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Went بۆریێ سادەیە (V2)، شێوازێ سێیێ (V3) دبیتە Gone." },
+    { type: "tf", ku: "٢٨. هەڤواتایێن فەرهەنگێ (Week 1):", q: "'Hard, challenging, tough' are Synonyms of 'Difficult'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئەڤە هەمی هەڤواتایێن Difficultـن." },
+    { type: "tf", ku: "٢٩. دژواتایێن فەرهەنگێ (Week 2):", q: "'Permanent, lasting, constant' are Antonyms of 'Temporary'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Temporary ئانکو بەروەخت و دژواتایا وێ Permanent (هەردەمی) یە." },
+    { type: "tf", ku: "٣٠. نەرێ د Present Simple دا (Week 1):", q: "In Present Simple negative sentences with 'he/she/it', we use 'does not' + the base verb (without -s).", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! پشتی does not کار هەردەم دزڤڕیتە شێوازێ بنەڕەت." }
+  ];
+
+  function renderMidterm() {
+    var container = document.getElementById("midterm-container");
+    if (!container) return;
+
+    var html = "";
+    for (var i = 0; i < midtermQuestions.length; i++) {
+      var item = midtermQuestions[i];
+      if (item.part) {
+        html += '<div class="part-divider">' + item.part + '</div>';
+      }
+      html += buildQuestionHTML(item, "midterm-q" + i);
+    }
+
+    html += '<div class="btn-row">' +
+      '<button type="button" class="btn btn-check" onclick="gradeQuiz(\'midterm\', true)">✅ پشکنینا ئەزموونا میتێرمێ (٣٠ پسیار)</button>' +
+      '<button type="button" class="btn btn-show" onclick="showAnswers(\'midterm\', true)">👁️ نیشاندانا هەمی وەلامێن ١٠٠٪ دروست</button>' +
+      '<button type="button" class="btn btn-reset" onclick="resetQuiz(\'midterm\', true)">🔄 دووبارەکرنا ئەزموونێ</button>' +
+      '</div><div class="score-banner" id="midterm-score"></div>';
+
+    container.innerHTML = html;
+  }
+
+  // ==================
