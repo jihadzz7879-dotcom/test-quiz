@@ -272,6 +272,7 @@
     border-radius: 12px;
     border: 1px solid #e0f2fe;
     font-size: 0.98rem;
+    overflow-x: auto;
   }
 
   .hl {
@@ -415,7 +416,7 @@
     transition: all 0.2s;
   }
 
-  .chip-btn:hover { border-color: #0891b2; background: #ecfeff; }
+  .chip-btn:hover:not(:disabled) { border-color: #0891b2; background: #ecfeff; }
   .chip-btn.correct { background: var(--success-bg); border-color: var(--success); color: #14532d; }
   .chip-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: #7f1d1d; }
 
@@ -757,7 +758,7 @@ const slidesData = [
       { q: "هۆکارێن پەیوەندیێن ئەورۆپا و کوردان ل سەردەمێ شەرێ خاچپەرستان چ بوون؟", options: ["سەلاحەدینێ ئەیوبی و پرانیا شەرکەرێن سوپایێ وی کورد بوونە", "چێکرنا رێزمانا کوردی", "گەشتێن مارکۆ پۆلۆ", "ئەرشیڤێن ئەکادیمی"], ans: 0 }
     ],
     qa: [
-      { q: "بۆچی پەیوەندیێن سەردەمێ شەڕێ خاچپەرستان ب کوردۆلۆجی و کوردناسی ناهێنە هژمارتن؟", a: "چونکی زانستێ رۆژهەلاتناسی و کوردناسی لسەر بنەمایێ (شەڕی) نەهاتینە دانان، بەلکو ئەو پەیوەندییە ب ئەگەرێ شەڕی دروست بووینە نەک لسەر بنەمایەکێ بابەتی و زانستی." }
+      { q: "بۆچی پەیوەندیێن سەردەمێ شەرێ خاچپەرستان ب کوردۆلۆجی و کوردناسی ناهێنە هژمارتن؟", a: "چونکی زانستێ رۆژهەلاتناسی و کوردناسی لسەر بنەمایێ (شەڕی) نەهاتینە دانان، بەلکو ئەو پەیوەندییە ب ئەگەرێ شەڕی دروست بووینە نەک لسەر بنەمایەکێ بابەتی و زانستی." }
     ]
   },
 
@@ -1055,4 +1056,421 @@ const slidesData = [
       { q: "٧. کۆچکرنا مرۆڤێن زمانێ ئێکێ بۆ جهێن دی پشتی چەند چەرخان بوو ئەگەرێ دروستبوونا دیالێکتان و پاشی زمانێن سەربەخۆ؟", options: ["٥–٦ چەرخان", "١–٢ چەرخان", "٥٠ چەرخان", "١٠٠ چەرخان"], ans: 0 },
       { q: "٨. ئەفلاتۆن، ابو حسن الاشعری، ابن فارس و ابن عباس سەر ب کیژ بۆچوونێ نە؟", options: ["بۆچوونێن گرتی (ئۆلی - باوەری)", "گریمانا رێکەفتنێ", "گریمانا پەیوەندیکرنێ", "گریمانا گازی و قیژییان"], ans: 0 },
       { q: "٩. زانایێ ئەلمانی (شتانیشال) و (داروین) و (ماکس مولر) پەیوەستن ب کیژ گریمانێ ڤە؟", options: ["گریمانا گازی و قیژیێن هەست دەربر", "گریمانا رێکەفتنێ", "گریمانا دەنگێن سروشتی", "گریمانا پەیوەندیکرنێ"], ans: 0 },
-      { q: "١٠. (رڤیزی) خودانێ گریمانا پەیوەندیکرنێ یە، ب باوەریا وی ئێکەم گ
+      { q: "١٠. (رڤیزی) خودانێ گریمانا پەیوەندیکرنێ یە، ب باوەریا وی ئێکەم گۆتن ل دەڤ مرۆڤان ب چ شێوەیەکێ بوویە؟", options: ["فەرمان", "پرسیارکرن", "راگەهاندن", "ستران"], ans: 0 }
+    ],
+    qa: [
+      { q: "خودانێ گریمانا رێکەفتنێ کی بوو و چەوا زمان پەیدابوویە؟", a: "زانایێ ئەلمانی (چیجر) بوو؛ دبێژیت زمان ژ دەنگێ کۆمەکا مرۆڤان پەیدابوویە دەمێ کارەک ب هەڤکاری ئەنجامداین و دەنگەک کریە هێما و رێکەفتینە ناڤان داننە سەر تشتان." }
+    ]
+  }
+];
+
+let currentSlideIndex = 0;
+let state = {
+  blanks: {},
+  mcqs: {},
+  blankOrders: {},
+  mcqOrders: {}
+};
+
+function toKuNum(num) {
+  const digits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return String(num).replace(/\d/g, d => digits[d]);
+}
+
+function shuffleIndices(len) {
+  const arr = [];
+  for (let i = 0; i < len; i++) arr.push(i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+  }
+  return arr;
+}
+
+function initShuffledOrders() {
+  state.blankOrders = {};
+  state.mcqOrders = {};
+  slidesData.forEach(slide => {
+    if (slide.blanks) {
+      slide.blanks.forEach((b, idx) => {
+        state.blankOrders[`b_${slide.id}_${idx}`] = shuffleIndices(b.options.length);
+      });
+    }
+    if (slide.mcqs) {
+      slide.mcqs.forEach((m, idx) => {
+        state.mcqOrders[`m_${slide.id}_${idx}`] = shuffleIndices(m.options.length);
+      });
+    }
+  });
+}
+
+function getTotals() {
+  let total = 0;
+  let correct = 0;
+  slidesData.forEach(slide => {
+    if (slide.blanks) total += slide.blanks.length;
+    if (slide.mcqs) total += slide.mcqs.length;
+  });
+  Object.values(state.blanks).forEach(v => { if (v.isCorrect) correct++; });
+  Object.values(state.mcqs).forEach(v => { if (v.isCorrect) correct++; });
+  return { correct, total };
+}
+
+function updateHeaderStats() {
+  const slideCounter = document.getElementById('slideCounter');
+  const scoreCounter = document.getElementById('scoreCounter');
+  const { correct, total } = getTotals();
+  slideCounter.textContent = `سلاید ${toKuNum(currentSlideIndex + 1)} ژ ${toKuNum(slidesData.length)}`;
+  scoreCounter.textContent = `✅ نمرە: ${toKuNum(correct)} / ${toKuNum(total)}`;
+}
+
+function renderNavStrip() {
+  const navStrip = document.getElementById('navStrip');
+  navStrip.innerHTML = '';
+  slidesData.forEach((slide, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'slide-tab' + (idx === currentSlideIndex ? ' active' : '');
+    btn.textContent = slide.id === 14 ? '🏆 کوێزێ کۆتایی' : `سلاید ${toKuNum(slide.id)}`;
+    btn.onclick = () => goToSlide(idx);
+    navStrip.appendChild(btn);
+  });
+  const activeTab = navStrip.children[currentSlideIndex];
+  if (activeTab && activeTab.scrollIntoView) {
+    activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+}
+
+function renderSlide() {
+  const slide = slidesData[currentSlideIndex];
+  document.body.className = `theme-${slide.id}`;
+  updateHeaderStats();
+  renderNavStrip();
+
+  const container = document.getElementById('slideContainer');
+  container.innerHTML = '';
+
+  const card = document.createElement('article');
+  card.className = 'slide-card';
+
+  // Banner
+  const banner = document.createElement('div');
+  banner.className = 'slide-banner';
+  banner.innerHTML = `
+    <span class="slide-badge">سلاید ${toKuNum(slide.id)} • ${slide.pageRef}</span>
+    <h2>${slide.title}</h2>
+    <p class="subtitle">${slide.subtitle}</p>
+  `;
+  card.appendChild(banner);
+
+  // Body
+  const body = document.createElement('div');
+  body.className = 'slide-body';
+
+  // 1. Explain
+  if (slide.explain && slide.explain.length) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box explain';
+    sec.innerHTML = `<div class="section-title">📖 شڕۆڤەکرن و خالێن سەرەکی</div>`;
+    const ul = document.createElement('ul');
+    ul.className = 'explain-list';
+    slide.explain.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = item;
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    body.appendChild(sec);
+  }
+
+  // 2. Tip
+  if (slide.tip) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box tip';
+    sec.innerHTML = `<div class="section-title">✨ کلیلا ژبەرکرنێ</div><p>${slide.tip}</p>`;
+    body.appendChild(sec);
+  }
+
+  // 3. Definitions
+  if (slide.defs && slide.defs.length) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box defs';
+    sec.innerHTML = `<div class="section-title">📌 پێناسە و تێگەهێن گرنگ</div>`;
+    slide.defs.forEach((d, idx) => {
+      const item = document.createElement('div');
+      item.className = 'def-item';
+      const ansId = `def-ans-${slide.id}-${idx}`;
+      item.innerHTML = `
+        <div class="def-header">
+          <span class="def-term">${d.term}</span>
+          <button class="reveal-btn" type="button" onclick="toggleReveal('${ansId}', this)">نیشاندانا پێناسێ 👁️</button>
+        </div>
+        <div class="def-answer" id="${ansId}">${d.def}</div>
+      `;
+      sec.appendChild(item);
+    });
+    body.appendChild(sec);
+  }
+
+  // 4. Fill-in-the-blanks
+  if (slide.blanks && slide.blanks.length) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box blanks';
+    sec.innerHTML = `<div class="section-title">✍️ ڤالاتیان پڕ بکە</div>`;
+    slide.blanks.forEach((b, bIdx) => {
+      const key = `b_${slide.id}_${bIdx}`;
+      const saved = state.blanks[key];
+      const order = state.blankOrders[key] || shuffleIndices(b.options.length);
+
+      const item = document.createElement('div');
+      item.className = 'blank-item';
+
+      const slotClass = saved ? (saved.isCorrect ? 'blank-slot filled-correct' : 'blank-slot filled-wrong') : 'blank-slot';
+      const slotText = saved ? saved.chosen : '..........';
+
+      const textDiv = document.createElement('div');
+      textDiv.className = 'blank-text';
+      textDiv.innerHTML = `${b.before} <span class="${slotClass}" id="blank-slot-${slide.id}-${bIdx}">${slotText}</span> ${b.after}`;
+      item.appendChild(textDiv);
+
+      const choicesDiv = document.createElement('div');
+      choicesDiv.className = 'blank-choices';
+      choicesDiv.id = `blank-choices-${slide.id}-${bIdx}`;
+
+      order.forEach(optIdx => {
+        const optText = b.options[optIdx];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip-btn';
+        btn.textContent = optText;
+        if (saved) {
+          btn.disabled = true;
+          if (optText === b.answer) btn.classList.add('correct');
+          else if (optText === saved.chosen) btn.classList.add('wrong');
+        } else {
+          btn.onclick = () => answerBlank(slide.id, bIdx, optText, btn);
+        }
+        choicesDiv.appendChild(btn);
+      });
+
+      item.appendChild(choicesDiv);
+      sec.appendChild(item);
+    });
+    body.appendChild(sec);
+  }
+
+  // 5. MCQs
+  if (slide.mcqs && slide.mcqs.length) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box mcqs';
+    sec.innerHTML = `<div class="section-title">📝 پرسیارێن هەلبژارتن (کوێز)</div>`;
+
+    slide.mcqs.forEach((m, mIdx) => {
+      const key = `m_${slide.id}_${mIdx}`;
+      const saved = state.mcqs[key];
+      const order = state.mcqOrders[key] || shuffleIndices(m.options.length);
+
+      const item = document.createElement('div');
+      item.className = 'mcq-item';
+
+      const qDiv = document.createElement('div');
+      qDiv.className = 'mcq-q';
+      qDiv.textContent = m.q;
+      item.appendChild(qDiv);
+
+      const optsDiv = document.createElement('div');
+      optsDiv.className = 'mcq-options';
+      optsDiv.id = `mcq-opts-${slide.id}-${mIdx}`;
+
+      order.forEach(origIdx => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'opt-btn';
+        btn.dataset.orig = origIdx;
+
+        const labelSpan = document.createElement('span');
+        labelSpan.textContent = m.options[origIdx];
+        btn.appendChild(labelSpan);
+
+        if (saved) {
+          btn.disabled = true;
+          if (origIdx === m.ans) {
+            btn.classList.add('correct');
+            const icon = document.createElement('span');
+            icon.textContent = '✅';
+            btn.appendChild(icon);
+          } else if (origIdx === saved.chosenOrigIdx) {
+            btn.classList.add('wrong');
+            const icon = document.createElement('span');
+            icon.textContent = '❌';
+            btn.appendChild(icon);
+          }
+        } else {
+          btn.onclick = () => answerMcq(slide.id, mIdx, origIdx);
+        }
+        optsDiv.appendChild(btn);
+      });
+
+      item.appendChild(optsDiv);
+
+      const fb = document.createElement('div');
+      fb.id = `mcq-fb-${slide.id}-${mIdx}`;
+      if (saved) {
+        fb.className = 'feedback-msg show ' + (saved.isCorrect ? 'ok' : 'err');
+        fb.textContent = saved.isCorrect ? '✅ دەستخۆش! بەرسڤا تە یا دروستە.' : '❌ خەلەتە! بەرسڤا دروست ب رەنگێ کەسک دیارکریە.';
+      } else {
+        fb.className = 'feedback-msg';
+      }
+      item.appendChild(fb);
+      sec.appendChild(item);
+    });
+    body.appendChild(sec);
+  }
+
+  // 6. Q&A
+  if (slide.qa && slide.qa.length) {
+    const sec = document.createElement('section');
+    sec.className = 'section-box qa';
+    sec.innerHTML = `<div class="section-title">❓ پرسیار و بەرسڤێن گرنگ</div>`;
+    slide.qa.forEach((qItem, idx) => {
+      const item = document.createElement('div');
+      item.className = 'qa-item';
+      const ansId = `qa-ans-${slide.id}-${idx}`;
+      item.innerHTML = `
+        <div class="def-header">
+          <span class="def-term" style="color:#9f1239;">${qItem.q}</span>
+          <button class="reveal-btn rose" type="button" onclick="toggleReveal('${ansId}', this)">بەرسڤێ ببینە 💡</button>
+        </div>
+        <div class="qa-answer" id="${ansId}">${qItem.a}</div>
+      `;
+      sec.appendChild(item);
+    });
+    body.appendChild(sec);
+  }
+
+  card.appendChild(body);
+
+  // Footer
+  const footer = document.createElement('div');
+  footer.className = 'slide-footer';
+
+  const prevBtn = document.createElement('button');
+  prevBtn.type = 'button';
+  prevBtn.className = 'nav-btn secondary';
+  prevBtn.textContent = '➡️ سلایدێ بەری نوکە';
+  prevBtn.disabled = currentSlideIndex === 0;
+  prevBtn.onclick = () => goToSlide(currentSlideIndex - 1);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.type = 'button';
+  nextBtn.className = 'nav-btn';
+  nextBtn.textContent = currentSlideIndex === slidesData.length - 1 ? '🏁 دوماهیکا سلایدان' : 'سلایدێ دویڤدا ⬅️';
+  nextBtn.disabled = currentSlideIndex === slidesData.length - 1;
+  nextBtn.onclick = () => goToSlide(currentSlideIndex + 1);
+
+  footer.appendChild(prevBtn);
+  footer.appendChild(nextBtn);
+  card.appendChild(footer);
+
+  container.appendChild(card);
+}
+
+function toggleReveal(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isShown = el.classList.toggle('show');
+  if (btn.classList.contains('rose')) {
+    btn.textContent = isShown ? 'ڤەشارتنا بەرسڤێ 🙈' : 'بەرسڤێ ببینە 💡';
+  } else {
+    btn.textContent = isShown ? 'ڤەشارتنا پێناسێ 🙈' : 'نیشاندانا پێناسێ 👁️';
+  }
+}
+
+function answerBlank(slideId, bIdx, chosenText) {
+  const key = `b_${slideId}_${bIdx}`;
+  if (state.blanks[key]) return;
+
+  const slide = slidesData.find(s => s.id === slideId);
+  const blank = slide.blanks[bIdx];
+  const isCorrect = chosenText === blank.answer;
+
+  state.blanks[key] = { chosen: chosenText, isCorrect };
+
+  const slot = document.getElementById(`blank-slot-${slideId}-${bIdx}`);
+  if (slot) {
+    slot.textContent = chosenText;
+    slot.classList.add(isCorrect ? 'filled-correct' : 'filled-wrong');
+  }
+
+  const choicesWrap = document.getElementById(`blank-choices-${slideId}-${bIdx}`);
+  if (choicesWrap) {
+    Array.from(choicesWrap.children).forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent === blank.answer) btn.classList.add('correct');
+      else if (btn.textContent === chosenText) btn.classList.add('wrong');
+    });
+  }
+
+  updateHeaderStats();
+}
+
+function answerMcq(slideId, mIdx, chosenOrigIdx) {
+  const key = `m_${slideId}_${mIdx}`;
+  if (state.mcqs[key]) return;
+
+  const slide = slidesData.find(s => s.id === slideId);
+  const mcq = slide.mcqs[mIdx];
+  const isCorrect = chosenOrigIdx === mcq.ans;
+
+  state.mcqs[key] = { chosenOrigIdx, isCorrect };
+
+  const optsWrap = document.getElementById(`mcq-opts-${slideId}-${mIdx}`);
+  if (optsWrap) {
+    Array.from(optsWrap.children).forEach(btn => {
+      btn.disabled = true;
+      const orig = Number(btn.dataset.orig);
+      if (orig === mcq.ans) {
+        btn.classList.add('correct');
+        const icon = document.createElement('span');
+        icon.textContent = '✅';
+        btn.appendChild(icon);
+      } else if (orig === chosenOrigIdx) {
+        btn.classList.add('wrong');
+        const icon = document.createElement('span');
+        icon.textContent = '❌';
+        btn.appendChild(icon);
+      }
+    });
+  }
+
+  const fb = document.getElementById(`mcq-fb-${slideId}-${mIdx}`);
+  if (fb) {
+    fb.className = 'feedback-msg show ' + (isCorrect ? 'ok' : 'err');
+    fb.textContent = isCorrect ? '✅ دەستخۆش! بەرسڤا تە یا دروستە.' : '❌ خەلەتە! بەرسڤا دروست ب رەنگێ کەسک دیارکریە.';
+  }
+
+  updateHeaderStats();
+}
+
+function goToSlide(idx) {
+  if (idx < 0 || idx >= slidesData.length) return;
+  currentSlideIndex = idx;
+  renderSlide();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetAllProgress() {
+  state.blanks = {};
+  state.mcqs = {};
+  initShuffledOrders();
+  currentSlideIndex = 0;
+  renderSlide();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+initShuffledOrders();
+renderSlide();
+</script>
+</body>
+</html>
