@@ -1,1476 +1,1541 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl">
+<html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>کوردۆلۆجی | سلایدێن خواندنێ و کوێزا ئینتەراکتیڤ (لاپەڕە ١ - ١٤)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f292e 100%);
-    --card-bg: rgba(255, 255, 255, 0.96);
-    --card-border: rgba(255, 255, 255, 0.25);
-    --text-main: #1e293b;
-    --text-muted: #475569;
-    --accent: #0ea5e9;
-    --accent-dark: #0369a1;
-    --gold: #d97706;
-    --success: #16a34a;
-    --success-bg: #dcfce7;
-    --danger: #dc2626;
-    --danger-bg: #fee2e2;
-    --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    color: var(--text-main);
-    min-height: 100vh;
-    line-height: 1.85;
-    transition: background 0.6s ease;
-    padding-bottom: 50px;
-  }
-
-  /* Dynamic slide background themes */
-  body.theme-1 { background: linear-gradient(135deg, #0f172a, #1e3a8a, #0f766e); }
-  body.theme-2 { background: linear-gradient(135deg, #1e1b4b, #4c1d95, #0f172a); }
-  body.theme-3 { background: linear-gradient(135deg, #064e3b, #0f766e, #1e293b); }
-  body.theme-4 { background: linear-gradient(135deg, #3b0764, #701a75, #1e1b4b); }
-  body.theme-5 { background: linear-gradient(135deg, #172554, #1e40af, #312e81); }
-  body.theme-6 { background: linear-gradient(135deg, #0c4a6e, #0284c7, #0f172a); }
-  body.theme-7 { background: linear-gradient(135deg, #14532d, #15803d, #0f292e); }
-  body.theme-8 { background: linear-gradient(135deg, #451a03, #92400e, #1e1b4b); }
-  body.theme-9 { background: linear-gradient(135deg, #4c0519, #881337, #1e1b4b); }
-  body.theme-10 { background: linear-gradient(135deg, #0f172a, #0369a1, #1e3a8a); }
-  body.theme-11 { background: linear-gradient(135deg, #1e1b4b, #3730a3, #0f766e); }
-  body.theme-12 { background: linear-gradient(135deg, #31102f, #6b21a8, #0f172a); }
-  body.theme-13 { background: linear-gradient(135deg, #064e3b, #047857, #1e3a8a); }
-  body.theme-14 { background: linear-gradient(135deg, #7c2d12, #b45309, #1e1b4b); }
-
-  /* Header */
-  .top-header {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
-    color: #fff;
-    padding: 14px 18px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .header-row {
-    max-width: 1050px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
-  .brand h1 {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #38bdf8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .brand p {
-    font-size: 0.8rem;
-    color: #cbd5e1;
-  }
-
-  .stats-bar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .stat-pill {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 5px 12px;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #f8fafc;
-  }
-
-  .stat-pill.score {
-    background: rgba(22, 163, 74, 0.25);
-    border-color: #4ade80;
-    color: #86efac;
-  }
-
-  /* Slide Navigation Strip */
-  .nav-strip {
-    max-width: 1050px;
-    margin: 10px auto 0;
-    display: flex;
-    gap: 7px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scrollbar-width: thin;
-  }
-
-  .nav-strip::-webkit-scrollbar { height: 5px; }
-  .nav-strip::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
-
-  .slide-tab {
-    flex: 0 0 auto;
-    background: rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 13px;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.84rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-
-  .slide-tab:hover { background: rgba(255, 255, 255, 0.22); }
-  .slide-tab.active {
-    background: linear-gradient(135deg, #38bdf8, #0284c7);
-    color: #fff;
-    border-color: #7dd3fc;
-    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.45);
-  }
-
-  /* Main Container */
-  .container {
-    max-width: 980px;
-    margin: 22px auto;
-    padding: 0 14px;
-  }
-
-  .slide-card {
-    background: var(--card-bg);
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    animation: fadeSlide 0.35s ease;
-  }
-
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .slide-banner {
-    background: linear-gradient(135deg, #0284c7, #1e40af);
-    color: #fff;
-    padding: 22px 24px;
-    position: relative;
-  }
-
-  .slide-badge {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .slide-banner h2 {
-    font-size: 1.45rem;
-    font-weight: 800;
-    line-height: 1.4;
-  }
-
-  .slide-banner .subtitle {
-    font-size: 0.92rem;
-    color: #e0f2fe;
-    margin-top: 4px;
-  }
-
-  .slide-body {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
-
-  /* Sections inside slide */
-  .section-box {
-    border-radius: 18px;
-    padding: 18px 20px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-  }
-
-  .section-box.explain {
-    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
-    border-right: 6px solid #0284c7;
-  }
-
-  .section-box.tip {
-    background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
-    border-right: 6px solid #d97706;
-  }
-
-  .section-box.defs {
-    background: linear-gradient(180deg, #f5f3ff 0%, #ffffff 100%);
-    border-right: 6px solid #7c3aed;
-  }
-
-  .section-box.blanks {
-    background: linear-gradient(180deg, #ecfeff 0%, #ffffff 100%);
-    border-right: 6px solid #0891b2;
-  }
-
-  .section-box.mcqs {
-    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
-    border-right: 6px solid #16a34a;
-  }
-
-  .section-box.qa {
-    background: linear-gradient(180deg, #fff1f2 0%, #ffffff 100%);
-    border-right: 6px solid #e11d48;
-  }
-
-  .section-title {
-    font-size: 1.12rem;
-    font-weight: 800;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #0f172a;
-  }
-
-  .explain-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .explain-list li {
-    background: #fff;
-    padding: 11px 14px;
-    border-radius: 12px;
-    border: 1px solid #e0f2fe;
-    font-size: 0.98rem;
-    overflow-x: auto;
-  }
-
-  .hl {
-    background: #fef08a;
-    color: #854d0e;
-    padding: 1px 6px;
-    border-radius: 6px;
-    font-weight: 700;
-  }
-
-  .hl-blue {
-    background: #e0f2fe;
-    color: #075985;
-    padding: 1px 6px;
-    border-radius: 6px;
-    font-weight: 700;
-  }
-
-  /* Definition cards */
-  .def-item {
-    background: #fff;
-    border: 1px solid #ddd6fe;
-    border-radius: 14px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-  }
-
-  .def-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .def-term {
-    font-weight: 800;
-    color: #5b21b6;
-    font-size: 1.02rem;
-  }
-
-  .reveal-btn {
-    background: #7c3aed;
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.15s, background 0.2s;
-  }
-
-  .reveal-btn:hover { background: #6d28d9; }
-  .reveal-btn:active { transform: scale(0.96); }
-
-  .reveal-btn.rose { background: #e11d48; }
-  .reveal-btn.rose:hover { background: #be123c; }
-
-  .def-answer, .qa-answer {
-    margin-top: 10px;
-    padding: 10px 14px;
-    background: #f5f3ff;
-    border-radius: 10px;
-    color: #1e293b;
-    font-weight: 600;
-    display: none;
-    border-right: 4px solid #7c3aed;
-  }
-
-  .qa-answer {
-    background: #fff1f2;
-    border-right-color: #e11d48;
-  }
-
-  .def-answer.show, .qa-answer.show {
-    display: block;
-    animation: fadeSlide 0.25s ease;
-  }
-
-  /* Fill-in-the-blanks */
-  .blank-item {
-    background: #fff;
-    border: 1px solid #cffafe;
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 12px;
-  }
-
-  .blank-text {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 10px;
-  }
-
-  .blank-slot {
-    display: inline-block;
-    min-width: 110px;
-    padding: 2px 10px;
-    margin: 0 4px;
-    border-bottom: 3px dashed #0891b2;
-    background: #ecfeff;
-    color: #0e7490;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 800;
-    transition: all 0.25s;
-  }
-
-  .blank-slot.filled-correct {
-    background: var(--success-bg);
-    color: var(--success);
-    border-bottom: 3px solid var(--success);
-  }
-
-  .blank-slot.filled-wrong {
-    background: var(--danger-bg);
-    color: var(--danger);
-    border-bottom: 3px solid var(--danger);
-  }
-
-  .blank-choices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .chip-btn {
-    background: #f1f5f9;
-    border: 2px solid #cbd5e1;
-    color: #1e293b;
-    padding: 6px 13px;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .chip-btn:hover:not(:disabled) { border-color: #0891b2; background: #ecfeff; }
-  .chip-btn.correct { background: var(--success-bg); border-color: var(--success); color: #14532d; }
-  .chip-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: #7f1d1d; }
-
-  /* Multiple Choice */
-  .mcq-item {
-    background: #fff;
-    border: 1px solid #dcfce7;
-    border-radius: 16px;
-    padding: 15px;
-    margin-bottom: 14px;
-  }
-
-  .mcq-q {
-    font-size: 1.02rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 12px;
-  }
-
-  .mcq-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px;
-  }
-
-  .opt-btn {
-    text-align: right;
-    background: #f8fafc;
-    border: 2px solid #cbd5e1;
-    border-radius: 12px;
-    padding: 11px 14px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #1e293b;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .opt-btn:hover:not(:disabled) {
-    border-color: #0ea5e9;
-    background: #f0f9ff;
-    transform: translateY(-1px);
-  }
-
-  .opt-btn.correct {
-    background: #dcfce7 !important;
-    border-color: #16a34a !important;
-    color: #14532d !important;
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
-  }
-
-  .opt-btn.wrong {
-    background: #fee2e2 !important;
-    border-color: #dc2626 !important;
-    color: #7f1d1d !important;
-  }
-
-  .feedback-msg {
-    margin-top: 10px;
-    font-size: 0.92rem;
-    font-weight: 800;
-    padding: 8px 12px;
-    border-radius: 10px;
-    display: none;
-  }
-
-  .feedback-msg.show { display: block; }
-  .feedback-msg.ok { background: #dcfce7; color: #166534; }
-  .feedback-msg.err { background: #fee2e2; color: #991b1b; }
-
-  /* Q&A item */
-  .qa-item {
-    background: #fff;
-    border: 1px solid #fecdd3;
-    border-radius: 14px;
-    padding: 13px 15px;
-    margin-bottom: 10px;
-  }
-
-  /* Footer Nav Buttons */
-  .slide-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 22px;
-    background: #f8fafc;
-    border-top: 1px solid #e2e8f0;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .nav-btn {
-    background: linear-gradient(135deg, #0284c7, #1d4ed8);
-    color: #fff;
-    border: none;
-    padding: 11px 22px;
-    border-radius: 14px;
-    font-family: inherit;
-    font-size: 0.96rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
-    transition: all 0.2s;
-  }
-
-  .nav-btn:hover:not(:disabled) { transform: translateY(-2px); }
-  .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
-  .nav-btn.secondary { background: #334155; box-shadow: none; }
-
-  .action-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-
-  .mini-action {
-    background: #0f172a;
-    color: #fff;
-    border: none;
-    padding: 7px 14px;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .mini-action:hover { background: #334155; }
-
-  table.info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  table.info-table th, table.info-table td {
-    border: 1px solid #cbd5e1;
-    padding: 9px 12px;
-    text-align: right;
-    font-size: 0.93rem;
-  }
-  table.info-table th {
-    background: #e0f2fe;
-    color: #0c4a6e;
-    font-weight: 800;
-  }
-
-  @media (max-width: 640px) {
-    .slide-banner h2 { font-size: 1.2rem; }
-    .slide-body { padding: 14px; }
-    .section-box { padding: 14px; }
-    .mcq-options { grid-template-columns: 1fr; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Essential - ئامادەکاری بۆ ئەزموونا میتیرم</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --secondary: #0f766e;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --warning-bg: #fef3c7;
+            --warning-border: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        /* Top Sticky Bar */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 12px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+        }
+
+        .topbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .score-badge {
+            background: #f59e0b;
+            color: #000;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .btn-toggle {
+            background: rgba(255,255,255,0.18);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+
+        .btn-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a, #0f766e);
+            color: white;
+            padding: 28px 24px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.2);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 1.7rem;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        /* Quick Navigation */
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .nav-pills a {
+            background: rgba(255,255,255,0.18);
+            color: white;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .nav-pills a:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Slide Card */
+        .slide-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 6px solid var(--primary);
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        .slide-num {
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .slide-title-en {
+            direction: ltr;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .slide-title-ku {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--secondary);
+            width: 100%;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: var(--warning-bg);
+            border-right: 5px solid var(--warning-border);
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        .summary-box strong {
+            color: #b45309;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Explanation List */
+        .explain-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+
+        .explain-box h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .point-item {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .point-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .en-line {
+            direction: ltr;
+            text-align: left;
+            font-weight: 600;
+            color: #0f172a;
+            background: #e0f2fe;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .ku-line {
+            color: #334155;
+            font-size: 0.98rem;
+            padding-right: 5px;
+        }
+
+        /* Keywords */
+        .keywords-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 22px;
+        }
+
+        .keywords-box h3 {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .kw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
+        }
+
+        .kw-item {
+            background: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid #d1fae5;
+            font-size: 0.9rem;
+        }
+
+        .kw-en {
+            direction: ltr;
+            display: inline-block;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 2px dashed #cbd5e1;
+        }
+
+        .quiz-title {
+            background: linear-gradient(90deg, #eff6ff, #ffffff);
+            border-right: 5px solid var(--primary-light);
+            padding: 10px 14px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 16px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
+
+        .q-type-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .badge-mcq { background: #dbeafe; color: #1e40af; }
+        .badge-tf { background: #fae8ff; color: #86198f; }
+        .badge-fill { background: #ffedd5; color: #9a3412; }
+
+        .q-text-en {
+            direction: ltr;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.02rem;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .kurdish-hint {
+            font-size: 0.92rem;
+            color: #0f766e;
+            background: #f0fdfa;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-right: 3px solid #14b8a6;
+        }
+
+        .hide-hints .kurdish-hint {
+            display: none;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            direction: ltr;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+        }
+
+        .opt-btn {
+            text-align: left;
+            padding: 10px 14px;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: 0.2s;
+            width: 100%;
+            color: #1e293b;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            background: #e0f2fe;
+            border-color: var(--primary-light);
+        }
+
+        .opt-btn.correct {
+            background: var(--success-bg) !important;
+            border-color: var(--success) !important;
+            color: #14532d !important;
+            font-weight: bold;
+        }
+
+        .opt-btn.wrong {
+            background: var(--danger-bg) !important;
+            border-color: var(--danger) !important;
+            color: #7f1d1d !important;
+        }
+
+        /* Fill in the blank */
+        .fill-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            direction: ltr;
+            margin-top: 8px;
+        }
+
+        .fill-input {
+            padding: 9px 12px;
+            border: 1.5px solid #94a3b8;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            min-width: 210px;
+            flex: 1;
+            direction: ltr;
+        }
+
+        .fill-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        .fill-btn-show {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        .word-help {
+            direction: ltr;
+            font-size: 0.82rem;
+            color: #475569;
+            margin-top: 6px;
+        }
+
+        .word-chip {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin: 2px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .word-chip:hover {
+            background: #cbd5e1;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.show-ok {
+            display: block;
+            background: var(--success-bg);
+            color: #14532d;
+            border: 1px solid #86efac;
+        }
+
+        .feedback.show-err {
+            display: block;
+            background: var(--danger-bg);
+            color: #7f1d1d;
+            border: 1px solid #fca5a5;
+        }
+
+        /* Flowchart visual */
+        .flow-visual {
+            background: #f0f9ff;
+            border: 2px solid #bae6fd;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .flow-step {
+            background: white;
+            border: 2px solid #0284c7;
+            border-radius: 10px;
+            padding: 8px 14px;
+            margin: 6px auto;
+            max-width: 500px;
+            font-weight: bold;
+            color: #0c4a6e;
+        }
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: #0284c7;
+            font-weight: bold;
+        }
+
+        /* Cheat Sheet */
+        .cheat-sheet {
+            background: linear-gradient(135deg, #064e3b, #0f766e);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 30px;
+        }
+        .cheat-sheet h2 {
+            margin-bottom: 12px;
+            color: #fde68a;
+        }
+        .cheat-sheet ul {
+            padding-right: 20px;
+        }
+        .cheat-sheet li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .slide-card { padding: 16px; }
+            .hero h1 { font-size: 1.35rem; }
+            .tf-options { flex-direction: column; }
+        }
+    </style>
 </head>
-<body class="theme-1">
+<body>
 
-<header class="top-header">
-  <div class="header-row">
-    <div class="brand">
-      <h1>📚 کوردۆلۆجی — وەرزی ئێکێ (لاپەڕە ١ هەتا ١٤ ب تنێ)</h1>
-      <p>مامۆستا: سەعد ملا میکائیل | سلایدێن تێر و تەسەل + کوێزێ ١٠٠٪</p>
+<div class="topbar">
+    <div class="topbar-title">💻 Computer Essential - میتیرم</div>
+    <div class="topbar-controls">
+        <div class="score-badge">نمرەیا تە: <span id="score">0</span> / <span id="total-q">0</span></div>
+        <button class="btn-toggle" onclick="toggleHints()" id="hint-btn">👁️ ڤەشارتنا وەرگێڕانا کوردی</button>
+        <button class="btn-toggle" onclick="location.reload()">🔄 ژ نوو دەستپێبکە</button>
     </div>
-    <div class="stats-bar">
-      <div class="stat-pill" id="slideCounter">سلاید ١ ژ ١٤</div>
-      <div class="stat-pill score" id="scoreCounter">✅ نمرە: ٠ / ٠</div>
-      <button class="mini-action" onclick="resetAllProgress()" title="دووبارەکرنا ئەزموونێ">🔄 سفرکرنا ئەزموونێ</button>
+</div>
+
+<div class="container" id="main-container">
+
+    <div class="hero">
+        <h1>ب خێر هاتی برا! دێ ١٠٠/١٠٠ ئینی ب ئانەهیا خودێ 🌟</h1>
+        <p>ئەڤە شروڤەکرنا هەر ٨ سلایدێن وانەیا <strong>Computer Essential</strong> یە ب زمانێ بادینی یێ سادە، دگەل ٤٧ پسیارێن ئەزموونێ.</p>
+        <p style="font-size:0.9rem; margin-top:6px; color:#fde68a;">ئامۆژگاری: جارا ئێکێ ب وەرگێڕانا کوردی بخوینە و پسیاران بەرسڤ بدە، پاش ل سەرێ شاشێ دووگمەیا «ڤەشارتنا وەرگێڕانا کوردی» بدە دا وەک ئەزموونا ڕاستەقینە خۆ تاقی بکەی!</p>
+        <div class="nav-pills">
+            <a href="#slide1">سلاید ١</a>
+            <a href="#slide2">سلاید ٢</a>
+            <a href="#slide3">سلاید ٣</a>
+            <a href="#slide4">سلاید ٤</a>
+            <a href="#slide5">سلاید ٥</a>
+            <a href="#slide6">سلاید ٦</a>
+            <a href="#slide7">سلاید ٧</a>
+            <a href="#slide8">سلاید ٨</a>
+            <a href="#cheatsheet">⚡ کورتیا دوماهیێ</a>
+        </div>
     </div>
-  </div>
-  <nav class="nav-strip" id="navStrip"></nav>
-</header>
 
-<main class="container">
-  <div id="slideContainer"></div>
-</main>
-
-<script>
-const slidesData = [
-  // ================= SLIDE 1 =================
-  {
-    id: 1,
-    pageRef: "لاپەڕە ١",
-    title: "دەرازێنک و ناساندنا بابەتێ کوردۆلۆجیێ",
-    subtitle: "چەوا و کەنگی کوردۆلۆجی ل زانکۆیێن کوردستانێ هاتە دانان؟",
-    explain: [
-      "پشتی <span class='hl'>راپەڕینا گەلێ کورد ل سالا ١٩٩١</span>، هاتنەکایەیا ئازادیێ و هەلبژاردنا دیموکراسی بۆ پەرلەمانی، ئێکەم کابینەیا حکومەتا هەرێما کوردستانێ هاتە دامەزراندن.",
-      "بڕیار هاتە دان کو بابەتەک ب ناڤێ <span class='hl-blue'>«کوردۆلۆجی»</span> ل هەمی زانکۆ و پەیمانگەهێن کوردستانێ ل <span class='hl'>قۆناغا ئێکێ</span> بهێتە خواندن (وەک بابەتەکێ گرنگێ نەتەوەیی).",
-      "<strong>کوردۆلۆجی (کوردناسی) ل چ دکۆلیتەڤە؟</strong> ل <span class='hl-blue'>مێژوو، زمان، ئەدەب، جوگرافیا، ئەتنۆگرافیا و کەلتورێ</span> مللەتێ کورد دکۆلیتەڤە.",
-      "<strong>رۆلێ کوردناسێن بیانی:</strong> کوردناسێن بیانی <span class='hl'>بەری کوردان</span> دەست ب ڤەکۆلینێ لسەر کوردان کرینە، پاشی کوردناسێن کورد هاتن.",
-      "<strong>هەلسەنگاندنا کارێ بیانیان:</strong> هەولێن وان کارەکێ پیرۆزە و خزمەتەکا باش ب نەتەوە و فۆلکلۆر و زمانێ کوردی کریە و بەلگەنامەیا مێژوویینە، بەلێ زۆر جاران ژ قالبێ پیرۆز دەرکەفتینە و ب بێ بەلگە و بێ بنەما لسەر نەژاد و نەتەوەیێ کورد گۆتینە کو زیان گەهاندیە کوردان. لەورا پێدڤییە کورد ب عەقلانی و رەخنەیەکا بابەتیانە پێداچوونێ بکەن."
-    ],
-    tip: "💡 بیرتیژی بۆ ژبەرکرنێ: ١٩٩١ (راپەڕین) ⬅️ ئێکەم کابینە ⬅️ خواندنا کوردۆلۆجی ل قۆناغا ئێکێ. هەروەسا بزانە بیانیان دوو رۆل هەبوون: خزمەت (فۆلکلۆر و زمان و مێژوو) + زیان (تشتێن بێ بنەما لسەر نەژادی).",
-    defs: [
-      { term: "کوردۆلۆجی (کوردناسی) د دەرازێنکێ دا", def: "ئەو زانستە کو ل مێژوو و زمان و ئەدەب و جوگرافیا و ئەتنۆگرافیا و کەلتورێ مللەتێ کورد دکۆلیتەڤە." }
-    ],
-    blanks: [
-      { before: "پشتی راپەڕینا گەلێ کورد ل سالا", after: "بڕیار هاتە دان بابەتێ کوردۆلۆجی ل قۆناغا ئێکێ بهێتە خواندن.", answer: "١٩٩١", options: ["١٩٩١", "١٩٧٥", "٢٠٠٣", "١٩٨٨"] },
-      { before: "کوردناسیێ بەری کوردان ژ لایێ", after: "ڤە دەست ب لێکۆلینێ لسەر کوردان هاتە کرن.", answer: "کوردناسێن بیانی", options: ["کوردناسێن بیانی", "مامۆستایێن زانکۆیێ", "ميرێن بابان", "ئیمپراتۆریەتا میدی"] }
-    ],
-    mcqs: [
-      { q: "بابەتێ کوردۆلۆجی ل چ قۆناغەکا زانکۆ و پەیمانگەهێن کوردستانێ هاتە بڕیاردان بهێتە خواندن؟", options: ["قۆناغا ئێکێ", "قۆناغا دوویێ", "قۆناغا سێیێ", "قۆناغا چوارێ"], ans: 0 },
-      { q: "ئەڤێن ل خوارێ هەمی د بیاڤێ کوردۆلۆجیێ دانە ژ بلی ئێکێ:", options: ["فیزیا و کیمیا", "مێژوو و زمان", "ئەدەب و جوگرافیا", "ئەتنۆگرافیا و کەلتور"], ans: 0 },
-      { q: "ئەرکێ کوردان بەرامبەر نڤیسینێن کوردناسێن بیانی چییە؟", options: ["ب عەقلانە و رەخنەیا بابەتیانە پێداچوونێ بکەن و وەک خۆ بنڤیسنەوە", "هەمی نڤیسینێن وان ب سۆتن و پاشگوهـ بێخن", "بێ پێداچوون هەمیان قەبول بکەن", "چ پێداچوونێ نەکەن"], ans: 0 }
-    ],
-    qa: [
-      { q: "بۆچی هەولێن کوردناسێن بیانی هندەک جاران زیان بۆ کورد هەبوویە؟", a: "چونکی ژ قالبێ پیرۆزێ زانستی دوورکەفتینە و بێ بەلگە و بێ بنەما گەلەک تشت دەربارەی نەژاد و نەتەوەیێ کورد گۆتینە." }
-    ]
-  },
-
-  // ================= SLIDE 2 =================
-  {
-    id: 2,
-    pageRef: "لاپەڕە ٢",
-    title: "زاراڤ و مێژوویا کوردستانێ",
-    subtitle: "رامانا کوردستان، ناڤێن کەڤن، ئایین، ئیمپراتوریەت و دیالێکت",
-    explain: [
-      "<strong>بنیاتێ پەیڤا کوردستان:</strong> پەیڤەکا داڕێتییە ژ دوو پەیڤان: <span class='hl'>(کورد)</span> ب مانا نەتەوا کورد + <span class='hl'>(ستان)</span> ب مانا وێ ئاخا کورد لسەر دژین = ئاخا کوردان (ب زاراڤێ جوگرافی و نەتەوەیی).",
-      "بۆچوونەکا دی دبێژیت پەیڤا کوردستان وشەیەکا <span class='hl-blue'>فارسی</span> یە، واتا جهێ ئاکنجیبوونا کوردان (وەڵاتێ کوردان). رامانا وشا کوردستان ب <span class='hl'>(چەلەنگ، زیرەک، سەگڤان)</span> دهێتە نیاسین.",
-      "<strong>ناڤێن کەڤنێن کوردستانێ:</strong> ژ کەڤندا ب گەلەک ناڤان بەرنیاس بوو وەکو: <span class='hl-blue'>(عیلام، سوپارتو، کوتی، میدی، وەڵاتێ دناڤبەرا هەردوو رویباران)</span>.",
-      "<strong>دیرۆکا ئاڤەدانیێ و بەلگێن ئایینی:</strong> هەر ژ <span class='hl'>(٦٠ تا ٤٠ هزار سالان بەری زایینی)</span> مرۆڤ و ئاڤەدانی لسەر ئاخا کوردستانێ هەبوویە. د سەرچاوێن ئایینی دا (<span class='hl-blue'>تەورات، ئینجیل، قورئان</span>) ئەڤ وەلاتە لاندکا مرۆڤان بوویە (ئادەم و حەوا، نوح، ئیبراهیم و دیندەها وی لسەر ڤێ ئاخێ بووینە).",
-      "<strong>دەولەت و میرگەهێن کوردان:</strong> ئیمپراتوریەت و دەولەت: (<span class='hl'>گوتی، لولوی، سوپارتی، میدی، کاشی...</span>). میرگەهـ و حکومەت: (<span class='hl-blue'>حکومەتا هەموزانی، دوستەکی، بوتان، هەکاری، بەهدینان، سوران، بابان، ئەردەلان، بەدلیسی...</span>).",
-      "<strong>ل سەردەمێ ئیسلامێ:</strong> کەڤنترین ژێدەرێ موسلمانان پەیڤا (کوردستان) ب ڤی رەنگێ نوی بکارئینایی پەرتووکا <span class='hl'>(نزهة القلوب)</span> یا <span class='hl'>(حەمدوللا مستەوفی)</span> یە. کەڤنترین نڤێسینا فەرمی یا ناڤێ کوردان نامەیا <span class='hl-blue'>(ئیمام عەلی)</span> بوو بۆ <span class='hl-blue'>(زیادێ کورێ ئەبیهـ)</span>ی.",
-      "<strong>کوردناسی و دیالێکت:</strong> کوردناسی ل ئەورۆپا (ئیتالیا، فەرەنسا، ئەلمانیا، بەریتانیا) و ب بەرفرەهی ل روسیا و پاشی ئێکەتیا سوڤیەتی گەشە کریە. ژ لایێ رەگەزی ڤە کورد دگەل مللەتێن <span class='hl'>ئاری</span> دهێنە هژمارتن و زمانێ وان <span class='hl-blue'>هند و ئەورۆپی</span> یە. ل گۆرەی <span class='hl'>شەرەفخانێ بەدلیسی</span> ٤ دیالێکتێن سەرەکی هەنە: <span class='hl'>(کرمانجی، لوری، کەهلوری، گورانی)</span>."
-    ],
-    tip: "💡 تێبینییا زێڕین: ژێک جودا بکە! کەڤنترین پەرتووک ناڤێ «کوردستان» تێدا: (نزهة القلوب - حەمدوللا مستەوفی). بەلێ کەڤنترین نڤێسینا فەرمی ناڤێ «کوردان» تێدا: (نامەیا ئیمام عەلی بۆ زیادێ کورێ ئەبیهـ).",
-    defs: [
-      { term: "کوردستان (ژ لایێ زاراڤێ جوگرافی و نەتەوەیی)", def: "پەیڤەکا داڕێتییە ژ (کورد + ستان) پێکدهێت، ئانکو جهێ کوردان یان ئاخا کوردان کو کورد لسەر پەیدابووین و تا ئەڤرۆ دپارێزن." },
-      { term: "رامانا وشا کوردستان", def: "ب رامانا (چەلەنگ، زیرەک، سەگڤان) دهێتە نیاسین." }
-    ],
-    blanks: [
-      { before: "کەڤنترین ژێدەرێ موسلمانان پەیڤا (کوردستان) بکارئینای پەرتووکا", after: "یا حەمدوللا مستەوفی یە.", answer: "نزهة القلوب", options: ["نزهة القلوب", "شەرەفنامە", "الكامل في التاريخ", "صورة الارض"] },
-      { before: "هەر ژ", after: "هزار سالان بەری زایینی ئاڤەدانی و مرۆڤ لسەر ئاخا کوردستانێ هەبوو.", answer: "٦٠ تا ٤٠", options: ["٦٠ تا ٤٠", "١٠ تا ٢٠", "٥ تا ٣", "١٠٠ تا ٨٠"] },
-      { before: "ل گۆرەی شەرەفخانێ بەدلیسی زمانێ کوردی ژ چوار دیالێکتێن سەرەکی پێکدهێت: کرمانجی، لوری،", after: "و گورانی.", answer: "کەهلوری", options: ["کەهلوری", "زازاکی", "سۆرانی", "ئەرمەنی"] }
-    ],
-    mcqs: [
-      { q: "ئێک ژ ڤان ناڤێن کەڤنێن کوردستانێ نینە:", options: ["ئەندەلوس", "عیلام", "سوپارتو", "وەڵاتێ دناڤبەرا هەردوو رویباران"], ans: 0 },
-      { q: "کەڤنترین نڤێسینا فەرمی کو ناڤێ کوردان ب ڤی شێوێ نوکە تێدا هاتبیتە بکارئینان کیژکە؟", options: ["نامەیا ئیمام عەلی بۆ زیادێ کورێ ئەبیهـ", "پەرتووکا شەرەفنامە", "پەرتووکا معجم البلدان", "نامەیا سەلاحەدینێ ئەیوبی"], ans: 0 },
-      { q: "ژ لایێ رەگەزی ڤە مللەتێ کورد دگەل کیژ مللەتان دهێتە هژمارتن و زمانێ وی چییە؟", options: ["مللەتێن ئاری / هند و ئەورۆپی", "مللەتێن سامی / عەرەبی", "مللەتێن تبتی / چینی", "مللەتێن ئاڵتیکی / تورکی"], ans: 0 }
-    ],
-    qa: [
-      { q: "وەڵاتێن ئەورۆپی یێن کو ب تایبەتی رۆژهەلاتناسێن وان هاتینە کوردستانێ بۆ ڤەکۆلینێ کیژانن؟", a: "ئیتالیا، فەرەنسا، ئەلمانیا و بەریتانیا (هەروەسا ل روسیا و ئێکەتیا سوڤیەتی پەیمانگەها تایبەت هاتە ڤەکرن)." }
-    ]
-  },
-
-  // ================= SLIDE 3 =================
-  {
-    id: 3,
-    pageRef: "لاپەڕە ٣",
-    title: "ئەگەرێن درەنگ بکارئینانا زاراڤێ کوردستان",
-    subtitle: "بۆچی ناڤێ «کوردستان» درەنگ هاتە بکارئینان بەراورد دگەل دیرۆکا کوردان؟",
-    explain: [
-      "سەرەرای وێ چەندێ کو کورد هزاران سالانە لسەر ئاخا خۆ دژین، بەلێ ناڤێ «کوردستان» درەنگ بکارهات ژ بەر سێ ئەگەرێن سەرەکی:",
-      "<strong>١. نەسەقامگیرییا سیاسی و دەستهەڵاتا هۆزان:</strong> وەلاتێ کوردان هەر ژ کەڤندا ژ لایێ سەقامگیریێ ڤە جێگیر نەبوو؛ چەندین جاران دەستهەڵاتا دەڤەرێ ژ لایێ عەشیرەت و هۆزان ڤە دهاتە برێڤەبرن، لەورا <span class='hl'>هەر هەرێمەک ب ناڤێ هۆزەکێ</span> دهاتە ناڤکرن (نەک ب ناڤەکێ گشتی بۆ هەمیێ).",
-      "<strong>٢. نویییا زاراڤی و گوهۆڕینا زمانی:</strong> زاراڤێ «کوردستان» زاراڤەکێ <span class='hl-blue'>نوی یە</span> بەراورد دگەل مێژوویا وەڵاتێ کوردان؛ زمان بەردەوام د گوهۆڕینێ دایە، هندەک پەیڤێن نوی دهێن و یێن کەڤن ژ دەست دچن.",
-      "<strong>٣. نەدانانا ناڤێ وەلاتی ژ لایێ خەلکێ خۆجهـ ڤە:</strong> خەلکێ خۆجهـ ناڤێ وەڵاتێ خۆ ب گشتی نەدانابوو، بەلکو دگۆت <span class='hl'>(باژێرێ من، گوندێ مە)</span> وەک ئاماژە ب ناڤێ وی جهێ تێدا دژیا، ب وێ رامانێ کو وی دەمی <span class='hl-blue'>هەستا نەتەوەیی یا کێم بوو</span>."
-    ],
-    tip: "💡 ٣ کلیلێن ژبەرکرنێ: ١- هەرێم ب ناڤێ هۆزێ بوو (نەسەقامگیری). ٢- زمان دگوهۆڕیت و زاراڤ نوی یە. ٣- خەلکی دگۆت «گوندێ مە / باژێرێ من» ژ بەر کێمییا هەستا نەتەوەیی.",
-    defs: [
-      { term: "ئەگەرێ سێیێ یێ درەنگ بکارئینانا زاراڤێ کوردستان", def: "خەلکێ خۆجهـ ناڤێ وەڵاتێ خۆ نەدانایە بەلکو دگۆت (باژێرێ من، گوندێ مە) کو نیشانا کێمییا هەستا نەتەوەیی بوو ل وی دەمی." }
-    ],
-    blanks: [
-      { before: "ژ بەر کو دەستهەلاتا دەڤەران ژ لایێ عەشیرەت و هۆزان ڤە دهاتە برێڤەبرن، هەر هەرێمەک ب ناڤێ", after: "دهاتە ناڤکرن.", answer: "هۆزەکێ", options: ["هۆزەکێ", "شارێکی", "پاشایەکی", "رویبارەکی"] },
-      { before: "خەلکێ خۆجهـ دگۆت (باژێرێ من، گوندێ مە) ئەڤە ژی ب وێ رامانێ یە کو وی دەمی", after: "یا کێم بوو.", answer: "هەستا نەتەوەیی", options: ["هەستا نەتەوەیی", "هێزا لەشکەری", "بازرگانی", "ئابووری"] }
-    ],
-    mcqs: [
-      { q: "بۆچی پەیڤا (کوردستان) د مێژوویێ دا زاراڤەکێ نوی یە؟", options: ["چونکی زمان بەردەوام د گوهۆڕینێ دایە، پەیڤێن نوی دهێن و یێن کەڤن دهێنە ژ دەست دان", "چونکی پەیڤا کوردستان ژ زمانێ گریکی هاتیە", "چونکی ب تنێ د سەدێ بیستێ دا هاتیە دروستکرن", "چونکی کورد نەبوونە"], ans: 0 },
-      { q: "ئەڤ گۆتنا خەلکی (باژێرێ من، گوندێ مە) بەلگەیە لسەر کیژکێ ژ ڤان؟", options: ["کێمییا هەستا نەتەوەیی ل وی دەمی", "ب هێزبوونا حکومەتەکا ناوەندی", "جێگیربوونا سنورێن کوردستانێ", "پێشکەفتنا رێزمانی"], ans: 0 }
-    ],
-    qa: [
-      { q: "ب کورتی سێ ئەگەرێن درەنگ بکارئینانا زاراڤێ کوردستان بژمێرە؟", a: "١- نەجێگیرییا سیاسی و برێڤەبرنا دەڤەران ژ لایێ هۆزان ڤە. ٢- گوهۆڕینا بەردەوام یا زمانی و نویییا زاراڤی. ٣- کێمییا هەستا نەتەوەیی ل دەڤ خەلکێ خۆجهـ (باژێرێ من، گوندێ مە)." }
-    ]
-  },
-
-  // ================= SLIDE 4 =================
-  {
-    id: 4,
-    pageRef: "لاپەڕە ٤",
-    title: "پێناسە، پێکهاتا پەیڤێ و دیرۆکا کوردۆلۆجیێ",
-    subtitle: "کورد + لۆجی = کوردناسی | پەیوەندی دگەل رۆژهەلاتناسیێ",
-    explain: [
-      "<strong>پێناسەیا تێگەهێ کوردۆلۆجیێ:</strong> ئەو زانستە کو خوە بۆ ناساندنا نەتەوەیێ کورد و دیارکرنا ناسنامەیا نەتەوی دیاردکەت ژ لایێ (<span class='hl-blue'>نەژاد، دیرۆک، زمان، دیالێکت، فۆلکلۆر، ئەتنۆگرافیا تیتالان، نیشتمان، هونەر، ئایین و ئایینزایان</span>). ب کورتی: ل <span class='hl'>تەڤ ئالیێن ژیان و کەلتوور و زمان و نیشتمان و دیرۆکا گەلێ کورد</span> ڤەدکۆلیت.",
-      "<strong>بنیاتێ پەیڤا کوردۆلۆجی:</strong> پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە: <br>١. <span class='hl'>کورد</span>: ب رامانا نەتەوەیێ کورد یان مللەتێ کورد.<br>٢. <span class='hl'>لۆجی – لۆجیا</span>: ب رامانا زانست و نیاسین.<br>⬅️ <span class='hl-blue'>کورد + لۆجی = کوردناسی (زانستێ کورد ناسیێ)</span>.",
-      "<strong>ئامانجا کوردۆلۆجیێ:</strong> ڤەکۆلینێن زانستیانە و دەرخستنا کوردی مینا نەتەوەیەک کو خوەدی <span class='hl'>کیانێ نەتەوەییێ خوەیە</span>.",
-      "<strong>دیرۆکا کوردۆلۆجیێ:</strong> کوردۆلۆجی <span class='hl-blue'>لقەکە ژ رۆژهەلاتناسیێ</span> (ئانکو د ناڤ چەرگەیا رۆژهەلاتناسیێ ژ دایک بوویە). ئەو دیتن و تێفکرینا رۆژئاڤاییانە بۆ مللەتێ کورد.",
-      "کوردناسێن بیانی بەری کوردناسێن کورد دەست ب ڤەکۆلینێ کرنە؛ هندەک جاران ب ئاوایەکێ <span class='hl'>بابەتیانە و زانستیانە</span>، و هندەک جاران ژی <span class='hl'>بێ بنەما یان بۆ بەرژەوەندی و مەرامێن سیاسی و ئابووری</span> یێن خوە دەست ب ڤەکۆلینێ کرینە."
-    ],
-    tip: "💡 هشیار بە! د کوێزێ دا هەکە پرسیار هات: «کوردۆلۆجی لقەکە ژ چ زانستەکێ؟» یان «کوردۆلۆجی د چەرگەیا چ دا ژ دایک بوویە؟» بەرسڤا دروست: (رۆژهەلاتناسی - Orientalism).",
-    defs: [
-      { term: "کوردۆلۆجی (ب واتایا زاراڤی)", def: "پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە: (کورد) ب رامانا مللەتێ کورد، و (لۆجی-لۆجیا) ب رامانا زانست و نیاسین، پێکڤە دبیتە زانستێ کوردناسیێ." },
-      { term: "دیرۆکا کوردۆلۆجیێ", def: "لقەکە ژ رۆژهەلاتناسیێ، و د ناڤ چەرگەیا رۆژهەلاتناسیێ دا ژ دایک بوویە وەک دیتن و تێفوکرینا رۆژئاڤاییانە بۆ مللەتێ کورد." }
-    ],
-    blanks: [
-      { before: "پەیڤا (لۆجی – لۆجیا) ب رامانا", after: "دهێت.", answer: "زانست و نیاسین", options: ["زانست و نیاسین", "مێژوو و دیرۆک", "وەڵات و ئاخ", "ئایین و زمان"] },
-      { before: "کوردۆلۆجی لقەکە ژ", after: "ود ناڤ چەرگەیا وێ دا ژ دایک بوویە.", answer: "رۆژهەلاتناسیێ", options: ["رۆژهەلاتناسیێ", "فەلسەفێ", "جوتکاریێ", "یاسایێ"] }
-    ],
-    mcqs: [
-      { q: "بنیاتێ پەیڤا (کوردۆلۆجی) ژ چ پێکهاتیە؟", options: ["پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە (کورد + لۆجی)", "پەیڤەکا سادەیا عەرەبی یە", "سێ پەیڤێن لێکدایێن لاتینی یە", "ناڤێ باژێرەکێ کەڤنە"], ans: 0 },
-      { q: "ئەگەرێ ڤەکۆلینێن کوردناسێن بیانی هەمی دەمان زانستی نەبوو، بۆچی؟", options: ["چونکی جاران بێ بنەما یان بۆ مەرامێن سیاسی و ئابووری یێن خوە دەست ب ڤەکۆلینێ دکر", "چونکی وان چ زمان نەدزانین", "چونکی کوردان رێک پێ نەدا", "چونکی پەرتووک نەبوون"], ans: 0 }
-    ],
-    qa: [
-      { q: "کوردۆلۆجی ل تەڤ چ ئالیێن گەلێ کورد ڤەدکۆلیت؟", a: "نەژاد، دیرۆک، زمان، دیالێکت، فۆلکلۆر، ئەتنۆگرافیا تیتالان، نیشتمان، هونەر، ئایین و ئایینزایان، هەروەسا نیاسینا کوردی مینا نەتەوەیەک خوەدی کیانێ نەتەوەیی." }
-    ]
-  },
-
-  // ================= SLIDE 5 =================
-  {
-    id: 5,
-    pageRef: "لاپەڕە ٥ و سەرێ ٦",
-    title: "دابەشکرنا کوردناسان و دەستپێکا کوردناسێن ئەورۆپی",
-    subtitle: "قەشە مۆریزیۆ گارزۆنی، زەینەفوون و شەڕێ خاچپەرستان",
-    explain: [
-      "<strong>ڤەکۆلەرێن کوردناس دابەشی سەر دوو دەستەیان دبن:</strong><br>١. <span class='hl'>کوردناسێن بیانی</span> (دوو جەمسەرن: أ- رۆژئاڤایی/ئەورۆپی، ب- رۆژهەلاتی/موسلمان).<br>٢. <span class='hl-blue'>کوردناسێن کورد</span>.",
-      "<strong>ئێکەم ڤەکۆلینا کوردناسیێ ژ لایێ ئەورۆپییان:</strong> ل <span class='hl'>سەدسالیا هەژدێ (١٨) زاینی</span> ژ لایێ قەشە <span class='hl-blue'>(مۆریزیۆ گارزۆنی)</span> یێ ئیتالی هاتە ئەنجامدان.",
-      "<strong>ژیان و کارێ قەشە گارزۆنی:</strong> بۆ کارێ شێوەرەمەندیێ (تەبشیر/ئاینی) ل کوردستانێ بوویە، ل دەڤەرا <span class='hl'>(ئامێدیێ)</span> بۆ ماوێ <span class='hl'>(١٨ سالان)</span> ئاکنجی بوویە، فێری زمانێ کوردی بوویە، پەرتووکەک لسەر <span class='hl-blue'>(رێزمانی کوردی)</span> دانایە ژ <span class='hl'>٢٢٠ لاپەڕان</span> پێکدهێت دگەل پاشکۆیەکا فەرهەنگی <span class='hl'>(ئیتالی – کوردی)</span>.",
-      "<strong>کوردناسێن رۆژئاڤایی ژ کیژ وەلاتان پێکدهاتن؟</strong> ١- رووسی ٢- فەرەنسی ٣- ئیتالی ٤- بەریتانی ٥- ئەلمانی ٦- ئەرمەنی... ل ڤان وەلاتان ب سەدان ئەرشیڤێن دیکۆمێنتی یێن کوردی هەنە.",
-      "<strong>زەینەفوون و هیرۆدۆت:</strong> <span class='hl'>«زەینەفوون»</span> ئێکەم رۆژئاڤاییە ل پشتی <span class='hl-blue'>«هیرۆدۆتسی»</span>یێ دیرۆکنڤیس کو دەربارەی کوردان نڤیس هەبن یان تشت گۆتبن.",
-      "<strong>پەیوەندیێن سەردەمێ شەڕێ خاچپەرستان (لاپەڕە ٦):</strong> ل سەردەمێ شەرێ خاچپەرستان پەیوەندی دناڤبەرا ئەورۆپا و کوردان هەبوو ژ بەر دوو هۆکاران: ١- <span class='hl'>سەلاحەدینێ ئەیوبی</span> ٢- <span class='hl'>پرانیا شەرکەرێن سوپایێ سەلاحەدینی کورد بوونە</span>. بەلێ ئەڤ پەیوەندییە <span class='hl-blue'>ب پەیوەندی د بیاڤێ کوردناسیێ دا ناهێنە هژمارتن</span>، چونکی ب ئەگەرێ شەڕی دروست بووینە نەک لسەر بنەمایەکێ بابەتی و زانستی."
-    ],
-    tip: "💡 ژمارێن گارزۆنی ژبیرنەکە: سەدسالیا ١٨، باژێڕێ ئامێدیێ، ١٨ سال، ٢٢٠ لاپەڕ، فەرهەنگا ئیتالی-کوردی (ل سالا ١٧٨٧ چاپکریە وەک لاپەڕە ٦ دیار دکەت).",
-    defs: [
-      { term: "قەشە مۆریزیۆ گارزۆنی", def: "قەشەیەکێ ئیتالی بوو ل سەدسالیا ١٨ زاینی بۆ ماوێ ١٨ سالان ل ئامێدیێ ما، ئێکەم ڤەکۆلینا کوردناسیێ یا ئەورۆپی کر و پەرتووکا رێزمانا کوردی (٢٢٠ لاپەڕ) دگەل فەرهەنگەکا (ئیتالی-کوردی) دانا." },
-      { term: "زەینەفوون", def: "ئێکەم رۆژئاڤاییە ل پشتی (هیرۆدۆتس)یێ دیرۆکنڤیس کو دەربارەی کوردان نڤیس هەبن یان تشت گۆتبن." }
-    ],
-    blanks: [
-      { before: "قەشە مۆریزیۆ گارزۆنی ل دەڤەرا", after: "بۆ ماوێ هەژدە سالان ئاکنجی بوویە.", answer: "ئامێدیێ", options: ["ئامێدیێ", "سلێمانیێ", "هەولێرێ", "وانێ"] },
-      { before: "پەرتووکا گارزۆنی لسەر رێزمانی کوردی ژ", after: "لاپەڕان پێکدهێت.", answer: "٢٢٠", options: ["٢٢٠", "١٥٠", "٥٠٠", "١٠٠"] },
-      { before: "پەیوەندیێن سەردەمێ شەرێ خاچپەرستان ب پەیوەندی د بیاڤێ کوردناسیێ دا ناهێنە هژمارتن چونکی ب ئەگەرێ", after: "دروست بووینە.", answer: "شەڕی", options: ["شەڕی", "بازرگانیێ", "ئاشتیێ", "گەشتیاریێ"] }
-    ],
-    mcqs: [
-      { q: "ئێکەم ڤەکۆلینا کوردناسیێ ژ لایێ ئەورۆپییان ل چ سەدسالیەکێ هاتە ئەنجامدان؟", options: ["سەدسالیا هەژدێ (١٨)", "سەدسالیا پازدێ (١٥)", "سەدسالیا بیستێ (٢٠)", "سەدسالیا دەهێ (١٠)"], ans: 0 },
-      { q: "دەولەتێن کوردناسێن رۆژئاڤایی پێکدهاتن ژ:", options: ["رووسی، فەرەنسی، ئیتالی، بەریتانی، ئەلمانی، ئەرمەنی", "چینی، یابانی، هندی، مەغۆلی", "بەرازیلی، مەکسیکی، ئەرژەنتینی", "میسری، یەمەنی، لیبی"], ans: 0 },
-      { q: "هۆکارێن پەیوەندیێن ئەورۆپا و کوردان ل سەردەمێ شەرێ خاچپەرستان چ بوون؟", options: ["سەلاحەدینێ ئەیوبی و پرانیا شەرکەرێن سوپایێ وی کورد بوونە", "چێکرنا رێزمانا کوردی", "گەشتێن مارکۆ پۆلۆ", "ئەرشیڤێن ئەکادیمی"], ans: 0 }
-    ],
-    qa: [
-      { q: "بۆچی پەیوەندیێن سەردەمێ شەرێ خاچپەرستان ب کوردۆلۆجی و کوردناسی ناهێنە هژمارتن؟", a: "چونکی زانستێ رۆژهەلاتناسی و کوردناسی لسەر بنەمایێ (شەڕی) نەهاتینە دانان، بەلکو ئەو پەیوەندییە ب ئەگەرێ شەڕی دروست بووینە نەک لسەر بنەمایەکێ بابەتی و زانستی." }
-    ]
-  },
-
-  // ================= SLIDE 6 =================
-  {
-    id: 6,
-    pageRef: "لاپەڕە ٦ و ٧",
-    title: "کوردناسێن رۆژئاڤایی و پەرتووکێن وان",
-    subtitle: "٨ ناڤێن سەرەکی + ٥ پەرتووکێن گرنگ یێن ئەورۆپیان",
-    explain: [
-      "<strong>١. مارکۆ پۆلۆ (١٢٥٤–١٣٢٤):</strong> جوگرافیناس و گەڕۆکەکێ ناڤدارێ <span class='hl'>ئیتالی</span> یە؛ <span class='hl-blue'>ئێکەم رۆژئاڤاییە ناڤێ (کوردستان) بکارئینایی</span>.",
-      "<strong>٢. کریستین بنور:</strong> گەڕۆکەکە گەشتەک بۆ کوردستانێ کرییە، ل سالا <span class='hl'>١٧٦٦ز</span> چاپکرییە و ڤەکۆلینەک لسەر کوردان نڤیسیە.",
-      "<strong>٣. قەشە مۆریزیۆ گارزۆنی:</strong> ل سالا <span class='hl'>١٧٨٧</span> پەرتووکەک بناڤێ <span class='hl-blue'>(رێزمانا دانەپەیڤا زمانێ کوردی)</span> بەلاڤکریە.",
-      "<strong>٤. مێریلا گالێتی:</strong> پەرتووکەک لسەر کوردان نڤیسیە ب ناڤێ <span class='hl-blue'>(کەلتورێ کوردی د نڤیسینێن ئیتالیاندا)</span>.",
-      "<strong>٥. لێرخ:</strong> کوردناسەکێ <span class='hl'>رووسی</span> بوویە، سێ کتیب لسەر کوردێن رۆژهەلات نڤیسیە.",
-      "<strong>٦. ئەلکسەندەر ژاپا (١٨٠٣–١٨٩٤):</strong> کوردناسەکێ <span class='hl'>رووسی</span> بوو، دۆستەکێ نیزیکێ نڤیسەرێ کورد <span class='hl-blue'>(مەلا مەحمود بایەزیدی ١٧٩٩–١٨٦٠)</span> بوویە؛ نڤیسینێن ژاپا و بایەزیدی ب <span class='hl'>دەستپێکا سەرهەلدانا پەخشانا کوردی</span> دهێنە زانین.",
-      "<strong>٧. ڤلادمێر مینۆرسکی (١٨٧٧–١٩٦٦):</strong> گەلەک نڤیسین لسەر زمان و نەژاد و کەلتورێ کوردان نڤیسیە و دبێژیت: <span class='hl'>(کورد نەڤیێن میدیانن)</span>.",
-      "<strong>٨. کرێس کۆچێرا:</strong> چەند جاران سەرەدانا کوردستانێ کریە، کتیبا <span class='hl-blue'>(بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ)</span> نڤیسیە.",
-      "<table class='info-table'><tr><th>نڤیسەر</th><th>پەرتووک</th><th>جهـ و سال</th></tr><tr><td>دەیڤد ئادەمسۆن</td><td>شەری کورد</td><td>لەندەن - ١٩٦٤</td></tr><tr><td>بێنیگسۆن</td><td>کورد و کوردۆلۆجی ل ئێکەتیا سۆڤیەتا بەری</td><td>پاریس - ١٩٦٠</td></tr><tr><td>دێرک کینان</td><td>کورد و کوردستان</td><td>لەندەن - ١٩٦٤</td></tr><tr><td>فردریک بارێس</td><td>بنەمایێن رێکخستنا جڤاکی ل باشورێ کوردستانێ</td><td>ئۆسلۆ - ١٩٥٣</td></tr><tr><td>جۆیس بلۆ</td><td>فەرهەنگا کوردی – فەرەنسی – ئینگلیزی</td><td>پاریس - ١٩٦٥</td></tr></table>"
-    ],
-    tip: "💡 جوداهیا گرنگ: مارکۆ پۆلۆ = ئێکەم رۆژئاڤایی ناڤێ «کوردستان» بکارئینایی. ژاپا + مەلا مەحمود بایەزیدی = دەستپێکا پەخشانا کوردی. مینۆرسکی = «کورد نەڤیێن میدیانن».",
-    defs: [
-      { term: "ئەلکسەندەر ژاپا", def: "کوردناسەکێ رووسی بوو (١٨٠٣-١٨٩٤)، دۆستێ نێزیکێ مەلا مەحمود بایەزیدی بوو، نڤیسینێن وان ب دەستپێکا سەرهەلدانا پەخشانا کوردی دهێنە زانین." },
-      { term: "مارکۆ پۆلۆ", def: "جوگرافیناس و گەڕۆکەکێ ناڤدارێ ئیتالی بوو (١٢٥٤-١٣٢٤)، ئێکەم رۆژئاڤاییە ناڤێ (کوردستان) بکارئینای." }
-    ],
-    blanks: [
-      { before: "ڤلادمێر مینۆرسکی دبێژیت: کورد نەڤیێن", after: "نە.", answer: "میدیانن", options: ["میدیانن", "ئاشوریانن", "یونانیانن", "عەرەبانن"] },
-      { before: "پەرتووکا (کەلتورێ کوردی د نڤیسینێن ئیتالیاندا) ژ لایێ", after: "ڤە هاتیە نڤیسین.", answer: "مێریلا گالێتی", options: ["مێریلا گالێتی", "جۆیس بلۆ", "کرێس کۆچێرا", "لێرخ"] },
-      { before: "فردریک بارێس ل سالا ١٩٥٣ ل ئۆسلۆ پەرتووکا", after: "نڤیسیە.", answer: "بنەمایێن رێکخستنا جڤاکی ل باشورێ کوردستانێ", options: ["بنەمایێن رێکخستنا جڤاکی ل باشورێ کوردستانێ", "شەری کورد", "کورد و کوردستان", "بزاڤا نەتەوەیا کورد"] }
-    ],
-    mcqs: [
-      { q: "ئێکەم رۆژئاڤایی کو ناڤێ (کوردستان) بکارئینای کی بوو؟", options: ["مارکۆ پۆلۆ", "مینۆرسکی", "دێرک کینان", "کریستین بنور"], ans: 0 },
-      { q: "پەرتووکا (بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ) یا کیژ کوردناسی یە؟", options: ["کرێس کۆچێرا", "ئەلکسەندەر ژاپا", "دەیڤد ئادەمسۆن", "بێنیگسۆن"], ans: 0 },
-      { q: "کیژ ژ ڤان نڤیسەران (فەرهەنگا کوردی – فەرەنسی – ئینگلیزی) ل پاریس سالا ١٩٦٥ دانایە؟", options: ["جۆیس بلۆ", "مێریلا گالێتی", "فردریک بارێس", "گارزۆنی"], ans: 0 },
-      { q: "سێ کتیب لسەر کوردێن رۆژهەلات ژ لایێ کیژ کوردناسێ رووسی ڤە هاتینە نڤیسین؟", options: ["لێرخ", "ژاپا", "مینۆرسکی", "بێنیگسۆن"], ans: 0 }
-    ],
-    qa: [
-      { q: "ناڤێ پەرتووکێن دەیڤد ئادەمسۆن و دێرک کینان یێن سالا ١٩٦٤ ل لەندەن چ بوون؟", a: "دەیڤد ئادەمسۆن: (شەری کورد) — دێرک کینان: (کورد و کوردستان)." }
-    ]
-  },
-
-  // ================= SLIDE 7 =================
-  {
-    id: 7,
-    pageRef: "لاپەڕە ٧ و ٨",
-    title: "کوردناسێن موسلمان - رۆژهەلاتی",
-    subtitle: "باوەرپێکراویا نڤیسینێن موسلمانان و شەش دیرۆکنڤیس و جوگرافیناسێن ناڤدار",
-    explain: [
-      "پشتی ئاشنابوونا کوردان ب ئایینێ ئیسلامێ، دیرۆکنڤیس و جوگرافیناس و سەربۆرنڤیسێن موسلمان بەحسێ کوردان وەک <span class='hl'>نەتەوەیەک</span> کرییە.",
-      "<strong>بۆچی ئەو نڤیسین ژ گەلەک لایانڤە جهێ باوەریێ بوون؟</strong> چونکی ل وی سەردەمی <span class='hl-blue'>چ ململانێیێن نەتەوەیی و ئولی و مەزهەبی نەبوونە</span>، و هەمی نەتەوە پشکداربوون د ئاڤاکرنا شارستانیەت و مەدەنیەتا ئیسلامیدا.",
-      "<table class='info-table'><tr><th>ناڤێ زانای</th><th>سال</th><th>ناڤێ کتیبێ</th><th>گرنگترین زانیاری لسەر کوردان</th></tr><tr><td>١. محەمەدێ کورێ جەریرێ تەبەری</td><td>٨٣٩-٩٢٣ز</td><td>تاريخ الامم و الملوك</td><td>ژ دروستبوونا بونەوەران تا سالا ٩١٥ز، ل گەلەک جهان بەحسێ کوردان دکەت.</td></tr><tr><td>٢. ئەبی حەسەنێ عەلی شەیبانی</td><td>مری ٦٣٠ مشەختی</td><td>الكامل في التاريخ</td><td>درێژەپێدانا پەرتووکا تەبەرییە؛ ب درێژی بەحسێ بزاڤێن کوردی ل سەدێ ٩ و ١٠ دکەت.</td></tr><tr><td>٣. حافز عیمادەدین ئەبو فیدای ئیسماعیل ئیبن کەسیر</td><td>مری ٧٧٤ مشەختی</td><td>البداية و النهاية</td><td>ب ئیبن کەسیرێ دیمەشقی دهێتە نیاسین.</td></tr><tr><td>٤. ئیبن حەوقەل</td><td>مری ٩٧٧ز</td><td>صورة الارض</td><td>ب روون و ئەشکەرایی نەخشێ کوردستانێ کێشایە و هەردوو پشکێن (جیبال) و (جەزیرە) دیارکرنە.</td></tr><tr><td>٥. ئەلمەقدیسی</td><td>مری ٩٨٥ز</td><td>أحسن التقاسيم في معرفة الاقاليم</td><td>بەحسێ رەوشت و تیتال و کەلتور و وەلاتێ کوردان کریە و کوردستان وەک هەرێمەکا سەربەخۆ ژ وەلاتێن دی دانایە.</td></tr><tr><td>٦. یاقوت حەمەوی</td><td>١١٧٠-١٢٢٩ز</td><td>معجم البلدان</td><td>ئاگەهیێن زۆر لسەر کوردان تێدا هەنە.</td></tr></table>",
-      "<strong>تێبینیا کۆتاییا لاپەڕە ٨:</strong> هەر ژ <span class='hl'>سەرێ سێیێ مشەختی</span>، موسلمانێن گەڕۆک و وەلاتناسان نە تنێ بەحسێ کوردان و کەلتورێ وان کرییە، بەلکو پتریا جوگرافیناسان <span class='hl-blue'>نەخشێ کوردستانێ</span> ژی کێشایە."
-    ],
-    tip: "💡 یاریکا ژبەرکرنێ بۆ پەرتووکێن موسلمانان: تەبەری (تاريخ الامم) ⬅️ شەیبانی (الكامل) ⬅️ ئیبن کەسیر (البداية و النهاية) ⬅️ ئیبن حەوقەل (صورة الارض = نەخشە + جیبال و جەزیرە) ⬅️ مەقدیسی (أحسن التقاسيم = هەرێما سەربەخۆ) ⬅️ یاقوت (معجم البلدان).",
-    defs: [
-      { term: "ئیبن حەوقەل", def: "جوگرافیناسەکێ موسلمان بوو ل سالا ٩٧٧ز مریە، خودانێ کتیبا (صورة الارض)ە، تێدا نەخشێ کوردستانێ کێشایە و هەردوو پشکێن (جیبال و جەزیرە) دیارکرنە." },
-      { term: "ئەلمەقدیسی", def: "زانایەکێ موسلمان بوو ل سالا ٩٨٥ز مریە، خودانێ کتیبا (أحسن التقاسيم في معرفة الاقاليم)ە، کوردستان وەک هەرێمەکا سەربەخۆ ژ وەلاتێن دی دانایە." }
-    ],
-    blanks: [
-      { before: "پەرتووکا (الكامل في التاريخ) یا ئەبی حەسەنێ عەلی شەیبانی درێژەپێدانا پەرتووکا", after: "یە.", answer: "تەبەری", options: ["تەبەری", "یاقوت حەمەوی", "ئیبن کەسیر", "ئیبن حەوقەل"] },
-      { before: "ئیبن حەوقەل د پەرتووکا (صورة الارض) دا نەخشێ کوردستانێ کێشایە و هەردوو پشکێن", after: "و جەزیرە دیارکرنە.", answer: "جیبال", options: ["جیبال", "بابان", "سوران", "شام"] },
-      { before: "پەرتووکا (معجم البلدان) ژ نڤیسینا", after: "یە (١١٧٠-١٢٢٩ز).", answer: "یاقوت حەمەوی", options: ["یاقوت حەمەوی", "ئەلمەقدیسی", "شەیبانی", "تەبەری"] }
-    ],
-    mcqs: [
-      { q: "بۆچی نڤیسینێن دیرۆکنڤیسێن موسلمان لسەر کوردان جهێ باوەریێ بوون؟", options: ["چونکی وی سەردەمی چ ململانێیێن نەتەوەیی و ئۆلی و مەزهەبی نەبوونە", "چونکی ب تنێ ب زمانێ کوردی دنڤیسین", "چونکی پاشایێن ئەورۆپا پارە ددانێ", "چونکی ب تنێ د سەدێ بیستێ دا هاتبوون نڤیسین"], ans: 0 },
-      { q: "کیژ زانای کوردستان وەک هەرێمەکا سەربەخۆ ژ وەلاتێن دی دانایە؟", options: ["ئەلمەقدیسی", "ئیبن کەسیر", "تەبەری", "شەیبانی"], ans: 0 },
-      { q: "ئیبن کەسیرێ دیمەشقی ل سالا ٧٧٤ مشەختی مرییە و کتیبا وی بناڤێ چ بەرنیاسە؟", options: ["البداية و النهاية", "الكامل في التاريخ", "صورة الارض", "نزهة القلوب"], ans: 0 }
-    ],
-    qa: [
-      { q: "ئیبن شەیبانی (ئەبی حەسەنێ عەلی) د پەرتووکا خۆ دا بەحسێ چ سەدەیەکی یێ بزاڤێن کوردی کرییە؟", a: "ب درێژی بەحسێ بزاڤێن کوردی ل سەدێ (٩ و ١٠ - نەهێ و دەهێ) دکەت." }
-    ]
-  },
-
-  // ================= SLIDE 8 =================
-  {
-    id: 8,
-    pageRef: "لاپەڕە ٩",
-    title: "کوردناسێن کورد",
-    subtitle: "دیرۆکنڤیس، ئێکەم کەسێن پەیڤا کوردناسی بکارئینای، زمانناس و ئەدەبناس",
-    explain: [
-      "زانا و نڤیسکارێن کورد ژ میر و خواندەڤان و رەوشەنبیر و نشتیمانپەروەران پێکدهێن کو خواستینە کوردان مینا نەتەوەیەکی خوەدی زمان و ئەدەب و دیرۆک بدەن ناسکرن.",
-      "<strong>دیرۆکنڤیسێن سەرەکی:</strong><br>١. <span class='hl'>شەرەفخانێ بەدلیسی</span>: پەرتووکا <span class='hl-blue'>(شەرەفنامە)</span> ل سالا <span class='hl'>١٥٩٦ز</span> نڤیسیە.<br>٢. <span class='hl'>محەمەد عەلی عەونی</span>: ل پشتی شەرەفخانی دیرۆکا کوردی نڤیسیەڤە.<br>٣. <span class='hl'>محەمەد ئەمین زەکی</span>: خودانێ پەرتووکا <span class='hl-blue'>(خلاصة تاريخ الكورد)</span>.",
-      "<strong>ئێکەم کەسێن پەیڤا (کوردناسی) بکارئینای:</strong><br>١. <span class='hl'>دکتۆر عەبدوللا جەودەت</span>: ل سالا <span class='hl'>١٩١٣ز</span>.<br>٢. <span class='hl'>جەلادەت بەدرخان</span>: ل سالا <span class='hl'>١٩٣٤ز</span>، د گۆتارا خوە یا بناڤێ <span class='hl-blue'>(کورد و کوردستان ب چاڤێ بیانیان)</span>.",
-      "<strong>دەستەیا پێشەنگ و ئێکەم زمانناسێن کورد (رێنڤیس و رێزمان):</strong> سەعید سدقی کابان، تۆفیق وەهبی، جەلادەت بەدرخان، کامەران بەدرخان، مەسعود محەمەد، مەلای گەورە، سادق بەهائەلدین...",
-      "<strong>ڤەکۆلەرێن ئەدەبێ کوردی:</strong> ئەمینی عەبدال، حاجی جندی، عەرەب شەمۆ، ئیبرایم ئەحمەد، سەدیق بۆرەکەیی، عزەدین مستەفا رەسول، مارف خەزنەدار... و <span class='hl'>(عەلائەدین سەجادی)</span> ئێکەم نڤیسکارە پەرتووکەک لسەر <span class='hl-blue'>(دیرۆکا ئەدەبێ کوردی)</span> ل سالا <span class='hl'>١٩٥٦ز</span> نڤیسی.",
-      "<strong>د بیاڤێ دیرۆکا کوردی دا:</strong> <span class='hl'>(د. کەمال مەزهەر)</span> کوردناسەکێ تژی بەرهەمە کو چەندین مژارێن ڤەشارتی و مژدار یێن نەتەوەیێ کورد ب نەتەوەیێن دی داینە ناسکرن."
-    ],
-    tip: "💡 سالێن گرنگ ل لاپەڕە ٩: ١٥٩٦ (شەرەفنامە) — ١٩١٣ (د. عەبدوللا جەودەت) — ١٩٣٤ (جەلادەت بەدرخان) — ١٩٥٦ (عەلائەدین سەجادی - دیرۆکا ئەدەبێ کوردی).",
-    defs: [
-      { term: "شەرەفخانێ بەدلیسی", def: "دیرۆکنڤیسێ کورد کو دیرۆکا نەتەویی یا مللەتێ کورد د پەرتووکا خۆ یا بناڤێ (شەرەفنامە) ل سالا ١٥٩٦ز نڤیسی." },
-      { term: "عەلائەدین سەجادی", def: "ئێکەم نڤیسکارە کو کارییە پەرتووکەکێ لسەر (دیرۆکا ئەدەبێ کوردی) ل سالا ١٩٥٦ز بنڤیسیت." }
-    ],
-    blanks: [
-      { before: "محەمەد ئەمین زەکی دیرۆکنڤیسەکی کوردە و خودانێ پەرتووکا", after: "یە.", answer: "خلاصة تاريخ الكورد", options: ["خلاصة تاريخ الكورد", "شەرەفنامە", "دیرۆکا ئەدەبێ کوردی", "نزهة القلوب"] },
-      { before: "ئێکەم کەسێن پەیڤا (کوردناسی) بکارئینای د. عەبدوللا جەودەت بوو ل سالا ١٩١٣ز و", after: "بوو ل سالا ١٩٣٤ز.", answer: "جەلادەت بەدرخان", options: ["جەلادەت بەدرخان", "د. کەمال مەزهەر", "عەلائەدین سەجادی", "مارف خەزنەدار"] },
-      { before: "گۆتارا جەلادەت بەدرخان ل سالا ١٩٣٤ز بناڤێ", after: "بوو.", answer: "کورد و کوردستان ب چاڤێ بیانیان", options: ["کورد و کوردستان ب چاڤێ بیانیان", "شەرەفنامە", "رێزمانا کوردی", "کورد نەڤیێن میدیانن"] }
-    ],
-    mcqs: [
-      { q: "پەرتووکا (شەرەفنامە) ل چ سالێ هاتە نڤیسین؟", options: ["١٥٩٦ز", "١٩١٣ز", "١٩٥٦ز", "١٩٣٤ز"], ans: 0 },
-      { q: "کی ب ئێکەم نڤیسکار دهێتە دانان کو پەرتووکەک لسەر (دیرۆکا ئەدەبێ کوردی) ل سالا ١٩٥٦ز نڤیسی؟", options: ["عەلائەدین سەجادی", "مارف خەزنەدار", "تۆفیق وەهبی", "حاجی جندی"], ans: 0 },
-      { q: "د. کەمال مەزهەر د کیژ بیاڤی دا ب کوردناسەکی تژی ژ بەرهەم دهێتە زانین؟", options: ["دیرۆکا کوردی", "فەرهەنگسازی", "ئەتنۆگرافیا خوارنێ", "جوگرافیا ئەورۆپا"], ans: 0 }
-    ],
-    qa: [
-      { q: "ناڤێ چوار ژ زمانناسێن پێشەنگێن کورد د بیاڤێ رێنڤیس و رێزمانی دا بێژە؟", a: "سەعید سدقی کابان، تۆفیق وەهبی، جەلادەت بەدرخان، کامەران بەدرخان، مەسعود محەمەد، مەلای گەورە، سادق بەهائەلدین." }
-    ]
-  },
-
-  // ================= SLIDE 9 =================
-  {
-    id: 9,
-    pageRef: "لاپەڕە ١٠",
-    title: "درەنگ دەستپێکرنا کوردان و مەرامێن رۆژهەلاتناسێن ئەورۆپی",
-    subtitle: "بۆچی کورد درەنگ کەفتن و بۆچی ئەورۆپی بەری وان هاتن؟",
-    explain: [
-      "<strong>١. هۆکارێن درەنگ دەستپێکرنا ڤەکۆلینا کوردۆلۆجیێ ژ لایێ کوردناسێن کورد ڤە (٤ خال):</strong>",
-      "• <span class='hl'>دابەشکرنا ئێکێ:</span> کوردستان وەلاتەکێ دابەشکری بوو دناڤبەرا ئیمپراتۆریەتێن <span class='hl-blue'>سەفەوی و عوسمانیان</span> دا، بێ دەستهەلات و ژێردەست بوو نەخاسە ژ لایەنێ سیاسی و کارگێری ڤە.",
-      "• <span class='hl'>قەدەغەکرن:</span> قەدەغەکرنا <span class='hl-blue'>خواندن و نڤیسینێ</span> ب زمانێ کوردی.",
-      "• <span class='hl'>دانپێدانەنەکرن:</span> داننەنان ب کوردان مینا نەتەوە.",
-      "• <span class='hl'>دووبارە دابەشکرن:</span> دابەشکرنا کوردستانێ بۆ چوار-پێنج پارچان بسەر وەلاتێن ئیقلیمی (<span class='hl-blue'>تورکیا، ئیران، عێراق، سوریا، ئێکەتیا سۆڤیەتا جاران</span>).",
-      "<strong>٢. بۆچی رۆژهەلاتناسێن ئۆروپی (بیانی) بەری کوردان دەست پێ کر؟ (٣ خال):</strong><br>١- بۆ جێبەجێکرنا مەبەست و <span class='hl'>مەرامێن سیاسی</span> یێن وەلاتێن خوە و بەرژەوەندیێن خوە.<br>٢- بۆ جێبەجێکرنا مەرەما <span class='hl'>بەرژەوەندیێن ئابووری</span> یێن وەلاتێن خوە.<br>٣- بۆ <span class='hl-blue'>نیاسینا جڤاکێ کورد و رێک خوەشکرنێ</span>، و جێبەجێکرنا هەردوو خالێن (مەرەما سیاسی و بەرژەوەندیێن ئابووری)."
-    ],
-    tip: "💡 گەلەک ب ساناهی یە: کورد درەنگ کەفتن ژ بەر ٤ زۆرداریان (سەفەوی-عوسمانی، قەدەغەیا زمانی، داننەنان، دابەشکرنا ٤-٥ پارچان). ئەورۆپی زوو هاتن ژ بەر ٣ مەرامان (سیاسی، ئابووری، نیاسینا جڤاکی بۆ هەردووان).",
-    defs: [
-      { term: "مەرامێن رۆژهەلاتناسێن ئۆروپی", def: "جێبەجێکرنا مەرامێن سیاسی، بەرژەوەندیێن ئابووری یێن وەلاتێن خوە، و نیاسینا جڤاکێ کورد بۆ رێکخوەشکرن و جێبەجێکرنا هەردووان." }
-    ],
-    blanks: [
-      { before: "کوردستان دابەشکری بوو دناڤبەرا ئیمپراتۆریەتێن", after: "و عوسمانیاندا.", answer: "سەفەوی", options: ["سەفەوی", "رۆمانی", "مەغۆلی", "بەریتانی"] },
-      { before: "دووبارە دابەشکرنا کوردستانێ بۆ چوار پێنج پارچان بسەر تورکیا، ئیران، عێراق، سوریا و", after: "بوو.", answer: "ئێکەتیا سۆڤیەتا جاران", options: ["ئێکەتیا سۆڤیەتا جاران", "فەرەنسا", "ئیتالیا", "یونان"] }
-    ],
-    mcqs: [
-      { q: "ئێک ژ هۆکارێن درەنگ دەستپێکرنا کوردۆلۆجیێ ژ لایێ کوردان ڤە نینە:", options: ["پشتەڤانیا بەردەوام یا عوسمانیان بۆ زمانێ کوردی", "قەدەغەکرنا خواندن و نڤیسینێ ب زمانێ کوردی", "داننەنان ب کوردان مینا نەتەوە", "دابەشکرنا کوردستانێ دناڤبەرا سەفەوی و عوسمانیان دا"], ans: 0 },
-      { q: "ئارمانجا سێیێ یا رۆژهەلاتناسێن ئۆروپی ژ ڤەکۆلینا کوردان چ بوو؟", options: ["نیاسینا جڤاکێ کورد و رێکخوەشکرن بۆ مەرەما سیاسی و ئابووری", "پاراستنا دەوڵەتا سەفەوی", "فێرکرنا کوردان بۆ شەرێ خاچپەرستان", "قەدەغەکرنا زمانێ کوردی"], ans: 0 }
-    ],
-    qa: [
-      { q: "چوار هۆکارێن درەنگ دەستپێکرنا ڤەکۆلینا کوردۆلۆجی ژ لایێ کوردان ڤە بێژە؟", a: "١- دابەشبوونا دناڤبەرا سەفەوی و عوسمانیان دا و بێ دەستهەلاتیا سیاسی و کارگێری. ٢- قەدەغەکرنا خواندن و نڤیسینێ ب زمانێ کوردی. ٣- داننەنان ب کوردان مینا نەتەوە. ٤- دووبارە دابەشکرنا کوردستانێ بسەر تورکیا، ئیران، عێراق، سوریا و ئێکەتیا سۆڤیەتا جاران." }
-    ]
-  },
-
-  // ================= SLIDE 10 =================
-  {
-    id: 10,
-    pageRef: "لاپەڕە ١١",
-    title: "زمان — پێناسە و گرنگییا زمانی",
-    subtitle: "رهـ و ریشالێ پەیڤا زمان (Logos)، پێناسێن زمانی و ٥ خالێن گرنگیێ",
-    explain: [
-      "<strong>بنیاتێ پەیڤا زمان:</strong> ب ئنگلیزی <span class='hl'>(Language)</span> دهێت، د بنەرەتا خۆ دا ژ پەیڤا <span class='hl-blue'>(Logos)</span> یا <span class='hl'>گریکی</span> دهێت ب رامانا <span class='hl'>(پەیڤ یان ئاخفتن)</span>. هەروەسا پەیڤا (Logos) د زمانێ <span class='hl-blue'>لاتینیێ</span> دا ب رامانا <span class='hl'>(دەستەلات یان حکمەت یان هزرکرن ... هتد)</span> دهێت.",
-      "<strong>پێناسا گشتی یا زمانی:</strong> زمان باشترین رێکا پەیوەندیکرنێیە کو مرۆڤ ب رێکا زمانی دەربرینێ ژ هزر و بیرۆبۆچونێن خۆ دکەت و پێدڤییاتی و مەبەستێن خۆ پێ دگەهینیتە کەسێن دی، پێخەمەت برێڤەبرنا ژیانا خۆ و ئەنجامدانا هەڤکاریێ.",
-      "<strong>پێناسا کارۆل (Carroll):</strong> <span class='hl'>«زمان کۆمەکا رەمزێن دەنگینە، کو دشێن بهێنە بکارئینان ژ بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانێن دەورووبەر»</span>.",
-      "<strong>گرنگییا زمانی (٥ خال):</strong><br>١. پاراستنا <span class='hl-blue'>کەلتوور و شارستانییا</span> مللەتان.<br>٢. برێڤەبرنا <span class='hl-blue'>کاروبارێن کەسی</span> دناڤ جڤاکیدا.<br>٣. زمان باشترین دیمەنە بۆ هەبوونا جڤاکان و <span class='hl'>تاکە کەسێن جڤاکی دگەهینتە ئێک</span>.<br>٤. زمان <span class='hl'>سیمبولە</span> بۆ جڤاکی و پێشکەفتنا جڤاکان دیاردکەت.<br>٥. گەلەک جاران زمان دبیتە ئەگەرێ هندێ کو <span class='hl-blue'>ئیکگرتنا سیاسی و جڤاکی</span> ب پارێزیت."
-    ],
-    tip: "💡 جوداهیا (Logos) د هەردوو زمانان دا بزانە: د گریکی دا = (پەیڤ یان ئاخفتن). د لاتینی دا = (دەستەلات یان حکمەت یان هزرکرن). پێناسا کارۆل ژی ب پەیڤێن (کۆمەکا رەمزێن دەنگینە) بناسه.",
-    defs: [
-      { term: "پێناسا گشتی یا زمانی", def: "باشترین رێکا پەیوەندیکرنێیە کو مرۆڤ ب رێکا وێ دەربرینێ ژ هزر و بیرۆبۆچوونێن خۆ دکەت و پێدڤییاتی و مەبەستێن خۆ دگەهینیتە کەسێن دی پێخەمەت برێڤەبرنا ژیانێ و هەڤکاریێ." },
-      { term: "پێناسا زمانی ل دەڤ کارۆل", def: "زمان کۆمەکا رەمزێن دەنگینە، کو دشێن بهێنە بکارئینان ژ بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانێن دەورووبەر." }
-    ],
-    blanks: [
-      { before: "پەیڤا (Logos) د زمانێ گریکی دا ب رامانا", after: "دهێت.", answer: "پەیڤ یان ئاخفتن", options: ["پەیڤ یان ئاخفتن", "هێز و لەشکەر", "رەمز و نڤیسین", "ئاخ و نیشتمان"] },
-      { before: "د زمانێ لاتینی دا پەیڤا (Logos) ب رامانا دەستەلات یان حکمەت یان", after: "دهێت.", answer: "هزرکرن", options: ["هزرکرن", "نڤستن", "دەنگ", "خوارن"] },
-      { before: "ب گۆرەی پێناسا کارۆل، زمان کۆمەکا", after: "دەنگینە.", answer: "رەمزێن", options: ["رەمزێن", "پەرتووکێن", "کەلتورێن", "یاسایێن"] }
-    ],
-    mcqs: [
-      { q: "زمان د بنەرەتا خۆ دا ژ کیژ پەیڤا گریکی هاتیە؟", options: ["Logos", "Geno", "Cide", "Ethno"], ans: 0 },
-      { q: "ئەڤ پێناسەیا (زمان کۆمەکا رەمزێن دەنگینە بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانێن دەورووبەر) یا کێ یە؟", options: ["کارۆل", "داروین", "ئەفلاتۆن", "رڤیزی"], ans: 0 },
-      { q: "ئێک ژ گرنگیێن زمانی ئەوە کو دبیتە ئەگەرێ پاراستنا:", options: ["ئێکگرتنا سیاسی و جڤاکی", "کۆچکرنێ", "ئابووریا جیهانێ ب تنێ", "شەڕێ هۆزان"], ans: 0 }
-    ],
-    qa: [
-      { q: "پێنج خالێن گرنگییا زمانی بژمێرە؟", a: "١- پاراستنا کەلتوور و شارستانییا مللەتان. ٢- برێڤەبرنا کاروبارێن کەسی دناڤ جڤاکیدا. ٣- باشترین دیمەنە بۆ هەبوونا جڤاکان و تاکە کەسان دگەهینتە ئێک. ٤- سیمبولە بۆ جڤاکی و پێشکەفتنا وێ دیاردکەت. ٥- ئێکگرتنا سیاسی و جڤاکی دپارێزیت." }
-    ]
-  },
-
-  // ================= SLIDE 11 =================
-  {
-    id: 11,
-    pageRef: "لاپەڕە ١٢",
-    title: "بنچینەیا پەیدابوونا زمانی (ئێکەم زمان و ٦٠٠٠ زمان)",
-    subtitle: "چەوا ئێک زمان بوو ٦٠٠٠ زمان و ئەگەرێن کۆچکرنێ چ بوون؟",
-    explain: [
-      "<strong>زمان دیاردەیەکا جڤاکی یە:</strong> مینا هەمی دیاردێن جڤاکی بەردەوام دکەڤیتە بەر پێلێن وەرار و گوهۆڕینێ. هەر زمانەک ل پەی هۆکارێن خۆ و کاودانێن ناڤچەیی دهێتە گوهۆڕین؛ <span class='hl'>نەمەرجە هەمی زمان ب وەکهەڤی و یەک ئاوایی بهێنە گوهۆڕین</span>.",
-      "<strong>ئێکەم زمان کیژ بوو؟</strong> ئێکەم زمان ئەو بوو دەمێ <span class='hl-blue'>خودێ ل گەل (ئادەم)ی ئاخفتی</span>. جوهی دبێژن <span class='hl'>(عیبری)</span>یە، هندەک عەرەب دبێژن <span class='hl'>(عەرەبی)</span>یە، بەلێ د <span class='hl-blue'>قورئانا پیرۆز و ئنجیلێ ژیدا نەهاتیە دیارکرن</span> کا کیژ زمانە.",
-      "<strong>چەوا ژ ئێک زمانی (٦٠٠٠) زمان چێبووینە؟</strong><br>دەسپێکێ ئێک زمان هەبوویە، پشتی هژمارا ئاخڤتنکەرێن وی زێدەبووین نەشیان ب تنێ ل ئێک جهـ بژین ژ بەر <span class='hl'>دوو ئەگەران</span>:<br>١- <span class='hl-blue'>نەبوونا جهی</span>.<br>٢- <span class='hl-blue'>نەبوونا خوارنێ و کێماتیا دەرامەتی (ئەرزاق)ی</span>.",
-      "<strong>ئەنجام:</strong> نەچاربوون کۆچبکەن بۆ جهێن دی، و پشتی بورینا <span class='hl'>(٥–٦ چەرخان)</span> گوهۆڕینێن رهـ و ریشالی ب سەر زمانیدا هاتن؛ پەیڤێن ژناڤچووین ل جهێ وان پەیڤێن دی دانان، دەستپێکێ بوونە <span class='hl'>دیالێکت</span> و پاشی بوونە <span class='hl'>زمانێن سەربەخۆ</span>، نوکە ژی نێزیکی <span class='hl-blue'>(٦٠٠٠) هزار زمانان</span> پەیدابووینە."
-    ],
-    tip: "💡 رێزبەندیێ ژبەر بکە: زێدەبوونا هژمارێ ⬅️ دوو ئەگەر (جهـ نەما + خوارن/ئەرزاق کێم بوو) ⬅️ کۆچکرن ⬅️ بورینا (٥-٦ چەرخان) ⬅️ دیالێکت ⬅️ زمانێن سەربەخۆ (نێزیکی ٦٠٠٠ زمان).",
-    defs: [
-      { term: "تایبەتمەندیا گوهۆڕینا زمانی", def: "زمان دیاردەیەکا جڤاکی یە بەردەوام دکەڤیتە بەر وەرار و گوهۆڕینێ، و نەمەرجە گوهۆڕین د تەڤ زماناندا ب وەکهەڤی و یەک ئاوایی بیت." }
-    ],
-    blanks: [
-      { before: "ئاخڤتنکەرێن زمانێ ئێکێ نەشیان ل ئێک جهـ بژین ژ بەر نەبوونا جهی و نەبوونا", after: "و کێماتیا دەرامەتی.", answer: "خوارنێ", options: ["خوارنێ", "ئاڤێ", "نڤیسینێ", "ئاسایشێ"] },
-      { before: "پشتی بورینا", after: "چەرخان گوهۆڕینێن رهـ و ریشالی بسەر زمانیدا هاتن و دەستپێکێ بوونە دیالێکت.", answer: "٥-٦", options: ["٥-٦", "١-٢", "٢٠-٣٠", "٥٠-٦٠"] },
-      { before: "نوکە نێزیکی", after: "زمانان ل جیهانێ پەیدابووینە.", answer: "٦٠٠٠", options: ["٦٠٠٠", "٦٠٠", "١٠٠٠", "٦٠"] }
-    ],
-    mcqs: [
-      { q: "د قورئانا پیرۆز و ئنجیلێ دا دەربارەی ئێکەم زمان چ هاتیە گۆتن؟", options: ["دیار نەکریە کا کیژ زمان بوو", "گۆتیە ب تنێ عەرەبی بوو", "گۆتیە ب تنێ عیبری بوو", "گۆتیە زمانێ لاتینی بوو"], ans: 0 },
-      { q: "بۆچی ئاخڤتنکەرێن زمانێ ئێکێ کۆچ کرن بۆ جهێن دی؟", options: ["ژ بەر نەبوونا جهی و نەبوونا خوارنێ و کێماتیا دەرامەتی (ئەرزاقی)", "ژ بەر شەرێ خاچپەرستان", "ژ بەر فێربوونا زمانێ گریکی", "ژ بەر سەرمایێ"], ans: 0 },
-      { q: "ئەرێ مەرجە گوهۆڕینا هەمی زمانان ب وەکهەڤی و ئێک ئاوایی بیت؟", options: ["نەخێر، نەمەرجە", "بەلێ، هەمی ب یەک ئاوایی دگوهۆڕن", "ب تنێ زمانێن ئاری دگوهۆڕن", "زمان قەت ناگوهۆڕیت"], ans: 0 }
-    ],
-    qa: [
-      { q: "بۆچوونێن جیاواز لسەر ئێکەم زمانێ خودێ دگەل ئادەمی ئاخفتی چنە؟", a: "جوهی دبێژن عیبرییە و هندەک عەرەب دبێژن عەرەبییە، بەلێ نە د قورئانا پیرۆز دا و نە د ئنجیلێ دا نەهاتیە گۆتن کا کیژ زمانە." }
-    ]
-  },
-
-  // ================= SLIDE 12 =================
-  {
-    id: 12,
-    pageRef: "لاپەڕە ١٣",
-    title: "بنیاتێ زمانی: بۆچوونێن گرتی (ئۆلی) و گریمانا دەنگێن سروشتی",
-    subtitle: "ئەرێ زمان خەلاتێ خودێ یە یان مرۆڤی بخۆ چێکریە؟",
-    explain: [
-      "دەربارەی بنیاتێ زمانی (خودێ دایە مە یان بخۆ چێبوویە)، دوو بۆچوون (گرتە / گریمانە) هەنە:",
-      "<strong>بۆچوونا ئێکێ — بۆچوونێن گرتی (ئۆلی - باوەری):</strong><br>• ئالیگرێن ڤێ بۆچوونێ ئاماژە ب ژێدەرێن ئۆلی (<span class='hl'>تەورات، ئینجیل، قورئان</span>) ددەن و دبێژن زمان <span class='hl-blue'>خەلاتەکە ژ لایێ خودێ بۆ مرۆڤی</span> و خودێ «ئادەم» فێری زمانی کریە، پاشی بۆ کوڕ و نەڤیێن وی هاتیە ڤەگوهاستن.<br>• فەیلەسوفێ گریکی <span class='hl'>«ئەفلاتۆن»</span> ل سەدسالیا پێنجێ پ.ز دبێژیت: زمان دیاردەکا <span class='hl'>خوەزایی (سروشتی)</span>یە و مرۆڤان چ پەیوەندی ب ئافراندنا وێ ڤە نینە.<br>• زانایێن ئیسلامی وەک (<span class='hl-blue'>ابو حسن الاشعری، ابن فارس، ابن عباس</span>) مینا ئەفلاتۆن دفکرین. <span class='hl'>«ابن عباس»</span> ئایەتا <em>(وعلم آدم الأسماء كلها)</em> دکەتە بەلگە و دبێژت «الأسماء» ب رامانا تشتێ دەورووبەرێ مرۆڤ و گیانەوەرا دهێت.",
-      "<strong>بۆچوونا دوویێ — گرتێن ڤەکری (مرۆڤی / خوکردە):</strong> زمان بخۆ چێبوویە و ٤ گریمانە هەنە (ئێک ل ڤێرە و سێ د سلایدا بهێت دا):",
-      "<strong>١. گریمانا دەنگێن سروشتی:</strong><br>• ل سەدێ <span class='hl'>(٤–٥ پ.ز)</span> ژ لایێ <span class='hl-blue'>(دیموکراتیس، ئەرستۆ، ئەفلاتۆن)</span> هاتیە بەحسکرن.<br>• ل سەدێ <span class='hl'>(١٧–١٨)</span> ژ لایێ زانا <span class='hl-blue'>(لاینیز / لایبنیز)</span> هاتیە بەحسکرن.<br>• ل سەدێ <span class='hl'>نۆزدێ (١٩)</span> ژ لایێ <span class='hl-blue'>(یسپرسن، عەلی عەبدولواحد الوافی، تینی)</span> هاتیە پەسەندکرن.<br>• ناڤەرۆک: زمان ژ <span class='hl'>لاساییکرنا دەنگێن سروشتی</span> پەیدابوویە وەکو (<span class='hl'>شرشرا ئاڤێ، گرگرا عەوران، چرچرا چویچکان، قدقدا مریشکی...</span>)."
-    ],
-    tip: "💡 هشیار بە! د گریمانا دەنگێن سروشتی دا ٣ قۆناغێن زانایان هەنە: (٤-٥ پ.ز: دیموکراتیس، ئەرستۆ، ئەفلاتۆن) ⬅️ (١٧-١٨: لاینیز) ⬅️ (١٩: یسپرسن، عەلی عەبدولواحد الوافی، تینی). د بۆچوونێن گرتی دا: تەورات و ئینجیل و قورئان + ئەفلاتۆن + اشعری، ابن فارس، ابن عباس.",
-    defs: [
-      { term: "بۆچوونێن گرتی (ئۆلی - باوەری)", def: "ئەو بۆچوونەیە کو دبێژیت زمان خەلاتەکە ژ لایێ خودێ بۆ مرۆڤی و خودێ ئادەم فێری زمانی کریە و پاشی هاتیە ڤەگوهاستن بۆ کوڕ و نەڤیێن وی." },
-      { term: "گریمانا دەنگێن سروشتی", def: "گرتەیەکە ژ گرتێن ڤەکری یێن مرۆڤی کو دبێژیت زمان ژ لاساییکرنا دەنگێن سروشتی وەکو شرشرا ئاڤێ و گرگرا عەوران و چرچرا چویچکان پەیدابوویە." }
-    ],
-    blanks: [
-      { before: "ابن عباس ئایەتا قورئانا پیرۆز", after: "دکەتە بەلگە بۆ راستییا بۆچوونا ئۆلی.", answer: "وعلم ادم الاسما كلها", options: ["وعلم ادم الاسما كلها", "اقرأ باسم ربك", "قل هو الله أحد", "الرحمن علم القرآن"] },
-      { before: "ل سەدێ (١٧-١٨) گریمانا دەنگێن سروشتی ژ لایێ زانا", after: "ڤە هاتە بەحسکرن.", answer: "لاینیز", options: ["لاینیز", "شتانیشال", "چیجر", "داروین"] },
-      { before: "ژ نموونێن لاساییکرنا دەنگێن سروشتی شرشرا ئاڤێ، گرگرا عەوران،", after: "و قدقدا مریشکی نە.", answer: "چرچرا چویچکان", options: ["چرچرا چویچکان", "کەنی و گری", "ئاخ و ئۆف", "دەنگێ کارکرنێ"] }
-    ],
-    mcqs: [
-      { q: "ئەفلاتۆن ل سەدسالیا پێنجێ بەری زاینی دەربارەی زمانی چ دبێژیت؟", options: ["زمان دیاردەکا خوەزایی (سروشتی)یە و مرۆڤان چ پەیوەندی ب ئافراندنا وێ ڤە نینە", "زمان ژ کارکرنا کۆمەکا مرۆڤان دروست بوویە", "زمان ب تنێ ژ قیژییان دروست بوویە", "زمان ب رێکەفتنێ چێبوویە"], ans: 0 },
-      { q: "کیژ ژ ڤان زانایان د سەدێ نۆزدێ دا گریمانا دەنگێن سروشتی پەسەند کر؟", options: ["یسپرسن، عەلی عەبدولواحد الوافی، تینی", "ماکس مولر و ئارنست رینان", "رڤیزی و چیجر", "ابن فارس و اشعری"], ans: 0 },
-      { q: "ل دەڤ «ابن عباس» پەیڤا (الأسماء) د ئایەتێ دا ب رامانا چ دهێت؟", options: ["تشتێ دەورووبەرێ مرۆڤ و گیانەوەران", "ناڤێن پەرتووکان", "رەمزێن فەلسەفی", "ئاوازێن مۆزیکێ"], ans: 0 }
-    ],
-    qa: [
-      { q: "ناڤێ سێ زانایێن ئیسلامی بێژە کو د بۆچوونا گرتی (ئۆلی) دا دەربارەی پەیدابوونا زمانی هاتینە باسکرن؟", a: "ابو حسن الاشعری، ابن فارس، ابن عباس." }
-    ]
-  },
-
-  // ================= SLIDE 13 =================
-  {
-    id: 13,
-    pageRef: "لاپەڕە ١٤ (وێنەیێ تە هنارتی)",
-    title: "گرتێن ڤەکری: گریمانێن ٢، ٣ و ٤ (دوماهیکا ماددەیێ کوێزێ)",
-    subtitle: "گازی و قیژیێن هەست دەربر + پەیوەندیکرن + رێکەفتن",
-    explain: [
-      "<strong>٢. گریمانا گازی و قیژیێن هەست دەربر:</strong><br>• هزرا وێ دزڤریتەڤە بۆ سەدێ <span class='hl'>(١٧) زاینی</span> ژ لایێ زانایێ ئەلمانی <span class='hl-blue'>(شتانیشال)</span> و هژمارەکا زانایێن سەدێ نوزدێ.<br>• باوەری: زمان ژ <span class='hl'>دەنگێن زکماکی یێن مرۆڤی</span> پەیدابوویە کو دەربرینێ ژ خۆشی، نەخۆشی، ئازار و خەمان دکەت وەک (<span class='hl'>کەنی، گری...</span>) یان کەربوکین و مەترسی وەک <span class='hl'>«ئاخ و ئۆف...»</span>.<br>• <span class='hl-blue'>«داروین»</span> د تیۆرا خۆ یا بناڤێ <span class='hl'>«گەشەکرنا بوونەوەرێن زیندی»</span> دا ئاماژە پێدایە. هەروەسا <span class='hl-blue'>«ماکس مولر» و «ئارنست رینان»</span> ژ پشتەڤانێن وێ نە.",
-      "<strong>٣. گریمانا پەیوەندیکرنێ:</strong><br>• ژ لایێ <span class='hl-blue'>(رڤیزی)</span> ڤە هاتیە بەحسکرن. ب باوەریا وی زمان د سێ قۆناغاندا دەرباز بوویە:<br>أ- <span class='hl'>قۆناغا قیژییان:</span> ئارمانج ژێ تێگەهشتن نەبوویە.<br>ب- <span class='hl'>قۆناغا گازیکرنێ:</span> ئارمانج ژێ ب جهئینانا حەز و ئارەزویێن مرۆڤی بوویە.<br>ت- <span class='hl'>قۆناغا پەیڤی:</span> دەنگ وەک پەیڤ (هێما) بکاهاتینە.<br>• ب باوەریا رڤیزی ئێکەم گۆتن ل دەڤ مرۆڤان ب شێوێ <span class='hl'>«فەرمان»</span> بوویە و پاشی <span class='hl-blue'>راگەهاندن و پرسیارکرن</span> پەیدابوویە.",
-      "<strong>٤. گریمانا رێکەفتنێ:</strong><br>• زانایێ ئەلمانی <span class='hl-blue'>«چیجر»</span> خودانێ ڤێ گریمانێ بوو.<br>• ناڤەرۆک: زمان ژ دەنگێ کۆمەکا مرۆڤان پەیدابوویە دەمێ کارەک ئەنجامداین و پێدڤی ب <span class='hl'>هەڤکاریا هەڤدوو</span> بووینە؛ ل دەمێ ب جهـ ئینانا کارێ خوە هندەک دەنگ ژ بۆ تشتان دەربرینە و ئەو دەنگ بووینە هێما بۆ وی کاری، پاشی <span class='hl'>رێکەفتینە ناڤەکی داننە سەر وان تشتان</span>. هۆسا زمان پەیدابوویە."
-    ],
-    tip: "💡 نەهێلە د کوێزێ دا تێکەل ببن! شتانیشال + داروین + ماکس مولر + رینان = (گازی و قیژیێن هەست دەربر) | رڤیزی + ٣ قۆناغ + فەرمان = (پەیوەندیکرن) | چیجر + کارێ کۆمێ + هەڤکاری = (رێکەفتن).",
-    defs: [
-      { term: "گریمانا گازی و قیژیێن هەست دەربر", def: "ئەو گریمانەیە کو زمان ژ دەنگێن زکماکی یێن مرۆڤی پەیدابوویە بۆ دەربرینا هەستێ خۆشی و ئازار و مەترسیێ وەک کەنی، گری، ئاخ و ئۆف." },
-      { term: "گریمانا پەیوەندیکرنێ (رڤیزی)", def: "ئەو گریمانەیە کو زمان د سێ قۆناغاندا دەرباز بوویە (قیژییان، گازیکرن، پەیڤی) و ئێکەم گۆتن ب شێوێ فەرمان بوویە پاشی راگەهاندن و پرسیارکرن." },
-      { term: "گریمانا رێکەفتنێ (چیجر)", def: "زمان ژ دەنگێ کۆمەکا مرۆڤان پەیدابوویە ل دەمێ کارکرنێ و پێدڤیبوونێ ب هەڤکاریێ، دەنگەک کریە هێما و رێکەفتینە ناڤان داننە سەر تشتان." }
-    ],
-    blanks: [
-      { before: "هزرا گریمانا گازی و قیژیێن هەست دەربر دزڤریتە سەدێ ١٧ ژ لایێ زانایێ ئەلمانی", after: "یڤە.", answer: "شتانیشال", options: ["شتانیشال", "چیجر", "رڤیزی", "لاینیز"] },
-      { before: "ب باوەریا رڤیزی ئێکەم گۆتن ل دەڤ مرۆڤان ب شێوێ", after: "بوویە.", answer: "فەرمان", options: ["فەرمان", "پرسیارکرن", "راگەهاندن", "ستران"] },
-      { before: "خودانێ گریمانا رێکەفتنێ زانایێ ئەلمانی", after: "بوو.", answer: "چیجر", options: ["چیجر", "ماکس مولر", "شتانیشال", "ئەرستۆ"] }
-    ],
-    mcqs: [
-      { q: "«داروین» د تیۆرا خۆ یا (گەشەکرنا بوونەوەرێن زیندی) دا ئاماژە ب کیژ گریمانێ دایە؟", options: ["گریمانا گازی و قیژیێن هەست دەربر", "گریمانا رێکەفتنێ", "گریمانا پەیوەندیکرنێ", "بۆچوونا ئۆلی"], ans: 0 },
-      { q: "د گریمانا پەیوەندیکرنێ یا (رڤیزی) دا، قۆناغا ئێکێ چییە کو ئارمانج ژێ تێگەهشتن نەبوویە؟", options: ["قۆناغا قیژییان", "قۆناغا گازیکرنێ", "قۆناغا پەیڤی", "قۆناغا نڤیسینێ"], ans: 0 },
-      { q: "کیژ ژ ڤان زانایان پشتەڤانێ گریمانا گازی و قیژیێن هەست دەربر نینە؟", options: ["چیجر", "ماکس مولر", "ئارنست رینان", "داروین"], ans: 0 },
-      { q: "د قۆناغا (گازیکرنێ) ل دەڤ رڤیزی ئارمانج ژێ چ بوویە؟", options: ["ب جهئینانا حەز و ئارەزویێن مرۆڤی", "ب کارئینانا دەنگان وەک هێما", "چ ئارمانج تێدا نەبوو", "ناڤدانانا تشتان ب هەڤکاری"], ans: 0 }
-    ],
-    qa: [
-      { q: "هەر سێ قۆناغێن گریمانا پەیوەندیکرنێ ل دەڤ (رڤیزی) دگەل ئارمانجا هەر ئێکێ بێژە؟", a: "أ- قۆناغا قیژییان: ئارمانج ژێ تێگەهشتن نەبوویە. ب- قۆناغا گازیکرنێ: ئارمانج ژێ ب جهئینانا حەز و ئارەزویێن مرۆڤی بوویە. ت- قۆناغا پەیڤی: دەنگ وەک پەیڤ (هێما) بکاهاتینە." }
-    ]
-  },
-
-  // ================= SLIDE 14 (COMPREHENSIVE FINAL QUIZ) =================
-  {
-    id: 14,
-    pageRef: "لاپەڕە ١ هەتا ١٤",
-    title: "🏆 تاقیکرنا گشتی یا کۆتایی (کوێزێ ١٠٠٪)",
-    subtitle: "ئەگەر ل ڤێرە ١٠٠/١٠٠ ئینا، سوباهی دێ د ئەزموونا مامۆستای دا سەرکەفتی بی!",
-    explain: [
-      "ئەڤ سلایدە هەمی پرسیارێن گەرم و پێشبینیکری یێن لاپەڕە ١ هەتا ١٤ تێدانە (پێناسە + ڤالاتی + هەلبژارتن).",
-      "تبلا خۆ ل هەمی پرسیاران بدە دا بزانێ کا چەند ژ ماددەی د مێشکێ تە دا جێگیر بوویە!"
-    ],
-    tip: "🌟 دوماهیک پێداچوون: بەری بچییە هۆلا ئەزموونێ، جارەک دی ناڤێ کتیبان و سالان و زانایێن ٤ گریمانان بخوینە!",
-    defs: [
-      { term: "نزهة القلوب vs نامەیا ئیمام عەلی", def: "نزهة القلوب (حەمدوللا مستەوفی): کەڤنترین ژێدەرێ موسلمانان کو پەیڤا (کوردستان) بکارئینای. نامەیا ئیمام عەلی بۆ زیادێ کورێ ئەبیهـ: کەڤنترین نڤێسینا فەرمی کو ناڤێ (کوردان) تێدا هاتی." },
-      { term: "فەرقا (کوردۆلۆجی) ب گشتی", def: "کورد + لۆجی = زانستێ کوردناسیێ؛ لقەکە ژ رۆژهەلاتناسیێ، ل مێژوو، زمان، ئەدەب، جوگرافیا، ئەتنۆگرافیا، کەلتور و هەمی ئالیێن ژیانا کوردی دکۆلیت." }
-    ],
-    blanks: [
-      { before: "پشتی راپەڕینا سالا", after: "بڕیار هاتە دان کوردۆلۆجی ل قۆناغا ئێکێ یا زانکۆیان بهێتە خواندن.", answer: "١٩٩١", options: ["١٩٩١", "١٩٩٥", "١٩٨٨", "١٩٧٠"] },
-      { before: "قەشە مۆریزیۆ گارزۆنی ل سالا ١٧٨٧ پەرتووکا", after: "بەلاڤکر کو ٢٢٠ لاپەڕ بوو.", answer: "رێزمانا دانەپەیڤا زمانێ کوردی", options: ["رێزمانا دانەپەیڤا زمانێ کوردی", "شەرەفنامە", "دیرۆکا ئەدەبێ کوردی", "شەری کورد"] },
-      { before: "دکتۆر عەبدوللا جەودەت ل سالا", after: "ئێکەم کەس بوو ژ کوردان کو پەیڤا کوردناسی بکارئینای.", answer: "١٩١٣ز", options: ["١٩١٣ز", "١٩٣٤ز", "١٩٥٦ز", "١٥٩٦ز"] },
-      { before: "زمان ب ئنگلیزی ژ پەیڤا (Logos) یا گریکی دهێت کو رامانا وێ", after: "یە.", answer: "پەیڤ یان ئاخفتن", options: ["پەیڤ یان ئاخفتن", "دەستەلات و حکمەت", "هزرکرن و رەمز", "نڤیسین و خواندن"] }
-    ],
-    mcqs: [
-      { q: "١. رامانا وشا کوردستان چییە؟", options: ["چەلەنگ، زیرەک، سەگڤان", "ئاخا چیا و بەفرێ", "وەلاتێ ئاشوریان", "دەشتا مەزن"], ans: 0 },
-      { q: "٢. ل گۆرەی شەرەفخانێ بەدلیسی، زمانێ کوردی ژ چەند دیالێکتێن سەرەکی پێکدهێت؟", options: ["٤ دیالێکت (کرمانجی، لوری، کەهلوری، گورانی)", "٢ دیالێکت ب تنێ", "٦ دیالێکت", "٣ دیالێکت"], ans: 0 },
-      { q: "٣. ئێکەم رۆژئاڤایی پشتی هیرۆدۆتسی دەربارەی کوردان نڤیسی کی بوو؟", options: ["زەینەفوون", "مارکۆ پۆلۆ", "گارزۆنی", "ژاپا"], ans: 0 },
-      { q: "٤. دۆستێ نێزیکێ مەلا مەحمود بایەزیدی کو دگەل وی پەخشانا کوردی دەستپێکر کی بوو؟", options: ["ئەلکسەندەر ژاپا", "ڤلادمێر مینۆرسکی", "لێرخ", "کرێس کۆچێرا"], ans: 0 },
-      { q: "٥. کیژ زانایێ موسلمان کوردستان وەک هەرێمەکا سەربەخۆ ژ وەلاتێن دی دانایە؟", options: ["ئەلمەقدیسی (أحسن التقاسيم)", "ئیبن حەوقەل (صورة الارض)", "تەبەری (تاريخ الامم)", "ئیبن کەسیر (البداية و النهاية)"], ans: 0 },
-      { q: "٦. کوردستان دابەشکری بوو دناڤبەرا کیژ دوو ئیمپراتۆریەتان دا؟", options: ["سەفەوی و عوسمانی", "رۆمانی و یۆنانی", "بەریتانی و فەرەنسی", "چینی و رووسی"], ans: 0 },
-      { q: "٧. کۆچکرنا مرۆڤێن زمانێ ئێکێ بۆ جهێن دی پشتی چەند چەرخان بوو ئەگەرێ دروستبوونا دیالێکتان و پاشی زمانێن سەربەخۆ؟", options: ["٥–٦ چەرخان", "١–٢ چەرخان", "٥٠ چەرخان", "١٠٠ چەرخان"], ans: 0 },
-      { q: "٨. ئەفلاتۆن، ابو حسن الاشعری، ابن فارس و ابن عباس سەر ب کیژ بۆچوونێ نە؟", options: ["بۆچوونێن گرتی (ئۆلی - باوەری)", "گریمانا رێکەفتنێ", "گریمانا پەیوەندیکرنێ", "گریمانا گازی و قیژییان"], ans: 0 },
-      { q: "٩. زانایێ ئەلمانی (شتانیشال) و (داروین) و (ماکس مولر) پەیوەستن ب کیژ گریمانێ ڤە؟", options: ["گریمانا گازی و قیژیێن هەست دەربر", "گریمانا رێکەفتنێ", "گریمانا دەنگێن سروشتی", "گریمانا پەیوەندیکرنێ"], ans: 0 },
-      { q: "١٠. (رڤیزی) خودانێ گریمانا پەیوەندیکرنێ یە، ب باوەریا وی ئێکەم گۆتن ل دەڤ مرۆڤان ب چ شێوەیەکێ بوویە؟", options: ["فەرمان", "پرسیارکرن", "راگەهاندن", "ستران"], ans: 0 }
-    ],
-    qa: [
-      { q: "خودانێ گریمانا رێکەفتنێ کی بوو و چەوا زمان پەیدابوویە؟", a: "زانایێ ئەلمانی (چیجر) بوو؛ دبێژیت زمان ژ دەنگێ کۆمەکا مرۆڤان پەیدابوویە دەمێ کارەک ب هەڤکاری ئەنجامداین و دەنگەک کریە هێما و رێکەفتینە ناڤان داننە سەر تشتان." }
-    ]
-  }
-];
-
-let currentSlideIndex = 0;
-let state = {
-  blanks: {},
-  mcqs: {},
-  blankOrders: {},
-  mcqOrders: {}
-};
-
-function toKuNum(num) {
-  const digits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return String(num).replace(/\d/g, d => digits[d]);
-}
-
-function shuffleIndices(len) {
-  const arr = [];
-  for (let i = 0; i < len; i++) arr.push(i);
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = tmp;
-  }
-  return arr;
-}
-
-function initShuffledOrders() {
-  state.blankOrders = {};
-  state.mcqOrders = {};
-  slidesData.forEach(slide => {
-    if (slide.blanks) {
-      slide.blanks.forEach((b, idx) => {
-        state.blankOrders[`b_${slide.id}_${idx}`] = shuffleIndices(b.options.length);
-      });
-    }
-    if (slide.mcqs) {
-      slide.mcqs.forEach((m, idx) => {
-        state.mcqOrders[`m_${slide.id}_${idx}`] = shuffleIndices(m.options.length);
-      });
-    }
-  });
-}
-
-function getTotals() {
-  let total = 0;
-  let correct = 0;
-  slidesData.forEach(slide => {
-    if (slide.blanks) total += slide.blanks.length;
-    if (slide.mcqs) total += slide.mcqs.length;
-  });
-  Object.values(state.blanks).forEach(v => { if (v.isCorrect) correct++; });
-  Object.values(state.mcqs).forEach(v => { if (v.isCorrect) correct++; });
-  return { correct, total };
-}
-
-function updateHeaderStats() {
-  const slideCounter = document.getElementById('slideCounter');
-  const scoreCounter = document.getElementById('scoreCounter');
-  const { correct, total } = getTotals();
-  slideCounter.textContent = `سلاید ${toKuNum(currentSlideIndex + 1)} ژ ${toKuNum(slidesData.length)}`;
-  scoreCounter.textContent = `✅ نمرە: ${toKuNum(correct)} / ${toKuNum(total)}`;
-}
-
-function renderNavStrip() {
-  const navStrip = document.getElementById('navStrip');
-  navStrip.innerHTML = '';
-  slidesData.forEach((slide, idx) => {
-    const btn = document.createElement('button');
-    btn.className = 'slide-tab' + (idx === currentSlideIndex ? ' active' : '');
-    btn.textContent = slide.id === 14 ? '🏆 کوێزێ کۆتایی' : `سلاید ${toKuNum(slide.id)}`;
-    btn.onclick = () => goToSlide(idx);
-    navStrip.appendChild(btn);
-  });
-  const activeTab = navStrip.children[currentSlideIndex];
-  if (activeTab && activeTab.scrollIntoView) {
-    activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  }
-}
-
-function renderSlide() {
-  const slide = slidesData[currentSlideIndex];
-  document.body.className = `theme-${slide.id}`;
-  updateHeaderStats();
-  renderNavStrip();
-
-  const container = document.getElementById('slideContainer');
-  container.innerHTML = '';
-
-  const card = document.createElement('article');
-  card.className = 'slide-card';
-
-  // Banner
-  const banner = document.createElement('div');
-  banner.className = 'slide-banner';
-  banner.innerHTML = `
-    <span class="slide-badge">سلاید ${toKuNum(slide.id)} • ${slide.pageRef}</span>
-    <h2>${slide.title}</h2>
-    <p class="subtitle">${slide.subtitle}</p>
-  `;
-  card.appendChild(banner);
-
-  // Body
-  const body = document.createElement('div');
-  body.className = 'slide-body';
-
-  // 1. Explain
-  if (slide.explain && slide.explain.length) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box explain';
-    sec.innerHTML = `<div class="section-title">📖 شڕۆڤەکرن و خالێن سەرەکی</div>`;
-    const ul = document.createElement('ul');
-    ul.className = 'explain-list';
-    slide.explain.forEach(item => {
-      const li = document.createElement('li');
-      li.innerHTML = item;
-      ul.appendChild(li);
-    });
-    sec.appendChild(ul);
-    body.appendChild(sec);
-  }
-
-  // 2. Tip
-  if (slide.tip) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box tip';
-    sec.innerHTML = `<div class="section-title">✨ کلیلا ژبەرکرنێ</div><p>${slide.tip}</p>`;
-    body.appendChild(sec);
-  }
-
-  // 3. Definitions
-  if (slide.defs && slide.defs.length) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box defs';
-    sec.innerHTML = `<div class="section-title">📌 پێناسە و تێگەهێن گرنگ</div>`;
-    slide.defs.forEach((d, idx) => {
-      const item = document.createElement('div');
-      item.className = 'def-item';
-      const ansId = `def-ans-${slide.id}-${idx}`;
-      item.innerHTML = `
-        <div class="def-header">
-          <span class="def-term">${d.term}</span>
-          <button class="reveal-btn" type="button" onclick="toggleReveal('${ansId}', this)">نیشاندانا پێناسێ 👁️</button>
+    <!-- ==================== SLIDE 1 ==================== -->
+    <div class="slide-card" id="slide1">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ١ (Slide 1)</span>
+            <span class="slide-title-en">Title Page - COMPUTER ESSENTIAL</span>
+            <div class="slide-title-ku">بەرگێ وانەیێ - بنەمایێن کۆمپیوتەری</div>
         </div>
-        <div class="def-answer" id="${ansId}">${d.def}</div>
-      `;
-      sec.appendChild(item);
-    });
-    body.appendChild(sec);
-  }
 
-  // 4. Fill-in-the-blanks
-  if (slide.blanks && slide.blanks.length) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box blanks';
-    sec.innerHTML = `<div class="section-title">✍️ ڤالاتیان پڕ بکە</div>`;
-    slide.blanks.forEach((b, bIdx) => {
-      const key = `b_${slide.id}_${bIdx}`;
-      const saved = state.blanks[key];
-      const order = state.blankOrders[key] || shuffleIndices(b.options.length);
-
-      const item = document.createElement('div');
-      item.className = 'blank-item';
-
-      const slotClass = saved ? (saved.isCorrect ? 'blank-slot filled-correct' : 'blank-slot filled-wrong') : 'blank-slot';
-      const slotText = saved ? saved.chosen : '..........';
-
-      const textDiv = document.createElement('div');
-      textDiv.className = 'blank-text';
-      textDiv.innerHTML = `${b.before} <span class="${slotClass}" id="blank-slot-${slide.id}-${bIdx}">${slotText}</span> ${b.after}`;
-      item.appendChild(textDiv);
-
-      const choicesDiv = document.createElement('div');
-      choicesDiv.className = 'blank-choices';
-      choicesDiv.id = `blank-choices-${slide.id}-${bIdx}`;
-
-      order.forEach(optIdx => {
-        const optText = b.options[optIdx];
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'chip-btn';
-        btn.textContent = optText;
-        if (saved) {
-          btn.disabled = true;
-          if (optText === b.answer) btn.classList.add('correct');
-          else if (optText === saved.chosen) btn.classList.add('wrong');
-        } else {
-          btn.onclick = () => answerBlank(slide.id, bIdx, optText, btn);
-        }
-        choicesDiv.appendChild(btn);
-      });
-
-      item.appendChild(choicesDiv);
-      sec.appendChild(item);
-    });
-    body.appendChild(sec);
-  }
-
-  // 5. MCQs
-  if (slide.mcqs && slide.mcqs.length) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box mcqs';
-    sec.innerHTML = `<div class="section-title">📝 پرسیارێن هەلبژارتن (کوێز)</div>`;
-
-    slide.mcqs.forEach((m, mIdx) => {
-      const key = `m_${slide.id}_${mIdx}`;
-      const saved = state.mcqs[key];
-      const order = state.mcqOrders[key] || shuffleIndices(m.options.length);
-
-      const item = document.createElement('div');
-      item.className = 'mcq-item';
-
-      const qDiv = document.createElement('div');
-      qDiv.className = 'mcq-q';
-      qDiv.textContent = m.q;
-      item.appendChild(qDiv);
-
-      const optsDiv = document.createElement('div');
-      optsDiv.className = 'mcq-options';
-      optsDiv.id = `mcq-opts-${slide.id}-${mIdx}`;
-
-      order.forEach(origIdx => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'opt-btn';
-        btn.dataset.orig = origIdx;
-
-        const labelSpan = document.createElement('span');
-        labelSpan.textContent = m.options[origIdx];
-        btn.appendChild(labelSpan);
-
-        if (saved) {
-          btn.disabled = true;
-          if (origIdx === m.ans) {
-            btn.classList.add('correct');
-            const icon = document.createElement('span');
-            icon.textContent = '✅';
-            btn.appendChild(icon);
-          } else if (origIdx === saved.chosenOrigIdx) {
-            btn.classList.add('wrong');
-            const icon = document.createElement('span');
-            icon.textContent = '❌';
-            btn.appendChild(icon);
-          }
-        } else {
-          btn.onclick = () => answerMcq(slide.id, mIdx, origIdx);
-        }
-        optsDiv.appendChild(btn);
-      });
-
-      item.appendChild(optsDiv);
-
-      const fb = document.createElement('div');
-      fb.id = `mcq-fb-${slide.id}-${mIdx}`;
-      if (saved) {
-        fb.className = 'feedback-msg show ' + (saved.isCorrect ? 'ok' : 'err');
-        fb.textContent = saved.isCorrect ? '✅ دەستخۆش! بەرسڤا تە یا دروستە.' : '❌ خەلەتە! بەرسڤا دروست ب رەنگێ کەسک دیارکریە.';
-      } else {
-        fb.className = 'feedback-msg';
-      }
-      item.appendChild(fb);
-      sec.appendChild(item);
-    });
-    body.appendChild(sec);
-  }
-
-  // 6. Q&A
-  if (slide.qa && slide.qa.length) {
-    const sec = document.createElement('section');
-    sec.className = 'section-box qa';
-    sec.innerHTML = `<div class="section-title">❓ پرسیار و بەرسڤێن گرنگ</div>`;
-    slide.qa.forEach((qItem, idx) => {
-      const item = document.createElement('div');
-      item.className = 'qa-item';
-      const ansId = `qa-ans-${slide.id}-${idx}`;
-      item.innerHTML = `
-        <div class="def-header">
-          <span class="def-term" style="color:#9f1239;">${qItem.q}</span>
-          <button class="reveal-btn rose" type="button" onclick="toggleReveal('${ansId}', this)">بەرسڤێ ببینە 💡</button>
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            ئەڤ سلایدە ب تنێ بەرگێ دەستپێکێ یێ مەلزەمێ یە؛ ناڤێ پەیمانگەهێ، ناڤێ وانەیێ و ناڤ و باوەرنامێن مامۆستای تێدانە.
         </div>
-        <div class="qa-answer" id="${ansId}">${qItem.a}</div>
-      `;
-      sec.appendChild(item);
-    });
-    body.appendChild(sec);
-  }
 
-  card.appendChild(body);
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">Akre Technical Institute / Akre University for Applied Sciences (AUAS)</div>
+                <div class="ku-line">پەیمانگەها تەکنیکی یا ئاکرێ / زانکۆیا ئاکرێ بۆ زانستێن کرداری (٢٠٢٣).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">Subject: COMPUTER ESSENTIAL</div>
+                <div class="ku-line">ناڤێ وانەیێ: بنەمایێن گرنگ یێن کۆمپیوتەری (Computer Essential).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">Lecturer: Rondik J. Hassan (D.CS Web Designing, B.Sc Information Technology, M.Sc Internet Technology)</div>
+                <div class="ku-line">مامۆستایا وانەیێ: ڕۆندک ج. حەسەن (دبلۆما زانستێن کۆمپیوتەری ل دیزاینکرنا وێب، بەکالۆریۆس ل تەکنەلۆجیا زانیاریان، ماستەر ل تەکنەلۆجیا ئینتەرنێتێ).</div>
+            </div>
+        </div>
 
-  // Footer
-  const footer = document.createElement('div');
-  footer.className = 'slide-footer';
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلایدی:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Essential</span> = بنەڕەتی / گرنگ</div>
+                <div class="kw-item"><span class="kw-en">Technical Institute</span> = پەیمانگەها تەکنیکی</div>
+                <div class="kw-item"><span class="kw-en">Information Technology</span> = تەکنەلۆجیا زانیاریان</div>
+                <div class="kw-item"><span class="kw-en">Web Designing</span> = دیزاینکرنا مالپەڕان</div>
+            </div>
+        </div>
 
-  const prevBtn = document.createElement('button');
-  prevBtn.type = 'button';
-  prevBtn.className = 'nav-btn secondary';
-  prevBtn.textContent = '➡️ سلایدێ بەری نوکە';
-  prevBtn.disabled = currentSlideIndex === 0;
-  prevBtn.onclick = () => goToSlide(currentSlideIndex - 1);
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن تاقیکرنێ ل سەر سلاید ١ (٥ پسیار)</div>
 
-  const nextBtn = document.createElement('button');
-  nextBtn.type = 'button';
-  nextBtn.className = 'nav-btn';
-  nextBtn.textContent = currentSlideIndex === slidesData.length - 1 ? '🏁 دوماهیکا سلایدان' : 'سلایدێ دویڤدا ⬅️';
-  nextBtn.disabled = currentSlideIndex === slidesData.length - 1;
-  nextBtn.onclick = () => goToSlide(currentSlideIndex + 1);
+            <div class="q-card" data-qid="s1q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. What is the title of this subject?</div>
+                <div class="kurdish-hint">١. ناڤێ ئەڤێ وانەیێ چییە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q1', 'ناڤێ وانەیێ Computer Essential یە.')">A) Web Designing</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's1q1', 'ڕاستە! ناڤێ وانەیێ Computer Essential یە.')">B) Computer Essential</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q1', 'ناڤێ وانەیێ Computer Essential یە.')">C) Internet Technology</button>
+                </div>
+                <div class="feedback" id="fb-s1q1"></div>
+            </div>
 
-  footer.appendChild(prevBtn);
-  footer.appendChild(nextBtn);
-  card.appendChild(footer);
+            <div class="q-card" data-qid="s1q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. What does "AUAS" stand for in the logo?</div>
+                <div class="kurdish-hint">٢. پیتێن AUAS ل ناڤ لۆگۆیێ کورتکرنا چ نە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's1q2', 'ئافەرین! زانکۆیا ئاکرێ بۆ زانستێن کرداری.')">A) Akre University for Applied Sciences</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q2', 'دروست: Akre University for Applied Sciences.')">B) Akre Union for Arts and Science</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q2', 'دروست: Akre University for Applied Sciences.')">C) Applied University of Computer</button>
+                </div>
+                <div class="feedback" id="fb-s1q2"></div>
+            </div>
 
-  container.appendChild(card);
-}
+            <div class="q-card" data-qid="s1q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. Rondik J. Hassan holds an M.Sc in Internet Technology.</div>
+                <div class="kurdish-hint">٣. ڕۆندک ج. حەسەن باوەرناما ماستەرێ د تەکنەلۆجیا ئینتەرنێتێ دا هەیە.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's1q3', 'ڕاستە! ماستەرا وێ د Internet Technology دا یە (٢٠٢٢-٢٠٢٣).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q3', 'خەلەتە، چونکی د سلایدی دا نڤیسییە M.Sc Internet Technology.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s1q3"></div>
+            </div>
 
-function toggleReveal(id, btn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const isShown = el.classList.toggle('show');
-  if (btn.classList.contains('rose')) {
-    btn.textContent = isShown ? 'ڤەشارتنا بەرسڤێ 🙈' : 'بەرسڤێ ببینە 💡';
-  } else {
-    btn.textContent = isShown ? 'ڤەشارتنا پێناسێ 🙈' : 'نیشاندانا پێناسێ 👁️';
-  }
-}
+            <div class="q-card" data-qid="s1q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. The institute shown on the cover page is Duhok Technical Institute.</div>
+                <div class="kurdish-hint">٤. پەیمانگەها ل سەر بەرگی دیارکری پەیمانگەها تەکنیکی یا دهۆکێ یە.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's1q4', 'خەلەتە! یا ئاکرێ یە (Akre Technical Institute).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's1q4', 'ڕاستە! ئەڤە خەلەت بوو چونکی پەیمانگەها تەکنیکی یا ئاکرێ یە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s1q4"></div>
+            </div>
 
-function answerBlank(slideId, bIdx, chosenText) {
-  const key = `b_${slideId}_${bIdx}`;
-  if (state.blanks[key]) return;
+            <div class="q-card" data-qid="s1q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. The subject name is Computer __________.</div>
+                <div class="kurdish-hint">٥. ناڤێ وانەیێ کۆمپیوتەر ________ یە.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s1q5', 'Essential')">Essential</span> <span class="word-chip" onclick="fillInput('in-s1q5', 'Science')">Science</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s1q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s1q5', ['essential'], 'Essential')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s1q5', 'Essential')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s1q5"></div>
+            </div>
+        </div>
+    </div>
 
-  const slide = slidesData.find(s => s.id === slideId);
-  const blank = slide.blanks[bIdx];
-  const isCorrect = chosenText === blank.answer;
+    <!-- ==================== SLIDE 2 ==================== -->
+    <div class="slide-card" id="slide2">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٢ (Slide 2)</span>
+            <span class="slide-title-en">What is a Computer?</span>
+            <div class="slide-title-ku">کۆمپیوتەر چییە؟</div>
+        </div>
 
-  state.blanks[key] = { chosen: chosenText, isCorrect };
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            کۆمپیوتەر ئامیرەکە داتایان وەردگریت (Input)، پرۆسێس دکەت (Process)، هەلدگریت (Store)، و ئەنجامی ددەتە مە (Output). ب سیستەمێ دوانی (Binary: تەنها 0 و 1) کار دکەت و د زانست، خویندن، بازرگانی و سەرگەرمیێ دا رۆلەکێ مەزن هەیە.
+        </div>
 
-  const slot = document.getElementById(`blank-slot-${slideId}-${bIdx}`);
-  if (slot) {
-    slot.textContent = chosenText;
-    slot.classList.add(isCorrect ? 'filled-correct' : 'filled-wrong');
-  }
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">• A computer is a machine that can store and process information.</div>
+                <div class="ku-line">کۆمپیوتەر ئامیرەکە (machine) دشێت زانیاریان هەلبگریت (store) و پرۆسێس/کار ل سەر بکەت (process).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• It takes data as input, processes it, and provides the result as output.</div>
+                <div class="ku-line">داتایان وەردگریت وەک داخلکرن (input)، کار ل سەر دکەت (processes)، و ئەنجامی (result) وەک دەرئێخستن (output) ددەتە مە.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• Most computers rely on a binary system, which uses two variables, 0 and 1, to complete tasks such as storing data, calculating algorithms, and displaying information.</div>
+                <div class="ku-line">زۆربەیا کۆمپیوتەران پشت ب <strong>سیستەمێ دوانی (binary system)</strong> د بەستن، کو تەنها دوو گۆڕاو (two variables) ب کار دئینیت ئەویش <strong>(0 و 1)</strong> نە، بۆ تمامکرنا کارێن وەک هەلگرتنا داتایان، حیسابکرنا ئەلگۆریتمان، و نیشاندانا زانیاریان.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• Due to these qualities, the computer plays a crucial role in science, education, business, entertainment, and many other fields in today's era.</div>
+                <div class="ku-line">ژ بەر ئەڤان تایبەتمەندیان، کۆمپیوتەر د سەردەمێ ئەڤرۆ دا رۆلەکێ گرنگ د بوارێن <strong>زانست (science)، پەروەردە (education)، بازرگانی (business)، سەرگەرمی و یاری (entertainment)</strong> دا دگێڕیت.</div>
+            </div>
+        </div>
 
-  const choicesWrap = document.getElementById(`blank-choices-${slideId}-${bIdx}`);
-  if (choicesWrap) {
-    Array.from(choicesWrap.children).forEach(btn => {
-      btn.disabled = true;
-      if (btn.textContent === blank.answer) btn.classList.add('correct');
-      else if (btn.textContent === chosenText) btn.classList.add('wrong');
-    });
-  }
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٢ (گەلەک گرنگن بۆ ئەزموونێ!):</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Machine</span> = ئامیر / ماکینە</div>
+                <div class="kw-item"><span class="kw-en">Store</span> = هەلگرتن / خەزنکرن</div>
+                <div class="kw-item"><span class="kw-en">Process</span> = پرۆسێسکرن</div>
+                <div class="kw-item"><span class="kw-en">Input / Output</span> = داخلکرن / دەرئێخستن</div>
+                <div class="kw-item"><span class="kw-en">Binary system</span> = سیستەمێ دوانی (0 و 1)</div>
+                <div class="kw-item"><span class="kw-en">Science / Education</span> = زانست / خویندن</div>
+                <div class="kw-item"><span class="kw-en">Business / Entertainment</span> = بازرگانی / سەرگەرمی</div>
+            </div>
+        </div>
 
-  updateHeaderStats();
-}
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٢ (٦ پسیار)</div>
 
-function answerMcq(slideId, mIdx, chosenOrigIdx) {
-  const key = `m_${slideId}_${mIdx}`;
-  if (state.mcqs[key]) return;
+            <div class="q-card" data-qid="s2q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. Most computers rely on a binary system, which uses two variables:</div>
+                <div class="kurdish-hint">١. زۆربەیا کۆمپیوتەران پشت ب سیستەمێ دوانی د بەستن کو دوو گۆڕاوان ب کار دئینیت، ئەو ژی ئەڤەنە:</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q1', 'خەلەتە! سیستەمێ دوانی تەنها 0 و 1 تێدایە.')">A) 1 and 2</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's2q1', 'ئافەرین! سیستەمێ Binary تەنها ژ 0 و 1 پێکدهێت.')">B) 0 and 1</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q1', 'خەلەتە! سیستەمێ دوانی تەنها 0 و 1 تێدایە.')">C) A and B</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q1', 'خەلەتە! سیستەمێ دوانی تەنها 0 و 1 تێدایە.')">D) 0 and 9</button>
+                </div>
+                <div class="feedback" id="fb-s2q1"></div>
+            </div>
 
-  const slide = slidesData.find(s => s.id === slideId);
-  const mcq = slide.mcqs[mIdx];
-  const isCorrect = chosenOrigIdx === mcq.ans;
+            <div class="q-card" data-qid="s2q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. A computer takes data as ______, processes it, and provides the result as output.</div>
+                <div class="kurdish-hint">٢. کۆمپیوتەر داتایان وەردگریت وەک _____، پرۆسێس دکەت، و ئەنجامی وەک دەرئێخستن ددەت.</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's2q2', 'بژیت! داتا وەک Input دهێنە وەرگرتن.')">A) input</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q2', 'دروست: input')">B) binary</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q2', 'دروست: input')">C) science</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q2', 'دروست: input')">D) machine</button>
+                </div>
+                <div class="feedback" id="fb-s2q2"></div>
+            </div>
 
-  state.mcqs[key] = { chosenOrigIdx, isCorrect };
+            <div class="q-card" data-qid="s2q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. A computer is a machine that can store and process information.</div>
+                <div class="kurdish-hint">٣. کۆمپیوتەر ئامیرەکە دشێت زانیاریان هەلبگریت و پرۆسێس بکەت.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's2q3', 'ڕاستە! ئەڤە پێناسەیا ئێکێ یا کۆمپیوتەری یە د سلاید ٢ دا.')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q3', 'خەلەتە، ئەڤ ڕستەیە ١٠٠٪ ڕاستە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s2q3"></div>
+            </div>
 
-  const optsWrap = document.getElementById(`mcq-opts-${slideId}-${mIdx}`);
-  if (optsWrap) {
-    Array.from(optsWrap.children).forEach(btn => {
-      btn.disabled = true;
-      const orig = Number(btn.dataset.orig);
-      if (orig === mcq.ans) {
-        btn.classList.add('correct');
-        const icon = document.createElement('span');
-        icon.textContent = '✅';
-        btn.appendChild(icon);
-      } else if (orig === chosenOrigIdx) {
-        btn.classList.add('wrong');
-        const icon = document.createElement('span');
-        icon.textContent = '❌';
-        btn.appendChild(icon);
-      }
-    });
-  }
+            <div class="q-card" data-qid="s2q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Computers use the binary system with three variables: 0, 1, and 2.</div>
+                <div class="kurdish-hint">٤. کۆمپیوتەر سیستەمێ دوانی ب سێ گۆڕاوان ب کار دئینیت: 0، 1، و 2.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's2q4', 'خەلەتە! تەنها دوو گۆڕاو هەنە (0 و 1)، نە سێ!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's2q4', 'دەستخۆش! تەنها دوو گۆڕاو هەنە (0 و 1) نەک سێ.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s2q4"></div>
+            </div>
 
-  const fb = document.getElementById(`mcq-fb-${slideId}-${mIdx}`);
-  if (fb) {
-    fb.className = 'feedback-msg show ' + (isCorrect ? 'ok' : 'err');
-    fb.textContent = isCorrect ? '✅ دەستخۆش! بەرسڤا تە یا دروستە.' : '❌ خەلەتە! بەرسڤا دروست ب رەنگێ کەسک دیارکریە.';
-  }
+            <div class="q-card" data-qid="s2q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. Most computers rely on a __________ system (0 and 1).</div>
+                <div class="kurdish-hint">٥. زۆربەیا کۆمپیوتەران پشت ب سیستەمێ ________ د بەستن (٠ و ١).</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s2q5', 'binary')">binary</span> <span class="word-chip" onclick="fillInput('in-s2q5', 'output')">output</span> <span class="word-chip" onclick="fillInput('in-s2q5', 'storage')">storage</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s2q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s2q5', ['binary'], 'binary')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s2q5', 'binary')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s2q5"></div>
+            </div>
 
-  updateHeaderStats();
-}
+            <div class="q-card" data-qid="s2q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. Computers play a crucial role in science, __________, business, and entertainment.</div>
+                <div class="kurdish-hint">٦. کۆمپیوتەر رۆلەکێ گرنگ د زانست، ________، بازرگانی و سەرگەرمیێ دا دگێڕیت.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s2q6', 'education')">education</span> <span class="word-chip" onclick="fillInput('in-s2q6', 'keyboard')">keyboard</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s2q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s2q6', ['education'], 'education')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s2q6', 'education')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s2q6"></div>
+            </div>
+        </div>
+    </div>
 
-function goToSlide(idx) {
-  if (idx < 0 || idx >= slidesData.length) return;
-  currentSlideIndex = idx;
-  renderSlide();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    <!-- ==================== SLIDE 3 ==================== -->
+    <div class="slide-card" id="slide3">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٣ (Slide 3)</span>
+            <span class="slide-title-en">How Computer Process Data</span>
+            <div class="slide-title-ku">کۆمپیوتەر چەوا داتایان پرۆسێس دکەت؟</div>
+        </div>
 
-function resetAllProgress() {
-  state.blanks = {};
-  state.mcqs = {};
-  initShuffledOrders();
-  currentSlideIndex = 0;
-  renderSlide();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            پرۆسێسکرنا داتایان ب ٤ پێنگاڤێن ل دویڤ ئێک دچیت: ١. داخلکرن (Input: کیبۆرد، ماوس، سێنسەر)، ٢. پرۆسێسکرن (Processing: ب ڕێکا CPU)، ٣. هەلگرتن (Storage: کاتی د RAM دا و درێژخایەن د Hard Drive یان SSD دا)، ٤. دەرئێخستن (Output: شاشە، پرینتەر، سپیکەر).
+        </div>
 
-initShuffledOrders();
-renderSlide();
-</script>
-</body>
-</html>
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">• Input: Data is entered into the computer through input devices such as keyboards, mice, or sensors.</div>
+                <div class="ku-line"><strong>١. داخلکرن (Input):</strong> داتا دهێنە ناڤ کۆمپیوتەری ب ڕێکا ئامیرێن داخلکرنێ وەک: <strong>کیبۆرد (keyboards)، ماوس (mice)، یان هەستەوەر (sensors)</strong>.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• Processing: The CPU (Central Processing Unit) processes the data. It performs arithmetic, logic, and control operations based on the instructions provided by software.</div>
+                <div class="ku-line"><strong>٢. پرۆسێسکرن (Processing):</strong> یەکەیا ناوەندی یا پرۆسێسکرنێ <strong>CPU</strong> (مێشکێ کۆمپیوتەری) داتایان پرۆسێس دکەت. کارێن <strong>ژمێریاری (arithmetic)، لۆژیکی (logic)، و کۆنترۆلێ (control)</strong> دکەت ل سەر بنەمایێ ڕێنمایێن پرۆگرامی (software).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• Storage: Data is temporarily stored in RAM (Random Access Memory) while being processed. Long-term storage occurs in devices like hard drives or SSDs.</div>
+                <div class="ku-line"><strong>٣. هەلگرتن (Storage):</strong> داتا ب شێوەیەکێ <strong>کاتی (temporarily)</strong> د ناڤ <strong>RAM</strong> دا دهێنە هەلگرتن دەمێ دهێنە پرۆسێسکرن. بەلێ هەلگرتنا <strong>درێژخایەن (long-term)</strong> د ناڤ <strong>Hard drives</strong> یان <strong>SSDs</strong> دا چێدبیت.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">• Output: Processed data is then sent to output devices such as monitors, printers, or speakers for users to access.</div>
+                <div class="ku-line"><strong>٤. دەرئێخستن (Output):</strong> داتایێن پرۆسێسکری دهێنە فرێکرن بۆ ئامیرێن دەرئێخستنێ وەک: <strong>شاشە (monitors)، چاپکەر (printers)، یان بڵندگۆ (speakers)</strong> دا بکارهێنەر ببینن و بکاربینن.</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٣:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Input devices</span> = keyboards, mice, sensors</div>
+                <div class="kw-item"><span class="kw-en">Output devices</span> = monitors, printers, speakers</div>
+                <div class="kw-item"><span class="kw-en">CPU</span> = Central Processing Unit</div>
+                <div class="kw-item"><span class="kw-en">RAM</span> = Random Access Memory (کاتی)</div>
+                <div class="kw-item"><span class="kw-en">Temporarily</span> = ب شێوەیێ کاتی (RAM)</div>
+                <div class="kw-item"><span class="kw-en">Long-term</span> = درێژخایەن (Hard drive / SSD)</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٣ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s3q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. Which of the following is an INPUT device?</div>
+                <div class="kurdish-hint">١. کیژ ژ ئەڤێن خوارێ ئامیرێ داخلکرنێ (Input) یە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q1', 'Monitor ئامیرێ Output یە.')">A) Monitor</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q1', 'Printer ئامیرێ Output یە.')">B) Printer</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's3q1', 'ڕاستە! Keyboard (و mouse و sensor) ئامیرێ Input یە.')">C) Keyboard</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q1', 'Speaker ئامیرێ Output یە.')">D) Speaker</button>
+                </div>
+                <div class="feedback" id="fb-s3q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s3q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. Data is temporarily stored in ______ while being processed.</div>
+                <div class="kurdish-hint">٢. داتا ب شێوەیەکێ کاتی د ناڤ _____ دا دهێنە هەلگرتن دەمێ دهێنە پرۆسێسکرن.</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's3q2', 'ئافەرین! RAM بۆ هەلگرتنا کاتی (temporary) یە.')">A) RAM (Random Access Memory)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q2', 'Printer ئامیرێ دەرئێخستنێ یە.')">B) Printer</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q2', 'Hard drive بۆ هەلگرتنا درێژخایەنە.')">C) Hard drive (Long-term)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q2', 'Mouse ئامیرێ داخلکرنێ یە.')">D) Mouse</button>
+                </div>
+                <div class="feedback" id="fb-s3q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s3q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. CPU stands for Central Processing Unit.</div>
+                <div class="kurdish-hint">٣. CPU کورتکرنا پەیڤێن Central Processing Unit یە.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's3q3', 'ڕاستە ١٠٠٪!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q3', 'خەلەتە، چونکی CPU دروست ئەڤەیە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s3q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s3q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Monitors, printers, and speakers are examples of input devices.</div>
+                <div class="kurdish-hint">٤. شاشە و چاپکەر و بڵندگۆ نموونێن ئامیرێن داخلکرنێ (input) نە.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's3q4', 'خەلەتە! شاشە و پرینتەر و سپیکەر ئامیرێن Output نە (دەرئێخستن).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's3q4', 'بژیت! ئەڤە خەلەت بوو چونکی ئەو Output devices نە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s3q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s3q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. The __________ processes the data by performing arithmetic, logic, and control operations.</div>
+                <div class="kurdish-hint">٥. ______ داتایان پرۆسێس دکەت ب ئەنجامدانا کارێن ژمێریاری، لۆژیکی و کۆنترۆلێ.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s3q5', 'CPU')">CPU</span> <span class="word-chip" onclick="fillInput('in-s3q5', 'RAM')">RAM</span> <span class="word-chip" onclick="fillInput('in-s3q5', 'Monitor')">Monitor</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s3q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s3q5', ['cpu', 'central processing unit'], 'CPU')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s3q5', 'CPU')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s3q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s3q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. Long-term storage occurs in devices like hard drives or __________.</div>
+                <div class="kurdish-hint">٦. هەلگرتنا درێژخایەن د ئامیرێن وەک هارد دیسک یان ______ دا چێدبیت.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s3q6', 'SSDs')">SSDs</span> <span class="word-chip" onclick="fillInput('in-s3q6', 'RAM')">RAM</span> <span class="word-chip" onclick="fillInput('in-s3q6', 'speakers')">speakers</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s3q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s3q6', ['ssds', 'ssd'], 'SSDs')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s3q6', 'SSDs')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s3q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 4 ==================== -->
+    <div class="slide-card" id="slide4">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٤ (Slide 4)</span>
+            <span class="slide-title-en">How Computer Process Data (Flowchart)</span>
+            <div class="slide-title-ku">نەخشێ ڕەوتا پرۆسێسکرنا داتایان د کۆمپیوتەری دا</div>
+        </div>
+
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            ئەڤ سلایدە وێنە و نەخشێ پێنگاڤێن پرۆسێسکرنا داتایانە: ژ داتایێن خاڤ (Raw Data) دەستپێدکەت -> دگوهۆڕیت بۆ 0 و 1 -> دچیتە د ناڤ CPU دا (ALU + Control Unit) و ب شێوەیێ کاتی د RAM دا دمینیت -> وەک زانیاریا پرۆسێسکری (Data Output) دەردکەڤیت -> ئەگەر تە بڤێت خەزن بکەی (Save Result - Optional) -> دوماهی.
+        </div>
+
+        <div class="flow-visual">
+            <div class="flow-step">1. START (دەستپێک)</div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">2. DATA INPUT (Raw Data) - داتایێن خاڤ (کیبۆرد / ماوس)</div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">3. CONVERSION TO BOOLEAN BINARY SYSTEM (0, 1) - گوهۆڕین بۆ 0 و 1</div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">4. PROCESSING WITHIN CPU: [ALU ⟷ Control Unit]<br><small>(هەروەسا پەیوەندی دگەل RAM Temporary Storage هەیە)</small></div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">5. DATA OUTPUT (Processed Information) - زانیاریێن پرۆسێسکری (شاشە)</div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">6. SAVE RESULT (Optional) - پاشکەفتکرنا ئەنجامی (ئارەزوومەندانە)</div>
+            <div class="flow-arrow">⬇</div>
+            <div class="flow-step">7. END (دوماهی)</div>
+        </div>
+
+        <div class="explain-box">
+            <h3>📖 خالێن گرنگ یێن ناڤ وێنێ سلاید ٤ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">DATA INPUT (Raw Data)</div>
+                <div class="ku-line">ئەو داتایێن ب ڕێکا کیبۆرد و ماوسی دچنە ژوور ناڤێ وان <strong>Raw Data (داتایێن خاڤ)</strong> یە، ئانکو هێشتا چ کار ل سەر نەهاتییە کرن.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">CONVERSION TO BOOLEAN BINARY SYSTEM (0, 1)</div>
+                <div class="ku-line">پشتی داخلکرنێ، کۆمپیوتەر داتایان دگوهۆڕیت بۆ زمانێ خۆ (0 و 1) کو پێ دبێژن <strong>Boolean Binary System</strong>.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">PROCESSING WITHIN CPU: Arithmetic Logic Unit (ALU) & Control Unit</div>
+                <div class="ku-line">د ناڤ مێشکێ کۆمپیوتەری دا (CPU) دوو بەشێن سەرەکی هەنە: <strong>ALU</strong> (یەکەیا ژمێریاری و لۆژیکی - کارێ حیساباتێ دکەت) و <strong>Control Unit</strong> (یەکەیا کۆنترۆلێ - کاران ڕێکدئێخیت). و ل بن وان <strong>RAM (Temporary Storage)</strong> هەیە بۆ هەلگرتنا کاتی.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">DATA OUTPUT (Processed Information) & SAVE RESULT (Optional)</div>
+                <div class="ku-line">پشتی پرۆسێسکرنێ ناڤێ داتایان دبیتە <strong>Processed Information (زانیاریێن پرۆسێسکری)</strong> و ل سەر شاشێ دەردکەڤیت. پاش خەزنکرنا ئەنجامی (Save Result) <strong>Optional (ئارەزوومەندانەیە)</strong>.</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٤:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Raw Data</span> = داتایێن خاڤ (ل دەستپێکێ)</div>
+                <div class="kw-item"><span class="kw-en">Processed Information</span> = زانیاریێن پرۆسێسکری</div>
+                <div class="kw-item"><span class="kw-en">ALU</span> = Arithmetic Logic Unit</div>
+                <div class="kw-item"><span class="kw-en">Control Unit</span> = یەکەیا کۆنترۆلێ (د ناڤ CPU)</div>
+                <div class="kw-item"><span class="kw-en">Temporary Storage</span> = هەلگرتنا کاتی (RAM)</div>
+                <div class="kw-item"><span class="kw-en">Optional</span> = ئارەزوومەندانە (Save Result)</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٤ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s4q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. What are the two main units inside "PROCESSING WITHIN CPU" shown in the diagram?</div>
+                <div class="kurdish-hint">١. ئەو هەردوو بەشێن سەرەکی یێن د ناڤ CPU دا د نەخشەی دا کیژکن؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q1', 'خەلەتە! د ناڤ CPU دا ALU و Control Unit هەنە.')">A) Keyboard and Mouse</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's4q1', 'ڕاستە! ALU و Control Unit د ناڤ CPU دا نە.')">B) Arithmetic Logic Unit (ALU) and Control Unit</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q1', 'خەلەتە! د ناڤ CPU دا ALU و Control Unit هەنە.')">C) Monitor and RAM</button>
+                </div>
+                <div class="feedback" id="fb-s4q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s4q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. What does "ALU" stand for?</div>
+                <div class="kurdish-hint">٢. پیتێن ALU کورتکرنا چ نە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's4q2', 'ئافەرین! Arithmetic Logic Unit.')">A) Arithmetic Logic Unit</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q2', 'دروست: Arithmetic Logic Unit')">B) Automatic Loading Unit</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q2', 'دروست: Arithmetic Logic Unit')">C) Applied Local User</button>
+                </div>
+                <div class="feedback" id="fb-s4q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s4q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. Data Input is also called "Raw Data" before processing.</div>
+                <div class="kurdish-hint">٣. داتایا داخلکری بەرێ پرۆسێسکرنێ پێ دبێژن «داتایێن خاڤ» (Raw Data).</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's4q3', 'ڕاستە! ل نەخشەی دا نڤیسییە DATA INPUT (Raw Data).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q3', 'خەلەتە، ئەڤە ڕاستە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s4q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s4q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. In the flowchart, RAM is used for permanent (long-term) storage.</div>
+                <div class="kurdish-hint">٤. د ناڤ نەخشەی دا، RAM بۆ هەلگرتنا هەمیشەیی (نە کاتی) دهێتە بکارئینان.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's4q4', 'خەلەتە! RAM بۆ هەلگرتنا کاتی (TEMPORARY STORAGE) یە.')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's4q4', 'دەستخۆش! RAM بۆ هەلگرتنا کاتی یە (Temporary Storage).')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s4q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s4q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. Data Output provides __________ Information.</div>
+                <div class="kurdish-hint">٥. دەرئێخستنا داتایان (Data Output) زانیاریێن ________ ددەت.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s4q5', 'Processed')">Processed</span> <span class="word-chip" onclick="fillInput('in-s4q5', 'Raw')">Raw</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s4q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s4q5', ['processed'], 'Processed')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s4q5', 'Processed')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s4q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s4q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. After Data Output, Save Result is __________.</div>
+                <div class="kurdish-hint">٦. پشتی Data Output، خەزنکرنا ئەنجامی (Save Result) ________ یە.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s4q6', 'Optional')">Optional</span> <span class="word-chip" onclick="fillInput('in-s4q6', 'Mandatory')">Mandatory</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s4q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s4q6', ['optional'], 'Optional')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s4q6', 'Optional')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s4q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 5 ==================== -->
+    <div class="slide-card" id="slide5">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٥ (Slide 5)</span>
+            <span class="slide-title-en">Main Features of Computer (Advantages)</span>
+            <div class="slide-title-ku">تایبەتمەندیێن سەرەکی یێن کۆمپیوتەری (باشیێن کۆمپیوتەری)</div>
+        </div>
+
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            کۆمپیوتەر ٥ تایبەتمەندیێن سەرەکی (باشی) هەنە کو گەلەک د ئەزموونێ دا دهێن: ١. لەزاتی (Speed)، ٢. دروستی (Accuracy)، ٣. هەلگرتن (Storage)، ٤. خۆکاری (Automation)، ٥. فرەکاری (Versatility).
+        </div>
+
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی (ئەڤ ٥ خالە وەک ناڤێ خۆ ژبەر بکە!):</h3>
+            <div class="point-item">
+                <div class="en-line">1. Speed</div>
+                <div class="ku-line"><strong>لەزاتی (خێرایی):</strong> کاران ب لەزاتییەکا ئێکجار زۆر دکەت.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">2. Accuracy</div>
+                <div class="ku-line"><strong>دروستی (هویربینی):</strong> بێ خەلەتی و ١٠٠٪ دروست کار دکەت.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">3. Storage</div>
+                <div class="ku-line"><strong>هەلگرتن (خەزنکرن):</strong> دشێت بڕەکا زۆر مەزن یا داتایان هەلبگریت.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">4. Automation</div>
+                <div class="ku-line"><strong>خۆکاری (ئۆتۆماتیک):</strong> پشتی ڕێکخستنێ ب خۆ کاران ئەنجام ددەت.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">5. Versatility</div>
+                <div class="ku-line"><strong>فرەکاری (گەلەک-کار):</strong> دشێت بۆ گەلەک کارێن جودا جودا بهێتە بکارئینان.</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٥:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Features / Advantages</span> = تایبەتمەندی / باشی</div>
+                <div class="kw-item"><span class="kw-en">Speed</span> = لەزاتی</div>
+                <div class="kw-item"><span class="kw-en">Accuracy</span> = دروستی</div>
+                <div class="kw-item"><span class="kw-en">Storage</span> = هەلگرتن</div>
+                <div class="kw-item"><span class="kw-en">Automation</span> = خۆکاری</div>
+                <div class="kw-item"><span class="kw-en">Versatility</span> = فرەکاری</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٥ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s5q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. How many main features (advantages) of a computer are listed in Slide 5?</div>
+                <div class="kurdish-hint">١. چەند تایبەتمەندیێن سەرەکی یێن کۆمپیوتەری د سلاید ٥ دا هاتینە نڤیسین؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q1', 'خەلەتە! ٥ تایبەتمەندی نە.')">A) 3</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's5q1', 'ڕاستە! ٥ تایبەتمەندی نە (Speed, Accuracy, Storage, Automation, Versatility).')">B) 5</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q1', 'خەلەتە! ٥ تایبەتمەندی نە.')">C) 10</button>
+                </div>
+                <div class="feedback" id="fb-s5q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s5q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. Which of the following is NOT an advantage (feature) of a computer?</div>
+                <div class="kurdish-hint">٢. کیژ ژ ئەڤێن خوارێ باشی/تایبەتمەندیا کۆمپیوتەری نینە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q2', 'Speed باشیێ کۆمپیوتەری یە.')">A) Speed</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q2', 'Accuracy باشیێ کۆمپیوتەری یە.')">B) Accuracy</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's5q2', 'ئافەرین! Health Issues خرابی (Disadvantage) یە، نە باشی.')">C) Health Issues</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q2', 'Versatility باشیێ کۆمپیوتەری یە.')">D) Versatility</button>
+                </div>
+                <div class="feedback" id="fb-s5q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s5q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. "Main Features of Computer" also means "Advantages of computer".</div>
+                <div class="kurdish-hint">٣. تایبەتمەندیێن سەرەکی (Main Features) هەمان رامانا باشیێن کۆمپیوتەری (Advantages) هەیە.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's5q3', 'ڕاستە! د سەردێڕێ سلایدێ دا هەردوو پێکڤە هاتینە.')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q3', 'خەلەتە، چونکی د سەردێڕێ سلایدێ دا ئەڤ هەردووکە هاتینە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s5q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s5q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Unemployment is one of the main advantages of a computer.</div>
+                <div class="kurdish-hint">٤. بێکاری (Unemployment) ئێکە ژ باشیێن سەرەکی یێن کۆمپیوتەری.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's5q4', 'خەلەتە! بێکاری ژ خرابیانە (Disadvantages).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's5q4', 'بژیت! بێکاری خرابییە نە باشی.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s5q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s5q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. The five main features of a computer are Speed, Accuracy, Storage, Automation, and __________.</div>
+                <div class="kurdish-hint">٥. پێنج تایبەتمەندیێن سەرەکی لەزاتی، دروستی، هەلگرتن، خۆکاری و ________ نە.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s5q5', 'Versatility')">Versatility</span> <span class="word-chip" onclick="fillInput('in-s5q5', 'Costly')">Costly</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s5q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s5q5', ['versatility'], 'Versatility')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s5q5', 'Versatility')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s5q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s5q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. Speed, __________, and Storage are main advantages of a computer.</div>
+                <div class="kurdish-hint">٦. لەزاتی، ________، و هەلگرتن ژ باشیێن سەرەکی یێن کۆمپیوتەری نە.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s5q6', 'Accuracy')">Accuracy</span> <span class="word-chip" onclick="fillInput('in-s5q6', 'Dependency')">Dependency</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s5q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s5q6', ['accuracy'], 'Accuracy')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s5q6', 'Accuracy')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s5q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 6 ==================== -->
+    <div class="slide-card" id="slide6">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٦ (Slide 6)</span>
+            <span class="slide-title-en">Main Features: 1-Speed & 2-Accuracy</span>
+            <div class="slide-title-ku">تایبەتمەندیێن ١ و ٢: لەزاتی و دروستی</div>
+        </div>
+
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            <strong>لەزاتی (Speed):</strong> کۆمپیوتەر ب ملیۆنان ڕێنمایان د چرکەیەکێ دا پرۆسێس دکەت و ژ مرۆڤان گەلەک زویتر کار دکەت. <strong>دروستی (Accuracy):</strong> بێ خەلەتی کار دکەت و ١٠٠٪ ئەنجامێ دروست ددەت ئەگەر داخلکرن و پرۆگرام د دروست بن.
+        </div>
+
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">1- Speed: Computers perform calculations and tasks very quickly. They can process millions of instructions in seconds. Compared to humans, computers complete large tasks in much less time.</div>
+                <div class="ku-line"><strong>١. لەزاتی (Speed):</strong> کۆمپیوتەر حیسابات و کاران گەلەک ب زوی دکەن. دشێن <strong>ملیۆنان ڕێنمایان د چرکەیان دا (millions of instructions in seconds)</strong> پرۆسێس بکەن. ب بەراورد دگەل مرۆڤان، کارێن مەزن د دەمەکێ گەلەک کێمتر دا تمام دکەن.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">2- Accuracy: Computers work free from errors. If the input and program are correct, there is no mistake in the output. It provides 100% accuracy in mathematical and logical operations.</div>
+                <div class="ku-line"><strong>٢. دروستی (Accuracy):</strong> کۆمپیوتەر <strong>بێ خەلەتی (free from errors)</strong> کار دکەن. ئەگەر داخلکرن (input) و پرۆگرام (program) د دروست بن، چ خەلەتی د ئەنجامی (output) دا نینە. <strong>١٠٠٪ دروستی</strong> د کارێن بیرکاری (mathematical) و لۆژیکی (logical) دا ددەت.</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٦:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Millions of instructions</span> = ملیۆنان ڕێنما</div>
+                <div class="kw-item"><span class="kw-en">In seconds</span> = د چرکەیان دا</div>
+                <div class="kw-item"><span class="kw-en">Free from errors</span> = بێ خەلەتی</div>
+                <div class="kw-item"><span class="kw-en">100% accuracy</span> = ١٠٠٪ دروستی</div>
+                <div class="kw-item"><span class="kw-en">No mistake</span> = بێ شاشی</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٦ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s6q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. Computers can process ______ of instructions in seconds.</div>
+                <div class="kurdish-hint">١. کۆمپیوتەر دشێن ______ ژ ڕێنمایان د چرکەیان دا پرۆسێس بکەن.</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q1', 'خەلەتە! ملیۆنان (millions) یە.')">A) tens</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's6q1', 'ڕاستە! ملیۆنان ڕێنما د چرکەیان دا.')">B) millions</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q1', 'خەلەتە! ملیۆنان (millions) یە.')">C) two</button>
+                </div>
+                <div class="feedback" id="fb-s6q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s6q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. If the input and program are correct, there is ______ in the output.</div>
+                <div class="kurdish-hint">٢. ئەگەر داخلکرن و پرۆگرام د دروست بن، ______ د ئەنجامی دا.</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's6q2', 'ئافەرین! چ شاشی (no mistake) تێدا نینە.')">A) no mistake</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q2', 'دروست: no mistake.')">B) many errors</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q2', 'دروست: no mistake.')">C) 50% accuracy</button>
+                </div>
+                <div class="feedback" id="fb-s6q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s6q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. Compared to humans, computers complete large tasks in much less time.</div>
+                <div class="kurdish-hint">٣. ب بەراورد دگەل مرۆڤان، کۆمپیوتەر کارێن مەزن د دەمەکێ گەلەک کێمتر دا تمام دکەن.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's6q3', 'ڕاستە ١٠٠٪!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q3', 'خەلەتە، ئەڤە ڕاستە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s6q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s6q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Computers provide only 50% accuracy in mathematical and logical operations.</div>
+                <div class="kurdish-hint">٤. کۆمپیوتەر تەنها ٥٠٪ دروستی د کارێن بیرکاری و لۆژیکی دا ددەن.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's6q4', 'خەلەتە! ١٠٠٪ دروستی ددەت (100% accuracy).')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's6q4', 'بژیت! ١٠٠٪ دروستی ددەت نەک ٥٠٪.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s6q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s6q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. Computers work __________ from errors.</div>
+                <div class="kurdish-hint">٥. کۆمپیوتەر ________ ژ خەلەتیان کار دکەن (بێ خەلەتی).</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s6q5', 'free')">free</span> <span class="word-chip" onclick="fillInput('in-s6q5', 'full')">full</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s6q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s6q5', ['free'], 'free')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s6q5', 'free')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s6q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s6q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. Computers provide __________% accuracy in mathematical and logical operations.</div>
+                <div class="kurdish-hint">٦. کۆمپیوتەر _____% دروستی د کارێن بیرکاری و لۆژیکی دا ددەن.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s6q6', '100')">100</span> <span class="word-chip" onclick="fillInput('in-s6q6', '10')">10</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s6q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s6q6', ['100', '100%'], '100')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s6q6', '100')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s6q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 7 ==================== -->
+    <div class="slide-card" id="slide7">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٧ (Slide 7)</span>
+            <span class="slide-title-en">Main Features: 3-Storage Capacity, 4-Automation, 5-Versatility</span>
+            <div class="slide-title-ku">تایبەتمەندیێن ٣، ٤ و ٥: شیانا هەلگرتنێ، خۆکاری و فرەکاری</div>
+        </div>
+
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            <strong>٣. شیانا هەلگرتنێ (Storage Capacity):</strong> بڕەکا مەزن یا داتایان ل سەر هارد دیسک، SSD، فلاش (pen drive) و عەور (cloud storage) بۆ دەمەکێ درێژ ب سەلامەتی هەلدگریت. <strong>٤. خۆکاری (Automation):</strong> ئەنجامدانا کاران ب خۆ ب ڕێکا پرۆگرامان. <strong>٥. فرەکاری (Versatility):</strong> بکارئینان بۆ گەلەک کارێن جودا.
+        </div>
+
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی:</h3>
+            <div class="point-item">
+                <div class="en-line">3- Storage Capacity: Computers have the ability to store large amounts of data. Data can be stored using hard disks, SSDs, pen drives, cloud storage, etc. Data is safely kept for a long time and can be accessed easily when needed.</div>
+                <div class="ku-line"><strong>٣. شیانا هەلگرتنێ (Storage Capacity):</strong> کۆمپیوتەر شیانا هەلگرتنا بڕەکا مەزن یا داتایان هەیە. داتا ل سەر <strong>hard disks، SSDs، pen drives (فلاش میمۆری)، cloud storage (ئینتەرنێت)</strong> دهێنە هەلگرتن. داتا بۆ دەمەکێ درێژ ب سەلامەتی دمینن و ب سادەهی دەمێ پێدڤی دبیت دهێنە ڤەکرن.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">4- Automation: The ability to perform tasks automatically through programs.</div>
+                <div class="ku-line"><strong>٤. خۆکاری (Automation):</strong> شیانا ئەنجامدانا کاران ب شێوەیەکێ <strong>ئۆتۆماتیکی (ب خۆ)</strong> ب ڕێکا پرۆگرامان.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">5- Versatility: It can be used for various tasks.</div>
+                <div class="ku-line"><strong>٥. فرەکاری (Versatility):</strong> دشێت بۆ <strong>گەلەک کارێن جودا (various tasks)</strong> بهێتە بکارئینان (وەک نڤیسین، یاری، حیسابات، دیزاین).</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٧:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Large amounts of data</span> = بڕەکا مەزن یا داتایان</div>
+                <div class="kw-item"><span class="kw-en">Pen drives</span> = فلاش میمۆری</div>
+                <div class="kw-item"><span class="kw-en">Cloud storage</span> = هەلگرتنا سەر ئینتەرنێتێ</div>
+                <div class="kw-item"><span class="kw-en">Automation</span> = automatically through programs</div>
+                <div class="kw-item"><span class="kw-en">Versatility</span> = various tasks (کارێن جودا)</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٧ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s7q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. "The ability to perform tasks automatically through programs" is called:</div>
+                <div class="kurdish-hint">١. «شیانا ئەنجامدانا کاران ب شێوەیێ ئۆتۆماتیکی ب ڕێکا پرۆگرامان» ناڤێ وێ چییە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q1', 'Versatility ئانکو کارێن جودا.')">A) Versatility</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's7q1', 'ئافەرین! پەیڤا automatically نیشانا Automation یە.')">B) Automation</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q1', 'Accuracy ئانکو دروستی.')">C) Accuracy</button>
+                </div>
+                <div class="feedback" id="fb-s7q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s7q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. Which feature means a computer "can be used for various tasks"?</div>
+                <div class="kurdish-hint">٢. کیژ تایبەتمەندی ڕامانا وێ ئەوە کو کۆمپیوتەر «دشێت بۆ کارێن جودا بهێتە بکارئینان»؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's7q2', 'ڕاستە! Versatility = various tasks.')">A) Versatility</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q2', 'Speed ئانکو لەزاتی.')">B) Speed</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q2', 'Storage ئانکو هەلگرتن.')">C) Storage Capacity</button>
+                </div>
+                <div class="feedback" id="fb-s7q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s7q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. Data can be stored using hard disks, SSDs, pen drives, and cloud storage.</div>
+                <div class="kurdish-hint">٣. داتا دشێن ب ڕێکا هارد دیسک، ئێس ئێس دی، فلاش میمۆری و کڵاود ستۆرێج بهێنە هەلگرتن.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's7q3', 'ڕاستە ١٠٠٪!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q3', 'خەلەتە، ئەڤ هەمیە د سلایدی دا نڤیسی نە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s7q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s7q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Computers can only store very small amounts of data for a short time.</div>
+                <div class="kurdish-hint">٤. کۆمپیوتەر تەنها دشێن بڕەکا گەلەک کێم یا داتایان بۆ دەمەکێ کورت هەلبگرن.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's7q4', 'خەلەتە! بڕەکا مەزن (large amounts) و بۆ دەمەکێ درێژ (long time) هەلدگریت.')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's7q4', 'بژیت! داتا ب بڕەکا مەزن و بۆ دەمەکێ درێژ دهێنە هەلگرتن.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s7q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s7q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. Automation is the ability to perform tasks automatically through __________.</div>
+                <div class="kurdish-hint">٥. خۆکاری شیانا ئەنجامدانا کارانە ب شێوەیێ ئۆتۆماتیکی ب ڕێکا ________.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s7q5', 'programs')">programs</span> <span class="word-chip" onclick="fillInput('in-s7q5', 'viruses')">viruses</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s7q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s7q5', ['programs', 'program'], 'programs')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s7q5', 'programs')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s7q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s7q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. __________ means a computer can be used for various tasks.</div>
+                <div class="kurdish-hint">٦. ________ ڕامانا وێ ئەوە کو کۆمپیوتەر دشێت بۆ کارێن جودا بهێتە بکارئینان.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s7q6', 'Versatility')">Versatility</span> <span class="word-chip" onclick="fillInput('in-s7q6', 'Speed')">Speed</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s7q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s7q6', ['versatility'], 'Versatility')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s7q6', 'Versatility')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s7q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SLIDE 8 ==================== -->
+    <div class="slide-card" id="slide8">
+        <div class="slide-header">
+            <span class="slide-num">سلاید ٨ (Slide 8)</span>
+            <span class="slide-title-en">Disadvantages of Computer</span>
+            <div class="slide-title-ku">خرابی (لایەنێن نەرێنی) یێن کۆمپیوتەری</div>
+        </div>
+
+        <div class="summary-box">
+            <strong>📌 کورتیا سلایدی:</strong>
+            کۆمپیوتەر ٦ خرابی (Disadvantages) هەنە: ١. پشتبەستن و کێم بکارئینانا مێشکی (Dependency)، ٢. بێکاری و ژ دەستدانا کاری (Unemployment)، ٣. ئاریشێن ساخلەمیێ وەک ئێشانا چاڤ و پشتێ (Health Issues)، ٤. هەڕەشێن ئەلیکترۆنی وەک ڤایرۆس و هاک (Cyber Threats)، ٥. گرانبەهایی (Costly)، ٦. دابڕانا جڤاکی (Social Isolation).
+        </div>
+
+        <div class="explain-box">
+            <h3>📖 شروڤەکرنا سلایدێ ب بادینی (هەر ٦ خالان ب ڕوونی بزانە!):</h3>
+            <div class="point-item">
+                <div class="en-line">1- Dependency: People have become overly dependent on computers, reducing brain usage.</div>
+                <div class="ku-line"><strong>١. پشتبەستن (Dependency):</strong> خەلک زێدە پشت ب کۆمپیوتەری د بەستن، ئەڤە ژی <strong>بکارئینانا مێشکی کێم دکەت (reducing brain usage)</strong>.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">2- Unemployment: Automation and mechanization have caused some jobs to be lost.</div>
+                <div class="ku-line"><strong>٢. بێکاری (Unemployment):</strong> کارێ ئۆتۆماتیک و ماکینەبوونێ بوویە ئەگەر کو هندەک کار ژ دەست بچن (jobs to be lost).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">3- Health Issues: Prolonged use of computers can cause eye strain, back pain.</div>
+                <div class="ku-line"><strong>٣. ئاریشێن ساخلەمیێ (Health Issues):</strong> بکارئینانا درێژخایەن یا کۆمپیوتەری دبیتە ئەگەرێ <strong>ئێشانا چاڤان (eye strain)</strong> و <strong>ئێشانا پشتێ (back pain)</strong>.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">4- Cyber Threats: Increased risk of viruses, hacking, data theft, and fraud.</div>
+                <div class="ku-line"><strong>٤. هەڕەشێن ئەلیکترۆنی (Cyber Threats):</strong> مەترسیا زێدەبوونا <strong>ڤایرۆسان (viruses)، هاککرنێ (hacking)، دزینا داتایان (data theft)، و ساختەکاریێ (fraud)</strong>.</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">5- Costly: Computers, software, and maintenance can be expensive.</div>
+                <div class="ku-line"><strong>٥. گرانبەها (Costly):</strong> کۆمپیوتەر، پرۆگرام (software) و چاککرن و پاراستن (maintenance) دشێن د گران بن (expensive).</div>
+            </div>
+            <div class="point-item">
+                <div class="en-line">6- Social Isolation: Spending excessive time online reduces real-life social relationships.</div>
+                <div class="ku-line"><strong>٦. دابڕانا جڤاکی (Social Isolation):</strong> بۆراندنا دەمەکێ زێدە ل سەر ئینتەرنێتێ پەیوەندیێن جڤاکی یێن ڕاستەقینە کێم دکەت.</div>
+            </div>
+        </div>
+
+        <div class="keywords-box">
+            <h3>🔑 پەیڤێن کلیل یێن سلاید ٨:</h3>
+            <div class="kw-grid">
+                <div class="kw-item"><span class="kw-en">Disadvantages</span> = خرابی / زیان</div>
+                <div class="kw-item"><span class="kw-en">Dependency</span> = reducing brain usage</div>
+                <div class="kw-item"><span class="kw-en">Unemployment</span> = jobs to be lost (بێکاری)</div>
+                <div class="kw-item"><span class="kw-en">Health Issues</span> = eye strain, back pain</div>
+                <div class="kw-item"><span class="kw-en">Cyber Threats</span> = viruses, hacking, theft</div>
+                <div class="kw-item"><span class="kw-en">Costly</span> = expensive (گرانبەها)</div>
+                <div class="kw-item"><span class="kw-en">Social Isolation</span> = دابڕانا جڤاکی</div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <div class="quiz-title">📝 پسیارێن ئەزموونێ ل سەر سلاید ٨ (٦ پسیار)</div>
+
+            <div class="q-card" data-qid="s8q1">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">1. Prolonged use of computers can cause eye strain and back pain. This is an example of:</div>
+                <div class="kurdish-hint">١. بکارئینانا زێدە یا کۆمپیوتەری دبیتە ئەگەرێ ئێشانا چاڤ و پشتێ. ئەڤە نموونەیا چییە؟</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q1', 'Costly ئانکو گرانبەها.')">A) Costly</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q1', 'ئافەرین! ئێشانا چاڤ و پشتێ ژ Health Issues نە.')">B) Health Issues</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q1', 'Cyber Threats ئانکو ڤایرۆس و هاک.')">C) Cyber Threats</button>
+                </div>
+                <div class="feedback" id="fb-s8q1"></div>
+            </div>
+
+            <div class="q-card" data-qid="s8q2">
+                <span class="q-type-badge badge-mcq">هەلبژارتن (Multiple Choice)</span>
+                <div class="q-text-en">2. Increased risk of viruses, hacking, data theft, and fraud refers to:</div>
+                <div class="kurdish-hint">٢. مەترسیا ڤایرۆسان، هاککرنێ، دزینا داتایان و ساختەکاریێ ئاماژەیە بۆ:</div>
+                <div class="options-list">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q2', 'Social Isolation ئانکو دابڕان ژ خەلکی.')">A) Social Isolation</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q2', 'Unemployment ئانکو بێکاری.')">B) Unemployment</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q2', 'ڕاستە! ئەڤە هەمی Cyber Threats نە.')">C) Cyber Threats</button>
+                </div>
+                <div class="feedback" id="fb-s8q2"></div>
+            </div>
+
+            <div class="q-card" data-qid="s8q3">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">3. "Dependency" means people rely too much on computers, reducing brain usage.</div>
+                <div class="kurdish-hint">٣. Dependency ڕامانا وێ ئەوە خەلک زێدە پشت ب کۆمپیوتەری د بەستن و مێشکێ خۆ کێمتر ب کار دئینن.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q3', 'ڕاستە ١٠٠٪!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q3', 'خەلەتە، ئەڤ پێناسەیە دروستە.')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s8q3"></div>
+            </div>
+
+            <div class="q-card" data-qid="s8q4">
+                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
+                <div class="q-text-en">4. Spending excessive time online increases real-life social relationships.</div>
+                <div class="kurdish-hint">٤. بۆراندنا دەمەکێ زێدە ل سەر ئینتەرنێتێ پەیوەندیێن جڤاکی یێن ڕاستەقینە زێدە دکەت.</div>
+                <div class="tf-options">
+                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q4', 'خەلەتە! کێم دکەت (reduces)، نە زێدە دکەت!')">True (ڕاستە)</button>
+                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q4', 'دەستخۆش! ئینتەرنێتا زێدە پەیوەندیان کێم دکەت (Social Isolation).')">False (خەلەتە)</button>
+                </div>
+                <div class="feedback" id="fb-s8q4"></div>
+            </div>
+
+            <div class="q-card" data-qid="s8q5">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">5. __________: Automation and mechanization have caused some jobs to be lost.</div>
+                <div class="kurdish-hint">٥. ________: ئۆتۆماتیکبوون و ماکینەبوونێ بوویە ئەگەر هندەک کار ژ دەست بچن.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s8q5', 'Unemployment')">Unemployment</span> <span class="word-chip" onclick="fillInput('in-s8q5', 'Accuracy')">Accuracy</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s8q5" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s8q5', ['unemployment'], 'Unemployment')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s8q5', 'Unemployment')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s8q5"></div>
+            </div>
+
+            <div class="q-card" data-qid="s8q6">
+                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
+                <div class="q-text-en">6. Costly: Computers, software, and maintenance can be __________.</div>
+                <div class="kurdish-hint">٦. گرانبەها (Costly): کۆمپیوتەر، پرۆگرام و چاککرن دشێن د ________ بن.</div>
+                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s8q6', 'expensive')">expensive</span> <span class="word-chip" onclick="fillInput('in-s8q6', 'free')">free</span></div>
+                <div class="fill-area">
+                    <input type="text" class="fill-input" id="in-s8q6" placeholder="ل ڤێرە بنڤیسە...">
+                    <button class="fill-btn" onclick="checkFill('s8q6', ['expensive'], 'expensive')">پشکنین</button>
+                    <button class="fill-btn-show" onclick="showFill('s8q6', 'expensive')">بەرسڤ</button>
+                </div>
+                <div class="feedback" id="fb-s8q6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CHEAT SHEET ==================== -->
+    <div class="cheat-sheet" id="cheatsheet">
+        <h2>⚡ کورتیا زێڕین: ل بەر دەرگەهێ هۆلا ئەزموونێ ڤێ بخوینە!</h2>
+        <ul>
+            <li><strong>Computer:</strong> machine that can <strong>store</strong> and <strong>process</strong> information. Uses <strong>Binary system (0 and 1)</strong>.</li>
+            <li><strong>4 Steps of Data Processing:</strong> Input (keyboard, mouse, sensor) ➔ Processing (<strong>CPU</strong>: ALU + Control Unit) ➔ Storage (Temporary: <strong>RAM</strong> / Long-term: <strong>Hard drive, SSD</strong>) ➔ Output (monitor, printer, speaker).</li>
+            <li><strong>Flowchart keywords:</strong> Input = <em>Raw Data</em> | Output = <em>Processed Information</em> | Save Result = <em>Optional</em>.</li>
+            <li><strong>5 Advantages (Features):</strong> 1. Speed (millions in seconds) | 2. Accuracy (100%, free from errors) | 3. Storage Capacity (hard disk, SSD, pen drive, cloud) | 4. Automation (automatically) | 5. Versatility (various tasks).</li>
