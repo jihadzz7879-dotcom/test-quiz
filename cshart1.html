@@ -9,7 +9,7 @@
             --primary: #1e3a8a;
             --primary-light: #3b82f6;
             --secondary: #0f766e;
-            --bg: #f1f5f9;
+            --bg: #0284c7;
             --card: #ffffff;
             --text: #1e293b;
             --muted: #64748b;
@@ -29,10 +29,113 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-            background-color: var(--bg);
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 35%, #0369a1 70%, #0c4a6e 100%);
+            background-attachment: fixed;
             color: var(--text);
             line-height: 1.8;
             padding-bottom: 60px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Ocean & Swimming Fish Background */
+        .ocean-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fish {
+            position: absolute;
+            opacity: 0.72;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            will-change: transform;
+        }
+
+        .fish-right-1 {
+            top: 14%;
+            width: 82px;
+            animation: swimRight 24s linear infinite;
+        }
+
+        .fish-right-2 {
+            top: 52%;
+            width: 60px;
+            opacity: 0.6;
+            animation: swimRight 31s linear infinite;
+            animation-delay: -11s;
+        }
+
+        .fish-right-3 {
+            top: 80%;
+            width: 95px;
+            opacity: 0.65;
+            animation: swimRight 27s linear infinite;
+            animation-delay: -19s;
+        }
+
+        .fish-left-1 {
+            top: 30%;
+            width: 74px;
+            animation: swimLeft 26s linear infinite;
+            animation-delay: -6s;
+        }
+
+        .fish-left-2 {
+            top: 67%;
+            width: 55px;
+            opacity: 0.58;
+            animation: swimLeft 22s linear infinite;
+            animation-delay: -14s;
+        }
+
+        .fish-left-3 {
+            top: 90%;
+            width: 68px;
+            opacity: 0.62;
+            animation: swimLeft 29s linear infinite;
+            animation-delay: -3s;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.18));
+            border: 1px solid rgba(255,255,255,0.45);
+            animation: riseBubble 14s ease-in infinite;
+        }
+
+        .b1 { left: 8%; width: 16px; height: 16px; animation-duration: 12s; animation-delay: 0s; }
+        .b2 { left: 22%; width: 10px; height: 10px; animation-duration: 16s; animation-delay: -4s; }
+        .b3 { left: 48%; width: 20px; height: 20px; animation-duration: 18s; animation-delay: -9s; }
+        .b4 { left: 74%; width: 12px; height: 12px; animation-duration: 13s; animation-delay: -2s; }
+        .b5 { left: 90%; width: 18px; height: 18px; animation-duration: 15s; animation-delay: -7s; }
+
+        @keyframes swimRight {
+            0%   { transform: translateX(-140px) translateY(0px); }
+            25%  { transform: translateX(25vw) translateY(-14px); }
+            50%  { transform: translateX(55vw) translateY(10px); }
+            75%  { transform: translateX(85vw) translateY(-10px); }
+            100% { transform: translateX(calc(100vw + 140px)) translateY(0px); }
+        }
+
+        @keyframes swimLeft {
+            0%   { transform: translateX(calc(100vw + 140px)) scaleX(-1) translateY(0px); }
+            25%  { transform: translateX(75vw) scaleX(-1) translateY(12px); }
+            50%  { transform: translateX(45vw) scaleX(-1) translateY(-12px); }
+            75%  { transform: translateX(15vw) scaleX(-1) translateY(10px); }
+            100% { transform: translateX(-140px) scaleX(-1) translateY(0px); }
+        }
+
+        @keyframes riseBubble {
+            0%   { transform: translateY(0) translateX(0); opacity: 0; }
+            15%  { opacity: 0.7; }
+            50%  { transform: translateY(-50vh) translateX(15px); }
+            85%  { opacity: 0.6; }
+            100% { transform: translateY(-108vh) translateX(-15px); opacity: 0; }
         }
 
         /* Top Sticky Bar */
@@ -88,7 +191,19 @@
             background: rgba(255,255,255,0.3);
         }
 
+        .btn-download {
+            background: #0d9488;
+            border-color: #5eead4;
+            font-weight: bold;
+        }
+
+        .btn-download:hover {
+            background: #0f766e;
+        }
+
         .container {
+            position: relative;
+            z-index: 2;
             max-width: 920px;
             margin: 25px auto;
             padding: 0 15px;
@@ -101,7 +216,7 @@
             padding: 28px 24px;
             border-radius: 16px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.2);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
             text-align: center;
         }
 
@@ -145,7 +260,7 @@
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 24px rgba(12, 74, 110, 0.22);
             border-top: 6px solid var(--primary);
         }
 
@@ -373,6 +488,10 @@
             border-color: var(--primary-light);
         }
 
+        .opt-btn:disabled {
+            cursor: default;
+        }
+
         .opt-btn.correct {
             background: var(--success-bg) !important;
             border-color: var(--success) !important;
@@ -504,6 +623,7 @@
             padding: 24px;
             border-radius: 16px;
             margin-top: 30px;
+            box-shadow: 0 8px 24px rgba(12, 74, 110, 0.25);
         }
         .cheat-sheet h2 {
             margin-bottom: 12px;
@@ -525,12 +645,71 @@
 </head>
 <body>
 
+<!-- Blue Ocean Background with Swimming Fish -->
+<div class="ocean-bg" aria-hidden="true">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+    <div class="bubble b5"></div>
+
+    <!-- Fish swimming right -->
+    <svg class="fish fish-right-1" viewBox="0 0 120 60">
+        <path d="M25,30 C42,8 80,8 100,30 C80,52 42,52 25,30 Z" fill="#fbbf24"/>
+        <polygon points="28,30 5,12 12,30 5,48" fill="#f59e0b"/>
+        <path d="M55,14 Q65,2 75,15 Z" fill="#f59e0b"/>
+        <circle cx="85" cy="25" r="4" fill="#ffffff"/>
+        <circle cx="86" cy="25" r="2" fill="#0f172a"/>
+        <path d="M50,20 Q56,30 50,40" stroke="#fde68a" stroke-width="2.5" fill="none"/>
+    </svg>
+
+    <svg class="fish fish-right-2" viewBox="0 0 120 60">
+        <path d="M25,30 C45,10 82,10 102,30 C82,50 45,50 25,30 Z" fill="#34d399"/>
+        <polygon points="28,30 6,14 14,30 6,46" fill="#10b981"/>
+        <circle cx="86" cy="26" r="3.8" fill="#ffffff"/>
+        <circle cx="87" cy="26" r="1.9" fill="#0f172a"/>
+    </svg>
+
+    <svg class="fish fish-right-3" viewBox="0 0 120 60">
+        <path d="M25,30 C42,8 80,8 100,30 C80,52 42,52 25,30 Z" fill="#f472b6"/>
+        <polygon points="28,30 5,12 12,30 5,48" fill="#ec4899"/>
+        <path d="M54,14 Q64,3 74,15 Z" fill="#ec4899"/>
+        <circle cx="85" cy="25" r="4" fill="#ffffff"/>
+        <circle cx="86" cy="25" r="2" fill="#0f172a"/>
+    </svg>
+
+    <!-- Fish swimming left -->
+    <svg class="fish fish-left-1" viewBox="0 0 120 60">
+        <path d="M25,30 C42,8 80,8 100,30 C80,52 42,52 25,30 Z" fill="#fb923c"/>
+        <polygon points="28,30 5,12 12,30 5,48" fill="#ea580c"/>
+        <path d="M55,14 Q65,2 75,15 Z" fill="#ea580c"/>
+        <circle cx="85" cy="25" r="4" fill="#ffffff"/>
+        <circle cx="86" cy="25" r="2" fill="#0f172a"/>
+        <path d="M52,18 Q58,30 52,42" stroke="#fed7aa" stroke-width="3" fill="none"/>
+    </svg>
+
+    <svg class="fish fish-left-2" viewBox="0 0 120 60">
+        <path d="M25,30 C45,10 82,10 102,30 C82,50 45,50 25,30 Z" fill="#a78bfa"/>
+        <polygon points="28,30 6,14 14,30 6,46" fill="#8b5cf6"/>
+        <circle cx="86" cy="26" r="3.8" fill="#ffffff"/>
+        <circle cx="87" cy="26" r="1.9" fill="#0f172a"/>
+    </svg>
+
+    <svg class="fish fish-left-3" viewBox="0 0 120 60">
+        <path d="M25,30 C42,8 80,8 100,30 C80,52 42,52 25,30 Z" fill="#67e8f9"/>
+        <polygon points="28,30 5,12 12,30 5,48" fill="#06b6d4"/>
+        <circle cx="85" cy="25" r="4" fill="#ffffff"/>
+        <circle cx="86" cy="25" r="2" fill="#0f172a"/>
+    </svg>
+</div>
+
 <div class="topbar">
     <div class="topbar-title">💻 Computer Essential - میتیرم</div>
     <div class="topbar-controls">
         <div class="score-badge">نمرەیا تە: <span id="score">0</span> / <span id="total-q">0</span></div>
         <button class="btn-toggle" onclick="toggleHints()" id="hint-btn">👁️ ڤەشارتنا وەرگێڕانا کوردی</button>
         <button class="btn-toggle" onclick="location.reload()">🔄 ژ نوو دەستپێبکە</button>
+        <button class="btn-toggle btn-download" onclick="downloadPage()">⬇️ داگرتنا فایلی (Download)</button>
     </div>
 </div>
 
@@ -1481,61 +1660,4 @@
                 <div class="feedback" id="fb-s8q2"></div>
             </div>
 
-            <div class="q-card" data-qid="s8q3">
-                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
-                <div class="q-text-en">3. "Dependency" means people rely too much on computers, reducing brain usage.</div>
-                <div class="kurdish-hint">٣. Dependency ڕامانا وێ ئەوە خەلک زێدە پشت ب کۆمپیوتەری د بەستن و مێشکێ خۆ کێمتر ب کار دئینن.</div>
-                <div class="tf-options">
-                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q3', 'ڕاستە ١٠٠٪!')">True (ڕاستە)</button>
-                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q3', 'خەلەتە، ئەڤ پێناسەیە دروستە.')">False (خەلەتە)</button>
-                </div>
-                <div class="feedback" id="fb-s8q3"></div>
-            </div>
-
-            <div class="q-card" data-qid="s8q4">
-                <span class="q-type-badge badge-tf">ڕاست و خەلەت (True / False)</span>
-                <div class="q-text-en">4. Spending excessive time online increases real-life social relationships.</div>
-                <div class="kurdish-hint">٤. بۆراندنا دەمەکێ زێدە ل سەر ئینتەرنێتێ پەیوەندیێن جڤاکی یێن ڕاستەقینە زێدە دکەت.</div>
-                <div class="tf-options">
-                    <button class="opt-btn" onclick="checkMCQ(this, false, 's8q4', 'خەلەتە! کێم دکەت (reduces)، نە زێدە دکەت!')">True (ڕاستە)</button>
-                    <button class="opt-btn" onclick="checkMCQ(this, true, 's8q4', 'دەستخۆش! ئینتەرنێتا زێدە پەیوەندیان کێم دکەت (Social Isolation).')">False (خەلەتە)</button>
-                </div>
-                <div class="feedback" id="fb-s8q4"></div>
-            </div>
-
-            <div class="q-card" data-qid="s8q5">
-                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
-                <div class="q-text-en">5. __________: Automation and mechanization have caused some jobs to be lost.</div>
-                <div class="kurdish-hint">٥. ________: ئۆتۆماتیکبوون و ماکینەبوونێ بوویە ئەگەر هندەک کار ژ دەست بچن.</div>
-                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s8q5', 'Unemployment')">Unemployment</span> <span class="word-chip" onclick="fillInput('in-s8q5', 'Accuracy')">Accuracy</span></div>
-                <div class="fill-area">
-                    <input type="text" class="fill-input" id="in-s8q5" placeholder="ل ڤێرە بنڤیسە...">
-                    <button class="fill-btn" onclick="checkFill('s8q5', ['unemployment'], 'Unemployment')">پشکنین</button>
-                    <button class="fill-btn-show" onclick="showFill('s8q5', 'Unemployment')">بەرسڤ</button>
-                </div>
-                <div class="feedback" id="fb-s8q5"></div>
-            </div>
-
-            <div class="q-card" data-qid="s8q6">
-                <span class="q-type-badge badge-fill">بۆشایی (Fill in the blank)</span>
-                <div class="q-text-en">6. Costly: Computers, software, and maintenance can be __________.</div>
-                <div class="kurdish-hint">٦. گرانبەها (Costly): کۆمپیوتەر، پرۆگرام و چاککرن دشێن د ________ بن.</div>
-                <div class="word-help">هەلبژێرە یان بنڤیسە: <span class="word-chip" onclick="fillInput('in-s8q6', 'expensive')">expensive</span> <span class="word-chip" onclick="fillInput('in-s8q6', 'free')">free</span></div>
-                <div class="fill-area">
-                    <input type="text" class="fill-input" id="in-s8q6" placeholder="ل ڤێرە بنڤیسە...">
-                    <button class="fill-btn" onclick="checkFill('s8q6', ['expensive'], 'expensive')">پشکنین</button>
-                    <button class="fill-btn-show" onclick="showFill('s8q6', 'expensive')">بەرسڤ</button>
-                </div>
-                <div class="feedback" id="fb-s8q6"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== CHEAT SHEET ==================== -->
-    <div class="cheat-sheet" id="cheatsheet">
-        <h2>⚡ کورتیا زێڕین: ل بەر دەرگەهێ هۆلا ئەزموونێ ڤێ بخوینە!</h2>
-        <ul>
-            <li><strong>Computer:</strong> machine that can <strong>store</strong> and <strong>process</strong> information. Uses <strong>Binary system (0 and 1)</strong>.</li>
-            <li><strong>4 Steps of Data Processing:</strong> Input (keyboard, mouse, sensor) ➔ Processing (<strong>CPU</strong>: ALU + Control Unit) ➔ Storage (Temporary: <strong>RAM</strong> / Long-term: <strong>Hard drive, SSD</strong>) ➔ Output (monitor, printer, speaker).</li>
-            <li><strong>Flowchart keywords:</strong> Input = <em>Raw Data</em> | Output = <em>Processed Information</em> | Save Result = <em>Optional</em>.</li>
-            <li><strong>5 Advantages (Features):</strong> 1. Speed (millions in seconds) | 2. Accuracy (100%, free from errors) | 3. Storage Capacity (hard disk, SSD, pen drive, cloud) | 4. Automation (automatically) | 5. Versatility (various tasks).</li>
+            <di
