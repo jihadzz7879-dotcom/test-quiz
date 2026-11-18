@@ -1,1120 +1,1041 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fundamentals of Programming by C# | شڕۆڤە و ئەزموون</title>
-  <style>
-    :root {
-      --bg-dark: #0b1120;
-      --bg-card: rgba(17, 24, 39, 0.88);
-      --bg-code: #060a14;
-      --border: rgba(56, 189, 248, 0.22);
-      --accent: #38bdf8;
-      --accent-2: #818cf8;
-      --gold: #fbbf24;
-      --green: #22c55e;
-      --red: #ef4444;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Essentials - Exam Prep (C1 & C2)</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #0f766e;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --success: #16a34a;
+    --success-bg: #dcfce7;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --border: #cbd5e1;
+  }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding-bottom: 50px;
+  }
 
-    body {
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background-color: var(--bg-dark);
-      background-image:
-        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.16), transparent 35%),
-        radial-gradient(circle at 85% 25%, rgba(129, 140, 248, 0.16), transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.12), transparent 45%);
-      background-attachment: fixed;
-      color: var(--text-main);
-      line-height: 1.85;
-      padding-bottom: 60px;
-    }
+  header {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: #fff;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-    /* Header */
-    .hero {
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(99, 102, 241, 0.22));
-      border-bottom: 1px solid var(--border);
-      padding: 36px 20px 28px;
-      text-align: center;
-      backdrop-filter: blur(12px);
-    }
+  header h1 {
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
 
-    .badge-uni {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      color: var(--accent);
-      padding: 5px 16px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
+  header p.sub {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    direction: rtl;
+  }
 
-    .hero h1 {
-      font-size: 2rem;
-      background: linear-gradient(90deg, #38bdf8, #a5b4fc, #34d399);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
+  .scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
 
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 750px;
-      margin: 0 auto;
-    }
+  .stat-pill {
+    background: rgba(255,255,255,0.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
 
-    /* Sticky Nav */
-    .nav-bar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(11, 17, 32, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 15px;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+  .controls {
+    max-width: 900px;
+    margin: 16px auto 0;
+    padding: 0 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
 
-    .nav-bar a {
-      text-decoration: none;
-      color: var(--text-main);
-      background: rgba(30, 41, 59, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      padding: 6px 13px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
+  .btn-ctrl {
+    border: none;
+    background: #fff;
+    color: var(--primary);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    transition: all 0.2s;
+  }
 
-    .nav-bar a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
+  .btn-ctrl.active {
+    background: var(--primary);
+    color: #fff;
+  }
 
-    .nav-bar a.exam-link {
-      background: linear-gradient(135deg, #0284c7, #4f46e5);
-      border-color: transparent;
-      font-weight: 700;
-    }
+  .btn-ctrl.exam-toggle {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .btn-ctrl.exam-toggle.active {
+    background: #d97706;
+    color: #fff;
+  }
 
-    /* Container */
-    .container {
-      max-width: 980px;
-      margin: 28px auto;
-      padding: 0 16px;
-    }
+  .btn-ctrl.reset-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
 
-    /* Slide Card */
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(10px);
-    }
+  .container {
+    max-width: 900px;
+    margin: 18px auto;
+    padding: 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .slide-tag {
-      display: inline-block;
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2));
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 3px 12px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
+  .slide-card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.07);
+    border: 1px solid #e2e8f0;
+  }
 
-    h2 {
-      font-size: 1.45rem;
-      color: #ffffff;
-      margin-bottom: 14px;
-      border-right: 4px solid var(--accent);
-      padding-right: 12px;
-    }
+  .slide-header {
+    background: linear-gradient(90deg, #1e40af, #0284c7);
+    color: #fff;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
-    h3 {
-      font-size: 1.15rem;
-      color: var(--gold);
-      margin: 16px 0 8px;
-    }
+  .slide-header.c2 {
+    background: linear-gradient(90deg, #0f766e, #059669);
+  }
 
-    ul, ol {
-      padding-right: 22px;
-      margin-bottom: 12px;
-    }
+  .slide-badge {
+    background: rgba(255,255,255,0.22);
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
 
-    li {
-      margin-bottom: 6px;
-    }
+  .slide-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
 
-    /* LTR Technical / Code Styling */
-    .ltr, code, pre {
-      direction: ltr;
-      unicode-bidi: embed;
-      text-align: left;
-      font-family: Consolas, "Courier New", monospace;
-    }
+  .summary-section {
+    padding: 16px 18px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+  }
 
-    code {
-      background: rgba(56, 189, 248, 0.13);
-      color: #7dd3fc;
-      padding: 2px 7px;
-      border-radius: 6px;
-      font-size: 0.92rem;
-    }
+  body.exam-mode .summary-section {
+    display: none;
+  }
 
-    pre {
-      background: var(--bg-code);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-left: 4px solid var(--accent);
-      border-radius: 12px;
-      padding: 15px 18px;
-      overflow-x: auto;
-      margin: 12px 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #e2e8f0;
-    }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
 
-    .kw { color: #60a5fa; font-weight: bold; }
-    .str { color: #fca5a5; }
-    .num { color: #fde047; }
-    .com { color: #4ade80; }
-    .cls { color: #38bdf8; }
-
-    /* Tables */
-    .table-wrap {
-      overflow-x: auto;
-      margin: 14px 0;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
+  @media (max-width: 680px) {
+    .summary-grid {
+      grid-template-columns: 1fr;
     }
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.94rem;
-    }
+  .box-en, .box-ku {
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
 
-    th {
-      background: rgba(30, 58, 138, 0.65);
-      color: #ffffff;
-      padding: 11px 12px;
-      text-align: right;
-      border-bottom: 1px solid var(--border);
-    }
+  .box-en {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    direction: ltr;
+    text-align: left;
+  }
 
-    td {
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-      background: rgba(15, 23, 42, 0.55);
-    }
+  .box-ku {
+    background: #ecfdf5;
+    border-right: 4px solid #10b981;
+    direction: rtl;
+    text-align: right;
+  }
 
-    tr:hover td {
-      background: rgba(30, 41, 59, 0.75);
-    }
+  .box-label {
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+    color: var(--primary);
+  }
+  .box-ku .box-label {
+    color: #047857;
+  }
 
-    /* Callouts */
-    .note {
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      border-right: 5px solid var(--gold);
-      border-radius: 12px;
-      padding: 13px 16px;
-      margin: 14px 0;
-      color: #fef3c7;
-    }
+  .box-en ul, .box-ku ul {
+    padding-left: 18px;
+  }
+  .box-ku ul {
+    padding-left: 0;
+    padding-right: 18px;
+  }
+  .box-en li, .box-ku li {
+    margin-bottom: 4px;
+  }
 
-    .tip {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      border-right: 5px solid var(--green);
-      border-radius: 12px;
-      padding: 13px 16px;
-      margin: 14px 0;
-      color: #dcfce7;
-    }
+  .quiz-section {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
 
-    .warn {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      border-right: 5px solid var(--red);
-      border-radius: 12px;
-      padding: 13px 16px;
-      margin: 14px 0;
-      color: #fee2e2;
-    }
+  .quiz-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    /* Mini Quiz Box inside Slides */
-    .mini-quiz {
-      background: rgba(79, 70, 229, 0.12);
-      border: 1px dashed rgba(129, 140, 248, 0.5);
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 18px;
-    }
+  .q-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 14px;
+    transition: border-color 0.2s;
+  }
 
-    .mini-quiz-title {
-      color: #a5b4fc;
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
 
-    /* Buttons & Answers */
-    .btn-toggle {
-      background: linear-gradient(135deg, #0284c7, #4f46e5);
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.92rem;
-      font-weight: 600;
-      margin-top: 10px;
-      transition: transform 0.15s ease, opacity 0.2s;
-    }
+  .q-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: #e2e8f0;
+    color: #334155;
+  }
+  .q-type.mcq { background: #dbeafe; color: #1e40af; }
+  .q-type.tf { background: #fae8ff; color: #86198f; }
+  .q-type.blank { background: #fef3c7; color: #92400e; }
 
-    .btn-toggle:hover {
-      transform: scale(1.02);
-      opacity: 0.95;
-    }
+  .q-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    direction: ltr;
+    text-align: left;
+  }
 
-    .answer-box {
-      display: none;
-      margin-top: 12px;
-      padding: 12px 15px;
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(34, 197, 94, 0.45);
-      border-radius: 10px;
-      color: #d1fae5;
-      animation: fadeIn 0.25s ease;
-    }
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
 
-    .answer-box.show {
-      display: block;
-    }
+  .opt-btn {
+    text-align: left;
+    direction: ltr;
+    padding: 9px 12px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    border-radius: 9px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+    font-weight: 500;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .opt-btn:hover:not(:disabled) {
+    border-color: var(--primary-light);
+    background: #eff6ff;
+  }
 
-    /* Final Exam Styling */
-    .exam-header {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.28), rgba(79, 70, 229, 0.28));
-      border: 1px solid rgba(56, 189, 248, 0.45);
-      border-radius: 18px;
-      padding: 24px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
+  .opt-btn.correct {
+    background: var(--success-bg) !important;
+    border-color: var(--success) !important;
+    color: #14532d !important;
+    font-weight: 700;
+  }
 
-    .score-board {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(11, 17, 32, 0.85);
-      border: 1px solid var(--accent);
-      padding: 10px 22px;
-      border-radius: 14px;
-      margin-top: 14px;
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
+  .opt-btn.wrong {
+    background: var(--danger-bg) !important;
+    border-color: var(--danger) !important;
+    color: #7f1d1d !important;
+  }
 
-    .score-num {
-      color: var(--gold);
-      font-size: 1.25rem;
-    }
+  .tf-group {
+    display: flex;
+    gap: 10px;
+  }
 
-    .q-item {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
+  .tf-btn {
+    flex: 1;
+    padding: 9px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    border-radius: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+  }
 
-    .q-text {
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #f8fafc;
-    }
+  .tf-btn.correct {
+    background: var(--success-bg) !important;
+    border-color: var(--success) !important;
+    color: #14532d !important;
+  }
 
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 10px;
-    }
+  .tf-btn.wrong {
+    background: var(--danger-bg) !important;
+    border-color: var(--danger) !important;
+    color: #7f1d1d !important;
+  }
 
-    .opt-btn {
-      background: rgba(30, 41, 59, 0.9);
-      color: var(--text-main);
-      border: 1px solid rgba(148, 163, 184, 0.28);
-      padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-      direction: ltr;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
+  .blank-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 
-    .opt-btn:hover:not(:disabled) {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.14);
-    }
+  .blank-input {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px 12px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 0.9rem;
+    outline: none;
+  }
 
-    .opt-btn.correct {
-      background: rgba(34, 197, 94, 0.25) !important;
-      border-color: #22c55e !important;
-      color: #86efac !important;
-      font-weight: 700;
-    }
+  .blank-input:focus {
+    border-color: var(--primary-light);
+  }
 
-    .opt-btn.wrong {
-      background: rgba(239, 68, 68, 0.25) !important;
-      border-color: #ef4444 !important;
-      color: #fca5a5 !important;
-    }
+  .blank-input.correct {
+    background: var(--success-bg);
+    border-color: var(--success);
+  }
+  .blank-input.wrong {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+  }
 
-    .tf-wrap {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+  .btn-small {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 9px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
-    .tf-btn {
-      min-width: 120px;
-      text-align: center;
-    }
+  .btn-check { background: var(--primary); color: #fff; }
+  .btn-reveal { background: #e2e8f0; color: #1e293b; }
 
-    .q-feedback {
-      margin-top: 10px;
-      font-size: 0.93rem;
-      display: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      background: rgba(30, 41, 59, 0.9);
-    }
+  .feedback {
+    margin-top: 8px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    display: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
 
-    .q-feedback.show {
-      display: block;
-    }
+  .feedback.show { display: block; }
+  .feedback.ok { background: var(--success-bg); color: #166534; }
+  .feedback.err { background: var(--danger-bg); color: #991b1b; }
+  .feedback.info { background: #e0f2fe; color: #075985; }
 
-    .btn-reset {
-      background: rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.5);
-      padding: 8px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
-    }
-
-    .btn-reset:hover {
-      background: rgba(239, 68, 68, 0.35);
-    }
-
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      margin-top: 36px;
-      font-size: 0.9rem;
-    }
-  </style>
+  .note-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    direction: rtl;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="hero">
-    <div class="badge-uni">زانکۆیا ئاکرێ بۆ زانستێن کرداری • پەیمانگەها تەکنیکی ئاکرێ • بەشێ IT (2024-2025)</div>
-    <h1>Fundamentals of Programming by C#</h1>
-    <p>شڕۆڤەکرنا تەمام یا هەر ٢٩ سڵایدان ب زمانێ کوردی (بەهدینی)، دگەل پسیارێن شێوازێ وەرەقەی و تاقیکرنا گشتی یا کلیکێ</p>
-  </header>
+<header>
+  <h1>Computer Essentials — Exam Prep</h1>
+  <p class="sub">کورتکرنا هەمی سلایدێن (C1) و سلایدێن (C2 هەتا Power Supply) دگەل پرسیارێن تاقیکرنێ</p>
+  <div class="scoreboard">
+    <div class="stat-pill">Answered: <span id="stat-answered">0</span> / <span id="stat-total">0</span></div>
+    <div class="stat-pill">Correct: <span id="stat-correct">0</span></div>
+    <div class="stat-pill">Score: <span id="stat-pct">0%</span></div>
+  </div>
+</header>
 
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <a href="#s1-4">سڵاید ١-٤ (Data Types)</a>
-    <a href="#s5-8">سڵاید ٥-٨ (Numbers)</a>
-    <a href="#s9-11">سڵاید ٩-١١ (Bool/Char/String)</a>
-    <a href="#s12-18">سڵاید ١٢-١٨ (Arithmetic &amp; Assign)</a>
-    <a href="#s19-22">سڵاید ١٩-٢٢ (Compare &amp; Logic)</a>
-    <a href="#s23-26">سڵاید ٢٣-٢٦ (Bitwise &amp; Others)</a>
-    <a href="#s27-29">سڵاید ٢٧-٢٩ (Casting &amp; Expr)</a>
-    <a href="#final-exam" class="exam-link">📝 تاقیکرنا گشتی (ئەزموون)</a>
-  </nav>
+<div class="controls">
+  <button class="btn-ctrl active" onclick="filterSlides('all', this)">All Slides (17)</button>
+  <button class="btn-ctrl" onclick="filterSlides('C1', this)">C1 Only (7)</button>
+  <button class="btn-ctrl" onclick="filterSlides('C2', this)">C2 Only (10)</button>
+  <button class="btn-ctrl exam-toggle" onclick="toggleExamMode(this)">Exam Mode (Hide Notes)</button>
+  <button class="btn-ctrl reset-btn" onclick="resetQuiz()">Reset All</button>
+</div>
 
-  <main class="container">
+<div class="container" id="slides-container"></div>
 
-    <!-- SLIDES 1 - 4 -->
-    <section class="card" id="s1-4">
-      <div class="slide-tag">سڵاید ١ تا ٤</div>
-      <h2>پێشەکی، پێکهاتە و جۆرێن سەرەکی یێن داتایان (C# Data Types)</h2>
+<p class="note-footer">تێبینی: پرسیار ب شێوازێن هەلبژارتن (MCQ)، راست و خەلەت (T/F)، و بۆشایی (Fill in Blank) هاتینە دانان. سەرکەفتی بی برا!</p>
 
-      <h3>📌 سڵاید ١ و ٢: بابەتێن سەرەکی (Outlines)</h3>
-      <ul>
-        <li>پێنج تەوەرێن سەرەکی د ڤێ لێکچەرێ دا هەنە: <strong>Data Types</strong> (جۆرێن داتایان)، <strong>Operators</strong> (ئۆپەرەیتەر)، <strong>Type Casting</strong>، <strong>Type Conversion</strong>، و <strong>Expressions</strong> (دەربڕین).</li>
-      </ul>
+<script>
+const slidesData = [
+  // ==================== C1 ====================
+  {
+    id: "c1-s2",
+    chapter: "C1",
+    slideNum: "Slide 2",
+    title: "What is a Computer?",
+    en: [
+      "A machine that can <b>store</b> and <b>process</b> information.",
+      "Takes <b>data (input)</b> -> processes it -> gives <b>result (output)</b>.",
+      "Uses <b>binary system (0 and 1)</b> to store data, calculate algorithms, and display info.",
+      "Crucial in: <b>science, education, business, entertainment</b>."
+    ],
+    ku: [
+      "کومپیوتەر ئامێرەکە دکاریت زانیاریان <b>هەلبگریت</b> و <b>پروسێس (چارەسەر)</b> بکەت.",
+      "داتایان وەک (Input) وەردگریت، پروسێس دکەت، و ئەنجامی وەک (Output) ددەت.",
+      "پشت ب <b>سیستەمێ باینەری (0 و 1)</b> د بەستیت بۆ هەلگرتن و هژمارتنا کاران.",
+      "رۆلەکێ گرنگ د <b>زانست، پەروەردە، بازرگانی، و خۆشگوزەرانیێ</b> دا هەیە."
+    ],
+    questions: [
+      { type: "mcq", q: "A computer is a machine that can ______ and process information.", opts: ["store", "delete only", "print only", "destroy"], ans: 0 },
+      { type: "mcq", q: "Most computers rely on the ______ system, which uses 0 and 1.", opts: ["decimal", "binary", "hexadecimal", "analog"], ans: 1 },
+      { type: "tf", q: "A computer takes data as output and provides the result as input.", ans: false },
+      { type: "blank", q: "The binary system uses two variables: ______ and ______.", ans: ["0 and 1", "0, 1", "0 & 1", "0 1"] }
+    ]
+  },
+  {
+    id: "c1-s3",
+    chapter: "C1",
+    slideNum: "Slide 3",
+    title: "How Computer Process Data (Steps)",
+    en: [
+      "<b>1. Input:</b> Data entered via input devices (keyboards, mice, sensors).",
+      "<b>2. Processing:</b> <b>CPU</b> performs arithmetic, logic, and control operations via software instructions.",
+      "<b>3. Storage:</b> Temporary in <b>RAM</b>; long-term in <b>hard drives or SSDs</b>.",
+      "<b>4. Output:</b> Sent to output devices (monitors, printers, speakers)."
+    ],
+    ku: [
+      "<b>١. تێخستن (Input):</b> داتا ب رێکا کیبۆرد، ماوس، یان سێنسەران دهێنە تێخستن.",
+      "<b>٢. پروسێسکرن (Processing):</b> مەژیێ کومپیوتەری (<b>CPU</b>) کارێن حسابی، لۆجیکی، و کۆنترۆلێ ئەنجام ددەت.",
+      "<b>٣. هەلگرتن (Storage):</b> ب شێوەیەکێ کاتی د <b>RAM</b> دا، و بۆ دەمەکێ درێژ د <b>Hard Drive یان SSD</b> دا.",
+      "<b>٤. دەرئێخستن (Output):</b> داتایێن پروسێسکری دچنە شاشە، پرینتەر، یان سپیکەران."
+    ],
+    questions: [
+      { type: "mcq", q: "Which unit performs arithmetic, logic, and control operations?", opts: ["RAM", "SSD", "CPU", "Monitor"], ans: 2 },
+      { type: "mcq", q: "Where is data temporarily stored while being processed?", opts: ["Hard Drive", "RAM", "Printer", "Mouse"], ans: 1 },
+      { type: "tf", q: "Long-term storage occurs in devices like hard drives or SSDs.", ans: true },
+      { type: "blank", q: "CPU stands for ______ Processing Unit.", ans: ["Central", "central"] },
+      { type: "blank", q: "RAM stands for ______ Access Memory.", ans: ["Random", "random"] }
+    ]
+  },
+  {
+    id: "c1-s4",
+    chapter: "C1",
+    slideNum: "Slide 4",
+    title: "How Computer Process Data (Flowchart)",
+    en: [
+      "<b>Raw Data</b> (Input) is converted to <b>Boolean Binary System (0, 1)</b>.",
+      "CPU has two main parts shown: <b>Arithmetic Logic Unit (ALU)</b> & <b>Control Unit</b>.",
+      "CPU connects with <b>RAM (Temporary Storage)</b>.",
+      "<b>Data Output</b> = Processed Information -> <b>Save Result (Optional)</b> -> End."
+    ],
+    ku: [
+      "<b>داتایێن خاڤ (Raw Data)</b> دهێنە گوهارتن بۆ سیستەمێ باینەری (0, 1).",
+      "دناڤ CPU دا دوو پشکێن سەرەکی هەنە: <b>ALU</b> (حساب و لۆجیک) و <b>Control Unit</b> (کۆنترۆل).",
+      "هەروەسا پەیوەندی دگەل <b>RAM</b> هەیە وەک هەلگرێ کاتی.",
+      "<b>Data Output</b> داتایا پروسێسکری یە، و هەلگرتنا ئەنجامی (Save Result) ب دلێ خۆیە (Optional)."
+    ],
+    questions: [
+      { type: "mcq", q: "Inside the CPU diagram, which two units work together?", opts: ["RAM and SSD", "ALU and Control Unit", "Monitor and Mouse", "Keyboard and Printer"], ans: 1 },
+      { type: "mcq", q: "Data Output represents ______.", opts: ["Raw Data", "Processed Information", "Boolean Binary", "Temporary Storage"], ans: 1 },
+      { type: "tf", q: "In the data processing flowchart, 'Save Result' is optional.", ans: true },
+      { type: "blank", q: "ALU stands for Arithmetic ______ Unit.", ans: ["Logic", "logic"] }
+    ]
+  },
+  {
+    id: "c1-s5",
+    chapter: "C1",
+    slideNum: "Slide 5",
+    title: "Main Features of Computer (Overview)",
+    en: [
+      "The 5 main advantages/features of a computer are:",
+      "<b>1. Speed</b> | <b>2. Accuracy</b> | <b>3. Storage</b> | <b>4. Automation</b> | <b>5. Versatility</b>."
+    ],
+    ku: [
+      "٥ تایبەتمەندی (مفایێن سەرەکی) یێن کومپیوتەری ئەڤەنە:",
+      "<b>خێرایی (Speed)</b>، <b>دروستی (Accuracy)</b>، <b>هەلگرتن (Storage)</b>، <b>ئوتوماتیکی (Automation)</b>، <b>هەمەجۆری (Versatility)</b>."
+    ],
+    questions: [
+      { type: "mcq", q: "Which of the following is NOT listed as a main feature (advantage) of a computer?", opts: ["Speed", "Accuracy", "Unemployment", "Versatility"], ans: 2 },
+      { type: "tf", q: "Automation and Versatility are among the main advantages of a computer.", ans: true },
+      { type: "mcq", q: "How many main features of a computer are listed on Slide 5?", opts: ["3", "5", "6", "8"], ans: 1 },
+      { type: "blank", q: "The five features are Speed, Accuracy, Storage, Automation, and ______.", ans: ["Versatility", "versatility"] }
+    ]
+  },
+  {
+    id: "c1-s6",
+    chapter: "C1",
+    slideNum: "Slide 6",
+    title: "Features: 1-Speed & 2-Accuracy",
+    en: [
+      "<b>1. Speed:</b> Performs tasks quickly; processes <b>millions of instructions in seconds</b>; much faster than humans.",
+      "<b>2. Accuracy:</b> Works <b>free from errors</b>; gives <b>100% accuracy</b> in math & logic if input and program are correct."
+    ],
+    ku: [
+      "<b>١. خێرایی:</b> د چرکەیەکێ دا دکاریت <b>ب ملیۆنان فەرمانان</b> جێبەجێ بکەت، گەلەک ژ مرۆڤی خێراترە.",
+      "<b>٢. دروستی:</b> بێ خەلەتی کار دکەت؛ ئەگەر داتا و پرۆگرام د دروست بن، <b>١٠٠٪ ئەنجامێ دروست</b> ددەت."
+    ],
+    questions: [
+      { type: "mcq", q: "Computers can process ______ of instructions in seconds.", opts: ["tens", "hundreds", "millions", "dozens"], ans: 2 },
+      { type: "mcq", q: "What accuracy does a computer provide in mathematical and logical operations (with correct input)?", opts: ["50%", "90%", "99%", "100%"], ans: 3 },
+      { type: "tf", q: "If the input and program are correct, there is still a mistake in the output.", ans: false },
+      { type: "blank", q: "Computers work free from ______ when input and program are correct.", ans: ["errors", "mistakes"] }
+    ]
+  },
+  {
+    id: "c1-s7",
+    chapter: "C1",
+    slideNum: "Slide 7",
+    title: "Features: 3-Storage, 4-Automation, 5-Versatility",
+    en: [
+      "<b>3. Storage Capacity:</b> Stores large data safely for a long time (hard disks, SSDs, pen drives, cloud storage).",
+      "<b>4. Automation:</b> Ability to perform tasks <b>automatically</b> through programs.",
+      "<b>5. Versatility:</b> Can be used for <b>various tasks</b>."
+    ],
+    ku: [
+      "<b>٣. قەبارێ هەلگرتنێ:</b> دکاریت گەلەک داتایان بۆ دەمەکێ درێژ هەلبگریت (وەکی هارد، SSD، فلاش، کلود).",
+      "<b>٤. ئوتوماتیکی (Automation):</b> شیانا جێبەجێکرنا کاران ب شێوەیەکێ <b>خۆکار (ئوتوماتیکی)</b> ب رێکا پرۆگرامان.",
+      "<b>٥. هەمەجۆری (Versatility):</b> دکاریت بۆ <b>کارێن جۆراوجۆر</b> بهێتە بکارئینان."
+    ],
+    questions: [
+      { type: "mcq", q: "The ability to perform tasks automatically through programs is called:", opts: ["Versatility", "Automation", "Speed", "Accuracy"], ans: 1 },
+      { type: "mcq", q: "Which feature means a computer can be used for various tasks?", opts: ["Storage Capacity", "Automation", "Versatility", "Dependency"], ans: 2 },
+      { type: "tf", q: "Cloud storage and pen drives are examples used for computer storage capacity.", ans: true },
+      { type: "blank", q: "______ is the ability to perform tasks automatically through programs.", ans: ["Automation", "automation"] }
+    ]
+  },
+  {
+    id: "c1-s8",
+    chapter: "C1",
+    slideNum: "Slide 8",
+    title: "Disadvantages of Computer",
+    en: [
+      "<b>1. Dependency:</b> Over-dependence reduces brain usage.",
+      "<b>2. Unemployment:</b> Automation causes job loss.",
+      "<b>3. Health Issues:</b> Eye strain, back pain from prolonged use.",
+      "<b>4. Cyber Threats:</b> Viruses, hacking, data theft, fraud.",
+      "<b>5. Costly:</b> Hardware, software, maintenance are expensive.",
+      "<b>6. Social Isolation:</b> Too much online time reduces real-life relationships."
+    ],
+    ku: [
+      "<b>١. پشتبەستن (Dependency):</b> گەلەک پشتبەستن ب کومپیوتەری کارێ مێشکی کێم دکەت.",
+      "<b>٢. بێکاری (Unemployment):</b> ژ ئەگەرێ ئوتوماتیکبوونێ هندەک کار ژناڤچوونە.",
+      "<b>٣. ئاریشێن ساخلەمیێ:</b> ئێشانا چاڤان و ئێشانا پشتێ.",
+      "<b>٤. هەرەشێن سایبەر:</b> ڤایرۆس، هاککرن، دزینا داتایان.",
+      "<b>٥. گرانی (Costly):</b> کڕین و چێکرن و بەرنامێن وێ د ب هانە.",
+      "<b>٦. دابڕانا جڤاکی:</b> پەیوەندیێن راستەقینە کێم دبن ژ بەر ئونلاینێ زێدە."
+    ],
+    questions: [
+      { type: "mcq", q: "Prolonged use of computers causing eye strain and back pain is an example of:", opts: ["Cyber Threats", "Health Issues", "Social Isolation", "Dependency"], ans: 1 },
+      { type: "mcq", q: "Increased risk of viruses, hacking, and data theft refers to:", opts: ["Costly", "Unemployment", "Cyber Threats", "Versatility"], ans: 2 },
+      { type: "tf", q: "Over-dependency on computers helps increase human brain usage.", ans: false },
+      { type: "tf", q: "Spending excessive time online reduces real-life social relationships (Social Isolation).", ans: true },
+      { type: "blank", q: "Automation and mechanization have caused some jobs to be lost, which leads to ______.", ans: ["unemployment", "Unemployment"] }
+    ]
+  },
 
-      <h3>📌 سڵاید ٣: زمانێ C# و گرنگییا Data Type</h3>
-      <ul>
-        <li><strong>C# زمانەکێ Strongly-typedـە:</strong> یانی بەری تو هەر گوهۆڕەکێ (Variable) بکاربینی، <strong>دڤێت</strong> جۆرێ وی دیار بکەی کا دێ چ تێدا هێتە هەلگرتن.</li>
-        <li><strong>Data Type</strong> قەبارێ مێمۆریێ (Size) و جۆرێ بهایێ گوهۆڕی دیار دکەت.</li>
-        <li><strong>بۆچی گرنگە جۆرێ دروست هەلبژێرین؟</strong> (پسیارا گرنگ یا وەرەقەی!):
-          <ol>
-            <li>دا خەلەتی (Errors) چێنەبن.</li>
-            <li>دا دەم و مێمۆری (Time &amp; Memory) بهێنە پاراستن.</li>
-            <li>دا کۆدێ مە جوانتر، خواندەڤانتر و بساناهیتر بیت بۆ پاراستنێ (Readable &amp; Maintainable).</li>
-          </ol>
-        </li>
-      </ul>
+  // ==================== C2 ====================
+  {
+    id: "c2-s2",
+    chapter: "C2",
+    slideNum: "Slide 2",
+    title: "Parts of a Complete Computer System",
+    en: [
+      "A complete computer system includes <b>4 distinct parts</b>:",
+      "<b>1. Hardware</b> | <b>2. Software</b> | <b>3. Data</b> | <b>4. User</b>."
+    ],
+    ku: [
+      "سیستەمەکێ تەمام یێ کومپیوتەری ژ <b>٤ پشکێن سەرەکی</b> پێکدهێت:",
+      "<b>١. هاردوێر</b> (پارچە) | <b>٢. سوفتوێر</b> (بەرنامە) | <b>٣. داتا</b> (زانیاری) | <b>٤. بکەرهێنەر (User)</b>."
+    ],
+    questions: [
+      { type: "mcq", q: "How many distinct parts does a complete computer system include?", opts: ["2", "3", "4", "6"], ans: 2 },
+      { type: "mcq", q: "Which of the following is NOT one of the 4 parts of a computer system?", opts: ["Hardware", "Software", "Internet", "User"], ans: 2 },
+      { type: "tf", q: "Data and User are two of the four distinct parts of a complete computer system.", ans: true },
+      { type: "blank", q: "The four parts of a computer system are Hardware, Software, Data, and ______.", ans: ["User", "user"] }
+    ]
+  },
+  {
+    id: "c2-s3",
+    chapter: "C2",
+    slideNum: "Slide 3",
+    title: "Hardware: Definition & Types",
+    en: [
+      "<b>Hardware:</b> Electronic devices; the parts you can <b>see and touch</b>.",
+      "<b>Device:</b> Any piece of hardware used by computer (keyboard, monitor, mouse).",
+      "<b>4 Types of Computer Hardware:</b> Input Device, Output Device, Storage Device, Internal Component."
+    ],
+    ku: [
+      "<b>هاردوێر (Hardware):</b> ئامێرێن ئەلکترۆنی نە؛ ئەو پارچەنە یێن تو دشێی <b>ببینی و دەست لێ بدەی</b>.",
+      "<b>ئامێر (Device):</b> هەر پارچەکا هاردوێری یە کومپیوتەر بکاردئینیت (کیبۆرد، شاشە، ماوس).",
+      "<b>٤ جۆرێن هاردوێری:</b> ئامێرێن تێخستنێ (Input)، دەرئێخستنێ (Output)، هەلگرتنێ (Storage)، و پارچێن ناڤخۆیی (Internal)."
+    ],
+    questions: [
+      { type: "mcq", q: "Computer hardware consists of parts that you can ______.", opts: ["only imagine", "see and touch", "only hear", "never touch"], ans: 1 },
+      { type: "mcq", q: "Which of these is NOT one of the 4 types of computer hardware?", opts: ["Input Device", "Output Device", "Storage Device", "User Manual"], ans: 3 },
+      { type: "tf", q: "The term 'device' refers to any piece of hardware used by a computer.", ans: true },
+      { type: "blank", q: "The four types of hardware are Input, Output, Storage, and ______ Component.", ans: ["Internal", "internal"] }
+    ]
+  },
+  {
+    id: "c2-s4",
+    chapter: "C2",
+    slideNum: "Slide 4",
+    title: "Input Devices vs. Output Devices",
+    en: [
+      "<b>Input Devices:</b> User enters data into computer / interacts with computer (Keyboard, Mouse, Scanner).",
+      "<b>Output Devices:</b> Show the result of the task performed by the user (Monitors, Printers, Speakers).",
+      "<i>Diagram shows devices working as Both:</i> USB, Fax, Touch Screen."
+    ],
+    ku: [
+      "<b>ئامێرێن تێخستنێ (Input):</b> ب رێکا وان بکەرهێنەر داتایان دکەتە دناڤ کومپیوتەری دا (کیبۆرد، ماوس، سکانەر).",
+      "<b>ئامێرێن دەرئێخستنێ (Output):</b> ئەنجامێ کارێ بکەرهێنەری نیشان ددەن (شاشە، پرینتەر، سپیکەر).",
+      "<i>د وێنەی دا دیارە:</i> فلاش، فاکس، و شاشا تەچ وەک (هەردوو - Both) کار دکەن."
+    ],
+    questions: [
+      { type: "mcq", q: "Devices through which a user enters data into the computer are called:", opts: ["Output Devices", "Input Devices", "Storage Devices", "Power Devices"], ans: 1 },
+      { type: "mcq", q: "Which of the following is an Output Device example?", opts: ["Keyboard", "Scanner", "Monitor", "Mouse"], ans: 2 },
+      { type: "tf", q: "Output devices are used to show the result of the task performed by the user.", ans: true },
+      { type: "blank", q: "Keyboard, Mouse, and Scanner are examples of ______ devices.", ans: ["Input", "input"] }
+    ]
+  },
+  {
+    id: "c2-s5",
+    chapter: "C2",
+    slideNum: "Slide 5",
+    title: "Input Devices Examples (1–4)",
+    en: [
+      "<b>1. Keyboard:</b> Looks like a typewriter, present in all computer systems.",
+      "<b>2. Mouse:</b> Scrolls through monitor; has <b>2 buttons</b> (left/right click) + <b>centre wheel</b>.",
+      "<b>3. Scanner:</b> Converts <b>hard copy documents into digital files</b>.",
+      "<b>4. Joystick:</b> Pointing device used to move cursor on screen."
+    ],
+    ku: [
+      "<b>١. کیبۆرد:</b> وەکی ئامێرێ تایپکرنێ یە، د هەمی کومپیوتەران دا هەیە.",
+      "<b>٢. ماوس:</b> بۆ گەریانێ ل سەر شاشێ؛ <b>٢ دوگمە</b> (چەپ و راست) و <b>تەگەرەک د ناڤەراستێ دا</b> بۆ سکڕۆلکرنێ هەیە.",
+      "<b>٣. سکانەر:</b> کاغەزێن چاپکری (Hard copy) دگوهوریت بۆ فایلێن دیجیتاڵ.",
+      "<b>٤. جۆیستیک (Joystick):</b> ئامێرەکێ نیشانکرنێ یە بۆ لڤاندنا کورسەرێ شاشێ."
+    ],
+    questions: [
+      { type: "mcq", q: "Which input device converts hard copy documents into digital files?", opts: ["Mouse", "Keyboard", "Scanner", "Joystick"], ans: 2 },
+      { type: "mcq", q: "Which device looks like a typewriter and is commonly present in all computer systems?", opts: ["Keyboard", "Scanner", "Joystick", "Monitor"], ans: 0 },
+      { type: "tf", q: "A mouse has two buttons and a wheel in the centre for scrolling.", ans: true },
+      { type: "blank", q: "A ______ is a pointing device used to move the cursor on a computer screen (often used in gaming).", ans: ["Joystick", "joystick"] }
+    ]
+  },
+  {
+    id: "c2-s6",
+    chapter: "C2",
+    slideNum: "Slide 6",
+    title: "Input Devices Examples (5–7)",
+    en: [
+      "<b>5. Light pen:</b> Pen-like pointing device; selects menu items or draws on monitor.",
+      "<b>6. Bar code reader:</b> Reads bar-coded data (mark things, number books).",
+      "<b>7. Web Camera:</b> Records video image; built inside (laptop) or via <b>USB connection</b>."
+    ],
+    ku: [
+      "<b>٥. قەلەمێ رۆناهیێ (Light pen):</b> وەکی قەلەمی یە، بۆ هەلبژارتنا لیستان یان وێنەکێشانێ ل سەر شاشێ.",
+      "<b>٦. خواندەڤانێ بارکۆدی:</b> داتایێن بارکۆدی دخوینیت (بۆ دیارکرنا کەلوپەلان و ژمارەدانا پەرتووکان).",
+      "<b>٧. وێب کامێرا:</b> ڤیدیۆیا دیمەنێ بەرامبەر خۆ تومار دکەت؛ یان دناڤ لاپتۆپی دایە یان ب رێکا <b>USB</b> دهێتە گرێدان."
+    ],
+    questions: [
+      { type: "mcq", q: "Which device looks like a pen and can draw directly on the monitor screen?", opts: ["Bar code reader", "Light pen", "Web Camera", "Scanner"], ans: 1 },
+      { type: "mcq", q: "A Web Camera is either built inside a laptop or attached through a ______ connection.", opts: ["HDMI", "USB", "Bluetooth", "Audio"], ans: 1 },
+      { type: "tf", q: "A bar code reader is commonly used to mark things and number books.", ans: true },
+      { type: "blank", q: "Because a ______ records a video image of the scene in front of it, it is an input device.", ans: ["web camera", "webcam", "Web Camera", "Webcam"] }
+    ]
+  },
+  {
+    id: "c2-s7",
+    chapter: "C2",
+    slideNum: "Slide 7",
+    title: "Output Devices Examples (1–3)",
+    en: [
+      "<b>1. Monitor:</b> Displays pictorial/textual info using small dots called <b>pixels</b>; more pixels = sharper image.",
+      "<b>2. Printers:</b> Print information on <b>paper</b>.",
+      "<b>3. Speakers:</b> Produce <b>sound</b> after computer command (also wireless/Bluetooth)."
+    ],
+    ku: [
+      "<b>١. شاشە (Monitor):</b> وێنە و نڤیسینان نیشان ددەت ب رێکا خالێن بچویک یێن دبێژنێ <b>پێکسل (Pixels)</b>؛ هەتا پێکسل زێدە بن وێنە جوانتر و رۆهنترە.",
+      "<b>٢. پرینتەر:</b> رێکێ ددەتە تە زانیاریان ل سەر <b>کاغەزێ</b> چاپ بکەی.",
+      "<b>٣. سپیکەر:</b> دەنگی دەردئێخن پشتی فەرمانا کومپیوتەری (وەکی سپیکەرێن بلوتوسێ)."
+    ],
+    questions: [
+      { type: "mcq", q: "A monitor creates images by arranging small dots known as ______.", opts: ["bytes", "pixels", "vectors", "bits"], ans: 1 },
+      { type: "mcq", q: "What determines the sharpness of a monitor's image?", opts: ["Screen weight", "Number of pixels", "Cable length", "Printer ink"], ans: 1 },
+      { type: "tf", q: "Speakers produce sound after getting a command from a computer.", ans: true },
+      { type: "blank", q: "______ are output devices that allow you to print information on paper.", ans: ["Printers", "printers", "Printer", "printer"] }
+    ]
+  },
+  {
+    id: "c2-s8",
+    chapter: "C2",
+    slideNum: "Slide 8",
+    title: "Output Devices Examples (4–6)",
+    en: [
+      "<b>4. Projector:</b> Projects monitor image onto a <b>large wall or screen</b>.",
+      "<b>5. Plotter:</b> Prints <b>large, high-resolution, vector-based graphics</b> (used in architectural firms).",
+      "<b>6. Headphones:</b> <b>Transducers</b> converting <b>electrical energy into mechanical energy</b> for listening."
+    ],
+    ku: [
+      "<b>٤. پرۆجێکتەر:</b> وێنێ شاشا کومپیوتەری دهاڤێژیتە سەر <b>دیوارەکێ یان پەردەکا مەزن</b>.",
+      "<b>٥. پلۆتەر (Plotter):</b> وەکی پرینتەری یە بەس بۆ چاپکرنا <b>نەخشێن مەزن و ڤێکتەر (وەکی ئەندازیاری)</b>.",
+      "<b>٦. هێدفۆن:</b> ئامێرن (Transducers) <b>وزەیا کارەبێ دگوهورن بۆ وزەیا میکانیکی (دەنگ)</b> دا گوهداریا سترانان بکەین."
+    ],
+    questions: [
+      { type: "mcq", q: "Which output device is used in architectural firms to print large vector-based graphics?", opts: ["Projector", "Plotter", "Headphones", "Monitor"], ans: 1 },
+      { type: "mcq", q: "Headphones convert electrical energy into ______ energy.", opts: ["chemical", "solar", "mechanical", "nuclear"], ans: 2 },
+      { type: "tf", q: "A projector projects the image displayed on the monitor onto a large wall or screen.", ans: true },
+      { type: "blank", q: "Headphones are ______ that convert electrical energy into mechanical energy.", ans: ["transducers", "Transducers"] }
+    ]
+  },
+  {
+    id: "c2-s9",
+    chapter: "C2",
+    slideNum: "Slide 9",
+    title: "Input & Output Devices Examples (1–3)",
+    en: [
+      "<b>1. USB Drive:</b> Performs both I/O (receives data from a device and sends it to other devices).",
+      "<b>2. Modems:</b> Converts between <b>analogue and digital</b> formats in real time for two-way network communication.",
+      "<b>3. CD and DVD:</b> Saves data from one computer and sends it to others (acts as input)."
+    ],
+    ku: [
+      "<b>١. فلاش (USB Drive):</b> داتایان ژ ئامێرەکی وەردگریت و دهنێریتە ئامێرەکێ دی (هەم Input هەم Output).",
+      "<b>٢. مۆدێم (Modem):</b> زانیاریان دناڤبەرا <b>ئەنالۆگ و دیجیتاڵ</b> دا دگوهوریت بۆ پەیوەندیا تۆڕێ یا دوو-ئاراستە.",
+      "<b>٣. CD و DVD:</b> داتایان هەلدگرن و دهنێرنە کومپیوتەرێن دی."
+    ],
+    questions: [
+      { type: "mcq", q: "Which device converts information between analogue and digital formats in real time?", opts: ["USB Drive", "Modem", "Plotter", "Scanner"], ans: 1 },
+      { type: "mcq", q: "Why is a USB Drive considered both an input and output device?", opts: ["It prints on paper", "It receives data from and sends data to devices", "It converts AC to DC", "It projects images"], ans: 1 },
+      { type: "tf", q: "Modems allow seamless two-way network communication.", ans: true },
+      { type: "blank", q: "CD and DVD help save data from one computer and send it to other devices, working as an ______ device.", ans: ["input", "Input"] }
+    ]
+  },
+  {
+    id: "c2-s10",
+    chapter: "C2",
+    slideNum: "Slide 10",
+    title: "Input & Output Devices Examples (4–6)",
+    en: [
+      "<b>4. Headset:</b> Speaker (<b>output</b>) + Microphone (<b>input</b>).",
+      "<b>5. Facsimile (Fax):</b> Scanner (<b>input</b>) + Printer (<b>output</b>).",
+      "<b>6. Touch Screen:</b> Displays options on screen (<b>output</b>) + finger touches option (<b>input</b>)."
+    ],
+    ku: [
+      "<b>٤. هێدسێت (Headset):</b> سپیکەر (<b>دەرئێخستن</b>) + مایکرۆفۆن (<b>تێخستن</b>).",
+      "<b>٥. فاکس (Facsimile):</b> سکانەر (<b>تێخستن</b>) + پرینتەر (<b>دەرئێخستن</b>).",
+      "<b>٦. شاشا تەچ (Touch Screen):</b> نیشاندانا بژاردان ل سەر شاشێ (<b>Output</b>) + دەستلێدان ب تبلێ (<b>Input</b>)."
+    ],
+    questions: [
+      { type: "mcq", q: "A Facsimile (fax machine) consists of which two devices?", opts: ["Mouse and Monitor", "Scanner and Printer", "Speaker and Webcam", "Keyboard and Plotter"], ans: 1 },
+      { type: "mcq", q: "In a Headset, the microphone works as an ______ device and the speaker as an ______ device.", opts: ["output / input", "input / output", "storage / input", "input / storage"], ans: 1 },
+      { type: "tf", q: "On a Touch Screen, viewing options on the screen is output, and touching with your finger is input.", ans: true },
+      { type: "blank", q: "A ______ consists of a speaker and a microphone.", ans: ["Headset", "headset"] }
+    ]
+  },
+  {
+    id: "c2-s11",
+    chapter: "C2",
+    slideNum: "Slide 11",
+    title: "Input & Output Devices (7: Power Supply)",
+    en: [
+      "<b>7. Power Supply (PSU - Power Supply Unit):</b>",
+      "Converts incoming <b>Alternating Current (AC)</b> from a wall outlet into proper <b>Direct Current (DC)</b> voltage, current, and frequency needed by the electronic load."
+    ],
+    ku: [
+      "<b>٧. دابینکەرێ کارەبێ (Power Supply / PSU):</b>",
+      "ئامێرەکێ کارەبایی یە کو کارەبا <b>گۆڕاو (AC)</b> یا ژ پلاکێ دیواری دهێت، دگوهوریت بۆ کارەبا <b>نەگۆڕ (DC)</b> ب ڤۆلت و تەزوویێ گونجای بۆ کومپیوتەری."
+    ],
+    questions: [
+      { type: "mcq", q: "What does a Power Supply Unit (PSU) convert?", opts: ["DC to AC", "AC to DC", "Digital to Analogue", "Pixels to Text"], ans: 1 },
+      { type: "mcq", q: "Incoming electricity from a wall outlet is usually ______.", opts: ["Direct Current (DC)", "Alternating Current (AC)", "Binary Current", "Static Current"], ans: 1 },
+      { type: "tf", q: "PSU stands for Power Supply Unit.", ans: true },
+      { type: "blank", q: "A PSU converts AC from a wall outlet into proper ______ voltage, current, and frequency.", ans: ["DC", "dc", "direct current", "Direct Current"] }
+    ]
+  }
+];
 
-<pre><span class="kw">int</span> myNum = <span class="num">5</span>;              <span class="com">// ژمارا ساخ (Integer)</span>
-<span class="kw">float</span> floatVar = <span class="num">10.2f</span>;     <span class="com">// ژمارا ب فاریزە (پێدڤی ب پیتا fـە)</span>
-<span class="kw">char</span> myLetter = <span class="str">'D'</span>;        <span class="com">// ئێک پیت د ناڤ تاکە کۆما ' ' دا</span>
-<span class="kw">bool</span> myBool = <span class="kw">true</span>;         <span class="com">// راست یان خەلەت (Boolean)</span>
-<span class="kw">string</span> myText = <span class="str">"Kurdistan"</span>;<span class="com">// نڤیسین د ناڤ جوت کۆما " " دا</span></pre>
+const userAnswers = {};
 
-      <h3>📌 سڵاید ٤: خشتەیا گرنگترین Data Typeـان (باش ژبەر بکە!)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Data Type</th>
-              <th>قەبارە (Size)</th>
-              <th>شڕۆڤە و مەودا</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>int</code></td>
-              <td><strong>4 bytes</strong></td>
-              <td>ژمارێن ساخ ژ <span class="ltr">-2,147,483,648</span> تا <span class="ltr">2,147,483,647</span></td>
-            </tr>
-            <tr>
-              <td><code>long</code></td>
-              <td><strong>8 bytes</strong></td>
-              <td>ژمارێن ساخ یێن گەلەک مەزن (<span class="ltr">-9.2×10¹⁸</span> تا <span class="ltr">+9.2×10¹⁸</span>)</td>
-            </tr>
-            <tr>
-              <td><code>float</code></td>
-              <td><strong>4 bytes</strong></td>
-              <td>ژمارێن ب فاریزە، بەسە بۆ <strong>6 تا 7</strong> رەقەمێن پشتی فاریزێ</td>
-            </tr>
-            <tr>
-              <td><code>double</code></td>
-              <td><strong>8 bytes</strong></td>
-              <td>ژمارێن ب فاریزە، بەسە بۆ <strong>15</strong> رەقەمێن پشتی فاریزێ</td>
-            </tr>
-            <tr>
-              <td><code>bool</code></td>
-              <td><strong>1 bit</strong> *(ب سڵایدی)*</td>
-              <td>بهایێ <code>true</code> یان <code>false</code> هەلدگریت</td>
-            </tr>
-            <tr>
-              <td><code>char</code></td>
-              <td><strong>2 bytes</strong></td>
-              <td>ئێک پیت/هێما د ناڤ تاکە کۆما <code>' '</code> دا</td>
-            </tr>
-            <tr>
-              <td><code>string</code></td>
-              <td><strong>2 bytes بۆ هەر پیتەکێ</strong></td>
-              <td>زنجیرەکا پیتان د ناڤ جوت کۆما <code>" "</code> دا</td>
-            </tr>
-          </tbody>
-        </table>
+function renderAll() {
+  const container = document.getElementById("slides-container");
+  container.innerHTML = "";
+  let totalQ = 0;
+
+  slidesData.forEach((slide, sIdx) => {
+    const card = document.createElement("div");
+    card.className = "slide-card";
+    card.dataset.chapter = slide.chapter;
+
+    const headerClass = slide.chapter === "C2" ? "slide-header c2" : "slide-header";
+
+    let html = `
+      <div class="${headerClass}">
+        <span class="slide-title">${slide.title}</span>
+        <span class="slide-badge">${slide.chapter} • ${slide.slideNum}</span>
       </div>
-
-      <div class="note">
-        ⚠️ <strong>تێبینی بۆ ئەزموونێ:</strong> د ڕاستیێ دا مێمۆریا کۆمپیۆتەری 1 byte بۆ <code>bool</code> تەرخان دکەت، بەلێ د خشتەیا سڵاید ٤ یێ مامۆستای دا نڤیسییە <strong>1 bit</strong>؛ د ئەزموونێ دا لدویڤ سڵایدی <strong>1 bit</strong> بنڤیسە!
-      </div>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١-٤ (شێوازێ وەرەقەی):</div>
-        <div>Why is C# called a strongly-typed language, and what is the size of <code>double</code> and <code>char</code>?</div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong><br>
-          1) Strongly-typed یانی دڤێت بەری بکارئینانێ جۆرێ گوهۆڕی بهێتە ناساندن (declare).<br>
-          2) قەبارێ <code>double</code> = <strong>8 bytes</strong> و قەبارێ <code>char</code> = <strong>2 bytes</strong>.
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 5 - 8 -->
-    <section class="card" id="s5-8">
-      <div class="slide-tag">سڵاید ٥ تا ٨</div>
-      <h2>جۆرێن ژماران (Integer &amp; Floating-Point Numbers)</h2>
-
-      <h3>📌 سڵاید ٥ و ٦: دابەشبوونا ژماران و پاشگرێن وان</h3>
-      <ul>
-        <li><strong>Integer Types (ژمارێن ساخ):</strong> بێ فاریزەنە (موجەب یان سالب): <code>byte</code>, <code>sbyte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>.</li>
-        <li><strong>Floating-Point Types (ژمارێن ب فاریزە):</strong> خودان خاڵا دەهانەنە: <code>float</code> (32 bit)، <code>double</code> (64 bit)، <code>decimal</code> (128 bit).</li>
-      </ul>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>شڕۆڤە</th>
-              <th>مەودا (Range)</th>
-              <th>پاشگر (Suffix)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><code>byte</code></td><td>8-bit unsigned (بێ سالب)</td><td class="ltr">0 to 255</td><td>-</td></tr>
-            <tr><td><code>sbyte</code></td><td>8-bit signed (ب سالب)</td><td class="ltr">-128 to 127</td><td>-</td></tr>
-            <tr><td><code>short</code></td><td>16-bit signed</td><td class="ltr">-32,768 to 32,767</td><td>-</td></tr>
-            <tr><td><code>ushort</code></td><td>16-bit unsigned</td><td class="ltr">0 to 65,535</td><td>-</td></tr>
-            <tr><td><code>int</code></td><td>32-bit signed</td><td class="ltr">-2,147,483,648 to 2,147,483,647</td><td>-</td></tr>
-            <tr><td><code>uint</code></td><td>32-bit unsigned</td><td class="ltr">0 to 4,294,967,295</td><td><code>u</code></td></tr>
-            <tr><td><code>long</code></td><td>64-bit signed</td><td class="ltr">-9,223,372,036,854,775,808 to +...807</td><td><code>l</code></td></tr>
-            <tr><td><code>ulong</code></td><td>64-bit unsigned</td><td class="ltr">0 to 18,446,744,073,709,551,615</td><td><code>ul</code></td></tr>
-            <tr><td><code>float</code></td><td>32-bit Single-precision</td><td class="ltr">-3.402823e38 to 3.402823e38</td><td><code>f</code></td></tr>
-            <tr><td><code>double</code></td><td>64-bit Double-precision</td><td class="ltr">-1.79e308 to 1.79e308</td><td><code>d</code></td></tr>
-            <tr><td><code>decimal</code></td><td>128-bit (بۆ کارێن <strong>دارایی و پارەی</strong>)</td><td class="ltr">(±)1.0×10⁻²⁸ to 7.9×10²⁸</td><td><code>m</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="tip">
-        💡 <strong>بهایێن بنەرەتی (Default Values - سڵاید ٦):</strong>
-        بۆ هەمی جۆرێن Integer: <code>0</code> (ژبلی <code>long</code> کو <code>0L</code>ـە). بۆ <code>float</code>: <code>0.0F</code> و بۆ <code>double</code>: <code>0.0D</code>.
-      </div>
-
-      <h3>📌 سڵاید ٧: چاپکرن ب شێوازێ Placeholder (<code>{0}</code>, <code>{1}</code>)</h3>
-<pre><span class="kw">byte</span> centuries = <span class="num">20</span>;
-<span class="kw">ushort</span> years = <span class="num">2000</span>;
-<span class="kw">uint</span> days = <span class="num">730480</span>;
-<span class="kw">ulong</span> hours = <span class="num">17531520</span>;
-<span class="cls">Console</span>.WriteLine(<span class="str">"{0} centuries is {1} years, or {2} days, or {3} hours."</span>, centuries, years, days, hours);</pre>
-      <p>🔹 <strong>چاوا کار دکەت؟</strong> <code>{0}</code> بهایێ ئێکەم گوهۆڕ (<code>centuries</code>) وەردگریت، <code>{1}</code> یێ دووەم، <code>{2}</code> یێ سێیەم و <code>{3}</code> یێ چارەم.<br>
-      <strong>ئەنجام:</strong> <code class="ltr">20 centuries is 2000 years, or 730480 days, or 17531520 hours.</code></p>
-
-      <h3>📌 سڵاید ٨: نموونەیا پی (π) و جیاوازییا <code>float</code> و <code>double</code></h3>
-<pre><span class="kw">float</span> floatPI = <span class="num">3.141592653589793238f</span>;
-<span class="kw">double</span> doublePI = <span class="num">3.141592653589793238</span>;
-<span class="cls">Console</span>.WriteLine(<span class="str">"Float PI is: {0}"</span>, floatPI);   <span class="com">// Float PI is: 3.141593</span>
-<span class="cls">Console</span>.WriteLine(<span class="str">"Double PI is: {0}"</span>, doublePI); <span class="com">// Double PI is: 3.14159265358979</span></pre>
-      <div class="note">
-        ⚠️ هەر ژمارەکا ب فاریزە د C# دا بێ پاشگر بهێتە نڤیسین، ئۆتۆماتیکی وەک <strong><code>double</code></strong> دهێتە خاندن! لەوما بۆ <code>float</code> پێدڤییە پاشگرێ <strong><code>f</code></strong> بنڤیسی.
-      </div>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٥-٨:</div>
-        <div>ئەگەر ژمارا <code class="ltr">300</code> بکەینە د ناڤ گوهۆڕەکێ ژ جۆرێ <code>byte</code> دا، دێ رازی بیت یان خەلەتی چێبیت؟ بۆچی؟</div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> خەلەتی چێدبیت (Compile Error)! چونکی مەودایێ <code>byte</code> بتنێ ژ <strong>0 تا 255</strong>ـە و ژمارا 300 ژ وێ مەزنترە.
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 9 - 11 -->
-    <section class="card" id="s9-11">
-      <div class="slide-tag">سڵاید ٩ تا ١١</div>
-      <h2>جۆرێن Boolean و Char و String</h2>
-
-      <h3>📌 سڵاید ٩: Boolean (<code>bool</code>)</h3>
-      <ul>
-        <li>بتنێ دوو بها هەنە: <code>true</code> و <code>false</code>. بهایێ بنەرەتی (Default): <strong><code>false</code></strong>.</li>
-        <li>د ئەنجامێ <code>Console.WriteLine</code> دا پیتا ئێکێ ب مەزنی دەردکەڤیت (<code>True</code> / <code>False</code>).</li>
-      </ul>
-<pre><span class="kw">int</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
-<span class="kw">bool</span> greaterAB = (a &gt; b);
-<span class="cls">Console</span>.WriteLine(greaterAB); <span class="com">// False</span>
-<span class="kw">bool</span> equalA1 = (a == <span class="num">1</span>);
-<span class="cls">Console</span>.WriteLine(equalA1);   <span class="com">// True</span></pre>
-
-      <h3>📌 سڵاید ١٠: Character (<code>char</code>)</h3>
-      <ul>
-        <li>بتنێ <strong>ئێک</strong> پیت دهەلگریت د ناڤ تاکە کۆما <code>' '</code> دا (وەک <code>'B'</code>).</li>
-        <li>بهایێ بنەرەتی (Default): <strong><code>'\0'</code></strong>.</li>
-      </ul>
-
-      <h3>📌 سڵاید ١١: String (<code>string</code>)</h3>
-      <ul>
-        <li>نڤیسین (زنجیرەکا پیتان) د ناڤ جوت کۆما <code>" "</code> دا.</li>
-        <li>بهایێ بنەرەتی (Default): <strong><code>null</code></strong> (بێ بها).</li>
-        <li>دکاری ب نیشانا <code>+</code> دوو <code>string</code>ـان پێکڤە گرێبدەی، و نیشانا <code>\n</code> دێڕەکا نوو چێدکەت.</li>
-      </ul>
-<pre><span class="kw">string</span> firstName = <span class="str">"Dareen"</span>;
-<span class="kw">string</span> lastName = <span class="str">"Muhammed"</span>;
-<span class="cls">Console</span>.WriteLine(<span class="str">"Hello, {0}!\n"</span>, firstName);
-<span class="kw">string</span> fullName = firstName + <span class="str">" "</span> + lastName;
-<span class="cls">Console</span>.WriteLine(<span class="str">"Your full name is {0}."</span>, fullName);
-<span class="com">/* ئەنجام:
-Hello, Dareen!
-
-Your full name is Dareen Muhammed. */</span></pre>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٩-١١:</div>
-        <div>ئایا <code>char x = "A";</code> دروستە د C# دا؟</div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> نەخێر خەلەتە! چونکی بۆ <code>char</code> دڤێت تاکە کۆما بهێتە بکارئینان: <code>char x = 'A';</code> (جوت کۆما <code>" "</code> بتنێ بۆ <code>string</code>ـە).
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 12 - 18 -->
-    <section class="card" id="s12-18">
-      <div class="slide-tag">سڵاید ١٢ تا ١٨</div>
-      <h2>ئۆپەرەیتەرێن حسابی و بها دانانێ (Arithmetic &amp; Assignment)</h2>
-
-      <h3>📌 سڵاید ١٢: پۆلێن ئۆپەرەیتەران</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>پۆل (Category)</th><th>ئۆپەرەیتەر (Operators)</th></tr></thead>
-          <tbody>
-            <tr><td>Arithmetic</td><td class="ltr"><code>+  -  *  /  %  ++  --</code></td></tr>
-            <tr><td>Logical</td><td class="ltr"><code>&amp;&amp;  ||  ^  !</code></td></tr>
-            <tr><td>Binary (Bitwise)</td><td class="ltr"><code>&amp;  |  ^  ~  &lt;&lt;  &gt;&gt;</code></td></tr>
-            <tr><td>Comparison</td><td class="ltr"><code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code></td></tr>
-            <tr><td>Assignment</td><td class="ltr"><code>=  +=  -=  *=  /=  %=  &amp;=  |=  ^=  &lt;&lt;=  &gt;&gt;=</code></td></tr>
-            <tr><td>String Concatenation</td><td class="ltr"><code>+</code></td></tr>
-            <tr><td>Type Conversion</td><td class="ltr"><code>is  as  typeof</code> *(د سڵایدی دا Is نڤیسییە)*</td></tr>
-            <tr><td>Others</td><td class="ltr"><code>.  []  ()  ?:  new</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>📌 سڵاید ١٣ و ١٤: ئۆپەرەیتەرێن حسابی و نهێنیێن ئەزموونێ!</h3>
-      <ul>
-        <li><code>11 / 3</code> چونکی هەردوو <code>int</code>ـن، پاشماوێ پشتی فاریزێ دهاڤێژیت -> ئەنجام <strong><code>3</code></strong>ـە!</li>
-        <li><code>17 / 4.0</code> چونکی <code>4.0</code> جۆرێ <code>double</code>ـە -> ئەنجام <strong><code>4.25</code></strong>ـە!</li>
-        <li><code>11 % 3</code> یانی ماوێ دابەشکرنا ١١ ل سەر ٣ -> ئەنجام <strong><code>2</code></strong>ـە!</li>
-        <li><code>b++</code> (Post-increment): پێشییێ بهایێ کەڤن بکاردئینیت، پاشی ١ زێدە دکەت.</li>
-        <li><code>++b</code> (Pre-increment): پێشییێ ١ زێدە دکەت، پاشی بهایێ نوو بکاردئینیت.</li>
-      </ul>
-<pre><span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">4</span>;
-<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 9</span>
-<span class="cls">Console</span>.WriteLine(a + b++);   <span class="com">// 9  (پێشییێ 5+4=9 پاشی b دبیتە 5)</span>
-<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 10 (چونکی b بوو 5)</span>
-<span class="cls">Console</span>.WriteLine(a + (++b)); <span class="com">// 11 (پێشییێ b دبیتە 6 پاشی 5+6=11)</span>
-<span class="cls">Console</span>.WriteLine(a + b);     <span class="com">// 11</span></pre>
-
-      <h3>📌 سڵاید ١٥، ١٦، ١٧، ١٨: ئۆپەرەیتەرێن بها دانانێ (Assignment)</h3>
-      <p>کورتکرنا کریارانە، بۆ نموونە <code>c += a</code> یانی <code>c = c + a</code>. ئەڤە ئەنجامێن تەمام یێن <strong>سڵاید ١٦</strong>نە (چونکی ل سڵایدی ئەنجام نەهاتبوونە نڤیسین):</p>
-<pre><span class="kw">int</span> a = <span class="num">21</span>, c;
-c = a;    <span class="com">// Line 1: 21</span>
-c += a;   <span class="com">// Line 2: 21 + 21 = 42</span>
-c -= a;   <span class="com">// Line 3: 42 - 21 = 21</span>
-c *= a;   <span class="com">// Line 4: 21 * 21 = 441</span>
-c /= a;   <span class="com">// Line 5: 441 / 21 = 21</span>
-c = <span class="num">200</span>;
-c %= a;   <span class="com">// Line 6: 200 % 21 = 11  (چونکی 21*9 = 189، ماوە 11ـە)</span>
-c &lt;&lt;= <span class="num">2</span>;  <span class="com">// Line 7: 11 * 4 = 44</span>
-c &gt;&gt;= <span class="num">2</span>;  <span class="com">// Line 8: 44 / 4 = 11</span>
-c &amp;= <span class="num">2</span>;   <span class="com">// Line 9: 1011 &amp; 0010 = 0010 = 2</span>
-c ^= <span class="num">2</span>;   <span class="com">// Line 10: 0010 ^ 0010 = 0000 = 0</span>
-c |= <span class="num">2</span>;   <span class="com">// Line 11: 0000 | 0010 = 0010 = 2</span></pre>
-
-      <div class="warn">
-        🚨 <strong>هشیاربوون ل سڵاید ١٨:</strong> د سڵاید ١٨ دا مامۆستای دوو جاران <code>int y = 4;</code> و پاشی <code>int y = 3;</code> نڤیسییە. د C# دا دوو جاران ناساندنا هەمان ناڤ ب <code>int</code> خەلەتییە (دڤێت دێڕا دووێ بێ <code>int</code> بیت: <code>y = 3;</code>). ئەنجامێن سڵاید ١٨ ئەڤەنە: <code>8, 3, 9, 6, 3, 9</code>.
-      </div>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١٢-١٨:</div>
-        <div>ئەنجامێ ئەڤی کۆدی چییە؟ <code class="ltr">int x = 10; Console.WriteLine(x++ + ++x);</code></div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> <strong><code>22</code></strong>!<br>
-          روونکرن: پێشییێ <code>x++</code> بهایێ <code>10</code> ددەت و <code>x</code> دبیتە <code>11</code>. پاشی <code>++x</code> ژ <code>11</code> دکەتە <code>12</code>. ئەنجام: <code>10 + 12 = 22</code>.
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 19 - 22 -->
-    <section class="card" id="s19-22">
-      <div class="slide-tag">سڵاید ١٩ تا ٢٢</div>
-      <h2>ئۆپەرەیتەرێن بەراوردکاری و لۆجیکی (Comparison &amp; Logical)</h2>
-
-      <h3>📌 سڵاید ١٩ و ٢٠: بەراوردکاری (<code>== != &gt; &lt; &gt;= &lt;=</code>)</h3>
-      <p>ئەنجامێ وان هەردەم <code>True</code> یان <code>False</code>ـە.</p>
-<pre><span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">4</span>;
-<span class="cls">Console</span>.WriteLine(a &gt;= b);   <span class="com">// True</span>
-<span class="cls">Console</span>.WriteLine(a != b);   <span class="com">// True</span>
-<span class="cls">Console</span>.WriteLine(a == b);   <span class="com">// False</span>
-<span class="cls">Console</span>.WriteLine(a != ++b); <span class="com">// False (پێشییێ b دبیتە 5، پاشی 5 != 5 خەلەتە)</span>
-<span class="cls">Console</span>.WriteLine(a &gt; b);    <span class="com">// False (5 &gt; 5 خەلەتە)</span></pre>
-
-      <h3>📌 سڵاید ٢١ و ٢٢: لۆجیکی (<code>&amp;&amp; || ^ !</code>)</h3>
-      <ul>
-        <li><strong><code>&amp;&amp;</code> (AND):</strong> بتنێ دەمێ <strong>هەردوو True</strong> بن ئەنجام <code>True</code>ـە.</li>
-        <li><strong><code>||</code> (OR):</strong> ئەگەر <strong>ئێک ژ وان True</strong> بیت ئەنجام <code>True</code>ـە.</li>
-        <li><strong><code>!</code> (NOT):</strong> ئەنجامی بەرۆڤاژی دکەت.</li>
-        <li><strong><code>^</code> (XOR):</strong> بتنێ دەمێ <strong>ژێک جودا بن</strong> (ئێک True و ئێک False) ئەنجام <code>True</code>ـە! ئەگەر وەکی ئێک بن -> <code>False</code>.</li>
-      </ul>
-<pre><span class="kw">bool</span> a = <span class="kw">true</span>, b = <span class="kw">false</span>;
-<span class="cls">Console</span>.WriteLine(a &amp;&amp; b);  <span class="com">// False</span>
-<span class="cls">Console</span>.WriteLine(a || b);  <span class="com">// True</span>
-<span class="cls">Console</span>.WriteLine(a ^ b);   <span class="com">// True (ژێک جودانە)</span>
-<span class="cls">Console</span>.WriteLine(!b);      <span class="com">// True</span>
-<span class="cls">Console</span>.WriteLine((<span class="num">5</span> &gt; <span class="num">7</span>) ^ (a == b)); <span class="com">// False ^ False -&gt; False</span></pre>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ١٩-٢٢:</div>
-        <div>ئەنجامێ ئەڤێ چییە؟ <code class="ltr">!(10 &gt; 5) || (3 == 3 &amp;&amp; 4 &lt; 2)</code></div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> <strong><code>False</code></strong>!<br>
-          روونکرن: <code>!(True)</code> دبیتە <code>False</code>. لایێ دی: <code>(True &amp;&amp; False)</code> دبیتە <code>False</code>. کەواتە <code>False || False = False</code>.
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 23 - 26 -->
-    <section class="card" id="s23-26">
-      <div class="slide-tag">سڵاید ٢٣ تا ٢٦</div>
-      <h2>ئۆپەرەیتەرێن بت-ب-بت و یێن دی (Bitwise &amp; Other Operators)</h2>
-
-      <h3>📌 سڵاید ٢٣ و ٢٤: Bitwise Operators (بت ب بت)</h3>
-      <p>ل سەر ژمارێن ساخ (<code>byte, sbyte, int, uint, long, ulong</code>) د سیستەمێ Binary (0 و 1) دا کار دکەن:</p>
-<pre><span class="kw">ushort</span> a = <span class="num">3</span>; <span class="com">// 00000000 00000011</span>
-<span class="kw">ushort</span> b = <span class="num">5</span>; <span class="com">// 00000000 00000101</span>
-<span class="cls">Console</span>.WriteLine(a | b);  <span class="com">// 00000111 = 7  (ئەگەر ئێک ژی 1 بیت -&gt; 1)</span>
-<span class="cls">Console</span>.WriteLine(a &amp; b);  <span class="com">// 00000001 = 1  (بتنێ 1 &amp; 1 -&gt; 1)</span>
-<span class="cls">Console</span>.WriteLine(a ^ b);  <span class="com">// 00000110 = 6  (ئەگەر ژێک جودا بن -&gt; 1)</span>
-<span class="cls">Console</span>.WriteLine(~a &amp; b); <span class="com">// 1100 &amp; 0101 = 0100 = 4</span>
-<span class="cls">Console</span>.WriteLine(a &lt;&lt; <span class="num">1</span>); <span class="com">// 00000110 = 6  (بۆ چەپێ = جارانی 2)</span>
-<span class="cls">Console</span>.WriteLine(a &gt;&gt; <span class="num">1</span>); <span class="com">// 00000001 = 1  (بۆ راستێ = دابەشی 2)</span></pre>
-
-      <h3>📌 سڵاید ٢٥ و ٢٦: گرێدانا String و ئۆپەرەیتەرێ مەرجی (<code>?:</code>)</h3>
-      <ul>
-        <li><strong>لێکدانا String + ژمارە (سڵاید ٢٥):</strong> <code>"The number is : " + 5</code> ئۆتۆماتیکی ژمارێ دکەتە string و دبیتە <code>"The number is : 5"</code>.</li>
-        <li><strong>ئۆپەرەیتەرێ مەرجی <code>?:</code> (سڵاید ٢٦):</strong> <code>condition ? ifTrue : ifFalse</code></li>
-        <li><code>new</code> (دروستکرنا ئۆبجێکتی)، <code>typeof</code> (زڤراندنا System.Type)، <code>is</code> (پشکنینا گونجانا جۆری).</li>
-      </ul>
-<pre><span class="kw">int</span> x = <span class="num">20</span>, y = <span class="num">10</span>;
-<span class="kw">var</span> result = x &gt; y ? <span class="str">"x is greater than y"</span> : <span class="str">"x is less than y"</span>;
-<span class="cls">Console</span>.WriteLine(result); <span class="com">// x is greater than y</span></pre>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٢٣-٢٦:</div>
-        <div>ئەنجامێ <code class="ltr">4 &lt;&lt; 2</code> چەندە؟</div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> <strong><code>16</code></strong>!<br>
-          روونکرن: دوو جاران خشاندن بۆ چەپێ یانی دوو جاران جارانی ٢: <code>4 × 2 × 2 = 16</code> (یان د باینەری دا <code>00100</code> دبیتە <code>10000</code>).
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDES 27 - 29 -->
-    <section class="card" id="s27-29">
-      <div class="slide-tag">سڵاید ٢٧ تا ٢٩</div>
-      <h2>Type Casting و Type Conversion و Expressions</h2>
-
-      <h3>📌 سڵاید ٢٧: Type Casting (گوهۆڕینا جۆرێ داتایان)</h3>
-      <ol>
-        <li><strong>Implicit Casting (ئۆتۆماتیکی):</strong> ژ جۆرەکێ بچیک بۆ جۆرەکێ مەزنتر (بێ خەتەر):<br>
-          <code class="ltr">char -&gt; int -&gt; long -&gt; float -&gt; double</code>
-        </li>
-        <li><strong>Explicit Casting (ب دەست):</strong> ژ جۆرەکێ مەزنتر بۆ جۆرەکێ بچیکتر (ب رێکا کڤانێن <code>( )</code>):<br>
-          <code class="ltr">double -&gt; float -&gt; long -&gt; int -&gt; char</code>
-        </li>
-      </ol>
-<pre><span class="kw">int</span> myInt = <span class="num">9</span>;
-<span class="kw">double</span> myDouble = myInt;         <span class="com">// Implicit: 9</span>
-
-<span class="kw">double</span> d2 = <span class="num">9.78</span>;
-<span class="kw">int</span> i2 = (<span class="kw">int</span>) d2;               <span class="com">// Explicit: 9 (پشتی فاریزێ دبرێت، نابیتە 10!)</span></pre>
-
-      <h3>📌 سڵاید ٢٨: Type Conversion (مێسۆدێن <code>Convert</code>)</h3>
-      <p>فەرمانێن حازر: <code>Convert.ToBoolean</code>، <code>Convert.ToDouble</code>، <code>Convert.ToString</code>، <code>Convert.ToInt32</code> (بۆ <code>int</code>)، <code>Convert.ToInt64</code> (بۆ <code>long</code>).</p>
-
-      <h3>📌 سڵاید ٢٩: Expressions (دەربڕین)</h3>
-      <p>دەربڕین زنجیرەیەکە ژ ئۆپەرەیتەر و بها و گوهۆڕان، و هەر دەربڕینەکێ دوو تشت هەنە: <strong>Type</strong> (جۆر) و <strong>Value</strong> (بها).</p>
-<pre><span class="kw">int</span> r = (<span class="num">150</span> - <span class="num">20</span>) / <span class="num">2</span> + <span class="num">5</span>; <span class="com">// 130 / 2 + 5 = 65 + 5 = 70</span>
-
-<span class="kw">int</span> a = <span class="num">2</span> + <span class="num">3</span>;            <span class="com">// a = 5</span>
-<span class="kw">int</span> b = (a+<span class="num">3</span>) * (a-<span class="num">4</span>) + (<span class="num">2</span>*a + <span class="num">7</span>) / <span class="num">4</span>;
-<span class="com">// = 8 * 1 + 17 / 4 = 8 + 4 = 12 (هشیار بە 17/4 = 4ـە نە 4.25!)</span>
-<span class="kw">bool</span> g = (a &gt; b) || ((a == <span class="num">0</span>) &amp;&amp; (b == <span class="num">0</span>));
-<span class="com">// = false || (false &amp;&amp; false) = False</span></pre>
-
-      <div class="mini-quiz">
-        <div class="mini-quiz-title">🎯 پسیارا سەر سڵاید ٢٧-٢٩:</div>
-        <div>جیاوازییا دەرئەنجامێ <code class="ltr">(int) 9.78</code> چییە و ئایا نێزیکی 10 دکەت؟</div>
-        <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ:</strong> نەخێر نێزیک ناکەت؛ ئەنجام هەر <strong><code>9</code></strong>ـە چونکی Explicit Casting بتنێ بەشێ پشتی فاریزێ ژێدبەت (Truncate).
-        </div>
-      </div>
-    </section>
-
-    <!-- FINAL COMPREHENSIVE EXAM -->
-    <section id="final-exam">
-      <div class="exam-header">
-        <div class="slide-tag">تاقیکرنا تەمام • هەمی ٢٩ سڵاید</div>
-        <h2 style="border:none; padding:0; text-align:center;">📝 ئەزموونا نموونەیی ل سەر شێوازێ وەرەقەی</h2>
-        <p style="color:var(--text-muted)">پسیاران ب کلیککرنێ هەلبژێرە یان ل سەر وەرەقەی شیکار بکە و پاشی بەرسڤێ ببینە!</p>
-        <div class="score-board">
-          <span>نمرەیا تە (هەلبژارتن و راست/خەلەت): <span class="score-num" id="scoreVal">0</span> / <span id="totalAuto">18</span></span>
-          <button class="btn-reset" onclick="resetExam()">🔄 دووبارە دەستپێکرن</button>
-        </div>
-      </div>
-
-      <!-- Part 1: MCQ -->
-      <div class="card">
-        <h2>بەشێ ١: هەلبژارتن (Multiple Choice - 10 Questions)</h2>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">1. Which data type is 128-bit and best for financial and monetary calculations?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">a) float</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">b) double</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">c) decimal</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'decimal 128-bitـە بۆ کارێن دارایی (سڵاید ٦)')">d) long</button>
+      <div class="summary-section">
+        <div class="summary-grid">
+          <div class="box-en">
+            <span class="box-label">English Summary</span>
+            <ul>${slide.en.map(item => `<li>${item}</li>`).join("")}</ul>
           </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">2. What is the default value of a <code>string</code> data type in C#?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">a) ""</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">b) '\0'</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! string بهایێ وێ یێ بنەرەتی nullـە (سڵاید ١١)')">c) null</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بهایێ بنەرەتی یێ string بریتییە ژ null (سڵاید ١١)')">d) 0</button>
+          <div class="box-ku">
+            <span class="box-label">شڕۆڤە ب کوردی</span>
+            <ul>${slide.ku.map(item => `<li>${item}</li>`).join("")}</ul>
           </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">3. What is the size of <code>char</code> data type in C#?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">a) 1 byte</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! 2 bytesـە (سڵاید ٤)')">b) 2 bytes</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">c) 4 bytes</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'قەبارێ char بریتییە ژ 2 bytes (سڵاید ٤)')">d) 1 bit</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">4. Which suffix must be placed at the end of a <code>float</code> number literal?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">a) d</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">b) m</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! پاشگرێ f بۆ floatـە (سڵاید ٦ و ٨)')">c) f</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'بۆ float پێدڤییە پاشگرێ f بکاربینی (سڵاید ٦ و ٨)')">d) ul</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">5. Which of the following is an example of <strong>Implicit Casting</strong>?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">a) double to int</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! ژ بچیک بۆ مەزن ب شێوازێ ئۆتۆماتیکی (سڵاید ٢٧)')">b) int to double</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">c) float to long</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Implicit ژ بچیک بۆ مەزنە: int -> double (سڵاید ٢٧)')">d) int to char</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">6. What does <code>Convert.ToInt64</code> convert a value to?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">a) int</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">b) short</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! long 64-bitـە (سڵاید ٢٨)')">c) long</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'Int32 بۆ intـە و Int64 بۆ longـە (سڵاید ٢٨)')">d) double</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">7. What is the result of <code class="ltr">15 / 4</code> in C#?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">a) 3.75</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! دابەشکرنا دوو intـان بەشێ پشتی فاریزێ دهاڤێژیت')">b) 3</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">c) 4</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'هەردوو ژمارە intـن لەوما فاریزە دهێتە هاڤێتن و دبیتە 3 (سڵاید ١٤)')">d) 3.0</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">8. Which operator checks if an object is compatible with a given type?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">a) typeof</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">b) new</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! (سڵاید ٢٦)')">c) is</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'ئۆپەرەیتەرێ is ڤێ پشکنینێ دکەت (سڵاید ٢٦)')">d) ?:</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">9. What is the result of <code class="ltr">true ^ true</code>?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">a) true</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! چونکی هەردوو وەکی ئێکن دبیتە false (سڵاید ٢٢)')">b) false</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">c) 1</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'د XOR دا ئەگەر هەردوو وەکی ئێک بن ئەنجام falseـە (سڵاید ٢٢)')">d) Error</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">10. What is the range of <code>byte</code> data type?</div>
-          <div class="options-grid">
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە، -128 تا 127 یێ sbyteـە (سڵاید ٦)')">a) -128 to 127</button>
-            <button class="opt-btn" onclick="checkMCQ(this, true, 'دروستە! (سڵاید ٦)')">b) 0 to 255</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە، 0 تا 65,535 یێ ushortـە (سڵاید ٦)')">c) 0 to 65,535</button>
-            <button class="opt-btn" onclick="checkMCQ(this, false, 'byte ژ 0 تا 255ـە (سڵاید ٦)')">d) -32,768 to 32,767</button>
-          </div>
-          <div class="q-feedback"></div>
         </div>
       </div>
-
-      <!-- Part 2: True / False -->
-      <div class="card">
-        <h2>بەشێ ٢: راست و خەلەت (True / False - 8 Questions)</h2>
-
-        <div class="q-item" data-answered="false">
-          <div class="q-text">1. C# is a strongly-typed language, meaning variables must have a declared data type.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٣)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! C# زمانەکێ strongly-typedـە (سڵاید ٣)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
+      <div class="quiz-section">
+        <div class="quiz-title">
+          <span>Slide Questions (${slide.questions.length})</span>
         </div>
+    `;
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">2. Real numbers with decimal points (like 3.14) are interpreted as <code>float</code> by default in C#.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! ب شێوازێ بنەرەتی وەک double دهێنە خاندن (سڵاید ٨)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! چونکی ب شێوازێ بنەرەتی وەک double دهێنە خاندن (سڵاید ٨)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
+    slide.questions.forEach((q, qIdx) => {
+      totalQ++;
+      const qId = `${slide.id}-q${qIdx}`;
+      let typeLabel = q.type === "mcq" ? "Multiple Choice" : q.type === "tf" ? "True / False" : "Fill in Blank";
+      let typeClass = q.type;
+
+      html += `<div class="q-card" id="${qId}">
+        <div class="q-meta">
+          <span class="q-type ${typeClass}">${typeLabel}</span>
+          <span style="font-size:0.75rem;color:#64748b;">Q${qIdx + 1}</span>
         </div>
+        <div class="q-text">${q.q}</div>`;
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">3. A <code>char</code> value must be surrounded by double quotes <code>""</code>.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! char ب تاکە کۆما (single quotes) دهێتە نڤیسین (سڵاید ١٠)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! char ب تاکە کۆما \'\' دهێتە نڤیسین (سڵاید ١٠)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
+      if (q.type === "mcq") {
+        html += `<div class="options-list">`;
+        q.opts.forEach((opt, oIdx) => {
+          const letter = String.fromCharCode(65 + oIdx);
+          html += `<button class="opt-btn" onclick="answerMCQ('${qId}', ${sIdx}, ${qIdx}, ${oIdx})">${letter}) ${opt}</button>`;
+        });
+        html += `</div>`;
+      } else if (q.type === "tf") {
+        html += `<div class="tf-group">
+          <button class="tf-btn" onclick="answerTF('${qId}', ${sIdx}, ${qIdx}, true)">True (راست)</button>
+          <button class="tf-btn" onclick="answerTF('${qId}', ${sIdx}, ${qIdx}, false)">False (خەلەت)</button>
+        </div>`;
+      } else if (q.type === "blank") {
+        html += `<div class="blank-row">
+          <input type="text" class="blank-input" id="${qId}-inp" placeholder="Type answer here...">
+          <button class="btn-small btn-check" onclick="answerBlank('${qId}', ${sIdx}, ${qIdx})">Check</button>
+          <button class="btn-small btn-reveal" onclick="revealBlank('${qId}', ${sIdx}, ${qIdx})">Show Answer</button>
+        </div>`;
+      }
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">4. The default value of <code>bool</code> is <code>false</code>.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٩)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! بهایێ بنەرەتی یێ bool بریتییە ژ false (سڵاید ٩)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
+      html += `<div class="feedback" id="${qId}-fb"></div></div>`;
+    });
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">5. Explicit casting converts a smaller data type to a larger data type automatically.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! ئەو کارێ Implicitـە؛ Explicit ژ مەزن بۆ بچیکە ب دەست (سڵاید ٢٧)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! ئەو کارێ Implicit Castingـە (سڵاید ٢٧)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
+    html += `</div>`;
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">6. In <code>ushort</code>, the letter <code>u</code> stands for unsigned (zero and positive numbers only).</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٥ و ٦)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! u یانی unsigned (بێ سالب) (سڵاید ٥ و ٦)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
+  document.getElementById("stat-total").textContent = totalQ;
+  updateScoreboard();
+}
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">7. Expressions in C# have both a Type and a Value.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! (سڵاید ٢٩)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'راستە! هەر Expressionـەکی Type و Value هەنە (سڵاید ٢٩)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
+function answerMCQ(qId, sIdx, qIdx, oIdx) {
+  const q = slidesData[sIdx].questions[qIdx];
+  const card = document.getElementById(qId);
+  const btns = card.querySelectorAll(".opt-btn");
+  const fb = document.getElementById(`${qId}-fb`);
 
-        <div class="q-item" data-answered="false">
-          <div class="q-text">8. Bitwise operators (<code>&amp;</code>, <code>|</code>, <code>~</code>) can be used on <code>float</code> and <code>double</code> numbers.</div>
-          <div class="tf-wrap">
-            <button class="opt-btn tf-btn" onclick="checkTF(this, false, 'خەلەتە! بتنێ ل سەر ژمارێن ساخ (Integer) کار دکەن (سڵاید ٢٣)')">True</button>
-            <button class="opt-btn tf-btn" onclick="checkTF(this, true, 'دروستە! Bitwise بتنێ بۆ ژمارێن ساخە (سڵاید ٢٣)')">False</button>
-          </div>
-          <div class="q-feedback"></div>
-        </div>
-      </div>
+  btns.forEach((b, i) => {
+    b.classList.remove("correct", "wrong");
+    if (i === q.ans) b.classList.add("correct");
+  });
 
-      <!-- Part 3: Find the Output -->
-      <div class="card">
-        <h2>بەشێ ٣: ئەنجامێ کۆدی چییە؟ (Find the Output - 6 Questions)</h2>
-        <p style="color:var(--text-muted); margin-bottom:16px;">پێشییێ ل سەر وەرەقەیا خۆ ئەنجامی بنڤیسە، پاشان کلیکێ ل سەر دوگما بەرسڤێ بکە!</p>
+  const isCorrect = oIdx === q.ans;
+  if (!isCorrect) {
+    btns[oIdx].classList.add("wrong");
+    fb.className = "feedback show err";
+    fb.textContent = "Wrong! Correct answer: " + q.opts[q.ans];
+  } else {
+    fb.className = "feedback show ok";
+    fb.textContent = "Correct! دەست خوش!";
+  }
 
-        <!-- Q1 -->
-        <div class="q-item">
-          <div class="q-text">کۆدێ ١:</div>
-<pre><span class="kw">int</span> a = <span class="num">6</span>;
-<span class="kw">int</span> b = <span class="num">3</span>;
-<span class="cls">Console</span>.WriteLine(a + b++);
-<span class="cls">Console</span>.WriteLine(a + ++b);
-<span class="cls">Console</span>.WriteLine(<span class="num">14</span> % <span class="num">4</span>);</pre>
-          <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا ئەنجامی</button>
-          <div class="answer-box">
-<pre>9
-11
-2</pre>
-            <strong>روونکرن:</strong> دێڕا ١: <code>6 + 3 = 9</code> (پاشی <code>b</code> دبیتە <code>4</code>). دێڕا ٢: <code>++b</code> پێشییێ <code>b</code> دکەتە <code>5</code>، پاشی <code>6 + 5 = 11</code>. دێڕا ٣: ماوێ ١٤ دابەشی ٤ = <code>2</code>.
-          </div>
-        </div>
+  userAnswers[qId] = isCorrect;
+  updateScoreboard();
+}
 
-        <!-- Q2 -->
-        <div class="q-item">
-          <div class="q-text">کۆدێ ٢:</div>
-<pre><span class="kw">double</span> x = <span class="num">8.95</span>;
-<span class="kw">int</span> y = (<span class="kw">int</span>) x;
-<span class="cls">Console</span>.WriteLine(y);</pre>
-          <button class="btn-toggle" onclick="toggleAnswer(this)">👁️ نیشاندانا ئەنجامی</button>
-          <div class="answer-box">
-<pre>8</pre>
-            <strong>روونکرن:</strong> <code>(int)</code> بەشێ پشتی فاریزێ ژێدبەت و نێزیک ناکەت!
-          </div>
-        </div>
+function answerTF(qId, sIdx, qIdx, choice) {
+  const q = slidesData[sIdx].questions[qIdx];
+  const card = document.getElementById(qId);
+  const btns = card.querySelectorAll(".tf-btn");
+  const fb = document.getElementById(`${qId}-fb`);
 
-        <!-- Q3 -->
-        <div class="q-item">
-          <div class="q-text">کۆدێ ٣:</div>
-<pre><span class="kw">int</span>
+  btns.forEach(b => b.classList.remove("correct", "wrong"));
+
+  const correctBtn = q.ans ? btns[0] : btns[1];
+  const clickedBtn = choice ? btns[0] : btns[1];
+  correctBtn.classList.add("correct");
+
+  const isCorrect = choice === q.ans;
+  if (!isCorrect) {
+    clickedBtn.classList.add("wrong");
+    fb.className = "feedback show err";
+    fb.textContent = "Wrong! Correct answer is: " + (q.ans ? "True" : "False");
+  } else {
+    fb.className = "feedback show ok";
+    fb.textContent = "Correct! راستە!";
+  }
+
+  userAnswers[qId] = isCorrect;
+  updateScoreboard();
+}
+
+function answerBlank(qId, sIdx, qIdx) {
+  const q = slidesData[sIdx].questions[qIdx];
+  const inp = document.getElementById(`${qId}-inp`);
+  const fb = document.getElementById(`${qId}-fb`);
+  const val = inp.value.trim().toLowerCase();
+
+  if (!val) {
+    fb.className = "feedback show info";
+    fb.textContent = "Please type an answer or click 'Show Answer'.";
+    return;
+  }
+
+  const isCorrect = q.ans.some(a => a.toLowerCase() === val);
+  inp.classList.remove("correct", "wrong");
+
+  if (isCorrect) {
+    inp.classList.add("correct");
+    fb.className = "feedback show ok";
+    fb.textContent = "Correct! دەست خوش!";
+  } else {
+    inp.classList.add("wrong");
+    fb.className = "feedback show err";
+    fb.textContent = "Not quite! Correct answer: " + q.ans[0];
+  }
+
+  userAnswers[qId] = isCorrect;
+  updateScoreboard();
+}
+
+function revealBlank(qId, sIdx, qIdx) {
+  const q = slidesData[sIdx].questions[qIdx];
+  const inp = document.getElementById(`${qId}-inp`);
+  const fb = document.getElementById(`${qId}-fb`);
+
+  inp.value = q.ans[0];
+  inp.classList.remove("wrong");
+  inp.classList.add("correct");
+  fb.className = "feedback show info";
+  fb.textContent = "Answer: " + q.ans[0];
+}
+
+function updateScoreboard() {
+  const keys = Object.keys(userAnswers);
+  const answered = keys.length;
+  const correct = keys.filter(k => userAnswers[k] === true).length;
+  const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+
+  document.getElementById("stat-answered").textContent = answered;
+  document.getElementById("stat-correct").textContent = correct;
+  document.getElementById("stat-pct").textContent = pct + "%";
+}
+
+function filterSlides(filter, btn) {
+  document.querySelectorAll(".controls .btn-ctrl:not(.exam-toggle):not(.reset-btn)")
+    .forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.querySelectorAll(".slide-card").forEach(card => {
+    if (filter === "all" || card.dataset.chapter === filter) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+function toggleExamMode(btn) {
+  document.body.classList.toggle("exam-mode");
+  btn.classList.toggle("active");
+  btn.textContent = document.body.classList.contains("exam-mode")
+    ? "Study Mode (Show Notes)"
+    : "Exam Mode (Hide Notes)";
+}
+
+function resetQuiz() {
+  for (let k in userAnswers) delete userAnswers[k];
+  renderAll();
+  const activeFilter = document.querySelector(".controls .btn-ctrl.active");
+  if (activeFilter && activeFilter.textContent.includes("C1")) {
+    filterSlides("C1", activeFilter);
+  } else if (activeFilter && activeFilter.textContent.includes("C2")) {
+    filterSlides("C2", activeFilter);
+  }
+}
+
+renderAll();
+</script>
+</body>
+</html>
