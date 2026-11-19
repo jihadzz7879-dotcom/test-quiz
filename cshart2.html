@@ -1,1041 +1,2033 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Computer Essentials - Exam Prep (C1 & C2)</title>
-<style>
-  :root {
-    --primary: #1e3a8a;
-    --primary-light: #3b82f6;
-    --accent: #0f766e;
-    --bg: #f1f5f9;
-    --card: #ffffff;
-    --text: #1e293b;
-    --muted: #64748b;
-    --success: #16a34a;
-    --success-bg: #dcfce7;
-    --danger: #dc2626;
-    --danger-bg: #fee2e2;
-    --border: #cbd5e1;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    padding-bottom: 50px;
-  }
-
-  header {
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: #fff;
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  header h1 {
-    font-size: 1.35rem;
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-  }
-
-  header p.sub {
-    font-size: 0.85rem;
-    color: #cbd5e1;
-    direction: rtl;
-  }
-
-  .scoreboard {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
-
-  .stat-pill {
-    background: rgba(255,255,255,0.15);
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
-  }
-
-  .controls {
-    max-width: 900px;
-    margin: 16px auto 0;
-    padding: 0 14px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-  }
-
-  .btn-ctrl {
-    border: none;
-    background: #fff;
-    color: var(--primary);
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-    transition: all 0.2s;
-  }
-
-  .btn-ctrl.active {
-    background: var(--primary);
-    color: #fff;
-  }
-
-  .btn-ctrl.exam-toggle {
-    background: #fef3c7;
-    color: #92400e;
-  }
-  .btn-ctrl.exam-toggle.active {
-    background: #d97706;
-    color: #fff;
-  }
-
-  .btn-ctrl.reset-btn {
-    background: #fee2e2;
-    color: #b91c1c;
-  }
-
-  .container {
-    max-width: 900px;
-    margin: 18px auto;
-    padding: 0 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .slide-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.07);
-    border: 1px solid #e2e8f0;
-  }
-
-  .slide-header {
-    background: linear-gradient(90deg, #1e40af, #0284c7);
-    color: #fff;
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .slide-header.c2 {
-    background: linear-gradient(90deg, #0f766e, #059669);
-  }
-
-  .slide-badge {
-    background: rgba(255,255,255,0.22);
-    padding: 3px 10px;
-    border-radius: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
-  }
-
-  .slide-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-  }
-
-  .summary-section {
-    padding: 16px 18px;
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  body.exam-mode .summary-section {
-    display: none;
-  }
-
-  .summary-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  @media (max-width: 680px) {
-    .summary-grid {
-      grid-template-columns: 1fr;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تاقیکرنا عەمەلی یا C# — هەردوو PDF ب بادینی</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111827;
+      --card: #1e293b;
+      --card-light: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #0ea5e9;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --border: #cbd5e1;
+      --radius: 14px;
     }
-  }
 
-  .box-en, .box-ku {
-    padding: 12px 14px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .box-en {
-    background: #eff6ff;
-    border-left: 4px solid var(--primary-light);
-    direction: ltr;
-    text-align: left;
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #e2e8f0;
+      color: var(--text-main);
+      line-height: 1.75;
+    }
 
-  .box-ku {
-    background: #ecfdf5;
-    border-right: 4px solid #10b981;
-    direction: rtl;
-    text-align: right;
-  }
+    /* Header */
+    .topbar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+      padding: 18px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
 
-  .box-label {
-    font-size: 0.76rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: block;
-    color: var(--primary);
-  }
-  .box-ku .box-label {
-    color: #047857;
-  }
+    .topbar-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
 
-  .box-en ul, .box-ku ul {
-    padding-left: 18px;
-  }
-  .box-ku ul {
-    padding-left: 0;
-    padding-right: 18px;
-  }
-  .box-en li, .box-ku li {
-    margin-bottom: 4px;
-  }
+    .brand h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
 
-  .quiz-section {
-    padding: 16px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+    .brand p {
+      font-size: 0.9rem;
+      color: #bfdbfe;
+    }
 
-  .quiz-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
 
-  .q-card {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 13px 14px;
-    transition: border-color 0.2s;
-  }
+    .stat-pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+    }
 
-  .q-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
+    .progress-wrap {
+      max-width: 1320px;
+      margin: 10px auto 0;
+      background: rgba(255,255,255,0.18);
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
 
-  .q-type {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 6px;
-    background: #e2e8f0;
-    color: #334155;
-  }
-  .q-type.mcq { background: #dbeafe; color: #1e40af; }
-  .q-type.tf { background: #fae8ff; color: #86198f; }
-  .q-type.blank { background: #fef3c7; color: #92400e; }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #38bdf8);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
 
-  .q-text {
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-    direction: ltr;
-    text-align: left;
-  }
+    /* Layout */
+    .app-container {
+      max-width: 1320px;
+      margin: 22px auto;
+      padding: 0 16px 50px;
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
 
-  .options-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
 
-  .opt-btn {
-    text-align: left;
-    direction: ltr;
-    padding: 9px 12px;
-    border: 1.5px solid #cbd5e1;
-    background: #f8fafc;
-    border-radius: 9px;
-    font-size: 0.88rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--text);
-    font-weight: 500;
-  }
+    /* Sidebar */
+    .sidebar {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 4px 15px rgba(15,23,42,0.08);
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 112px;
+      max-height: calc(100vh - 130px);
+      overflow-y: auto;
+    }
 
-  .opt-btn:hover:not(:disabled) {
-    border-color: var(--primary-light);
-    background: #eff6ff;
-  }
+    @media (max-width: 960px) {
+      .sidebar {
+        position: static;
+        max-height: none;
+      }
+    }
 
-  .opt-btn.correct {
-    background: var(--success-bg) !important;
-    border-color: var(--success) !important;
-    color: #14532d !important;
-    font-weight: 700;
-  }
+    .nav-group-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      background: #eff6ff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin: 12px 0 8px;
+      border-right: 4px solid var(--primary);
+    }
 
-  .opt-btn.wrong {
-    background: var(--danger-bg) !important;
-    border-color: var(--danger) !important;
-    color: #7f1d1d !important;
-  }
+    .nav-group-title:first-child {
+      margin-top: 0;
+    }
 
-  .tf-group {
-    display: flex;
-    gap: 10px;
-  }
+    .nav-btn {
+      width: 100%;
+      text-align: right;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
 
-  .tf-btn {
-    flex: 1;
-    padding: 9px;
-    border: 1.5px solid #cbd5e1;
-    background: #f8fafc;
-    border-radius: 9px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.15s;
-  }
+    .nav-btn:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
 
-  .tf-btn.correct {
-    background: var(--success-bg) !important;
-    border-color: var(--success) !important;
-    color: #14532d !important;
-  }
+    .nav-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
 
-  .tf-btn.wrong {
-    background: var(--danger-bg) !important;
-    border-color: var(--danger) !important;
-    color: #7f1d1d !important;
-  }
+    .nav-btn.final-btn {
+      background: linear-gradient(135deg, #b45309, #d97706);
+      color: #fff;
+      border: none;
+      font-weight: 800;
+      margin-top: 10px;
+      padding: 13px 14px;
+    }
 
-  .blank-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+    .nav-btn.final-btn.active {
+      background: linear-gradient(135deg, #15803d, #16a34a);
+    }
 
-  .blank-input {
-    flex: 1;
-    min-width: 150px;
-    padding: 8px 12px;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 9px;
-    font-size: 0.9rem;
-    outline: none;
-  }
+    .nav-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.08);
+      white-space: nowrap;
+    }
 
-  .blank-input:focus {
-    border-color: var(--primary-light);
-  }
+    .nav-btn.active .nav-badge {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+    }
 
-  .blank-input.correct {
-    background: var(--success-bg);
-    border-color: var(--success);
-  }
-  .blank-input.wrong {
-    background: var(--danger-bg);
-    border-color: var(--danger);
-  }
+    /* Main Content */
+    .main-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 4px 18px rgba(15,23,42,0.08);
+      border: 1px solid var(--border);
+    }
 
-  .btn-small {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 9px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
+    .lesson-header {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
 
-  .btn-check { background: var(--primary); color: #fff; }
-  .btn-reveal { background: #e2e8f0; color: #1e293b; }
+    .slide-tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
 
-  .feedback {
-    margin-top: 8px;
-    font-size: 0.84rem;
-    font-weight: 600;
-    display: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-  }
+    .lesson-header h2 {
+      font-size: 1.55rem;
+      color: #0f172a;
+    }
 
-  .feedback.show { display: block; }
-  .feedback.ok { background: var(--success-bg); color: #166534; }
-  .feedback.err { background: var(--danger-bg); color: #991b1b; }
-  .feedback.info { background: #e0f2fe; color: #075985; }
+    /* Explanation Box */
+    .explain-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-right: 5px solid var(--primary);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
 
-  .note-footer {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 0.85rem;
-    color: var(--muted);
-    direction: rtl;
-  }
-</style>
+    .explain-box h3 {
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      font-size: 1.12rem;
+    }
+
+    .explain-box ul {
+      padding-right: 22px;
+      margin-top: 8px;
+    }
+
+    .explain-box li {
+      margin-bottom: 8px;
+    }
+
+    .exam-tip {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-right: 5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      color: #78350f;
+      font-weight: 600;
+    }
+
+    /* Inline code & Code / Console Boxes */
+    .inline-code {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      background: #e2e8f0;
+      color: #b91c1c;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      font-weight: 700;
+    }
+
+    .code-console-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 780px) {
+      .code-console-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-panel, .console-panel {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .panel-bar {
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .code-panel .panel-bar {
+      background: #1e293b;
+      color: #93c5fd;
+    }
+
+    .console-panel .panel-bar {
+      background: #18181b;
+      color: #4ade80;
+    }
+
+    pre.code-pre {
+      direction: ltr;
+      text-align: left;
+      unicode-bidi: isolate;
+      background: #0f172a;
+      color: #f1f5f9;
+      padding: 14px 16px;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      margin: 0;
+      white-space: pre;
+    }
+
+    pre.console-pre {
+      direction: ltr;
+      text-align: left;
+      unicode-bidi: isolate;
+      background: #000000;
+      color: #e5e7eb;
+      padding: 14px 16px;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      margin: 0;
+      min-height: 90px;
+      white-space: pre;
+    }
+
+    /* Interactive Practical Task Box */
+    .practice-box {
+      background: #f0f9ff;
+      border: 2px dashed #0284c7;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 26px;
+    }
+
+    .practice-box h3 {
+      color: #0369a1;
+      margin-bottom: 8px;
+    }
+
+    .practice-input {
+      width: 100%;
+      direction: ltr;
+      text-align: left;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.95rem;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #94a3b8;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 10px 0;
+      resize: vertical;
+    }
+
+    .run-btn {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .run-btn:hover {
+      background: #0369a1;
+    }
+
+    /* Questions */
+    .questions-section h3 {
+      font-size: 1.25rem;
+      color: #0f172a;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .q-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .q-title {
+      font-weight: 800;
+      font-size: 1.03rem;
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    .q-code {
+      margin-bottom: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .opt-btn {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 11px 14px;
+      text-align: right;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e293b;
+      transition: all 0.18s;
+    }
+
+    .opt-btn.ltr-opt {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .opt-btn.correct {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: #14532d;
+      font-weight: 800;
+    }
+
+    .opt-btn.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+
+    .feedback-box {
+      margin-top: 12px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.ok {
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      color: #14532d;
+    }
+
+    .feedback-box.bad {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #7f1d1d;
+    }
+
+    .joke-line {
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .lesson-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 2px solid #e2e8f0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-action-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .nav-action-btn.secondary {
+      background: #475569;
+    }
+
+    .nav-action-btn:hover {
+      opacity: 0.92;
+    }
+
+    .final-banner {
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
+      color: #fff;
+      padding: 22px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+    }
+
+    .final-result-box {
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .table-mini {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+
+    .table-mini th, .table-mini td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: right;
+    }
+
+    .table-mini th {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .ltr-cell {
+      direction: ltr;
+      text-align: left !important;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Computer Essentials — Exam Prep</h1>
-  <p class="sub">کورتکرنا هەمی سلایدێن (C1) و سلایدێن (C2 هەتا Power Supply) دگەل پرسیارێن تاقیکرنێ</p>
-  <div class="scoreboard">
-    <div class="stat-pill">Answered: <span id="stat-answered">0</span> / <span id="stat-total">0</span></div>
-    <div class="stat-pill">Correct: <span id="stat-correct">0</span></div>
-    <div class="stat-pill">Score: <span id="stat-pct">0%</span></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1>💻 تاقیکرنا عەمەلی یا C# — ئامادەکاری بۆ ئەزموونا ١ شەمبیێ</h1>
+        <p>شلوڤەکرنا هەمی ٤٨ سلایدێن هەردوو PDFـان ب بادینی + شاشا ڕەش (Console) + تاقیکرن</p>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-pill" id="stat-score">✅ دروست: ٠ / ٠</div>
+        <div class="stat-pill" id="stat-progress">📊 تەمامبوون: ٠٪</div>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-card" id="main-content"></main>
   </div>
-</header>
-
-<div class="controls">
-  <button class="btn-ctrl active" onclick="filterSlides('all', this)">All Slides (17)</button>
-  <button class="btn-ctrl" onclick="filterSlides('C1', this)">C1 Only (7)</button>
-  <button class="btn-ctrl" onclick="filterSlides('C2', this)">C2 Only (10)</button>
-  <button class="btn-ctrl exam-toggle" onclick="toggleExamMode(this)">Exam Mode (Hide Notes)</button>
-  <button class="btn-ctrl reset-btn" onclick="resetQuiz()">Reset All</button>
-</div>
-
-<div class="container" id="slides-container"></div>
-
-<p class="note-footer">تێبینی: پرسیار ب شێوازێن هەلبژارتن (MCQ)، راست و خەلەت (T/F)، و بۆشایی (Fill in Blank) هاتینە دانان. سەرکەفتی بی برا!</p>
 
 <script>
-const slidesData = [
-  // ==================== C1 ====================
-  {
-    id: "c1-s2",
-    chapter: "C1",
-    slideNum: "Slide 2",
-    title: "What is a Computer?",
-    en: [
-      "A machine that can <b>store</b> and <b>process</b> information.",
-      "Takes <b>data (input)</b> -> processes it -> gives <b>result (output)</b>.",
-      "Uses <b>binary system (0 and 1)</b> to store data, calculate algorithms, and display info.",
-      "Crucial in: <b>science, education, business, entertainment</b>."
-    ],
-    ku: [
-      "کومپیوتەر ئامێرەکە دکاریت زانیاریان <b>هەلبگریت</b> و <b>پروسێس (چارەسەر)</b> بکەت.",
-      "داتایان وەک (Input) وەردگریت، پروسێس دکەت، و ئەنجامی وەک (Output) ددەت.",
-      "پشت ب <b>سیستەمێ باینەری (0 و 1)</b> د بەستیت بۆ هەلگرتن و هژمارتنا کاران.",
-      "رۆلەکێ گرنگ د <b>زانست، پەروەردە، بازرگانی، و خۆشگوزەرانیێ</b> دا هەیە."
-    ],
-    questions: [
-      { type: "mcq", q: "A computer is a machine that can ______ and process information.", opts: ["store", "delete only", "print only", "destroy"], ans: 0 },
-      { type: "mcq", q: "Most computers rely on the ______ system, which uses 0 and 1.", opts: ["decimal", "binary", "hexadecimal", "analog"], ans: 1 },
-      { type: "tf", q: "A computer takes data as output and provides the result as input.", ans: false },
-      { type: "blank", q: "The binary system uses two variables: ______ and ______.", ans: ["0 and 1", "0, 1", "0 & 1", "0 1"] }
-    ]
-  },
-  {
-    id: "c1-s3",
-    chapter: "C1",
-    slideNum: "Slide 3",
-    title: "How Computer Process Data (Steps)",
-    en: [
-      "<b>1. Input:</b> Data entered via input devices (keyboards, mice, sensors).",
-      "<b>2. Processing:</b> <b>CPU</b> performs arithmetic, logic, and control operations via software instructions.",
-      "<b>3. Storage:</b> Temporary in <b>RAM</b>; long-term in <b>hard drives or SSDs</b>.",
-      "<b>4. Output:</b> Sent to output devices (monitors, printers, speakers)."
-    ],
-    ku: [
-      "<b>١. تێخستن (Input):</b> داتا ب رێکا کیبۆرد، ماوس، یان سێنسەران دهێنە تێخستن.",
-      "<b>٢. پروسێسکرن (Processing):</b> مەژیێ کومپیوتەری (<b>CPU</b>) کارێن حسابی، لۆجیکی، و کۆنترۆلێ ئەنجام ددەت.",
-      "<b>٣. هەلگرتن (Storage):</b> ب شێوەیەکێ کاتی د <b>RAM</b> دا، و بۆ دەمەکێ درێژ د <b>Hard Drive یان SSD</b> دا.",
-      "<b>٤. دەرئێخستن (Output):</b> داتایێن پروسێسکری دچنە شاشە، پرینتەر، یان سپیکەران."
-    ],
-    questions: [
-      { type: "mcq", q: "Which unit performs arithmetic, logic, and control operations?", opts: ["RAM", "SSD", "CPU", "Monitor"], ans: 2 },
-      { type: "mcq", q: "Where is data temporarily stored while being processed?", opts: ["Hard Drive", "RAM", "Printer", "Mouse"], ans: 1 },
-      { type: "tf", q: "Long-term storage occurs in devices like hard drives or SSDs.", ans: true },
-      { type: "blank", q: "CPU stands for ______ Processing Unit.", ans: ["Central", "central"] },
-      { type: "blank", q: "RAM stands for ______ Access Memory.", ans: ["Random", "random"] }
-    ]
-  },
-  {
-    id: "c1-s4",
-    chapter: "C1",
-    slideNum: "Slide 4",
-    title: "How Computer Process Data (Flowchart)",
-    en: [
-      "<b>Raw Data</b> (Input) is converted to <b>Boolean Binary System (0, 1)</b>.",
-      "CPU has two main parts shown: <b>Arithmetic Logic Unit (ALU)</b> & <b>Control Unit</b>.",
-      "CPU connects with <b>RAM (Temporary Storage)</b>.",
-      "<b>Data Output</b> = Processed Information -> <b>Save Result (Optional)</b> -> End."
-    ],
-    ku: [
-      "<b>داتایێن خاڤ (Raw Data)</b> دهێنە گوهارتن بۆ سیستەمێ باینەری (0, 1).",
-      "دناڤ CPU دا دوو پشکێن سەرەکی هەنە: <b>ALU</b> (حساب و لۆجیک) و <b>Control Unit</b> (کۆنترۆل).",
-      "هەروەسا پەیوەندی دگەل <b>RAM</b> هەیە وەک هەلگرێ کاتی.",
-      "<b>Data Output</b> داتایا پروسێسکری یە، و هەلگرتنا ئەنجامی (Save Result) ب دلێ خۆیە (Optional)."
-    ],
-    questions: [
-      { type: "mcq", q: "Inside the CPU diagram, which two units work together?", opts: ["RAM and SSD", "ALU and Control Unit", "Monitor and Mouse", "Keyboard and Printer"], ans: 1 },
-      { type: "mcq", q: "Data Output represents ______.", opts: ["Raw Data", "Processed Information", "Boolean Binary", "Temporary Storage"], ans: 1 },
-      { type: "tf", q: "In the data processing flowchart, 'Save Result' is optional.", ans: true },
-      { type: "blank", q: "ALU stands for Arithmetic ______ Unit.", ans: ["Logic", "logic"] }
-    ]
-  },
-  {
-    id: "c1-s5",
-    chapter: "C1",
-    slideNum: "Slide 5",
-    title: "Main Features of Computer (Overview)",
-    en: [
-      "The 5 main advantages/features of a computer are:",
-      "<b>1. Speed</b> | <b>2. Accuracy</b> | <b>3. Storage</b> | <b>4. Automation</b> | <b>5. Versatility</b>."
-    ],
-    ku: [
-      "٥ تایبەتمەندی (مفایێن سەرەکی) یێن کومپیوتەری ئەڤەنە:",
-      "<b>خێرایی (Speed)</b>، <b>دروستی (Accuracy)</b>، <b>هەلگرتن (Storage)</b>، <b>ئوتوماتیکی (Automation)</b>، <b>هەمەجۆری (Versatility)</b>."
-    ],
-    questions: [
-      { type: "mcq", q: "Which of the following is NOT listed as a main feature (advantage) of a computer?", opts: ["Speed", "Accuracy", "Unemployment", "Versatility"], ans: 2 },
-      { type: "tf", q: "Automation and Versatility are among the main advantages of a computer.", ans: true },
-      { type: "mcq", q: "How many main features of a computer are listed on Slide 5?", opts: ["3", "5", "6", "8"], ans: 1 },
-      { type: "blank", q: "The five features are Speed, Accuracy, Storage, Automation, and ______.", ans: ["Versatility", "versatility"] }
-    ]
-  },
-  {
-    id: "c1-s6",
-    chapter: "C1",
-    slideNum: "Slide 6",
-    title: "Features: 1-Speed & 2-Accuracy",
-    en: [
-      "<b>1. Speed:</b> Performs tasks quickly; processes <b>millions of instructions in seconds</b>; much faster than humans.",
-      "<b>2. Accuracy:</b> Works <b>free from errors</b>; gives <b>100% accuracy</b> in math & logic if input and program are correct."
-    ],
-    ku: [
-      "<b>١. خێرایی:</b> د چرکەیەکێ دا دکاریت <b>ب ملیۆنان فەرمانان</b> جێبەجێ بکەت، گەلەک ژ مرۆڤی خێراترە.",
-      "<b>٢. دروستی:</b> بێ خەلەتی کار دکەت؛ ئەگەر داتا و پرۆگرام د دروست بن، <b>١٠٠٪ ئەنجامێ دروست</b> ددەت."
-    ],
-    questions: [
-      { type: "mcq", q: "Computers can process ______ of instructions in seconds.", opts: ["tens", "hundreds", "millions", "dozens"], ans: 2 },
-      { type: "mcq", q: "What accuracy does a computer provide in mathematical and logical operations (with correct input)?", opts: ["50%", "90%", "99%", "100%"], ans: 3 },
-      { type: "tf", q: "If the input and program are correct, there is still a mistake in the output.", ans: false },
-      { type: "blank", q: "Computers work free from ______ when input and program are correct.", ans: ["errors", "mistakes"] }
-    ]
-  },
-  {
-    id: "c1-s7",
-    chapter: "C1",
-    slideNum: "Slide 7",
-    title: "Features: 3-Storage, 4-Automation, 5-Versatility",
-    en: [
-      "<b>3. Storage Capacity:</b> Stores large data safely for a long time (hard disks, SSDs, pen drives, cloud storage).",
-      "<b>4. Automation:</b> Ability to perform tasks <b>automatically</b> through programs.",
-      "<b>5. Versatility:</b> Can be used for <b>various tasks</b>."
-    ],
-    ku: [
-      "<b>٣. قەبارێ هەلگرتنێ:</b> دکاریت گەلەک داتایان بۆ دەمەکێ درێژ هەلبگریت (وەکی هارد، SSD، فلاش، کلود).",
-      "<b>٤. ئوتوماتیکی (Automation):</b> شیانا جێبەجێکرنا کاران ب شێوەیەکێ <b>خۆکار (ئوتوماتیکی)</b> ب رێکا پرۆگرامان.",
-      "<b>٥. هەمەجۆری (Versatility):</b> دکاریت بۆ <b>کارێن جۆراوجۆر</b> بهێتە بکارئینان."
-    ],
-    questions: [
-      { type: "mcq", q: "The ability to perform tasks automatically through programs is called:", opts: ["Versatility", "Automation", "Speed", "Accuracy"], ans: 1 },
-      { type: "mcq", q: "Which feature means a computer can be used for various tasks?", opts: ["Storage Capacity", "Automation", "Versatility", "Dependency"], ans: 2 },
-      { type: "tf", q: "Cloud storage and pen drives are examples used for computer storage capacity.", ans: true },
-      { type: "blank", q: "______ is the ability to perform tasks automatically through programs.", ans: ["Automation", "automation"] }
-    ]
-  },
-  {
-    id: "c1-s8",
-    chapter: "C1",
-    slideNum: "Slide 8",
-    title: "Disadvantages of Computer",
-    en: [
-      "<b>1. Dependency:</b> Over-dependence reduces brain usage.",
-      "<b>2. Unemployment:</b> Automation causes job loss.",
-      "<b>3. Health Issues:</b> Eye strain, back pain from prolonged use.",
-      "<b>4. Cyber Threats:</b> Viruses, hacking, data theft, fraud.",
-      "<b>5. Costly:</b> Hardware, software, maintenance are expensive.",
-      "<b>6. Social Isolation:</b> Too much online time reduces real-life relationships."
-    ],
-    ku: [
-      "<b>١. پشتبەستن (Dependency):</b> گەلەک پشتبەستن ب کومپیوتەری کارێ مێشکی کێم دکەت.",
-      "<b>٢. بێکاری (Unemployment):</b> ژ ئەگەرێ ئوتوماتیکبوونێ هندەک کار ژناڤچوونە.",
-      "<b>٣. ئاریشێن ساخلەمیێ:</b> ئێشانا چاڤان و ئێشانا پشتێ.",
-      "<b>٤. هەرەشێن سایبەر:</b> ڤایرۆس، هاککرن، دزینا داتایان.",
-      "<b>٥. گرانی (Costly):</b> کڕین و چێکرن و بەرنامێن وێ د ب هانە.",
-      "<b>٦. دابڕانا جڤاکی:</b> پەیوەندیێن راستەقینە کێم دبن ژ بەر ئونلاینێ زێدە."
-    ],
-    questions: [
-      { type: "mcq", q: "Prolonged use of computers causing eye strain and back pain is an example of:", opts: ["Cyber Threats", "Health Issues", "Social Isolation", "Dependency"], ans: 1 },
-      { type: "mcq", q: "Increased risk of viruses, hacking, and data theft refers to:", opts: ["Costly", "Unemployment", "Cyber Threats", "Versatility"], ans: 2 },
-      { type: "tf", q: "Over-dependency on computers helps increase human brain usage.", ans: false },
-      { type: "tf", q: "Spending excessive time online reduces real-life social relationships (Social Isolation).", ans: true },
-      { type: "blank", q: "Automation and mechanization have caused some jobs to be lost, which leads to ______.", ans: ["unemployment", "Unemployment"] }
-    ]
-  },
-
-  // ==================== C2 ====================
-  {
-    id: "c2-s2",
-    chapter: "C2",
-    slideNum: "Slide 2",
-    title: "Parts of a Complete Computer System",
-    en: [
-      "A complete computer system includes <b>4 distinct parts</b>:",
-      "<b>1. Hardware</b> | <b>2. Software</b> | <b>3. Data</b> | <b>4. User</b>."
-    ],
-    ku: [
-      "سیستەمەکێ تەمام یێ کومپیوتەری ژ <b>٤ پشکێن سەرەکی</b> پێکدهێت:",
-      "<b>١. هاردوێر</b> (پارچە) | <b>٢. سوفتوێر</b> (بەرنامە) | <b>٣. داتا</b> (زانیاری) | <b>٤. بکەرهێنەر (User)</b>."
-    ],
-    questions: [
-      { type: "mcq", q: "How many distinct parts does a complete computer system include?", opts: ["2", "3", "4", "6"], ans: 2 },
-      { type: "mcq", q: "Which of the following is NOT one of the 4 parts of a computer system?", opts: ["Hardware", "Software", "Internet", "User"], ans: 2 },
-      { type: "tf", q: "Data and User are two of the four distinct parts of a complete computer system.", ans: true },
-      { type: "blank", q: "The four parts of a computer system are Hardware, Software, Data, and ______.", ans: ["User", "user"] }
-    ]
-  },
-  {
-    id: "c2-s3",
-    chapter: "C2",
-    slideNum: "Slide 3",
-    title: "Hardware: Definition & Types",
-    en: [
-      "<b>Hardware:</b> Electronic devices; the parts you can <b>see and touch</b>.",
-      "<b>Device:</b> Any piece of hardware used by computer (keyboard, monitor, mouse).",
-      "<b>4 Types of Computer Hardware:</b> Input Device, Output Device, Storage Device, Internal Component."
-    ],
-    ku: [
-      "<b>هاردوێر (Hardware):</b> ئامێرێن ئەلکترۆنی نە؛ ئەو پارچەنە یێن تو دشێی <b>ببینی و دەست لێ بدەی</b>.",
-      "<b>ئامێر (Device):</b> هەر پارچەکا هاردوێری یە کومپیوتەر بکاردئینیت (کیبۆرد، شاشە، ماوس).",
-      "<b>٤ جۆرێن هاردوێری:</b> ئامێرێن تێخستنێ (Input)، دەرئێخستنێ (Output)، هەلگرتنێ (Storage)، و پارچێن ناڤخۆیی (Internal)."
-    ],
-    questions: [
-      { type: "mcq", q: "Computer hardware consists of parts that you can ______.", opts: ["only imagine", "see and touch", "only hear", "never touch"], ans: 1 },
-      { type: "mcq", q: "Which of these is NOT one of the 4 types of computer hardware?", opts: ["Input Device", "Output Device", "Storage Device", "User Manual"], ans: 3 },
-      { type: "tf", q: "The term 'device' refers to any piece of hardware used by a computer.", ans: true },
-      { type: "blank", q: "The four types of hardware are Input, Output, Storage, and ______ Component.", ans: ["Internal", "internal"] }
-    ]
-  },
-  {
-    id: "c2-s4",
-    chapter: "C2",
-    slideNum: "Slide 4",
-    title: "Input Devices vs. Output Devices",
-    en: [
-      "<b>Input Devices:</b> User enters data into computer / interacts with computer (Keyboard, Mouse, Scanner).",
-      "<b>Output Devices:</b> Show the result of the task performed by the user (Monitors, Printers, Speakers).",
-      "<i>Diagram shows devices working as Both:</i> USB, Fax, Touch Screen."
-    ],
-    ku: [
-      "<b>ئامێرێن تێخستنێ (Input):</b> ب رێکا وان بکەرهێنەر داتایان دکەتە دناڤ کومپیوتەری دا (کیبۆرد، ماوس، سکانەر).",
-      "<b>ئامێرێن دەرئێخستنێ (Output):</b> ئەنجامێ کارێ بکەرهێنەری نیشان ددەن (شاشە، پرینتەر، سپیکەر).",
-      "<i>د وێنەی دا دیارە:</i> فلاش، فاکس، و شاشا تەچ وەک (هەردوو - Both) کار دکەن."
-    ],
-    questions: [
-      { type: "mcq", q: "Devices through which a user enters data into the computer are called:", opts: ["Output Devices", "Input Devices", "Storage Devices", "Power Devices"], ans: 1 },
-      { type: "mcq", q: "Which of the following is an Output Device example?", opts: ["Keyboard", "Scanner", "Monitor", "Mouse"], ans: 2 },
-      { type: "tf", q: "Output devices are used to show the result of the task performed by the user.", ans: true },
-      { type: "blank", q: "Keyboard, Mouse, and Scanner are examples of ______ devices.", ans: ["Input", "input"] }
-    ]
-  },
-  {
-    id: "c2-s5",
-    chapter: "C2",
-    slideNum: "Slide 5",
-    title: "Input Devices Examples (1–4)",
-    en: [
-      "<b>1. Keyboard:</b> Looks like a typewriter, present in all computer systems.",
-      "<b>2. Mouse:</b> Scrolls through monitor; has <b>2 buttons</b> (left/right click) + <b>centre wheel</b>.",
-      "<b>3. Scanner:</b> Converts <b>hard copy documents into digital files</b>.",
-      "<b>4. Joystick:</b> Pointing device used to move cursor on screen."
-    ],
-    ku: [
-      "<b>١. کیبۆرد:</b> وەکی ئامێرێ تایپکرنێ یە، د هەمی کومپیوتەران دا هەیە.",
-      "<b>٢. ماوس:</b> بۆ گەریانێ ل سەر شاشێ؛ <b>٢ دوگمە</b> (چەپ و راست) و <b>تەگەرەک د ناڤەراستێ دا</b> بۆ سکڕۆلکرنێ هەیە.",
-      "<b>٣. سکانەر:</b> کاغەزێن چاپکری (Hard copy) دگوهوریت بۆ فایلێن دیجیتاڵ.",
-      "<b>٤. جۆیستیک (Joystick):</b> ئامێرەکێ نیشانکرنێ یە بۆ لڤاندنا کورسەرێ شاشێ."
-    ],
-    questions: [
-      { type: "mcq", q: "Which input device converts hard copy documents into digital files?", opts: ["Mouse", "Keyboard", "Scanner", "Joystick"], ans: 2 },
-      { type: "mcq", q: "Which device looks like a typewriter and is commonly present in all computer systems?", opts: ["Keyboard", "Scanner", "Joystick", "Monitor"], ans: 0 },
-      { type: "tf", q: "A mouse has two buttons and a wheel in the centre for scrolling.", ans: true },
-      { type: "blank", q: "A ______ is a pointing device used to move the cursor on a computer screen (often used in gaming).", ans: ["Joystick", "joystick"] }
-    ]
-  },
-  {
-    id: "c2-s6",
-    chapter: "C2",
-    slideNum: "Slide 6",
-    title: "Input Devices Examples (5–7)",
-    en: [
-      "<b>5. Light pen:</b> Pen-like pointing device; selects menu items or draws on monitor.",
-      "<b>6. Bar code reader:</b> Reads bar-coded data (mark things, number books).",
-      "<b>7. Web Camera:</b> Records video image; built inside (laptop) or via <b>USB connection</b>."
-    ],
-    ku: [
-      "<b>٥. قەلەمێ رۆناهیێ (Light pen):</b> وەکی قەلەمی یە، بۆ هەلبژارتنا لیستان یان وێنەکێشانێ ل سەر شاشێ.",
-      "<b>٦. خواندەڤانێ بارکۆدی:</b> داتایێن بارکۆدی دخوینیت (بۆ دیارکرنا کەلوپەلان و ژمارەدانا پەرتووکان).",
-      "<b>٧. وێب کامێرا:</b> ڤیدیۆیا دیمەنێ بەرامبەر خۆ تومار دکەت؛ یان دناڤ لاپتۆپی دایە یان ب رێکا <b>USB</b> دهێتە گرێدان."
-    ],
-    questions: [
-      { type: "mcq", q: "Which device looks like a pen and can draw directly on the monitor screen?", opts: ["Bar code reader", "Light pen", "Web Camera", "Scanner"], ans: 1 },
-      { type: "mcq", q: "A Web Camera is either built inside a laptop or attached through a ______ connection.", opts: ["HDMI", "USB", "Bluetooth", "Audio"], ans: 1 },
-      { type: "tf", q: "A bar code reader is commonly used to mark things and number books.", ans: true },
-      { type: "blank", q: "Because a ______ records a video image of the scene in front of it, it is an input device.", ans: ["web camera", "webcam", "Web Camera", "Webcam"] }
-    ]
-  },
-  {
-    id: "c2-s7",
-    chapter: "C2",
-    slideNum: "Slide 7",
-    title: "Output Devices Examples (1–3)",
-    en: [
-      "<b>1. Monitor:</b> Displays pictorial/textual info using small dots called <b>pixels</b>; more pixels = sharper image.",
-      "<b>2. Printers:</b> Print information on <b>paper</b>.",
-      "<b>3. Speakers:</b> Produce <b>sound</b> after computer command (also wireless/Bluetooth)."
-    ],
-    ku: [
-      "<b>١. شاشە (Monitor):</b> وێنە و نڤیسینان نیشان ددەت ب رێکا خالێن بچویک یێن دبێژنێ <b>پێکسل (Pixels)</b>؛ هەتا پێکسل زێدە بن وێنە جوانتر و رۆهنترە.",
-      "<b>٢. پرینتەر:</b> رێکێ ددەتە تە زانیاریان ل سەر <b>کاغەزێ</b> چاپ بکەی.",
-      "<b>٣. سپیکەر:</b> دەنگی دەردئێخن پشتی فەرمانا کومپیوتەری (وەکی سپیکەرێن بلوتوسێ)."
-    ],
-    questions: [
-      { type: "mcq", q: "A monitor creates images by arranging small dots known as ______.", opts: ["bytes", "pixels", "vectors", "bits"], ans: 1 },
-      { type: "mcq", q: "What determines the sharpness of a monitor's image?", opts: ["Screen weight", "Number of pixels", "Cable length", "Printer ink"], ans: 1 },
-      { type: "tf", q: "Speakers produce sound after getting a command from a computer.", ans: true },
-      { type: "blank", q: "______ are output devices that allow you to print information on paper.", ans: ["Printers", "printers", "Printer", "printer"] }
-    ]
-  },
-  {
-    id: "c2-s8",
-    chapter: "C2",
-    slideNum: "Slide 8",
-    title: "Output Devices Examples (4–6)",
-    en: [
-      "<b>4. Projector:</b> Projects monitor image onto a <b>large wall or screen</b>.",
-      "<b>5. Plotter:</b> Prints <b>large, high-resolution, vector-based graphics</b> (used in architectural firms).",
-      "<b>6. Headphones:</b> <b>Transducers</b> converting <b>electrical energy into mechanical energy</b> for listening."
-    ],
-    ku: [
-      "<b>٤. پرۆجێکتەر:</b> وێنێ شاشا کومپیوتەری دهاڤێژیتە سەر <b>دیوارەکێ یان پەردەکا مەزن</b>.",
-      "<b>٥. پلۆتەر (Plotter):</b> وەکی پرینتەری یە بەس بۆ چاپکرنا <b>نەخشێن مەزن و ڤێکتەر (وەکی ئەندازیاری)</b>.",
-      "<b>٦. هێدفۆن:</b> ئامێرن (Transducers) <b>وزەیا کارەبێ دگوهورن بۆ وزەیا میکانیکی (دەنگ)</b> دا گوهداریا سترانان بکەین."
-    ],
-    questions: [
-      { type: "mcq", q: "Which output device is used in architectural firms to print large vector-based graphics?", opts: ["Projector", "Plotter", "Headphones", "Monitor"], ans: 1 },
-      { type: "mcq", q: "Headphones convert electrical energy into ______ energy.", opts: ["chemical", "solar", "mechanical", "nuclear"], ans: 2 },
-      { type: "tf", q: "A projector projects the image displayed on the monitor onto a large wall or screen.", ans: true },
-      { type: "blank", q: "Headphones are ______ that convert electrical energy into mechanical energy.", ans: ["transducers", "Transducers"] }
-    ]
-  },
-  {
-    id: "c2-s9",
-    chapter: "C2",
-    slideNum: "Slide 9",
-    title: "Input & Output Devices Examples (1–3)",
-    en: [
-      "<b>1. USB Drive:</b> Performs both I/O (receives data from a device and sends it to other devices).",
-      "<b>2. Modems:</b> Converts between <b>analogue and digital</b> formats in real time for two-way network communication.",
-      "<b>3. CD and DVD:</b> Saves data from one computer and sends it to others (acts as input)."
-    ],
-    ku: [
-      "<b>١. فلاش (USB Drive):</b> داتایان ژ ئامێرەکی وەردگریت و دهنێریتە ئامێرەکێ دی (هەم Input هەم Output).",
-      "<b>٢. مۆدێم (Modem):</b> زانیاریان دناڤبەرا <b>ئەنالۆگ و دیجیتاڵ</b> دا دگوهوریت بۆ پەیوەندیا تۆڕێ یا دوو-ئاراستە.",
-      "<b>٣. CD و DVD:</b> داتایان هەلدگرن و دهنێرنە کومپیوتەرێن دی."
-    ],
-    questions: [
-      { type: "mcq", q: "Which device converts information between analogue and digital formats in real time?", opts: ["USB Drive", "Modem", "Plotter", "Scanner"], ans: 1 },
-      { type: "mcq", q: "Why is a USB Drive considered both an input and output device?", opts: ["It prints on paper", "It receives data from and sends data to devices", "It converts AC to DC", "It projects images"], ans: 1 },
-      { type: "tf", q: "Modems allow seamless two-way network communication.", ans: true },
-      { type: "blank", q: "CD and DVD help save data from one computer and send it to other devices, working as an ______ device.", ans: ["input", "Input"] }
-    ]
-  },
-  {
-    id: "c2-s10",
-    chapter: "C2",
-    slideNum: "Slide 10",
-    title: "Input & Output Devices Examples (4–6)",
-    en: [
-      "<b>4. Headset:</b> Speaker (<b>output</b>) + Microphone (<b>input</b>).",
-      "<b>5. Facsimile (Fax):</b> Scanner (<b>input</b>) + Printer (<b>output</b>).",
-      "<b>6. Touch Screen:</b> Displays options on screen (<b>output</b>) + finger touches option (<b>input</b>)."
-    ],
-    ku: [
-      "<b>٤. هێدسێت (Headset):</b> سپیکەر (<b>دەرئێخستن</b>) + مایکرۆفۆن (<b>تێخستن</b>).",
-      "<b>٥. فاکس (Facsimile):</b> سکانەر (<b>تێخستن</b>) + پرینتەر (<b>دەرئێخستن</b>).",
-      "<b>٦. شاشا تەچ (Touch Screen):</b> نیشاندانا بژاردان ل سەر شاشێ (<b>Output</b>) + دەستلێدان ب تبلێ (<b>Input</b>)."
-    ],
-    questions: [
-      { type: "mcq", q: "A Facsimile (fax machine) consists of which two devices?", opts: ["Mouse and Monitor", "Scanner and Printer", "Speaker and Webcam", "Keyboard and Plotter"], ans: 1 },
-      { type: "mcq", q: "In a Headset, the microphone works as an ______ device and the speaker as an ______ device.", opts: ["output / input", "input / output", "storage / input", "input / storage"], ans: 1 },
-      { type: "tf", q: "On a Touch Screen, viewing options on the screen is output, and touching with your finger is input.", ans: true },
-      { type: "blank", q: "A ______ consists of a speaker and a microphone.", ans: ["Headset", "headset"] }
-    ]
-  },
-  {
-    id: "c2-s11",
-    chapter: "C2",
-    slideNum: "Slide 11",
-    title: "Input & Output Devices (7: Power Supply)",
-    en: [
-      "<b>7. Power Supply (PSU - Power Supply Unit):</b>",
-      "Converts incoming <b>Alternating Current (AC)</b> from a wall outlet into proper <b>Direct Current (DC)</b> voltage, current, and frequency needed by the electronic load."
-    ],
-    ku: [
-      "<b>٧. دابینکەرێ کارەبێ (Power Supply / PSU):</b>",
-      "ئامێرەکێ کارەبایی یە کو کارەبا <b>گۆڕاو (AC)</b> یا ژ پلاکێ دیواری دهێت، دگوهوریت بۆ کارەبا <b>نەگۆڕ (DC)</b> ب ڤۆلت و تەزوویێ گونجای بۆ کومپیوتەری."
-    ],
-    questions: [
-      { type: "mcq", q: "What does a Power Supply Unit (PSU) convert?", opts: ["DC to AC", "AC to DC", "Digital to Analogue", "Pixels to Text"], ans: 1 },
-      { type: "mcq", q: "Incoming electricity from a wall outlet is usually ______.", opts: ["Direct Current (DC)", "Alternating Current (AC)", "Binary Current", "Static Current"], ans: 1 },
-      { type: "tf", q: "PSU stands for Power Supply Unit.", ans: true },
-      { type: "blank", q: "A PSU converts AC from a wall outlet into proper ______ voltage, current, and frequency.", ans: ["DC", "dc", "direct current", "Direct Current"] }
-    ]
-  }
+// ==================== BADINI JOKES & PRAISE ====================
+const PRAISES = [
+  "یا دروستە! دەست خۆش برا 👑🔥",
+  "ئافەرین! یا دروستە دەست خۆش 💪⚡",
+  "١٠٠/١٠٠ دروستە! تۆ یێ شارەزای 👏",
+  "هەر بژیت! وەلاما تە وەکی کۆدێ بێ خەلەتە ✅",
+  "دەست خۆش برا! شاشا ڕەش دێ شانازیێ بتە کەت 😎",
+  "بێ کێماسی و یا دروستە! دەست خۆش 🎯"
 ];
 
-const userAnswers = {};
+const JOKES = [
+  "ئەرێ تە سەرێ خۆ شویشتیە ئەڤرۆ یان کۆمپیوتەرێ تە هێشتا ل سەر Windows XP یە؟ 😂",
+  "نەخێر برا! ئەڤە وەکی وی یە یێ بێژیتە C# بێ سیمیکۆلۆن کار بکە 😅",
+  "ئۆۆۆف! کۆمپایلەرێ Visual Studio ژبەر ڤێ خۆ کوشت 😂",
+  "برا تە ئەڤە ل کیرێ ئینا؟ 😅 حەتا کیبۆردی ژی کرە کەنی!",
+  "خەلەتە، بەلێ نەخەمبە! شڤێدی چایەکا بێ شەکر تە ڤەخواریە دیارە 😂",
+  "نە نە، ئەڤە وەکی وێ یە تۆ بچییە ئەزموونێ ب شەروالێ نڤستنێ! 😂",
+  "دیارە چاڤێ تە ب تلەفۆنێ ڤە بوو دەما مامۆستای ئەڤە گۆتی 😅",
+  "ههه خەلەت! ئەگەر ئەڤە د ئەزموونێ دا نڤیسیبا، کۆمپیوتەر دا دەنگێ قۆرنەی داتە 😂",
+  "ئەرێ ما خەوا تە دهێت؟ چاڤێن خۆ بشۆ ب ئاڤا سار برا! 🧊😂",
+  "ئەڤە ژ دەستێ تە دەرکەفت وەکی تەپا پێ دەما دچیتە عاسمانا! ⚽😂",
+  "سۆری برا، شاشا ڕەش گۆتە من ئەز ڤێ وەلامێ قەبوول ناکەم 😂",
+  "خەلەتە برا! بەس نەترسە، ئێدی ژ ئەڤرۆ وێڤە هەتا پیربی ژبیر ناکەی 😉😂"
+];
 
-function renderAll() {
-  const container = document.getElementById("slides-container");
-  container.innerHTML = "";
-  let totalQ = 0;
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
-  slidesData.forEach((slide, sIdx) => {
-    const card = document.createElement("div");
-    card.className = "slide-card";
-    card.dataset.chapter = slide.chapter;
-
-    const headerClass = slide.chapter === "C2" ? "slide-header c2" : "slide-header";
-
-    let html = `
-      <div class="${headerClass}">
-        <span class="slide-title">${slide.title}</span>
-        <span class="slide-badge">${slide.chapter} • ${slide.slideNum}</span>
-      </div>
-      <div class="summary-section">
-        <div class="summary-grid">
-          <div class="box-en">
-            <span class="box-label">English Summary</span>
-            <ul>${slide.en.map(item => `<li>${item}</li>`).join("")}</ul>
-          </div>
-          <div class="box-ku">
-            <span class="box-label">شڕۆڤە ب کوردی</span>
-            <ul>${slide.ku.map(item => `<li>${item}</li>`).join("")}</ul>
-          </div>
-        </div>
-      </div>
-      <div class="quiz-section">
-        <div class="quiz-title">
-          <span>Slide Questions (${slide.questions.length})</span>
-        </div>
-    `;
-
-    slide.questions.forEach((q, qIdx) => {
-      totalQ++;
-      const qId = `${slide.id}-q${qIdx}`;
-      let typeLabel = q.type === "mcq" ? "Multiple Choice" : q.type === "tf" ? "True / False" : "Fill in Blank";
-      let typeClass = q.type;
-
-      html += `<div class="q-card" id="${qId}">
-        <div class="q-meta">
-          <span class="q-type ${typeClass}">${typeLabel}</span>
-          <span style="font-size:0.75rem;color:#64748b;">Q${qIdx + 1}</span>
-        </div>
-        <div class="q-text">${q.q}</div>`;
-
-      if (q.type === "mcq") {
-        html += `<div class="options-list">`;
-        q.opts.forEach((opt, oIdx) => {
-          const letter = String.fromCharCode(65 + oIdx);
-          html += `<button class="opt-btn" onclick="answerMCQ('${qId}', ${sIdx}, ${qIdx}, ${oIdx})">${letter}) ${opt}</button>`;
-        });
-        html += `</div>`;
-      } else if (q.type === "tf") {
-        html += `<div class="tf-group">
-          <button class="tf-btn" onclick="answerTF('${qId}', ${sIdx}, ${qIdx}, true)">True (راست)</button>
-          <button class="tf-btn" onclick="answerTF('${qId}', ${sIdx}, ${qIdx}, false)">False (خەلەت)</button>
-        </div>`;
-      } else if (q.type === "blank") {
-        html += `<div class="blank-row">
-          <input type="text" class="blank-input" id="${qId}-inp" placeholder="Type answer here...">
-          <button class="btn-small btn-check" onclick="answerBlank('${qId}', ${sIdx}, ${qIdx})">Check</button>
-          <button class="btn-small btn-reveal" onclick="revealBlank('${qId}', ${sIdx}, ${qIdx})">Show Answer</button>
-        </div>`;
+// ==================== ALL LESSONS (COVERS EVERY SLIDE OF BOTH PDFs) ====================
+const LESSONS = [
+  // ---------- PDF 1 (INTRO / BASICS - 19 SLIDES) ----------
+  {
+    id: "p1_1",
+    pdf: 1,
+    navTitle: "١. پێشەکی و کارێن C# (سلاید ١-٥)",
+    slideLabel: "PDF 1 (بنەمایێن C#) • سلاید ١ تا ٥",
+    title: "C# چییە، کی دروست کریە و بۆچی دهێتە بکارئینان؟",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلایدان ب بادینی:</h3>
+      <ul>
+        <li><strong>زمانێ C# (تێخویندن: C-Sharp یان C-Hash):</strong> زمانەکێ پرۆگرامسازیێ یە یێ <strong>Object-Oriented (OOP)</strong> کو کۆمپانیا <strong>Microsoft</strong> ل سالا <strong>2002</strong> یەکەم ڤێرژنێ وێ بەلاڤکریە و ل سەر <strong>.NET Framework</strong> کار دکەت.</li>
+        <li><strong>بۆچی C# دهێتە بکارئینان؟</strong> بۆ دروستکرنا بەرنامێن مۆبایل، کۆمپیوتەری (Desktop)، وێب سایت و وێب سێرڤیس، یاریان (Games)، VR و داتابەیسان.</li>
+        <li><strong>پەیوەندیا وێ ب زمانێن دی:</strong> ژ خێزانا زمانێ C یە و گەلەک نێزیکی <strong>C++</strong> و <strong>Java</strong> یە، لەوما فێربوونا وێ یا بساناهییە.</li>
+      </ul>
+    `,
+    tip: "💡 تێبینیا ئەزموونا عەمەلی: د ئەزموونا سەر کۆمپیوتەری دا پیناسە ناهێن، بەلێ دڤێت بزانی ئەم ل سەر پلاتفۆرمێ .NET ب زمانێ C# کۆدان دنڤیسین و هەر خەلەتیەکا بچووک Visual Studio ڕاستەوخۆ خەتەکێ سوور دبن دا ددەت!",
+    codeExample: `// نموونەیا بەرنامەکی ب زمانێ C# ل سەر .NET Framework\nusing System;\n\nnamespace AuasExam\n{\n    class Program\n    {\n        static void Main(string[] args)\n        {\n            Console.WriteLine("C# runs on .NET Framework!");\n        }\n    }\n}`,
+    consoleOutput: `C# runs on .NET Framework!`,
+    questions: [
+      {
+        q: "ئەگەر د تاقیکرنا کۆمپیوتەری دا تۆ فایلا خۆ یا C# ڤەکەی، ل سەر کیژ پلاتفۆرمێ مایکرۆسۆفتی کار دکەت؟",
+        options: [".NET Framework", "Python Engine", "Photoshop CC", "Android APK only"],
+        ltrOptions: true,
+        ans: 0,
+        why: "وەکی د سلاید ٣ دا هاتی، C# زمانێ کۆمپانیا Microsoft یە و ل سەر .NET Framework کار دکەت."
+      },
+      {
+        q: "زمانێ C# گەلەک نێزیکی کیژ زمانێن پرۆگرامسازیێ یە (ژبەر وێ ئەگەر کۆدێ وان ببینی دێ تێگەهی)؟",
+        options: ["HTML و CSS", "C, C++ و Java", "SQL و Excel", "Word و PowerPoint"],
+        ltrOptions: false,
+        ans: 1,
+        why: "د سلاید ٣ و ٥ دا دیار کریە کو C# ژ خێزانا C یە و نێزیکی C++ و Java یە."
+      },
+      {
+        q: "ئەگەر ب کۆدێ خوارێ تە بڤێت ئەڤ تێکستە ل سەر شاشا ڕەش دەرکەڤیت، دێ چ دەرکەڤیت؟",
+        code: `Console.WriteLine("C# released in 2002");`,
+        options: ["C# released in 2002", "C-Sharp 2005", "Error دێ دەت", "تشتەک دەرناکەڤیت"],
+        ltrOptions: false,
+        ans: 0,
+        why: "چونکی فەرمانا Console.WriteLine هەر تشتێ د ناڤ دوو فارزان (\"\") دا بیت وەکی خۆ ل سەر شاشا ڕەش چاپ دکەت."
+      },
+      {
+        q: "زمانێ C# ژ جۆرێ چ جۆرە زمانانە کو پێکهاتەیێ کۆدی ڕێک دئێخیت و رێگە ب دووبارە بکارئینانا کۆدی ددەت؟",
+        options: ["Object-Oriented Programming (OOP)", "Database Query Language", "Markup Language", "Machine Binary Only"],
+        ltrOptions: true,
+        ans: 0,
+        why: "د سلاید ٣ و ٥ دا دبێژیت: C# زمانەکێ Object-Oriented یە و پێکهاتەیا بەرنامەی ڕێک دئێخیت."
+      },
+      {
+        q: "کیژ ژ ڤان ب رێکا زمانێ C# ناهێتە دروستکرن؟",
+        options: ["بەرنامێن داتابەیس و یاری (Games)", "بەرنامێن مۆبایل و وێب (Web & Mobile)", "تەلەفۆنا دەستی ب ماددەیێ پلاستیک!", "بەرنامێن کۆمپیوتەری (Desktop Apps)"],
+        ltrOptions: false,
+        ans: 2,
+        why: "د سلاید ٤ دا هاتیە C# بۆ مۆبایل، وێب، دێسکتۆپ، یاری، VR و داتابەیسان دهێتە بکارئینان، نەک چێکرنا پلاستیکی!"
       }
+    ]
+  },
 
-      html += `<div class="feedback" id="${qId}-fb"></div></div>`;
-    });
+  {
+    id: "p1_2",
+    pdf: 1,
+    navTitle: "٢. پێکهاتەیێ کۆدی و Hello World (سلاید ٦-٨)",
+    slideLabel: "PDF 1 • سلاید ٦ تا ٨",
+    title: "پێکهاتەیێ گشتی یێ C# (`using`, `namespace`, `class`, `Main`)",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا پێکهاتەیا بەرنامەی ب تەمامەتی:</h3>
+      <ul>
+        <li><code class="inline-code">using System;</code> : پەرتووکخانا (کتێبخانەیا) System دئینیتە د ناڤ کۆدی دا دا بشێین کلاسێن وەکی <code class="inline-code">Console</code> بکاربینین. ئەگەر ئەڤە نەبیت <code class="inline-code">Console.WriteLine</code> کار ناکەت!</li>
+        <li><code class="inline-code">namespace test</code> : وەکی فولدرەکی یە بۆ ڕێکخستنا کلاسێن تە.</li>
+        <li><code class="inline-code">class Program</code> : هەمی کۆدێن C# دڤێت د ناڤ کلاسی دا بن.</li>
+        <li><code class="inline-code">static void Main(string[] args)</code> : دەرگەهێ سەرەکی یێ دەستپێکرنا بەرنامەی یە! کۆمپیوتەر ژ ناڤ کەڤانێن <code class="inline-code">{}</code> یێن <code class="inline-code">Main</code> دەست ب جێبەجێکرنا کۆدی دکەت.</li>
+        <li><code class="inline-code">{ }</code> : دەستپێک و دوماهیا هەر بلوکەکا کۆدی دیار دکەن.</li>
+      </ul>
+    `,
+    tip: "💡 د تاقیکرنا کۆمپیوتەری دا، گەلەک جاران قوتابی کەڤانەکێ { یان } ژبیر دکەن یان ژ دەرڤەی Main دنڤیسن! پێش کو کۆدێ خۆ Run بکەی سەحکە کەڤانێن خۆ.",
+    codeExample: `using System;\nnamespace test\n{\n    class Program\n    {\n        static void Main(string[] args)\n        {\n            Console.WriteLine("Hello World!");\n        }\n    }\n}`,
+    consoleOutput: `Hello World!`,
+    practice: {
+      prompt: "🎯 تاقیکرنا دەستی: فەرمانەکێ بنڤیسە کو ل سەر شاشا ڕەش بنڤیسیت: Hello Akre!",
+      placeholder: `Console.WriteLine("...");`,
+      validator: (code) => {
+        const clean = code.trim();
+        if (/^Console\.Write(Line)?\s*\(\s*"Hello Akre!"\s*\)\s*;$/.test(clean)) {
+          return { ok: true, out: "Hello Akre!", msg: "یا دروستە! دەست خۆش، تە ل سەر شاشا ڕەش دەرئێخست 👏" };
+        }
+        if (!clean.endsWith(";")) return { ok: false, out: "Compile Error: ; expected", msg: "ئاگەهداربە! ل دوماهیێ سێمیکۆلۆن (;) تە ژبیر کریە!" };
+        if (!clean.includes("Console.Write")) return { ok: false, out: "Error", msg: "پێدڤییە Console.WriteLine(\"Hello Akre!\"); بکاربینی!" };
+        return { ok: false, out: "Wrong output!", msg: "تێکستێ ناڤ دوو فارزان پێدڤییە ب تەمامەتی Hello Akre! بیت و کەڤان و ; هەبن." };
+      }
+    },
+    questions: [
+      {
+        q: "ئەگەر تۆ رێزا `using System;` ژ کۆدێ خۆ بژێببەی (Delete بکەی)، دێ چ ل کۆدێ خوارێ هێت؟",
+        code: `namespace test {\n  class Program {\n    static void Main(string[] args) {\n      Console.WriteLine("Hi");\n    }\n  }\n}`,
+        options: [
+          "خەلەتی (Error) دێ دەت ل سەر Console چونکی System نەهاتیە ئینان",
+          "بێ کێشە Hi ل سەر شاشا ڕەش دێ دەرکەڤیت",
+          "شاشا ڕەش دێ ڕەنگێ وێ بیتە شین",
+          "کۆمپیوتەر دێ ریستارت بیت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "کلاسێ Console د ناڤ پەرتووکخانا System دا یە؛ بێ using System; کۆمپایلەر Console نانیاسیت."
+      },
+      {
+        q: "بەرنامێ C# دەما Run دکەی، ژ کیژ جهی دەست ب جێبەجێکرنا فەرمانان دکەت؟",
+        options: ["ژ ناڤ کەڤانێن Main()", "ژ دوماهیا فایلی", "ژ ناڤ namespace بێ Main", "ژ هەر جهەکێ ڤالا"],
+        ltrOptions: false,
+        ans: 0,
+        why: "هەر تشتێ د ناڤ کەڤانێن {} یێن میسۆدا Main دا بیت، بەرنامە ژ وێرێ دەستپێدکەت و جێبەجێ دکەت."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، چەند کەڤانێن `{` هاتینە ڤەکرن و چەند هاتینە گرتن؟ ئەگەر ئێک ژ `}` کێم بیت چ دقەومیت؟",
+        code: `namespace test\n{\n  class Program\n  {\n    static void Main(string[] args)\n    {\n      Console.WriteLine("Hello World!");\n    }\n  }`,
+        options: [
+          "Compile Error: } expected — بەرنامە Run نابیت",
+          "دێ چاپ کەت Hello World!",
+          "تەنها هۆشداری (Warning) ددەت بەس کار دکەت",
+          "دێ ب شێوەیەکێ ئۆتۆماتیکی چێکەت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "لێرە ٣ کەڤان هاتینە ڤەکرن بەس ٢ هاتینە گرتن! هەر کەڤانەکێ ڤەکری دڤێت بهێتە گرتن."
+      },
+      {
+        q: "رۆلێ پەیڤا `namespace` د کۆدێ C# دا چییە؟",
+        options: [
+          "کۆنترۆل و ڕێکخستنا کلاسێن کۆدی یە وەکی جانتایەکی",
+          "تێکست ل سەر شاشێ چاپ دکەت",
+          "ژماران کۆم دکەت",
+          "تەنها بۆ کۆمێنتێ دهێتە بکارئینان"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "د سلاید ٧ دا هاتیە: namespace کۆدێ تە ڕێک دئێخیت و کلاس و namespaceـێن دی د ناڤ خۆ دا دهەلگریت."
+      },
+      {
+        q: "ئەگەر د تاقیکرنا عەمەلی دا بێژنە تە: دەرکەڤتنێ ل سەر شاشێ بکە `Hello World!`، کیژ کۆد ١٠٠٪ یێ دروستە؟",
+        options: [
+          `Console.WriteLine("Hello World!");`,
+          `Console.WriteLine('Hello World!');`,
+          `Print("Hello World!");`,
+          `Console.WriteLine(Hello World!);`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "تێکست (string) پێدڤییە د ناڤ دوو فارزێن جووت (\" \") دا بیت و سێمیکۆلۆن ل دوماهیێ هەبیت."
+      }
+    ]
+  },
 
-    html += `</div>`;
-    card.innerHTML = html;
-    container.appendChild(card);
-  });
+  {
+    id: "p1_3",
+    pdf: 1,
+    navTitle: "٣. تێبینیێن گشتی و ReadKey (سلاید ٩)",
+    slideLabel: "PDF 1 • سلاید ٩",
+    title: "تێبینیێن زێڕین بۆ تاقیکرنا کۆمپیوتەری (`;`, Case Sensitivity, `ReadKey`)",
+    explainHtml: `
+      <h3>📌 ٥ یاسایێن گشتی یێن C# (سلاید ٩):</h3>
+      <ul>
+        <li><strong>C# هەستیارە بۆ پیتێن مەزن و بچووک (Case Sensitive):</strong> پیتا <code class="inline-code">a</code> جودایە ژ <code class="inline-code">A</code>! نموونە: <code class="inline-code">Console</code> ب پیتا مەزن دروستە، لێ <code class="inline-code">console</code> خەلەتە.</li>
+        <li><strong>سێمیکۆلۆن (<code class="inline-code">;</code>):</strong> هەمی فەرمان و دەربڕین دڤێت ب <code class="inline-code">;</code> بدوماهی بهێن.</li>
+        <li><strong>دەستپێکرن:</strong> جێبەجێکرنا بەرنامەی هەردەم ژ میسۆدا <code class="inline-code">Main</code> دەستپێدکەت.</li>
+        <li><strong>ناڤێ فایلی و ناڤێ کلاسی:</strong> بەروڤاژی Java، د C# دا مەرج نینە ناڤێ فایلی و ناڤێ <code class="inline-code">class</code> وەکی ئێک بن!</li>
+        <li><strong><code class="inline-code">Console.ReadKey();</code>:</strong> ل دوماهیا <code class="inline-code">Main</code> دهێتە دانان دا شاشا ڕەش ل چاڤەڕێی لێدانا دوگمەیەکێ راوستیت و زوو نەهێتە گرتن!</li>
+      </ul>
+    `,
+    tip: "💡 ئەگەر د Visual Studio دا تە Run کر و شاشا ڕەش د ئێک چرکە دا ڤەبوو و دیار نەما، ئەگەر ئەوە تە Console.ReadKey(); ل دوماهیێ نەنڤیسیە!",
+    codeExample: `Console.WriteLine("Salar");\nConsole.ReadKey(); // شاشا ڕەش دگریت هەتا کلیلی لێبدەی`,
+    consoleOutput: `Salar`,
+    questions: [
+      {
+        q: "تە کۆدێ خۆ نڤیسی و Run کر، شاشا ڕەش د ئێک چرکە دا ڤەبوو و ئێکسەر هاتە گرتن بێ کو ئەنجامی ببینی! چ ل دوماهیێ زێدە بکەی؟",
+        options: [`Console.ReadKey();`, `Console.Close();`, `using System;`, `return 0;`],
+        ltrOptions: true,
+        ans: 0,
+        why: "فەرمانا Console.ReadKey(); ل دوماهیێ چاڤەڕێی لێدانا دوگمەیەکێ دکەت و ناهێلیت شاشا ڕەش زوو بهێتە گرتن."
+      },
+      {
+        q: "کیژ ژ ڤان دێ خەلەتیا کۆمپایلەر (Error) دەت ژبەر Case Sensitivity؟",
+        options: [
+          `console.writeline("Hello");`,
+          `Console.WriteLine("Hello");`,
+          `Console.ReadKey();`,
+          `int myNum = 10;`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "زمانێ C# هەستیارە بۆ پیتێن مەزن و بچووک؛ Console و WriteLine ب پیتا مەزن دەستپێدکەن."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، چ خەلەتی تێدا هەیە؟",
+        code: `Console.WriteLine("Kurdistan")\nConsole.ReadKey();`,
+        options: [
+          "د رێزا ئێکێ دا سێمیکۆلۆن (;) هاتیە ژبیرکرن",
+          "Kurdistan پێدڤییە ببیتە ژمارە",
+          "ReadKey پێدڤییە ل دەستپێکێ بیت",
+          "هیچ خەلەتی تێدا نینە"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "د C# دا هەمی فەرمان دڤێت ب سێمیکۆلۆن (;) بدوماهی بهێن."
+      },
+      {
+        q: "د زمانێ C# دا، ئەگەر ناڤێ فایلا تە `Exam1.cs` بیت، ئەرێ مەرجە ناڤێ `class` ژی `Exam1` بیت؟",
+        options: [
+          "نەخێر، بەروڤاژی Java، د C# دا دشێت جودا بیت (نموونە class Program)",
+          "بەلێ، هەر دڤێت وەکی ئێک بن ئەگەر نا کار ناکەت",
+          "تەنها ل ڕۆژا ئێکشەمبیێ دڤێت وەکی ئێک بن",
+          "دڤێت ناڤێ کلاسێ ب ژمارە دەستپێبکەت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "وەکی د سلاید ٩ دا هاتی: Unlike Java, program file name could be different from the class name."
+      },
+      {
+        q: "ئەگەر دوو گۆڕاوە ب ناڤێن `age` و `Age` د ئێک بەرنامەی دا بهێنە چێکرن، C# چ دکەت؟",
+        options: [
+          "هەر ئێکێ وەکی گۆڕاوەیەکێ جودا دبینیت چونکی C# Case-sensitive یە",
+          "خەلەتیێ ددەت و دبێژیت دووبارە یە",
+          "هەردووکان تێکەل دکەت",
+          "ژبەرپیتا مەزن بەرنامەی دگریت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "چونکی پیتا بچووک a ژ پیتا مەزن A جودایە د زمانێ C# دا."
+      }
+    ]
+  },
 
-  document.getElementById("stat-total").textContent = totalQ;
-  updateScoreboard();
-}
+  {
+    id: "p1_4",
+    pdf: 1,
+    navTitle: "٤. WriteLine بەرامبەر Write (سلاید ١٠)",
+    slideLabel: "PDF 1 • سلاید ١٠",
+    title: "جوداهیا `Console.WriteLine()` و `Console.Write()` ل سەر شاشا ڕەش",
+    explainHtml: `
+      <h3>📌 ئەڤە ئێک ژ گرنگترین پرسیارێن عەمەلی یە!</h3>
+      <ul>
+        <li><code class="inline-code">Console.WriteLine(...)</code> : تێکستی چاپ دکەت و پاشی <strong>دچیتە سەر رێزەکا نوو</strong> (Enter لێددەت).</li>
+        <li><code class="inline-code">Console.Write(...)</code> : تێکستی چاپ دکەت بەلێ <strong>ل سەر هەمان رێزێ دمینیت</strong> (ناچیتە رێزا نوو).</li>
+      </ul>
+    `,
+    tip: "💡 د سلاید ١٠ دا سەحکە بۆشاییێ (Space)! دەما Console.Write(\"Hello World! \"); هاتیە نڤیسین، ل دوماهیا ! سپەیسەک هەیە، لەوما پەیڤا دی بێ پێکڤەنوساندن ل دووڤ دهێت.",
+    codeExample: `Console.WriteLine("Hello World!");\nConsole.WriteLine("I will print on a new line.");\nConsole.Write("Hello World! ");\nConsole.Write("I will print on the same line.");`,
+    consoleOutput: `Hello World!\nI will print on a new line.\nHello World! I will print on the same line.`,
+    practice: {
+      prompt: "🎯 تاقیکرنا دەستی: فەرمانەکێ بنڤیسە کو چاپ بکەت `Akre` و ل سەر هەمان رێزێ بمینیت (نەچیتە رێزا نوو).",
+      placeholder: `Console.Write(...);`,
+      validator: (code) => {
+        const clean = code.trim();
+        if (/^Console\.Write\s*\(\s*"Akre"\s*\)\s*;$/.test(clean)) {
+          return { ok: true, out: "Akre_", msg: "دەست خۆش! ب Write چاپ دکەت و نیشاندەر ل هەمان رێز دمینیت!" };
+        }
+        if (clean.includes("WriteLine")) return { ok: false, out: "Akre\n_", msg: "تە WriteLine بکارئینا، ئەڤە دێ چیتە رێزا نوو! مە دڤێت ل هەمان رێز بمینیت (Write)." };
+        return { ok: false, out: "Error", msg: `پێدڤییە Console.Write("Akre"); بنڤیسی.` };
+      }
+    },
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش بۆ ڤی کۆدی دێ چ بیت؟",
+        code: `Console.Write("A");\nConsole.Write("B");\nConsole.WriteLine("C");\nConsole.Write("D");`,
+        options: [
+          `ABC\nD`,
+          `A\nB\nC\nD`,
+          `ABCD`,
+          `AB\nCD`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "Write(\"A\") و Write(\"B\") ل هەمان رێزن. WriteLine(\"C\") دێ C چاپ کەت پاشی دچیتە رێزا نوو بۆ D. ئەنجام: رێزا ئێکێ ABC، رێزا دووێ D."
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش بۆ ڤی کۆدی دێ چ بیت؟",
+        code: `Console.WriteLine("Hi");\nConsole.Write("Salar");`,
+        options: [
+          `Hi\nSalar`,
+          `HiSalar`,
+          `Hi Salar`,
+          `Salar\nHi`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "چونکی یا ئێکێ WriteLine یە، دێ پشتی Hi چیتە رێزەکا نوو."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، بۆچی د شاشا ڕەش دا پەیڤ پێکڤە نوسیاینە؟",
+        code: `Console.Write("Akre");\nConsole.Write("IT");`,
+        options: [
+          "چونکی Write هاتییە بکارئینان و هیچ سپەیسەک ل دوماهیا Akre نینە، ئەنجام: AkreIT",
+          "چونکی Console خەلەت هاتیە نڤیسین",
+          "چونکی تێکست دڤێت ب ژمارە بن",
+          "ل سەر دوو رێزان دەردکەڤیت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "Write ناچیتە رێزا نوو و سپەیس ژی ژ خۆ زێدە ناکەت، لەوما راستەوخۆ AkreIT دەردکەڤیت."
+      },
+      {
+        q: "کیژ کۆد ڤێ شاشا ڕەش دروست دکەت؟\nرێزا ١: One\nرێزا ٢: TwoThree",
+        options: [
+          `Console.WriteLine("One");\nConsole.Write("Two");\nConsole.Write("Three");`,
+          `Console.Write("One");\nConsole.WriteLine("Two");\nConsole.Write("Three");`,
+          `Console.WriteLine("One");\nConsole.WriteLine("Two");\nConsole.Write("Three");`,
+          `Console.Write("One");\nConsole.Write("Two");\nConsole.Write("Three");`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "One دڤێت بچیتە رێزا نوو (WriteLine)، پاشی Two و Three ل سەر رێزەکا دی پێکڤە بن (Write)."
+      },
+      {
+        q: "ئەگەر تۆ بنڤیسی `Console.WriteLine();` بێ چ تشت د ناڤ دا، چ دقەومیت؟",
+        options: [
+          "رێزەکا ڤالا (بۆش) چاپ دکەت و دچیتە رێزا دووڤ دا",
+          "Error ددەت چونکی ناڤێ وێ ڤالا یە",
+          "شاشا ڕەش دگریت",
+          "تشتێ بەری خۆ ژێدبەت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "WriteLine() بێ پارامێتەر تەنها رێزەکا نوو یا ڤالا چێدکەت."
+      }
+    ]
+  },
 
-function answerMCQ(qId, sIdx, qIdx, oIdx) {
-  const q = slidesData[sIdx].questions[qIdx];
-  const card = document.getElementById(qId);
-  const btns = card.querySelectorAll(".opt-btn");
-  const fb = document.getElementById(`${qId}-fb`);
+  {
+    id: "p1_5",
+    pdf: 1,
+    navTitle: "٥. کۆمێنت د C# دا (سلاید ١١)",
+    slideLabel: "PDF 1 • سلاید ١١",
+    title: "کۆمێنت (`//` و `/* ... */`) و ڕێگرتن ل جێبەجێکرنا کۆدی",
+    explainHtml: `
+      <h3>📌 کۆمێنت بۆچی نە د ئەزموونێ دا؟</h3>
+      <ul>
+        <li>کۆمپایلەر کۆمێنتان ناخوینیت و ل سەر شاشا ڕەش <strong>چاپ نابن</strong>!</li>
+        <li><strong>کۆمێنتا ئێک رێز (Single-line):</strong> ب <code class="inline-code">//</code> دەستپێدکەت. هەر تشتێ ل پشت <code class="inline-code">//</code> تا دوماهیا وێ رێزێ ناهێتە جێبەجێکرن.</li>
+        <li><strong>کۆمێنتا چەند رێزان (Multi-line):</strong> ب <code class="inline-code">/*</code> دەستپێدکەت و ب <code class="inline-code">*/</code> ب دوماهی دهێت.</li>
+      </ul>
+    `,
+    tip: "💡 مامۆستا دشێت د پرسیارا شاشا ڕەش دا رێزەکا Console.WriteLine ب // یان /* */ بگریت دا سەحکەتە هشیاریا تە!",
+    codeExample: `// ئەڤ رێزە ناهێتە جێبەجێکرن\nConsole.WriteLine("Hello World!"); // ئەڤە دێ چاپ بیت\n/* Console.WriteLine("Hidden 1");\n   Console.WriteLine("Hidden 2"); */\nConsole.WriteLine("Visible!");`,
+    consoleOutput: `Hello World!\nVisible!`,
+    questions: [
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `// Console.WriteLine("One");\nConsole.WriteLine("Two");\n/* Console.WriteLine("Three");\nConsole.WriteLine("Four"); */`,
+        options: ["Two", "One\nTwo", "Two\nThree\nFour", "One\nTwo\nThree\nFour"],
+        ltrOptions: true,
+        ans: 0,
+        why: "One ب // هاتیە گرتن، Three و Four ژی د ناڤ /* */ دانە، لەوما تەنها Two چاپ دبیت."
+      },
+      {
+        q: "چ دێ ل سەر شاشا ڕەش دەرکەڤیت؟",
+        code: `int x = 5;\n// x = 10;\nConsole.WriteLine(x);`,
+        options: ["5", "10", "15", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "رێزا x = 10; کۆمێنتە، لەوما x هەر 5 دمینیت."
+      },
+      {
+        q: "د ڤی کۆدی دا خەلەتی هەیە یان نە؟ ئەگەر کار بکەت دێ چ چاپ کەت؟",
+        code: `Console.WriteLine("Hi"); /* comment */\nConsole.WriteLine("Bye");`,
+        options: ["کار دکەت و چاپ دکەت:\nHi\nBye", "Error ددەت چونکی /* */ د ناڤ ئێک رێزێ دا یە", "تەنها Hi چاپ دکەت", "تەنها comment چاپ دکەت"],
+        ltrOptions: false,
+        ans: 0,
+        why: "کۆمێنتا /* ... */ دشێت ل سەر ئێک رێز یان چەند رێزان بیت و کار دکەت."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، چەند رێز دێ ل سەر شاشا ڕەش چاپ بن؟",
+        code: `/*\nConsole.WriteLine("A");\n// Console.WriteLine("B");\n*/\nConsole.WriteLine("C");`,
+        options: ["تەنها C", "A و C", "B و C", "هیچ تشتەک (Error)"],
+        ltrOptions: false,
+        ans: 0,
+        why: "A و B د ناڤ سنوورێ /* ... */ دانە، لەوما هەردوو دێ هێنە پشتگوهاڤێتن و تەنها C دەردکەڤیت."
+      },
+      {
+        q: "بۆ گرتنا ٣ رێزێن کۆدی پێکڤە دا جێبەجێ نەبن، کیژ رێک یا دروستە؟",
+        options: ["ل دەستپێکێ /* و ل دوماهیێ */", "ل دەستپێکێ // و ل دوماهیێ //", "ل دەستپێکێ # و ل دوماهیێ #", "ل دەستپێکێ <!-- و ل دوماهیێ -->"],
+        ltrOptions: false,
+        ans: 0,
+        why: "د C# دا /* ... */ بۆ کۆمێنتا چەند رێزی دهێتە بکارئینان."
+      }
+    ]
+  },
 
-  btns.forEach((b, i) => {
-    b.classList.remove("correct", "wrong");
-    if (i === q.ans) b.classList.add("correct");
-  });
+  {
+    id: "p1_6",
+    pdf: 1,
+    navTitle: "٦. گۆڕاوەکان و خەلەتیا Unassigned (سلاید ١٢-١٤)",
+    slideLabel: "PDF 1 • سلاید ١٢ تا ١٤",
+    title: "گۆڕاوەکان (`Variables`)، گوهۆڕین و خەلەتیا بێ بهاترکرن",
+    explainHtml: `
+      <h3>📌 گۆڕاوە (Variable) چییە و چاوا د C# دا دهێنە چێکرن؟</h3>
+      <ul>
+        <li><strong>دەستوور (Syntax):</strong> <code class="inline-code">type variableName = value;</code></li>
+        <li><strong>٥ جۆرێن سەرەکی د سلاید ١٢ دا:</strong> <code class="inline-code">int</code> (ژمارا تەمام)، <code class="inline-code">double</code> (کەرتی)، <code class="inline-code">char</code> (ئێک پیت د ناڤ <code class="inline-code">' '</code>)، <code class="inline-code">string</code> (تێکست د ناڤ <code class="inline-code">" "</code>)، <code class="inline-code">bool</code> (<code class="inline-code">true</code> یان <code class="inline-code">false</code>).</li>
+        <li><strong>ڕاگەهاندن و پاشی بهاترکرن:</strong> دشێی بنڤیسی <code class="inline-code">int age;</code> پاشی <code class="inline-code">age = 25;</code>.</li>
+        <li><strong>گوهۆڕینا بەهای (Overwrite):</strong> ئەگەر بەهایەکێ نوو بدەیە هەمان گۆڕاوە، بەهایێ کەڤن ژێدچیت و یێ نوو جهێ وێ دگریت!</li>
+        <li><strong>خەلەتیا گرنگ (Compile-time error):</strong> گۆڕاوەیا لوکەل دڤێت بەری بکارئینانێ بەهایەک هەبیت! <code class="inline-code">int age; int j = age;</code> خەلەتە!</li>
+      </ul>
+    `,
+    tip: "💡 ئاگەهداربە! دەمێ تۆ بەهایەکێ نوو ددەیە گۆڕاوەیەکێ وەکی age = 20;، نەبێژە جارەکا دی int age = 20; چونکی دێ خەلەتیا دووبارە ڕاگەهاندنێ دەت!",
+    codeExample: `int age = 25;\nage = 20; // بەهایێ کەڤن (25) چوو، بوو 20\nConsole.WriteLine(age);`,
+    consoleOutput: `20`,
+    questions: [
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `int age = 25;\nage = 20;\nConsole.WriteLine(age);`,
+        options: ["20", "25", "45", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "بەهایێ ٢٥ ب ٢٠ هاتە گوهۆڕین (Overwrite)، لەوما ٢٠ چاپ دبیت."
+      },
+      {
+        q: "بۆچی Visual Studio دێ ل سەر رێزا دووێ خەتەکێ سوور دانیت (Compile-time error)؟",
+        code: `int age;\nint j = age;`,
+        options: [
+          "چونکی age بەری بکارئینانێ هیچ بەهایەک نەهاتیە دانێ (Unassigned local variable)",
+          "چونکی ناڤێ j یێ بچووکە",
+          "چونکی age دڤێت string بیت",
+          "هیچ خەلەتی نینە، j دێ بیتە 0"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "د سلاید ١٤ دا هاتیە: Variable must be assigned a value before using it, otherwise C# will give an error."
+      },
+      {
+        q: "کیژ رێز بۆ چێکرنا گۆڕاوەیا string یا دروستە؟",
+        options: [
+          `string name = "Kurdistan";`,
+          `string name = 'Kurdistan';`,
+          `name = "Kurdistan";`,
+          `int name = "Kurdistan";`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "جۆر string یە و تێکست دڤێت د ناڤ دوو فارزێن جووت (\"\") دا بیت."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، چ دقەومیت؟",
+        code: `int x = 10;\nint x = 20;\nConsole.WriteLine(x);`,
+        options: [
+          "Error ددەت چونکی x دوو جاران هاتیە ڕاگەهاندن ب int",
+          "20 چاپ دکەت",
+          "10 چاپ دکەت",
+          "30 چاپ دکەت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "بۆ گوهۆڕینا بەهای، دڤێت تەنها بنڤیسی x = 20; بێ نڤیسینا int جارەکا دی."
+      },
+      {
+        q: "ئەگەر گۆڕاوەیەکێ بهاتر بکەین ب دوو رێزان، کیژ ژ ڤان دروستە؟",
+        options: [
+          `int age;\nage = 25;\nConsole.WriteLine(age);`,
+          `age = 25;\nint age;\nConsole.WriteLine(age);`,
+          `int age;\nConsole.WriteLine(age);`,
+          `age int = 25;`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "ئێکەم جار ڕاگەهاندن (declaration: int age;) پاشی بهاترکرن (initialization: age = 25;) و پاشی چاپکرن."
+      }
+    ]
+  },
 
-  const isCorrect = oIdx === q.ans;
-  if (!isCorrect) {
-    btns[oIdx].classList.add("wrong");
-    fb.className = "feedback show err";
-    fb.textContent = "Wrong! Correct answer: " + q.opts[q.ans];
-  } else {
-    fb.className = "feedback show ok";
-    fb.textContent = "Correct! دەست خوش!";
-  }
+  {
+    id: "p1_7",
+    pdf: 1,
+    navTitle: "٧. نەگۆڕەکان `const` (سلاید ١٥)",
+    slideLabel: "PDF 1 • سلاید ١٥",
+    title: "گۆڕاوەیا نەگۆڕ (`const`) و یاسایێن وێ",
+    explainHtml: `
+      <h3>📌 <code class="inline-code">const</code> چییە؟</h3>
+      <ul>
+        <li>دەمێ پەیڤا <code class="inline-code">const</code> دانیە بەری جۆرێ گۆڕاوەیێ، ئەو گۆڕاوە دبیتە <strong>نەگۆڕ (Read-only / Unchangeable)</strong>؛ نە تۆ و نە کەسێ دی نەشێت پشتی هنگی بەهایێ وێ بگوهۆڕیت!</li>
+        <li><strong>یاسا ١:</strong> هەر هەولەک بۆ گوهۆڕینا بەهایێ <code class="inline-code">const</code> خەلەتیا کۆمپایلەری ددەت!</li>
+        <li><strong>یاسا ٢:</strong> نابیت <code class="inline-code">const</code> بێ بهاترکرن بهێتە ڕاگەهاندن! دڤێت د هەمان رێزا ڕاگەهاندنێ دا بەهایەکێ بدەیێ.</li>
+      </ul>
+    `,
+    tip: "💡 د سلاید ١٥ دا نموونەکا گرنگ هەیە: double myDoubleNum = 5.99D; — ژبیر نەکە پیتا D ل دوماهیا double دهێت و 'D' بۆ char د ناڤ تاک فارزان دا دهێت.",
+    codeExample: `const int age = 25;\n// age = 30;  <-- خەلەتی! نابیت بهێتە گوهۆڕین\nConsole.WriteLine(age);`,
+    consoleOutput: `25`,
+    questions: [
+      {
+        q: "ئەگەر ڤی کۆدی د Visual Studio دا Run بکەی، چ دقەومیت؟",
+        code: `const int age = 25;\nage = 30;\nConsole.WriteLine(age);`,
+        options: [
+          "Compile Error: بەهایێ const ناهێتە گوهۆڕین!",
+          "30 چاپ دکەت",
+          "25 چاپ دکەت",
+          "55 چاپ دکەت"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "چونکی age ب const هاتیە چێکرن و بەهایێ وێ قفل بوویە؛ رێزا age = 30; خەلەتیێ ددەت."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە خەلەتە و کار ناکەت؟",
+        code: `const double pi;\npi = 3.14;`,
+        options: [
+          "چونکی گۆڕاوەیا const دڤێت د هەمان رێزێ دا بەهایێ خۆ وەربگریت!",
+          "چونکی pi پێدڤییە int بیت",
+          "چونکی 3.14 پێدڤییە د ناڤ \"\" دا بیت",
+          "خەلەتی تێدا نینە"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "د سلاید ١٥ دا هاتیە: A const field requires a value to be provided. نابیت بێ بەها بهێتە ڕاگەهاندن."
+      },
+      {
+        q: "کیژ ژ ڤان گۆڕاوەیان دروست هاتیە نڤیسین (بەهایێن سلاید ١٥)؟",
+        options: [
+          `char myLetter = 'D';`,
+          `char myLetter = "D";`,
+          `bool myBool = "true";`,
+          `int myAge = 15.5;`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "char تەنها ئێک کارەکتەرە د ناڤ تاک فارزێن ' ' دا."
+      },
+      {
+        q: "چ دێ ل سەر شاشا ڕەش دەرکەڤیت؟",
+        code: `const int x = 10;\nint y = x + 5;\nConsole.WriteLine(y);`,
+        options: ["15", "Error چونکی x نەگۆڕە", "10", "5"],
+        ltrOptions: true,
+        ans: 0,
+        why: "بکارئینانا x د بیرکاریێ دا دروستە و بەهایێ x ناهێتە گوهۆڕین، بەلکو y دبیتە 15."
+      },
+      {
+        q: "ئەگەر نەڤێت چ کەس بەهایێ گۆڕاوەیا `taxRate` بگوهۆڕیت، کیژ پەیڤ دانیە بەری جۆرێ وێ؟",
+        options: ["const", "var", "static only", "string"],
+        ltrOptions: true,
+        ans: 0,
+        why: "کلیلەوشا const گۆڕاوەیێ دکەتە نەگۆڕ (Read-only)."
+      }
+    ]
+  },
 
-  userAnswers[qId] = isCorrect;
-  updateScoreboard();
-}
+  {
+    id: "p1_8",
+    pdf: 1,
+    navTitle: "٨. نیشاندانا گۆڕاوەکان و کۆمکرن `+` (سلاید ١٦-١٧)",
+    slideLabel: "PDF 1 • سلاید ١٦ و ١٧",
+    title: "نیشاندانا گۆڕاوەکان، پێکڤەگرێدان (`+`) و ڕاگەهاندنا چەند گۆڕاوەیان",
+    explainHtml: `
+      <h3>📌 رەفتارا نیشانا `+` ل گەل تێکست و ژماران:</h3>
+      <ul>
+        <li><strong>ل گەل <code class="inline-code">string</code>:</strong> نیشانا <code class="inline-code">+</code> تێکست و گۆڕاوەیان پێکڤە گرێددەت (Concatenation).</li>
+        <li><strong>ئاگەهداربە ژ سپەیسی!</strong> د سلاید ١٦ دا: <code class="inline-code">firstName = "Salar"; lastName = "Raman"; fullName = firstName + lastName;</code> — دێ <code class="inline-code">SalarRaman</code> پێکڤە نوسیای دەرکەڤیت! بۆ سپەیسی دڤێت <code class="inline-code">firstName + " " + lastName</code> بنڤیسی.</li>
+        <li><strong>ل گەل ژماران (<code class="inline-code">int</code>):</strong> نیشانا <code class="inline-code">+</code> کۆمکرنا بیرکاری دکەت (<code class="inline-code">10 + 5</code> دبیتە <code class="inline-code">15</code>).</li>
+        <li><strong>چەند گۆڕاوە ژ هەمان جۆر:</strong> دشێی د ئێک رێزێ دا ب کۆما (<code class="inline-code">,</code>) جودا بکەی: <code class="inline-code">int x = 5, y = 6, z = 50;</code></li>
+      </ul>
+    `,
+    tip: "💡 ئەگەر د تاقیکرنێ دا گۆت: ناڤێ ئێکێ و یێ دووێ چاپ بکە و بۆشایی (Space) د ناڤبەرا وان دا هەبیت، ژبیر نەکە + \" \" + بدانی!",
+    codeExample: `string firstName = "Salar";\nstring lastName = "Raman";\nstring fullName = firstName + lastName;\nConsole.WriteLine(fullName);\n\nint x = 5, y = 6, z = 50;\nConsole.WriteLine(x + y + z);`,
+    consoleOutput: `SalarRaman\n61`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `string firstName = "Salar";\nstring lastName = "Raman";\nConsole.WriteLine(firstName + lastName);`,
+        options: ["SalarRaman", "Salar Raman", "firstName + lastName", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "چونکی هیچ سپەیسەک (\" \") د ناڤبەرا وان دا نەهاتیە زێدەکرن!"
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int x = 5, y = 6, z = 50;\nConsole.WriteLine(x + y + z);`,
+        options: ["61", "5650", "5 + 6 + 50", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "هەمی ژ جۆرێ int نە، لەوما + وان ب بیرکاری کۆم دکەت: 5 + 6 + 50 = 61."
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `string a = "10";\nstring b = "5";\nConsole.WriteLine(a + b);`,
+        options: ["105", "15", "50", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ئەڤە تێلەپەکا عەمەلی یە! هەردوو د ناڤ \"\" دانە و ژ جۆرێ string نە، لەوما + وان پێکڤە دگرێدەت و دبیتە 105!"
+      },
+      {
+        q: "کیژ کۆد ل سەر شاشا ڕەش `Hello Aram` چاپ دکەت (دگەل سپەیسی د ناڤبەرا وان دا)؟",
+        options: [
+          `string name = "Aram";\nConsole.WriteLine("Hello " + name);`,
+          `string name = "Aram";\nConsole.WriteLine("Hello" + name);`,
+          `string name = "Aram";\nConsole.WriteLine("Hello + name");`,
+          `string name = Aram;\nConsole.WriteLine("Hello " + name);`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "د رێزا ئێکێ دا پشتی Hello سپەیسەک هەیە و + name دەرڤەی فارزایە."
+      },
+      {
+        q: "کیژ رێز بۆ چێکرنا ٣ گۆڕاوەیێن ژمارەیی د ئێک رێز دا یا خەلەتە؟",
+        options: [
+          `int x = 5; y = 6; z = 50;`,
+          `int x = 5, y = 6, z = 50;`,
+          `int a = 1, b = 2;`,
+          `double m = 1.5, n = 2.5;`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "بۆ پێکڤە ڕاگەهاندنێ کۆما (,) دهێتە بکارئینان نەک سێمیکۆلۆن (;)."
+      }
+    ]
+  },
 
-function answerTF(qId, sIdx, qIdx, choice) {
-  const q = slidesData[sIdx].questions[qIdx];
-  const card = document.getElementById(qId);
-  const btns = card.querySelectorAll(".tf-btn");
-  const fb = document.getElementById(`${qId}-fb`);
+  {
+    id: "p1_9",
+    pdf: 1,
+    navTitle: "٩. پەیڤێن پاراستی و ناڤێن گۆڕاوەکان (سلاید ١٨-١٩)",
+    slideLabel: "PDF 1 • سلاید ١٨ و ١٩",
+    title: "Keywords (`@`) و یاسایێن ناڤێ گۆڕاوەکان (`Identifiers`)",
+    explainHtml: `
+      <h3>📌 چ ناڤ د C# دا دروستە و چ ناڤ خەلەتە؟</h3>
+      <ul>
+        <li><strong>Reserved Keywords (پەیڤێن پاراستی):</strong> پەیڤێن تایبەتێن کۆمپایلەرێ C# نە وەکی <code class="inline-code">int</code>، <code class="inline-code">class</code>، <code class="inline-code">bool</code>، <code class="inline-code">const</code>، <code class="inline-code">for</code>، <code class="inline-code">else</code>، <code class="inline-code">do</code>، <code class="inline-code">break</code>، <code class="inline-code">catch</code>.</li>
+        <li><strong>نهێنیا نیشانا <code class="inline-code">@</code> (سلاید ١٨):</strong> نابیت کلیلەوشەکا پاراستی بکەیە ناڤێ گۆڕاوەیێ، بەلێ ئەگەر نیشانا <code class="inline-code">@</code> بدانیە بەر (وەکی <code class="inline-code">int @class = 5;</code>)، وەکی ناڤەکێ ئاسایی قەبوول دکەت!</li>
+        <li><strong>یاسایێن ناڤدانێ (Identifiers - سلاید ١٩):</strong>
+          <ul>
+            <li>دشێت پیت (Letters)، ژمارە (Digits) و ئەندەرسکۆر (<code class="inline-code">_</code>) تێدا بن.</li>
+            <li>دڤێت ب پیت دەستپێبکەت (نەک ب ژمارە! وەکی <code class="inline-code">1age</code> خەلەتە).</li>
+            <li>نابیت سپەیس (بۆشایی) تێدا هەبیت (<code class="inline-code">my var</code> خەلەتە).</li>
+            <li>باشترە ب پیتا بچووک دەستپێبکەت؛ و هەستیارە بۆ مەزنی و بچووکیا پیتان (<code class="inline-code">myVar</code> جودایە ژ <code class="inline-code">myvar</code>).</li>
+          </ul>
+        </li>
+      </ul>
+    `,
+    tip: "💡 ئەگەر د تاقیکرنا کۆمپیوتەری دا تە گۆڕاوە ناڤکر my name (ب سپەیس) یان 2num (ب ژمارە دەستپێبکەت) یان double (پەیڤا پاراستی)، ئێکسەر Error ددەت!",
+    codeExample: `int myVar = 10;\nint myvar = 20; // جودایە ژ myVar!\nint @class = 99; // دروستە ب ئەگەرا @\nConsole.WriteLine(myVar + " " + myvar + " " + @class);`,
+    consoleOutput: `10 20 99`,
+    questions: [
+      {
+        q: "کیژ ژ ڤان ناڤێن گۆڕاوەکان ل کۆمپیوتەری خەلەتە و Error ددەت؟",
+        options: [`int 1student = 5;`, `int student1 = 5;`, `int my_student = 5;`, `int totalVolume = 5;`],
+        ltrOptions: true,
+        ans: 0,
+        why: "ناڤێ گۆڕاوەیێ نابیت ب ژمارە دەستپێبکەت! 1student خەلەتە."
+      },
+      {
+        q: "کیژ ژ ڤان ناڤێن گۆڕاوەکان ب ئەگەرا نیشانا `@` دروست کار دکەت؟",
+        options: [`int @int = 12;`, `int int = 12;`, `int my int = 12;`, `int 12int = 12;`],
+        ltrOptions: true,
+        ans: 0,
+        why: "د سلاید ١٨ دا هاتیە: ئەگەر بتەڤێت پەیڤەکا پاراستی بکەیە ناڤێ گۆڕاوەیێ، نیشانا @ دانە بەر."
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `int myVar = 5;\nint myvar = 10;\nConsole.WriteLine(myVar + myvar);`,
+        options: ["15", "20", "10", "Error: دووبارە ناڤدان"],
+        ltrOptions: true,
+        ans: 0,
+        why: "چونکی myVar و myvar دوو گۆڕاوەیێن جودانە (Case sensitive)، 5 + 10 = 15."
+      },
+      {
+        q: "کیژ ژ ڤان ناڤان خەلەتە ژبەر هەبوونا بۆشاییێ (Whitespace)؟",
+        options: [`string first name = "Ali";`, `string first_name = "Ali";`, `string firstName = "Ali";`, `string FirstName = "Ali";`],
+        ltrOptions: true,
+        ans: 0,
+        why: "ناڤێ گۆڕاوەیێ نابیت هیچ سپەیسەک تێدا هەبیت."
+      },
+      {
+        q: "کیژ ژ ڤان کلیلەوشەکا پاراستی یا C# یە و نابیت بێ `@` ببیتە ناڤێ گۆڕاوەیێ؟",
+        options: ["finally", "kurdistan", "score1", "my_num"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ل خشتەیێ سلاید ١٨ دا finally (هەروەسا class, bool, break, catch, default, float, for...) پەیڤێن پاراستی نە."
+      }
+    ]
+  },
 
-  btns.forEach(b => b.classList.remove("correct", "wrong"));
+  // ---------- PDF 2 (DATA TYPES, OPERATORS, CASTING, CONVERSION, EXPRESSIONS - 29 SLIDES) ----------
+  {
+    id: "p2_1",
+    pdf: 2,
+    navTitle: "١٠. جۆرێن داتایان و قەبارێ وان (سلاید ١-٤)",
+    slideLabel: "PDF 2 (جۆرێن داتایان و ئۆپەرەیتەر) • سلاید ١ تا ٤",
+    title: "C# زمانەکێ Strongly-Typed یە و جۆرێن سەرەکی یێن داتایان",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلاید ٣ و ٤:</h3>
+      <p>C# زمانەکێ <strong>Strongly-typed</strong> یە؛ یانی بەری تۆ گۆڕاوەیەکێ بکاربینی، دڤێت جۆرێ وێ (Data Type) دیار بکەی دا قەبارێ وێ د میمۆری دا بهێتە زانین و خەلەتی چێنەبن.</p>
+      <table class="table-mini">
+        <tr><th>Data Type</th><th>قەبارە</th><th>بۆ چ دهێتە بکارئینان؟</th></tr>
+        <tr><td class="ltr-cell">int</td><td>4 bytes</td><td>ژمارا تەمام (بێ پۆینت)</td></tr>
+        <tr><td class="ltr-cell">long</td><td>8 bytes</td><td>ژمارا تەمام یا گەلەک مەزن</td></tr>
+        <tr><td class="ltr-cell">float</td><td>4 bytes</td><td>کەرتی (٦ تا ٧ رەقەم پشتی پۆینتێ، پێدڤی ب <code class="inline-code">f</code>)</td></tr>
+        <tr><td class="ltr-cell">double</td><td>8 bytes</td><td>کەرتی (تا ١٥ رەقەم)</td></tr>
+        <tr><td class="ltr-cell">bool</td><td>1 bit</td><td>تەنها <code class="inline-code">true</code> یان <code class="inline-code">false</code></td></tr>
+        <tr><td class="ltr-cell">char</td><td>2 bytes</td><td>ئێک کارەکتەر د ناڤ <code class="inline-code">' '</code></td></tr>
+        <tr><td class="ltr-cell">string</td><td>2 bytes/char</td><td>ڕستەیا پیتان د ناڤ <code class="inline-code">" "</code></td></tr>
+      </table>
+    `,
+    tip: "💡 د سلاید ٣ دا: float floatVar = 10.2f; — ئەگەر تۆ f نەدانیە دوماهیا 10.2، Visual Studio ئێکسەر خەلەتیێ ددەت!",
+    codeExample: `int myNum = 5;\nfloat floatVar = 10.2f;\nchar myLetter = 'D';\nbool myBool = true;\nstring myText = "Kurdistan";\nConsole.WriteLine(myNum + " - " + floatVar + " - " + myLetter + " - " + myBool + " - " + myText);`,
+    consoleOutput: `5 - 10.2 - D - True - Kurdistan`,
+    questions: [
+      {
+        q: "د ڤی کۆدی دا خەلەتی چییە؟",
+        code: `float price = 10.5;\nConsole.WriteLine(price);`,
+        options: [
+          "پیتا f ل دوماهیا 10.5 نەهاتیە دانان (دڤێت ببیتە 10.5f)",
+          "float تەنها ژمارا تەمام وەردگریت",
+          "price پێدڤییە د ناڤ \"\" دا بیت",
+          "هیچ خەلەتی نینە"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "ژمارا پۆینتدار ب شێوەیەکێ بنەڕەتی وەکی double دهێتە دیتن؛ بۆ float دڤێت f بدانیە دوماهیێ."
+      },
+      {
+        q: "ئەگەر تۆ ژمارەیەکا تەمام یا زۆر مەزن هەبیت و نەچیتە د ناڤ `int` دا (مەزنتر ژ ٢ ملیار)، کیژ جۆری بکاربینی؟",
+        options: ["long (8 bytes)", "bool (1 bit)", "char (2 bytes)", "byte (0-255)"],
+        ltrOptions: true,
+        ans: 0,
+        why: "long قەبارێ وێ ٨ بایتە و تا 9 کوینتیلیۆن ژمارێن تەمام هەلدگریت."
+      },
+      {
+        q: "کیژ رێز بۆ خەزنکرنا ئێک پیت ب دروستی هاتیە نڤیسین؟",
+        options: [`char c = 'D';`, `char c = "D";`, `char c = 'DD';`, `string c = 'D';`],
+        ltrOptions: true,
+        ans: 0,
+        why: "char تەنها ئێک پیت وەردگریت و د ناڤ تاک فارزێن ' ' دا دهێت."
+      },
+      {
+        q: "قەبارێ گۆڕاوەیا `double` و هژمارا رەقەمێن وێ یێن پشتی پۆینتێ چەندن؟",
+        options: ["8 bytes — تا 15 رەقەمێن دەهیی (decimal digits)", "4 bytes — 6 تا 7 رەقەمان", "2 bytes — 2 رەقەم", "1 bit — true یان false"],
+        ltrOptions: false,
+        ans: 0,
+        why: "ل خشتەیێ سلاید ٤ دا: double ٨ بایتە و ١٥ رەقەمێن دەهیی تێرا دکەت."
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `bool myBool = true;\nConsole.WriteLine(myBool);`,
+        options: ["True", "1", "true_bool", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "Console.WriteLine بەهایێ bool ب شێوێ True یان False (ب پیتا مەزن ل دەستپێکێ) چاپ دکەت."
+      }
+    ]
+  },
 
-  const correctBtn = q.ans ? btns[0] : btns[1];
-  const clickedBtn = choice ? btns[0] : btns[1];
-  correctBtn.classList.add("correct");
+  {
+    id: "p2_2",
+    pdf: 2,
+    navTitle: "١١. ژمارێن تەمام و کەرتی و {0} (سلاید ٥-٨)",
+    slideLabel: "PDF 2 • سلاید ٥ تا ٨",
+    title: "جۆرێن ژماران (`byte`..`decimal`), Suffix، وردبینیا `PI` و `{0}`",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلاید ٥ تا ٨:</h3>
+      <ul>
+        <li><strong>ژمارێن تەمام (Integer Types):</strong>
+          <br>بێ نیشان (تەنها پۆزەتیڤ ≥ 0): <code class="inline-code">byte</code> (0-255)، <code class="inline-code">ushort</code> (0-65535)، <code class="inline-code">uint</code> (سەفیکس <code class="inline-code">u</code>)، <code class="inline-code">ulong</code> (<code class="inline-code">ul</code>).
+          <br>ب نیشان (نێگەتیڤ و پۆزەتیڤ): <code class="inline-code">sbyte</code> (-128 تا 127)، <code class="inline-code">short</code>، <code class="inline-code">int</code>، <code class="inline-code">long</code> (<code class="inline-code">l</code> / <code class="inline-code">L</code>).
+        </li>
+        <li><strong>ژمارێن کەرتی (Floating-point):</strong> <code class="inline-code">float</code> (32-bit, <code class="inline-code">f</code>)، <code class="inline-code">double</code> (64-bit, <code class="inline-code">d</code>)، <code class="inline-code">decimal</code> (128-bit, <code class="inline-code">m</code> — بۆ حسابێن پارەی!).</li>
+        <li><strong>بەهایێن بنەڕەتی (Default - سلاید ٦):</strong> بۆ <code class="inline-code">int</code> بریتییە ژ <code class="inline-code">0</code>، بۆ <code class="inline-code">long</code> <code class="inline-code">0L</code>، بۆ <code class="inline-code">float</code> <code class="inline-code">0.0F</code>، و بۆ <code class="inline-code">double</code> <code class="inline-code">0.0D</code>.</li>
+        <li><strong>نیشاندانا ب جهگرێن <code class="inline-code">{0}, {1}</code> (سلاید ٧):</strong> د ناڤ <code class="inline-code">Console.WriteLine("{0} ... {1}", var0, var1);</code> دا <code class="inline-code">{0}</code> جهێ گۆڕاوەیا ئێکێ دگریت و <code class="inline-code">{1}</code> یا دووێ!</li>
+        <li><strong>وردبینیا PI (سلاید ٨):</strong> <code class="inline-code">float</code> تەنها ٧ رەقەمان دهەلگریت (<code class="inline-code">3.141593</code>) لێ <code class="inline-code">double</code> تا ١٥ رەقەمان (<code class="inline-code">3.14159265358979</code>).</li>
+      </ul>
+    `,
+    tip: "💡 د ئەزموونێ دا گەلەک جاران دهێت: ئەگەر بنڤیسی byte x = 300; خەلەتیێ ددەت چونکی byte تەنها تا 255 وەردگریت!",
+    codeExample: `byte centuries = 20;\nushort years = 2000;\nConsole.WriteLine("{0} centuries is {1} years.", centuries, years);\n\nfloat floatPI = 3.141592653589793238f;\ndouble doublePI = 3.141592653589793238;\nConsole.WriteLine("Float PI is: {0}", floatPI);\nConsole.WriteLine("Double PI is: {0}", doublePI);`,
+    consoleOutput: `20 centuries is 2000 years.\nFloat PI is: 3.141593\nDouble PI is: 3.14159265358979`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int a = 10, b = 20;\nConsole.WriteLine("{1} and {0}", a, b);`,
+        options: ["20 and 10", "10 and 20", "1 and 0", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ئاگەهداربە! {0} یانی ئێکەم گۆڕاوە (a=10) و {1} یانی دووەم گۆڕاوە (b=20)، لەوما {1} and {0} دبیتە 20 and 10!"
+      },
+      {
+        q: "ئەگەر بنڤیسی `byte age = 300;`، Visual Studio دێ چ کەت؟",
+        options: [
+          "Compile Error: ژمارا 300 ناچیتە د ناڤ byte دا چونکی سنوورێ byte (0 تا 255) یە",
+          "دێ 300 چاپ کەت",
+          "دێ بیتە -300",
+          "دێ کەتە 255"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "byte تەنها ژ 0 تا 255 وەردگریت (8-bit unsigned)."
+      },
+      {
+        q: "بۆ گۆڕاوەیا `decimal` (یا پارە و بانکان، 128-bit)، کیژ پیت ل دوماهیا ژمارێ دهێتە دانان (Suffix)؟",
+        options: ["m (وەکی 19.99m)", "f (وەکی 19.99f)", "u (وەکی 19.99u)", "l (وەکی 19.99l)"],
+        ltrOptions: true,
+        ans: 0,
+        why: "د خشتەیێ سلاید ٦ دا: decimal سەفیکسێ وێ m یە، float فە (f)، double دێ (d)."
+      },
+      {
+        q: "ئەگەر تۆ `float floatPI = 3.141592653589793238f;` چاپ بکەی، دێ چەند ژمارە ل سەر شاشا ڕەش دەرکەڤن؟",
+        options: ["3.141593 (تەنها ٧ رەقەمێن ب ڕوندکری)", "هەمی ٢٠ رەقەمان چاپ دکەت", "3.14", "Error"],
+        ltrOptions: false,
+        ans: 0,
+        why: "وەکی د سلاید ٨ دا هاتی، float وردبینیا وێ کێمترە و ٣.١٤١٥٩٣ چاپ دکەت."
+      },
+      {
+        q: "کیژ ژ ڤان جۆرێن ژمارەیا تەمام دشێت ژمارا `-50` هەلبگریت؟",
+        options: ["sbyte (-128 to 127)", "byte (0 to 255)", "ushort (0 to 65,535)", "uint (0 to 4.2 billion)"],
+        ltrOptions: true,
+        ans: 0,
+        why: "byte, ushort, uint هەمی unsigned نە (تەنها 0 و پۆزەتیڤ)، بەلێ sbyte دشێت ژ -128 تا 127 هەلبگریت."
+      },
+      {
+        q: "بەهایێ بنەڕەتی (Default value) یێ جۆرێ `long` و `float` چییە (سلاید ٦)؟",
+        options: ["0L و 0.0F", "0 و 0", "null و false", "1L و 1.0F"],
+        ltrOptions: true,
+        ans: 0,
+        why: "د تێبینیا سلاید ٦ دا هاتیە: long -> 0L, float -> 0.0F, double -> 0.0D."
+      }
+    ]
+  },
 
-  const isCorrect = choice === q.ans;
-  if (!isCorrect) {
-    clickedBtn.classList.add("wrong");
-    fb.className = "feedback show err";
-    fb.textContent = "Wrong! Correct answer is: " + (q.ans ? "True" : "False");
-  } else {
-    fb.className = "feedback show ok";
-    fb.textContent = "Correct! راستە!";
-  }
+  {
+    id: "p2_3",
+    pdf: 2,
+    navTitle: "١٢. Boolean و Char و String (سلاید ٩-١١)",
+    slideLabel: "PDF 2 • سلاید ٩ تا ١١",
+    title: "جۆرێن `bool` و `char` و `string` و کارەکتەرێ رێزا نوو `\\n`",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلاید ٩، ١٠، ١١:</h3>
+      <ul>
+        <li><strong><code class="inline-code">bool</code> (Boolean - سلاید ٩):</strong> تەنها دوو بەهایان وەردگریت (<code class="inline-code">true</code> یان <code class="inline-code">false</code>). بەهایێ بنەڕەتی <code class="inline-code">false</code> یە. د دەربڕینێن بەراوردکرنێ دا دهێتە بکارئینان وەکی <code class="inline-code">bool greaterAB = (a > b);</code>.</li>
+        <li><strong><code class="inline-code">char</code> (سلاید ١٠):</strong> ئێک پیت د ناڤ تاک فارزێن <code class="inline-code">' '</code> دا. بەهایێ بنەڕەتی <code class="inline-code">'\0'</code> یە.</li>
+        <li><strong><code class="inline-code">string</code> (سلاید ١١):</strong> زنجیرەیا پیتان د ناڤ جووت فارزێن <code class="inline-code">" "</code> دا. بەهایێ بنەڕەتی <code class="inline-code">null</code> یە.</li>
+        <li><strong>هێمایا <code class="inline-code">\n</code> د ناڤ تێکستی دا (سلاید ١١):</strong> <code class="inline-code">\n</code> د ناڤ <code class="inline-code">""</code> دا رێزەکا نوو چێدکەت (New Line)! سەحکە نموونەیا سلاید ١١: <code class="inline-code">"Hello, {0}!\n"</code> سەرەڕای هەبوونا <code class="inline-code">WriteLine</code>، ژبەر <code class="inline-code">\n</code> دێ رێزەکا ڤالا د ناڤبەرێ دا هێلیت!</li>
+      </ul>
+    `,
+    tip: "💡 د سلاید ١١ دا سەحکە ئەنجامێ شاشا ڕەش: د ناڤبەرا 'Hello, Dareen!' و 'Your full name is Dareen Muhammed.' دا رێزەکا ڤالا هەیە ژبەر \\n + WriteLine!",
+    codeExample: `int a = 1, b = 2;\nbool greaterAB = (a > b);\nbool equalA1 = (a == 1);\nConsole.WriteLine(greaterAB);\nConsole.WriteLine(equalA1);\n\nstring firstName = "Dareen";\nstring lastName = "Muhammed";\nConsole.WriteLine("Hello, {0}!\\n", firstName);\nConsole.WriteLine("Your full name is " + firstName + " " + lastName + ".");`,
+    consoleOutput: `False\nTrue\nHello, Dareen!\n\nYour full name is Dareen Muhammed.`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int a = 5, b = 5;\nbool check = (a > b);\nConsole.WriteLine(check);`,
+        options: ["False", "True", "0", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ئەرێ 5 > 5 یە؟ نەخێر! یەکسانی نینن د > دا، لەوما False چاپ دکەت."
+      },
+      {
+        q: "د ناڤبەرا چاپکرنا رێزا ئێکێ و یا دووێ دا چ دقەومیت ژبەر `\\n`؟",
+        code: `Console.Write("Hi\\nBye");`,
+        options: [`Hi\nBye`, `Hi\\nBye`, `Hi Bye`, `HiBye`],
+        ltrOptions: true,
+        ans: 0,
+        why: "\\n د ناڤ string دا فەرمانا چوونا سەر رێزا نوو یە."
+      },
+      {
+        q: "بەهایێ بنەڕەتی (Default value) یێ `bool` و `char` و `string` ب ڕێزێ چییە؟",
+        options: [
+          `false , '\\0' , null`,
+          `true , 'A' , ""`,
+          `0 , 0 , 0`,
+          `null , false , '0'`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "ل سلاید ٩، ١٠، ١١: bool -> false، char -> '\\0'، string -> null."
+      },
+      {
+        q: "د ڤی کۆدی دا خەلەتی چییە؟",
+        code: `char grade = "B";\nConsole.WriteLine(grade);`,
+        options: [
+          "پێدڤییە 'B' د ناڤ تاک فارزان دا بیت نەک \"B\"",
+          "char پێدڤییە ژمارە بیت",
+          "WriteLine بۆ char کار ناکەت",
+          "خەلەتی نینە"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "\"B\" تێکستە (string)، لێ char تەنها 'B' وەردگریت."
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش بۆ ڤی کۆدی چییە؟",
+        code: `int a = 1;\nbool equalA1 = (a == 1);\nConsole.WriteLine(equalA1);`,
+        options: ["True", "False", "1", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "a یەکسانە ب 1؟ بەلێ! لەوما equalA1 دبیتە True."
+      }
+    ]
+  },
 
-  userAnswers[qId] = isCorrect;
-  updateScoreboard();
-}
+  {
+    id: "p2_4",
+    pdf: 2,
+    navTitle: "١٣. ئۆپەرەیتەرێن بیرکاری و `++` (سلاید ١٢-١٤)",
+    slideLabel: "PDF 2 • سلاید ١٢ تا ١٤",
+    title: "ئۆپەرەیتەرێن بیرکاری (`+`, `-`, `*`, `/`, `%`, `b++`, `++b`)",
+    explainHtml: `
+      <h3>📌 ئەڤ سلایدە جەوهەرێ ئەزموونا عەمەلی یە!</h3>
+      <ul>
+        <li><strong>دابەشکرنا ژمارێن تەمام (<code class="inline-code">int / int</code>):</strong> کەرتی دهاڤێژیت! <code class="inline-code">11 / 3</code> ئەنجام <code class="inline-code">3</code> یە (نەک 3.66)! بەلێ ئەگەر ئێک ژ وان کەرتی بیت وەکی <code class="inline-code">17 / 4.0</code>، ئەنجام دبیتە <code class="inline-code">4.25</code>!</li>
+        <li><strong>پاشماوێ دابەشکرنێ (<code class="inline-code">%</code> - Remainder):</strong> <code class="inline-code">11 % 3</code> یانی ١١ چەند پێ دچیتە د ٣ دا (٣ جاران = ٩) و چەند دمینیت؟ <strong>2</strong>!</li>
+        <li><strong>جوداهیا <code class="inline-code">b++</code> و <code class="inline-code">++b</code> (زۆر گرنگ!):</strong>
+          <ul>
+            <li><code class="inline-code">b++</code> (Post-increment): ئێکەم جار <strong>بەهایێ کەڤن</strong> بکاردهێت، پاشی <code class="inline-code">b</code> ب ١ زێدە دبیت!</li>
+            <li><code class="inline-code">++b</code> (Pre-increment): ئێکەم جار <code class="inline-code">b</code> ب ١ <strong>زێدە دبیت</strong>، پاشی بەهایێ نوو بکاردهێت!</li>
+          </ul>
+        </li>
+      </ul>
+    `,
+    tip: "💡 تەماشای سلاید ١٤ بکە: a=5, b=4; Console.WriteLine(a + b++); دێ 9 چاپ کەت (چونکی 5+4) و پاشی b دبیتە 5! پاشی Console.WriteLine(a + (++b)); دێ b کەتە 6 و 5+6=11 چاپ کەت!",
+    codeExample: `int a = 5, b = 4;\nConsole.WriteLine(a + b++);   // 5 + 4 = 9 (پاشی b دبیتە 5)\nConsole.WriteLine(a + b);     // 5 + 5 = 10\nConsole.WriteLine(a + (++b)); // b دبیتە 6، پاشی 5 + 6 = 11\nConsole.WriteLine(11 / 3);    // 3\nConsole.WriteLine(11 % 3);    // 2\nConsole.WriteLine(17 / 4.0);  // 4.25`,
+    consoleOutput: `9\n10\n11\n3\n2\n4.25`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int x = 10;\nConsole.WriteLine(x++);\nConsole.WriteLine(x);`,
+        options: [`10\n11`, `11\n11`, `10\n10`, `11\n10`],
+        ltrOptions: true,
+        ans: 0,
+        why: "د رێزا ئێکێ دا x++ ئێکەم جار بەهایێ کەڤن (10) چاپ دکەت، پاشی x دبیتە 11، لەوما د رێزا دووێ دا 11 چاپ دبیت."
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int a = 5, b = 4;\nConsole.WriteLine(a + (++b));`,
+        options: ["10", "9", "11", "8"],
+        ltrOptions: true,
+        ans: 0,
+        why: "++b بەری کۆمکرنێ b ژ 4 دکەتە 5، پاشی 5 + 5 = 10!"
+      },
+      {
+        q: "ل سەر شاشا ڕەش ئەڤ هەردوو دابەشکرنە دێ چ چاپ کەن؟",
+        code: `Console.WriteLine(17 / 4);\nConsole.WriteLine(17 / 4.0);`,
+        options: [`4\n4.25`, `4.25\n4.25`, `4\n4`, `4.2\n4.25`],
+        ltrOptions: true,
+        ans: 0,
+        why: "17 / 4 هەردوو int نە لەوما کەرتی دهاڤێژیت (4)، لێ 4.0 کەرتی یە لەوما 4.25 دەردکەڤیت."
+      },
+      {
+        q: "ئەنجامێ پاشماوەی `23 % 5` چییە؟",
+        options: ["3", "4", "5", "2"],
+        ltrOptions: true,
+        ans: 0,
+        why: "4 × 5 = 20، پاشماوە ژ 23 بریتییە ژ 3!"
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int k = 8;\nConsole.WriteLine(--k);\nConsole.WriteLine(k--);\nConsole.WriteLine(k);`,
+        options: [`7\n7\n6`, `8\n7\n6`, `7\n6\n6`, `7\n6\n5`],
+        ltrOptions: true,
+        ans: 0,
+        why: "--k دکەتە 7 و چاپ دکەت (7). پاشی k-- چاپ دکەت (7) و دکەتە 6. دوماهیێ 6 چاپ دبیت."
+      },
+      {
+        q: "چ دێ چاپ بیت ئەگەر بنڤیسی `Console.WriteLine(11 % 3 + 12 / 3);`؟",
+        options: ["6", "7", "5", "8"],
+        ltrOptions: true,
+        ans: 0,
+        why: "11 % 3 = 2 و 12 / 3 = 4. پاشی 2 + 4 = 6."
+      }
+    ]
+  },
 
-function answerBlank(qId, sIdx, qIdx) {
-  const q = slidesData[sIdx].questions[qIdx];
-  const inp = document.getElementById(`${qId}-inp`);
-  const fb = document.getElementById(`${qId}-fb`);
-  const val = inp.value.trim().toLowerCase();
+  {
+    id: "p2_5",
+    pdf: 2,
+    navTitle: "١٤. ئۆپەرەیتەرێن تەرخانکرنێ (سلاید ١٥-١٨)",
+    slideLabel: "PDF 2 • سلاید ١٥ تا ١٨",
+    title: "ئۆپەرەیتەرێن تەرخانکرنێ (`=`, `+=`, `-=`, `*=`, `/=`, `%=`, `<<=`, `&=`, ...)",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلاید ١٥ تا ١٨:</h3>
+      <p>ڤان ئۆپەرەیتەران کۆدی کورتتر لێدکەن و بەهایێ نوو ددەنە هەمان گۆڕاوە:</p>
+      <ul>
+        <li><code class="inline-code">x += 3</code> یەکسانی <code class="inline-code">x = x + 3</code></li>
+        <li><code class="inline-code">x -= 3</code> یەکسانی <code class="inline-code">x = x - 3</code></li>
+        <li><code class="inline-code">x *= 3</code> یەکسانی <code class="inline-code">x = x * 3</code></li>
+        <li><code class="inline-code">x /= 3</code> یەکسانی <code class="inline-code">x = x / 3</code></li>
+        <li><code class="inline-code">x %= 3</code> یەکسانی <code class="inline-code">x = x % 3</code></li>
+        <li>هەروەسا یێن بیتی هەنە: <code class="inline-code">&lt;&lt;=</code>، <code class="inline-code">&gt;&gt;=</code>، <code class="inline-code">&amp;=</code>، <code class="inline-code">^=</code>، <code class="inline-code">|=</code>.</li>
+      </ul>
+    `,
+    tip: "💡 د سلاید ١٨ دا تۆ دشێی بنڤیسی Console.WriteLine(y *= 2); — ئانکو د ئێک دەم دا y جاران ٢ دکەت و ئەنجامی ژی ل سەر شاشا ڕەش چاپ دکەت!",
+    codeExample: `int x = 6, y = 4;\nConsole.WriteLine(y *= 2); // y=8 و چاپ دکەت 8\nConsole.WriteLine(x += 3); // x=9\nConsole.WriteLine(x -= 3); // x=6\nConsole.WriteLine(x /= 2); // x=3\nConsole.WriteLine(x *= 3); // x=9`,
+    consoleOutput: `8\n9\n6\n3\n9`,
+    questions: [
+      {
+        q: "د کۆدێ سلاید ١٦ دا، ل دوماهیێ `c` دێ چەند بیت؟",
+        code: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine(c);`,
+        options: ["11", "9", "21", "0"],
+        ltrOptions: true,
+        ans: 0,
+        why: "200 % 21: چونکی 21 × 9 = 189، پاشماوە 200 - 189 = 11!"
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `int y = 4;\nConsole.WriteLine(y *= 2);\nConsole.WriteLine(y += 5);`,
+        options: [`8\n13`, `8\n9`, `4\n9`, `Error`],
+        ltrOptions: true,
+        ans: 0,
+        why: "y *= 2 دکەتە 8 و چاپ دکەت. پاشی y += 5 دکەتە 8 + 5 = 13."
+      },
+      {
+        q: "فەرمانا `c /= 4;` ب کورتی یەکسانی چییە؟",
+        options: [`c = c / 4;`, `c = 4 / c;`, `c = c % 4;`, `c = c - 4;`],
+        ltrOptions: true,
+        ans: 0,
+        why: "c /= 4 یەکسانی c = c / 4."
+      },
+      {
+        q: "ل دووڤ سلاید ١٦، ئەگەر `c = 11;` بیت، پشتی `c <<= 2;` بەهایێ `c` دبیتە چەند؟",
+        options: ["44", "22", "13", "2"],
+        ltrOptions: true,
+        ans: 0,
+        why: "11 ب باینەری 00001011 یە، لێفت شیفت ب 2 هەر جار جاران 2 دکەت: 11 × 4 = 44 (00101100)."
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int x = 10;\nx += 5;\nx -= 3;\nx /= 4;\nConsole.WriteLine(x);`,
+        options: ["3", "4", "12", "0"],
+        ltrOptions: true,
+        ans: 0,
+        why: "10 + 5 = 15 -> 15 - 3 = 12 -> 12 / 4 = 3."
+      }
+    ]
+  },
 
-  if (!val) {
-    fb.className = "feedback show info";
-    fb.textContent = "Please type an answer or click 'Show Answer'.";
-    return;
-  }
+  {
+    id: "p2_6",
+    pdf: 2,
+    navTitle: "١٥. ئۆپەرەیتەرێن بەراوردکرنێ (سلاید ١٩-٢٠)",
+    slideLabel: "PDF 2 • سلاید ١٩ و ٢٠",
+    title: "ئۆپەرەیتەرێن بەراوردکرنێ (`==`, `!=`, `>`, `<`, `>=`, `<=`)",
+    explainHtml: `
+      <h3>📌 بەراوردکرنا دوو بەهایان (هەردەم `True` یان `False` ددەت):</h3>
+      <ul>
+        <li><code class="inline-code">==</code> : یەکسانە ب (ئاگەهداربە دوو = نە! ئێک = بۆ تەرخانکرنا بەهای یە).</li>
+        <li><code class="inline-code">!=</code> : نە یەکسانە ب (Not equal).</li>
+        <li><code class="inline-code">&gt;</code> : مەزنترە ژ، <code class="inline-code">&lt;</code> : بچووکترە ژ.</li>
+        <li><code class="inline-code">&gt;=</code> : مەزنترە یان یەکسانە، <code class="inline-code">&lt;=</code> : بچووکترە یان یەکسانە.</li>
+      </ul>
+    `,
+    tip: "💡 تێلەپا سلاید ٢٠ بێهۆش نەبە! ل رێزا a != ++b بنێڕە: a=5 و b=4، لێ ++b ئێکەم جار b دکەتە 5! ئەرێ 5 != 5؟ نەخێر (False)! و رێزا پشتی وێ a > b دبیتە 5 > 5 کو ئەڤە ژی False یە!",
+    codeExample: `int a = 5, b = 4;\nConsole.WriteLine(a >= b);   // True\nConsole.WriteLine(a != b);   // True\nConsole.WriteLine(a == b);   // False\nConsole.WriteLine(a != ++b); // False (چونکی b بوو 5)\nConsole.WriteLine(a > b);    // False (چونکی 5 > 5 نینە)`,
+    consoleOutput: `True\nTrue\nFalse\nFalse\nFalse`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int a = 5, b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`,
+        options: [`False\nFalse`, `True\nTrue`, `False\nTrue`, `True\nFalse`],
+        ltrOptions: true,
+        ans: 0,
+        why: "++b بەری بەراوردکرنێ b دکەتە 5؛ ئانکو 5 != 5 دبیتە False، و رێزا دی 5 > 5 دبیتە False!"
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int x = 10, y = 10;\nConsole.WriteLine(x >= y);\nConsole.WriteLine(x > y);`,
+        options: [`True\nFalse`, `True\nTrue`, `False\nFalse`, `False\nTrue`],
+        ltrOptions: true,
+        ans: 0,
+        why: "10 >= 10 دروستە (True) چونکی یەکسانی تێدا هەیە، لێ 10 > 10 خەلەتە (False)."
+      },
+      {
+        q: "ئەگەر تە بڤێت بزانی ئەرێ `x` نە یەکسانە ب `0`، کیژ دەربڕین دروستە؟",
+        options: [`x != 0`, `x =! 0`, `x <> 0`, `x == 0`],
+        ltrOptions: true,
+        ans: 0,
+        why: "نیشانا نە یەکسانی د C# دا بریتییە ژ !=."
+      },
+      {
+        q: "ل ڤی کۆدی بنێڕە، چ دێ دەرکەڤیت؟",
+        code: `int a = 7, b = 7;\nConsole.WriteLine(a == b++);`,
+        options: ["True", "False", "7", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "b++ سەرەتا بەهایێ کەڤن (7) ددەتە بەراوردکرنێ: 7 == 7 True یە! پاشی b دبیتە 8."
+      },
+      {
+        q: "بۆ پشکنینا یەکسانیێ د ناڤبەرا دوو گۆڕاوەیان دا، دڤێت چ بکاربینین؟",
+        options: [`==`, `=`, `===`, `:=`],
+        ltrOptions: true,
+        ans: 0,
+        why: "= بۆ دانانا بەهای یە، لێ == بۆ بەراوردکرنا یەکسانیێ یە."
+      }
+    ]
+  },
 
-  const isCorrect = q.ans.some(a => a.toLowerCase() === val);
-  inp.classList.remove("correct", "wrong");
+  {
+    id: "p2_7",
+    pdf: 2,
+    navTitle: "١٦. ئۆپەرەیتەرێن لۆژیکی (سلاید ٢١-٢٢)",
+    slideLabel: "PDF 2 • سلاید ٢١ و ٢٢",
+    title: "ئۆپەرەیتەرێن لۆژیکی (`&&`, `||`, `!`, `^`)",
+    explainHtml: `
+      <h3>📌 چاوا لۆژیکێ سلاید ٢١ و ٢٢ کار دکەت؟</h3>
+      <ul>
+        <li><code class="inline-code">&amp;&amp;</code> (Logical AND): تەنها وێ دەمێ <code class="inline-code">True</code> یە ئەگەر <strong>هەردوو لایەن True بن</strong>.</li>
+        <li><code class="inline-code">||</code> (Logical OR): وێ دەمێ <code class="inline-code">True</code> یە ئەگەر <strong>هەر نەبیت ئێک ژ وان True بیت</strong>.</li>
+        <li><code class="inline-code">!</code> (Logical NOT): بەروڤاژی دکەت! <code class="inline-code">!true</code> دبیتە <code class="inline-code">False</code> و <code class="inline-code">!false</code> دبیتە <code class="inline-code">True</code>.</li>
+        <li><code class="inline-code">^</code> (Logical XOR - د سلاید ٢٢ دا هەیە!): تەنها وێ دەمێ <code class="inline-code">True</code> یە ئەگەر <strong>هەردوو لایەن ژ ئێک جودا بن</strong> (ئێک True و ئێک False)! ئەگەر هەردوو وەکی ئێک بن (هەردوو True یان هەردوو False) ئەنجام دبیتە <code class="inline-code">False</code>!</li>
+      </ul>
+    `,
+    tip: "💡 تێبینیێ بدە رێزا دوماهیا سلاید ٢٢: (5 > 7) ^ (a == b) ل دەمێ a=true, b=false — چونکی 5 > 7 False یە و a == b ژی False یە، False ^ False دبیتە False!",
+    codeExample: `bool a = true, b = false;\nConsole.WriteLine(a && b);               // False\nConsole.WriteLine(a || b);               // True\nConsole.WriteLine(a ^ b);                // True (جودانە)\nConsole.WriteLine(!b);                   // True\nConsole.WriteLine((5 > 7) ^ (a == b));   // False ^ False = False`,
+    consoleOutput: `False\nTrue\nTrue\nTrue\nFalse`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `bool a = true, b = false;\nConsole.WriteLine(a ^ b);\nConsole.WriteLine(a ^ true);`,
+        options: [`True\nFalse`, `True\nTrue`, `False\nTrue`, `False\nFalse`],
+        ltrOptions: true,
+        ans: 0,
+        why: "XOR (^) دەمێ جودا بن True یە (true ^ false -> True)، دەمێ وەکی ئێک بن False یە (true ^ true -> False)."
+      },
+      {
+        q: "ئەنجامێ ڤێ دەربڕینێ دێ چ بیت: `int x = 3; Console.WriteLine(x < 5 && x < 10);`؟",
+        options: ["True", "False", "3", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "3 < 5 True یە و 3 < 10 ژی True یە، هەردوو True نە لەوما && ئەنجامێ وێ True یە."
+      },
+      {
+        q: "ئەنجامێ `Console.WriteLine(!(10 > 5));` دێ چ بیت؟",
+        options: ["False", "True", "10", "5"],
+        ltrOptions: true,
+        ans: 0,
+        why: "10 > 5 ئەنجام True یە، نیشانا ! وێ دکەتە False."
+      },
+      {
+        q: "بۆ `a = true, b = false`، ئەنجامێ `(5 > 7) ^ (a == b)` دێ چ بیت؟",
+        options: ["False", "True", "0", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "5 > 7 دبیتە False، و a == b ژی False یە. False ^ False = False."
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟",
+        code: `bool p = false, q = true;\nConsole.WriteLine(p || q);\nConsole.WriteLine(p && q);`,
+        options: [`True\nFalse`, `False\nTrue`, `True\nTrue`, `False\nFalse`],
+        ltrOptions: true,
+        ans: 0,
+        why: "false || true = True (چونکی ئێک ژ وان True یە)، لێ false && true = False."
+      }
+    ]
+  },
 
-  if (isCorrect) {
-    inp.classList.add("correct");
-    fb.className = "feedback show ok";
-    fb.textContent = "Correct! دەست خوش!";
-  } else {
-    inp.classList.add("wrong");
-    fb.className = "feedback show err";
-    fb.textContent = "Not quite! Correct answer: " + q.ans[0];
-  }
+  {
+    id: "p2_8",
+    pdf: 2,
+    navTitle: "١٧. ئۆپەرەیتەرێن بیتی Bitwise (سلاید ٢٣-٢٤)",
+    slideLabel: "PDF 2 • سلاید ٢٣ و ٢٤",
+    title: "ئۆپەرەیتەرێن بیتی (`&`, `|`, `^`, `~`, `<<`, `>>`)",
+    explainHtml: `
+      <h3>📌 چاوا بیتی (Bit by Bit) ل سەر ژماران کار دکەت؟</h3>
+      <p>ل سەر ژمارێن تەمام ب شێوێ باینەری (0 و 1) کار دکەت! ل نموونەیا سلاید ٢٤ دا: <code class="inline-code">a = 3</code> (<code class="inline-code">0011</code>) و <code class="inline-code">b = 5</code> (<code class="inline-code">0101</code>):</p>
+      <ul>
+        <li><code class="inline-code">a | b</code> (Bitwise OR): ئەگەر بیتەک <code class="inline-code">1</code> بیت دبیتە <code class="inline-code">1</code> -> <code class="inline-code">0011 | 0101 = 0111</code> = <strong>7</strong></li>
+        <li><code class="inline-code">a &amp; b</code> (Bitwise AND): تەنها هەردوو <code class="inline-code">1</code> بن دبیتە <code class="inline-code">1</code> -> <code class="inline-code">0011 &amp; 0101 = 0001</code> = <strong>1</strong></li>
+        <li><code class="inline-code">a ^ b</code> (Bitwise XOR): جودا بن دبیتە <code class="inline-code">1</code> -> <code class="inline-code">0011 ^ 0101 = 0110</code> = <strong>6</strong></li>
+        <li><code class="inline-code">~a &amp; b</code>: <code class="inline-code">~</code> هەمی بیتێن <code class="inline-code">a</code> دگوهۆڕیت (<code class="inline-code">...1100</code>)، پاشی <code class="inline-code">&amp; 0101</code> = <code class="inline-code">0100</code> = <strong>4</strong></li>
+        <li><code class="inline-code">a &lt;&lt; 1</code> (Left shift ب 1): بیتان پێنگاڤەکێ بەرەڤ چەپێ دچن -> <code class="inline-code">0110</code> = <strong>6</strong> (ب کورتی: <code class="inline-code">a × 2</code>)</li>
+        <li><code class="inline-code">a &gt;&gt; 1</code> (Right shift ب 1): بیتان پێنگاڤەکێ بەرەڤ راستێ دچن -> <code class="inline-code">0001</code> = <strong>1</strong> (ب کورتی: <code class="inline-code">a / 2</code>)</li>
+      </ul>
+    `,
+    tip: "💡 یاسایەکا بلەز بۆ تاقیکرنێ: x << n یانی x جاران (2^n)، و x >> n یانی x دابەشی (2^n) بێ کەرتی!",
+    codeExample: `ushort a = 3; // 00000000 00000011\nushort b = 5; // 00000000 00000101\nConsole.WriteLine(a | b);   // 7\nConsole.WriteLine(a & b);   // 1\nConsole.WriteLine(a ^ b);   // 6\nConsole.WriteLine(~a & b);  // 4\nConsole.WriteLine(a << 1);  // 6\nConsole.WriteLine(a >> 1);  // 1`,
+    consoleOutput: `7\n1\n6\n4\n6\n1`,
+    questions: [
+      {
+        q: "بۆ `ushort a = 3;` (0011) و `ushort b = 5;` (0101)، ئەنجامێ `Console.WriteLine(a | b);` چییە؟",
+        options: ["7", "1", "6", "8"],
+        ltrOptions: true,
+        ans: 0,
+        why: "0011 | 0101 = 0111 کو د سیستەمێ دەهی دا دبیتە 7."
+      },
+      {
+        q: "بۆ `a = 3` (0011) و `b = 5` (0101)، ئەنجامێ `Console.WriteLine(a & b);` چییە؟",
+        options: ["1", "7", "6", "0"],
+        ltrOptions: true,
+        ans: 0,
+        why: "0011 & 0101 = 0001 کو دبیتە 1."
+      },
+      {
+        q: "ئەنجامێ `Console.WriteLine(3 ^ 5);` چییە؟",
+        options: ["6", "7", "1", "4"],
+        ltrOptions: true,
+        ans: 0,
+        why: "0011 ^ 0101 = 0110 (تەنها بیتێن جودا دبنە 1) = 4 + 2 = 6."
+      },
+      {
+        q: "ئەنجامێ `Console.WriteLine(6 << 2);` چییە؟",
+        options: ["24", "12", "1", "8"],
+        ltrOptions: true,
+        ans: 0,
+        why: "لێفت شیفت ب 2 یانی 6 × 2 × 2 = 24."
+      },
+      {
+        q: "ئەنجامێ `Console.WriteLine(10 >> 1);` چییە؟",
+        options: ["5", "20", "2", "1"],
+        ltrOptions: true,
+        ans: 0,
+        why: "رایت شیفت ب 1 یانی 10 / 2 = 5 (1010 -> 0101)."
+      },
+      {
+        q: "د سلاید ٢٤ دا، بۆ `a = 3, b = 5`، ئەنجامێ `~a & b` چەند دەرچوو ل سەر شاشا ڕەش؟",
+        options: ["4", "6", "1", "7"],
+        ltrOptions: true,
+        ans: 0,
+        why: "~a (0011) دبیتە (...1100)، پاشی (...1100) & (0101) = 0100 کو دبیتە 4!"
+      }
+    ]
+  },
 
-  userAnswers[qId] = isCorrect;
-  updateScoreboard();
-}
+  {
+    id: "p2_9",
+    pdf: 2,
+    navTitle: "١٨. سترینگ `+` و مەرجێ کورت `?:` (سلاید ٢٥-٢٦)",
+    slideLabel: "PDF 2 • سلاید ٢٥ و ٢٦",
+    title: "ئۆپەرەیتەرێن دی: کۆمکرنا تێکست و ژماران، مەرجێ `?:`، `new`، `typeof`، `is`",
+    explainHtml: `
+      <h3>📌 شلوڤەکرنا سلاید ٢٥ و ٢٦:</h3>
+      <ul>
+        <li><strong>تێکەلکرنا تێکست و ژماران (سلاید ٢٥):</strong> دەمێ تۆ تێکستەکی (<code class="inline-code">string</code>) ب <code class="inline-code">+</code> دگەل ژمارەکێ دانی، ژمارە ب شێوەیەکێ ئۆتۆماتیکی دبیتە <code class="inline-code">string</code>! (نموونە: <code class="inline-code">"The number is : " + 5</code>).</li>
+        <li><strong>تێلەپا گرنگ!</strong> ژ چەپێ بۆ راستێ دهێتە خویندن: <code class="inline-code">"Sum: " + 5 + 3</code> دبیتە <code class="inline-code">Sum: 53</code>! بەلێ <code class="inline-code">"Sum: " + (5 + 3)</code> دبیتە <code class="inline-code">Sum: 8</code>!</li>
+        <li><strong>مەرجێ کورت (Conditional Ternary <code class="inline-code">?:</code> - سلاید ٢٦):</strong>
+          <br><code class="inline-code">مەرج ? ئەنجام ئەگەر True : ئەنجام ئەگەر False</code></li>
+        <li><strong>ئۆپەرەیتەرێن دی:</strong> <code class="inline-code">new</code> (بۆ دروستکرنا ئۆبجێکتان)، <code class="inline-code">typeof</code> (جۆرێ تاییپێ دزڤڕینیت)، <code class="inline-code">is</code> (پشکنین دکەت ئەرێ ئۆبجێکت ژ وی جۆری یە).</li>
+      </ul>
+    `,
+    tip: "💡 شێوێ (x > y ? \"...\" : \"...\") د تاقیکرنان دا گەلەک دهێت! ئەگەر مەرجێ بەری ? دروست بیت، تشتێ د ناڤبەرا ? و : هەلبژێرە، ئەگەر خەلەت بیت تشتێ پشتی : هەلبژێرە!",
+    codeExample: `string output = "The number is : ";\nint number = 5;\nConsole.WriteLine(output + number);\n\nint x = 20, y = 10;\nvar result = x > y ? "x is greater than y" : "x is less than y";\nConsole.WriteLine(result);`,
+    consoleOutput: `The number is : 5\nx is greater than y`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `int x = 5, y = 12;\nvar msg = x > y ? "Yes" : "No";\nConsole.WriteLine(msg);`,
+        options: ["No", "Yes", "True", "False"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ئەرێ 5 > 12 یە؟ نەخێر (False)، لەوما پشكا پشتی (:) کو \"No\" یە دهێتە هەلبژارتن."
+      },
+      {
+        q: "ل سەر شاشا ڕەش دێ چ دەرکەڤیت؟ (ئاگەهداربە!)",
+        code: `Console.WriteLine("Result: " + 5 + 3);`,
+        options: ["Result: 53", "Result: 8", "8", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "ژ چەپێ بۆ راستێ: \"Result: \" + 5 دبیتە تێکستێ \"Result: 5\"، پاشی + 3 ل گەل دنوسێت و دبیتە \"Result: 53\"!"
+      },
+      {
+        q: "چاوا بکەین کو `Result: 8` دەرکەڤیت؟",
+        options: [
+          `Console.WriteLine("Result: " + (5 + 3));`,
+          `Console.WriteLine("Result: " + 5 + 3);`,
+          `Console.WriteLine("Result: (5 + 3)");`,
+          `Console.WriteLine("Result: " + "5" + "3");`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "کەڤانێن (5 + 3) ئێکەم جار ژماران کۆم دکەن (8) پاشی ب تێکستی ڤە گرێددەن."
+      },
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش چییە؟",
+        code: `int score = 75;\nstring status = score >= 50 ? "Pass" : "Fail";\nConsole.WriteLine(status);`,
+        options: ["Pass", "Fail", "75", "True"],
+        ltrOptions: true,
+        ans: 0,
+        why: "75 >= 50 دروستە (True)، لەوما بەهایێ ئێکێ (Pass) چاپ دبیت."
+      },
+      {
+        q: "کیژ ئۆپەرەیتەر بۆ دروستکرنا ئۆبجێکتەکێ نوو (new object) دهێتە بکارئینان؟",
+        options: ["new", "typeof", "is", "?:"],
+        ltrOptions: true,
+        ans: 0,
+        why: "د سلاید ٢٦ دا هاتیە: The new operator is used to create new objects."
+      }
+    ]
+  },
 
-function revealBlank(qId, sIdx, qIdx) {
-  const q = slidesData[sIdx].questions[qIdx];
-  const inp = document.getElementById(`${qId}-inp`);
-  const fb = document.getElementById(`${qId}-fb`);
+  {
+    id: "p2_10",
+    pdf: 2,
+    navTitle: "١٩. Type Casting و Convert (سلاید ٢٧-٢٨)",
+    slideLabel: "PDF 2 • سلاید ٢٧ و ٢٨",
+    title: "گوهۆڕینا جۆری (`Implicit`, `Explicit Casting`, و `Convert.To...`)",
+    explainHtml: `
+      <h3>📌 دوو رێکێن گوهۆڕینا جۆرێ داتایان:</h3>
+      <ul>
+        <li><strong>١. Implicit Casting (ئۆتۆماتیکی - ژ بچووک بۆ مەزن):</strong><br><code class="inline-code">char -&gt; int -&gt; long -&gt; float -&gt; double</code><br>ب خۆ دگوهۆڕیت بێ چ فەرمانەک (نموونە: <code class="inline-code">int myInt = 9; double myDouble = myInt;</code>).</li>
+        <li><strong>٢. Explicit Casting (ب دەست - ژ مەزن بۆ بچووک):</strong><br><code class="inline-code">double -&gt; float -&gt; long -&gt; int -&gt; char</code><br>دڤێت جۆرێ نوو د ناڤ کەڤانان دا دانیە بەری گۆڕاوەیێ! نموونە: <code class="inline-code">double d = 9.78; int i = (int) d;</code> — ئەنجام <strong>9</strong> یە! (پۆینت و پشتی پۆینتێ <strong>دبڕیت</strong>، نەک ڕوند بکەت!).</li>
+        <li><strong>٣. Type Conversion ب میسۆدێن <code class="inline-code">Convert</code> (سلاید ٢٨):</strong>
+          <br><code class="inline-code">Convert.ToString(...)</code>، <code class="inline-code">Convert.ToDouble(...)</code>، <code class="inline-code">Convert.ToInt32(...)</code> (بۆ <code class="inline-code">int</code>)، <code class="inline-code">Convert.ToInt64(...)</code> (بۆ <code class="inline-code">long</code>)، <code class="inline-code">Convert.ToBoolean(...)</code>.</li>
+      </ul>
+    `,
+    tip: "💡 جوداهیەکا گەلەک گرنگ د ئەزموونا عەمەلی دا: (int)9.78 دبیتە 9 (دبڕیت)، لێ Convert.ToInt32(9.78) دبیتە 10 (ڕوند دکەت)! و Convert.ToInt32(5.25) دبیتە 5!",
+    codeExample: `int myInt = 9;\ndouble d1 = myInt;             // Implicit -> 9\ndouble d2 = 9.78;\nint i2 = (int) d2;            // Explicit -> 9\nConsole.WriteLine(i2);\n\nint a = 10;\ndouble b = 5.25;\nbool c = true;\nConsole.WriteLine(Convert.ToString(a));\nConsole.WriteLine(Convert.ToDouble(a));\nConsole.WriteLine(Convert.ToInt32(b));\nConsole.WriteLine(Convert.ToString(c));`,
+    consoleOutput: `9\n10\n10\n5\nTrue`,
+    questions: [
+      {
+        q: "ئەنجامێ ل سەر شاشا ڕەش دێ چ بیت؟",
+        code: `double myDouble = 9.78;\nint myInt = (int) myDouble;\nConsole.WriteLine(myInt);`,
+        options: ["9", "10", "9.78", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "Explicit casting ب (int) پۆینتێ و یێ پشتی وێ تێدا دهاڤێژیت (9.78 -> 9)."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە خەلەتیا کۆمپایلەری ددەت؟",
+        code: `double d = 5.5;\nint i = d;`,
+        options: [
+          "چونکی ژ مەزن (double) بۆ بچووک (int) پێدڤییە Explicit Casting ((int) d) بهێتە کرن",
+          "چونکی int نابیت ب 5 ببیت",
+          "چونکی double پێدڤییە f هەبیت",
+          "هیچ خەلەتی نینە"
+        ],
+        ltrOptions: false,
+        ans: 0,
+        why: "ژ double بۆ int ئۆتۆماتیکی (Implicit) نینە! دڤێت بنڤیسی int i = (int) d;"
+      },
+      {
+        q: "د سلاید ٢٨ دا، `Convert.ToInt32` و `Convert.ToInt64` بەهایێ خۆ دزڤڕیننە کیژ جۆرێن داتایان؟",
+        options: ["int و long", "float و double", "byte و short", "string و bool"],
+        ltrOptions: true,
+        ans: 0,
+        why: "Int32 یانی int (٣٢ بت)، و Int64 یانی long (٦٤ بت)."
+      },
+      {
+        q: "ئەنجامێ `Console.WriteLine(Convert.ToInt32(5.25));` چییە؟",
+        options: ["5", "6", "5.25", "Error"],
+        ltrOptions: true,
+        ans: 0,
+        why: "5.25 نێزیکترە ژ 5، لەوما Convert.ToInt32 دکەتە 5."
+      },
+      {
+        q: "کیژ ئاراستەیێ گوهۆڕینا ئۆتۆماتیکی (Implicit Casting) یێ دروستە؟",
+        options: [
+          `char -> int -> long -> float -> double`,
+          `double -> float -> long -> int -> char`,
+          `string -> int -> bool`,
+          `int -> char -> byte`
+        ],
+        ltrOptions: true,
+        ans: 0,
+        why: "ل سلاید ٢٧ دا: ژ بچووک بۆ مەزن (char -> int -> long -> float -> double) ب شێوەیەکێ ئۆتۆماتیکی رووددەت."
+      }
+    ]
+  },
 
-  inp.value = q.ans[0];
-  inp.classList.remove("wrong");
-  inp.classList.add("correct");
-  fb.className = "feedback show info";
-  fb.textContent = "Answer: " + q.ans[0];
-}
-
-function updateScoreboard() {
-  const keys = Object.keys(userAnswers);
-  const answered = keys.length;
-  const correct = keys.filter(k => userAnswers[k] === true).length;
-  const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
-
-  document.getElementById("stat-answered").textContent = answered;
-  document.getElementById("stat-correct").textContent = correct;
-  document.getElementById("stat-pct").textContent = pct + "%";
-}
-
-function filterSlides(filter, btn) {
-  document.querySelectorAll(".controls .btn-ctrl:not(.exam-toggle):not(.reset-btn)")
-    .forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-
-  document.querySelectorAll(".slide-card").forEach(card => {
-    if (filter === "all" || card.dataset.chapter === filter) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
-
-function toggleExamMode(btn) {
-  document.body.classList.toggle("exam-mode");
-  btn.classList.toggle("active");
-  btn.textContent = document.body.classList.contains("exam-mode")
-    ? "Study Mode (Show Notes)"
-    : "Exam Mode (Hide Notes)";
-}
-
-function resetQuiz() {
-  for (let k in userAnswers) delete userAnswers[k];
-  renderAll();
-  const activeFilter = document.querySelector(".controls .btn-ctrl.active");
-  if (activeFilter && activeFilter.textContent.includes("C1")) {
-    filterSlides("C1", activeFilter);
-  } else if (activeFilter && activeFilter.textContent.includes("C2")) {
-    filterSlides("C2", activeFilter);
-  }
-}
-
-renderAll();
-</script>
-</body>
-</html>
+  {
+    id: "p2_11",
+    pdf: 2,
+    navTitle: "٢٠. دەربڕین و ڕێزبەندی `Expressions` (سلاید ٢٩)",
+    slideLabel: "PDF 2 • سلاید ٢٩ (دوماهی سلاید)",
+    title: "دەربڕینێن C# (`Expressions`) و ڕێزبەندیا کارپێکرنێ",
+    explainHtml: `
+      <h3>📌 چاوا دەربڕینەکا درێژ د ئەزموونێ دا بحساب بکەین بێ خەلەتی؟</h3>
+      <ol style="padding-right: 22px;">
+        <li>بەری هەمی تشتان: ناڤ <strong>کەڤانان <code class="inline-code">()</code></strong> بحساب بکە (ژ ناڤدا بۆ دەرڤە).</li>
+        <li>پاشی: <strong>جاراندن <code class="inline-code">*</code>، دابەشکرن <code class="inline-code">/</code>، پاشماوە <code class="inline-code">%</code></strong> (ژ چەپێ بۆ راستێ).</li>
+        <li>پاشی: <strong>کۆمکرن <code class="inline-code">+</code> و دەرکرن <code class="inline-code">-</code></strong>.</li>
+        <li>پاشی: <strong>بەراوردکرن</strong> (<code class="inline-code">&gt;, &lt;, ==</code>) و ل دوماهیێ <strong>لۆژیکی</strong> (<code class="inline-code">&amp;&amp;, ||</code>).</li>
+      </ol>
+      <p style="margin-top:10px;"><strong>پشکنینا نموونەیا سلاید ٢٩:</strong><br>
+      <code class="inline-code">int a = 2 + 3;</code> -> <code class="inline-code">a = 5</code><br>
+      <code class="inline-code">int b = (a+3) * (a-4) + (2*a + 7) / 4;</code><br>
+      = <code class="inline-code">(8) * (1) + (17) / 4</code> = <code class="inline-code">8 + 4</code> (چونکی 17/4 ب int دبیتە 4!) = <strong>12</strong>!<br>
+      <code class="inline-code">bool g = (a &gt; b) || ((a == 0) &amp;&amp; (b == 0));</code> -> <code class="inline-code">(5 &gt; 12) || (false &amp;&amp; false)</code> = <strong>False</strong>!</p>
+    `,
+    tip: "💡 ئاگەهداری ١٧ / ٤ بە! د نموونەیا سلاید ٢٩ دا هەردوو int نە، لەوما 17 / 4 دبیتە 4 (نەک 4.25)، پاشی 8 + 4 = 12!",
+    codeExample: `int r = (150 - 20) / 2 + 5;\nConsole.WriteLine(r); // 70\n\nint a = 2 + 3;\nint b = (a + 3) * (a - 4) + (2 * a + 7) / 4;\nbool g = (a > b) || ((a == 0) && (b == 0));\nConsole.WriteLine(" a is= " + a);\nConsole.WriteLine(" b is= " + b);\nConsole.WriteLine(" g is= " + g);`,
+    consoleOutput: `70\n a is= 5\n b is= 12\n g is= False`,
+    questions: [
+      {
+        q: "ئەنجامێ `int r = (150 - 20) / 2 + 5;` چەندە؟",
+        options: ["70", "145", "65", "130"],
+        ltrOptions: true,
+        ans: 0,
+        why: "(150 - 20) = 130. پاشی 130 / 2 = 65. دوماهیێ 65 + 5 = 70."
+      },
+      {
+        q: "د نموونەیا سلاید ٢٩ دا، ئەنجامێ `b` چەند دەرکەڤیت؟",
+        code: `int a = 5;\nint b = (a + 3) * (a - 4) + (2 * a + 7) / 4;\nConsole.WriteLine(b);`,
+        options: ["12", "12.25", "16
