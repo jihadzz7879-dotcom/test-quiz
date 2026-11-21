@@ -3,1409 +3,2212 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تاقیکرنا عەمەلی یا C# - هەتا AND / OR / NOT</title>
+  <title>ڕێبەرێ ئەزموونا عەمەلی یا C# (ب بادینی) - AUAS IT</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --card2: #263349;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
+      --bg-deep: #060b16;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --bg-card-solid: #0f172a;
+      --bg-editor: #080d1a;
+      --border: rgba(148, 163, 184, 0.16);
+      --border-glow: rgba(56, 189, 248, 0.45);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
       --accent: #38bdf8;
-      --accent2: #0284c7;
-      --good: #22c55e;
-      --good-bg: rgba(34, 197, 94, 0.16);
-      --bad: #ef4444;
-      --bad-bg: rgba(239, 68, 68, 0.16);
-      --border: #334155;
-      --code-bg: #0b1120;
+      --accent-2: #818cf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #a855f7;
     }
-    * { box-sizing: border-box; }
-    body {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Tahoma, Arial, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      padding-bottom: 50px;
+      padding: 0;
     }
-    header {
+
+    body {
+      font-family: "Segoe UI", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Aurora Background */
+    .bg-aurora {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 88% 12%, rgba(129, 140, 248, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 80% 82%, rgba(16, 185, 129, 0.11) 0%, transparent 44%),
+        radial-gradient(circle at 20% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 42%),
+        linear-gradient(160deg, #050914 0%, #0b1326 50%, #060b18 100%);
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+    }
+
+    /* Sticky Top Header */
+    .top-header {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(8px);
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(8, 13, 28, 0.85);
       border-bottom: 1px solid var(--border);
-      padding: 12px 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
+
     .header-inner {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+      flex-shrink: 0;
+      direction: ltr;
+    }
+
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .progress-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 12px;
+    }
+
+    .progress-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 150px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .progress-row strong {
+      color: var(--accent);
+      direction: ltr;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 7px;
+      background: rgba(148, 163, 184, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--emerald));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .btn-reset {
+      background: rgba(244, 63, 94, 0.14);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-reset:hover {
+      background: rgba(244, 63, 94, 0.28);
+      color: #fff;
+    }
+
+    /* Main Layout */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+    }
+
+    /* Intro Hero & Slide Nav */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(14, 116, 144, 0.2), rgba(79, 70, 229, 0.18));
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-card h2 {
+      font-size: 19px;
+      color: #e0f2fe;
+      margin-bottom: 6px;
+    }
+
+    .hero-card p {
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .tips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tip-pill {
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      color: #cbd5e1;
+    }
+
+    /* Slide Navigation Bar */
+    .slide-nav-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .slide-nav-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .slide-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .slide-pill {
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      padding: 6px 11px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .slide-pill:hover {
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .slide-pill.done {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
+    }
+
+    .slide-pill .mini-count {
+      font-size: 11px;
+      opacity: 0.85;
+      direction: ltr;
+    }
+
+    /* Slide Section Card */
+    .slide-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.32);
+      scroll-margin-top: 88px;
+    }
+
+    .slide-header {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
     }
-    h1 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: var(--accent);
-    }
-    .stats {
+
+    .slide-title-group {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-      font-size: 0.9rem;
-    }
-    .badge {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--card2);
-      border: 1px solid var(--border);
-      font-weight: bold;
-    }
-    .badge.good { color: var(--good); border-color: var(--good); }
-    .badge.bad { color: var(--bad); border-color: var(--bad); }
-    .btn-reset {
-      background: var(--accent2);
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: bold;
-    }
-    .btn-reset:hover { opacity: 0.9; }
-
-    .container {
-      max-width: 960px;
-      margin: 18px auto;
-      padding: 0 14px;
-    }
-    .intro-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-right: 4px solid var(--accent);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-    }
-    .nav-slides {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
-      background: var(--card);
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-    .nav-slides a {
-      text-decoration: none;
-      color: var(--text);
-      background: var(--card2);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      transition: 0.15s;
-    }
-    .nav-slides a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
     }
 
-    .slide-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 24px;
-      scroll-margin-top: 85px;
-    }
-    .slide-title {
-      margin: 0 0 10px 0;
-      font-size: 1.15rem;
-      color: var(--accent);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-    .summary {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      font-size: 0.95rem;
-      border-right: 3px solid var(--accent);
-    }
-    .summary ul {
-      margin: 6px 0 0 0;
-      padding-right: 20px;
-    }
-    code {
-      direction: ltr;
-      unicode-bidi: embed;
-      background: var(--code-bg);
+    .slide-num-badge {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(99, 102, 241, 0.25));
+      border: 1px solid rgba(56, 189, 248, 0.45);
       color: #7dd3fc;
-      padding: 2px 6px;
-      border-radius: 5px;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.92em;
-    }
-    pre {
-      direction: ltr;
-      text-align: left;
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      overflow-x: auto;
-      margin: 8px 0;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.92rem;
-      color: #e2e8f0;
-      line-height: 1.5;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .question-box {
-      background: rgba(15, 23, 42, 0.55);
+    .slide-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .slide-progress-pill {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.9);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
+      color: var(--text-muted);
     }
-    .q-header {
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #e2e8f0;
+
+    .slide-progress-pill.all-done {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
     }
-    .options {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin-top: 10px;
+
+    /* Slide Explanation Box */
+    .explain-box {
+      background: rgba(9, 14, 28, 0.72);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-right: 4px solid var(--accent);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
     }
-    @media (min-width: 640px) {
-      .options { grid-template-columns: 1fr 1fr; }
-    }
-    .opt-btn {
-      width: 100%;
-      text-align: right;
-      background: var(--card2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.94rem;
-      transition: 0.15s;
+
+    .explain-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: #7dd3fc;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .opt-btn:hover:not(:disabled) {
-      border-color: var(--accent);
-      background: #2d3d57;
+
+    .explain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 14px;
+      color: #e2e8f0;
     }
-    .opt-btn:disabled { cursor: default; }
-    .opt-btn.correct {
-      background: var(--good-bg);
-      border-color: var(--good);
-      color: #dcfce7;
-      font-weight: bold;
+
+    .explain-list li {
+      position: relative;
+      padding-right: 18px;
     }
-    .opt-btn.wrong {
-      background: var(--bad-bg);
-      border-color: var(--bad);
-      color: #fee2e2;
-    }
-    .opt-ltr {
-      direction: ltr;
-      font-family: Consolas, monospace;
-      font-weight: bold;
-      background: var(--bg);
-      padding: 2px 7px;
-      border-radius: 6px;
+
+    .explain-list li::before {
+      content: "•";
+      position: absolute;
+      right: 0;
       color: var(--accent);
-      flex-shrink: 0;
+      font-weight: bold;
     }
-    .opt-txt {
-      flex: 1;
-      word-break: break-word;
+
+    .inline-code {
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      background: rgba(56, 189, 248, 0.13);
+      color: #7dd3fc;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 13px;
+      direction: ltr;
+      display: inline-block;
     }
-    .opt-txt.code-opt {
+
+    .example-code-block {
+      margin-top: 12px;
+      background: #050914;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
       direction: ltr;
       text-align: left;
-      font-family: Consolas, "Courier New", monospace;
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
     }
-    .feedback {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-size: 0.92rem;
+
+    /* Exercises Section */
+    .exercises-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #6ee7b7;
+    }
+
+    .question-card {
+      background: rgba(11, 18, 34, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .question-card.passed {
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.08);
+    }
+
+    .question-card.failed {
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+
+    .q-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .q-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .q-num {
+      background: rgba(56, 189, 248, 0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .diff-badge {
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .diff-easy {
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .diff-medium {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .diff-hard {
+      background: rgba(244, 63, 94, 0.16);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+
+    .q-status {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .q-status.ok {
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.16);
+    }
+
+    .q-status.err {
+      color: #fda4af;
+      background: rgba(244, 63, 94, 0.16);
+    }
+
+    .q-prompt {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 12px;
+    }
+
+    /* Code Editor Box */
+    .editor-wrap {
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-editor);
+      margin-bottom: 10px;
+    }
+
+    .editor-bar {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .editor-bar .file-name {
+      direction: ltr;
+      color: #93c5fd;
+      font-family: Consolas, monospace;
+    }
+
+    .code-input {
+      width: 100%;
+      min-height: 98px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e2e8f0;
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      padding: 12px;
+      resize: vertical;
+      direction: ltr;
+      text-align: left;
+      tab-size: 4;
+    }
+
+    .q-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-run {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-run:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-answer {
+      background: rgba(30, 41, 59, 0.9);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-answer:hover {
+      background: rgba(245, 158, 11, 0.16);
+    }
+
+    .btn-clear {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .btn-clear:hover {
+      color: #fff;
+      border-color: var(--text-muted);
+    }
+
+    /* Output & Answer Panels */
+    .result-panel {
       display: none;
+      margin-top: 12px;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13.5px;
     }
-    .feedback.show { display: block; }
-    .feedback.good {
-      background: var(--good-bg);
-      border: 1px solid var(--good);
-      color: #bbf7d0;
+
+    .result-panel.show {
+      display: block;
     }
-    .feedback.bad {
-      background: var(--bad-bg);
-      border: 1px solid var(--bad);
-      color: #fecaca;
+
+    .result-panel.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #a7f3d0;
+    }
+
+    .result-panel.error {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: #fecdd3;
+    }
+
+    .console-box {
+      margin-top: 8px;
+      background: #000000;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px 12px;
+      direction: ltr;
+      text-align: left;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      color: #f8fafc;
+      white-space: pre-wrap;
+    }
+
+    .console-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .answer-panel {
+      display: none;
+      margin-top: 10px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .answer-panel.show {
+      display: block;
+    }
+
+    .answer-panel-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fcd34d;
+      margin-bottom: 6px;
+    }
+
+    .answer-code {
+      background: #050914;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      direction: ltr;
+      text-align: left;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+    }
+
+    .copy-use-btn {
+      margin-top: 8px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .copy-use-btn:hover {
+      background: rgba(56, 189, 248, 0.28);
+    }
+
+    /* Scroll to top */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 40;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    @media (max-width: 640px) {
+      .slide-section { padding: 15px; }
+      .question-card { padding: 13px; }
+      .header-inner { padding: 10px 12px; }
+      .brand-text h1 { font-size: 14px; }
     }
   </style>
 </head>
 <body>
+  <div class="bg-aurora"></div>
+  <div class="bg-grid"></div>
 
-<header>
-  <div class="header-inner">
-    <h1>ئەزموونا عەمەلی یا C# (ژ سلایدێ ٣ تا ٢٢ - هەتا AND / OR / NOT)</h1>
-    <div class="stats">
-      <span class="badge good" id="goodCount">دروست: 0</span>
-      <span class="badge bad" id="badCount">خەلەت: 0</span>
-      <span class="badge" id="totalCount">بەرسڤدای: 0 / 100</span>
-      <button class="btn-reset" onclick="resetQuiz()">دووبارە دەستپێبکە</button>
-    </div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="intro-box">
-    <strong>سلایدێ ١ و ٢ (پێشەکی و ناڤەرۆک):</strong><br>
-    ناڤێ ماددەی: <code>Fundamentals of Programming by C#</code> (زانکۆیا ئاکرێ / پەیمانگەها تەکنیکی - بەشێ IT).<br>
-    ناڤەرۆک هەتا ئەزموونێ: <strong>Data Types (جورێن داتایان)</strong> + <strong>Operators (کردارێن بیرکاری، دانان، بەراوردکرن، و لۆجیکی AND / OR / NOT)</strong>.<br>
-    ل خوارێ کورتیا هەمی سلایدان (٣ تا ٢٢) دگەل <strong>١٠٠ پرسیارێن عەمەلی یێن کۆدی</strong> هەنە. تبلا خۆ بدە بەرسڤێ دا ئێکسەر بزانی دروستە یان خەلەتە!
-  </div>
-
-  <div class="nav-slides" id="navSlides"></div>
-  <div id="slidesContainer"></div>
-</div>
-
-<script>
-const slidesData = [
-  {
-    num: 3,
-    title: "C# Data Types (پێشەکی و نموونێن گشتی)",
-    summary: [
-      "زمانێ C# یێ <b>Strongly-typed</b>ـە، یعنی دڤێت بەری بکارئینانا هەر گۆڕاوەکێ (Variable) جورێ وێ دیاربکەی.",
-      "نموونێن سەرەکی: ژمارەیا تەمام <code>int</code>، ژمارەیا ب پۆینت <code>float</code> (دڤێت پیتا <code>f</code> ل دوماهیکێ هەبیت)، ئێک پیت د ناڤ <code>' '</code> دا بۆ <code>char</code>، دروست/خەلەت بۆ <code>bool</code>، و نڤیسین د ناڤ <code>\" \"</code> دا بۆ <code>string</code>."
-    ],
-    questions: [
-      {
-        q: "ئەگەر ئەڤ کۆدە بهێتە رەنکرن دێ چ روودەت؟",
-        code: "float floatVar = 10.2;\nConsole.WriteLine(floatVar);",
-        isCodeOpt: false,
-        opts: ["دێ 10.2 چاپ کەت", "دێ Error دەت چونکی پیتا f ل دوماهیکا 10.2 نینە", "دێ 10 چاپ کەت", "دێ 0 چاپ کەت"],
-        ans: 1,
-        exp: "بۆ float دڤێت f ل دوماهیکا ژمارێ هەبیت (10.2f)، ئەگەر نە دێ کۆمپایلەر ب double هژمێریت و Error دەت."
-      },
-      {
-        q: "کیژ ژ ئەڤان کۆدان یێ دروستە و بێ Error کاردکەت؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["char myLetter = \"D\";", "char myLetter = 'D';", "char myLetter = D;", "char myLetter = 'DD';"],
-        ans: 1,
-        exp: "بۆ char دڤێت بتنێ ئێک پیت د ناڤ کۆتەیشنا تاک ' ' دا بیت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int myNum = 5;\nstring myText = \"Kurdistan\";\nConsole.WriteLine(myNum + \" \" + myText);",
-        isCodeOpt: true,
-        opts: ["Kurdistan 5", "5 Kurdistan", "5Kurdistan", "Error"],
-        ans: 1,
-        exp: "myNum پێنجە، پاش بۆشایی \" \"، پاش myText کو Kurdistanـە، دێ بیتە 5 Kurdistan."
-      },
-      {
-        q: "کیژ رێز بۆ گۆڕاوا bool یا دروستە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["bool myBool = \"true\";", "bool myBool = true;", "bool myBool = 'true';", "bool myBool = 1;"],
-        ans: 1,
-        exp: "بۆ bool بتنێ true یان false بێ کۆتەیشن دهێنە نڤیسین."
-      },
-      {
-        q: "بۆچی ئەڤ کۆدە Errorـە؟",
-        code: "int myNum = 10.5;",
-        isCodeOpt: false,
-        opts: ["ناڤێ myNum یێ خەلەتە", "جورێ int بتنێ ژمارێن تەمام (بێ پۆینت) وەردگریت", "پیتا f ل دوماهیکێ نینە", "فاریزە منقوتە ; یا زێدەیە"],
-        ans: 1,
-        exp: "int بتنێ ژمارێن تەمام وەردگریت و 10.5 پۆینت تێدایە."
-      }
-    ]
-  },
-  {
-    num: 4,
-    title: "C# Data Types (خشتێ جورێن بەربەلاڤ)",
-    summary: [
-      "<code>int</code> (4 bytes) هەتا نێزیکی ٢ ملیار و ١٤٧ ملیۆن وەردگریت؛ ئەگەر ژمارە گەلەک مەزنتر بوو <code>long</code> (8 bytes) بکاردئینین.",
-      "<code>float</code> (4 bytes) هەتا ٦-٧ رەقەمان پشتی پۆینتێ یێ هورە، و <code>double</code> (8 bytes) هەتا ١٥ رەقەمان.",
-      "<code>bool</code> (true/false)، <code>char</code> (2 bytes - ئێک پیت ب <code>' '</code>)، <code>string</code> (2 bytes بۆ هەر پیتەکێ - ب <code>\" \"</code>)."
-    ],
-    questions: [
-      {
-        q: "کیژ جورێ داتایان دڤێت بکاربینین بۆ ڤێ ژمارەیا مەزن بێ Error؟",
-        code: "___ x = 5000000000;",
-        isCodeOpt: true,
-        opts: ["int", "long", "char", "bool"],
-        ans: 1,
-        exp: "5,000,000,000 ژ سنورێ int (2,147,483,647) مەزنترە، لەوما دڤێت long بکاربینین."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "double d = 12.3456789123;\nConsole.WriteLine(d);",
-        isCodeOpt: true,
-        opts: ["12.3456789123", "12", "Error", "12.35"],
-        ans: 0,
-        exp: "double هەتا 15 خانەیان ب دروستی هەڵدگریت و بێ کێشە هەمیێ چاپ دکەت."
-      },
-      {
-        q: "کیژ ژ ئەڤان کۆدان Error تێدایە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["string s = \"A\";", "char c = 'A';", "char c = 'AB';", "bool b = false;"],
-        ans: 2,
-        exp: "char بتنێ ئێک پیت وەردگریت؛ 'AB' دوو پیتن لەوما Errorـە."
-      },
-      {
-        q: "بۆ خەزنکرنا ناڤێ باژێرێ 'Akre' د کۆدی دا، کیژ رێز یا دروستە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["char city = 'Akre';", "string city = \"Akre\";", "string city = 'Akre';", "int city = \"Akre\";"],
-        ans: 1,
-        exp: "زنجیرە پیت (دەق) د ناڤ کۆتەیشنا دوو-دانەیی \" \" دا بۆ string دهێتە نڤیسین."
-      },
-      {
-        q: "کیژ کۆد ژ ئەڤان Error تێدا نینە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["int x = 2147483647;", "int x = 3000000000;", "float x = 5.5;", "bool x = True;"],
-        ans: 0,
-        exp: "2,147,483,647 دوماهیک ژمارەیا دروستە بۆ int. ژمارەیا 3 ملیار مەزنترە، 5.5 بێ fـە، و True د C# دا دڤێت ب پیتا بچویک true بیت."
-      }
-    ]
-  },
-  {
-    num: 5,
-    title: "C# Data Types (ژمارە: Integer و Floating-point)",
-    summary: [
-      "ژمارە د C# دا دوو بەشن: <b>Integer Types</b> (ژمارێن تەمام بێ پۆینت، دبنە پۆزەتیڤ و نێگەتیڤ: <code>byte, sbyte, short, ushort, int, uint, long, ulong</code>).",
-      "<b>Floating-point Types</b> (ژمارێن ب پۆینت: <code>float</code> 32-bit، <code>double</code> 64-bit، <code>decimal</code> 128-bit)."
-    ],
-    questions: [
-      {
-        q: "کیژ جورێ داتایان دکاری ژمارا -4.75 تێدا خەزن بکەی بێ Error؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["int x = -4.75;", "double x = -4.75;", "long x = -4.75;", "uint x = -4.75;"],
-        ans: 1,
-        exp: "ژمارێن ب پۆینت و نێگەتیڤ بتنێ د جورێن Floating-point وەکی double دا دهێنە خەزنکرن."
-      },
-      {
-        q: "کیژ ژ ئەڤان ژمارەیا نێگەتیڤ (-15) بێ Error وەردگریت؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["byte a = -15;", "ushort a = -15;", "sbyte a = -15;", "uint a = -15;"],
-        ans: 2,
-        exp: "byte و ushort و uint هەمی Unsignedـن (نێگەتیڤ وەرناگرن)، بتنێ sbyte نێگەتیڤ وەردگریت."
-      },
-      {
-        q: "کیژ ژ ئەڤان ژماران ب 128-bit دهێتە خەزنکرن؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["float", "double", "decimal", "ulong"],
-        ans: 2,
-        exp: "د C# دا decimal قەبارێ وێ 128-bitـە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = -10;\nfloat b = 2.5f;\nConsole.WriteLine(a);",
-        isCodeOpt: true,
-        opts: ["-10", "10", "2.5", "Error"],
-        ans: 0,
-        exp: "جورێ Integer وەکی int ژمارا نێگەتیڤ (-10) بێ کێشە هەڵدگریت و چاپ دکەت."
-      },
-      {
-        q: "کیژ کۆمەلا ژماران هەردوو یێن ب پۆینت تێدا هەنە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["byte, short, int", "float, double, decimal", "sbyte, uint, ulong", "int, long, ushort"],
-        ans: 1,
-        exp: "float و double و decimal هەرسێ جورێن Floating-pointـن."
-      }
-    ]
-  },
-  {
-    num: 6,
-    title: "C# Data Types (خشتێ ژماران، سنور، Suffix)",
-    summary: [
-      "<code>byte</code> (0 تا 255) | <code>sbyte</code> (-128 تا 127) | <code>short</code> (-32,768 تا 32,767) | <code>ushort</code> (0 تا 65,535).",
-      "پاشگر (Suffix): بۆ <code>uint</code> پیتا <code>u</code>، بۆ <code>long</code> پیتا <code>l/L</code>، بۆ <code>ulong</code> پیتا <code>ul</code>، بۆ <code>float</code> پیتا <code>f</code>، بۆ <code>double</code> پیتا <code>d</code>، بۆ <code>decimal</code> پیتا <code>m</code>.",
-      "بەهایێ بنەڕەتی (Default): بۆ ژمارێن تەمام <code>0</code> ژبلی <code>long</code> کو <code>0L</code>ـە؛ بۆ <code>float</code> <code>0.0F</code> و بۆ <code>double</code> <code>0.0D</code>."
-    ],
-    questions: [
-      {
-        q: "ئەڤ کۆدە دێ چ کەت؟",
-        code: "byte x = 256;\nConsole.WriteLine(x);",
-        isCodeOpt: false,
-        opts: ["دێ 256 چاپ کەت", "دێ 0 چاپ کەت", "دێ Error دەت چونکی سنورێ byte ژ 0 تا 255ـە", "دێ 255 چاپ کەت"],
-        ans: 2,
-        exp: "مەزنترین ژمارا byte وەردگریت 255ـە، لەوما 256 Error دروست دکەت."
-      },
-      {
-        q: "کیژ ژ ئەڤان Suffixـان بۆ جورێ decimal یێ دروستە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["decimal price = 19.99f;", "decimal price = 19.99d;", "decimal price = 19.99m;", "decimal price = 19.99u;"],
-        ans: 2,
-        exp: "بۆ decimal دڤێت پاشگرا m ل دوماهیکێ هەبیت."
-      },
-      {
-        q: "کیژ رێز Error تێدایە ژبەر سنورێ ژمارێ؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["sbyte a = -128;", "sbyte b = 127;", "sbyte c = 130;", "ushort d = 65000;"],
-        ans: 2,
-        exp: "سنورێ sbyte ژ -128 تا 127ـە، لەوما 130 Errorـە."
-      },
-      {
-        q: "کیژ کۆد Errorـە ژبەر خەلەتیا پاشگرێ (Suffix)؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["ulong x = 500ul;", "uint y = 200u;", "float z = 4.5d;", "long w = 100L;"],
-        ans: 2,
-        exp: "4.5d یانی double، و نەشێی double بێ Convert بکەیە ناڤ float."
-      },
-      {
-        q: "بەهایێ بنەڕەتی (Default) یێ long و float چەندە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["0 و 0.0", "0L و 0.0F", "0 و 0.0D", "0L و 0.0M"],
-        ans: 1,
-        exp: "د سلایدی دا: بەهایێ بنەڕەتی یێ long بریتییە ژ 0L و یێ float بریتییە ژ 0.0F."
-      }
-    ]
-  },
-  {
-    num: 7,
-    title: "نموونا ژمارێن تەمام (Measuring Time & Placeholders)",
-    summary: [
-      "بۆ چاپکرنا چەند گۆڕاوان د ناڤ دەقی دا: <code>Console.WriteLine(\"{0} ... {1}\", var0, var1);</code>.",
-      "هژمارتنا ناڤ کەڤانان ژ سفر <code>{0}</code> دەستپێدکەت (نەک ژ ١) و ل دویڤ رێزبەندیا گۆڕاوان ل پشت کۆمایێ دچیت."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "byte centuries = 20;\nushort years = 2000;\nConsole.WriteLine(\"{0} centuries is {1} years\", centuries, years);",
-        isCodeOpt: true,
-        opts: ["2000 centuries is 20 years", "20 centuries is 2000 years", "{0} centuries is {1} years", "Error"],
-        ans: 1,
-        exp: "{0} جهێ centuries (20) دگریت و {1} جهێ years (2000) دگریت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاری رێزبەندیا ژماران بە!)",
-        code: "int a = 10;\nint b = 50;\nConsole.WriteLine(\"{1} - {0}\", a, b);",
-        isCodeOpt: true,
-        opts: ["10 - 50", "50 - 10", "10 - 10", "Error"],
-        ans: 1,
-        exp: "ل جهێ {1} گۆڕاوا دوویێ (b = 50) و ل جهێ {0} گۆڕاوا ئێکێ (a = 10) دهێتە دانان."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "byte x = 5;\nConsole.WriteLine(\"{0} + {0}\", x);",
-        isCodeOpt: true,
-        opts: ["5 + 5", "10", "Error", "5 + 0"],
-        ans: 0,
-        exp: "دکاری {0} چەند جاران بکاربینی؛ هەردوو جاران دێ بەهایێ x (کو 5ـە) د ناڤ دەقی دا چاپ کەت."
-      },
-      {
-        q: "کیژ گۆڕاوا د ئەڤی کۆدی دا Error دروست دکەت؟",
-        code: "byte a = 20;\nushort b = -5;\nuint c = 100;",
-        isCodeOpt: true,
-        opts: ["byte a = 20;", "ushort b = -5;", "uint c = 100;", "چ Error تێدا نینن"],
-        ans: 1,
-        exp: "ushort ژمارا نێگەتیڤ (-5) وەرناگریت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "uint days = 30;\nulong hours = 720;\nConsole.WriteLine(\"{0} days = {1} hours\", days, hours);",
-        isCodeOpt: true,
-        opts: ["30 days = 720 hours", "720 days = 30 hours", "days = hours", "Error"],
-        ans: 0,
-        exp: "{0} دبیتە 30 و {1} دبیتە 720."
-      }
-    ]
-  },
-  {
-    num: 8,
-    title: "نموونا Float و Double (Precision یا PI)",
-    summary: [
-      "ژمارێن ب پۆینت د C# دا ب شێوێ بنەڕەتی وەکی <code>double</code> دهێنە هژمارتن.",
-      "دەمێ ژمارەکێ ددەیە <code>float</code> دڤێت پیتا <code>f</code> ل دوماهیکێ بنڤیسی. هەروەسا <code>float</code> بتنێ نێزیکی ٧ ژمارەیان دهێلیت (پاش گرد دکەت) بەس <code>double</code> ١٥ ژمارەیان دهێلیت."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چ دێ چاپ بیت؟",
-        code: "float floatPI = 3.1415926535f;\nConsole.WriteLine(floatPI);",
-        isCodeOpt: true,
-        opts: ["3.1415926535", "3.141593", "3.14", "Error"],
-        ans: 1,
-        exp: "float بتنێ نێزیکی 7 خانەیان هەڵدگریت و خانەیا دوماهیکێ گرد دکەت (دبیتە 3.141593)."
-      },
-      {
-        q: "بۆچی ئەڤ کۆدە رەن نابیت و Error دەت؟",
-        code: "float pi = 3.1415;",
-        isCodeOpt: false,
-        opts: ["ناڤێ pi قەدەغەیە", "3.1415 بێ f وەکی double دهێتە هژمارتن و ناچیتە ناڤ float", "float پۆینت وەرناگریت", "پێدڤی ب کۆتەیشنێ یە"],
-        ans: 1,
-        exp: "ژمارەیا ب پۆینت بێ پاشگر ب شێوێ ئۆتۆماتیکی doubleـە، بۆ float دڤێت 3.1415f بنڤیسی."
-      },
-      {
-        q: "چاوا کۆدێ سەری (float pi = 3.1415;) دروست بکەین؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["float pi = 3.1415d;", "float pi = 3.1415f;", "float pi = \"3.1415\";", "float pi = 3.1415m;"],
-        ans: 1,
-        exp: "ب دانانا پیتا f ل دوماهیکا ژمارێ: 3.1415f."
-      },
-      {
-        q: "کیژ ژ ئەڤان گۆڕاوان پتر ژمارێن پشتی پۆینتێ ب هوری هەڵدگریت؟",
-        code: "float a = 3.14159265358979f;\ndouble b = 3.14159265358979;",
-        isCodeOpt: true,
-        opts: ["a (float)", "b (double)", "هەردوو وەکی ئێکن", "چ ژ وان وەرناگرن"],
-        ans: 1,
-        exp: "double هەتا 15 خانەیان ب هوری هەڵدگریت، گەلەک هورترە ژ float."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "double a = 2.5;\nfloat b = 2.5f;\nConsole.WriteLine(a + b);",
-        isCodeOpt: true,
-        opts: ["5", "4", "2.52.5", "Error"],
-        ans: 0,
-        exp: "2.5 + 2.5 دبیتە 5 (د C# دا سفرا دوماهیکا 5.0 د چاپکرنێ دا ناهێتە دیارکرن و دبیتە 5)."
-      }
-    ]
-  },
-  {
-    num: 9,
-    title: "C# Data Types (Boolean - bool)",
-    summary: [
-      "ب کێلیلا <code>bool</code> دهێتە ناسین، و بتنێ دوو بەها هەنە: <code>true</code> یان <code>false</code> (بەهایێ بنەڕەتی <code>false</code>ـە).",
-      "پتریا جاران د ئەنجامێ بەراوردکرنێ (وەکی <code>a > b</code> یان <code>a == 1</code>) دا دهێتە بکارئینان، و دەمێ چاپ دکەی ب پیتا مەزن <code>True</code> یان <code>False</code> دەردکەڤیت."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nConsole.WriteLine(greaterAB);",
-        isCodeOpt: true,
-        opts: ["True", "False", "1", "0"],
-        ans: 1,
-        exp: "ئایا 1 مەزنترە ژ 2؟ نەخێر، لەوما False چاپ دبیت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 1;\nbool equalA1 = (a == 1);\nConsole.WriteLine(equalA1);",
-        isCodeOpt: true,
-        opts: ["True", "False", "1", "Error"],
-        ans: 0,
-        exp: "ئایا a یەکسانە ب 1؟ بەلێ، لەوما True چاپ دبیت."
-      },
-      {
-        q: "ئەڤ کۆدە دێ چ ئەنجام دەت؟",
-        code: "bool x = 1;\nConsole.WriteLine(x);",
-        isCodeOpt: false,
-        opts: ["True", "1", "Error چونکی د C# دا int ناچیتە ناڤ bool", "False"],
-        ans: 2,
-        exp: "د C# دا جودا ژ C++، نەشێی ژمارا 1 یان 0 بدەیە bool، دڤێت true یان false بیت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 5;\nbool res = (a >= b);\nConsole.WriteLine(res);",
-        isCodeOpt: true,
-        opts: ["True", "False", "5", "Error"],
-        ans: 0,
-        exp: "5 مەزنتر یان یەکسانە ب 5؟ بەلێ یەکسانن، لەوما ئەنجام True یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "bool ok = false;\nConsole.WriteLine(ok);",
-        isCodeOpt: true,
-        opts: ["False", "0", "True", "Error"],
-        ans: 0,
-        exp: "Console.WriteLine بەهایێ bool وەکی False چاپ دکەت."
-      }
-    ]
-  },
-  {
-    num: 10,
-    title: "C# Data Types (Char)",
-    summary: [
-      "<code>char</code> بتنێ بۆ ئێک پیت یان ئێک هێما دهێتە بکارئینان، و دڤێت د ناڤ کۆتەیشنا تاک <code>' '</code> دا بیت.",
-      "بەهایێ بنەڕەتی یێ <code>char</code> بریتییە ژ <code>'\\0'</code>."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "char myGrade = 'B';\nConsole.WriteLine(myGrade);",
-        isCodeOpt: true,
-        opts: ["'B'", "B", "66", "Error"],
-        ans: 1,
-        exp: "Console.WriteLine پیتێ بێ کۆتەیشن چاپ دکەت: B."
-      },
-      {
-        q: "کیژ ژ ئەڤان رێزان Errorـە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["char a = 'A';", "char b = '5';", "char c = \"A\";", "char d = '$';"],
-        ans: 2,
-        exp: "کۆتەیشنا دوو-دانەیی \"A\" بۆ stringـە، نەک بۆ char."
-      },
-      {
-        q: "بۆچی ئەڤ کۆدە Errorـە؟",
-        code: "char grade = 'A+';",
-        isCodeOpt: false,
-        opts: ["هێمایا + قەدەغەیە", "د ناڤ ' ' دا دوو کارەکتەر هەنە و char بتنێ ئێک کارەکتەر وەردگریت", "دڤێت string بيتە int", "ناڤێ grade یێ خەلەتە"],
-        ans: 1,
-        exp: "'A+' دوو کارەکتەرن (A و +)، و char بتنێ ئێکی وەردگریت."
-      },
-      {
-        q: "ئایا ئەڤ کۆدە دروستە و چ چاپ دکەت؟",
-        code: "char num = '7';\nConsole.WriteLine(num);",
-        isCodeOpt: true,
-        opts: ["7 چاپ دکەت (دروستە)", "Error چونکی 7 ژمارەیە", "0 چاپ دکەت", "'7' چاپ دکەت"],
-        ans: 0,
-        exp: "هەر تشتێ د ناڤ ' ' دا بیت (وەکی '7') وەکی کارەکتەر دهێتە هژمارتن و بێ کێشە 7 چاپ دکەت."
-      },
-      {
-        q: "ب کیژ کۆد بەهایێ بنەڕەتی (Default) یێ char دهێتە دانان؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["char c = '';", "char c = '\\0';", "char c = \"0\";", "char c = 0.0;"],
-        ans: 1,
-        exp: "بەهایێ بنەڕەتی یێ char بریتییە ژ '\\0'."
-      }
-    ]
-  },
-  {
-    num: 11,
-    title: "C# Data Types (String)",
-    summary: [
-      "<code>string</code> بۆ زنجیرە پیت و دەقانە، و دڤێت د ناڤ کۆتەیشنا دوو-دانەیی <code>\" \"</code> دا بیت (بەهایێ بنەڕەتی <code>null</code>ـە).",
-      "بۆ لێکدانا دەقان نیشانا <code>+</code> بکاردئینین، و <code>\\n</code> دێرەکا نوو (New Line) چێدکەت."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "string firstName = \"Dareen\";\nstring lastName = \"Muhammed\";\nstring fullName = firstName + \" \" + lastName;\nConsole.WriteLine(fullName);",
-        isCodeOpt: true,
-        opts: ["DareenMuhammed", "Dareen Muhammed", "firstName lastName", "Error"],
-        ans: 1,
-        exp: "\" \" بۆشاییەکێ د ناڤبەرا هەردوو ناڤان دا چێدکەت: Dareen Muhammed."
-      },
-      {
-        q: "هێمایا \\n د ئەڤی کۆدی دا دێ چ کەت؟",
-        code: "Console.WriteLine(\"Hello!\\nWelcome\");",
-        isCodeOpt: false,
-        opts: ["دێ Hello! و Welcome ل سەر ئێک دێر چاپ کەت", "دێ Hello! ل دێرا ئێکێ و Welcome ل دێرا دوویێ چاپ کەت", "دێ Error دەت", "دێ \\n وەکی خۆ چاپ کەت"],
-        ans: 1,
-        exp: "\\n دێرەکا نوو چێدکەت، لەوما Welcome دهێتە خوارێ."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاربە stringـە نەک int!)",
-        code: "string a = \"5\";\nstring b = \"3\";\nConsole.WriteLine(a + b);",
-        isCodeOpt: true,
-        opts: ["8", "53", "2", "Error"],
-        ans: 1,
-        exp: "چونکی هەردوو stringـن، نیشانا + وان کۆم ناکەت بەلکو لێکددەت و دبیتە 53."
-      },
-      {
-        q: "کیژ رێز دێ Error دەت؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["string s = \"\";", "string s = null;", "string s = 'Kurdistan';", "string s = \"123\";"],
-        ans: 2,
-        exp: "دڤێت string ب \" \" بیت، نەک ب کۆتەیشنا تاک ' '."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "string name = \"Ali\";\nConsole.WriteLine(\"Hello, {0}!\", name);",
-        isCodeOpt: true,
-        opts: ["Hello, name!", "Hello, {0}!", "Hello, Ali!", "Error"],
-        ans: 2,
-        exp: "{0} جهێ گۆڕاوا name دگریت و دبیتە Hello, Ali!."
-      }
-    ]
-  },
-  {
-    num: 12,
-    title: "C# Operators (جورێن کرداران ب گشتی)",
-    summary: [
-      "کردار د C# دا: بیرکاری (<code>+ - * / % ++ --</code>)، لۆجیکی (<code>&& || ^ !</code>)، باینەری، بەراوردکرن (<code>== != &lt; &gt; &lt;= &gt;=</code>)، دانان (<code>= += -= ...</code>)، لێکدانا دەقان (<code>+</code>)، و یێن دی وەکی <code>?:</code> و <code>is</code>.",
-      "هشیاربە: نیشانا <code>+</code> د ناڤبەرا ژماران دا کۆم دکەت، بەس د ناڤبەرا دەقان دا لێکددەت!"
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "Console.WriteLine(\"5\" + 2 + 3);",
-        isCodeOpt: true,
-        opts: ["10", "55", "523", "Error"],
-        ans: 2,
-        exp: "ژ چەپێ بۆ راستێ: \"5\" + 2 دبیتە \"52\"، پاش \"52\" + 3 دبیتە \"523\"."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (جوداهیێ دگەل پرسیارا ١ ببینە!)",
-        code: "Console.WriteLine(2 + 3 + \"5\");",
-        isCodeOpt: true,
-        opts: ["235", "55", "10", "Error"],
-        ans: 1,
-        exp: "ژ چەپێ بۆ راستێ: 2 + 3 پێشیێ کۆم دبن (دبیتە 5)، پاش 5 + \"5\" لێکددەت و دبیتە 55!"
-      },
-      {
-        q: "ئەنجامێ ئەڤێ کردارا مەرجی (?:) چییە؟",
-        code: "int r = (10 > 5) ? 100 : 200;\nConsole.WriteLine(r);",
-        isCodeOpt: true,
-        opts: ["100", "200", "True", "Error"],
-        ans: 0,
-        exp: "مەرجێ (10 > 5) یێ راستە، لەوما بەهایێ ئێکێ (100) هەڵدبژێریت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 10;\nConsole.WriteLine(x is int);",
-        isCodeOpt: true,
-        opts: ["10", "int", "True", "False"],
-        ans: 2,
-        exp: "کردارێ is پشکنینێ دکەت کا x ژ جورێ intـە یان نە؛ بەلێ، لەوما True چاپ دکەت."
-      },
-      {
-        q: "کیژ رێز دروستە بۆ پشکنینا هندێ کا x د ناڤبەرا 2 و 10 دایە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["bool ok = (x > 2 && x < 10);", "bool ok = (2 < x < 10);", "bool ok = (x > 2 &| x < 10);", "bool ok = (x > 2 = x < 10);"],
-        ans: 0,
-        exp: "د C# دا نەشێی (2 < x < 10) بنڤیسی؛ دڤێت ب && هەردوو مەرجان پێکڤە گرێدەی."
-      }
-    ]
-  },
-  {
-    num: 13,
-    title: "Arithmetic Operators (کردارێن بیرکاری)",
-    summary: [
-      "<code>+</code> کۆمکرن، <code>-</code> کێمکرن، <code>*</code> جاران، <code>/</code> دابەشکرن، <code>%</code> ماوێ دابەشکرنێ (Remainder).",
-      "<code>++</code> ١ێ زێدە دکەت و <code>--</code> ١ێ کێم دکەت. نیشانا <code>-</code> ل بەری ژمارێ دەرنەخە ئیشارەتێ دگوهۆڕیت (Negation)."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5 % 2;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["2", "2.5", "1", "0"],
-        ans: 2,
-        exp: "5 دابەشی 2 دبیتە 2 و ماوێ وێ (Remainder) 1 دمینیت."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 10 / 2;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["5", "0", "2", "20"],
-        ans: 0,
-        exp: "10 دابەشی 2 یەکسانە ب 5."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5;\nx++;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["5", "6", "4", "10"],
-        ans: 1,
-        exp: "x++ بەهایێ x ب 1 زێدە دکەت، لەوما دبیتە 6."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5;\nx--;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["5", "6", "4", "-5"],
-        ans: 2,
-        exp: "x-- بەهایێ x ب 1 کێم دکەت، لەوما دبیتە 4."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 8;\nConsole.WriteLine(-x);",
-        isCodeOpt: true,
-        opts: ["8", "-8", "0", "Error"],
-        ans: 1,
-        exp: "نیشانا - ل بەری x (Unary minus) ژمارا 8 دکەتە -8."
-      }
-    ]
-  },
-  {
-    num: 14,
-    title: "Arithmetic Operators (نموونێن گرنگ: دابەشا Integer و ++b / b++)",
-    summary: [
-      "<b>زۆر گرنگ:</b> دابەشکرنا دوو <code>int</code>ـان دێ ژمارەیا پشتی پۆینتێ ژێبەت (نموونە: <code>11 / 3 = 3</code>). ئەگەر تە پۆینت بڤێن دڤێت ئێک ژ وان <code>.0</code> هەبیت (نموونە: <code>17 / 4.0 = 4.25</code>).",
-      "<code>b++</code> (Post): پێشیێ بەهایێ کەڤن بکاردئینیت پاش ١ێ زێدە دکەت. <code>++b</code> (Pre): پێشیێ ١ێ زێدە دکەت پاش بکاردئینیت!"
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int p = 17;\ndouble s = p / 4.0;\nConsole.WriteLine(s);",
-        isCodeOpt: true,
-        opts: ["4", "4.25", "4.2", "Error"],
-        ans: 1,
-        exp: "چونکی 4.0 تێدایە (double)، دابەشکرن ب پۆینت دهێتە کرن و دبیتە 4.25."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاربە 4 بێ پۆینتە!)",
-        code: "int p = 17;\ndouble s = p / 4;\nConsole.WriteLine(s);",
-        isCodeOpt: true,
-        opts: ["4.25", "4", "4.5", "Error"],
-        ans: 1,
-        exp: "p و 4 هەردوو intـن، پێشیێ دابەشکرنا int (17 / 4 = 4) دهێتە کرن و پاش دچیتە ناڤ s!"
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a + b++);",
-        isCodeOpt: true,
-        opts: ["9", "10", "11", "8"],
-        ans: 0,
-        exp: "b++ پێشیێ بەهایێ b یێ کەڤن (4) بکاردئینیت، لەوما 5 + 4 = 9، و پشتی چاپکرنێ b دبیتە 5."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a + (++b));",
-        isCodeOpt: true,
-        opts: ["9", "10", "11", "8"],
-        ans: 1,
-        exp: "++b پێشیێ b ژ 4 دکەتە 5، پاش 5 + 5 = 10 چاپ دکەت."
-      },
-      {
-        q: "ئەنجامێ ئەڤان هەردوو دێران چییە؟",
-        code: "Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);",
-        isCodeOpt: true,
-        opts: ["3 پاش 2", "3.66 پاش 2", "2 پاش 3", "3 پاش 1"],
-        ans: 0,
-        exp: "11 / 3 یەکسانە ب 3 (بەشێ تەمام)، و 11 % 3 یەکسانە ب 2 (ماوێ دابەشکرنێ)."
-      }
-    ]
-  },
-  {
-    num: 15,
-    title: "Assignment Operators (کردارێن دانانێ)",
-    summary: [
-      "نیشانا <code>=</code> بەهایێ لایێ راستێ دکەتە ناڤ گۆڕاوا لایێ چەپێ.",
-      "کورتکرن: <code>c += a</code> هەمان <code>c = c + a</code> یە، هەروەسا بۆ <code>-=</code> و <code>*=</code> و <code>/=</code> و <code>%=</code>."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int c = 10;\nc += 5;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["5", "10", "15", "50"],
-        ans: 2,
-        exp: "c += 5 یانی c = c + 5، کو 10 + 5 = 15."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int c = 10;\nc -= 3;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["3", "7", "13", "-7"],
-        ans: 1,
-        exp: "c -= 3 یانی c = 10 - 3 = 7."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int c = 4;\nc *= 3;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["7", "12", "1", "Error"],
-        ans: 1,
-        exp: "c *= 3 یانی c = 4 * 3 = 12."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int c = 20;\nc /= 4;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["5", "4", "16", "0"],
-        ans: 0,
-        exp: "c /= 4 یانی c = 20 / 4 = 5."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int c = 11;\nc %= 4;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["2", "3", "7", "1"],
-        ans: 1,
-        exp: "11 دابەشی 4 دبیتە 2 و ماوێ وێ 3 دمینیت."
-      }
-    ]
-  },
-  {
-    num: 16,
-    title: "Assignment Operators (نموونا ١: رێز ل دویڤ رێزێ)",
-    summary: [
-      "د کۆدی دا هەر رێزەک بەهایێ نوی یێ <code>c</code> ل سەر بەهایێ بەری نوکە حیساب دکەت!",
-      "نموونە: ئەگەر <code>c = 200</code> و <code>a = 21</code>، هنگێ <code>c %= a</code> دبیتە <code>11</code> چونکی <code>21 × 9 = 189</code> و <code>200 - 189 = 11</code>."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 21;\nint c = a;\nc += a;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["21", "42", "0", "441"],
-        ans: 1,
-        exp: "c پێشیێ 21ـە، پاش c += 21 دبیتە 21 + 21 = 42."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["9", "11", "21", "189"],
-        ans: 1,
-        exp: "200 ÷ 21 = 9 و ماوێ وێ 11ـە (200 - 189 = 11)."
-      },
-      {
-        q: "ل دوماهیکا ئەڤی کۆدی دێ بەهایێ c چەند چاپ بیت؟",
-        code: "int a = 10;\nint c = 50;\nc = a;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["60", "50", "10", "40"],
-        ans: 2,
-        exp: "نیشانا = بەهایێ کەڤن (50) ژێدبەت و بەهایێ نوی (10) دکەتە د c دا."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint c = 10;\nc *= a;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["15", "50", "2", "5"],
-        ans: 1,
-        exp: "c *= a یانی c = 10 * 5 = 50."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 4;\nint c = 18;\nc /= a;\nConsole.WriteLine(c);",
-        isCodeOpt: true,
-        opts: ["4.5", "4", "2", "5"],
-        ans: 1,
-        exp: "چونکی هەردوو intـن، 18 / 4 بەشێ تەمام (4) دهێلیت."
-      }
-    ]
-  },
-  {
-    num: 17,
-    title: "Assignment Operators (کورتکرنا کرداران ب رێکا x = x op 3)",
-    summary: [
-      "<code>x += 3</code> هەمان <code>x = x + 3</code> یە.",
-      "<code>x -= 3</code> هەمان <code>x = x - 3</code> یە.",
-      "<code>x *= 3</code> هەمان <code>x = x * 3</code> یە، و <code>x /= 3</code> هەمان <code>x = x / 3</code> یە."
-    ],
-    questions: [
-      {
-        q: "کیژ رێز هەمان مانا x = x + 3 ددەت؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["x =+ 3;", "x += 3;", "x ++ 3;", "x + 3 = x;"],
-        ans: 1,
-        exp: "x += 3 یانی x = x + 3. (هشیاربە: x =+ 3 دێ x کەتە +3!)."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 10;\nx -= 3;\nx *= 2;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["14", "17", "4", "7"],
-        ans: 0,
-        exp: "پێشیێ x = 10 - 3 = 7، پاش x = 7 * 2 = 14."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 9;\nx /= 3;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["3", "6", "27", "0"],
-        ans: 0,
-        exp: "x = 9 / 3 = 3."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 10;\nx %= 3;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["3", "1", "7", "0"],
-        ans: 1,
-        exp: "10 دابەشی 3 ماوێ وێ 1ـە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (داڤێ نەکەڤە!)",
-        code: "int x = 5;\nx =+ 3;\nConsole.WriteLine(x);",
-        isCodeOpt: true,
-        opts: ["8", "3", "5", "Error"],
-        ans: 1,
-        exp: "د C# دا x =+ 3 یانی x = (+3) یعنی 3، نەک x += 3!"
-      }
-    ]
-  },
-  {
-    num: 18,
-    title: "Assignment Operators (نموونا ٢ و هشیاریا گۆڕاوان)",
-    summary: [
-      "دکاری کردارێ دانانێ راستەوخۆ د ناڤ <code>Console.WriteLine(x += 3);</code> دا بنڤیسی؛ هم بەهایێ <code>x</code> دگوهۆڕیت و هم چاپ دکەت.",
-      "<b>تێبینیا عەمەلی:</b> د ئێک بلۆک دا نەشێی دوو جاران هەمان گۆڕاو ب <code>int y = ...;</code> بناسینی (تەنها ئێک جار <code>int</code> بنڤیسە)."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int y = 4;\nConsole.WriteLine(y *= 2);",
-        isCodeOpt: true,
-        opts: ["4", "8", "2", "6"],
-        ans: 1,
-        exp: "y *= 2 بەهایێ y دکەتە 8 و ئێکسەر 8 چاپ دکەت."
-      },
-      {
-        q: "ل دویڤ ئێک ئەڤ کۆدە چ چاپ دکەت؟",
-        code: "int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);",
-        isCodeOpt: true,
-        opts: ["9 پاش 3", "9 پاش 6", "6 پاش 3", "3 پاش 6"],
-        ans: 1,
-        exp: "دێرا ئێکێ x ژ 6 دکەتە 9 و چاپ دکەت. دێرا دوویێ 3 ژ 9 کێم دکەت و دبیتە 6."
-      },
-      {
-        q: "ئەنجامێ دوماهیک دێرا ئەڤی کۆدی چییە؟",
-        code: "int x = 6;\nx /= 2;\nConsole.WriteLine(x *= 3);",
-        isCodeOpt: true,
-        opts: ["9", "3", "18", "6"],
-        ans: 0,
-        exp: "x /= 2 دکەتە 3، پاش x *= 3 دکەتە 3 * 3 = 9."
-      },
-      {
-        q: "بۆچی ئەڤ کۆدە د Visual Studio دا Error دەت؟",
-        code: "int y = 4;\nint y = 3;",
-        isCodeOpt: false,
-        opts: ["چونکی y یا ژ 4 کێمترە", "چونکی گۆڕاوا y دوو جاران ب int هاتییە ناساندن", "چونکی Console.WriteLine تێدا نینە", "چ Error تێدا نینن"],
-        ans: 1,
-        exp: "دڤێت دێرا دوویێ بێ int بنڤیسی (y = 3;) چونکی y بەری نوکە هاتییە دروستکرن."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int z = 3;\nz += z;\nConsole.WriteLine(z);",
-        isCodeOpt: true,
-        opts: ["3", "6", "9", "0"],
-        ans: 1,
-        exp: "z += z یانی z = 3 + 3 = 6."
-      }
-    ]
-  },
-  {
-    num: 19,
-    title: "Comparison Operators (کردارێن بەراوردکرنێ)",
-    summary: [
-      "<code>==</code> (یەکسانە)، <code>!=</code> (یەکسان نینە)، <code>&gt;</code> (مەزنتر)، <code>&lt;</code> (بچویکتر)، <code>&gt;=</code> (مەزنتر یان یەکسان)، <code>&lt;=</code> (بچویکتر یان یەکسان).",
-      "هەمی ئەنجامێن بەراوردکرنێ <code>bool</code>ـن (یان <code>True</code> یان <code>False</code>). هشیاربە: بۆ بەراوردکرنێ <code>==</code> بکاردئینین، نەک <code>=</code>!"
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5, y = 5;\nConsole.WriteLine(x == y);",
-        isCodeOpt: true,
-        opts: ["5", "True", "False", "Error"],
-        ans: 1,
-        exp: "5 یەکسانە ب 5، لەوما ئەنجام True یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5, y = 8;\nConsole.WriteLine(x != y);",
-        isCodeOpt: true,
-        opts: ["True", "False", "3", "Error"],
-        ans: 0,
-        exp: "!= یانی یەکسان نینە؛ 5 و 8 یەکسان نینن لەوما True یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5, y = 5;\nConsole.WriteLine(x < y);",
-        isCodeOpt: true,
-        opts: ["True", "False", "5", "Error"],
-        ans: 1,
-        exp: "5 ژ 5 بچویکتر نینە (یەکسانن)، لەوما False یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 5, y = 5;\nConsole.WriteLine(x <= y);",
-        isCodeOpt: true,
-        opts: ["True", "False", "0", "Error"],
-        ans: 0,
-        exp: "<= یانی بچویکتر یان یەکسان؛ چونکی 5 یەکسانە ب 5 لەوما True یە."
-      },
-      {
-        q: "کیژ ژ ئەڤان کۆدان Errorـە؟",
-        code: "",
-        isCodeOpt: true,
-        opts: ["bool r = (5 == 3);", "bool r = (5 != 3);", "bool r = (5 = 3);", "bool r = (5 >= 3);"],
-        ans: 2,
-        exp: "= بۆ دانانا بەهایانە، و 5 گۆڕاو نینە هەتا بەها بکەیە تێدا، دڤێت == بیت."
-      }
-    ]
-  },
-  {
-    num: 20,
-    title: "Comparison Operators (نموونا عەمەلی و ++b د ناڤ بەراوردێ دا)",
-    summary: [
-      "د ئەڤێ نموونا سلایدی دا داڤەک هەیە: <code>a = 5, b = 4</code>. دەمێ دبێژیت <code>a != ++b</code>، بەری بەراوردکرنێ <code>b</code> دبیتە <code>5</code>!",
-      "لەوما <code>5 != 5</code> دبیتە <code>False</code>، و پشتی وێ دێرا <code>a &gt; b</code> ژی دبیتە <code>5 &gt; 5</code> کو هەر <code>False</code>ـە!"
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "5", "Error"],
-        ans: 0,
-        exp: "5 مەزنتر یان یەکسانە ب 4، بەلێ True یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "5", "Error"],
-        ans: 1,
-        exp: "++b پێشیێ b ژ 4 دکەتە 5، پاش 5 != 5 یانی 5 یەکسان نینە ب 5؟ خەلەتە (False)."
-      },
-      {
-        q: "ئەڤ هەردوو دێرە دێ چ چاپ کەن؟ (سەحکە سلایدێ ٢٠!)",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);",
-        isCodeOpt: true,
-        opts: ["True پاش True", "False پاش True", "False پاش False", "True پاش False"],
-        ans: 2,
-        exp: "د دێرا ئێکێ دا b بوو 5 لەوما False. د دێرا دوویێ دا هێشتا b هەر 5ـە، لەوما 5 > 5 ژی False یە!"
-      },
-      {
-        q: "ئەگەر b++ بیت ل جهێ ++b، ئەنجام چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != b++);",
-        isCodeOpt: true,
-        opts: ["True", "False", "4", "Error"],
-        ans: 0,
-        exp: "b++ پێشیێ بەهایێ کەڤن (4) بکاردئینیت: 5 != 4 راستە (True)، پاش b دبیتە 5."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a == b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "4", "5"],
-        ans: 1,
-        exp: "5 یەکسان نینە ب 4، لەوما ئەنجام False یە."
-      }
-    ]
-  },
-  {
-    num: 21,
-    title: "Logical Operators (AND &&, OR ||, NOT !)",
-    summary: [
-      "<code>&&</code> (<b>AND</b>): بتنێ هنگێ <code>True</code> یە ئەگەر <b>هەردوو</b> ئالی <code>True</code> بن.",
-      "<code>||</code> (<b>OR</b>): ئەگەر <b>بتنێ ئێک</b> ژ ئالیان (یان هەردوو) <code>True</code> بیت دێ بیتە <code>True</code>.",
-      "<code>!</code> (<b>NOT</b>): ئەنجامی بەروڤاژی دکەت (<code>True</code> دکەتە <code>False</code>، و <code>False</code> دکەتە <code>True</code>)."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (AND)",
-        code: "int x = 7;\nConsole.WriteLine(x < 5 && x < 10);",
-        isCodeOpt: true,
-        opts: ["True", "False", "7", "Error"],
-        ans: 1,
-        exp: "7 < 5 (False) و 7 < 10 (True). د && دا ئەگەر ئێک False بیت، هەمی دبیتە False."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (OR)",
-        code: "int x = 7;\nConsole.WriteLine(x < 5 || x < 10);",
-        isCodeOpt: true,
-        opts: ["True", "False", "10", "Error"],
-        ans: 0,
-        exp: "7 < 5 (False) یان 7 < 10 (True). د || دا بەس ئێک True بیت ئەنجام دبیتە True."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (NOT)",
-        code: "int x = 3;\nConsole.WriteLine(!(x < 5 && x < 10));",
-        isCodeOpt: true,
-        opts: ["True", "False", "3", "Error"],
-        ans: 1,
-        exp: "د ناڤ کەڤانان دا (True && True) دبیتە True، بەس ! ل بەریێ دکەتە False."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 4;\nConsole.WriteLine(x > 2 && x != 4);",
-        isCodeOpt: true,
-        opts: ["True", "False", "4", "Error"],
-        ans: 1,
-        exp: "4 > 2 (True) بەس 4 != 4 (False). True && False دبیتە False."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "int x = 10;\nConsole.WriteLine(x == 5 || !(x < 5));",
-        isCodeOpt: true,
-        opts: ["True", "False", "5", "Error"],
-        ans: 0,
-        exp: "10 == 5 (False)، بەس !(10 < 5) یانی !(False) کو دبیتە True. False || True دبیتە True."
-      }
-    ]
-  },
-  {
-    num: 22,
-    title: "Logical Operators (نموونا عەمەلی یا &&, ||, !, ^)",
-    summary: [
-      "پوختەیا سلایدێ ٢٢ ب <code>bool a = true; bool b = false;</code>:",
-      "<code>a && b</code> ⬅ <code>False</code> | <code>a || b</code> ⬅ <code>True</code> | <code>!b</code> ⬅ <code>True</code> | <code>!a</code> ⬅ <code>False</code>.",
-      "هەروەسا <code>^</code> (XOR): بتنێ هنگێ <code>True</code> یە ئەگەر هەردوو ئالی ژ ئێک جودا بن (ئێک True و ئێک False)."
-    ],
-    questions: [
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "Error", "Null"],
-        ans: 1,
-        exp: "true && false هەردەم دبیتە False."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(b || true);",
-        isCodeOpt: true,
-        opts: ["True", "False", "b", "Error"],
-        ans: 0,
-        exp: "false || true دبیتە True چونکی ئالیێ راستێ True یە."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(!b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "0", "Error"],
-        ans: 0,
-        exp: "b خۆ falseـە، !b بەروڤاژی دکەت و دبیتە True."
-      },
-      {
-        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
-        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);",
-        isCodeOpt: true,
-        opts: ["True", "False", "1", "Error"],
-        ans: 0,
-        exp: "د ^ (XOR) دا چونکی a (true) و b (false) ژ ئێک جودانە، ئەنجام دبیتە True."
-      },
-      {
-        q: "ئەنجامێ دوماهیک رێزا سلایدێ ٢٢ چییە؟",
-        code: "bool a = true;\nbool b = false;\nConsole.WriteLine((5 > 7) ^ (a == b));",
-        isCodeOpt: true,
-        opts: ["True", "False", "7", "Error"],
-        ans: 1,
-        exp: "5 > 7 (False) و a == b (False). د ^ دا چونکی هەردوو وەکی ئێکن (False ^ False)، ئەنجام دبیتە False."
-      }
-    ]
-  }
-];
-
-function esc(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-let good = 0, bad = 0, answered = 0;
-const totalQuestions = slidesData.reduce((sum, s) => sum + s.questions.length, 0);
-const letters = ["A", "B", "C", "D"];
-
-function updateStats() {
-  document.getElementById("goodCount").textContent = "دروست: " + good;
-  document.getElementById("badCount").textContent = "خەلەت: " + bad;
-  document.getElementById("totalCount").textContent = "بەرسڤدای: " + answered + " / " + totalQuestions;
-}
-
-function renderAll() {
-  const nav = document.getElementById("navSlides");
-  const container = document.getElementById("slidesContainer");
-  nav.innerHTML = "";
-  container.innerHTML = "";
-
-  slidesData.forEach((slide, sIdx) => {
-    const a = document.createElement("a");
-    a.href = "#slide-" + slide.num;
-    a.textContent = "سلاید " + slide.num;
-    nav.appendChild(a);
-
-    const card = document.createElement("div");
-    card.className = "slide-card";
-    card.id = "slide-" + slide.num;
-
-    const sumItems = slide.summary.map(line => `<li>${line}</li>`).join("");
-
-    let qHtml = "";
-    slide.questions.forEach((qObj, qIdx) => {
-      const qId = `q-${sIdx}-${qIdx}`;
-      const codeBlock = qObj.code ? `<pre>${esc(qObj.code)}</pre>` : "";
-      const optsHtml = qObj.opts.map((opt, oIdx) => `
-        <button class="opt-btn" id="${qId}-opt-${oIdx}" onclick="checkAns(${sIdx}, ${qIdx}, ${oIdx})">
-          <span class="opt-ltr">${letters[oIdx]}</span>
-          <span class="opt-txt ${qObj.isCodeOpt ? 'code-opt' : ''}">${esc(opt)}</span>
-        </button>
-      `).join("");
-
-      qHtml += `
-        <div class="question-box" id="${qId}">
-          <div class="q-header">پرسیارا ${qIdx + 1}: ${esc(qObj.q)}</div>
-          ${codeBlock}
-          <div class="options">${optsHtml}</div>
-          <div class="feedback" id="${qId}-fb"></div>
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo-badge">C#</div>
+        <div class="brand-text">
+          <h1>ڕێبەرێ ئەزموونا عەمەلی یا C# (ب بادینی)</h1>
+          <p>زانکۆیا ئاکرێ بۆ زانستێن کرداری • پەیمانگەها تەکنیکی یا ئاکرێ • پشکا IT</p>
         </div>
-      `;
-    });
-
-    card.innerHTML = `
-      <h2 class="slide-title">سلایدێ ${slide.num}: ${esc(slide.title)}</h2>
-      <div class="summary">
-        <strong>کورتیا سلایدی:</strong>
-        <ul>${sumItems}</ul>
       </div>
-      ${qHtml}
-    `;
-    container.appendChild(card);
-  });
 
-  good = 0; bad = 0; answered = 0;
-  updateStats();
-}
+      <div class="progress-box">
+        <div class="progress-info">
+          <div class="progress-row">
+            <span>پێشکەفتنا تە:</span>
+            <strong id="totalProgressText">0 / 120</strong>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="totalProgressBar"></div>
+          </div>
+        </div>
+        <button class="btn-reset" onclick="resetProgress()">سفرکرنا پێشکەفتنێ</button>
+      </div>
+    </div>
+  </header>
 
-function checkAns(sIdx, qIdx, chosenIdx) {
-  const qObj = slidesData[sIdx].questions[qIdx];
-  const qId = `q-${sIdx}-${qIdx}`;
-  const fb = document.getElementById(`${qId}-fb`);
-  if (fb.classList.contains("show")) return;
+  <main class="container">
+    <section class="hero-card">
+      <h2>👋 سڵاڤ! ئامادەبە بۆ ئەزموونا عەمەلی یا ڕۆژا ئێکشەمبی</h2>
+      <p>
+        سلایدێن ١ و ٢ تەنێ پێشەکی و ناڤەرۆکا بابەتی نە. ل خوارێ ژ <strong>سلایدا ٣ هەتا سلایدا ٢٢</strong> (هەتا دووماهیا <span class="inline-code">Logical Operators: && , || , !</span>)
+        هەر سلایدەک ب کورتی هاتیە شروڤەکرن و بۆ هەر سلایدەکێ <strong>٦ پرسیارێن عەمەلی یێن کۆدنڤیسینێ</strong> (٢ ساناهی، ٢ زەحمەت، ٢ زۆر زەحمەت) هاتینە دانان.
+      </p>
+      <div class="tips-row">
+        <span class="tip-pill">💻 تەنێ کۆدێ C# بنڤیسە</span>
+        <span class="tip-pill">⌨️ Ctrl + Enter = تێستکرنا کۆدی</span>
+        <span class="tip-pill">📏 Tab = فەراغ</span>
+        <span class="tip-pill">💡 دوگما بەرسڤێ بۆ سەحکرنا نموونەی هەیە</span>
+      </div>
+    </section>
 
-  answered++;
-  for (let i = 0; i < qObj.opts.length; i++) {
-    const btn = document.getElementById(`${qId}-opt-${i}`);
-    btn.disabled = true;
-    if (i === qObj.ans) btn.classList.add("correct");
-  }
+    <nav class="slide-nav-wrap">
+      <div class="slide-nav-title">
+        <span>📌 بازدانا بلەز بۆ سلایدان (٣ هەتا ٢٢):</span>
+        <span id="slidesCompletedSummary">0 / 20 سلاید تەمام بوون</span>
+      </div>
+      <div class="slide-pills" id="slideNavPills"></div>
+    </nav>
 
-  const chosenBtn = document.getElementById(`${qId}-opt-${chosenIdx}`);
-  const rightText = esc(qObj.opts[qObj.ans]);
+    <div id="slidesContainer"></div>
+  </main>
 
-  if (chosenIdx === qObj.ans) {
-    good++;
-    fb.className = "feedback show good";
-    fb.innerHTML = `✅ <strong>راستە! دەستخۆش.</strong><br>${esc(qObj.exp)}`;
-  } else {
-    bad++;
-    chosenBtn.classList.add("wrong");
-    fb.className = "feedback show bad";
-    fb.innerHTML = `❌ <strong>یا نەراستە! وەلاما دروست ئەڤەیە: (${letters[qObj.ans]}) <span dir="auto">${rightText}</span></strong><br>${esc(qObj.exp)}`;
-  }
+  <button class="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="بۆ سەرڤە">↑</button>
 
-  updateStats();
-}
+  <script>
+    // =========================================================================
+    // 1. ALL SLIDES DATA (Slides 3 to 22: Data Types up to Logical Operators)
+    // =========================================================================
+    const SLIDES = [
+      {
+        id: 3,
+        title: "C# Data Types (جۆرێن داتایان ل پێشەکی)",
+        points: [
+          "زمانێ C# زمانەکێ <span class='inline-code'>Strongly-typed</span> یە؛ ئانکو بەری گۆڕاوەکێ (Variable) بکاربینی دڤێت جۆرێ وێ دیار بکەی.",
+          "جۆرێ داتای قەبارە و جۆرێ بهايێ ناڤ گۆڕاوێ دیار دکەت داکو شاشی چێنەبن و میمۆری ب دروستی بهێتە پاراستن.",
+          "جۆرێن سەرەکی: <span class='inline-code'>int</span> (ژمارا تەمام)، <span class='inline-code'>float</span> (ژمارا دەیی ب <span class='inline-code'>f</span>)، <span class='inline-code'>char</span> (پیتەک د ناڤ <span class='inline-code'>' '</span>)، <span class='inline-code'>bool</span> (<span class='inline-code'>true/false</span>)، <span class='inline-code'>string</span> (دەق د ناڤ <span class='inline-code'>\" \"</span>)."
+        ],
+        example: `int myNum = 5;\nfloat floatVar = 10.2f;\nchar myLetter = 'D';\nbool myBool = true;\nstring myText = "Kurdistan";`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا int ب ناڤێ myNum دروست بکە و بهايێ 5 بدەیێ، پاشان ب Console.WriteLine چاپ بکە.",
+            expectedOutput: ["5"],
+            mustContain: ["int", "myNum"],
+            solution: `int myNum = 5;\nConsole.WriteLine(myNum);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا string ب ناڤێ myText دروست بکە و بهايێ \"Kurdistan\" بدەیێ، پاشان چاپ بکە.",
+            expectedOutput: ["Kurdistan"],
+            mustContain: ["string", "myText"],
+            solution: `string myText = "Kurdistan";\nConsole.WriteLine(myText);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا float ب ناڤێ floatVar دروست بکە ب بهايێ 10.2f (پیتا f ژبیر نەکە!) و چاپ بکە.",
+            expectedOutput: ["10.2"],
+            mustContain: ["float", "floatVar"],
+            solution: `float floatVar = 10.2f;\nConsole.WriteLine(floatVar);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا char ب ناڤێ myLetter ب بهايێ 'D' و گۆڕاوەکا bool ب ناڤێ myBool ب بهايێ true دروست بکە و هەردووکان د دوو ڕێزێن جودا دا چاپ بکە.",
+            expectedOutput: ["D", "True"],
+            mustContain: ["char", "myLetter", "bool", "myBool"],
+            solution: `char myLetter = 'D';\nbool myBool = true;\nConsole.WriteLine(myLetter);\nConsole.WriteLine(myBool);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا int ب ناڤێ age ب بهايێ 20 و string ب ناڤێ city ب بهايێ \"Akre\" دروست بکە، پاشان د ئێک ڕێز دا ب ڤی شێوەی چاپ بکە: Akre 20",
+            expectedOutput: ["Akre 20"],
+            mustContain: ["int", "age", "string", "city"],
+            solution: `int age = 20;\nstring city = "Akre";\nConsole.WriteLine(city + " " + age);`
+          },
+          {
+            diff: "hard",
+            prompt: "٣ گۆڕاوان دروست بکە: char grade = 'A'; و int score = 95; و bool passed = true; پاشان ب ترتیب د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["A", "95", "True"],
+            mustContain: ["char", "grade", "int", "score", "bool", "passed"],
+            solution: `char grade = 'A';\nint score = 95;\nbool passed = true;\nConsole.WriteLine(grade);\nConsole.WriteLine(score);\nConsole.WriteLine(passed);`
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Common Data Types & Sizes (جۆرێن بەربەلاڤ و قەبارە)",
+        points: [
+          "<span class='inline-code'>int</span>: 4 بایتە، ژمارێن تەمام هەتا نزیکی 2 ملیار هەڵدگریت.",
+          "<span class='inline-code'>long</span>: 8 بایتە، ژمارێن تەمام یێن زۆر مەزن هەڵدگریت.",
+          "<span class='inline-code'>float</span> (4 بایت، 6-7 ژمارێن دوای خاڵێ) و <span class='inline-code'>double</span> (8 بایت، 15 ژمارێن دوای خاڵێ).",
+          "<span class='inline-code'>bool</span> (1 بت)، <span class='inline-code'>char</span> (2 بایت، تاکە پیتەک د ' ' دا)، <span class='inline-code'>string</span> (2 بایت بۆ هەر پیتەکێ، د \" \" دا)."
+        ],
+        example: `long population = 8000000000;\ndouble price = 19.99;\nConsole.WriteLine(population);\nConsole.WriteLine(price);`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا long ب ناڤێ bigNum دروست بکە و بهايێ 5000000000 بدەیێ، پاشان چاپ بکە.",
+            expectedOutput: ["5000000000"],
+            mustContain: ["long", "bigNum"],
+            solution: `long bigNum = 5000000000;\nConsole.WriteLine(bigNum);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا double ب ناڤێ price دروست بکە ب بهايێ 12.75 و چاپ بکە.",
+            expectedOutput: ["12.75"],
+            mustContain: ["double", "price"],
+            solution: `double price = 12.75;\nConsole.WriteLine(price);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا int ب ناڤێ x = 100 و گۆڕاوەکا long ب ناڤێ y = 3000000000 دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["100", "3000000000"],
+            mustContain: ["int", "x", "long", "y"],
+            solution: `int x = 100;\nlong y = 3000000000;\nConsole.WriteLine(x);\nConsole.WriteLine(y);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا float ب ناڤێ f = 3.5f و double ب ناڤێ d = 3.55555555 دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["3.5", "3.55555555"],
+            mustContain: ["float", "double"],
+            solution: `float f = 3.5f;\ndouble d = 3.55555555;\nConsole.WriteLine(f);\nConsole.WriteLine(d);`
+          },
+          {
+            diff: "hard",
+            prompt: "جۆرێ گونجای هەڵبژێرە: گۆڕاوەک بۆ ناڤێ کۆمپانیێ \"AUAS\"، گۆڕاوەک بۆ پیتا سەرەکی 'K'، و گۆڕاوەک بۆ ژمارا 9999999999 (کو ژ int مەزنترە) دروست بکە و هەرسێکان ب ترتیب چاپ بکە.",
+            expectedOutput: ["AUAS", "K", "9999999999"],
+            mustContain: ["string", "char", "long"],
+            solution: `string company = "AUAS";\nchar letter = 'K';\nlong count = 9999999999;\nConsole.WriteLine(company);\nConsole.WriteLine(letter);\nConsole.WriteLine(count);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا bool ب ناڤێ isReady = false و double ب ناڤێ weight = 65.45 و int ب ناڤێ count = 4 دروست بکە، و د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["False", "65.45", "4"],
+            mustContain: ["bool", "isReady", "double", "weight", "int", "count"],
+            solution: `bool isReady = false;\ndouble weight = 65.45;\nint count = 4;\nConsole.WriteLine(isReady);\nConsole.WriteLine(weight);\nConsole.WriteLine(count);`
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "C# Data Types (Numbers - ژمارە)",
+        points: [
+          "ژمارە د C# دا ل سەر دوو گروپان دهێنە دابەشکرن:",
+          "<b>Integer Types</b> (ژمارێن تەمام بێ خاڵا دەیی): <span class='inline-code'>byte, sbyte, short, ushort, int, uint, long, ulong</span>.",
+          "<b>Floating-Point Types</b> (ژمارێن دەیی ب خاڵ): <span class='inline-code'>float</span> (32 bit)، <span class='inline-code'>double</span> (64 bit)، <span class='inline-code'>decimal</span> (128 bit)."
+        ],
+        example: `byte level = 10;\nsbyte temp = -5;\nshort year = 2025;\ndecimal salary = 500.5m;`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا byte ب ناڤێ age دروست بکە ب بهايێ 19 و چاپ بکە.",
+            expectedOutput: ["19"],
+            mustContain: ["byte", "age"],
+            solution: `byte age = 19;\nConsole.WriteLine(age);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا short ب ناڤێ temp دروست بکە ب بهايێ -250 و چاپ بکە.",
+            expectedOutput: ["-250"],
+            mustContain: ["short", "temp"],
+            solution: `short temp = -250;\nConsole.WriteLine(temp);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا sbyte ب ناڤێ neg = -100 و گۆڕاوەکا ushort ب ناڤێ pos = 40000 دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["-100", "40000"],
+            mustContain: ["sbyte", "neg", "ushort", "pos"],
+            solution: `sbyte neg = -100;\nushort pos = 40000;\nConsole.WriteLine(neg);\nConsole.WriteLine(pos);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا decimal ب ناڤێ money = 250.75m (ب پیتا m!) دروست بکە و چاپ بکە.",
+            expectedOutput: ["250.75"],
+            mustContain: ["decimal", "money"],
+            solution: `decimal money = 250.75m;\nConsole.WriteLine(money);`
+          },
+          {
+            diff: "hard",
+            prompt: "ئێک ژ جۆرێن Integer (ب ناڤێ a = 50 ب جۆرێ uint) و ئێک ژ جۆرێن Floating-Point (ب ناڤێ b = 7.5f ب جۆرێ float) دروست بکە، پاشان کۆمێ وان (a + b) چاپ بکە.",
+            expectedOutput: ["57.5"],
+            mustContain: ["uint", "float"],
+            solution: `uint a = 50;\nfloat b = 7.5f;\nConsole.WriteLine(a + b);`
+          },
+          {
+            diff: "hard",
+            prompt: "٣ گۆڕاوان ب جۆرێن جودا یێن ژمارێن دەیی دروست بکە: float f = 1.5f; double d = 2.5; decimal m = 3.5m; و هەرسێکان د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["1.5", "2.5", "3.5"],
+            mustContain: ["float", "double", "decimal"],
+            solution: `float f = 1.5f;\ndouble d = 2.5;\ndecimal m = 3.5m;\nConsole.WriteLine(f);\nConsole.WriteLine(d);\nConsole.WriteLine(m);`
+          }
+        ]
+      },
+      {
+        id: 6,
+        title: "Numeric Ranges, Suffixes & Defaults (سنوور و پاشگر)",
+        points: [
+          "جۆرێن <span class='inline-code'>unsigned</span> (وەکی <span class='inline-code'>byte, ushort, uint, ulong</span>) تەنێ ژمارێن پۆزەتیڤ (0 یان پتر) وەردگرن.",
+          "پاشگرە گرنگەکان: <span class='inline-code'>u</span> بۆ uint، <span class='inline-code'>l</span> بۆ long، <span class='inline-code'>ul</span> بۆ ulong، <span class='inline-code'>f</span> بۆ float، <span class='inline-code'>d</span> بۆ double، <span class='inline-code'>m</span> بۆ decimal.",
+          "بهايێ بنەرەتی (Default): <span class='inline-code'>0</span> بۆ ژمارێن تەمام (<span class='inline-code'>0L</span> بۆ long)، <span class='inline-code'>0.0F</span> بۆ float، <span class='inline-code'>0.0D</span> بۆ double."
+        ],
+        example: `byte maxByte = 255;\nsbyte minSbyte = -128;\nuint id = 4000000000u;\nulong stars = 10000000000ul;`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "بەرزترین بهايێ جۆرێ byte کو 255 یە د گۆڕاوەکا byte ب ناڤێ maxB دا هەڵبگرە و چاپ بکە.",
+            expectedOutput: ["255"],
+            mustContain: ["byte", "maxB"],
+            solution: `byte maxB = 255;\nConsole.WriteLine(maxB);`
+          },
+          {
+            diff: "easy",
+            prompt: "کێمترین بهايێ جۆرێ sbyte کو -128 یە د گۆڕاوەکا sbyte ب ناڤێ minS دا هەڵبگرە و چاپ بکە.",
+            expectedOutput: ["-128"],
+            mustContain: ["sbyte", "minS"],
+            solution: `sbyte minS = -128;\nConsole.WriteLine(minS);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا uint ب ناڤێ uNum = 3000000000u و گۆڕاوەکا long ب ناڤێ lNum = 9000000000L دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["3000000000", "9000000000"],
+            mustContain: ["uint", "long"],
+            solution: `uint uNum = 3000000000u;\nlong lNum = 9000000000L;\nConsole.WriteLine(uNum);\nConsole.WriteLine(lNum);`
+          },
+          {
+            diff: "medium",
+            prompt: "ب پاشگرێ ul، گۆڕاوەکا ulong ب ناڤێ big = 18000000000ul و ب پاشگرێ d، گۆڕاوەکا double ب ناڤێ dbl = 4.5d دروست بکە و چاپ بکە.",
+            expectedOutput: ["18000000000", "4.5"],
+            mustContain: ["ulong", "double"],
+            solution: `ulong big = 18000000000ul;\ndouble dbl = 4.5d;\nConsole.WriteLine(big);\nConsole.WriteLine(dbl);`
+          },
+          {
+            diff: "hard",
+            prompt: "بەرزترین بهايێ ushort کو 65535 یە د گۆڕاوەکا ushort ب ناڤێ u1 دا، و کێمترین بهايێ short کو -32768 یە د گۆڕاوەکا short ب ناڤێ s1 دا دابنێ، پاشان کۆمێ وان (u1 + s1) چاپ بکە.",
+            expectedOutput: ["32767"],
+            mustContain: ["ushort", "short"],
+            solution: `ushort u1 = 65535;\nshort s1 = -32768;\nConsole.WriteLine(u1 + s1);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا decimal ب ناڤێ tax = 15.25m و گۆڕاوەکا float ب ناڤێ rate = 2.5f و گۆڕاوەکا long ب ناڤێ total = 100000L دروست بکە و هەرسێکان د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["15.25", "2.5", "100000"],
+            mustContain: ["decimal", "float", "long"],
+            solution: `decimal tax = 15.25m;\nfloat rate = 2.5f;\nlong total = 100000L;\nConsole.WriteLine(tax);\nConsole.WriteLine(rate);\nConsole.WriteLine(total);`
+          }
+        ]
+      },
+      {
+        id: 7,
+        title: "Integers Example: Measuring Time (نموونا پێڤانا دەمی)",
+        points: [
+          "ل گۆرەیا قەبارێ ژمارێ، جۆرێ گونجای هەڵدبژێرین دا میمۆری بێ مفا نەچیت (نموونە: <span class='inline-code'>byte</span> بۆ سەدە و <span class='inline-code'>ulong</span> بۆ دەمژمێران).",
+          "دەما دڤێت چەند گۆڕاوان د ناڤ ڕستەکێ دا چاپ بکەین، دشێین فورماتا <span class='inline-code'>{0}</span> و <span class='inline-code'>{1}</span> بکاربینین."
+        ],
+        example: `byte centuries = 20;\nushort years = 2000;\nConsole.WriteLine("{0} centuries is {1} years.", centuries, years);`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا byte ب ناڤێ hours = 24 دروست بکە و ب فورماتا {0} چاپ بکە: 24 hours",
+            expectedOutput: ["24 hours"],
+            mustContain: ["byte", "hours", "{0}"],
+            solution: `byte hours = 24;\nConsole.WriteLine("{0} hours", hours);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا ushort ب ناڤێ days = 365 دروست بکە و ب شێوێ \"1 year is 365 days.\" ب {0} چاپ بکە.",
+            expectedOutput: ["1 year is 365 days."],
+            mustContain: ["ushort", "days", "{0}"],
+            solution: `ushort days = 365;\nConsole.WriteLine("1 year is {0} days.", days);`
+          },
+          {
+            diff: "medium",
+            prompt: "دوو گۆڕاوان دروست بکە: byte weeks = 4; و byte days = 28; پاشان ب {0} و {1} چاپ بکە: 4 weeks is 28 days.",
+            expectedOutput: ["4 weeks is 28 days."],
+            mustContain: ["byte", "{0}", "{1}"],
+            solution: `byte weeks = 4;\nbyte days = 28;\nConsole.WriteLine("{0} weeks is {1} days.", weeks, days);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا uint ب ناڤێ minutes = 1440 و ulong ب ناڤێ seconds = 86400 دروست بکە، و ب {0} و {1} چاپ بکە: 1440 min = 86400 sec",
+            expectedOutput: ["1440 min = 86400 sec"],
+            mustContain: ["uint", "ulong", "{0}", "{1}"],
+            solution: `uint minutes = 1440;\nulong seconds = 86400;\nConsole.WriteLine("{0} min = {1} sec", minutes, seconds);`
+          },
+          {
+            diff: "hard",
+            prompt: "ب هەمان شێوێ سلایدا ٧: byte centuries = 20; ushort years = 2000; uint days = 730480; ulong hours = 17531520; دروست بکە و ب فورماتێ چاپ بکە: 20 centuries is 2000 years, or 730480 days, or 17531520 hours.",
+            expectedOutput: ["20 centuries is 2000 years, or 730480 days, or 17531520 hours."],
+            mustContain: ["byte", "ushort", "uint", "ulong", "{3}"],
+            solution: `byte centuries = 20;\nushort years = 2000;\nuint days = 730480;\nulong hours = 17531520;\nConsole.WriteLine("{0} centuries is {1} years, or {2} days, or {3} hours.", centuries, years, days, hours);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا byte ب ناڤێ d = 2 دروست بکە. پاشان گۆڕاوەکا ushort ب ناڤێ h = (d * 24) و uint ب ناڤێ m = (h * 60) حیساب بکە و چاپ بکە: 2 days = 48 hours = 2880 minutes",
+            expectedOutput: ["2 days = 48 hours = 2880 minutes"],
+            mustContain: ["byte", "ushort", "uint"],
+            solution: `byte d = 2;\nushort h = 48;\nuint m = 2880;\nConsole.WriteLine("{0} days = {1} hours = {2} minutes", d, h, m);`
+          }
+        ]
+      },
+      {
+        id: 8,
+        title: "Float vs Double Precision (وردبینیا PI)",
+        points: [
+          "ژمارێن دەیی د C# دا ب شێوێ بنەرەتی وەکی <span class='inline-code'>double</span> دهێنە هەژمارتن.",
+          "بۆ جۆرێ <span class='inline-code'>float</span> دڤێت پاشگرێ <span class='inline-code'>f</span> بنڤیسی؛ ئەگەر نا دێ شاشیێ (Error) دەت.",
+          "<span class='inline-code'>float</span> تنێ نێزیکی 7 ژماران دپارێزیت، لێ <span class='inline-code'>double</span> هەتا 15 ژماران دپارێزیت (وردترە)."
+        ],
+        example: `float floatPI = 3.14159265358979f;\ndouble doublePI = 3.14159265358979;\nConsole.WriteLine(floatPI);  // 3.141593\nConsole.WriteLine(doublePI); // 3.14159265358979`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا float ب ناڤێ f ب بهايێ 2.5f دروست بکە و چاپ بکە.",
+            expectedOutput: ["2.5"],
+            mustContain: ["float", "f"],
+            solution: `float f = 2.5f;\nConsole.WriteLine(f);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا double ب ناڤێ pi ب بهايێ 3.14159 دروست بکە و چاپ بکە.",
+            expectedOutput: ["3.14159"],
+            mustContain: ["double", "pi"],
+            solution: `double pi = 3.14159;\nConsole.WriteLine(pi);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا float ب ناڤێ floatPI = 3.14159265f دروست بکە و چاپ بکە ب شێوێ: Float PI is: 3.141593",
+            expectedOutput: ["Float PI is: 3.141593"],
+            mustContain: ["float", "floatPI"],
+            solution: `float floatPI = 3.14159265f;\nConsole.WriteLine("Float PI is: {0}", floatPI);`
+          },
+          {
+            diff: "medium",
+            prompt: "گۆڕاوەکا double ب ناڤێ doublePI = 3.14159265358979 دروست بکە و چاپ بکە ب شێوێ: Double PI is: 3.14159265358979",
+            expectedOutput: ["Double PI is: 3.14159265358979"],
+            mustContain: ["double", "doublePI"],
+            solution: `double doublePI = 3.14159265358979;\nConsole.WriteLine("Double PI is: {0}", doublePI);`
+          },
+          {
+            diff: "hard",
+            prompt: "هەردوو گۆڕاوێن float a = 1.12345678f و double b = 1.12345678 دروست بکە و د دوو ڕێزان دا چاپ بکە دا جیاوازیا وردبینیا وان دیار ببیت (float دێ بیتە 1.123457).",
+            expectedOutput: ["1.123457", "1.12345678"],
+            mustContain: ["float", "double"],
+            solution: `float a = 1.12345678f;\ndouble b = 1.12345678;\nConsole.WriteLine(a);\nConsole.WriteLine(b);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا float ب ناڤێ r = 2.0f و double ب ناڤێ area = 3.14 * r * r حیساب بکە و چاپ بکە (دێ دەرچیت 12.56).",
+            expectedOutput: ["12.56"],
+            mustContain: ["float", "double"],
+            solution: `float r = 2.0f;\ndouble area = 3.14 * r * r;\nConsole.WriteLine(area);`
+          }
+        ]
+      },
+      {
+        id: 9,
+        title: "C# Data Types (Boolean - لۆجیکی)",
+        points: [
+          "ب کلیلەپەیڤا <span class='inline-code'>bool</span> دهێتە ڕاگەهاندن.",
+          "تنێ دوو بها هەنە: <span class='inline-code'>true</span> یان <span class='inline-code'>false</span> (بهايێ بنەرەتی <span class='inline-code'>false</span> یە).",
+          "ل دەمێ چاپکرنێ ب <span class='inline-code'>Console.WriteLine</span>، پیتا ئێکێ مەزن دەردچیت: <span class='inline-code'>True</span> یان <span class='inline-code'>False</span>."
+        ],
+        example: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b); // False\nbool equalA1 = (a == 1);  // True`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا bool ب ناڤێ isStudent دروست بکە ب بهايێ true و چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["bool", "isStudent"],
+            solution: `bool isStudent = true;\nConsole.WriteLine(isStudent);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا bool ب ناڤێ hasError دروست بکە ب بهايێ false و چاپ بکە.",
+            expectedOutput: ["False"],
+            mustContain: ["bool", "hasError"],
+            solution: `bool hasError = false;\nConsole.WriteLine(hasError);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 10; و int b = 20; دروست بکە، پاشان گۆڕاوەکا bool ب ناڤێ check = (a < b); دروست بکە و check چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["bool", "check", "<"],
+            solution: `int a = 10;\nint b = 20;\nbool check = (a < b);\nConsole.WriteLine(check);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 1; و int b = 2; دروست بکە، پاشان bool greaterAB = (a > b); و bool equalA1 = (a == 1); دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["False", "True"],
+            mustContain: ["bool", "greaterAB", "equalA1"],
+            solution: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nbool equalA1 = (a == 1);\nConsole.WriteLine(greaterAB);\nConsole.WriteLine(equalA1);`
+          },
+          {
+            diff: "hard",
+            prompt: "int age = 18; دروست بکە، پاشان دوو گۆڕاوێن bool دروست بکە: isAdult = (age >= 18) و isChild = (age < 12)، و هەردووکان د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["True", "False"],
+            mustContain: ["bool", ">=", "<"],
+            solution: `int age = 18;\nbool isAdult = (age >= 18);\nbool isChild = (age < 12);\nConsole.WriteLine(isAdult);\nConsole.WriteLine(isChild);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 5; و int y = 5; دروست بکە، پاشان بێ دروستکرنا گۆڕاوا bool، راستەوخۆ د ناڤ Console.WriteLine دا پشکنینا (x == y) و (x != y) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["True", "False"],
+            mustContain: ["==", "!="],
+            solution: `int x = 5;\nint y = 5;\nConsole.WriteLine(x == y);\nConsole.WriteLine(x != y);`
+          }
+        ]
+      },
+      {
+        id: 10,
+        title: "C# Data Types (Char - تاکە پیت)",
+        points: [
+          "جۆرێ <span class='inline-code'>char</span> بۆ هەڵگرتنا <b>تاکە پیتەکێ</b> یان نیشانەکێ دهێتە بکارئینان.",
+          "دڤێت ب شێوێ مەجبووری د ناڤ دوو کەوانێن تاک دا بیت: <span class='inline-code'>'A'</span> یان <span class='inline-code'>'c'</span>.",
+          "بهايێ بنەرەتی (Default) یێ وی <span class='inline-code'>'\\0'</span> یە."
+        ],
+        example: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا char ب ناڤێ myGrade دروست بکە و بهايێ 'B' بدەیێ، پاشان چاپ بکە.",
+            expectedOutput: ["B"],
+            mustContain: ["char", "myGrade"],
+            solution: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`
+          },
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا char ب ناڤێ symbol دروست بکە ب بهايێ '@' و چاپ بکە.",
+            expectedOutput: ["@"],
+            mustContain: ["char", "symbol"],
+            solution: `char symbol = '@';\nConsole.WriteLine(symbol);`
+          },
+          {
+            diff: "medium",
+            prompt: "سەرەتا char letter; ڕابگەهینە، ل ڕێزا دووێ بهايێ 'Z' بدەیێ، پاشان چاپ بکە.",
+            expectedOutput: ["Z"],
+            mustContain: ["char", "letter"],
+            solution: `char letter;\nletter = 'Z';\nConsole.WriteLine(letter);`
+          },
+          {
+            diff: "medium",
+            prompt: "دوو گۆڕاوێن char دروست بکە: c1 = 'I' و c2 = 'T' پاشان ب شێوێ: IT د ئێک ڕێز دا چاپ بکە (تێبینی: \"\" + c1 + c2 بکاربینە دا نەبیتە کۆما ژمارێن ASCII!).",
+            expectedOutput: ["IT"],
+            mustContain: ["char", "c1", "c2"],
+            solution: `char c1 = 'I';\nchar c2 = 'T';\nConsole.WriteLine("" + c1 + c2);`
+          },
+          {
+            diff: "hard",
+            prompt: "char grade = 'A'; دروست بکە، پاشان بهايێ وێ بگوهۆڕە بۆ 'C' و ب فورماتێ چاپ بکە: Grade: C",
+            expectedOutput: ["Grade: C"],
+            mustContain: ["char", "grade"],
+            solution: `char grade = 'A';\ngrade = 'C';\nConsole.WriteLine("Grade: " + grade);`
+          },
+          {
+            diff: "hard",
+            prompt: "char ch = '7'; دروست بکە (وەکی پیت نەک ژمارە!) و bool isSeven = (ch == '7'); دروست بکە، پاشان ch و isSeven د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["7", "True"],
+            mustContain: ["char", "bool", "=="],
+            solution: `char ch = '7';\nbool isSeven = (ch == '7');\nConsole.WriteLine(ch);\nConsole.WriteLine(isSeven);`
+          }
+        ]
+      },
+      {
+        id: 11,
+        title: "C# Data Types (String - دەق)",
+        points: [
+          "جۆرێ <span class='inline-code'>string</span> زنجیرەکا پیتان (دەق/Text) هەڵدگریت و دڤێت د ناڤ کەوانێن جووت دا بیت: <span class='inline-code'>\"Dareen\"</span>.",
+          "بهايێ بنەرەتی یێ وی <span class='inline-code'>null</span> یە (هیچ بها نینە).",
+          "دشێی دەقان ب هێمايێ <span class='inline-code'>+</span> پێکڤە گرێبدەی (Concatenation)، و <span class='inline-code'>\\n</span> ڕێزەکا نوێ ددەت."
+        ],
+        example: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "گۆڕاوەکا string ب ناڤێ name دروست بکە و بهايێ \"Akre\" بدەیێ، پاشان چاپ بکە.",
+            expectedOutput: ["Akre"],
+            mustContain: ["string", "name"],
+            solution: `string name = "Akre";\nConsole.WriteLine(name);`
+          },
+          {
+            diff: "easy",
+            prompt: "دوو گۆڕاوان دروست بکە: string a = \"Hello\"; و string b = \"C#\"; پاشان ب هێمايێ + پێکڤە گرێبدە و چاپ بکە: Hello C#",
+            expectedOutput: ["Hello C#"],
+            mustContain: ["string", "+"],
+            solution: `string a = "Hello";\nstring b = "C#";\nConsole.WriteLine(a + " " + b);`
+          },
+          {
+            diff: "medium",
+            prompt: "string firstName = \"Dareen\"; دروست بکە و ب فورماتا {0} چاپ بکە: Hello, Dareen!",
+            expectedOutput: ["Hello, Dareen!"],
+            mustContain: ["string", "firstName", "{0}"],
+            solution: `string firstName = "Dareen";\nConsole.WriteLine("Hello, {0}!", firstName);`
+          },
+          {
+            diff: "medium",
+            prompt: "string firstName = \"Dareen\"; و string lastName = \"Muhammed\"; دروست بکە، د گۆڕاوەکا fullName دا پێکڤە گرێبدە و چاپ بکە: Your full name is Dareen Muhammed.",
+            expectedOutput: ["Your full name is Dareen Muhammed."],
+            mustContain: ["string", "fullName", "+"],
+            solution: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`
+          },
+          {
+            diff: "hard",
+            prompt: "ب بکارئینانا \\n د ناڤ ئێک Console.WriteLine دا، ل ڕێزا ئێکێ \"Line 1\" و ل ڕێزا دووێ \"Line 2\" چاپ بکە.",
+            expectedOutput: ["Line 1", "Line 2"],
+            mustContain: ["\\n"],
+            solution: `Console.WriteLine("Line 1\\nLine 2");`
+          },
+          {
+            diff: "hard",
+            prompt: "string dept = \"IT\"; و int year = 2025; دروست بکە و ب پێکڤەگرێدانێ (+) چاپ بکە: Department: IT - 2025",
+            expectedOutput: ["Department: IT - 2025"],
+            mustContain: ["string", "int", "+"],
+            solution: `string dept = "IT";\nint year = 2025;\nConsole.WriteLine("Department: " + dept + " - " + year);`
+          }
+        ]
+      },
+      {
+        id: 12,
+        title: "C# Operators Categories (پۆلێن ئۆپەرەیتەران)",
+        points: [
+          "ئۆپەرەیتەر بۆ جێبەجێکرنا کرداران ل سەر گۆڕاو و بهایان دهێنە بکارئینان.",
+          "جۆرێن گرنگ یێن ئەزموونێ: <b>Arithmetic</b> (<span class='inline-code'>+ - * / % ++ --</span>)، <b>Assignment</b> (<span class='inline-code'>= += -= *= /= %=</span>)، <b>Comparison</b> (<span class='inline-code'>== != &lt; &gt; &lt;= &gt;=</span>)، <b>Logical</b> (<span class='inline-code'>&& || ^ !</span>)، و <b>String Concatenation</b> (<span class='inline-code'>+</span>)."
+        ],
+        example: `int sum = 5 + 3;          // Arithmetic\nbool ok = (sum > 5);      // Comparison\nbool res = ok && true;    // Logical`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "ب ئۆپەرەیتەرێ Arithmetic، گۆڕاوەکا int x = 10 + 5; دروست بکە و چاپ بکە.",
+            expectedOutput: ["15"],
+            mustContain: ["int", "+"],
+            solution: `int x = 10 + 5;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "easy",
+            prompt: "ب ئۆپەرەیتەرێ String Concatenation (+)، \"C#\" و \" Operators\" پێکڤە گرێبدە و چاپ بکە.",
+            expectedOutput: ["C# Operators"],
+            mustContain: ["+"],
+            solution: `Console.WriteLine("C#" + " Operators");`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 8; دروست بکە، ب ئۆپەرەیتەرێ Assignment (+=) بهايێ 2 لێ زێدە بکە، پاشان چاپ بکە.",
+            expectedOutput: ["10"],
+            mustContain: ["+="],
+            solution: `int a = 8;\na += 2;\nConsole.WriteLine(a);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 12; دروست بکە، ب Comparison ئۆپەرەیتەر پشکنین بکە ئایا x > 10 یە و د گۆڕاوەکا bool check دا هەڵبگرە و چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["bool", ">"],
+            solution: `int x = 12;\nbool check = x > 10;\nConsole.WriteLine(check);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 6; int b = 4; دروست بکە. سەرەتا ئەنجامێ (a * b) و پاشان ئەنجامێ (a > b && b > 0) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["24", "True"],
+            mustContain: ["*", "&&"],
+            solution: `int a = 6;\nint b = 4;\nConsole.WriteLine(a * b);\nConsole.WriteLine(a > b && b > 0);`
+          },
+          {
+            diff: "hard",
+            prompt: "گۆڕاوەکا int n = 10; دروست بکە، ب ئۆپەرەیتەرێ % باقیا دابەشکرنا وێ ل سەر 3 حیساب بکە و د گۆڕاوەکا rem دا هەڵبگرە، پاشان ب پەیڤا \"Rem: \" پێکڤە گرێبدە و چاپ بکە: Rem: 1",
+            expectedOutput: ["Rem: 1"],
+            mustContain: ["%", "+"],
+            solution: `int n = 10;\nint rem = n % 3;\nConsole.WriteLine("Rem: " + rem);`
+          }
+        ]
+      },
+      {
+        id: 13,
+        title: "Arithmetic Operators (ئۆپەرەیتەرێن بیرکاریێ)",
+        points: [
+          "<span class='inline-code'>+</span> کۆمکرن، <span class='inline-code'>-</span> ژێبرن، <span class='inline-code'>*</span> لێکدان، <span class='inline-code'>/</span> دابەشکرن، <span class='inline-code'>%</span> باقیا دابەشکرنێ (Remainder).",
+          "<span class='inline-code'>++</span> بهايێ گۆڕاوێ ب 1 زێدە دکەت، و <span class='inline-code'>--</span> ب 1 کێم دکەت.",
+          "<span class='inline-code'>+</span> و <span class='inline-code'>-</span> یێن تاک (Unary): وەکی <span class='inline-code'>+5</span> و <span class='inline-code'>-5</span> بۆ نیشانکرنا ژماران."
+        ],
+        example: `int x = 5 + 5; // 10\nint r = 5 % 2; // 1\nx++;           // 11`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int x = 10 / 2; دروست بکە و بهايێ x چاپ بکە.",
+            expectedOutput: ["5"],
+            mustContain: ["/"],
+            solution: `int x = 10 / 2;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "easy",
+            prompt: "int x = 5 % 2; دروست بکە و باقیا دابەشکرنێ چاپ بکە.",
+            expectedOutput: ["1"],
+            mustContain: ["%"],
+            solution: `int x = 5 % 2;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 7; دروست بکە، ب x++; ژمارەکێ لێ زێدە بکە و چاپ بکە. پاشان ب x--; ژمارەکێ کێم بکە و دیسا چاپ بکە.",
+            expectedOutput: ["8", "7"],
+            mustContain: ["++", "--"],
+            solution: `int x = 7;\nx++;\nConsole.WriteLine(x);\nx--;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 15; int b = 4; دروست بکە، پاشان کۆم (a + b)، جیاوازی (a - b)، لێکدان (a * b) د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["19", "11", "60"],
+            mustContain: ["+", "-", "*"],
+            solution: `int a = 15;\nint b = 4;\nConsole.WriteLine(a + b);\nConsole.WriteLine(a - b);\nConsole.WriteLine(a * b);`
+          },
+          {
+            diff: "hard",
+            prompt: "int num = 17; دروست بکە. د ڕێزا ئێکێ دا ئەنجامێ دابەشکرنا تەمام (num / 5) و د ڕێزا دووێ دا باقیا (num % 5) چاپ بکە.",
+            expectedOutput: ["3", "2"],
+            mustContain: ["/", "%"],
+            solution: `int num = 17;\nConsole.WriteLine(num / 5);\nConsole.WriteLine(num % 5);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 10; دروست بکە و ب Unary minus گۆڕاوەکا دی ب ناڤێ neg = -x; دروست بکە، پاشان neg + 3 چاپ بکە (دێ بیتە -7).",
+            expectedOutput: ["-7"],
+            mustContain: ["-x"],
+            solution: `int x = 10;\nint neg = -x;\nConsole.WriteLine(neg + 3);`
+          }
+        ]
+      },
+      {
+        id: 14,
+        title: "Arithmetic Simple Example (بکارئینانا ++b و b++ و دابەشکرن)",
+        points: [
+          "دابەشکرنا دوو ژمارێن <span class='inline-code'>int</span> ئەنجامێ تەمام ددەت (بۆ نموونە <span class='inline-code'>11 / 3 == 3</span>). بۆ ئەنجامێ دەیی دڤێت ل سەر <span class='inline-code'>4.0</span> دابەش بکەی.",
+          "<span class='inline-code'>b++</span> (Post-increment): سەرەتا بهايێ نوكە بکاردهێت، پاشان ب 1 زێدە دبیت.",
+          "<span class='inline-code'>++b</span> (Pre-increment): سەرەتا ب 1 زێدە دبیت، پاشان بهايێ نوێ بکاردهێت."
+        ],
+        example: `int a = 5, b = 4;\nConsole.WriteLine(a + b++); // 9 (پاشان b دبیتە 5)\nConsole.WriteLine(a + ++b); // 11 (b سەرەتا دبیتە 6)`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int squarePerimeter = 17; دروست بکە، پاشان double squareSide = squarePerimeter / 4.0; حیساب بکە و چاپ بکە.",
+            expectedOutput: ["4.25"],
+            mustContain: ["double", "4.0"],
+            solution: `int squarePerimeter = 17;\ndouble squareSide = squarePerimeter / 4.0;\nConsole.WriteLine(squareSide);`
+          },
+          {
+            diff: "easy",
+            prompt: "راستەوخۆ د دوو ڕێزان دا ئەنجامێ 11 / 3 و 11 % 3 چاپ بکە.",
+            expectedOutput: ["3", "2"],
+            mustContain: ["11 / 3", "11 % 3"],
+            solution: `Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);`
+          },
+          {
+            diff: "medium",
+            prompt: "double side = 4.25; دروست بکە، پاشان double area = side * side; حیساب بکە و چاپ بکە (18.0625).",
+            expectedOutput: ["18.0625"],
+            mustContain: ["double", "*"],
+            solution: `double side = 4.25;\ndouble area = side * side;\nConsole.WriteLine(area);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 5; int b = 4; دروست بکە. د ڕێزا ئێکێ دا (a + b++) و د ڕێزا دووێ دا (a + b) چاپ بکە.",
+            expectedOutput: ["9", "10"],
+            mustContain: ["b++"],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 5; int b = 5; دروست بکە. د ڕێزا ئێکێ دا (a + (++b)) و د ڕێزا دووێ دا (a + b) چاپ بکە (دڤێت هەردوو 11 بن).",
+            expectedOutput: ["11", "11"],
+            mustContain: ["++b"],
+            solution: `int a = 5;\nint b = 5;\nConsole.WriteLine(a + (++b));\nConsole.WriteLine(a + b);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 10; دروست بکە. چاپ بکە: x++ ، پاشان ++x ، پاشان x-- ، و ل دوماهیێ x (دڤێت د ٤ ڕێزان دا ببنە: 10 و 12 و 12 و 11).",
+            expectedOutput: ["10", "12", "12", "11"],
+            mustContain: ["x++", "++x", "x--"],
+            solution: `int x = 10;\nConsole.WriteLine(x++);\nConsole.WriteLine(++x);\nConsole.WriteLine(x--);\nConsole.WriteLine(x);`
+          }
+        ]
+      },
+      {
+        id: 15,
+        title: "Assignment Operators (ئۆپەرەیتەرێن پێدانا بهای)",
+        points: [
+          "بۆ پێدانا بهايەکی ب گۆڕاوەکێ دهێنە بکارئینان: <span class='inline-code'>=</span> (پێدانا سادە).",
+          "پێدانا کورتکری: <span class='inline-code'>C += A</span> هەمان تشتە وەکی <span class='inline-code'>C = C + A</span>.",
+          "ب هەمان شێوە: <span class='inline-code'>-=</span>، <span class='inline-code'>*=</span>، <span class='inline-code'>/=</span>، <span class='inline-code'>%=</span>."
+        ],
+        example: `int c = 10;\nc += 5; // c = 15\nc -= 3; // c = 12\nc *= 2; // c = 24`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int c = 10; دروست بکە، ب c += 5; بهايێ وێ زێدە بکە و چاپ بکە.",
+            expectedOutput: ["15"],
+            mustContain: ["+="],
+            solution: `int c = 10;\nc += 5;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "easy",
+            prompt: "int c = 20; دروست بکە، ب c -= 7; بهايێ وێ کێم بکە و چاپ بکە.",
+            expectedOutput: ["13"],
+            mustContain: ["-="],
+            solution: `int c = 20;\nc -= 7;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "medium",
+            prompt: "int c = 6; دروست بکە، سەرەتا c *= 4; جێبەجێ بکە و چاپ بکە، پاشان c /= 3; و چاپ بکە.",
+            expectedOutput: ["24", "8"],
+            mustContain: ["*=", "/="],
+            solution: `int c = 6;\nc *= 4;\nConsole.WriteLine(c);\nc /= 3;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "medium",
+            prompt: "int c = 25; دروست بکە، ب c %= 4; باقیا وێ تێدا هەڵبگرە و چاپ بکە.",
+            expectedOutput: ["1"],
+            mustContain: ["%="],
+            solution: `int c = 25;\nc %= 4;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 4; int b = 5; int c; دروست بکە، پاشان c = a + b; و پاشان c *= 2; جێبەجێ بکە و c چاپ بکە (18).",
+            expectedOutput: ["18"],
+            mustContain: ["*="],
+            solution: `int a = 4;\nint b = 5;\nint c;\nc = a + b;\nc *= 2;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "hard",
+            prompt: "int total = 100; دروست بکە. ب ترتیب: total -= 20; پاشان total /= 4; پاشان total += 5; پاشان total %= 7; و ل دوماهیێ total چاپ بکە (دڤێت ببیتە 4).",
+            expectedOutput: ["4"],
+            mustContain: ["-=", "/=", "+=", "%="],
+            solution: `int total = 100;\ntotal -= 20;\ntotal /= 4;\ntotal += 5;\ntotal %= 7;\nConsole.WriteLine(total);`
+          }
+        ]
+      },
+      {
+        id: 16,
+        title: "Assignment Example 1 (جێبەجێکرنا زنجیرەیی ل سەر c)",
+        points: [
+          "د ڤێ نموونێ دا بهايێ <span class='inline-code'>c</span> ل گەل هەر ڕێزەکێ دهێتە گوهۆڕین و بهايێ نوێ دەردچیت.",
+          "ئەگەر <span class='inline-code'>a = 21</span> و <span class='inline-code'>c = a</span> بیت: <span class='inline-code'>c += a</span> دبیتە 42، پاشان <span class='inline-code'>c -= a</span> دبیتە 21، پاشان <span class='inline-code'>c *= a</span> دبیتە 441."
+        ],
+        example: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("Line 1 - = Value of c = {0}", c);`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int a = 21; int c; c = a; دروست بکە و چاپ بکە: Value of c = 21",
+            expectedOutput: ["Value of c = 21"],
+            mustContain: ["c = a"],
+            solution: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("Value of c = {0}", c);`
+          },
+          {
+            diff: "easy",
+            prompt: "int a = 21; int c = 21; دروست بکە، پاشان c += a; جێبەجێ بکە و چاپ بکە: c = 42",
+            expectedOutput: ["c = 42"],
+            mustContain: ["+="],
+            solution: `int a = 21;\nint c = 21;\nc += a;\nConsole.WriteLine("c = {0}", c);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 21; int c = 42; دروست بکە، سەرەتا c -= a; جێبەجێ بکە و چاپ بکە، پاشان c *= a; و چاپ بکە.",
+            expectedOutput: ["21", "441"],
+            mustContain: ["-=", "*="],
+            solution: `int a = 21;\nint c = 42;\nc -= a;\nConsole.WriteLine(c);\nc *= a;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 21; int c = 200; دروست بکە، ب c %= a; جێبەجێ بکە و چاپ بکە: Line 6 - %= Value of c = 11",
+            expectedOutput: ["Line 6 - %= Value of c = 11"],
+            mustContain: ["%=", "{0}"],
+            solution: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine("Line 6 - %= Value of c = {0}", c);`
+          },
+          {
+            diff: "hard",
+            prompt: "هەمان هەنگاڤێن سلایدا ١٦: int a = 21; int c = a; پاشان c += a; (چاپ)، c -= a; (چاپ)، c *= a; (چاپ)، c /= a; (چاپ) — ب تنێ ژمارێن 42 و 21 و 441 و 21 د ٤ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["42", "21", "441", "21"],
+            mustContain: ["+=", "-=", "*=", "/="],
+            solution: `int a = 21;\nint c = a;\nc += a;\nConsole.WriteLine(c);\nc -= a;\nConsole.WriteLine(c);\nc *= a;\nConsole.WriteLine(c);\nc /= a;\nConsole.WriteLine(c);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 10; int c = 5; دروست بکە. سەرەتا c += a; پاشان c *= 2; پاشان c -= 4; پاشان c %= 7; و ل دوماهیێ ب فورماتێ چاپ بکە: Final c = 5",
+            expectedOutput: ["Final c = 5"],
+            mustContain: ["+=", "*=", "-=", "%="],
+            solution: `int a = 10;\nint c = 5;\nc += a;\nc *= 2;\nc -= 4;\nc %= 7;\nConsole.WriteLine("Final c = {0}", c);`
+          }
+        ]
+      },
+      {
+        id: 17,
+        title: "Assignment Short Table (خشتا کورتکرنا پێدانا بهای)",
+        points: [
+          "<span class='inline-code'>x = 5</span> هەمان <span class='inline-code'>x = 5</span> یە.",
+          "<span class='inline-code'>x += 3</span> هەمان <span class='inline-code'>x = x + 3</span> یە.",
+          "<span class='inline-code'>x -= 3</span>، <span class='inline-code'>x *= 3</span>، <span class='inline-code'>x /= 3</span>، <span class='inline-code'>x %= 3</span> هەمی وەکی شێوێ درێژ کاردکەن."
+        ],
+        example: `int x = 5;\nx += 3; // x دبیتە 8\nx -= 3; // x دبیتە 5`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int x = 5; دروست بکە و ب کورتکری x += 3; بنڤیسە، پاشان چاپ بکە.",
+            expectedOutput: ["8"],
+            mustContain: ["+="],
+            solution: `int x = 5;\nx += 3;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "easy",
+            prompt: "int x = 10; دروست بکە و ب کورتکری x -= 3; بنڤیسە، پاشان چاپ بکە.",
+            expectedOutput: ["7"],
+            mustContain: ["-="],
+            solution: `int x = 10;\nx -= 3;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 5; دروست بکە، ب x *= 3; لێکبدە و چاپ بکە، پاشان ب x /= 3; دابەش بکە و چاپ بکە.",
+            expectedOutput: ["15", "5"],
+            mustContain: ["*=", "/="],
+            solution: `int x = 5;\nx *= 3;\nConsole.WriteLine(x);\nx /= 3;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 14; دروست بکە و ب x %= 3; باقیا وێ بینە و چاپ بکە.",
+            expectedOutput: ["2"],
+            mustContain: ["%="],
+            solution: `int x = 14;\nx %= 3;\nConsole.WriteLine(x);`
+          },
+          {
+            diff: "hard",
+            prompt: "دوو گۆڕاوان int x = 9; و int y = 9; دروست بکە. بۆ x شێوێ کورت (x += 3) و بۆ y شێوێ درێژ (y = y + 3) بکاربینە و پشکنینا (x == y) چاپ بکە (True).",
+            expectedOutput: ["True"],
+            mustContain: ["+=", "y = y + 3", "=="],
+            solution: `int x = 9;\nint y = 9;\nx += 3;\ny = y + 3;\nConsole.WriteLine(x == y);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 3; دروست بکە. ٣ جاران ل دویڤ ئێک x *= 3; جێبەجێ بکە و پشتی هەر جارەکێ چاپ بکە (9 و 27 و 81).",
+            expectedOutput: ["9", "27", "81"],
+            mustContain: ["*="],
+            solution: `int x = 3;\nx *= 3;\nConsole.WriteLine(x);\nx *= 3;\nConsole.WriteLine(x);\nx *= 3;\nConsole.WriteLine(x);`
+          }
+        ]
+      },
+      {
+        id: 18,
+        title: "Assignment Example 2 (پێدانا بهای د ناڤ Console.WriteLine دا)",
+        points: [
+          "تو دشێی کردارا پێدانا بهای راستەوخۆ د ناڤ <span class='inline-code'>Console.WriteLine(x += 3);</span> دا بنڤیسی؛ ئەو دێ هەم بهايێ <span class='inline-code'>x</span> گوهۆڕیت و هەم چاپ کەت.",
+          "ئاگەهدار بە: د یەک بلۆکێ دا نابیت دوو جاران هەمان گۆڕاو ب <span class='inline-code'>int y</span> بهێتە ڕاگەهاندن (دێ شاشیێ دەت)."
+        ],
+        example: `int x = 6;\nConsole.WriteLine(x += 3); // 9\nConsole.WriteLine(x -= 3); // 6\nConsole.WriteLine(x /= 2); // 3`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int y = 4; دروست بکە، پاشان راستەوخۆ د ناڤ Console.WriteLine(y *= 2); دا چاپ بکە.",
+            expectedOutput: ["8"],
+            mustContain: ["y *= 2"],
+            solution: `int y = 4;\nConsole.WriteLine(y *= 2);`
+          },
+          {
+            diff: "easy",
+            prompt: "int x = 6; دروست بکە، پاشان راستەوخۆ د ناڤ Console.WriteLine(x += 3); دا چاپ بکە.",
+            expectedOutput: ["9"],
+            mustContain: ["x += 3"],
+            solution: `int x = 6;\nConsole.WriteLine(x += 3);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 6; دروست بکە. د ڕێزا ئێکێ دا Console.WriteLine(x += 3); و د ڕێزا دووێ دا Console.WriteLine(x -= 3); بنڤیسە.",
+            expectedOutput: ["9", "6"],
+            mustContain: ["+=", "-="],
+            solution: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 6; دروست بکە. د ڕێزا ئێکێ دا Console.WriteLine(x /= 2); و د ڕێزا دووێ دا Console.WriteLine(x *= 3); بنڤیسە.",
+            expectedOutput: ["3", "9"],
+            mustContain: ["/=", "*="],
+            solution: `int x = 6;\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`
+          },
+          {
+            diff: "hard",
+            prompt: "هەمان هەنگاڤێن سلایدا ١٨ بۆ x: int x = 6; پاشان ب ٤ ڕێزێن Console.WriteLine: (x += 3) و (x -= 3) و (x /= 2) و (x *= 3) چاپ بکە.",
+            expectedOutput: ["9", "6", "3", "9"],
+            mustContain: ["+=", "-=", "/=", "*="],
+            solution: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 10; int b = 3; دروست بکە. د ڕێزا ئێکێ دا Console.WriteLine(a += b); و د ڕێزا دووێ دا Console.WriteLine(a %= 5); بنڤیسە.",
+            expectedOutput: ["13", "3"],
+            mustContain: ["+=", "%="],
+            solution: `int a = 10;\nint b = 3;\nConsole.WriteLine(a += b);\nConsole.WriteLine(a %= 5);`
+          }
+        ]
+      },
+      {
+        id: 19,
+        title: "Comparison Operators (ئۆپەرەیتەرێن بەراوردکرنێ)",
+        points: [
+          "بۆ بەراوردکرنا دوو بهایان دهێنە بکارئینان و هەردەم ئەنجامەکێ <span class='inline-code'>bool</span> (<span class='inline-code'>True</span> یان <span class='inline-code'>False</span>) ددەن.",
+          "<span class='inline-code'>==</span> یەکسانە، <span class='inline-code'>!=</span> نە یەکسانە.",
+          "<span class='inline-code'>&gt;</span> مەزنترە، <span class='inline-code'>&lt;</span> بچووکترە، <span class='inline-code'>&gt;=</span> مەزنتر یان یەکسانە، <span class='inline-code'>&lt;=</span> بچووکتر یان یەکسانە."
+        ],
+        example: `int x = 5, y = 3;\nConsole.WriteLine(x == y); // False\nConsole.WriteLine(x != y); // True\nConsole.WriteLine(x >= y); // True`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int x = 10; int y = 10; دروست بکە و پشکنینا (x == y) چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["=="],
+            solution: `int x = 10;\nint y = 10;\nConsole.WriteLine(x == y);`
+          },
+          {
+            diff: "easy",
+            prompt: "int x = 8; int y = 3; دروست بکە و پشکنینا (x != y) چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["!="],
+            solution: `int x = 8;\nint y = 3;\nConsole.WriteLine(x != y);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 5; int y = 9; دروست بکە و پشکنینێن (x > y) و (x < y) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["False", "True"],
+            mustContain: [">", "<"],
+            solution: `int x = 5;\nint y = 9;\nConsole.WriteLine(x > y);\nConsole.WriteLine(x < y);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 15; int y = 15; دروست بکە و پشکنینێن (x >= y) و (x <= 10) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["True", "False"],
+            mustContain: [">=", "<="],
+            solution: `int x = 15;\nint y = 15;\nConsole.WriteLine(x >= y);\nConsole.WriteLine(x <= 10);`
+          },
+          {
+            diff: "hard",
+            prompt: "int mark = 50; دروست بکە. گۆڕاوەکا bool passed = (mark >= 50); و bool full = (mark == 100); دروست بکە و هەردووکان چاپ بکە.",
+            expectedOutput: ["True", "False"],
+            mustContain: ["bool", ">=", "=="],
+            solution: `int mark = 50;\nbool passed = (mark >= 50);\nbool full = (mark == 100);\nConsole.WriteLine(passed);\nConsole.WriteLine(full);`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 4; int b = 7; دروست بکە. د ٣ ڕێزان دا پشکنینێن (a + 3 == b) و (b - a < 3) و (a * 2 >= b) چاپ بکە.",
+            expectedOutput: ["True", "False", "True"],
+            mustContain: ["==", "<", ">="],
+            solution: `int a = 4;\nint b = 7;\nConsole.WriteLine(a + 3 == b);\nConsole.WriteLine(b - a < 3);\nConsole.WriteLine(a * 2 >= b);`
+          }
+        ]
+      },
+      {
+        id: 20,
+        title: "Comparison Example (بەراوردکرن ل گەل ++b)",
+        points: [
+          "ئەگەر <span class='inline-code'>a = 5</span> و <span class='inline-code'>b = 4</span> بیت:",
+          "ل دەمێ <span class='inline-code'>a != ++b</span>، سەرەتا <span class='inline-code'>b</span> ژ 4 دبیتە 5، پاشان بەراوردا <span class='inline-code'>5 != 5</span> دهێتە کرن کو ددەتە <span class='inline-code'>False</span>.",
+          "پشتی هینگێ <span class='inline-code'>b</span> هەر ل سەر 5 دمینیت، لەوما <span class='inline-code'>a &gt; b</span> (<span class='inline-code'>5 &gt; 5</span>) ددەتە <span class='inline-code'>False</span>."
+        ],
+        example: `int a = 5, b = 4;\nConsole.WriteLine(a >= b);    // True\nConsole.WriteLine(a != ++b);  // False (b بوو 5)\nConsole.WriteLine(a > b);     // False`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int a = 5; int b = 4; دروست بکە و (a >= b) و (a != b) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["True", "True"],
+            mustContain: [">=", "!="],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);`
+          },
+          {
+            diff: "easy",
+            prompt: "int a = 5; int b = 4; دروست بکە و (a == b) چاپ بکە.",
+            expectedOutput: ["False"],
+            mustContain: ["=="],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a == b);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 5; int b = 4; دروست بکە. سەرەتا (a != ++b) چاپ بکە، پاشان (a > b) چاپ بکە.",
+            expectedOutput: ["False", "False"],
+            mustContain: ["++b", "!=", ">"],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`
+          },
+          {
+            diff: "medium",
+            prompt: "int a = 5; int b = 4; دروست بکە. سەرەتا (a == b++) چاپ بکە (تێبینی: b++ ل پشتی بەراوردێ زێدە دبیت!) پاشان (a == b) چاپ بکە.",
+            expectedOutput: ["False", "True"],
+            mustContain: ["b++", "=="],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a == b++);\nConsole.WriteLine(a == b);`
+          },
+          {
+            diff: "hard",
+            prompt: "هەمی ٥ ڕێزێن سلایدا ٢٠ پێکڤە بنڤیسە: int a = 5; int b = 4; پاشان چاپ بکە: (a >= b)، (a != b)، (a == b)، (a != ++b)، (a > b).",
+            expectedOutput: ["True", "True", "False", "False", "False"],
+            mustContain: [">=", "!=", "==", "++b", ">"],
+            solution: `int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);\nConsole.WriteLine(a == b);\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 10; int y = 12; دروست بکە. د ٣ ڕێزان دا چاپ بکە: (x++ < --y) و (x == y) و (++x >= y).",
+            expectedOutput: ["True", "True", "True"],
+            mustContain: ["x++", "--y", "++x"],
+            solution: `int x = 10;\nint y = 12;\nConsole.WriteLine(x++ < --y);\nConsole.WriteLine(x == y);\nConsole.WriteLine(++x >= y);`
+          }
+        ]
+      },
+      {
+        id: 21,
+        title: "Logical Operators: AND (&&), OR (||), NOT (!)",
+        points: [
+          "ئۆپەرەیتەرێن لۆجیکی بهایێن <span class='inline-code'>bool</span> وەردگرن و ئەنجامەکێ <span class='inline-code'>bool</span> دزڤڕینن.",
+          "<span class='inline-code'>&&</span> (<b>Logical AND</b>): تەنێ دەما <b>هەردوو لای</b> <span class='inline-code'>true</span> بن، ئەنجام <span class='inline-code'>True</span> ددەت.",
+          "<span class='inline-code'>||</span> (<b>Logical OR</b>): ئەگەر <b>ب تەنێ ئێک ژ لایان</b> <span class='inline-code'>true</span> بیت، ئەنجام <span class='inline-code'>True</span> ددەت.",
+          "<span class='inline-code'>!</span> (<b>Logical NOT</b>): ئەنجامی بەروڤاژی دکەت (<span class='inline-code'>true</span> دکەتە <span class='inline-code'>False</span> و بەروڤاژی)."
+        ],
+        example: `int x = 7;\nConsole.WriteLine(x < 5 && x < 10);   // False (AND)\nConsole.WriteLine(x < 5 || x < 10);   // True  (OR)\nConsole.WriteLine(!(x < 5 && x < 10)); // True  (NOT)`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "int x = 3; دروست بکە و ب && پشکنینا (x < 5 && x < 10) چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["&&"],
+            solution: `int x = 3;\nConsole.WriteLine(x < 5 && x < 10);`
+          },
+          {
+            diff: "easy",
+            prompt: "int x = 8; دروست بکە و ب || پشکنینا (x < 5 || x < 10) چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["||"],
+            solution: `int x = 8;\nConsole.WriteLine(x < 5 || x < 10);`
+          },
+          {
+            diff: "medium",
+            prompt: "int x = 6; دروست بکە و ب ! پشکنینا !(x < 5 && x < 10) چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["!", "&&"],
+            solution: `int x = 6;\nConsole.WriteLine(!(x < 5 && x < 10));`
+          },
+          {
+            diff: "medium",
+            prompt: "int age = 22; bool hasID = true; دروست بکە. پشکنین بکە ئایا (age >= 18 && hasID) و چاپ بکە.",
+            expectedOutput: ["True"],
+            mustContain: ["&&", ">="],
+            solution: `int age = 22;\nbool hasID = true;\nConsole.WriteLine(age >= 18 && hasID);`
+          },
+          {
+            diff: "hard",
+            prompt: "int score = 45; bool isExtra = true; دروست بکە. د دوو ڕێزان دا چاپ بکە: (score >= 50 || isExtra) و !(score >= 50 || isExtra).",
+            expectedOutput: ["True", "False"],
+            mustContain: ["||", "!"],
+            solution: `int score = 45;\nbool isExtra = true;\nConsole.WriteLine(score >= 50 || isExtra);\nConsole.WriteLine(!(score >= 50 || isExtra));`
+          },
+          {
+            diff: "hard",
+            prompt: "int a = 10; int b = 20; int c = 5; دروست بکە. د دوو ڕێزان دا چاپ بکە: (a > c && b > a && c > 0) و (a == 5 || b == 10 || !true).",
+            expectedOutput: ["True", "False"],
+            mustContain: ["&&", "||", "!"],
+            solution: `int a = 10;\nint b = 20;\nint c = 5;\nConsole.WriteLine(a > c && b > a && c > 0);\nConsole.WriteLine(a == 5 || b == 10 || !true);`
+          }
+        ]
+      },
+      {
+        id: 22,
+        title: "Logical Operators Simple Example (تاقیکرنا تەماما AND / OR / NOT / XOR)",
+        points: [
+          "ل ڤێرێ تێکەلەکا گۆڕاوێن <span class='inline-code'>bool a = true;</span> و <span class='inline-code'>bool b = false;</span> دهێتە تاقیکرن.",
+          "<span class='inline-code'>^</span> (<b>XOR</b>): تنێ دەما هەردوو لای <b>جودا بن</b> (ئێک true و یێ دی false) ئەنجام <span class='inline-code'>True</span> ددەت؛ ئەگەر وەکی ئێک بن <span class='inline-code'>False</span> ددەت.",
+          "نموونە: <span class='inline-code'>(5 &gt; 7) ^ (a == b)</span> دێ بیتە <span class='inline-code'>false ^ false</span> کو ددەتە <span class='inline-code'>False</span>."
+        ],
+        example: `bool a = true, b = false;\nConsole.WriteLine(a && b); // False\nConsole.WriteLine(a || b); // True\nConsole.WriteLine(a ^ b);  // True\nConsole.WriteLine(!b);     // True`,
+        questions: [
+          {
+            diff: "easy",
+            prompt: "bool a = true; bool b = false; دروست بکە و (a && b) و (a || b) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["False", "True"],
+            mustContain: ["&&", "||"],
+            solution: `bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);\nConsole.WriteLine(a || b);`
+          },
+          {
+            diff: "easy",
+            prompt: "bool a = true; bool b = false; دروست بکە و (!a) و (!b) د دوو ڕێزان دا چاپ بکە.",
+            expectedOutput: ["False", "True"],
+            mustContain: ["!a", "!b"],
+            solution: `bool a = true;\nbool b = false;\nConsole.WriteLine(!a);\nConsole.WriteLine(!b);`
+          },
+          {
+            diff: "medium",
+            prompt: "bool a = true; bool b = false; دروست بکە و (a ^ b) و (b || true) و (b && true) د ٣ ڕێزان دا چاپ بکە.",
+            expectedOutput: ["True", "True", "False"],
+            mustContain: ["^", "||", "&&"],
+            solution: `bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);\nConsole.WriteLine(b || true);\nConsole.WriteLine(b && true);`
+          },
+          {
+            diff: "medium",
+            prompt: "bool a = true; bool b = false; دروست بکە و ((5 > 7) ^ (a == b)) چاپ بکە.",
+            expectedOutput: ["False"],
+            mustContain: ["^", "=="],
+            solution: `bool a = true;\nbool b = false;\nConsole.WriteLine((5 > 7) ^ (a == b));`
+          },
+          {
+            diff: "hard",
+            prompt: "bool a = true; bool b = false; دروست بکە. د ٣ ڕێزان دا چاپ بکە: (!b && a)، !(a && b)، (!a || b).",
+            expectedOutput: ["True", "True", "False"],
+            mustContain: ["&&", "||", "!"],
+            solution: `bool a = true;\nbool b = false;\nConsole.WriteLine(!b && a);\nConsole.WriteLine(!(a && b));\nConsole.WriteLine(!a || b);`
+          },
+          {
+            diff: "hard",
+            prompt: "int x = 10; int y = 5; bool p = true; bool q = false; دروست بکە. د ٢ ڕێزان دا چاپ بکە: ((x > y) && (p || q)) و !((x == 10) && !q).",
+            expectedOutput: ["True", "False"],
+            mustContain: ["&&", "||", "!"],
+            solution: `int x = 10;\nint y = 5;\nbool p = true;\nbool q = false;\nConsole.WriteLine((x > y) && (p || q));\nConsole.WriteLine(!((x == 10) && !q));`
+          }
+        ]
+      }
+    ];
 
-function resetQuiz() {
-  renderAll();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+    // =========================================================================
+    // 2. MINI C# INTERPRETER & VALIDATOR (100% Client-Side, Accurate C# Semantics)
+    // =========================================================================
+    const INT_TYPES = new Set(["byte", "sbyte", "short", "ushort", "int", "uint", "long", "ulong"]);
+    const FLOAT_TYPES = new Set(["float", "double", "decimal"]);
+    const ALL_TYPES = new Set([...INT_TYPES, ...FLOAT_TYPES, "bool", "char", "string", "var"]);
 
-renderAll();
-</script>
-</body>
-</html>
+    function stripComments(code) {
+      let out = "";
+      let inStr = false, inChar = false, esc = false;
+      for (let i = 0; i < code.length; i++) {
+        const ch = code[i];
+        const next = code[i + 1];
+        if (esc) { out += ch; esc = false; continue; }
+        if ((inStr || inChar) && ch === "\\") { out += ch; esc = true; continue; }
+        if (!inChar && ch === '"') { inStr = !inStr; out += ch; continue; }
+        if (!inStr && ch === "'") { inChar = !inChar; out += ch; continue; }
+        if (!inStr && !inChar) {
+          if (ch === "/" && next === "/") {
+            while (i < code.length && code[i] !== "\n") i++;
+            out += "\n";
+            continue;
+          }
+          if (ch === "/" && next === "*") {
+            i += 2;
+            while (i < code.length && !(code[i] === "*" && code[i + 1] === "/")) i++;
+            i++;
+            continue;
+          }
+        }
+        out += ch;
+      }
+      return out;
+    }
+
+    function unwrapBoilerplate(code) {
+      // Allow students who paste class Program { static void Main(...) { ... } }
+      let cleaned = code.replace(/^\s*using\s+[A-Za-z0-9_.]+\s*;\s*/gm, "");
+      const mainMatch = cleaned.match(/static\s+(?:void|int)\s+Main\s*\([^)]*\)\s*\{([\s\S]*)\}\s*\}?\s*$/);
+      if (mainMatch) {
+        return mainMatch[1];
+      }
+      return cleaned;
+    }
+
+    function splitStatements(code) {
+      const stmts = [];
+      let cur = "";
+      let inStr = false, inChar = false, esc = false, paren = 0;
+      for (let i = 0; i < code.length; i++) {
+        const ch = code[i];
+        if (esc) { cur += ch; esc = false; continue; }
+        if ((inStr || inChar) && ch === "\\") { cur += ch; esc = true; continue; }
+        if (!inChar && ch === '"') { inStr = !inStr; cur += ch; continue; }
+        if (!inStr && ch === "'") { inChar = !inChar; cur += ch; continue; }
+        if (!inStr && !inChar) {
+          if (ch === "(") paren++;
+          else if (ch === ")") paren--;
+          if (ch === ";" && paren === 0) {
+            if (cur.trim()) stmts.push(cur.trim());
+            cur = "";
+            continue;
+          }
+        }
+        cur += ch;
+      }
+      if (inStr) throw new Error("شاشی: نیڤ-کەوانێن جووت \" \" ب دروستی نەهاتینە گرتن!");
+      if (inChar) throw new Error("شاشی: نیڤ-کەوانێن تاک ' ' ب دروستی نەهاتینە گرتن!");
+      if (paren !== 0) throw new Error("شاشی: ژمارا کەوانێن ( و ) یەکسان نینە!");
+      if (cur.trim()) throw new Error("شاشی: بیر نەکە ل دوماهیا ڕێزێ نیشانا ; (Semicolon) بدانێ!");
+      return stmts;
+    }
+
+    function splitTopLevelCommas(str) {
+      const parts = [];
+      let cur = "";
+      let inStr = false, inChar = false, esc = false, paren = 0;
+      for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (esc) { cur += ch; esc = false; continue; }
+        if ((inStr || inChar) && ch === "\\") { cur += ch; esc = true; continue; }
+        if (!inChar && ch === '"') { inStr = !inStr; cur += ch; continue; }
+        if (!inStr && ch === "'") { inChar = !inChar; cur += ch; continue; }
+        if (!inStr && !inChar) {
+          if (ch === "(") paren++;
+          else if (ch === ")") paren--;
+          if (ch === "," && paren === 0) {
+            parts.push(cur.trim());
+            cur = "";
+            continue;
+          }
+        }
+        cur += ch;
+      }
+      if (cur.trim() || parts.length > 0) parts.push(cur.trim());
+      return parts;
+    }
+
+    function tokenizeExpr(expr) {
+      const tokens = [];
+      let i = 0;
+      while (i < expr.length) {
+        const ch = expr[i];
+        if (/\s/.test(ch)) { i++; continue; }
+
+        // String literal
+        if (ch === '"') {
+          let val = "", esc = false;
+          i++;
+          while (i < expr.length) {
+            const c = expr[i];
+            if (esc) {
+              if (c === "n") val += "\n";
+              else if (c === "t") val += "\t";
+              else if (c === "r") val += "\r";
+              else val += c;
+              esc = false;
+            } else if (c === "\\") {
+              esc = true;
+            } else if (c === '"') {
+              break;
+            } else {
+              val += c;
+            }
+            i++;
+          }
+          if (expr[i] !== '"') throw new Error("شاشی: دەقێ د ناڤ \" \" دا نەهاتیە گرتن!");
+          i++;
+          tokens.push({ type: "string", value: val });
+          continue;
+        }
+
+        // Char literal
+        if (ch === "'") {
+          let val = "", esc = false;
+          i++;
+          while (i < expr.length) {
+            const c = expr[i];
+            if (esc) {
+              if (c === "0") val += "\0";
+              else if (c === "n") val += "\n";
+              else if (c === "t") val += "\t";
+              else val += c;
+              esc = false;
+            } else if (c === "\\") {
+              esc = true;
+            } else if (c === "'") {
+              break;
+            } else {
+              val += c;
+            }
+            i++;
+          }
+          if (expr[i] !== "'" || val.length !== 1) {
+            throw new Error("شاشی: جۆرێ char دڤێت تەنێ ئێک پیت د ناڤ نیڤ-کەوانێن تاک ' ' دا بیت!");
+          }
+          i++;
+          tokens.push({ type: "char", value: val });
+          continue;
+        }
+
+        // Numbers
+        if (/[0-9]/.test(ch)) {
+          let numStr = "";
+          let hasDot = false;
+          while (i < expr.length && (/[0-9]/.test(expr[i]) || (expr[i] === "." && !hasDot))) {
+            if (expr[i] === ".") hasDot = true;
+            numStr += expr[i++];
+          }
+          let suffix = "";
+          while (i < expr.length && /[a-zA-Z]/.test(expr[i])) {
+            suffix += expr[i++];
+          }
+          suffix = suffix.toLowerCase();
+          if (suffix && !["f", "d", "m", "l", "u", "ul", "lu"].includes(suffix)) {
+            throw new Error(`شاشی: پاشگرێ ژمارێ '${suffix}' دروست نینە!`);
+          }
+          tokens.push({
+            type: "number",
+            value: Number(numStr),
+            hasDot,
+            suffix,
+            raw: numStr + suffix
+          });
+          continue;
+        }
+
+        // Identifiers / keywords
+        if (/[a-zA-Z_]/.test(ch)) {
+          let id = "";
+          while (i < expr.length && /[a-zA-Z0-9_]/.test(expr[i])) id += expr[i++];
+          if (id === "true" || id === "false") {
+            tokens.push({ type: "bool", value: id === "true" });
+          } else {
+            tokens.push({ type: "ident", value: id });
+          }
+          continue;
+        }
+
+        // Two-char operators
+        const two = expr.slice(i, i + 2);
+        if (["++", "--", "+=", "-=", "*=", "/=", "%=", "==", "!=", "<=", ">=", "&&", "||"].includes(two)) {
+          tokens.push({ type: "op", value: two });
+          i += 2;
+          continue;
+        }
+
+        // Single-char operators & parens
+        if ("+-*/%<>=!^()".includes(ch)) {
+          tokens.push({ type: ch === "(" || ch === ")" ? "paren" : "op", value: ch });
+          i++;
+          continue;
+        }
+
+        throw new Error(`شاشی: نیشانا '${ch}' د کۆدێ دا نەهاتە ناسین!`);
+      }
+      return tokens;
+    }
+
+    function csharpFormatValue(v) {
+      if (v.vtype === "bool") return v.value ? "True" : "False";
+      if (v.vtype === "char") return v.value;
+      if (v.vtype === "string") return v.value;
+      if (v.vtype === "float") {
+        // Mimic C# float (~7 significant digits)
+        return String(Number(Math.fround(v.value).toPrecision(7)));
+      }
+      if (v.vtype === "double" || v.vtype === "decimal") {
+        return String(Number(v.value.toPrecision(15)));
+      }
+      return String(v.value);
+    }
+
+    function isNumericType(t) {
+      return INT_TYPES.has(t) || FLOAT_TYPES.has(t);
+    }
+
+    function evalExpr(exprStr, env) {
+      const tokens = tokenizeExpr(exprStr);
+      let pos = 0;
+
+      const peek = () => tokens[pos];
+      const consume = () => tokens[pos++];
+
+      function getVar(name) {
+        if (!(name in env)) throw new Error(`شاشی: گۆڕاوا '${name}' نەهاتیە ڕاگەهاندن!`);
+        if (!env[name].assigned) throw new Error(`شاشی: گۆڕاوا '${name}' بێ بها هاتیە بکارئینان (Use of unassigned variable)!`);
+        return { vtype: env[name].type, value: env[name].value, lvalue: name };
+      }
+
+      function coerceAssignment(targetType, valObj) {
+        if (targetType === "var") return { vtype: valObj.vtype, value: valObj.value };
+        if (targetType === "bool") {
+          if (valObj.vtype !== "bool") throw new Error("شاشی: گۆڕاوا bool تەنێ بهایێ true یان false یان بەراوردکرنێ وەردگریت!");
+          return { vtype: "bool", value: valObj.value };
+        }
+        if (targetType === "char") {
+          if (valObj.vtype !== "char") throw new Error("شاشی: گۆڕاوا char تەنێ تاکە پیتەکێ د ناڤ ' ' دا وەردگریت (نەک \" \")!");
+          return { vtype: "char", value: valObj.value };
+        }
+        if (targetType === "string") {
+          if (valObj.vtype !== "string") throw new Error("شاشی: گۆڕاوا string تەنێ دەقێ د ناڤ \" \" دا وەردگریت!");
+          return { vtype: "string", value: valObj.value };
+        }
+        if (targetType === "float") {
+          if (valObj.vtype === "double" && valObj.fromDotLiteral) {
+            throw new Error("شاشی: بۆ جۆرێ float دڤێت پیتا f ل دوماهیا ژمارا دەیی بدانی (نموونە: 10.2f)!");
+          }
+          if (!isNumericType(valObj.vtype)) throw new Error("شاشی: نابیت دەق یان bool بکەیە ناڤ float!");
+          return { vtype: "float", value: Math.fround(valObj.value) };
+        }
+        if (targetType === "decimal") {
+          if (valObj.vtype === "double" && valObj.fromDotLiteral) {
+            throw new Error("شاشی: بۆ جۆرێ decimal دڤێت پیتا m ل دوماهیا ژمارا دەیی بدانی (نموونە: 15.25m)!");
+          }
+          if (!isNumericType(valObj.vtype)) throw new Error("شاشی: نابیت دەق یان bool بکەیە ناڤ decimal!");
+          return { vtype: "decimal", value: valObj.value };
+        }
+        if (targetType === "double") {
+          if (!isNumericType(valObj.vtype)) throw new Error("شاشی: نابیت دەق یان bool بکەیە ناڤ double!");
+          return { vtype: "double", value: valObj.value };
+        }
+        if (INT_TYPES.has(targetType)) {
+          if (FLOAT_TYPES.has(valObj.vtype) && valObj.fromDotLiteral) {
+            throw new Error(`شاشی: نابیت ژمارا دەیی (Decimal) راستەوخۆ بکەیە ناڤ ${targetType}!`);
+          }
+          if (!INT_TYPES.has(valObj.vtype)) {
+            throw new Error(`شاشی: جۆرێ ${targetType} تەنێ ژمارێن تەمام وەردگریت!`);
+          }
+          const v = Math.trunc(valObj.value);
+          if (targetType === "byte" && (v < 0 || v > 255)) throw new Error("شاشی: سنوورێ byte د ناڤبەرا 0 هەتا 255 دایە!");
+          if (targetType === "sbyte" && (v < -128 || v > 127)) throw new Error("شاشی: سنوورێ sbyte د ناڤبەرا -128 هەتا 127 دایە!");
+          if (targetType === "short" && (v < -32768 || v > 32767)) throw new Error("شاشی: سنوورێ short د ناڤبەرا -32768 هەتا 32767 دایە!");
+          if (targetType === "ushort" && (v < 0 || v > 65535)) throw new Error("شاشی: سنوورێ ushort د ناڤبەرا 0 هەتا 65535 دایە!");
+          if ((targetType === "uint" || targetType === "ulong") && v < 0) throw new Error(`شاشی: جۆرێ ${targetType} ژمارێن نێگەتیڤ وەرناگریت!`);
+          return { vtype: targetType, value: v };
+        }
+        return valObj;
+      }
+
+      function promoteBinaryNumeric(a, b) {
+        if (a.vtype === "decimal" || b.vtype === "decimal") return "decimal";
+        if (a.vtype === "double" || b.vtype === "double") return "double";
+        if (a.vtype === "float" || b.vtype === "float") return "float";
+        if (a.vtype === "ulong" || b.vtype === "ulong") return "ulong";
+        if (a.vtype === "long" || b.vtype === "long") return "long";
+        return "int";
+      }
+
+      function parseAssign() {
+        const left = parseOr();
+        const t = peek();
+        if (t && t.type === "op" && ["=", "+=", "-=", "*=", "/=", "%="].includes(t.value)) {
+          if (!left.lvalue) throw new Error("شاشی: لايێ چەپێ یێ پێدانا بهای دڤێت گۆڕاوەک بیت!");
+          const op = consume().value;
+          const right = parseAssign();
+          const varName = left.lvalue;
+          const varRec = env[varName];
+
+          let newVal;
+          if (op === "=") {
+            const coerced = coerceAssignment(varRec.type, right);
+            newVal = coerced.value;
+          } else {
+            if (!varRec.assigned) throw new Error(`شاشی: گۆڕاوا '${varName}' بهایەکێ دەستپ
