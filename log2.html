@@ -3,1463 +3,1409 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lecture 01: Digital Logic Design - شڕۆڤەیا تەمام ب بادینی و ئینگلیزی</title>
+  <title>تاقیکرنا عەمەلی یا C# - هەتا AND / OR / NOT</title>
   <style>
     :root {
-      --navy: #0f2537;
-      --navy-light: #16354d;
-      --blue: #1d6fa5;
-      --blue-soft: #e8f3fa;
-      --teal: #0f766e;
-      --teal-soft: #e6f7f5;
-      --amber: #b45309;
-      --amber-soft: #fef3c7;
-      --red: #b91c1c;
-      --red-soft: #fee2e2;
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #475569;
-      --border: #cbd5e1;
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card2: #263349;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent2: #0284c7;
+      --good: #22c55e;
+      --good-bg: rgba(34, 197, 94, 0.16);
+      --bad: #ef4444;
+      --bad-bg: rgba(239, 68, 68, 0.16);
+      --border: #334155;
+      --code-bg: #0b1120;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: Tahoma, Arial, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.85;
+      line-height: 1.7;
+      padding-bottom: 50px;
     }
-
-    /* Header */
     header {
-      background: linear-gradient(135deg, var(--navy), var(--blue));
-      color: #fff;
-      padding: 2.2rem 1.2rem;
-      text-align: center;
-      border-bottom: 5px solid #38bdf8;
-    }
-
-    header h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.9rem;
-    }
-
-    header p {
-      margin: 0.3rem auto;
-      max-width: 800px;
-      color: #e2e8f0;
-      font-size: 1.05rem;
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .badge {
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 0.3rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    /* Sticky Nav */
-    nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: #ffffff;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
-      padding: 0.65rem 1rem;
+      padding: 12px 16px;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      box-shadow: 0 2px 8px rgba(15, 37, 55, 0.08);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
-
-    nav a {
-      text-decoration: none;
-      color: var(--navy);
-      background: var(--blue-soft);
-      padding: 0.35rem 0.8rem;
-      border-radius: 8px;
-      font-weight: 700;
+    h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
       font-size: 0.9rem;
-      transition: 0.2s;
     }
-
-    nav a:hover {
-      background: var(--blue);
-      color: #fff;
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      font-weight: bold;
     }
-
-    .btn-print {
-      background: var(--navy);
+    .badge.good { color: var(--good); border-color: var(--good); }
+    .badge.bad { color: var(--bad); border-color: var(--bad); }
+    .btn-reset {
+      background: var(--accent2);
       color: #fff;
       border: none;
-      padding: 0.35rem 0.9rem;
+      padding: 6px 12px;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-family: inherit;
+      font-weight: bold;
     }
+    .btn-reset:hover { opacity: 0.9; }
 
-    /* Container */
     .container {
-      max-width: 1050px;
-      margin: 1.5rem auto;
-      padding: 0 1rem 3rem;
+      max-width: 960px;
+      margin: 18px auto;
+      padding: 0 14px;
     }
-
-    .section-title {
-      background: var(--navy);
-      color: #fff;
-      padding: 0.9rem 1.3rem;
+    .intro-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--accent);
       border-radius: 12px;
-      margin: 2.2rem 0 1.2rem;
-      font-size: 1.35rem;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .nav-slides {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 6px;
+      margin-bottom: 20px;
+      background: var(--card);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .nav-slides a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: 0.15s;
+    }
+    .nav-slides a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    .section-title span.en {
-      direction: ltr;
-      font-size: 0.95rem;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 0.2rem 0.7rem;
-      border-radius: 6px;
-    }
-
-    /* Slide Cards */
     .slide-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      margin-bottom: 1.4rem;
-      overflow: hidden;
-      box-shadow: 0 3px 10px rgba(15, 37, 55, 0.05);
+      padding: 18px;
+      margin-bottom: 24px;
+      scroll-margin-top: 85px;
     }
-
-    .slide-header {
-      background: linear-gradient(90deg, var(--blue-soft), #f8fafc);
+    .slide-title {
+      margin: 0 0 10px 0;
+      font-size: 1.15rem;
+      color: var(--accent);
       border-bottom: 1px solid var(--border);
-      padding: 0.85rem 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem;
+      padding-bottom: 8px;
     }
-
-    .slide-num {
-      background: var(--blue);
-      color: #fff;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.88rem;
+    .summary {
+      background: var(--card2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      border-right: 3px solid var(--accent);
     }
-
-    .slide-en-title {
+    .summary ul {
+      margin: 6px 0 0 0;
+      padding-right: 20px;
+    }
+    code {
       direction: ltr;
-      font-weight: 800;
-      color: var(--navy);
-      font-size: 1.1rem;
+      unicode-bidi: embed;
+      background: var(--code-bg);
+      color: #7dd3fc;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92em;
     }
-
-    .slide-body {
-      padding: 1.2rem 1.3rem;
-    }
-
-    .en-box {
+    pre {
       direction: ltr;
       text-align: left;
-      background: #f8fafc;
-      border-left: 4px solid var(--blue);
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      font-size: 0.96rem;
-      color: #0f172a;
-    }
-
-    .ku-box {
-      background: #ffffff;
-      padding: 0.2rem 0;
-    }
-
-    .ku-box h4 {
-      margin: 0.3rem 0 0.5rem;
-      color: var(--blue);
-      font-size: 1.05rem;
-    }
-
-    .exam-tip {
-      background: var(--amber-soft);
-      border-right: 4px solid var(--amber);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      margin-top: 0.9rem;
-      font-size: 0.95rem;
-    }
-
-    .exam-tip strong {
-      color: var(--amber);
-    }
-
-    .key-term {
-      display: inline-block;
-      direction: ltr;
-      background: var(--blue-soft);
-      color: var(--navy);
-      font-weight: 700;
-      padding: 0.05rem 0.45rem;
-      border-radius: 5px;
-      font-size: 0.92em;
-      margin: 0 2px;
-    }
-
-    /* Flow Diagram */
-    .flow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin: 1rem 0;
-      direction: ltr;
-    }
-
-    .flow-box {
-      background: var(--blue-soft);
-      border: 2px solid var(--blue);
-      color: var(--navy);
-      padding: 0.7rem 1.2rem;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 700;
-      min-width: 140px;
-    }
-
-    .flow-box small {
-      display: block;
-      font-weight: 400;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .arrow {
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--amber);
-    }
-
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 0.9rem 0;
-      direction: ltr;
-      text-align: center;
-      font-size: 0.96rem;
-    }
-
-    th {
-      background: var(--navy);
-      color: #fff;
-      padding: 0.65rem;
-      border: 1px solid var(--navy);
-    }
-
-    td {
-      padding: 0.55rem;
+      background: var(--code-bg);
       border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      margin: 8px 0;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      color: #e2e8f0;
+      line-height: 1.5;
     }
 
-    tr:nth-child(even) td {
-      background: #f1f5f9;
+    .question-box {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
     }
-
-    .rtl-table {
-      direction: rtl;
-      text-align: right;
+    .q-header {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #e2e8f0;
     }
-
-    .rtl-table th {
-      text-align: right;
-    }
-
-    /* Grid for comparisons */
-    .grid-2 {
+    .options {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin: 0.8rem 0;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 10px;
     }
-
-    .mini-card {
+    @media (min-width: 640px) {
+      .options { grid-template-columns: 1fr 1fr; }
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: right;
+      background: var(--card2);
+      color: var(--text);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 0.9rem 1rem;
-      background: #f8fafc;
-    }
-
-    .mini-card h5 {
-      margin: 0 0 0.4rem;
-      color: var(--navy);
-      font-size: 1.02rem;
-    }
-
-    /* Formula */
-    .formula {
-      direction: ltr;
-      text-align: center;
-      background: var(--navy);
-      color: #fff;
-      padding: 0.65rem 1rem;
-      border-radius: 8px;
-      font-family: Consolas, monospace;
-      font-size: 1.05rem;
-      margin: 0.7rem 0;
-      letter-spacing: 0.4px;
-    }
-
-    /* Exam Section */
-    .exam-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    .q-en {
-      direction: ltr;
-      text-align: left;
-      font-weight: 700;
-      color: var(--navy);
-      font-size: 1.03rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .options-en {
-      direction: ltr;
-      text-align: left;
-      list-style: none;
-      padding-left: 0.4rem;
-      margin: 0.4rem 0 0.7rem;
-    }
-
-    .options-en li {
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-    }
-
-    .toggle-btn {
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
+      padding: 10px 12px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
-    }
-
-    .toggle-btn:hover {
-      background: var(--navy);
-    }
-
-    .answer-box {
-      display: none;
-      margin-top: 0.8rem;
-      background: var(--teal-soft);
-      border-right: 4px solid var(--teal);
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-    }
-
-    .answer-box.show {
-      display: block;
-    }
-
-    .exam-controls {
+      font-family: inherit;
+      font-size: 0.94rem;
+      transition: 0.15s;
       display: flex;
-      gap: 0.7rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
+      align-items: center;
+      gap: 8px;
     }
-
-    .btn-all {
-      background: var(--teal);
-      color: #fff;
-      border: none;
-      padding: 0.55rem 1.1rem;
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: #2d3d57;
+    }
+    .opt-btn:disabled { cursor: default; }
+    .opt-btn.correct {
+      background: var(--good-bg);
+      border-color: var(--good);
+      color: #dcfce7;
+      font-weight: bold;
+    }
+    .opt-btn.wrong {
+      background: var(--bad-bg);
+      border-color: var(--bad);
+      color: #fee2e2;
+    }
+    .opt-ltr {
+      direction: ltr;
+      font-family: Consolas, monospace;
+      font-weight: bold;
+      background: var(--bg);
+      padding: 2px 7px;
+      border-radius: 6px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .opt-txt {
+      flex: 1;
+      word-break: break-word;
+    }
+    .opt-txt.code-opt {
+      direction: ltr;
+      text-align: left;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 10px 12px;
       border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
+      font-size: 0.92rem;
+      display: none;
     }
-
-    .btn-hide {
-      background: var(--muted);
-      color: #fff;
-      border: none;
-      padding: 0.55rem 1.1rem;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
+    .feedback.show { display: block; }
+    .feedback.good {
+      background: var(--good-bg);
+      border: 1px solid var(--good);
+      color: #bbf7d0;
     }
-
-    ul.clean {
-      padding-right: 1.3rem;
-      margin: 0.4rem 0;
-    }
-
-    ul.clean li {
-      margin-bottom: 0.35rem;
-    }
-
-    @media print {
-      nav, .toggle-btn, .exam-controls, .btn-print {
-        display: none !important;
-      }
-      .answer-box {
-        display: block !important;
-      }
-      body {
-        background: #fff;
-      }
-      .slide-card, .exam-card {
-        break-inside: avoid;
-      }
+    .feedback.bad {
+      background: var(--bad-bg);
+      border: 1px solid var(--bad);
+      color: #fecaca;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>دیزاینا لۆجیکا دیجیتاڵ — شڕۆڤەیا ١٠٠/١٠٠ ب بادینی</h1>
-  <p>Lecture 01: Introduction to Digital Logic Design (Instructor: Redeer Avdal Saleh)</p>
-  <p>هەمی ٢٥ سلاید ب تێر و تەسەلی، دگەڵ پەیڤێن ئینگلیزی یێن ئەزموونێ، ئەرکێن ماڵێ و نموونەیا ئەزموونا مێدتێرمێ (١٠٠ نمرە)</p>
-  <div class="badge-row">
-    <span class="badge">٢٥ سلاید ب تەمامی</span>
-    <span class="badge">فەرهەنگا ئەزموونێ</span>
-    <span class="badge">ئەرکێ ماڵێ (Homework)</span>
-    <span class="badge">مێدتێرم: ٥ هەلبژارتن + ٥ فەراغ + ٥ T/F + ٥ پسیار</span>
+  <div class="header-inner">
+    <h1>ئەزموونا عەمەلی یا C# (ژ سلایدێ ٣ تا ٢٢ - هەتا AND / OR / NOT)</h1>
+    <div class="stats">
+      <span class="badge good" id="goodCount">دروست: 0</span>
+      <span class="badge bad" id="badCount">خەلەت: 0</span>
+      <span class="badge" id="totalCount">بەرسڤدای: 0 / 100</span>
+      <button class="btn-reset" onclick="resetQuiz()">دووبارە دەستپێبکە</button>
+    </div>
   </div>
 </header>
 
-<nav>
-  <a href="#slides-part1">سلاید ١ - ٩ (بنەما و باینەری)</a>
-  <a href="#slides-part2">سلاید ١٠ - ١٧ (دەرگەهێن لۆجیکی)</a>
-  <a href="#slides-part3">سلاید ١٨ - ٢٥ (Multisim و ئەرک)</a>
-  <a href="#dictionary">فەرهەنگا ئینگلیزی</a>
-  <a href="#midterm">ئەزموونا مێدتێرمێ (١٠٠ نمرە)</a>
-  <button class="btn-print" onclick="window.print()">چاپکرن / PDF</button>
-</nav>
-
 <div class="container">
-
-  <!-- Quick Study Plan -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">پەیاما برایێ تە بەری دەستپێبکەی</span>
-      <span class="slide-en-title">How to get 100/100 in Midterm</span>
-    </div>
-    <div class="slide-body">
-      <p>سڵاڤ برا! خۆ قەت نەترسە. ئەزموونا مێدتێرمێ یا مامۆستایی ب ئینگلیزییە و ب ڤی شێوەی دابەش دبیت:</p>
-      <ul class="clean">
-        <li><strong>٥ پرسیارێن هەلبژارتن (Multiple Choice):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
-        <li><strong>٥ پرسیارێن بۆشایی/فەراغات (Fill in the Blanks):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
-        <li><strong>٥ پرسیارێن ڕاست و خەلەت (True / False):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
-        <li><strong>٥ پرسیارێن دی (حەلکرن، گوهارتنا باینەری، خشتێ ڕاستیێ، پێناسە):</strong> ٢٥ نمرە (هەر ئێک ٥ نمرە).</li>
-      </ul>
-      <div class="exam-tip">
-        <strong>نهێنیا سەرکەفتنێ:</strong> ل دەمێ خواندنێ، هەر تشتەکی ب <strong>بادینی تێبگەهە</strong>، پاشی وان <strong>پەیڤێن ئینگلیزی یێن د ناڤ قەوسان و ڕەنگێ شین دا</strong> د مێشکێ خۆ دا بپارێزە دا کو دەمێ ل ئەزموونێ دبینى ئێکسەر تێبگەهی کا چی ژ تە دڤێت!
-      </div>
-    </div>
+  <div class="intro-box">
+    <strong>سلایدێ ١ و ٢ (پێشەکی و ناڤەرۆک):</strong><br>
+    ناڤێ ماددەی: <code>Fundamentals of Programming by C#</code> (زانکۆیا ئاکرێ / پەیمانگەها تەکنیکی - بەشێ IT).<br>
+    ناڤەرۆک هەتا ئەزموونێ: <strong>Data Types (جورێن داتایان)</strong> + <strong>Operators (کردارێن بیرکاری، دانان، بەراوردکرن، و لۆجیکی AND / OR / NOT)</strong>.<br>
+    ل خوارێ کورتیا هەمی سلایدان (٣ تا ٢٢) دگەل <strong>١٠٠ پرسیارێن عەمەلی یێن کۆدی</strong> هەنە. تبلا خۆ بدە بەرسڤێ دا ئێکسەر بزانی دروستە یان خەلەتە!
   </div>
 
-  <!-- ==================== PART 1 ==================== -->
-  <div class="section-title" id="slides-part1">
-    <span>پشکا ئێکێ: بنەمایێن لۆجیکێ، سیگناڵ، و سیستەمێ باینەری (سلاید ١ - ٩)</span>
-    <span class="en">Pages 1 – 9 (Slides 01 – 11)</span>
-  </div>
-
-  <!-- Page 1 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١ (سلاید 01)</span>
-      <span class="slide-en-title">Introduction to Digital Logic Design</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>LECTURE 01 • FOUNDATIONS:</strong> Introduction to Digital Logic Design<br>
-        Topics: Signals • Binary • Logic Gates • Circuits | Instructor: Redeer Avdal Saleh
-      </div>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>ئەڤە لاپەڕێ دەستپێکێ یێ وانەیێ یە. بابەتێ سەرەکی <span class="key-term">Digital Logic Design</span> (دیزاینا لۆجیکا دیجیتاڵ)ە و د ڤێ وانەیێ دا ئەم دێ فێری ٤ تشتێن سەرەکی بین:</p>
-        <ul class="clean">
-          <li><span class="key-term">Signals</span>: سیگناڵ (پێلێن کارەبایی).</li>
-          <li><span class="key-term">Binary</span>: سیستەمێ دوویی (ژمارەیێن 0 و 1).</li>
-          <li><span class="key-term">Logic Gates</span>: دەرگەهێن لۆجیکی (وەک AND, OR, NOT).</li>
-          <li><span class="key-term">Circuits</span>: سێرکیت یان خولگەیێن ئەلیکترۆنی.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 2 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٢ (سلاید 03)</span>
-      <span class="slide-en-title">What is Digital Logic Design?</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        1. Digital logic design is the study of circuits that process <strong>discrete electrical states</strong>.<br>
-        2. A digital system represents information mainly using <strong>binary 0 and 1</strong>.<br>
-        3. Logic gates combine input states according to defined <strong>Boolean rules</strong>.<br>
-        4. Groups of gates create useful building blocks such as <strong>adders and memory</strong>.<br>
-        Flow: <strong>INPUTS (0/1) → LOGIC → OUTPUT</strong>
-      </div>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>دیزاینا لۆجیکا دیجیتاڵ چییە؟ ئەڤ خالە بۆ پێناسە، هەلبژارتن و فەراغات گەلەک د گرنگن:</p>
-        <ul class="clean">
-          <li><strong>١.</strong> زانستەکە ل سەر خواندنا وان سێرکیتان (خۆلگەیان) یێن کو کار ل سەر <strong>دۆخێن کارەبایی یێن جودا و دیارکری</strong> (<span class="key-term">discrete electrical states</span>) دکەن (ئانکو تەنها دوو دۆخ، نە بەردەوام).</li>
-          <li><strong>٢.</strong> سیستەمێ دیجیتاڵ زانیارییان ب شێوەکێ سەرەکی ب ڕێکا ژمارەیێن باینەری (<span class="key-term">binary 0 and 1</span>) نیشان ددەت.</li>
-          <li><strong>٣.</strong> دەرگەهێن لۆجیکی (<span class="key-term">Logic gates</span>) داتایێن هاتنەژوور (<span class="key-term">input states</span>) تێکەل دکەن ل گۆرەی یاسایێن بیرکاری یێن تایبەت کو دبێژنێ <strong>یاسایێن بۆلی</strong> (<span class="key-term">Boolean rules</span>).</li>
-          <li><strong>٤.</strong> دەمێ کۆمەکا دەرگەهان دگەل ئێک دهێنە گرێدان، پارچەیێن گرنگ دروست دبن وەک: <strong>کۆمکەر</strong> (<span class="key-term">adders</span>) و <strong>بیرگەهـ / میمۆری</strong> (<span class="key-term">memory</span>).</li>
-        </ul>
-      </div>
-      <div class="exam-tip">
-        <strong>تێبینیا ئەزموونێ:</strong> ئەگەر د فەراغێ دا هات: <em>"Digital logic design is the study of circuits that process _______ electrical states."</em> ئێکسەر بنڤیسە <span class="key-term">discrete</span>. و ئەگەر گۆت: <em>"Logic gates combine input states according to _______ rules."</em> بنڤیسە <span class="key-term">Boolean</span>.
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 3 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٣ (سلاید 05)</span>
-      <span class="slide-en-title">Analog vs. digital signals</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>ANALOG:</strong> continuously varying values. Example: microphone voltage or temperature sensor output.<br>
-        <strong>DIGITAL:</strong> distinct logic levels. Example: binary signal from a push-button or processor.
-      </div>
-      <div class="ku-box">
-        <h4>جوداهییا ناڤبەرا سیگناڵێ ئەنالۆگ و دیجیتاڵ:</h4>
-        <div class="grid-2">
-          <div class="mini-card">
-            <h5>١. سیگناڵێ ئەنالۆگ (<span class="key-term">Analog Signal</span>)</h5>
-            <p>بهایێن وی ب شێوەکێ <strong>بەردەوام</strong> دهێنە گوهارتن (<span class="key-term">continuously varying values</span>) وەک شەپۆلەکا نەرم (Sine wave).<br>
-            <strong>نموونە:</strong> ڤۆڵتیا مایکرۆفۆنێ (<span class="key-term">microphone voltage</span>) یان دەرکەفتنا هەستەوەرێ گەرمێ (<span class="key-term">temperature sensor output</span>).</p>
-          </div>
-          <div class="mini-card">
-            <h5>٢. سیگناڵێ دیجیتاڵ (<span class="key-term">Digital Signal</span>)</h5>
-            <p>بهایێن وی د <strong>ئاستێن دیارکری و جودا</strong> دا نە (<span class="key-term">distinct logic levels</span>)، ئانکو یان سەری (1) یان خوارێ (0) وەک شەپۆلا چوارگۆشە.<br>
-            <strong>نموونە:</strong> سیگناڵێ باینەری ژ دوگمەیەکێ (<span class="key-term">push-button</span>) یان پڕۆسێسەرێ کۆمپیوتەری (<span class="key-term">processor</span>).</p>
-          </div>
-        </div>
-      </div>
-      <div class="exam-tip">
-        <strong>تێبینیا ئەزموونێ:</strong> ئێک ژ پسیارێن ژمارە (١) د سلاید ٢٣ دا ئەڤەیە! ب ئینگلیزی بەرسڤا کورت ئەڤەیە: <em>"Analog is continuous; digital uses discrete (distinct) levels."</em>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 4 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٤ (سلاید 06)</span>
-      <span class="slide-en-title">Two logic states</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>Logic 0:</strong> LOW state; commonly represented near <strong>0 V</strong> in a 5 V logic example.<br>
-        <strong>Logic 1:</strong> HIGH state; commonly represented near <strong>5 V</strong> in a 5 V logic example.<br>
-        <strong>Important:</strong> Real HIGH/LOW voltage thresholds depend on the <strong>logic family and supply voltage</strong>.
-      </div>
-      <div class="ku-box">
-        <h4>دوو دۆخێن لۆجیکێ (0 و 1 د کارەبێ دا چ نە؟):</h4>
-        <ul class="clean">
-          <li><strong>Logic 0 (<span class="key-term">LOW state</span>):</strong> دۆخێ نزمە (کوژای/OFF)، د نموونەیا سیستەمێ 5V دا نێزیکی <strong>0 ڤۆڵت</strong> (<span class="key-term">0 V</span>) دهێتە هژمارتن.</li>
-          <li><strong>Logic 1 (<span class="key-term">HIGH state</span>):</strong> دۆخێ بلندە (هەلکری/ON)، د نموونەیا سیستەمێ 5V دا نێزیکی <strong>5 ڤۆڵت</strong> (<span class="key-term">5 V</span>) دهێتە هژمارتن.</li>
-          <li><strong>خالا گرنگ (<span class="key-term">Important</span>):</strong> د ژیانا ڕاستەقینە دا، سنوورێن ڤۆڵتیێ بۆ HIGH و LOW نە هەردەم هەر 0V و 5V نە، بەڵکو دکەڤنە سەر جۆرێ خێزانا لۆجیکێ (<span class="key-term">logic family</span>، وەک TTL یان CMOS) و ڤۆڵتیا سەرچاوەیی (<span class="key-term">supply voltage</span>، بۆ نموونە هندەک ئامیر ب 3.3V کار دکەن).</li>
-        </ul>
-      </div>
-      <div class="exam-tip">
-        <strong>تێبینیا ئەزموونێ:</strong> هشیار بە د پرسیارێن (True/False) دا! ئەگەر گۆت: <em>"Logic 1 is always exactly 5 V in all digital circuits."</em> -> ئەڤە <strong>False (خەلەت)</strong>ە، چونکی دکەڤیتە سەر <span class="key-term">logic family and supply voltage</span>.
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 5 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٥ (سلاید 07)</span>
-      <span class="slide-en-title">Bits, bytes, and binary digits</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        1. A <strong>bit</strong> is one binary digit, either 0 or 1.<br>
-        2. <strong>Eight bits</strong> make one <strong>byte</strong>.<br>
-        3. A binary number uses <strong>powers of two</strong> rather than powers of ten.<br>
-        4. The binary number 1011₂ equals 11₁₀.
-      </div>
-      <div class="ku-box">
-        <h4>بیت (Bit)، بایت (Byte)، و ژمارەیێن باینەری:</h4>
-        <ul class="clean">
-          <li><strong>بیت (<span class="key-term">Bit</span>):</strong> کورتکرییا (Binary Digit)ە، ئانکو ئێک خانەیا باینەرییە کو <strong>ب تنێ دوو دۆخ هەنە</strong>: یان <span class="key-term">0</span> یان <span class="key-term">1</span>.</li>
-          <li><strong>بایت (<span class="key-term">Byte</span>):</strong> هەر <strong>٨ بیت</strong> (<span class="key-term">Eight bits</span>) دبنە ئێک بایت (<span class="key-term">1 Byte = 8 Bits</span>).</li>
-          <li>ژمارەیێن ئاسایی (دەهی / Decimal) هێزێن ژمارە ١٠ بکاردهینن ($1, 10, 100, 1000$)، بەلێ ژمارەیێن باینەری <strong>هێزێن ژمارە ٢</strong> (<span class="key-term">powers of two</span>) بکاردهینن، کو ئەڤەنە: $2^0=1, \; 2^1=2, \; 2^2=4, \; 2^3=8, \; 2^4=16 \dots$</li>
-          <li>ژمارەیا باینەری $1011_2$ د سیستەمێ دەهی دا دبیتە $11_{10}$.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 6 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٦ (سلاید 08)</span>
-      <span class="slide-en-title">Worked Example: Binary 1011₂ to Decimal</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        Convert the binary number <strong>1011₂</strong> to decimal.<br>
-        STEP 1: Write place values from right to left: 1, 2, 4, 8.<br>
-        STEP 2: Multiply each digit by its place value: (1×8) + (0×4) + (1×2) + (1×1).<br>
-        STEP 3: Add: 8 + 0 + 2 + 1 = 11.<br>
-        RESULT: <strong>1011₂ = 11₁₀</strong>
-      </div>
-      <div class="ku-box">
-        <h4>چاوا ژمارەیا باینەری بگوهەرین بۆ دەهی (Decimal)؟ — قاعیدا زێڕین!</h4>
-        <p>هەردەم ڤان ٣ پێنگاڤان بکاربینە بۆ هەر ژمارەیەکا باینەری (چ $1011_2$ بیت یان $110_2$ یان $1010_2$ یان $1111_2$):</p>
-        <ul class="clean">
-          <li><strong>پێنگاڤا ١:</strong> ژ لایێ <strong>ڕاستێ بۆ چەپێ</strong>، بهایێن جهی (هێزێن ٢) د بن هەر ژمارەیەکی دا بنڤیسە، هەردەم ژ $1$ دەستپێبکە و هەر جارێ لێکدانی ٢ بکە: <strong>8, 4, 2, 1</strong>.</li>
-        </ul>
-        <table>
-          <tr>
-            <th>ژمارەیا باینەری (Binary)</th>
-            <td><strong>1</strong></td>
-            <td><strong>0</strong></td>
-            <td><strong>1</strong></td>
-            <td><strong>1</strong></td>
-          </tr>
-          <tr>
-            <th>بهایێ جهی (Place Value)</th>
-            <td>8</td>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <th>لێکدان (Multiply)</th>
-            <td>1 × 8 = <strong>8</strong></td>
-            <td>0 × 4 = <strong>0</strong></td>
-            <td>1 × 2 = <strong>2</strong></td>
-            <td>1 × 1 = <strong>1</strong></td>
-          </tr>
-        </table>
-        <ul class="clean">
-          <li><strong>پێنگاڤا ٢ و ٣:</strong> بەس ئەنجامێن جهێن ژمارە (1) لێ هەی کۆم بکە! <br>
-          $8 + 0 + 2 + 1 = \mathbf{11}$. کەواتە $1011_2 = 11_{10}$. (ئەو ٢ یا بچووک ئانکو سیستەمێ باینەری، و ١٠ ئانکو سیستەمێ دەهی).</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 7 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٧ (سلاید 09)</span>
-      <span class="slide-en-title">Inside a simple digital system</span>
-    </div>
-    <div class="slide-body">
-      <div class="ku-box">
-        <h4>ناڤخۆیا سیستەمەکێ دیجیتاڵ یێ سادە ژ چ پێکدهێت؟</h4>
-        <p>هەر سیستەمەکێ دیجیتاڵ ژ ٣ قۆناغێن سەرەکی پێکدهێت:</p>
-        <div class="flow">
-          <div class="flow-box">INPUT<small>Switch / sensor</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box" style="background:#dbeafe;">PROCESS<small>Logic gates / circuit</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box">OUTPUT<small>LED / buzzer / display</small></div>
-        </div>
-        <ul class="clean">
-          <li><strong>١. هاتنەژوور (<span class="key-term">INPUT</span>):</strong> ئەو پارچەنە یێن زانیارییێ ددەنە سیستەمی وەک سویچ (<span class="key-term">Switch</span>) یان هەستەوەر (<span class="key-term">Sensor</span>).</li>
-          <li><strong>٢. پڕۆسێسکرن (<span class="key-term">PROCESS</span>):</strong> دەرگەهێن لۆجیکی و سێرکیت (<span class="key-term">Logic gates / circuit</span>) کو بڕیارێ ددەن.</li>
-          <li><strong>٣. دەرکەفتن (<span class="key-term">OUTPUT</span>):</strong> ئەنجامی نیشان ددەن وەک گڵۆپێ بچووک (<span class="key-term">LED</span>)، زەنگ (<span class="key-term">buzzer</span>)، یان شاشە (<span class="key-term">display</span>).</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 8 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٨ (سلاید 10)</span>
-      <span class="slide-en-title">Core parts of a digital circuit</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        1. <strong>Inputs:</strong> switches, sensors, clock or other digital signals.<br>
-        2. <strong>Logic gates:</strong> AND, OR, NOT, NAND, NOR, XOR and XNOR.<br>
-        3. <strong>Outputs:</strong> LEDs, indicators, displays or control signals.<br>
-        4. <strong>Power and ground:</strong> essential electrical connections in hardware.<br>
-        5. <strong>Storage elements:</strong> latches and flip-flops hold state.
-      </div>
-      <div class="ku-box">
-        <h4>٥ پارچەیێن سەرەکی یێن سێرکیتەکێ دیجیتاڵ:</h4>
-        <ul class="clean">
-          <li><strong>١. <span class="key-term">Inputs</span>:</strong> سویچ، هەستەوەر، کڵۆک (<span class="key-term">clock</span> - پێلا دەمێ) یان هەر سیگناڵەکێ دی یێ دیجیتاڵ.</li>
-          <li><strong>٢. <span class="key-term">Logic gates</span>:</strong> هەمی ٧ دەرگەهێن لۆجیکی (AND, OR, NOT, NAND, NOR, XOR, XNOR).</li>
-          <li><strong>٣. <span class="key-term">Outputs</span>:</strong> گڵۆپ (LED)، نیشاندەر (<span class="key-term">indicators</span>)، شاشە (<span class="key-term">displays</span>) یان سیگناڵێن کۆنتڕۆڵکرنێ.</li>
-          <li><strong>٤. <span class="key-term">Power and ground</span>:</strong> کارەب (VCC) و ئەرزی (GND) — گرێدانێن گەلەک پێدڤی نە د هاروێری دا (بێی وان چ سێرکیت کار ناکەت).</li>
-          <li><strong>٥. <span class="key-term">Storage elements</span>:</strong> پارچەیێن هەڵگرتنا داتایان (بیرگەهـ)، کو ژ <span class="key-term">latches</span> و <span class="key-term">flip-flops</span> پێکدهێن بۆ هەڵگرتنا دۆخی (<span class="key-term">hold state</span>).</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 9 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٩ (سلاید 11)</span>
-      <span class="slide-en-title">Combinational and sequential logic</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>Combinational:</strong> Output depends on the <strong>current input values</strong>. Example: AND gate or half adder.<br>
-        <strong>Sequential:</strong> Output depends on <strong>current inputs and stored state</strong>. Example: counter or flip-flop.
-      </div>
-      <div class="ku-box">
-        <h4>جوداهییا ناڤبەرا لۆجیکا کۆمبینەیشنال و سیکوێنشاڵ (گەلەک گرنگە بۆ ئەزموونێ!):</h4>
-        <div class="grid-2">
-          <div class="mini-card">
-            <h5>١. <span class="key-term">Combinational Logic</span> (پێکڤەگرێدای / بێ بیرگەهـ)</h5>
-            <p>دەرکەفتن (Output) <strong>ب تنێ ل سەر بهایێن هاتنەژوور یێن نوکە</strong> (<span class="key-term">current input values</span>) دکەڤیت. ئانکو رابردوو ل بیرا وێ نینە.<br>
-            <strong>نموونە:</strong> <span class="key-term">AND gate</span> یان <span class="key-term">half adder</span>.</p>
-          </div>
-          <div class="mini-card">
-            <h5>٢. <span class="key-term">Sequential Logic</span> (یەک ل دیف یەک / ب بیرگەهـ)</h5>
-            <p>دەرکەفتن (Output) دکەڤیتە سەر هاتنەژوورێن نوکە <strong>و دۆخێ هەڵگرتی یێ بەری نوکە ژی</strong> (<span class="key-term">current inputs and stored state</span>).<br>
-            <strong>نموونە:</strong> ژمێرەر (<span class="key-term">counter</span>) یان فلیپ-فلۆپ (<span class="key-term">flip-flop</span>).</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== PART 2 ==================== -->
-  <div class="section-title" id="slides-part2">
-    <span>پشکا دووێ: دەرگەهێن لۆجیکی، خشتێن ڕاستیێ، و نموونەیێن کارپێکرنێ (سلاید ١٠ - ١٧)</span>
-    <span class="en">Pages 10 – 17 (Slides 12 – 19)</span>
-  </div>
-
-  <!-- Page 10 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٠ (سلاید 12)</span>
-      <span class="slide-en-title">Meet the three basic logic gates</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        • <strong>AND:</strong> Y = A · B<br>
-        • <strong>OR:</strong> Y = A + B<br>
-        • <strong>NOT:</strong> Y = NOT A<br>
-        Note: Conceptual functional blocks — use standard ANSI/IEC gate symbols when drawing formal schematics.
-      </div>
-      <div class="ku-box">
-        <h4>ناسینا سێ دەرگەهێن لۆجیکی یێن سەرەکی:</h4>
-        <ul class="clean">
-          <li><strong>دەرگەهێ AND:</strong> نیشانا وێ خالە (یان لێکدان) $Y = A \cdot B$. دوو هاتنەژوور (A, B) و ئێک دەرکەفتن (Y) هەیە.</li>
-          <li><strong>دەرگەهێ OR:</strong> نیشانا وێ زێدەکرنە $Y = A + B$. دوو هاتنەژوور (A, B) و ئێک دەرکەفتن (Y) هەیە.</li>
-          <li><strong>دەرگەهێ NOT:</strong> پێچەوانەکەر (Inverter)ە، $Y = \text{NOT } A$ (یان $\overline{A}$). ب تنێ ئێک هاتنەژوور (A) و ئێک دەرکەفتن (Y) هەیە.</li>
-          <li><strong>تێبینیا ل خوارێ سلایدێ:</strong> ئەو بازنێن د سلایدان دا هاتینە دانان تەنها بۆ تێگەهشتنێ نە (<span class="key-term">Conceptual functional blocks</span>)؛ دەمێ نەخشەیێن فەرمی (<span class="key-term">formal schematics</span>) دکێشی، پێدڤیە هێمایێن ستاندارد یێن <span class="key-term">ANSI/IEC</span> بکاربینی.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 11 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١١ (سلاید 13)</span>
-      <span class="slide-en-title">AND gate truth table</span>
-    </div>
-    <div class="slide-body">
-      <div class="formula">Y = A · B (Y = A AND B)</div>
-      <table>
-        <tr><th>A</th><th>B</th><th>Y = A AND B</th></tr>
-        <tr><td>0</td><td>0</td><td><strong>0</strong></td></tr>
-        <tr><td>0</td><td>1</td><td><strong>0</strong></td></tr>
-        <tr><td>1</td><td>0</td><td><strong>0</strong></td></tr>
-        <tr><td>1</td><td>1</td><td><strong style="color:#0f766e;">1</strong></td></tr>
-      </table>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>دەرگەهێ <strong>AND</strong> گەلەکێ توندە! وەک پەیڤا (و) یا کوردی یە: <strong>ب تنێ دەمێ هەردوو هاتنەژوور A و B ببنە 1</strong>، دەرکەفتن Y دبیتە 1. ئەگەر ئێک ژ وان (یان هەردوو) ببیتە 0، ئەنجام ئێکسەر دبیتە 0.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 12 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٢ (سلاید 14)</span>
-      <span class="slide-en-title">OR gate truth table</span>
-    </div>
-    <div class="slide-body">
-      <div class="formula">Y = A + B (Y = A OR B)</div>
-      <table>
-        <tr><th>A</th><th>B</th><th>Y = A OR B</th></tr>
-        <tr><td>0</td><td>0</td><td><strong style="color:#b91c1c;">0</strong></td></tr>
-        <tr><td>0</td><td>1</td><td><strong>1</strong></td></tr>
-        <tr><td>1</td><td>0</td><td><strong>1</strong></td></tr>
-        <tr><td>1</td><td>1</td><td><strong>1</strong></td></tr>
-      </table>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>دەرگەهێ <strong>OR</strong> گەلەکێ نەرمە! وەک پەیڤا (یان) یا کوردی یە: <strong>بەس ئێک ژ هاتنەژووران (یان هەردوو) ببیتە 1</strong>، دەرکەفتن Y دبیتە 1. ب تنێ دەمێ هەردوو هاتنەژوور ببنە 0، ئەنجام دبیتە 0.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 13 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٣ (سلاید 15)</span>
-      <span class="slide-en-title">NOT gate truth table</span>
-    </div>
-    <div class="slide-body">
-      <div class="formula">Y = NOT A</div>
-      <table>
-        <tr><th>A</th><th>Y = NOT A</th></tr>
-        <tr><td>0</td><td><strong>1</strong></td></tr>
-        <tr><td>1</td><td><strong>0</strong></td></tr>
-      </table>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>دەرگەهێ <strong>NOT</strong> ب تنێ ئاوێنەکا پێچەوانەکەرە (<span class="key-term">complement / inverter</span>): ئەگەر هاتنەژوور 0 بیت دکەتە 1، و ئەگەر 1 بیت دکەتە 0.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 14 & 15 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٤ و ١٥ (سلاید 16 و 17)</span>
-      <span class="slide-en-title">Example: Safety Permission Circuit (Two-switch AND control)</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>Problem:</strong> A machine runs <strong>only when SWITCH A and SWITCH B are both ON</strong>.<br>
-        STEP 1: Choose an <strong>AND gate</strong> because <strong>both conditions must be true</strong>.<br>
-        STEP 2: Connect switches A and B to the two gate inputs.<br>
-        STEP 3: Connect the gate output to an indicator labeled RUN.<br>
-        <strong>RESULT:</strong> RUN = A AND B; when Switch A = 1 and Switch B = 1 → <strong>RUN = 1</strong>.
-      </div>
-      <div class="ku-box">
-        <h4>شڕۆڤەیا نموونەیا سێرکیتا پاراستنێ (Safety permission circuit):</h4>
-        <p>ئەڤ نموونە ل دوو لاپەڕان هاتیە شڕۆڤەکرن (لاپەڕ ١٤ پێنگاڤێن حەلکرنێ نە، و لاپەڕ ١٥ وێنێ سێرکیتێ یە):</p>
-        <ul class="clean">
-          <li>پرسیار دبێژیت: ئامیرەک (Machine) ب تنێ دەمێ کار دکەت ئەگەر <strong>هەردوو</strong> سویچێن A و B هەلکری بن (ON = 1).</li>
-          <li>چونکی پێدڤیە <strong>هەردوو مەرج</strong> (<span class="key-term">both conditions</span>) پێکڤە هەبن، دەرگەهێ گونجای <span class="key-term">AND gate</span>ە.</li>
-          <li>هاوکێشە: $\text{RUN} = A \text{ AND } B$ (یان $A \cdot B$).</li>
-          <li>د لاپەڕ ١٥ دا نیشان ددەت ئەگەر Switch A = 1 و Switch B = 1 بن، دێ دەرکەفتنا RUN ببیتە 1 (ئامیر کار دکەت).</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 16 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٦ (سلاید 18)</span>
-      <span class="slide-en-title">Where digital logic is used</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        1. Computer processors and arithmetic logic units (ALU).<br>
-        2. Smartphones, embedded devices and microcontrollers.<br>
-        3. Digital clocks, calculators and electronic counters.<br>
-        4. Traffic-light control and industrial automation.<br>
-        5. Communication interfaces and data storage.
-      </div>
-      <div class="ku-box">
-        <h4>لۆجیکا دیجیتاڵ ل کیڤە دهێتە بکارئینان؟</h4>
-        <ul class="clean">
-          <li><strong>١.</strong> پڕۆسێسەرێن کۆمپیوتەران (<span class="key-term">processors</span>) و یەکەیێن ژمارە و لۆجیکێ (<span class="key-term">ALU</span>).</li>
-          <li><strong>٢.</strong> مۆبایلێن زیرەک (<span class="key-term">Smartphones</span>)، ئامیرێن چاندی (<span class="key-term">embedded devices</span>) و مایکرۆکۆنتڕۆڵەران.</li>
-          <li><strong>٣.</strong> دەمژمێرێن دیجیتاڵ، حاسیبە (<span class="key-term">calculators</span>) و ژمێرەرێن ئەلیکترۆنی.</li>
-          <li><strong>٤.</strong> کۆنتڕۆڵکرنا ترافیک لایتان (<span class="key-term">Traffic-light control</span>) و کارگەهێن ئۆتۆماتیکی (<span class="key-term">industrial automation</span>).</li>
-          <li><strong>٥.</strong> ئامیرێن پەیوەندیان و هەڵگرتنا داتایان (<span class="key-term">data storage</span>).</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 17 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٧ (سلاید 19)</span>
-      <span class="slide-en-title">Digital design workflow</span>
-    </div>
-    <div class="slide-body">
-      <div class="ku-box">
-        <h4>٥ پێنگاڤێن کارکرنێ بۆ دیزاینکرنا هەر سێرکیتەکا دیجیتاڵ (ڕێزبەندی گەلەک گرنگە!):</h4>
-        <div class="flow">
-          <div class="flow-box">01. Define the problem<small>دیارکرنا ئاریشێ</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box">02. Make a truth table<small>دروستکرنا خشتێ ڕاستیێ</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box">03. Choose gates<small>هەلبژارتنا دەرگەهان</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box">04. Draw the circuit<small>کێشانا سێرکیتێ</small></div>
-          <div class="arrow">➜</div>
-          <div class="flow-box">05. Simulate &amp; test<small>تاقیکرن ب بەرنامەی</small></div>
-        </div>
-      </div>
-      <div class="exam-tip">
-        <strong>تێبینیا ئەزموونێ:</strong> رەنگە بێژیت: <em>"What is the first step in digital design workflow?"</em> -> بەرسڤ: <span class="key-term">Define the problem</span>. و پێنگاڤا دووماهیکێ: <span class="key-term">Simulate &amp; test</span>.
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== PART 3 ==================== -->
-  <div class="section-title" id="slides-part3">
-    <span>پشکا سێیێ: بەرنامێ Multisim، نموونەیێن پرەکتیک، تاقیکرن، و ئەرکێ ماڵێ (سلاید ١٨ - ٢٥)</span>
-    <span class="en">Pages 18 – 25 (Slides 20 – 29)</span>
-  </div>
-
-  <!-- Page 18 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٨ (سلاید 20)</span>
-      <span class="slide-en-title">Introduction to Multisim</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        1. <strong>Multisim</strong> is a circuit simulation environment used for electronic circuit exercises.<br>
-        2. Create a new design and place digital input sources, gate components and logic probes.<br>
-        3. Connect all terminals with wires and check the connections.<br>
-        4. Start simulation and change input states to observe the output.<br>
-        5. Confirm that your measured output matches the truth table.
-      </div>
-      <div class="ku-box">
-        <h4>ناساندنا بەرنامێ Multisim:</h4>
-        <ul class="clean">
-          <li><strong>١.</strong> بەرنامێ <span class="key-term">Multisim</span> ژینگەهەکا <strong>تاقیکرنا سێرکیتانە ل سەر کۆمپیوتەری</strong> (<span class="key-term">circuit simulation environment</span>) بۆ کارێن ئەلیکترۆنی.</li>
-          <li><strong>٢.</strong> دیزاینەکا نوی ڤەکە و سەرچاوەیێن هاتنەژوور (<span class="key-term">digital input sources</span>)، دەرگەهان (<span class="key-term">gate components</span>)، و پشکنەرێ لۆجیکێ (<span class="key-term">logic probes</span> - وەک گڵۆپێ پشکنینێ) دابنێ.</li>
-          <li><strong>٣.</strong> هەمی سەران ب وایەران گرێبدە و پشکنینا گرێدانان بکە.</li>
-          <li><strong>٤.</strong> تاقیکرنێ دەستپێبکە (Run) و دۆخێن هاتنەژوور بگوهەرە دا دەرکەفتنێ ببینی.</li>
-          <li><strong>٥.</strong> دڵنیا ببە کو ئەنجامێ پێڤایی وەک خشتێ ڕاستیێ (<span class="key-term">truth table</span>) یە.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 19 & 20 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ١٩ و ٢٠ (سلاید 21 و 22)</span>
-      <span class="slide-en-title">Multisim Activity: AND Gate &amp; Results Table</span>
-    </div>
-    <div class="slide-body">
-      <div class="ku-box">
-        <h4>چالاکییا ناڤ پۆلێ ب Multisim بۆ دەرگەهێ AND:</h4>
-        <p>ئارمانج (<span class="key-term">Objective</span>): سەلماندن کو دەرگەهێ AND ب تنێ دەمێ هەردوو هاتنەژوور 1 بن دەرکەفتنا 1 ددەت. د لاپەڕ ٢٠ دا خشتێ ئەنجامان هەیە کو دڤێت (Observed Y - یا دیتی) وەک (Expected Y - یا پێشبینیکری) تۆمار بکەی:</p>
-        <table>
-          <tr>
-            <th>Input A</th>
-            <th>Input B</th>
-            <th>Expected Y (پێشبینیکری)</th>
-            <th>Observed Y (ئەوا د بەرنامەی دا دەردکەڤیت)</th>
-          </tr>
-          <tr><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td><strong>0</strong></td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td><strong style="color:#0f766e;">1</strong></td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 21 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٢١ (سلاید 23)</span>
-      <span class="slide-en-title">Practice Problem 1: OR logic</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>Problem:</strong> An alarm should sound if <strong>either door A OR door B opens</strong>.<br>
-        STEP 1: Select the logic operation that satisfies “either input” → <strong>OR gate</strong>.<br>
-        STEP 2: Write the output expression: <strong>ALARM = A + B</strong>.<br>
-        STEP 3: Evaluate A = 0 and B = 1.<br>
-        <strong>RESULT:</strong> ALARM = 0 + 1 = <strong>1 (ON)</strong>
-      </div>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>زەنگێ ئاگادارکرنێ (ALARM) دڤێت لێبدەت ئەگەر <strong>دەرگەهێ A یان دەرگەهێ B</strong> (<span class="key-term">either door A OR door B</span>) ڤەبیت. چونکی گۆت (یان / either input)، ئەم دەرگەهێ <strong>OR</strong> هەڵدبژێرین ($A + B$). ئەگەر $A=0$ (گرتی) و $B=1$ (ڤەکری) بیت، دێ $0 + 1 = 1$، کەواتە زەنگ دێ لێدەت (ON).</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 22 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٢٢ (سلاید 24)</span>
-      <span class="slide-en-title">Practice Problem 2: NOT logic</span>
-    </div>
-    <div class="slide-body">
-      <div class="en-box">
-        <strong>Problem:</strong> A warning light turns ON when the <strong>sensor reports 0</strong>.<br>
-        STEP 1: Recognize that the output is the <strong>complement</strong> of the input.<br>
-        STEP 2: Write the Boolean expression: <strong>WARNING = NOT SENSOR</strong>.<br>
-        STEP 3: For SENSOR = 0, apply the NOT truth table.<br>
-        <strong>RESULT:</strong> WARNING = <strong>1 (ON)</strong>
-      </div>
-      <div class="ku-box">
-        <h4>شڕۆڤە ب بادینی:</h4>
-        <p>گڵۆپێ ئاگادارکرنێ (WARNING) هەلدبیت (دبیتە 1) دەمێ هەستەوەر (<span class="key-term">sensor</span>) ژمارە <strong>0</strong> بدەت. ئانکو دەرکەفتن <strong>پێچەوانە/تەواوکەر</strong> (<span class="key-term">complement</span>)ێ هاتنەژوورێ یە! کەواتە دەرگەهێ <strong>NOT</strong> بکاردهێت: دەمێ SENSOR = 0 بیت، WARNING = 1 (ON).</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 23 & 24 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٢٣ و ٢٤ (سلاید 26 و 27)</span>
-      <span class="slide-en-title">Knowledge Check &amp; Answers</span>
-    </div>
-    <div class="slide-body">
-      <div class="ku-box">
-        <h4>پێداچوونا زانینێ (پرسیار و بەرسڤێن ناڤ سلایدان + ڕوونکرن):</h4>
-        <ol>
-          <li><strong>What is the difference between analog and digital signals?</strong><br>
-          <em>بەرسڤا ئینگلیزی:</em> Analog is continuous; digital uses discrete levels.<br>
-          <em>تێگەهشتن:</em> ئەنالۆگ یێ بەردەوامە، دیجیتاڵ ئاستێن دیارکری بکاردهینیت.</li>
-          <li><strong>How many possible states does one bit have?</strong><br>
-          <em>بەرسڤا ئینگلیزی:</em> Two states: 0 and 1.<br>
-          <em>تێگەهشتن:</em> ئێک بیت ب تنێ ٢ دۆخ هەنە (0 و 1).</li>
-          <li><strong>Which gate outputs 1 only when both inputs are 1?</strong><br>
-          <em>بەرسڤا ئینگلیزی:</em> AND gate.<br>
-          <em>تێگەهشتن:</em> ب تنێ دەرگەهێ AND دەمێ هەردوو 1 بن 1 ددەت.</li>
-          <li><strong>Convert binary 110₂ to decimal.</strong><br>
-          <em>بەرسڤا ئینگلیزی:</em> 110₂ = 6₁₀.<br>
-          <em>چاوا؟</em> بهایێن جهی ژ ڕاست بۆ چەپ (1, 2, 4) نە: $(1\times 4) + (1\times 2) + (0\times 1) = 4 + 2 + 0 = 6$.</li>
-          <li><strong>In an OR gate, what is Y when A=0 and B=1?</strong><br>
-          <em>بەرسڤا ئینگلیزی:</em> Y = 1.<br>
-          <em>چاوا؟</em> چونکی $0 + 1 = 1$.</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-
-  <!-- Page 25 -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">لاپەڕ ٢٥ (سلاید 29)</span>
-      <span class="slide-en-title">Homework &amp; Preparation for Lecture 2 (ب تەمامی حەلکری!)</span>
-    </div>
-    <div class="slide-body">
-      <div class="ku-box">
-        <h4>حەلکرنا هەمی ئەرکێن ماڵێ یێن د سلاید ٢٩ دا:</h4>
-
-        <p><strong>ئەرکێ ١:</strong> Write one real-world example of a digital system and label its input and output.<br>
-        <em>بەرسڤ:</em> <strong>Automatic Door System (دەرگەهێ ئۆتۆماتیکی):</strong><br>
-        • <strong>Input:</strong> Motion sensor (هەستەوەرێ لڤینێ: 1 = کەس هەیە، 0 = کەس نینە).<br>
-        • <strong>Process:</strong> Digital logic controller.<br>
-        • <strong>Output:</strong> Door motor (1 = ڤەبیت، 0 = گرتی بیت).</p>
-
-        <p><strong>ئەرکێ ٢:</strong> Create truth tables for AND, OR and NOT gates.<br>
-        <em>بەرسڤ:</em> د لاپەڕێن ١١، ١٢، و ١٣ دا ل سەری ب تەمامی هەنە.</p>
-
-        <p><strong>ئەرکێ ٣:</strong> Convert <strong>1010₂</strong> and <strong>1111₂</strong> to decimal.</p>
-        <div class="en-box">
-          • <strong>1010₂ to decimal:</strong> Place values (8, 4, 2, 1) → (1×8) + (0×4) + (1×2) + (0×1) = 8 + 0 + 2 + 0 = <strong>10₁₀</strong>.<br>
-          • <strong>1111₂ to decimal:</strong> Place values (8, 4, 2, 1) → (1×8) + (1×4) + (1×2) + (1×1) = 8 + 4 + 2 + 1 = <strong>15₁₀</strong>.
-        </div>
-
-        <p><strong>ئەرکێ ٤:</strong> Simulate an OR gate in Multisim and screenshot its four test cases.<br>
-        <em>چاوا د Multisim دا دکەی:</em> دوو <span class="key-term">Interactive Digital Constants</span> دابنێ، ب دەرگەهێ <span class="key-term">OR (74LS32 یان 2-input OR)</span> ڤە گرێبدە، و <span class="key-term">Logic Probe</span> ب دەرکەفتنێ ڤە گرێبدە. هەر ٤ باران تاقی بکە: (00→0), (01→1), (10→1), (11→1).</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== DICTIONARY ==================== -->
-  <div class="section-title" id="dictionary">
-    <span>فەرهەنگا پەیڤێن ئینگلیزی یێن ئەزموونێ (دا هەمی پرسیاران تێبگەهی)</span>
-    <span class="en">Exam Vocabulary</span>
-  </div>
-
-  <div class="slide-card">
-    <div class="slide-body">
-      <table class="rtl-table">
-        <tr>
-          <th>پەیڤا ئینگلیزی</th>
-          <th>واتا ب بادینی</th>
-          <th>پەیڤا ئینگلیزی</th>
-          <th>واتا ب بادینی</th>
-        </tr>
-        <tr>
-          <td><strong>Discrete / Distinct</strong></td><td>جودا و دیارکری (بێ پچڕان نینە)</td>
-          <td><strong>Continuous</strong></td><td>بەردەوام (تایبەت ب Analog)</td>
-        </tr>
-        <tr>
-          <td><strong>State / Level</strong></td><td>دۆخ / ئاست</td>
-          <td><strong>Threshold</strong></td><td>سنوورێ ڤۆڵتیێ</td>
-        </tr>
-        <tr>
-          <td><strong>Complement / Inverter</strong></td><td>پێچەوانەکرن (کارێ NOT)</td>
-          <td><strong>Boolean expression</strong></td><td>هاوکێشەیا لۆجیکی (وەک Y=A+B)</td>
-        </tr>
-        <tr>
-          <td><strong>Truth table</strong></td><td>خشتێ ڕاستیێ</td>
-          <td><strong>Convert</strong></td><td>گوهارتن (بۆ نموونە ژ باینەری بۆ دەهی)</td>
-        </tr>
-        <tr>
-          <td><strong>Both / Only when</strong></td><td>هەردوو / ب تنێ دەمێ (ئیشارەتا AND)</td>
-          <td><strong>Either / At least one</strong></td><td>ئێک ژ وان (ئیشارەتا OR)</td>
-        </tr>
-        <tr>
-          <td><strong>Stored state</strong></td><td>دۆخێ هەڵگرتی (تایبەت ب Sequential)</td>
-          <td><strong>Current input</strong></td><td>هاتنەژوورێن نوکە</td>
-        </tr>
-        <tr>
-          <td><strong>Simulation / Probe</strong></td><td>تاقیکرنا کۆمپیوتەری / پشکنەر</td>
-          <td><strong>Powers of two</strong></td><td>هێزێن ژمارە ٢ (1, 2, 4, 8, 16...)</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- ==================== MIDTERM EXAM ==================== -->
-  <div class="section-title" id="midterm">
-    <span>نموونەیا ئەزموونا مێدتێرمێ یا ڕاستەقینە — ١٠٠ نمرە (پسیار ب ئینگلیزی + حەل ب بادینی)</span>
-    <span class="en">Mock Midterm Exam (100 Marks)</span>
-  </div>
-
-  <div class="exam-controls">
-    <button class="btn-all" onclick="toggleAll(true)">نیشاندانا هەمی بەرسڤان</button>
-    <button class="btn-hide" onclick="toggleAll(false)">ڤەشارتنا هەمی بەرسڤان (بۆ تاقیکرنا خۆ)</button>
-  </div>
-
-  <!-- Q1: 5 MCQ (25 Marks) -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">Question 1: Multiple Choice (5 × 5 = 25 Marks)</span>
-      <span class="slide-en-title">پێنج پرسیارێن هەلبژارتن</span>
-    </div>
-    <div class="slide-body">
-
-      <!-- MCQ 1 -->
-      <div class="exam-card">
-        <div class="q-en">1. How many bits make one byte?</div>
-        <ul class="options-en">
-          <li>a) 2 bits</li>
-          <li>b) 4 bits</li>
-          <li>c) 8 bits</li>
-          <li>d) 16 bits</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤا ڕاست: c) 8 bits</strong><br>
-          <em>شڕۆڤە:</em> چەند بیت دبنە ئێک بایت؟ د سلاید ٥ (07) دا هاتیە کو ٨ بیت دبنە ئێک بایت (1 Byte = 8 Bits).
-        </div>
-      </div>
-
-      <!-- MCQ 2 -->
-      <div class="exam-card">
-        <div class="q-en">2. Which logic gate outputs 1 ONLY when both inputs are 1?</div>
-        <ul class="options-en">
-          <li>a) OR gate</li>
-          <li>b) AND gate</li>
-          <li>c) NOT gate</li>
-          <li>d) Sensor gate</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤا ڕاست: b) AND gate</strong><br>
-          <em>شڕۆڤە:</em> کیژ دەرگەهـ دەرکەفتنا 1 ددەت ب تنێ دەمێ هەردوو هاتنەژوور 1 بن؟ دەرگەهێ AND.
-        </div>
-      </div>
-
-      <!-- MCQ 3 -->
-      <div class="exam-card">
-        <div class="q-en">3. Which of the following is an example of an ANALOG signal?</div>
-        <ul class="options-en">
-          <li>a) Binary signal from a processor</li>
-          <li>b) Output of a push-button switch</li>
-          <li>c) Microphone voltage</li>
-          <li>d) Logic probe value (0 or 1)</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤا ڕاست: c) Microphone voltage</strong><br>
-          <em>شڕۆڤە:</em> کیژ ژ ڤان نموونەیا سیگناڵێ ئەنالۆگە؟ ڤۆڵتیا مایکرۆفۆنێ (یان هەستەوەرێ گەرمێ)، چونکی ب شێوەکێ بەردەوام دهێتە گوهارتن.
-        </div>
-      </div>
-
-      <!-- MCQ 4 -->
-      <div class="exam-card">
-        <div class="q-en">4. In which type of logic does the output depend on current inputs AND stored state?</div>
-        <ul class="options-en">
-          <li>a) Combinational logic</li>
-          <li>b) Sequential logic</li>
-          <li>c) Analog logic</li>
-          <li>d) Decimal logic</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤا ڕاست: b) Sequential logic</strong><br>
-          <em>شڕۆڤە:</em> چونکی پەیڤا (stored state - دۆخێ هەڵگرتی) هات، ئەڤە لۆجیکا Sequentialە (وەک counter و flip-flop).
-        </div>
-      </div>
-
-      <!-- MCQ 5 -->
-      <div class="exam-card">
-        <div class="q-en">5. What is the first step in the digital design workflow?</div>
-        <ul class="options-en">
-          <li>a) Simulate &amp; test</li>
-          <li>b) Draw the circuit</li>
-          <li>c) Make a truth table</li>
-          <li>d) Define the problem</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤا ڕاست: d) Define the problem</strong><br>
-          <em>شڕۆڤە:</em> پێنگاڤا ئێکێ یا کارێ دیزاینێ هەردەم دیارکرنا ئاریشێ یە (Define the problem).
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Q2: 5 Fill in the blanks (25 Marks) -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">Question 2: Fill in the Blanks (5 × 5 = 25 Marks)</span>
-      <span class="slide-en-title">پێنج پرسیارێن بۆشایی (فەراغات)</span>
-    </div>
-    <div class="slide-body">
-
-      <div class="exam-card">
-        <div class="q-en">1. Digital logic design is the study of circuits that process __________ electrical states.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: discrete</strong> (جودا و دیارکری — ژ سلاید ٢ / لاپەڕ ٢).
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">2. In a 5 V logic example, Logic 0 represents the __________ state (near 0 V), and Logic 1 represents the __________ state (near 5 V).</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: LOW , HIGH</strong> (سلاید ٤ / لاپەڕ ٤).
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">3. A binary number uses powers of __________ rather than powers of ten.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: two (2)</strong> (سلاید ٥ / لاپەڕ ٥).
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">4. Storage elements in a digital circuit, such as __________ and __________, hold state.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: latches , flip-flops</strong> (سلاید ٨ / لاپەڕ ٨).
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">5. __________ is a circuit simulation environment used for electronic circuit exercises.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: Multisim</strong> (سلاید ١٨ / لاپەڕ ١٨).
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Q3: 5 True / False (25 Marks) -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">Question 3: True or False (5 × 5 = 25 Marks)</span>
-      <span class="slide-en-title">پێنج پرسیارێن ڕاست و خەلەت</span>
-    </div>
-    <div class="slide-body">
-
-      <div class="exam-card">
-        <div class="q-en">1. One bit can have only two possible states: 0 and 1. (True / False)</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: True (ڕاست)</strong> — ئێک بیت ب تنێ دوو دۆخ هەنە (0 و 1).
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">2. Real HIGH and LOW voltage thresholds are always identical regardless of logic family or supply voltage. (True / False)</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: False (خەلەت)</strong> — ژ بەر کو د سلاید ٤ دا گۆتیە: دکەڤنە سەر جۆرێ <span class="key-term">logic family and supply voltage</span>.
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">3. A NOT gate has two inputs and one output. (True / False)</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: False (خەلەت)</strong> — دەرگەهێ NOT ب تنێ <strong>ئێک هاتنەژوور</strong> (one input) و ئێک دەرکەفتن هەیە.
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">4. In an OR gate, if A = 0 and B = 1, the output Y equals 1. (True / False)</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: True (ڕاست)</strong> — د دەرگەهێ OR دا $0 + 1 = 1$.
-        </div>
-      </div>
-
-      <div class="exam-card">
-        <div class="q-en">5. An AND gate is an example of sequential logic. (True / False)</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <strong>بەرسڤ: False (خەلەت)</strong> — دەرگەهێ AND نموونەیا لۆجیکا <strong>Combinational</strong>ە، نە Sequential.
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Q4: 5 Problem Solving / Direct Questions (25 Marks) -->
-  <div class="slide-card">
-    <div class="slide-header">
-      <span class="slide-num">Question 4: Short Answers &amp; Problems (5 × 5 = 25 Marks)</span>
-      <span class="slide-en-title">پێنج پرسیارێن حەلکرن و نڤیسینێ</span>
-    </div>
-    <div class="slide-body">
-
-      <!-- P1 -->
-      <div class="exam-card">
-        <div class="q-en">1. Convert the binary number 1011₂ to decimal (show steps).</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <div class="en-box" style="margin-bottom:0.4rem;">
-            Place values (right to left): 1, 2, 4, 8<br>
-            (1 × 8) + (0 × 4) + (1 × 2) + (1 × 1) = 8 + 0 + 2 + 1 = <strong>11₁₀</strong>
-          </div>
-          <em>تێبینی:</em> ئەگەر د ئەزموونێ دا ژمارەیەکا دی هات (وەک $110_2 = 6$, یان $1010_2 = 10$, یان $1111_2 = 15$)، هەر ب هەمان ڕێک پێنگاڤان بنڤیسە!
-        </div>
-      </div>
-
-      <!-- P2 -->
-      <div class="exam-card">
-        <div class="q-en">2. Write the truth table for the OR gate (Y = A + B).</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <table>
-            <tr><th>A</th><th>B</th><th>Y = A + B</th></tr>
-            <tr><td>0</td><td>0</td><td>0</td></tr>
-            <tr><td>0</td><td>1</td><td>1</td></tr>
-            <tr><td>1</td><td>0</td><td>1</td></tr>
-            <tr><td>1</td><td>1</td><td>1</td></tr>
-          </table>
-        </div>
-      </div>
-
-      <!-- P3 -->
-      <div class="exam-card">
-        <div class="q-en">3. A safety alarm sounds if either door A OR door B opens. Write the Boolean expression and find ALARM when A = 0 and B = 1.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <div class="en-box" style="margin-bottom:0.4rem;">
-            Boolean Expression: <strong>ALARM = A + B</strong> (OR gate)<br>
-            For A = 0, B = 1: ALARM = 0 + 1 = <strong>1 (ON)</strong>
-          </div>
-          <em>تێگەهشتن:</em> چونکی گۆت (either A OR B)، ئانکو OR gate.
-        </div>
-      </div>
-
-      <!-- P4 -->
-      <div class="exam-card">
-        <div class="q-en">4. State the difference between Combinational logic and Sequential logic, with one example for each.</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <div class="en-box" style="margin-bottom:0.4rem;">
-            • <strong>Combinational:</strong> Output depends only on current input values. Example: AND gate (or half adder).<br>
-            • <strong>Sequential:</strong> Output depends on current inputs and stored state. Example: Flip-flop (or counter).
-          </div>
-        </div>
-      </div>
-
-      <!-- P5 -->
-      <div class="exam-card">
-        <div class="q-en">5. List the three main parts of a simple digital system (with an example for each).</div>
-        <button class="toggle-btn" onclick="toggleAns(this)">نیشاندانا بەرسڤێ</button>
-        <div class="answer-box">
-          <div class="en-box" style="margin-bottom:0.4rem;">
-            1. <strong>INPUT:</strong> Switch / sensor<br>
-            2. <strong>PROCESS:</strong> Logic gates / circuit<br>
-            3. <strong>OUTPUT:</strong> LED / buzzer / display
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+  <div class="nav-slides" id="navSlides"></div>
+  <div id="slidesContainer"></div>
 </div>
 
 <script>
-  function toggleAns(btn) {
-    const box = btn.nextElementSibling;
-    box.classList.toggle("show");
-    btn.textContent = box.classList.contains("show")
-      ? "ڤەشارتنا بەرسڤێ"
-      : "نیشاندانا بەرسڤێ";
+const slidesData = [
+  {
+    num: 3,
+    title: "C# Data Types (پێشەکی و نموونێن گشتی)",
+    summary: [
+      "زمانێ C# یێ <b>Strongly-typed</b>ـە، یعنی دڤێت بەری بکارئینانا هەر گۆڕاوەکێ (Variable) جورێ وێ دیاربکەی.",
+      "نموونێن سەرەکی: ژمارەیا تەمام <code>int</code>، ژمارەیا ب پۆینت <code>float</code> (دڤێت پیتا <code>f</code> ل دوماهیکێ هەبیت)، ئێک پیت د ناڤ <code>' '</code> دا بۆ <code>char</code>، دروست/خەلەت بۆ <code>bool</code>، و نڤیسین د ناڤ <code>\" \"</code> دا بۆ <code>string</code>."
+    ],
+    questions: [
+      {
+        q: "ئەگەر ئەڤ کۆدە بهێتە رەنکرن دێ چ روودەت؟",
+        code: "float floatVar = 10.2;\nConsole.WriteLine(floatVar);",
+        isCodeOpt: false,
+        opts: ["دێ 10.2 چاپ کەت", "دێ Error دەت چونکی پیتا f ل دوماهیکا 10.2 نینە", "دێ 10 چاپ کەت", "دێ 0 چاپ کەت"],
+        ans: 1,
+        exp: "بۆ float دڤێت f ل دوماهیکا ژمارێ هەبیت (10.2f)، ئەگەر نە دێ کۆمپایلەر ب double هژمێریت و Error دەت."
+      },
+      {
+        q: "کیژ ژ ئەڤان کۆدان یێ دروستە و بێ Error کاردکەت؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["char myLetter = \"D\";", "char myLetter = 'D';", "char myLetter = D;", "char myLetter = 'DD';"],
+        ans: 1,
+        exp: "بۆ char دڤێت بتنێ ئێک پیت د ناڤ کۆتەیشنا تاک ' ' دا بیت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int myNum = 5;\nstring myText = \"Kurdistan\";\nConsole.WriteLine(myNum + \" \" + myText);",
+        isCodeOpt: true,
+        opts: ["Kurdistan 5", "5 Kurdistan", "5Kurdistan", "Error"],
+        ans: 1,
+        exp: "myNum پێنجە، پاش بۆشایی \" \"، پاش myText کو Kurdistanـە، دێ بیتە 5 Kurdistan."
+      },
+      {
+        q: "کیژ رێز بۆ گۆڕاوا bool یا دروستە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["bool myBool = \"true\";", "bool myBool = true;", "bool myBool = 'true';", "bool myBool = 1;"],
+        ans: 1,
+        exp: "بۆ bool بتنێ true یان false بێ کۆتەیشن دهێنە نڤیسین."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە Errorـە؟",
+        code: "int myNum = 10.5;",
+        isCodeOpt: false,
+        opts: ["ناڤێ myNum یێ خەلەتە", "جورێ int بتنێ ژمارێن تەمام (بێ پۆینت) وەردگریت", "پیتا f ل دوماهیکێ نینە", "فاریزە منقوتە ; یا زێدەیە"],
+        ans: 1,
+        exp: "int بتنێ ژمارێن تەمام وەردگریت و 10.5 پۆینت تێدایە."
+      }
+    ]
+  },
+  {
+    num: 4,
+    title: "C# Data Types (خشتێ جورێن بەربەلاڤ)",
+    summary: [
+      "<code>int</code> (4 bytes) هەتا نێزیکی ٢ ملیار و ١٤٧ ملیۆن وەردگریت؛ ئەگەر ژمارە گەلەک مەزنتر بوو <code>long</code> (8 bytes) بکاردئینین.",
+      "<code>float</code> (4 bytes) هەتا ٦-٧ رەقەمان پشتی پۆینتێ یێ هورە، و <code>double</code> (8 bytes) هەتا ١٥ رەقەمان.",
+      "<code>bool</code> (true/false)، <code>char</code> (2 bytes - ئێک پیت ب <code>' '</code>)، <code>string</code> (2 bytes بۆ هەر پیتەکێ - ب <code>\" \"</code>)."
+    ],
+    questions: [
+      {
+        q: "کیژ جورێ داتایان دڤێت بکاربینین بۆ ڤێ ژمارەیا مەزن بێ Error؟",
+        code: "___ x = 5000000000;",
+        isCodeOpt: true,
+        opts: ["int", "long", "char", "bool"],
+        ans: 1,
+        exp: "5,000,000,000 ژ سنورێ int (2,147,483,647) مەزنترە، لەوما دڤێت long بکاربینین."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "double d = 12.3456789123;\nConsole.WriteLine(d);",
+        isCodeOpt: true,
+        opts: ["12.3456789123", "12", "Error", "12.35"],
+        ans: 0,
+        exp: "double هەتا 15 خانەیان ب دروستی هەڵدگریت و بێ کێشە هەمیێ چاپ دکەت."
+      },
+      {
+        q: "کیژ ژ ئەڤان کۆدان Error تێدایە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["string s = \"A\";", "char c = 'A';", "char c = 'AB';", "bool b = false;"],
+        ans: 2,
+        exp: "char بتنێ ئێک پیت وەردگریت؛ 'AB' دوو پیتن لەوما Errorـە."
+      },
+      {
+        q: "بۆ خەزنکرنا ناڤێ باژێرێ 'Akre' د کۆدی دا، کیژ رێز یا دروستە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["char city = 'Akre';", "string city = \"Akre\";", "string city = 'Akre';", "int city = \"Akre\";"],
+        ans: 1,
+        exp: "زنجیرە پیت (دەق) د ناڤ کۆتەیشنا دوو-دانەیی \" \" دا بۆ string دهێتە نڤیسین."
+      },
+      {
+        q: "کیژ کۆد ژ ئەڤان Error تێدا نینە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["int x = 2147483647;", "int x = 3000000000;", "float x = 5.5;", "bool x = True;"],
+        ans: 0,
+        exp: "2,147,483,647 دوماهیک ژمارەیا دروستە بۆ int. ژمارەیا 3 ملیار مەزنترە، 5.5 بێ fـە، و True د C# دا دڤێت ب پیتا بچویک true بیت."
+      }
+    ]
+  },
+  {
+    num: 5,
+    title: "C# Data Types (ژمارە: Integer و Floating-point)",
+    summary: [
+      "ژمارە د C# دا دوو بەشن: <b>Integer Types</b> (ژمارێن تەمام بێ پۆینت، دبنە پۆزەتیڤ و نێگەتیڤ: <code>byte, sbyte, short, ushort, int, uint, long, ulong</code>).",
+      "<b>Floating-point Types</b> (ژمارێن ب پۆینت: <code>float</code> 32-bit، <code>double</code> 64-bit، <code>decimal</code> 128-bit)."
+    ],
+    questions: [
+      {
+        q: "کیژ جورێ داتایان دکاری ژمارا -4.75 تێدا خەزن بکەی بێ Error؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["int x = -4.75;", "double x = -4.75;", "long x = -4.75;", "uint x = -4.75;"],
+        ans: 1,
+        exp: "ژمارێن ب پۆینت و نێگەتیڤ بتنێ د جورێن Floating-point وەکی double دا دهێنە خەزنکرن."
+      },
+      {
+        q: "کیژ ژ ئەڤان ژمارەیا نێگەتیڤ (-15) بێ Error وەردگریت؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["byte a = -15;", "ushort a = -15;", "sbyte a = -15;", "uint a = -15;"],
+        ans: 2,
+        exp: "byte و ushort و uint هەمی Unsignedـن (نێگەتیڤ وەرناگرن)، بتنێ sbyte نێگەتیڤ وەردگریت."
+      },
+      {
+        q: "کیژ ژ ئەڤان ژماران ب 128-bit دهێتە خەزنکرن؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["float", "double", "decimal", "ulong"],
+        ans: 2,
+        exp: "د C# دا decimal قەبارێ وێ 128-bitـە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = -10;\nfloat b = 2.5f;\nConsole.WriteLine(a);",
+        isCodeOpt: true,
+        opts: ["-10", "10", "2.5", "Error"],
+        ans: 0,
+        exp: "جورێ Integer وەکی int ژمارا نێگەتیڤ (-10) بێ کێشە هەڵدگریت و چاپ دکەت."
+      },
+      {
+        q: "کیژ کۆمەلا ژماران هەردوو یێن ب پۆینت تێدا هەنە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["byte, short, int", "float, double, decimal", "sbyte, uint, ulong", "int, long, ushort"],
+        ans: 1,
+        exp: "float و double و decimal هەرسێ جورێن Floating-pointـن."
+      }
+    ]
+  },
+  {
+    num: 6,
+    title: "C# Data Types (خشتێ ژماران، سنور، Suffix)",
+    summary: [
+      "<code>byte</code> (0 تا 255) | <code>sbyte</code> (-128 تا 127) | <code>short</code> (-32,768 تا 32,767) | <code>ushort</code> (0 تا 65,535).",
+      "پاشگر (Suffix): بۆ <code>uint</code> پیتا <code>u</code>، بۆ <code>long</code> پیتا <code>l/L</code>، بۆ <code>ulong</code> پیتا <code>ul</code>، بۆ <code>float</code> پیتا <code>f</code>، بۆ <code>double</code> پیتا <code>d</code>، بۆ <code>decimal</code> پیتا <code>m</code>.",
+      "بەهایێ بنەڕەتی (Default): بۆ ژمارێن تەمام <code>0</code> ژبلی <code>long</code> کو <code>0L</code>ـە؛ بۆ <code>float</code> <code>0.0F</code> و بۆ <code>double</code> <code>0.0D</code>."
+    ],
+    questions: [
+      {
+        q: "ئەڤ کۆدە دێ چ کەت؟",
+        code: "byte x = 256;\nConsole.WriteLine(x);",
+        isCodeOpt: false,
+        opts: ["دێ 256 چاپ کەت", "دێ 0 چاپ کەت", "دێ Error دەت چونکی سنورێ byte ژ 0 تا 255ـە", "دێ 255 چاپ کەت"],
+        ans: 2,
+        exp: "مەزنترین ژمارا byte وەردگریت 255ـە، لەوما 256 Error دروست دکەت."
+      },
+      {
+        q: "کیژ ژ ئەڤان Suffixـان بۆ جورێ decimal یێ دروستە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["decimal price = 19.99f;", "decimal price = 19.99d;", "decimal price = 19.99m;", "decimal price = 19.99u;"],
+        ans: 2,
+        exp: "بۆ decimal دڤێت پاشگرا m ل دوماهیکێ هەبیت."
+      },
+      {
+        q: "کیژ رێز Error تێدایە ژبەر سنورێ ژمارێ؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["sbyte a = -128;", "sbyte b = 127;", "sbyte c = 130;", "ushort d = 65000;"],
+        ans: 2,
+        exp: "سنورێ sbyte ژ -128 تا 127ـە، لەوما 130 Errorـە."
+      },
+      {
+        q: "کیژ کۆد Errorـە ژبەر خەلەتیا پاشگرێ (Suffix)؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["ulong x = 500ul;", "uint y = 200u;", "float z = 4.5d;", "long w = 100L;"],
+        ans: 2,
+        exp: "4.5d یانی double، و نەشێی double بێ Convert بکەیە ناڤ float."
+      },
+      {
+        q: "بەهایێ بنەڕەتی (Default) یێ long و float چەندە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["0 و 0.0", "0L و 0.0F", "0 و 0.0D", "0L و 0.0M"],
+        ans: 1,
+        exp: "د سلایدی دا: بەهایێ بنەڕەتی یێ long بریتییە ژ 0L و یێ float بریتییە ژ 0.0F."
+      }
+    ]
+  },
+  {
+    num: 7,
+    title: "نموونا ژمارێن تەمام (Measuring Time & Placeholders)",
+    summary: [
+      "بۆ چاپکرنا چەند گۆڕاوان د ناڤ دەقی دا: <code>Console.WriteLine(\"{0} ... {1}\", var0, var1);</code>.",
+      "هژمارتنا ناڤ کەڤانان ژ سفر <code>{0}</code> دەستپێدکەت (نەک ژ ١) و ل دویڤ رێزبەندیا گۆڕاوان ل پشت کۆمایێ دچیت."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "byte centuries = 20;\nushort years = 2000;\nConsole.WriteLine(\"{0} centuries is {1} years\", centuries, years);",
+        isCodeOpt: true,
+        opts: ["2000 centuries is 20 years", "20 centuries is 2000 years", "{0} centuries is {1} years", "Error"],
+        ans: 1,
+        exp: "{0} جهێ centuries (20) دگریت و {1} جهێ years (2000) دگریت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاری رێزبەندیا ژماران بە!)",
+        code: "int a = 10;\nint b = 50;\nConsole.WriteLine(\"{1} - {0}\", a, b);",
+        isCodeOpt: true,
+        opts: ["10 - 50", "50 - 10", "10 - 10", "Error"],
+        ans: 1,
+        exp: "ل جهێ {1} گۆڕاوا دوویێ (b = 50) و ل جهێ {0} گۆڕاوا ئێکێ (a = 10) دهێتە دانان."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "byte x = 5;\nConsole.WriteLine(\"{0} + {0}\", x);",
+        isCodeOpt: true,
+        opts: ["5 + 5", "10", "Error", "5 + 0"],
+        ans: 0,
+        exp: "دکاری {0} چەند جاران بکاربینی؛ هەردوو جاران دێ بەهایێ x (کو 5ـە) د ناڤ دەقی دا چاپ کەت."
+      },
+      {
+        q: "کیژ گۆڕاوا د ئەڤی کۆدی دا Error دروست دکەت؟",
+        code: "byte a = 20;\nushort b = -5;\nuint c = 100;",
+        isCodeOpt: true,
+        opts: ["byte a = 20;", "ushort b = -5;", "uint c = 100;", "چ Error تێدا نینن"],
+        ans: 1,
+        exp: "ushort ژمارا نێگەتیڤ (-5) وەرناگریت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "uint days = 30;\nulong hours = 720;\nConsole.WriteLine(\"{0} days = {1} hours\", days, hours);",
+        isCodeOpt: true,
+        opts: ["30 days = 720 hours", "720 days = 30 hours", "days = hours", "Error"],
+        ans: 0,
+        exp: "{0} دبیتە 30 و {1} دبیتە 720."
+      }
+    ]
+  },
+  {
+    num: 8,
+    title: "نموونا Float و Double (Precision یا PI)",
+    summary: [
+      "ژمارێن ب پۆینت د C# دا ب شێوێ بنەڕەتی وەکی <code>double</code> دهێنە هژمارتن.",
+      "دەمێ ژمارەکێ ددەیە <code>float</code> دڤێت پیتا <code>f</code> ل دوماهیکێ بنڤیسی. هەروەسا <code>float</code> بتنێ نێزیکی ٧ ژمارەیان دهێلیت (پاش گرد دکەت) بەس <code>double</code> ١٥ ژمارەیان دهێلیت."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چ دێ چاپ بیت؟",
+        code: "float floatPI = 3.1415926535f;\nConsole.WriteLine(floatPI);",
+        isCodeOpt: true,
+        opts: ["3.1415926535", "3.141593", "3.14", "Error"],
+        ans: 1,
+        exp: "float بتنێ نێزیکی 7 خانەیان هەڵدگریت و خانەیا دوماهیکێ گرد دکەت (دبیتە 3.141593)."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە رەن نابیت و Error دەت؟",
+        code: "float pi = 3.1415;",
+        isCodeOpt: false,
+        opts: ["ناڤێ pi قەدەغەیە", "3.1415 بێ f وەکی double دهێتە هژمارتن و ناچیتە ناڤ float", "float پۆینت وەرناگریت", "پێدڤی ب کۆتەیشنێ یە"],
+        ans: 1,
+        exp: "ژمارەیا ب پۆینت بێ پاشگر ب شێوێ ئۆتۆماتیکی doubleـە، بۆ float دڤێت 3.1415f بنڤیسی."
+      },
+      {
+        q: "چاوا کۆدێ سەری (float pi = 3.1415;) دروست بکەین؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["float pi = 3.1415d;", "float pi = 3.1415f;", "float pi = \"3.1415\";", "float pi = 3.1415m;"],
+        ans: 1,
+        exp: "ب دانانا پیتا f ل دوماهیکا ژمارێ: 3.1415f."
+      },
+      {
+        q: "کیژ ژ ئەڤان گۆڕاوان پتر ژمارێن پشتی پۆینتێ ب هوری هەڵدگریت؟",
+        code: "float a = 3.14159265358979f;\ndouble b = 3.14159265358979;",
+        isCodeOpt: true,
+        opts: ["a (float)", "b (double)", "هەردوو وەکی ئێکن", "چ ژ وان وەرناگرن"],
+        ans: 1,
+        exp: "double هەتا 15 خانەیان ب هوری هەڵدگریت، گەلەک هورترە ژ float."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "double a = 2.5;\nfloat b = 2.5f;\nConsole.WriteLine(a + b);",
+        isCodeOpt: true,
+        opts: ["5", "4", "2.52.5", "Error"],
+        ans: 0,
+        exp: "2.5 + 2.5 دبیتە 5 (د C# دا سفرا دوماهیکا 5.0 د چاپکرنێ دا ناهێتە دیارکرن و دبیتە 5)."
+      }
+    ]
+  },
+  {
+    num: 9,
+    title: "C# Data Types (Boolean - bool)",
+    summary: [
+      "ب کێلیلا <code>bool</code> دهێتە ناسین، و بتنێ دوو بەها هەنە: <code>true</code> یان <code>false</code> (بەهایێ بنەڕەتی <code>false</code>ـە).",
+      "پتریا جاران د ئەنجامێ بەراوردکرنێ (وەکی <code>a > b</code> یان <code>a == 1</code>) دا دهێتە بکارئینان، و دەمێ چاپ دکەی ب پیتا مەزن <code>True</code> یان <code>False</code> دەردکەڤیت."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nConsole.WriteLine(greaterAB);",
+        isCodeOpt: true,
+        opts: ["True", "False", "1", "0"],
+        ans: 1,
+        exp: "ئایا 1 مەزنترە ژ 2؟ نەخێر، لەوما False چاپ دبیت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 1;\nbool equalA1 = (a == 1);\nConsole.WriteLine(equalA1);",
+        isCodeOpt: true,
+        opts: ["True", "False", "1", "Error"],
+        ans: 0,
+        exp: "ئایا a یەکسانە ب 1؟ بەلێ، لەوما True چاپ دبیت."
+      },
+      {
+        q: "ئەڤ کۆدە دێ چ ئەنجام دەت؟",
+        code: "bool x = 1;\nConsole.WriteLine(x);",
+        isCodeOpt: false,
+        opts: ["True", "1", "Error چونکی د C# دا int ناچیتە ناڤ bool", "False"],
+        ans: 2,
+        exp: "د C# دا جودا ژ C++، نەشێی ژمارا 1 یان 0 بدەیە bool، دڤێت true یان false بیت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 5;\nbool res = (a >= b);\nConsole.WriteLine(res);",
+        isCodeOpt: true,
+        opts: ["True", "False", "5", "Error"],
+        ans: 0,
+        exp: "5 مەزنتر یان یەکسانە ب 5؟ بەلێ یەکسانن، لەوما ئەنجام True یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "bool ok = false;\nConsole.WriteLine(ok);",
+        isCodeOpt: true,
+        opts: ["False", "0", "True", "Error"],
+        ans: 0,
+        exp: "Console.WriteLine بەهایێ bool وەکی False چاپ دکەت."
+      }
+    ]
+  },
+  {
+    num: 10,
+    title: "C# Data Types (Char)",
+    summary: [
+      "<code>char</code> بتنێ بۆ ئێک پیت یان ئێک هێما دهێتە بکارئینان، و دڤێت د ناڤ کۆتەیشنا تاک <code>' '</code> دا بیت.",
+      "بەهایێ بنەڕەتی یێ <code>char</code> بریتییە ژ <code>'\\0'</code>."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "char myGrade = 'B';\nConsole.WriteLine(myGrade);",
+        isCodeOpt: true,
+        opts: ["'B'", "B", "66", "Error"],
+        ans: 1,
+        exp: "Console.WriteLine پیتێ بێ کۆتەیشن چاپ دکەت: B."
+      },
+      {
+        q: "کیژ ژ ئەڤان رێزان Errorـە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["char a = 'A';", "char b = '5';", "char c = \"A\";", "char d = '$';"],
+        ans: 2,
+        exp: "کۆتەیشنا دوو-دانەیی \"A\" بۆ stringـە، نەک بۆ char."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە Errorـە؟",
+        code: "char grade = 'A+';",
+        isCodeOpt: false,
+        opts: ["هێمایا + قەدەغەیە", "د ناڤ ' ' دا دوو کارەکتەر هەنە و char بتنێ ئێک کارەکتەر وەردگریت", "دڤێت string بيتە int", "ناڤێ grade یێ خەلەتە"],
+        ans: 1,
+        exp: "'A+' دوو کارەکتەرن (A و +)، و char بتنێ ئێکی وەردگریت."
+      },
+      {
+        q: "ئایا ئەڤ کۆدە دروستە و چ چاپ دکەت؟",
+        code: "char num = '7';\nConsole.WriteLine(num);",
+        isCodeOpt: true,
+        opts: ["7 چاپ دکەت (دروستە)", "Error چونکی 7 ژمارەیە", "0 چاپ دکەت", "'7' چاپ دکەت"],
+        ans: 0,
+        exp: "هەر تشتێ د ناڤ ' ' دا بیت (وەکی '7') وەکی کارەکتەر دهێتە هژمارتن و بێ کێشە 7 چاپ دکەت."
+      },
+      {
+        q: "ب کیژ کۆد بەهایێ بنەڕەتی (Default) یێ char دهێتە دانان؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["char c = '';", "char c = '\\0';", "char c = \"0\";", "char c = 0.0;"],
+        ans: 1,
+        exp: "بەهایێ بنەڕەتی یێ char بریتییە ژ '\\0'."
+      }
+    ]
+  },
+  {
+    num: 11,
+    title: "C# Data Types (String)",
+    summary: [
+      "<code>string</code> بۆ زنجیرە پیت و دەقانە، و دڤێت د ناڤ کۆتەیشنا دوو-دانەیی <code>\" \"</code> دا بیت (بەهایێ بنەڕەتی <code>null</code>ـە).",
+      "بۆ لێکدانا دەقان نیشانا <code>+</code> بکاردئینین، و <code>\\n</code> دێرەکا نوو (New Line) چێدکەت."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "string firstName = \"Dareen\";\nstring lastName = \"Muhammed\";\nstring fullName = firstName + \" \" + lastName;\nConsole.WriteLine(fullName);",
+        isCodeOpt: true,
+        opts: ["DareenMuhammed", "Dareen Muhammed", "firstName lastName", "Error"],
+        ans: 1,
+        exp: "\" \" بۆشاییەکێ د ناڤبەرا هەردوو ناڤان دا چێدکەت: Dareen Muhammed."
+      },
+      {
+        q: "هێمایا \\n د ئەڤی کۆدی دا دێ چ کەت؟",
+        code: "Console.WriteLine(\"Hello!\\nWelcome\");",
+        isCodeOpt: false,
+        opts: ["دێ Hello! و Welcome ل سەر ئێک دێر چاپ کەت", "دێ Hello! ل دێرا ئێکێ و Welcome ل دێرا دوویێ چاپ کەت", "دێ Error دەت", "دێ \\n وەکی خۆ چاپ کەت"],
+        ans: 1,
+        exp: "\\n دێرەکا نوو چێدکەت، لەوما Welcome دهێتە خوارێ."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاربە stringـە نەک int!)",
+        code: "string a = \"5\";\nstring b = \"3\";\nConsole.WriteLine(a + b);",
+        isCodeOpt: true,
+        opts: ["8", "53", "2", "Error"],
+        ans: 1,
+        exp: "چونکی هەردوو stringـن، نیشانا + وان کۆم ناکەت بەلکو لێکددەت و دبیتە 53."
+      },
+      {
+        q: "کیژ رێز دێ Error دەت؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["string s = \"\";", "string s = null;", "string s = 'Kurdistan';", "string s = \"123\";"],
+        ans: 2,
+        exp: "دڤێت string ب \" \" بیت، نەک ب کۆتەیشنا تاک ' '."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "string name = \"Ali\";\nConsole.WriteLine(\"Hello, {0}!\", name);",
+        isCodeOpt: true,
+        opts: ["Hello, name!", "Hello, {0}!", "Hello, Ali!", "Error"],
+        ans: 2,
+        exp: "{0} جهێ گۆڕاوا name دگریت و دبیتە Hello, Ali!."
+      }
+    ]
+  },
+  {
+    num: 12,
+    title: "C# Operators (جورێن کرداران ب گشتی)",
+    summary: [
+      "کردار د C# دا: بیرکاری (<code>+ - * / % ++ --</code>)، لۆجیکی (<code>&& || ^ !</code>)، باینەری، بەراوردکرن (<code>== != &lt; &gt; &lt;= &gt;=</code>)، دانان (<code>= += -= ...</code>)، لێکدانا دەقان (<code>+</code>)، و یێن دی وەکی <code>?:</code> و <code>is</code>.",
+      "هشیاربە: نیشانا <code>+</code> د ناڤبەرا ژماران دا کۆم دکەت، بەس د ناڤبەرا دەقان دا لێکددەت!"
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "Console.WriteLine(\"5\" + 2 + 3);",
+        isCodeOpt: true,
+        opts: ["10", "55", "523", "Error"],
+        ans: 2,
+        exp: "ژ چەپێ بۆ راستێ: \"5\" + 2 دبیتە \"52\"، پاش \"52\" + 3 دبیتە \"523\"."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (جوداهیێ دگەل پرسیارا ١ ببینە!)",
+        code: "Console.WriteLine(2 + 3 + \"5\");",
+        isCodeOpt: true,
+        opts: ["235", "55", "10", "Error"],
+        ans: 1,
+        exp: "ژ چەپێ بۆ راستێ: 2 + 3 پێشیێ کۆم دبن (دبیتە 5)، پاش 5 + \"5\" لێکددەت و دبیتە 55!"
+      },
+      {
+        q: "ئەنجامێ ئەڤێ کردارا مەرجی (?:) چییە؟",
+        code: "int r = (10 > 5) ? 100 : 200;\nConsole.WriteLine(r);",
+        isCodeOpt: true,
+        opts: ["100", "200", "True", "Error"],
+        ans: 0,
+        exp: "مەرجێ (10 > 5) یێ راستە، لەوما بەهایێ ئێکێ (100) هەڵدبژێریت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 10;\nConsole.WriteLine(x is int);",
+        isCodeOpt: true,
+        opts: ["10", "int", "True", "False"],
+        ans: 2,
+        exp: "کردارێ is پشکنینێ دکەت کا x ژ جورێ intـە یان نە؛ بەلێ، لەوما True چاپ دکەت."
+      },
+      {
+        q: "کیژ رێز دروستە بۆ پشکنینا هندێ کا x د ناڤبەرا 2 و 10 دایە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["bool ok = (x > 2 && x < 10);", "bool ok = (2 < x < 10);", "bool ok = (x > 2 &| x < 10);", "bool ok = (x > 2 = x < 10);"],
+        ans: 0,
+        exp: "د C# دا نەشێی (2 < x < 10) بنڤیسی؛ دڤێت ب && هەردوو مەرجان پێکڤە گرێدەی."
+      }
+    ]
+  },
+  {
+    num: 13,
+    title: "Arithmetic Operators (کردارێن بیرکاری)",
+    summary: [
+      "<code>+</code> کۆمکرن، <code>-</code> کێمکرن، <code>*</code> جاران، <code>/</code> دابەشکرن، <code>%</code> ماوێ دابەشکرنێ (Remainder).",
+      "<code>++</code> ١ێ زێدە دکەت و <code>--</code> ١ێ کێم دکەت. نیشانا <code>-</code> ل بەری ژمارێ دەرنەخە ئیشارەتێ دگوهۆڕیت (Negation)."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5 % 2;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["2", "2.5", "1", "0"],
+        ans: 2,
+        exp: "5 دابەشی 2 دبیتە 2 و ماوێ وێ (Remainder) 1 دمینیت."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 10 / 2;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["5", "0", "2", "20"],
+        ans: 0,
+        exp: "10 دابەشی 2 یەکسانە ب 5."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5;\nx++;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["5", "6", "4", "10"],
+        ans: 1,
+        exp: "x++ بەهایێ x ب 1 زێدە دکەت، لەوما دبیتە 6."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5;\nx--;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["5", "6", "4", "-5"],
+        ans: 2,
+        exp: "x-- بەهایێ x ب 1 کێم دکەت، لەوما دبیتە 4."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 8;\nConsole.WriteLine(-x);",
+        isCodeOpt: true,
+        opts: ["8", "-8", "0", "Error"],
+        ans: 1,
+        exp: "نیشانا - ل بەری x (Unary minus) ژمارا 8 دکەتە -8."
+      }
+    ]
+  },
+  {
+    num: 14,
+    title: "Arithmetic Operators (نموونێن گرنگ: دابەشا Integer و ++b / b++)",
+    summary: [
+      "<b>زۆر گرنگ:</b> دابەشکرنا دوو <code>int</code>ـان دێ ژمارەیا پشتی پۆینتێ ژێبەت (نموونە: <code>11 / 3 = 3</code>). ئەگەر تە پۆینت بڤێن دڤێت ئێک ژ وان <code>.0</code> هەبیت (نموونە: <code>17 / 4.0 = 4.25</code>).",
+      "<code>b++</code> (Post): پێشیێ بەهایێ کەڤن بکاردئینیت پاش ١ێ زێدە دکەت. <code>++b</code> (Pre): پێشیێ ١ێ زێدە دکەت پاش بکاردئینیت!"
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int p = 17;\ndouble s = p / 4.0;\nConsole.WriteLine(s);",
+        isCodeOpt: true,
+        opts: ["4", "4.25", "4.2", "Error"],
+        ans: 1,
+        exp: "چونکی 4.0 تێدایە (double)، دابەشکرن ب پۆینت دهێتە کرن و دبیتە 4.25."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (هشیاربە 4 بێ پۆینتە!)",
+        code: "int p = 17;\ndouble s = p / 4;\nConsole.WriteLine(s);",
+        isCodeOpt: true,
+        opts: ["4.25", "4", "4.5", "Error"],
+        ans: 1,
+        exp: "p و 4 هەردوو intـن، پێشیێ دابەشکرنا int (17 / 4 = 4) دهێتە کرن و پاش دچیتە ناڤ s!"
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a + b++);",
+        isCodeOpt: true,
+        opts: ["9", "10", "11", "8"],
+        ans: 0,
+        exp: "b++ پێشیێ بەهایێ b یێ کەڤن (4) بکاردئینیت، لەوما 5 + 4 = 9، و پشتی چاپکرنێ b دبیتە 5."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a + (++b));",
+        isCodeOpt: true,
+        opts: ["9", "10", "11", "8"],
+        ans: 1,
+        exp: "++b پێشیێ b ژ 4 دکەتە 5، پاش 5 + 5 = 10 چاپ دکەت."
+      },
+      {
+        q: "ئەنجامێ ئەڤان هەردوو دێران چییە؟",
+        code: "Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);",
+        isCodeOpt: true,
+        opts: ["3 پاش 2", "3.66 پاش 2", "2 پاش 3", "3 پاش 1"],
+        ans: 0,
+        exp: "11 / 3 یەکسانە ب 3 (بەشێ تەمام)، و 11 % 3 یەکسانە ب 2 (ماوێ دابەشکرنێ)."
+      }
+    ]
+  },
+  {
+    num: 15,
+    title: "Assignment Operators (کردارێن دانانێ)",
+    summary: [
+      "نیشانا <code>=</code> بەهایێ لایێ راستێ دکەتە ناڤ گۆڕاوا لایێ چەپێ.",
+      "کورتکرن: <code>c += a</code> هەمان <code>c = c + a</code> یە، هەروەسا بۆ <code>-=</code> و <code>*=</code> و <code>/=</code> و <code>%=</code>."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int c = 10;\nc += 5;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["5", "10", "15", "50"],
+        ans: 2,
+        exp: "c += 5 یانی c = c + 5، کو 10 + 5 = 15."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int c = 10;\nc -= 3;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["3", "7", "13", "-7"],
+        ans: 1,
+        exp: "c -= 3 یانی c = 10 - 3 = 7."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int c = 4;\nc *= 3;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["7", "12", "1", "Error"],
+        ans: 1,
+        exp: "c *= 3 یانی c = 4 * 3 = 12."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int c = 20;\nc /= 4;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["5", "4", "16", "0"],
+        ans: 0,
+        exp: "c /= 4 یانی c = 20 / 4 = 5."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int c = 11;\nc %= 4;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["2", "3", "7", "1"],
+        ans: 1,
+        exp: "11 دابەشی 4 دبیتە 2 و ماوێ وێ 3 دمینیت."
+      }
+    ]
+  },
+  {
+    num: 16,
+    title: "Assignment Operators (نموونا ١: رێز ل دویڤ رێزێ)",
+    summary: [
+      "د کۆدی دا هەر رێزەک بەهایێ نوی یێ <code>c</code> ل سەر بەهایێ بەری نوکە حیساب دکەت!",
+      "نموونە: ئەگەر <code>c = 200</code> و <code>a = 21</code>، هنگێ <code>c %= a</code> دبیتە <code>11</code> چونکی <code>21 × 9 = 189</code> و <code>200 - 189 = 11</code>."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 21;\nint c = a;\nc += a;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["21", "42", "0", "441"],
+        ans: 1,
+        exp: "c پێشیێ 21ـە، پاش c += 21 دبیتە 21 + 21 = 42."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["9", "11", "21", "189"],
+        ans: 1,
+        exp: "200 ÷ 21 = 9 و ماوێ وێ 11ـە (200 - 189 = 11)."
+      },
+      {
+        q: "ل دوماهیکا ئەڤی کۆدی دێ بەهایێ c چەند چاپ بیت؟",
+        code: "int a = 10;\nint c = 50;\nc = a;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["60", "50", "10", "40"],
+        ans: 2,
+        exp: "نیشانا = بەهایێ کەڤن (50) ژێدبەت و بەهایێ نوی (10) دکەتە د c دا."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint c = 10;\nc *= a;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["15", "50", "2", "5"],
+        ans: 1,
+        exp: "c *= a یانی c = 10 * 5 = 50."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 4;\nint c = 18;\nc /= a;\nConsole.WriteLine(c);",
+        isCodeOpt: true,
+        opts: ["4.5", "4", "2", "5"],
+        ans: 1,
+        exp: "چونکی هەردوو intـن، 18 / 4 بەشێ تەمام (4) دهێلیت."
+      }
+    ]
+  },
+  {
+    num: 17,
+    title: "Assignment Operators (کورتکرنا کرداران ب رێکا x = x op 3)",
+    summary: [
+      "<code>x += 3</code> هەمان <code>x = x + 3</code> یە.",
+      "<code>x -= 3</code> هەمان <code>x = x - 3</code> یە.",
+      "<code>x *= 3</code> هەمان <code>x = x * 3</code> یە، و <code>x /= 3</code> هەمان <code>x = x / 3</code> یە."
+    ],
+    questions: [
+      {
+        q: "کیژ رێز هەمان مانا x = x + 3 ددەت؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["x =+ 3;", "x += 3;", "x ++ 3;", "x + 3 = x;"],
+        ans: 1,
+        exp: "x += 3 یانی x = x + 3. (هشیاربە: x =+ 3 دێ x کەتە +3!)."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 10;\nx -= 3;\nx *= 2;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["14", "17", "4", "7"],
+        ans: 0,
+        exp: "پێشیێ x = 10 - 3 = 7، پاش x = 7 * 2 = 14."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 9;\nx /= 3;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["3", "6", "27", "0"],
+        ans: 0,
+        exp: "x = 9 / 3 = 3."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 10;\nx %= 3;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["3", "1", "7", "0"],
+        ans: 1,
+        exp: "10 دابەشی 3 ماوێ وێ 1ـە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (داڤێ نەکەڤە!)",
+        code: "int x = 5;\nx =+ 3;\nConsole.WriteLine(x);",
+        isCodeOpt: true,
+        opts: ["8", "3", "5", "Error"],
+        ans: 1,
+        exp: "د C# دا x =+ 3 یانی x = (+3) یعنی 3، نەک x += 3!"
+      }
+    ]
+  },
+  {
+    num: 18,
+    title: "Assignment Operators (نموونا ٢ و هشیاریا گۆڕاوان)",
+    summary: [
+      "دکاری کردارێ دانانێ راستەوخۆ د ناڤ <code>Console.WriteLine(x += 3);</code> دا بنڤیسی؛ هم بەهایێ <code>x</code> دگوهۆڕیت و هم چاپ دکەت.",
+      "<b>تێبینیا عەمەلی:</b> د ئێک بلۆک دا نەشێی دوو جاران هەمان گۆڕاو ب <code>int y = ...;</code> بناسینی (تەنها ئێک جار <code>int</code> بنڤیسە)."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int y = 4;\nConsole.WriteLine(y *= 2);",
+        isCodeOpt: true,
+        opts: ["4", "8", "2", "6"],
+        ans: 1,
+        exp: "y *= 2 بەهایێ y دکەتە 8 و ئێکسەر 8 چاپ دکەت."
+      },
+      {
+        q: "ل دویڤ ئێک ئەڤ کۆدە چ چاپ دکەت؟",
+        code: "int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);",
+        isCodeOpt: true,
+        opts: ["9 پاش 3", "9 پاش 6", "6 پاش 3", "3 پاش 6"],
+        ans: 1,
+        exp: "دێرا ئێکێ x ژ 6 دکەتە 9 و چاپ دکەت. دێرا دوویێ 3 ژ 9 کێم دکەت و دبیتە 6."
+      },
+      {
+        q: "ئەنجامێ دوماهیک دێرا ئەڤی کۆدی چییە؟",
+        code: "int x = 6;\nx /= 2;\nConsole.WriteLine(x *= 3);",
+        isCodeOpt: true,
+        opts: ["9", "3", "18", "6"],
+        ans: 0,
+        exp: "x /= 2 دکەتە 3، پاش x *= 3 دکەتە 3 * 3 = 9."
+      },
+      {
+        q: "بۆچی ئەڤ کۆدە د Visual Studio دا Error دەت؟",
+        code: "int y = 4;\nint y = 3;",
+        isCodeOpt: false,
+        opts: ["چونکی y یا ژ 4 کێمترە", "چونکی گۆڕاوا y دوو جاران ب int هاتییە ناساندن", "چونکی Console.WriteLine تێدا نینە", "چ Error تێدا نینن"],
+        ans: 1,
+        exp: "دڤێت دێرا دوویێ بێ int بنڤیسی (y = 3;) چونکی y بەری نوکە هاتییە دروستکرن."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int z = 3;\nz += z;\nConsole.WriteLine(z);",
+        isCodeOpt: true,
+        opts: ["3", "6", "9", "0"],
+        ans: 1,
+        exp: "z += z یانی z = 3 + 3 = 6."
+      }
+    ]
+  },
+  {
+    num: 19,
+    title: "Comparison Operators (کردارێن بەراوردکرنێ)",
+    summary: [
+      "<code>==</code> (یەکسانە)، <code>!=</code> (یەکسان نینە)، <code>&gt;</code> (مەزنتر)، <code>&lt;</code> (بچویکتر)، <code>&gt;=</code> (مەزنتر یان یەکسان)، <code>&lt;=</code> (بچویکتر یان یەکسان).",
+      "هەمی ئەنجامێن بەراوردکرنێ <code>bool</code>ـن (یان <code>True</code> یان <code>False</code>). هشیاربە: بۆ بەراوردکرنێ <code>==</code> بکاردئینین، نەک <code>=</code>!"
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5, y = 5;\nConsole.WriteLine(x == y);",
+        isCodeOpt: true,
+        opts: ["5", "True", "False", "Error"],
+        ans: 1,
+        exp: "5 یەکسانە ب 5، لەوما ئەنجام True یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5, y = 8;\nConsole.WriteLine(x != y);",
+        isCodeOpt: true,
+        opts: ["True", "False", "3", "Error"],
+        ans: 0,
+        exp: "!= یانی یەکسان نینە؛ 5 و 8 یەکسان نینن لەوما True یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5, y = 5;\nConsole.WriteLine(x < y);",
+        isCodeOpt: true,
+        opts: ["True", "False", "5", "Error"],
+        ans: 1,
+        exp: "5 ژ 5 بچویکتر نینە (یەکسانن)، لەوما False یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 5, y = 5;\nConsole.WriteLine(x <= y);",
+        isCodeOpt: true,
+        opts: ["True", "False", "0", "Error"],
+        ans: 0,
+        exp: "<= یانی بچویکتر یان یەکسان؛ چونکی 5 یەکسانە ب 5 لەوما True یە."
+      },
+      {
+        q: "کیژ ژ ئەڤان کۆدان Errorـە؟",
+        code: "",
+        isCodeOpt: true,
+        opts: ["bool r = (5 == 3);", "bool r = (5 != 3);", "bool r = (5 = 3);", "bool r = (5 >= 3);"],
+        ans: 2,
+        exp: "= بۆ دانانا بەهایانە، و 5 گۆڕاو نینە هەتا بەها بکەیە تێدا، دڤێت == بیت."
+      }
+    ]
+  },
+  {
+    num: 20,
+    title: "Comparison Operators (نموونا عەمەلی و ++b د ناڤ بەراوردێ دا)",
+    summary: [
+      "د ئەڤێ نموونا سلایدی دا داڤەک هەیە: <code>a = 5, b = 4</code>. دەمێ دبێژیت <code>a != ++b</code>، بەری بەراوردکرنێ <code>b</code> دبیتە <code>5</code>!",
+      "لەوما <code>5 != 5</code> دبیتە <code>False</code>، و پشتی وێ دێرا <code>a &gt; b</code> ژی دبیتە <code>5 &gt; 5</code> کو هەر <code>False</code>ـە!"
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "5", "Error"],
+        ans: 0,
+        exp: "5 مەزنتر یان یەکسانە ب 4، بەلێ True یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "5", "Error"],
+        ans: 1,
+        exp: "++b پێشیێ b ژ 4 دکەتە 5، پاش 5 != 5 یانی 5 یەکسان نینە ب 5؟ خەلەتە (False)."
+      },
+      {
+        q: "ئەڤ هەردوو دێرە دێ چ چاپ کەن؟ (سەحکە سلایدێ ٢٠!)",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);",
+        isCodeOpt: true,
+        opts: ["True پاش True", "False پاش True", "False پاش False", "True پاش False"],
+        ans: 2,
+        exp: "د دێرا ئێکێ دا b بوو 5 لەوما False. د دێرا دوویێ دا هێشتا b هەر 5ـە، لەوما 5 > 5 ژی False یە!"
+      },
+      {
+        q: "ئەگەر b++ بیت ل جهێ ++b، ئەنجام چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a != b++);",
+        isCodeOpt: true,
+        opts: ["True", "False", "4", "Error"],
+        ans: 0,
+        exp: "b++ پێشیێ بەهایێ کەڤن (4) بکاردئینیت: 5 != 4 راستە (True)، پاش b دبیتە 5."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int a = 5;\nint b = 4;\nConsole.WriteLine(a == b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "4", "5"],
+        ans: 1,
+        exp: "5 یەکسان نینە ب 4، لەوما ئەنجام False یە."
+      }
+    ]
+  },
+  {
+    num: 21,
+    title: "Logical Operators (AND &&, OR ||, NOT !)",
+    summary: [
+      "<code>&&</code> (<b>AND</b>): بتنێ هنگێ <code>True</code> یە ئەگەر <b>هەردوو</b> ئالی <code>True</code> بن.",
+      "<code>||</code> (<b>OR</b>): ئەگەر <b>بتنێ ئێک</b> ژ ئالیان (یان هەردوو) <code>True</code> بیت دێ بیتە <code>True</code>.",
+      "<code>!</code> (<b>NOT</b>): ئەنجامی بەروڤاژی دکەت (<code>True</code> دکەتە <code>False</code>، و <code>False</code> دکەتە <code>True</code>)."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (AND)",
+        code: "int x = 7;\nConsole.WriteLine(x < 5 && x < 10);",
+        isCodeOpt: true,
+        opts: ["True", "False", "7", "Error"],
+        ans: 1,
+        exp: "7 < 5 (False) و 7 < 10 (True). د && دا ئەگەر ئێک False بیت، هەمی دبیتە False."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (OR)",
+        code: "int x = 7;\nConsole.WriteLine(x < 5 || x < 10);",
+        isCodeOpt: true,
+        opts: ["True", "False", "10", "Error"],
+        ans: 0,
+        exp: "7 < 5 (False) یان 7 < 10 (True). د || دا بەس ئێک True بیت ئەنجام دبیتە True."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟ (NOT)",
+        code: "int x = 3;\nConsole.WriteLine(!(x < 5 && x < 10));",
+        isCodeOpt: true,
+        opts: ["True", "False", "3", "Error"],
+        ans: 1,
+        exp: "د ناڤ کەڤانان دا (True && True) دبیتە True، بەس ! ل بەریێ دکەتە False."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 4;\nConsole.WriteLine(x > 2 && x != 4);",
+        isCodeOpt: true,
+        opts: ["True", "False", "4", "Error"],
+        ans: 1,
+        exp: "4 > 2 (True) بەس 4 != 4 (False). True && False دبیتە False."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "int x = 10;\nConsole.WriteLine(x == 5 || !(x < 5));",
+        isCodeOpt: true,
+        opts: ["True", "False", "5", "Error"],
+        ans: 0,
+        exp: "10 == 5 (False)، بەس !(10 < 5) یانی !(False) کو دبیتە True. False || True دبیتە True."
+      }
+    ]
+  },
+  {
+    num: 22,
+    title: "Logical Operators (نموونا عەمەلی یا &&, ||, !, ^)",
+    summary: [
+      "پوختەیا سلایدێ ٢٢ ب <code>bool a = true; bool b = false;</code>:",
+      "<code>a && b</code> ⬅ <code>False</code> | <code>a || b</code> ⬅ <code>True</code> | <code>!b</code> ⬅ <code>True</code> | <code>!a</code> ⬅ <code>False</code>.",
+      "هەروەسا <code>^</code> (XOR): بتنێ هنگێ <code>True</code> یە ئەگەر هەردوو ئالی ژ ئێک جودا بن (ئێک True و ئێک False)."
+    ],
+    questions: [
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "Error", "Null"],
+        ans: 1,
+        exp: "true && false هەردەم دبیتە False."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(b || true);",
+        isCodeOpt: true,
+        opts: ["True", "False", "b", "Error"],
+        ans: 0,
+        exp: "false || true دبیتە True چونکی ئالیێ راستێ True یە."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(!b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "0", "Error"],
+        ans: 0,
+        exp: "b خۆ falseـە، !b بەروڤاژی دکەت و دبیتە True."
+      },
+      {
+        q: "ئەنجامێ ئەڤی کۆدی چییە؟",
+        code: "bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);",
+        isCodeOpt: true,
+        opts: ["True", "False", "1", "Error"],
+        ans: 0,
+        exp: "د ^ (XOR) دا چونکی a (true) و b (false) ژ ئێک جودانە، ئەنجام دبیتە True."
+      },
+      {
+        q: "ئەنجامێ دوماهیک رێزا سلایدێ ٢٢ چییە؟",
+        code: "bool a = true;\nbool b = false;\nConsole.WriteLine((5 > 7) ^ (a == b));",
+        isCodeOpt: true,
+        opts: ["True", "False", "7", "Error"],
+        ans: 1,
+        exp: "5 > 7 (False) و a == b (False). د ^ دا چونکی هەردوو وەکی ئێکن (False ^ False)، ئەنجام دبیتە False."
+      }
+    ]
+  }
+];
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+let good = 0, bad = 0, answered = 0;
+const totalQuestions = slidesData.reduce((sum, s) => sum + s.questions.length, 0);
+const letters = ["A", "B", "C", "D"];
+
+function updateStats() {
+  document.getElementById("goodCount").textContent = "دروست: " + good;
+  document.getElementById("badCount").textContent = "خەلەت: " + bad;
+  document.getElementById("totalCount").textContent = "بەرسڤدای: " + answered + " / " + totalQuestions;
+}
+
+function renderAll() {
+  const nav = document.getElementById("navSlides");
+  const container = document.getElementById("slidesContainer");
+  nav.innerHTML = "";
+  container.innerHTML = "";
+
+  slidesData.forEach((slide, sIdx) => {
+    const a = document.createElement("a");
+    a.href = "#slide-" + slide.num;
+    a.textContent = "سلاید " + slide.num;
+    nav.appendChild(a);
+
+    const card = document.createElement("div");
+    card.className = "slide-card";
+    card.id = "slide-" + slide.num;
+
+    const sumItems = slide.summary.map(line => `<li>${line}</li>`).join("");
+
+    let qHtml = "";
+    slide.questions.forEach((qObj, qIdx) => {
+      const qId = `q-${sIdx}-${qIdx}`;
+      const codeBlock = qObj.code ? `<pre>${esc(qObj.code)}</pre>` : "";
+      const optsHtml = qObj.opts.map((opt, oIdx) => `
+        <button class="opt-btn" id="${qId}-opt-${oIdx}" onclick="checkAns(${sIdx}, ${qIdx}, ${oIdx})">
+          <span class="opt-ltr">${letters[oIdx]}</span>
+          <span class="opt-txt ${qObj.isCodeOpt ? 'code-opt' : ''}">${esc(opt)}</span>
+        </button>
+      `).join("");
+
+      qHtml += `
+        <div class="question-box" id="${qId}">
+          <div class="q-header">پرسیارا ${qIdx + 1}: ${esc(qObj.q)}</div>
+          ${codeBlock}
+          <div class="options">${optsHtml}</div>
+          <div class="feedback" id="${qId}-fb"></div>
+        </div>
+      `;
+    });
+
+    card.innerHTML = `
+      <h2 class="slide-title">سلایدێ ${slide.num}: ${esc(slide.title)}</h2>
+      <div class="summary">
+        <strong>کورتیا سلایدی:</strong>
+        <ul>${sumItems}</ul>
+      </div>
+      ${qHtml}
+    `;
+    container.appendChild(card);
+  });
+
+  good = 0; bad = 0; answered = 0;
+  updateStats();
+}
+
+function checkAns(sIdx, qIdx, chosenIdx) {
+  const qObj = slidesData[sIdx].questions[qIdx];
+  const qId = `q-${sIdx}-${qIdx}`;
+  const fb = document.getElementById(`${qId}-fb`);
+  if (fb.classList.contains("show")) return;
+
+  answered++;
+  for (let i = 0; i < qObj.opts.length; i++) {
+    const btn = document.getElementById(`${qId}-opt-${i}`);
+    btn.disabled = true;
+    if (i === qObj.ans) btn.classList.add("correct");
   }
 
-  function toggleAll(show) {
-    const boxes = document.querySelectorAll(".answer-box");
-    const buttons = document.querySelectorAll(".toggle-btn");
-    boxes.forEach((b) => {
-      if (show) b.classList.add("show");
-      else b.classList.remove("show");
-    });
-    buttons.forEach((btn) => {
-      btn.textContent = show ? "ڤەشارتنا بەرسڤێ" : "نیشاندانا بەرسڤێ";
-    });
+  const chosenBtn = document.getElementById(`${qId}-opt-${chosenIdx}`);
+  const rightText = esc(qObj.opts[qObj.ans]);
+
+  if (chosenIdx === qObj.ans) {
+    good++;
+    fb.className = "feedback show good";
+    fb.innerHTML = `✅ <strong>راستە! دەستخۆش.</strong><br>${esc(qObj.exp)}`;
+  } else {
+    bad++;
+    chosenBtn.classList.add("wrong");
+    fb.className = "feedback show bad";
+    fb.innerHTML = `❌ <strong>یا نەراستە! وەلاما دروست ئەڤەیە: (${letters[qObj.ans]}) <span dir="auto">${rightText}</span></strong><br>${esc(qObj.exp)}`;
   }
+
+  updateStats();
+}
+
+function resetQuiz() {
+  renderAll();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+renderAll();
 </script>
-
 </body>
 </html>
