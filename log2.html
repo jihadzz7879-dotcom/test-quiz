@@ -2067,7 +2067,260 @@ const SLIDES = [
     explain: `بۆ زانین: زێدەباری <code>&&</code> (AND)، <code>||</code> (OR)، <code>!</code> (NOT)، ئۆپەرەیتەرێ <code>^</code> (XOR) ژی هەیە کو تەنێ <code>true</code> ددەت ئەگەر هەردوو لایێن وێ جیاواز بن (ئێک <code>true</code> و ئێک <code>false</code>).`,
     example: `bool a = true, b = false;\nConsole.WriteLine(a && b); // False\nConsole.WriteLine(a || b); // True\nConsole.WriteLine(a ^ b);  // True\nConsole.WriteLine(!b);     // True`,
     questions: [
-      {
-        diff: "easy",
-        prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و <code>Console.WriteLine(a && b);</code> چاپ بکە.",
-        model: "bool a = true;\nbool b = false;\nConsol
+              {
+          diff: "easy",
+          prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و <code>Console.WriteLine(a && b);</code> چاپ بکە.",
+          model: "bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);",
+          check: (sim) => (!/&&/.test(sim.rawCode) ? "ئۆپەرەیتەرێ `&&` بکاربینە!" : null) || requireVar(sim, 'a', 'bool', true) || requireVar(sim, 'b', 'bool', false) || requirePrinted(sim, ['False'])
+        },
+        {
+          diff: "easy",
+          prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و <code>Console.WriteLine(a || b);</code> چاپ بکە.",
+          model: "bool a = true;\nbool b = false;\nConsole.WriteLine(a || b);",
+          check: (sim) => (!/\|\|/.test(sim.rawCode) ? "ئۆپەرەیتەرێ `||` بکاربینە!" : null) || requireVar(sim, 'a', 'bool', true) || requireVar(sim, 'b', 'bool', false) || requirePrinted(sim, ['True'])
+        },
+        {
+          diff: "easy",
+          prompt: "<code>bool b = false;</code> بنڤیسە و ب ئۆپەرەیتەرێ <code>!</code> ئەنجامێ <code>Console.WriteLine(!b);</code> چاپ بکە.",
+          model: "bool b = false;\nConsole.WriteLine(!b);",
+          check: (sim) => (!/!\s*b/.test(sim.rawCode) ? "ئۆپەرەیتەرێ `!` ل سەر `b` بکاربینە!" : null) || requireVar(sim, 'b', 'bool', false) || requirePrinted(sim, ['True'])
+        },
+        {
+          diff: "hard",
+          prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و ب ئۆپەرەیتەرێ XOR (<code>^</code>) ئەنجامێ <code>Console.WriteLine(a ^ b);</code> چاپ بکە.",
+          model: "bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);",
+          check: (sim) => (!/\^/.test(sim.rawCode) ? "ئۆپەرەیتەرێ `^` بکاربینە!" : null) || requireVar(sim, 'a', 'bool', true) || requireVar(sim, 'b', 'bool', false) || requirePrinted(sim, ['True'])
+        },
+        {
+          diff: "hard",
+          prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و ب دوو دێرێن <code>Console.WriteLine</code> ئەنجامێن <code>(a && b)</code> و <code>(a || b)</code> چاپ بکە.",
+          model: "bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);\nConsole.WriteLine(a || b);",
+          check: (sim) => (!/&&/.test(sim.rawCode) || !/\|\|/.test(sim.rawCode)) ? "هەردوو ئۆپەرەیتەرێن `&&` و `||` بکاربینە!" : requirePrinted(sim, ['False', 'True'])
+        },
+        {
+          diff: "hard",
+          prompt: "<code>bool a = true; bool b = false;</code> بنڤیسە و ب سێ <code>Console.WriteLine</code> لدویڤ ئێک چاپ بکە: <code>a ^ b</code>، <code>!a</code>، و <code>!b</code>.",
+          model: "bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);\nConsole.WriteLine(!a);\nConsole.WriteLine(!b);",
+          check: (sim) => (!/\^/.test(sim.rawCode) || !/!\s*a/.test(sim.rawCode) || !/!\s*b/.test(sim.rawCode)) ? "ئۆپەرەیتەرێن `^` و `!` بکاربینە!" : requirePrinted(sim, ['True', 'False', 'True'])
+        }
+      ]
+    }
+  ];
+
+  // =========================================================================
+  // RENDERING & INTERACTIVITY ENGINE
+  // =========================================================================
+
+  let currentFilter = 'all';
+  const STORAGE_KEY = 'akre_csharp_quiz_v1';
+  let savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function formatInlineCode(text) {
+    return escapeHtml(text).replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+
+  function renderApp() {
+    const nav = document.getElementById('slide-nav');
+    const container = document.getElementById('slides-container');
+    nav.innerHTML = '';
+    container.innerHTML = '';
+
+    SLIDES.forEach((slide, sIdx) => {
+      // Nav link
+      const a = document.createElement('a');
+      a.href = `#slide-${slide.num}`;
+      a.id = `nav-slide-${slide.num}`;
+      a.textContent = `سلاید ${slide.num}`;
+      nav.appendChild(a);
+
+      // Slide section
+      const sec = document.createElement('section');
+      sec.className = 'slide-section';
+      sec.id = `slide-${slide.num}`;
+
+      let qCardsHtml = '';
+      slide.questions.forEach((q, qIdx) => {
+        const qId = `s${slide.num}_q${qIdx}`;
+        const saved = savedState[qId] || {};
+        const isSolved = Boolean(saved.solved);
+        const savedCode = saved.code || '';
+
+        qCardsHtml += `
+          <article class="q-card ${isSolved ? 'solved' : ''}" id="card-${qId}" data-diff="${q.diff}">
+            <div class="q-top">
+              <span class="q-badge ${q.diff === 'easy' ? 'badge-easy' : 'badge-hard'}">
+                ${q.diff === 'easy' ? '🟢 ساناهی' : '🔥 زەحمەت'}
+              </span>
+              <span class="q-num">پسیارا ${qIdx + 1} / ${slide.questions.length}</span>
+            </div>
+            <p class="q-prompt">${q.prompt}</p>
+            <textarea class="code-editor" id="editor-${qId}" spellcheck="false" placeholder="// کۆدێ C# لڤێرە بنڤیسە...">${escapeHtml(savedCode)}</textarea>
+            <div class="q-actions">
+              <button class="btn-check" onclick="checkAnswer(${sIdx}, ${qIdx})">پشکنینا کۆدی ✓</button>
+              <button class="btn-clear" onclick="clearQuestion('${qId}', ${slide.num})">پاقژکرن</button>
+            </div>
+            <div class="feedback ${isSolved ? 'show ok' : ''}" id="fb-${qId}">
+              ${isSolved ? `<strong>✅ دەستخۆش! کۆدێ تە ١٠٠٪ دروستە.</strong>
+                <div class="model-box">
+                  <span class="model-label">کۆدێ نموونەیی:</span>
+                  <pre class="model-code">${escapeHtml(q.model)}</pre>
+                </div>` : ''}
+            </div>
+          </article>
+        `;
+      });
+
+      sec.innerHTML = `
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-num">سلایدێ ${slide.num}</span>
+            <h2 class="slide-title">${slide.title}</h2>
+          </div>
+          <div class="slide-progress" id="prog-slide-${slide.num}">0 / ${slide.questions.length}</div>
+        </div>
+        <div class="explain-box">
+          <div>${slide.explain}</div>
+          <pre class="mini-example">${escapeHtml(slide.example)}</pre>
+        </div>
+        <div class="questions-grid">
+          ${qCardsHtml}
+        </div>
+      `;
+
+      container.appendChild(sec);
+    });
+
+    updateStats();
+    applyFilter();
+  }
+
+  function checkAnswer(sIdx, qIdx) {
+    const slide = SLIDES[sIdx];
+    const q = slide.questions[qIdx];
+    const qId = `s${slide.num}_q${qIdx}`;
+    const editor = document.getElementById(`editor-${qId}`);
+    const fb = document.getElementById(`fb-${qId}`);
+    const card = document.getElementById(`card-${qId}`);
+    const userCode = editor.value;
+
+    try {
+      const sim = simulateCS(userCode);
+      if (sim.empty) {
+        throw new Error("هیڤیە سەرەتا کۆدەکێ بنڤیسە پاشان پشکنینێ بکە!");
+      }
+      const errMsg = q.check(sim);
+      if (errMsg) {
+        card.classList.remove('solved');
+        savedState[qId] = { code: userCode, solved: false };
+        saveState();
+        fb.className = 'feedback show err';
+        fb.innerHTML = `<strong>❌ خەلەتیەک هەیە:</strong> ${formatInlineCode(errMsg)}`;
+      } else {
+        card.classList.add('solved');
+        savedState[qId] = { code: userCode, solved: true };
+        saveState();
+        fb.className = 'feedback show ok';
+        fb.innerHTML = `
+          <strong>✅ دەستخۆش! کۆدێ تە ١٠٠٪ دروستە.</strong>
+          <div class="model-box">
+            <span class="model-label">کۆدێ نموونەیی:</span>
+            <pre class="model-code">${escapeHtml(q.model)}</pre>
+          </div>
+        `;
+      }
+    } catch (e) {
+      card.classList.remove('solved');
+      savedState[qId] = { code: userCode, solved: false };
+      saveState();
+      fb.className = 'feedback show err';
+      fb.innerHTML = `<strong>⚠️ خەلەتیا کۆدی:</strong> ${formatInlineCode(e.message)}`;
+    }
+
+    updateStats();
+  }
+
+  function clearQuestion(qId, slideNum) {
+    document.getElementById(`editor-${qId}`).value = '';
+    const fb = document.getElementById(`fb-${qId}`);
+    fb.className = 'feedback';
+    fb.innerHTML = '';
+    document.getElementById(`card-${qId}`).classList.remove('solved');
+    delete savedState[qId];
+    saveState();
+    updateStats();
+  }
+
+  function updateStats() {
+    let totalQ = 0;
+    let totalSolved = 0;
+
+    SLIDES.forEach(slide => {
+      let slideSolved = 0;
+      slide.questions.forEach((_, qIdx) => {
+        totalQ++;
+        const qId = `s${slide.num}_q${qIdx}`;
+        if (savedState[qId]?.solved) {
+          totalSolved++;
+          slideSolved++;
+        }
+      });
+
+      const progEl = document.getElementById(`prog-slide-${slide.num}`);
+      if (progEl) progEl.textContent = `${slideSolved} / ${slide.questions.length} تەمام بوون`;
+
+      const navEl = document.getElementById(`nav-slide-${slide.num}`);
+      if (navEl) {
+        if (slideSolved === slide.questions.length) navEl.classList.add('done');
+        else navEl.classList.remove('done');
+      }
+    });
+
+    document.getElementById('score-text').textContent = `${totalSolved} / ${totalQ}`;
+    const pct = totalQ ? Math.round((totalSolved / totalQ) * 100) : 0;
+    document.getElementById('progress-bar').style.width = `${pct}%`;
+  }
+
+  function setFilter(diff, btn) {
+    currentFilter = diff;
+    document.querySelectorAll('.filter-group .btn-sm').forEach(b => {
+      if (!b.classList.contains('btn-reset')) b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    applyFilter();
+  }
+
+  function applyFilter() {
+    document.querySelectorAll('.q-card').forEach(card => {
+      const d = card.getAttribute('data-diff');
+      if (currentFilter === 'all' || d === currentFilter) {
+        card.classList.remove('hidden-q');
+      } else {
+        card.classList.add('hidden-q');
+      }
+    });
+  }
+
+  function resetAll() {
+    if (!confirm('ئەرێ تە دڤێت هەمی بەرسڤێن خۆ پاقژ بکەی؟')) return;
+    savedState = {};
+    saveState();
+    renderApp();
+  }
+
+  renderApp();
+</script>
+</body>
+</html>
+
+        
