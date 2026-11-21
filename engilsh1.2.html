@@ -1,72 +1,47 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl" data-theme="light">
+<html lang="ku" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شڕۆڤەکرنا ئینگلیزیێ و تاقیکرنا میتێرمێ (Week 1 &amp; Week 2)</title>
+  <title>پوختە و پسیارێن عەمەلی یێن C# — AUAS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-page: #f1f5f9;
-      --bg-gradient: radial-gradient(circle at top right, #e0e7ff 0%, #f0fdfa 45%, #f8fafc 100%);
-      --card-bg: #ffffff;
-      --card-sub: #f8fafc;
-      --primary: #4338ca;
-      --primary-hover: #3730a3;
-      --primary-light: #e0e7ff;
-      --secondary: #0f766e;
-      --secondary-hover: #115e59;
-      --secondary-light: #ccfbf1;
-      --exam: #be123c;
-      --exam-light: #ffe4e6;
-      --accent: #b45309;
-      --accent-light: #fef3c7;
-      --danger: #be123c;
-      --danger-light: #ffe4e6;
-      --success: #15803d;
-      --success-light: #dcfce7;
-      --text-main: #0f172a;
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
       --text-muted: #475569;
-      --border: #cbd5e1;
-      --border-soft: #e2e8f0;
-      --en-bg: #eef2ff;
-      --en-text: #1e1b4b;
-      --table-head: #1e293b;
-      --table-stripe: #f8fafc;
-      --nav-bg: rgba(255, 255, 255, 0.88);
-      --shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.1), 0 4px 12px -4px rgba(15, 23, 42, 0.05);
-      --shadow-hover: 0 18px 36px -10px rgba(15, 23, 42, 0.14);
+      --primary: #0f4c81;
+      --primary-light: #e0f2fe;
+      --accent: #0284c7;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --code-bg: #1e293b;
+      --code-text: #e2e8f0;
+      --console-bg: #09090b;
+      --console-text: #4ade80;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
     }
 
-    [data-theme="dark"] {
-      --bg-page: #0b1120;
-      --bg-gradient: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 55%, #020617 100%);
-      --card-bg: #1e293b;
-      --card-sub: #0f172a;
-      --primary: #818cf8;
-      --primary-hover: #6366f1;
-      --primary-light: rgba(99, 102, 241, 0.2);
-      --secondary: #2dd4bf;
-      --secondary-hover: #14b8a6;
-      --secondary-light: rgba(20, 184, 166, 0.2);
-      --exam: #fb7185;
-      --exam-light: rgba(225, 29, 72, 0.2);
-      --accent: #fbbf24;
-      --accent-light: rgba(217, 119, 6, 0.18);
-      --danger: #fda4af;
-      --danger-light: rgba(190, 18, 60, 0.25);
-      --success: #86efac;
-      --success-light: rgba(21, 128, 61, 0.25);
-      --text-main: #f1f5f9;
+    body.dark {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --border: #283548;
+      --text: #f1f5f9;
       --text-muted: #94a3b8;
-      --border: #334155;
-      --border-soft: #334155;
-      --en-bg: #312e81;
-      --en-text: #e0e7ff;
-      --table-head: #0f172a;
-      --table-stripe: #162032;
-      --nav-bg: rgba(15, 23, 42, 0.9);
-      --shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.45);
-      --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.55);
+      --primary: #38bdf8;
+      --primary-light: #0c4a6e;
+      --accent: #0ea5e9;
+      --success: #34d399;
+      --success-bg: #064e3b;
+      --code-bg: #0d1322;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
     }
 
     * {
@@ -80,1488 +55,1286 @@
     }
 
     body {
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--bg-page);
-      background-image: var(--bg-gradient);
-      background-attachment: fixed;
-      color: var(--text-main);
-      line-height: 1.85;
-      min-height: 100vh;
-      padding-bottom: 80px;
-      transition: background 0.3s ease, color 0.3s ease;
+      font-family: 'Vazirmatn', system-ui, -apple-system, Tahoma, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      transition: background-color 0.25s, color 0.25s;
     }
 
-    /* English LTR isolation */
-    .en {
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
       direction: ltr;
       unicode-bidi: isolate;
-      display: inline-block;
-      font-family: "Segoe UI", Arial, sans-serif;
-      font-weight: 700;
-      color: var(--en-text);
-      background: var(--en-bg);
-      padding: 1px 8px;
-      border-radius: 7px;
-      margin: 0 2px;
-      border: 1px solid rgba(99, 102, 241, 0.18);
     }
 
-    .en-block {
-      direction: ltr;
-      text-align: left;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--card-sub);
-      border: 1px solid var(--border-soft);
-      border-left: 5px solid var(--primary);
-      padding: 12px 16px;
-      border-radius: 12px;
-      margin: 10px 0;
-      line-height: 1.9;
+    /* Inline code inside Kurdish text */
+    .summary-list code, .q-text code {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-size: 0.88em;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 2px;
     }
 
     /* Header */
-    header {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #0f766e 100%);
+    .hero {
+      background: linear-gradient(135deg, #0c3559 0%, #0f4c81 55%, #0284c7 100%);
       color: #ffffff;
-      padding: 32px 18px 28px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
-      border-bottom-left-radius: 30px;
-      border-bottom-right-radius: 30px;
+      padding: 28px 20px 24px;
+      box-shadow: 0 6px 25px rgba(15, 76, 129, 0.25);
       position: relative;
-      overflow: hidden;
     }
 
-    header::before {
-      content: "";
-      position: absolute;
-      top: -60px;
-      left: -60px;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: -70px;
-      right: -40px;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(45,212,191,0.18) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .header-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 880px;
+    .hero-inner {
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .badge-top {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.32);
-      padding: 5px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 4px 14px;
       border-radius: 999px;
-      font-size: 0.88rem;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    header h1 {
-      font-size: 1.8rem;
+      font-size: 0.85rem;
       margin-bottom: 10px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
       font-weight: 800;
-      letter-spacing: -0.2px;
+      margin-bottom: 6px;
     }
 
-    header p {
-      font-size: 1rem;
-      color: #e0e7ff;
+    .hero p {
+      font-size: 0.98rem;
+      opacity: 0.92;
       max-width: 780px;
-      margin: 0 auto;
     }
 
-    /* Sticky Navigation */
-    .nav-wrapper {
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.14);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    /* Sticky Toolbar */
+    .toolbar {
       position: sticky;
       top: 0;
-      z-index: 999;
-      background: var(--nav-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-soft);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     }
 
-    .nav-inner {
-      max-width: 1080px;
+    .toolbar-inner {
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
+      gap: 10px;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
     }
 
-    .nav-tabs {
+    .search-box {
+      flex: 1 1 240px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .toolbar-actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 8px;
-      flex: 1;
     }
 
-    .tab-btn {
-      border: 2px solid var(--border-soft);
-      background: var(--card-bg);
-      color: var(--text-main);
-      padding: 10px 16px;
-      border-radius: 14px;
-      font-size: 0.94rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 10px;
       font-family: inherit;
-      -webkit-tap-highlight-color: transparent;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .tab-btn:hover {
-      transform: translateY(-2px);
+    .btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
       border-color: var(--primary);
     }
 
-    .tab-btn.active-w1 {
-      background: linear-gradient(135deg, #4338ca, #4f46e5);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.35);
+    body.dark .btn-primary {
+      color: #0b1120;
     }
 
-    .tab-btn.active-w2 {
-      background: linear-gradient(135deg, #0f766e, #0d9488);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(15, 118, 110, 0.35);
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
     }
 
-    .tab-btn.active-exam {
-      background: linear-gradient(135deg, #be123c, #e11d48);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(190, 18, 60, 0.35);
+    /* Slide Quick Nav */
+    .quick-nav {
+      max-width: 1100px;
+      margin: 18px auto 0;
+      padding: 0 16px;
     }
 
-    .tab-btn.active-all {
-      background: linear-gradient(135deg, #0f172a, #334155);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.35);
-    }
-
-    .theme-btn {
-      border: 2px solid var(--border-soft);
-      background: var(--card-bg);
-      color: var(--text-main);
-      padding: 9px 14px;
-      border-radius: 14px;
+    .quick-nav-title {
       font-size: 0.88rem;
       font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: 0.2s;
+      color: var(--text-muted);
+      margin-bottom: 8px;
     }
 
-    .theme-btn:hover {
+    .slide-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .slide-pill {
+      text-decoration: none;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .slide-pill:hover {
+      background: var(--primary);
+      color: #fff;
       border-color: var(--primary);
     }
 
-    /* Container & Sections */
+    body.dark .slide-pill:hover {
+      color: #0b1120;
+    }
+
+    /* Main Container */
     .container {
-      max-width: 1040px;
-      margin: 24px auto 0;
-      padding: 0 14px;
-    }
-
-    .pdf-section {
-      display: none;
-      animation: fadeSlide 0.35s ease;
-    }
-
-    .pdf-section.visible {
-      display: block;
-    }
-
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Section Banners */
-    .pdf-banner {
-      border-radius: 22px;
-      padding: 22px 24px;
-      color: #fff;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .banner-w1 { background: linear-gradient(135deg, #312e81, #4f46e5); }
-    .banner-w2 { background: linear-gradient(135deg, #115e59, #0d9488); }
-    .banner-exam { background: linear-gradient(135deg, #881337, #e11d48); }
-
-    .pdf-banner h2 {
-      font-size: 1.45rem;
-      margin-bottom: 6px;
-      font-weight: 800;
-    }
-
-    .pdf-banner p {
-      color: rgba(255, 255, 255, 0.92);
+      max-width: 1100px;
+      margin: 20px auto 60px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
     }
 
     /* Slide Card */
     .slide-card {
-      background: var(--card-bg);
-      border-radius: 22px;
-      padding: 24px;
-      margin-bottom: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      border: 1px solid var(--border-soft);
-      transition: box-shadow 0.25s ease;
-    }
-
-    .slide-card:hover {
-      box-shadow: var(--shadow-hover);
+      overflow: hidden;
+      scroll-margin-top: 80px;
     }
 
     .slide-header {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+    }
+
+    .slide-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 10px;
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-      border-bottom: 2px dashed var(--border);
+    }
+
+    .slide-num {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+
+    body.dark .slide-num {
+      color: #0b1120;
     }
 
     .slide-title {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      color: var(--primary);
+      color: var(--text);
     }
 
-    .w2 .slide-title {
-      color: var(--secondary);
-    }
-
-    .slide-pill {
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 5px 14px;
-      border-radius: 999px;
+    .slide-en {
       font-size: 0.85rem;
-      font-weight: 800;
+      color: var(--text-muted);
+      font-weight: 500;
+      direction: ltr;
     }
 
-    .w2 .slide-pill {
-      background: var(--secondary-light);
-      color: var(--secondary);
+    /* Summary Box */
+    .summary-box {
+      padding: 16px 20px;
+      background: linear-gradient(to left, rgba(2, 132, 199, 0.06), transparent);
+      border-bottom: 1px dashed var(--border);
     }
 
-    /* Sub-boxes */
-    .topic-box {
-      background: var(--card-sub);
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    .topic-box h3 {
-      font-size: 1.12rem;
-      color: var(--text-main);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-    }
-
-    .topic-box h4 {
-      color: var(--text-main);
-      margin-bottom: 8px;
-      font-weight: 800;
-    }
-
-    .tip-box {
-      background: var(--accent-light);
-      border-right: 5px solid #d97706;
-      padding: 14px 16px;
-      border-radius: 14px;
-      margin: 14px 0;
-      color: var(--text-main);
-      font-weight: 600;
-    }
-
-    .omitted-box {
-      background: rgba(37, 99, 235, 0.1);
-      border: 2px solid #3b82f6;
-      padding: 13px 16px;
-      border-radius: 14px;
-      margin: 14px 0;
-      color: var(--text-main);
-      font-weight: 700;
-    }
-
-    ul.clean-list, ol.clean-list {
-      padding-right: 22px;
-      margin: 8px 0;
-    }
-
-    ul.clean-list li, ol.clean-list li {
-      margin-bottom: 8px;
-    }
-
-    /* Tables */
-    .table-wrap {
-      overflow-x: auto;
-      margin: 12px 0;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 540px;
-      background: var(--card-bg);
-    }
-
-    th {
-      background: var(--table-head);
-      color: #ffffff;
-      padding: 12px 14px;
-      text-align: right;
+    .summary-label {
       font-size: 0.92rem;
-    }
-
-    td {
-      padding: 11px 14px;
-      border-top: 1px solid var(--border-soft);
-      font-size: 0.94rem;
-      vertical-align: top;
-      color: var(--text-main);
-    }
-
-    tr:nth-child(even) td {
-      background: var(--table-stripe);
-    }
-
-    .col-omitted {
-      background: rgba(225, 29, 72, 0.12) !important;
-      color: #e11d48;
-      font-weight: 700;
-      text-decoration: line-through;
-    }
-
-    .solved-box {
-      background: var(--success-light);
-      border: 1px solid rgba(34, 197, 94, 0.45);
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 10px;
-    }
-
-    /* Quiz Styling */
-    .quiz-section {
-      margin-top: 22px;
-      background: var(--card-sub);
-      border: 2px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-    }
-
-    .quiz-header {
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 6px;
     }
 
-    .quiz-header h4 {
-      font-size: 1.12rem;
-      color: var(--text-main);
-      font-weight: 800;
+    .summary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    .part-divider {
-      background: linear-gradient(135deg, #1e293b, #334155);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 14px;
+    .summary-list li {
+      position: relative;
+      padding-right: 18px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .summary-list li::before {
+      content: "•";
+      position: absolute;
+      right: 2px;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
+
+    /* Questions Section */
+    .questions-wrap {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .questions-heading {
+      font-size: 0.94rem;
       font-weight: 800;
-      font-size: 1.05rem;
-      margin: 22px 0 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .q-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border-soft);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-2);
+      padding: 14px 16px;
       transition: border-color 0.2s;
     }
 
     .q-item:hover {
-      border-color: var(--primary);
+      border-color: var(--accent);
     }
 
-    .q-type-tag {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
-
-    .tag-mcq { background: var(--primary-light); color: var(--primary); }
-    .tag-blank { background: var(--accent-light); color: var(--accent); }
-    .tag-tf { background: var(--secondary-light); color: var(--secondary); }
-
-    .q-text-ku {
-      font-size: 0.94rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .q-text {
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-main);
-      direction: ltr;
-      text-align: left;
-      font-size: 1.04rem;
-      background: var(--card-sub);
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 10px;
-      direction: ltr;
-    }
-
-    .opt-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--card-sub);
-      border: 2px solid var(--border-soft);
-      padding: 10px 14px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text-main);
-      transition: all 0.16s ease;
-    }
-
-    .opt-label:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .opt-label input[type="radio"] {
-      accent-color: var(--primary);
-      width: 17px;
-      height: 17px;
-      cursor: pointer;
-    }
-
-    .blank-input {
-      width: 100%;
-      max-width: 380px;
-      padding: 11px 14px;
-      border: 2px solid var(--border);
-      background: var(--card-bg);
-      color: var(--text-main);
-      border-radius: 12px;
-      font-size: 1rem;
-      direction: ltr;
-      font-weight: 700;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .blank-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-light);
-    }
-
-    .btn-row {
+    .q-top {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .btn {
+    .q-prompt {
+      flex: 1 1 300px;
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .q-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 2px 9px;
+      border-radius: 6px;
+      margin-left: 8px;
+    }
+
+    .toggle-ans-btn {
+      background: var(--primary);
+      color: #fff;
       border: none;
-      padding: 11px 20px;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      padding: 8px 15px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.85rem;
       font-weight: 700;
       cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.15s, opacity 0.15s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    body.dark .toggle-ans-btn {
+      color: #0b1120;
+    }
+
+    .toggle-ans-btn:hover {
+      opacity: 0.92;
+      transform: scale(1.02);
+    }
+
+    .toggle-ans-btn.active {
+      background: var(--success);
       color: #fff;
     }
 
-    .btn:active { transform: scale(0.98); }
-    .btn-check { background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
-    .btn-show { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
-    .btn-reset { background: linear-gradient(135deg, #64748b, #475569); }
+    /* Answer Drawer */
+    .ans-panel {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+      animation: fadeIn 0.25s ease;
+    }
 
-    .feedback {
-      margin-top: 10px;
-      padding: 10px 14px;
+    .ans-panel.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .code-box {
+      background: var(--code-bg);
+      color: var(--code-text);
       border-radius: 10px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      display: none;
+      overflow: hidden;
+      margin-bottom: 10px;
+      border: 1px solid #334155;
+      direction: ltr;
     }
 
-    .feedback.correct {
-      display: block;
-      background: var(--success-light);
-      color: var(--success);
-      border: 1px solid rgba(34, 197, 94, 0.45);
+    .code-header {
+      background: #0f172a;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      border-bottom: 1px solid #334155;
     }
 
-    .feedback.wrong {
-      display: block;
-      background: var(--danger-light);
-      color: var(--danger);
-      border: 1px solid rgba(244, 63, 94, 0.45);
+    .copy-btn {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .feedback.info {
-      display: block;
-      background: var(--primary-light);
-      color: var(--primary);
-      border: 1px solid rgba(99, 102, 241, 0.45);
+    .copy-btn:hover {
+      background: #334155;
     }
 
-    .score-banner {
-      margin-top: 16px;
-      padding: 16px 20px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 1.08rem;
-      display: none;
+    pre.csharp {
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    /* Syntax colors */
+    .tok-kw { color: #38bdf8; font-weight: 600; }
+    .tok-cls { color: #2dd4bf; }
+    .tok-str { color: #fca5a5; }
+    .tok-num { color: #c4b5fd; }
+    .tok-com { color: #64748b; font-style: italic; }
+
+    /* Console Output Box */
+    .console-box {
+      background: var(--console-bg);
+      border: 1px solid #27272a;
+      border-radius: 10px;
+      overflow: hidden;
+      direction: ltr;
+    }
+
+    .console-header {
+      background: #18181b;
+      color: #a1a1aa;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #27272a;
+    }
+
+    .dots {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #eab308; }
+    .dot-g { background: #22c55e; }
+
+    pre.console-out {
+      padding: 10px 14px;
+      color: #f8fafc;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      text-align: left;
+    }
+
+    .empty-state {
       text-align: center;
-      border: 2px solid transparent;
+      padding: 40px 20px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: none;
     }
 
-    /* Back to Top Floating Button */
-    #topBtn {
+    .scroll-top-btn {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      z-index: 990;
-      border: none;
-      background: linear-gradient(135deg, #4338ca, #0f766e);
-      color: #fff;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      font-size: 1.3rem;
-      font-weight: 800;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
       display: none;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s;
+      z-index: 60;
     }
 
-    #topBtn:hover {
-      transform: translateY(-3px);
+    body.dark .scroll-top-btn {
+      color: #0b1120;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 16px 40px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
     }
 
     @media (max-width: 640px) {
-      header h1 { font-size: 1.35rem; }
-      .slide-card { padding: 16px; }
-      .tab-btn { font-size: 0.84rem; padding: 8px 11px; }
-      .theme-btn { width: 100%; }
+      .slide-header, .summary-box, .questions-wrap {
+        padding: 14px;
+      }
+      .toggle-ans-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="badge-top">🎓 ئامادەکارییا ١٠٠٪ بۆ ئەزموونا میتێرمێ (سەر وەرەقی)</div>
-    <h1>شڕۆڤەکرنا تەمام ب بادینی: دەمێ نۆکە یێ سادە و بەردەوام</h1>
-    <p>هەردوو PDF ب تەمامی ژێک جودانە، هەر سلایدەک ب شڕۆڤەکرن و ٦ پسیاران (هەلبژارتن، فەراغات، ساح و خەلەت) دگەل وەلامێن ١٠٠٪ دروست، و ل دوماهیێ تاقیکرنا مەزن یا میتێرمێ!</p>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="badge-top">🎓 زانکۆیا ئاکرێ بۆ زانستێن کرداری (AUAS) • پشکا IT</div>
+      <h1>پوختە و ڕاهێنانێن تاقیکرنا عەمەلی ب C#</h1>
+      <p>شڕۆڤەکرنا هەمی سلایدان ب شێوەیەکێ کورت و پوخت، ژ <strong>Data Types</strong> هەتا دوماهیا <strong>Logical Operators (AND, OR, NOT)</strong>، دگەل ٥ پسیارێن کۆدنڤیسینێ و Output بۆ هەر سلایدەکی.</p>
+      <div class="stats-row">
+        <div class="stat-pill">📑 ٢٠ سلاید (سلاید ٣ تا ٢٢)</div>
+        <div class="stat-pill">💻 ١٠٠ پسیارێن عەمەلی + Output</div>
+        <div class="stat-pill">⚡ تبلێ ل سەر «دیتنا بەرسڤێ» بدە دا کۆد و ئەنجام دیار بن</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 لێگەڕیان د پسیاران یان بابەتان دا (نموونە: float، &&، +=)..." />
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn btn-primary" onclick="toggleAllAnswers(true)">👁️ ڤەکرنا هەمی بەرسڤان</button>
+        <button class="btn" onclick="toggleAllAnswers(false)">🙈 ڤەشارتنا هەمی بەرسڤان</button>
+        <button class="btn" id="themeBtn" onclick="toggleTheme()">🌙 شێوازێ تاری</button>
+      </div>
+    </div>
   </div>
-</header>
 
-<div class="nav-wrapper">
-  <div class="nav-inner">
-    <div class="nav-tabs">
-      <button type="button" class="tab-btn active-w1" data-tab="w1" onclick="switchTab('w1', this)">📘 PDF 1 (Week 1): Present Simple</button>
-      <button type="button" class="tab-btn" data-tab="w2" onclick="switchTab('w2', this)">📗 PDF 2 (Week 2): Present Continuous</button>
-      <button type="button" class="tab-btn" data-tab="exam" onclick="switchTab('exam', this)">📝 تاقیکرنا میتێرمێ (Midterm Exam)</button>
-      <button type="button" class="tab-btn" data-tab="all" onclick="switchTab('all', this)">📚 هەمی پێکڤە ببینە</button>
-    </div>
-    <button type="button" class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙 شەڤ / رۆژ</button>
-  </div>
-</div>
-
-<div class="container">
-
-  <!-- ========================================================= -->
-  <!-- PDF 1: WEEK 1 - PRESENT SIMPLE                            -->
-  <!-- ========================================================= -->
-  <section id="sec-w1" class="pdf-section visible w1">
-    <div class="pdf-banner banner-w1">
-      <h2>📘 پشکا ئێکێ (Week 1 PDF): دەمێ نۆکە یێ سادە (Present Simple Tense)</h2>
-      <p>ئەڤە PDFـا ئێکێ یە (٣ پەڕە/سلاید). تشتێن رۆژانە، راستییێن گشتی، و خشتەیێن جێگیر وەردگریت.</p>
-    </div>
-
-    <!-- WEEK 1 - SLIDE 1 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ١ (پەڕا ١): بکارهێنان، پێکهاتا رستان، و یاسایێن نڤیسینا (-s / -es)</span>
-        <span class="slide-pill">Week 1 - Page 1</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>📌 دەمێ نۆکە یێ سادە چیە؟</h3>
-        <p>دەمێ <span class="en">Present Simple</span> بۆ ئاخفتنێ ل سەر عادەتێن رۆژانە، راستییێن گشتی یێن زانستی، بارودۆخێن نەگۆڕ، و کاتێن دیارکری یێن داهاتووی بکاردهێت.</p>
-      </div>
-
-      <div class="topic-box">
-        <h3>1️⃣ بکارهێنانێن دەمێ نۆکە یێ سادە (Usages of Present Simple)</h3>
-        <ul class="clean-list">
-          <li><strong>عادەت و رۆتین (Habits &amp; Routines):</strong> کارێن هەر رۆژ یان ب بەردەوامی رویددەن. نموونە: <span class="en">I drink coffee every morning.</span> (ئەز هەر سپێدە قەهوێ ڤەدخۆم).</li>
-          <li><strong>راستییێن گشتی و زانستی (General Truths &amp; Scientific Facts):</strong> تشتێن هەر دەم راستن. نموونە: <span class="en">Water boils at 100°C.</span> (ئاڤ ل پلا ١٠٠ دکەلیت).</li>
-          <li><strong>بارودۆخێن هەردەمی (Permanent States):</strong> بارودۆخێن بۆ دەمەکێ درێژ ناهێنە گۆهۆڕین. نموونە: <span class="en">She lives in Paris.</span> (ئەو ل پاریس دژیت).</li>
-          <li><strong>خشتە و کاتێن دیارکری (Fixed Timetables &amp; Schedules):</strong> وەکی کاتێن فرۆکە و شەمەندەفر و دەرسان. نموونە: <span class="en">The train departs at 8:00 AM.</span> (شەمەندەفر دەمژمێر ٨:٠٠ سپێدێ بڕێدکەڤیت).</li>
-          <li><strong>فەرمان و رێنمایی (Instructions or Directions):</strong> فەرمانا ئێکسەر، دەستپێکا وێ ب کارێ سادە یە. نموونە: <span class="en">Open the door and take a seat.</span> (دەرگەهی ڤەکە و رینە).</li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>2️⃣ پێکهاتا رستێ (Sentence Structure)</h3>
-        <div class="tip-box">
-          💡 <strong>بزانە برا! ئەڤە کلیلێ ئەزموونێ یە:</strong><br>
-          د رستێن <strong>ئەرێ (+)</strong> دا: ئەگەر بکەر <span class="en">He / She / It</span> (یان ناڤەکێ تاک وەکی Ali, Water, The sun) بیت، کار <span class="en">-s</span> یان <span class="en">-es</span> وەردگریت. بەلێ بۆ <span class="en">I / You / We / They</span> چ ناچیتە سەر کاری!<br>
-          د رستێن <strong>نەرێ (-) و پسیارێ (?)</strong> دا: ئەم <span class="en">do</span> (بۆ <span class="en">I, You, We, They</span>) و <span class="en">does</span> (بۆ <span class="en">He, She, It</span>) بکاردهینین، و کار دزڤڕیتە شێوازێ خۆ یێ بنەڕەت (ئانکو <span class="en">-s</span> ل سەر کاری نامینیت!).
-        </div>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>جۆرێ رستێ</th>
-              <th>یاسا (Structure)</th>
-              <th>نموونە (Example)</th>
-            </tr>
-            <tr>
-              <td><strong>ئەرێ (+) Affirmative</strong></td>
-              <td><span class="en">Subject + Base Verb (+ -s/-es for he/she/it)</span></td>
-              <td><span class="en">She works every day.</span> (ئەو هەر رۆژ کاردکەت)</td>
-            </tr>
-            <tr>
-              <td><strong>نەرێ (-) Negative</strong></td>
-              <td><span class="en">Subject + do/does + not + Base Verb</span></td>
-              <td><span class="en">She does not work every day.</span> (تێبینی: work بێ s یە!)</td>
-            </tr>
-            <tr>
-              <td><strong>پسیارا بەلێ/نەخێر (?)</strong></td>
-              <td><span class="en">Do/Does + Subject + Base Verb?</span></td>
-              <td><span class="en">Does she work every day?</span></td>
-            </tr>
-            <tr>
-              <td><strong>پسیارا Wh-Questions</strong></td>
-              <td><span class="en">Wh-word + do/does + Subject + Base Verb?</span></td>
-              <td><span class="en">What does she study?</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="topic-box">
-        <h3>✍️ یاسایێن نڤیسینێ بۆ کەسێ سێیێ تاک (<span class="en">he, she, it</span>)</h3>
-        <ol class="clean-list">
-          <li><strong>پتریا کاران:</strong> تەنها <span class="en">-s</span> زێدە بکە: <span class="en">walk → walks</span> ، <span class="en">read → reads</span>.</li>
-          <li><strong>کارێن ب <span class="en">-ch, -s, -sh, -x, -z</span> (و هەروەسا <span class="en">-o</span> وەکی go) ب دوماهی دهێن:</strong> <span class="en">-es</span> زێدە بکە: <span class="en">watch → watches</span> ، <span class="en">wash → washes</span> ، <span class="en">fix → fixes</span>.</li>
-          <li><strong>کارێن ب (پیتا نەبزوێن + <span class="en">-y</span>) ب دوماهی دهێن:</strong> پیتا <span class="en">-y</span> بکە <span class="en">-ies</span>: <span class="en">study → studies</span> ، <span class="en">fly → flies</span>.</li>
-          <li><strong>کارێن ب (پیتا بزوێن <span class="en">a, e, i, o, u</span> + <span class="en">-y</span>) ب دوماهی دهێن:</strong> تەنها <span class="en">-s</span> زێدە بکە و <span class="en">y</span> نەگۆهۆڕە: <span class="en">play → plays</span> ، <span class="en">buy → buys</span>.</li>
-        </ol>
-      </div>
-
-      <div class="quiz-section" id="quiz-w1-s1"></div>
-    </div>
-
-    <!-- WEEK 1 - SLIDE 2 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٢ (پەڕا ٢): پەیڤێن ئاماژێ، راهێنان، و فەرهەنگا پەیڤان</span>
-        <span class="slide-pill">Week 1 - Page 2</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>3️⃣ ئاماژەیێن دەمێ نۆکە یێ سادە (Time Expressions &amp; Signal Words)</h3>
-        <p>ئەگەر تە ئەڤ پەیڤە د رستێ دا دیتن، ئێکسەر بزانە کو دەمێ رستێ <strong>Present Simple</strong>ـە:</p>
-        <ul class="clean-list">
-          <li><strong>ئاوەڵکارێن دووبارەبوونێ (Adverbs of Frequency):</strong>
-            <span class="en">Always</span> (هەردەم)، <span class="en">usually</span> (عەدەتەن)، <span class="en">often</span> (زۆر جاران)، <span class="en">sometimes</span> (هندەک جاران)، <span class="en">seldom</span> (کێم جاران)، <span class="en">rarely</span> (دەگمەن)، <span class="en">never</span> (قەت).
-          </li>
-          <li><strong>دەستەواژەیێن دەمی (Time Phrases):</strong>
-            <span class="en">Every day/week/month/year</span> (هەر رۆژ/حەفتی/مەهـ/ساڵ)، <span class="en">on Mondays</span> (ل رۆژێن دووشەمبی)، <span class="en">in the morning</span> (ل سپێدێ)، <span class="en">once a week</span> (حەفتی جارەکێ)، <span class="en">twice a month</span> (مەهێ دوو جاران).
-          </li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>4️⃣ شیکارکرنا راهێنانێن PDFـێ (Practice Exercises - Solved 100%)</h3>
-        <div class="solved-box">
-          <ol class="clean-list">
-            <li><span class="en">She <strong>goes</strong> (go) to the gym three times a week.</span> ← چنکو بکەر <span class="en">She</span> یە و <span class="en">go</span> ب <span class="en">-o</span> دوماهی دهێت، دبیتە <span class="en">goes</span>.</li>
-            <li><span class="en">They <strong>do not like / don't like</strong> (not / like) cold weather.</span> ← <span class="en">They</span> ل گەل <span class="en">do not</span> دهێت.</li>
-            <li><span class="en"><strong>Do</strong> you <strong>speak</strong> (speak) English fluently?</span> ← د پسیارێ دا بۆ <span class="en">you</span> ئەم <span class="en">Do</span> د دانینە دەستپێکێ.</li>
-            <li><span class="en">The sun <strong>rises</strong> (rise) in the east.</span> ← راستیا گشتی یە و <span class="en">The sun</span> تاکە (= <span class="en">It</span>)، لەورا <span class="en">-s</span> وەردگریت.</li>
-            <li><span class="en">He always <strong>studies</strong> (study) late at night.</span> ← <span class="en">He</span> تاکە و <span class="en">study</span> ب پیتا نەبزوێن <span class="en">d + y</span> دوماهی دهێت، لەورا <span class="en">y</span> دبیتە <span class="en">ies</span>.</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="topic-box">
-        <h3>5️⃣ فەرهەنگا رۆژانە (Daily Vocabulary: Synonyms &amp; Antonyms)</h3>
-        <div class="omitted-box">
-          🔵 <strong>ئاگەهدارییا گرنگ (تەرک):</strong> وەکی د وێنەیێ تە دا ب بازنێ شین دیارکری، ستوینا <strong>Definition (پێناسە)</strong> یا <strong>تەرکە</strong> و ناهێت د ئەزموونێ دا! تەنها پەیڤ + <strong>Synonyms (هەڤواتا)</strong> + <strong>Antonyms (دژواتا)</strong> بخوینە. مانایا بادینی بۆ تێگەهشتنا تە یە.
-        </div>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>پەیڤ (Word)</th>
-              <th>مانایا وێ ب بادینی</th>
-              <th>پێناسە (Definition)</th>
-              <th>هەڤواتا (Synonyms - هەمان مانا)</th>
-              <th>دژواتا (Antonyms - بەروڤاژی)</th>
-            </tr>
-            <tr>
-              <td><span class="en">Begin</span></td>
-              <td>دەستپێکرن</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Start, initiate, commence</span></td>
-              <td><span class="en">End, finish, stop</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Create</span></td>
-              <td>دروستکرن / چێکرن</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Make, produce, build</span></td>
-              <td><span class="en">Destroy, ruin, demolish</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Difficult</span></td>
-              <td>زەحمەت / گران</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Hard, challenging, tough</span></td>
-              <td><span class="en">Easy, simple, effortless</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Essential</span></td>
-              <td>پێدڤی / گەلەک گرنگ</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Vital, crucial, required</span></td>
-              <td><span class="en">Optional, unnecessary, minor</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Frequently</span></td>
-              <td>ب بەردەوامی / گەلەک جاران</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Often, regularly, repeatedly</span></td>
-              <td><span class="en">Seldom, rarely, infrequently</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w1-s2"></div>
-    </div>
-
-    <!-- WEEK 1 - SLIDE 3 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٣ (پەڕا ٣): کارێن ئاسایی و نەئاسایی (Regular vs. Irregular Verbs)</span>
-        <span class="slide-pill">Week 1 - Page 3</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>6️⃣ جوداهییا کارێن ئاسایی و نەئاسایی چیە؟</h3>
-        <ul class="clean-list">
-          <li><strong>کارێن ئاسایی (Regular Verbs):</strong> د دەمێ بۆری <span class="en">(V2)</span> و تەمامکری <span class="en">(V3)</span> دا تەنها <span class="en">-ed</span> وەردگرن، گەلەک د سادەنە.</li>
-          <li><strong>کارێن نەئاسایی (Irregular Verbs):</strong> پێدڤیە وەکی خۆ بهێنە ژبەرکرن چنکو شێوازێ وان دهێتە گۆهۆڕین و <span class="en">-ed</span> وەرناگرن!</li>
-        </ul>
-
-        <h4 style="margin-top:12px;">✅ کارێن ئاسایی (Regular Verbs):</h4>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>مانایا بادینی</th>
-              <th>شێوازێ بنەڕەت (Base Form - V1)</th>
-              <th>بۆریێ سادە (Simple Past - V2)</th>
-              <th>شێوازێ سێیێ (Past Participle - V3)</th>
-            </tr>
-            <tr><td>پسیارکرن</td><td><span class="en">Ask</span></td><td><span class="en">Asked</span></td><td><span class="en">Asked</span></td></tr>
-            <tr><td>پاقژکرن</td><td><span class="en">Clean</span></td><td><span class="en">Cleaned</span></td><td><span class="en">Cleaned</span></td></tr>
-            <tr><td>هاریکاریکرن</td><td><span class="en">Help</span></td><td><span class="en">Helped</span></td><td><span class="en">Helped</span></td></tr>
-            <tr><td>یاری کرن</td><td><span class="en">Play</span></td><td><span class="en">Played</span></td><td><span class="en">Played</span></td></tr>
-            <tr><td>کارکرن</td><td><span class="en">Work</span></td><td><span class="en">Worked</span></td><td><span class="en">Worked</span></td></tr>
-          </table>
-        </div>
-
-        <h4 style="margin-top:16px;">🔥 کارێن نەئاسایی (Irregular Verbs):</h4>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>مانایا بادینی</th>
-              <th>شێوازێ بنەڕەت (Base Form - V1)</th>
-              <th>بۆریێ سادە (Simple Past - V2)</th>
-              <th>شێوازێ سێیێ (Past Participle - V3)</th>
-            </tr>
-            <tr><td>بوون</td><td><span class="en">Be</span></td><td><span class="en">Was / Were</span></td><td><span class="en">Been</span></td></tr>
-            <tr><td>چوون</td><td><span class="en">Go</span></td><td><span class="en">Went</span></td><td><span class="en">Gone</span></td></tr>
-            <tr><td>هەبوون</td><td><span class="en">Have</span></td><td><span class="en">Had</span></td><td><span class="en">Had</span></td></tr>
-            <tr><td>چێکرن</td><td><span class="en">Make</span></td><td><span class="en">Made</span></td><td><span class="en">Made</span></td></tr>
-            <tr><td>وەرگرتن / برن</td><td><span class="en">Take</span></td><td><span class="en">Took</span></td><td><span class="en">Taken</span></td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w1-s3"></div>
-    </div>
-  </section>
-
-  <!-- ========================================================= -->
-  <!-- PDF 2: WEEK 2 - PRESENT CONTINUOUS                        -->
-  <!-- ========================================================= -->
-  <section id="sec-w2" class="pdf-section w2">
-    <div class="pdf-banner banner-w2">
-      <h2>📗 پشکا دووێ (Week 2 PDF): دەمێ نۆکە یێ بەردەوام (Present Continuous Tense)</h2>
-      <p>ئەڤە PDFـا دووێ یە (٥ پەڕە/سلاید). کارێن هەر نۆکە، بارودۆخێن بەروەخت، یاسایێن (-ing)، و کارێن نەبزاڤ (Stative Verbs) وەردگریت.</p>
-    </div>
-
-    <!-- WEEK 2 - SLIDE 1 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ١ (پەڕا ١): بکارهێنان، پێکهاتا رستێ، و هەلبژارتنا (am / is / are)</span>
-        <span class="slide-pill">Week 2 - Page 1</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>📌 دەمێ نۆکە یێ بەردەوام (<span class="en">Present Continuous / Present Progressive</span>) چیە؟</h3>
-        <p>ئەڤ دەمە بۆ کارێن <strong>هەر د ڤێ چرکێ دا رویددەن</strong>، یان بارودۆخێن بەروەخت، یان پلانێن مسۆگەر یێن داهاتووی بکاردهێت.</p>
-      </div>
-
-      <div class="topic-box">
-        <h3>1️⃣ بکارهێنانێن دەمێ نۆکە یێ بەردەوام (Usages)</h3>
-        <ul class="clean-list">
-          <li><strong>کارێن هەر نۆکە رویددەن (Actions Happening Right Now):</strong> د دەما ئاخفتنێ دا. نموونە: <span class="en">I am reading a book right now.</span> (ئەز هەر نۆکە یێ پەرتۆکێ دخوینم).</li>
-          <li><strong>بارودۆخێن بەروەخت (Temporary Situations):</strong> بۆ دەمەکێ دیارکری ل دۆر نۆکە. نموونە: <span class="en">She is living in London for three months.</span> (ئەو بۆ سێ مەهان ل لەندەن دژیت).</li>
-          <li><strong>گۆهۆڕین و پێشکەفتن (Changing or Developing Situations):</strong> گۆهۆڕینا هێدی هێدی. نموونە: <span class="en">Your English is getting better.</span> (ئینگلیزیا تە یا باشتر دبیت).</li>
-          <li><strong>پلانێن جێگیر یێن داهاتووی (Fixed Future Plans):</strong> تشتێن تە بڕیار ل سەر داین و د نێزیک دا دێ کەین. نموونە: <span class="en">We are meeting John tomorrow.</span> (ئەم سوبەهی دێ جۆنی بینین).</li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>2️⃣ پێکهاتا رستێ و هەلبژارتنا کارێ هاریکار (<span class="en">To Be: am / is / are</span>)</h3>
-        <div class="tip-box">
-          💡 <strong>هەردەم ڤێ ژبەر بکە:</strong> د دەمێ نۆکە یێ بەردەوام دا هەردەم دوو تشت پێکڤەنە: <strong>(<span class="en">am / is / are</span>) + (<span class="en">Verb-ing</span>)</strong>!<br>
-          • <span class="en">I → <strong>am</strong></span> (نموونە: <span class="en">I am working</span>)<br>
-          • <span class="en">He / She / It → <strong>is</strong></span> (نموونە: <span class="en">He is working</span>)<br>
-          • <span class="en">You / We / They → <strong>are</strong></span> (نموونە: <span class="en">They are working</span>)
-        </div>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>جۆرێ رستێ</th>
-              <th>یاسا (Structure)</th>
-              <th>نموونە (Example)</th>
-            </tr>
-            <tr>
-              <td><strong>ئەرێ (+) Affirmative</strong></td>
-              <td><span class="en">Subject + am/is/are + Verb-ing</span></td>
-              <td><span class="en">She is studying for her exam.</span></td>
-            </tr>
-            <tr>
-              <td><strong>نەرێ (-) Negative</strong></td>
-              <td><span class="en">Subject + am/is/are + not + Verb-ing</span></td>
-              <td><span class="en">She is not (isn't) studying for her exam.</span></td>
-            </tr>
-            <tr>
-              <td><strong>پسیارا بەلێ/نەخێر (?)</strong></td>
-              <td><span class="en">Am/Is/Are + Subject + Verb-ing?</span></td>
-              <td><span class="en">Is she studying for her exam?</span></td>
-            </tr>
-            <tr>
-              <td><strong>پسیارا Wh- Question</strong></td>
-              <td><span class="en">Wh-Word + am/is/are + Subject + Verb-ing?</span></td>
-              <td><span class="en">What is she studying? / Where are they going?</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w2-s1"></div>
-    </div>
-
-    <!-- WEEK 2 - SLIDE 2 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٢ (پەڕا ٢): پەیڤێن پسیارا (Wh-) و یاسایێن زێدەکرنا (-ing) ژ ١ هەتا ٥</span>
-        <span class="slide-pill">Week 2 - Page 2</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>❓ پەیڤێن پسیارێ (Wh- Question Words)</h3>
-        <ul class="clean-list">
-          <li><span class="en">What</span> (چ): <span class="en">What are you doing right now?</span> (تۆ نۆکە چ دکەی؟)</li>
-          <li><span class="en">Where</span> (کیڤە/ل کیرێ): <span class="en">Where is he going this evening?</span> (ئەڤ شەڤە ئەو دچیتە کیڤە؟)</li>
-          <li><span class="en">Why</span> (بۆچی): <span class="en">Why are they laughing so loudly?</span> (بۆچی ئەو هندە ب دەنگێ بلند دکەنە کەنی؟)</li>
-          <li><span class="en">Who</span> (کی): <span class="en">Who is she talking to on the phone?</span> (ئەو ب تەلەفۆنێ دگەل کی دئاخڤیت؟)</li>
-          <li><span class="en">When</span> (کەنگی): <span class="en">When are we leaving for the airport?</span> (کەنگی ئەم دێ چینە فرۆکەخانێ؟)</li>
-          <li><span class="en">How</span> (چەوا): <span class="en">How is your new project going?</span> (پرۆژێ تە یێ نوی چەوا دچیت؟)</li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>3️⃣ یاسایێن نڤیسینا (-ing) ل سەر کاری (پشکا ئێکێ: یاسا ١ - ٥)</h3>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>یاسا</th>
-              <th>شڕۆڤەکرن ب بادینی</th>
-              <th>نموونە</th>
-            </tr>
-            <tr>
-              <td><strong>1. یاسایا گشتی (General Rule)</strong></td>
-              <td>بۆ پتریا کاران تەنها <span class="en">-ing</span> زێدە بکە.</td>
-              <td><span class="en">talk → talking, read → reading, cook → cooking, sleep → sleeping, drink → drinking</span></td>
-            </tr>
-            <tr>
-              <td><strong>2. پیتا بێدەنگ (<span class="en">Silent -e</span>)</strong></td>
-              <td>ئەگەر کار ب <span class="en">-e</span> یا بێدەنگ (نەهێتە خاندن) ب دوماهی هات، پیتا <span class="en">-e</span> ژێببە و <span class="en">-ing</span> زێدە بکە.</td>
-              <td><span class="en">make → making, write → writing, dance → dancing, smile → smiling, take → taking</span></td>
-            </tr>
-            <tr>
-              <td><strong>3. یاسایا CVC (١ بڕگە)</strong></td>
-              <td>کارێن کورت (١ بڕگە) کو دوماهیا وان <strong>(نەبزوێن + ئێک بزوێن + ئێک نەبزوێن)</strong> بیت، پیتا دوماهیێ بکە دوو قات (دەبل) و <span class="en">-ing</span> زێدە بکە.</td>
-              <td><span class="en">run → running, stop → stopping, swim → swimming, sit → sitting, plan → planning</span></td>
-            </tr>
-            <tr>
-              <td><strong>4. دوماهی ب <span class="en">-ie</span></strong></td>
-              <td>ئەگەر کار ب <span class="en">-ie</span> ب دوماهی هات، هەردوو پیتان بکە <span class="en">-y</span> و پاشی <span class="en">-ing</span> زێدە بکە.</td>
-              <td><span class="en">die → dying, lie → lying, tie → tying</span></td>
-            </tr>
-            <tr>
-              <td><strong>5. دوماهی ب <span class="en">-ee, -oe, -ye</span></strong></td>
-              <td>ل ڤێرە پیتا <span class="en">e</span> <strong>ژێنەبە</strong>! ئێکسەر <span class="en">-ing</span> زێدە بکە.</td>
-              <td><span class="en">see → seeing, agree → agreeing, canoe → canoeing</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w2-s2"></div>
-    </div>
-
-    <!-- WEEK 2 - SLIDE 3 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٣ (پەڕا ٣): یاسایا ٦، ئاماژێن دەمی، کارێن نەبزاڤ (Stative)، و فەرهەنگ</span>
-        <span class="slide-pill">Week 2 - Page 3</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>✍️ یاسایا ٦ یا نڤیسینا (-ing): کارێن دوو بڕگەیی (<span class="en">Stress matters</span>)</h3>
-        <ul class="clean-list">
-          <li>ئەگەر فشارا دەنگی (Stress) ل سەر <strong>بڕگا دووێ</strong> بیت ← پیتا دوماهیێ <strong>دبیتە دەبل (دوو قات)</strong>:<br>
-            <span class="en">beGIN → beginning</span> ، <span class="en">preFER → preferring</span>
-          </li>
-          <li>ئەگەر فشارا دەنگی ل سەر <strong>بڕگا ئێکێ</strong> بیت ← پیتا دوماهیێ <strong>نابیتە دەبل</strong>:<br>
-            <span class="en">Open → opening</span> ، <span class="en">VIsit → visiting</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>4️⃣ پەیڤێن ئاماژێ (Time Expressions &amp; Signal Words)</h3>
-        <ul class="clean-list">
-          <li><strong>بۆ کارێن نۆکە:</strong> <span class="en">Right now</span> (هەر نۆکە), <span class="en">at the moment</span> (د ڤێ گاڤێ دا), <span class="en">currently</span> (ل دەمێ نها), <span class="en">now</span> (نۆکە), <span class="en">today</span> (ئەڤرۆ), <span class="en">look!</span> (تەماشە بکە!), <span class="en">listen!</span> (گوهێ خۆ بدێ!).</li>
-          <li><strong>بۆ پلانێن داهاتووی:</strong> <span class="en">Tomorrow</span> (سوبەهی), <span class="en">next week</span> (حەفتیا بهێت), <span class="en">tonight</span> (ئەڤ شەڤە), <span class="en">this weekend</span> (دوماهیا ڤێ حەفتیێ).</li>
-        </ul>
-      </div>
-
-      <div class="topic-box">
-        <h3>5️⃣ هۆشدارییا کارێن نەبزاڤ (<span class="en">Stative Verbs Warning</span>) 🔥 گەلەک گرنگە بۆ ئەزموونێ!</h3>
-        <p>هندەک کار هەنە هەست، بیرکردنەوە، یان رەوشا ناڤخۆیی نیشان ددەن نەک لڤینەکا لەشی. ئەڤ کارە ب گشتی <strong>ب شێوازێ بەردەوام (<span class="en">-ing</span>) ناهێنە بکارهێنان</strong>، ل شینا وێ <strong>Present Simple</strong> بکاربهینە!</p>
-        <div class="en-block">
-          ❌ <strong>Incorrect:</strong> I am wanting an ice cream.<br>
-          ✅ <strong>Correct:</strong> I want an ice cream. (Use Present Simple instead)
-        </div>
-        <p><strong>ئەڤ کارێن Stative ژبەر بکە:</strong> <span class="en">like, love, hate, know, understand, believe, need, want, remember, belong, seem</span>.</p>
-      </div>
-
-      <div class="topic-box">
-        <h3>6️⃣ فەرهەنگا بەرفرەهـ (Daily Vocabulary Expansion)</h3>
-        <div class="omitted-box">
-          🔵 <strong>ئاگەهدارییا گرنگ (تەرک):</strong> وەکی د وێنەیێ دووێ دا ب بازنێ شین دیارکری، ستوینا <strong>Definition (پێناسە)</strong> یا <strong>تەرکە</strong>! تەنها پەیڤ + <strong>Synonyms</strong> + <strong>Antonyms</strong> بخوینە.
-        </div>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>پەیڤ (Word)</th>
-              <th>مانایا بادینی</th>
-              <th>پێناسە (Definition)</th>
-              <th>هەڤواتا (Synonyms)</th>
-              <th>دژواتا (Antonyms)</th>
-            </tr>
-            <tr>
-              <td><span class="en">Achieve</span></td>
-              <td>بدەستڤەئینان / گەهشتنە ئارمانجێ</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">get, reach</span></td>
-              <td><span class="en">Fail, lose, give up</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Ancient</span></td>
-              <td>کەڤنار / زۆر کەڤن</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Old, antique, historic</span></td>
-              <td><span class="en">Modern, recent, new</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Expand</span></td>
-              <td>فرەهـ کرن / مەزنبوون</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Grow, enlarge, extend</span></td>
-              <td><span class="en">Shrink, reduce</span></td>
-            </tr>
-            <tr>
-              <td><span class="en">Generous</span></td>
-              <td>مەرد / دەستڤەکری</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Charitable, giving, unselfish</span></td>
-              <td><span class="en">Stingy, selfish, greedy</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w2-s3"></div>
-    </div>
-
-    <!-- WEEK 2 - SLIDE 4 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٤ (پەڕا ٤): تەمامکرنا فەرهەنگێ و لیستا کارێن زێدە (V1, V2, V3, V-ing)</span>
-        <span class="slide-pill">Week 2 - Page 4</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>📌 تەمامکرنا فەرهەنگێ (پەیڤا پێنجێ):</h3>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>پەیڤ (Word)</th>
-              <th>مانایا بادینی</th>
-              <th>پێناسە (Definition)</th>
-              <th>هەڤواتا (Synonyms)</th>
-              <th>دژواتا (Antonyms)</th>
-            </tr>
-            <tr>
-              <td><span class="en">Temporary</span></td>
-              <td>بەروەخت / بۆ دەمەکێ کورت</td>
-              <td class="col-omitted">تەرک (Omitted)</td>
-              <td><span class="en">Short-term, provisional</span></td>
-              <td><span class="en">Permanent, lasting, constant</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="topic-box">
-        <h3>7️⃣ لیستا زێدە یا کارێن ئاسایی و نەئاسایی (دگەل شێوازێ V-ing)</h3>
-        <h4>✅ کارێن ئاسایی (Regular Verbs - Adding -ed/-d):</h4>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>مانایا بادینی</th>
-              <th>V1 (بنەڕەت)</th>
-              <th>V2 (بۆری)</th>
-              <th>V3 (تەمامکری)</th>
-              <th>V-ing (بەردەوام)</th>
-            </tr>
-            <tr><td>گەهشتن</td><td><span class="en">Arrive</span></td><td><span class="en">Arrived</span></td><td><span class="en">Arrived</span></td><td><span class="en">Arriving</span></td></tr>
-            <tr><td>گازیکرن / تەلەفۆنکرن</td><td><span class="en">Call</span></td><td><span class="en">Called</span></td><td><span class="en">Called</span></td><td><span class="en">Calling</span></td></tr>
-            <tr><td>گوهلێبوون</td><td><span class="en">Listen</span></td><td><span class="en">Listened</span></td><td><span class="en">Listened</span></td><td><span class="en">Listening</span></td></tr>
-            <tr><td>دەستپێکرن</td><td><span class="en">Start</span></td><td><span class="en">Started</span></td><td><span class="en">Started</span></td><td><span class="en">Starting</span></td></tr>
-            <tr><td>سەرەدانکرن</td><td><span class="en">Visit</span></td><td><span class="en">Visited</span></td><td><span class="en">Visited</span></td><td><span class="en">Visiting</span></td></tr>
-          </table>
-        </div>
-
-        <h4 style="margin-top:16px;">🔥 کارێن نەئاسایی (Irregular Verbs):</h4>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>مانایا بادینی</th>
-              <th>V1 (بنەڕەت)</th>
-              <th>V2 (بۆری)</th>
-              <th>V3 (تەمامکری)</th>
-              <th>V-ing (بەردەوام)</th>
-            </tr>
-            <tr><td>شکاندن</td><td><span class="en">Break</span></td><td><span class="en">Broke</span></td><td><span class="en">Broken</span></td><td><span class="en">Breaking</span></td></tr>
-            <tr><td>لێخوڕین (ترۆمبێل)</td><td><span class="en">Drive</span></td><td><span class="en">Drove</span></td><td><span class="en">Driven</span></td><td><span class="en">Driving</span></td></tr>
-            <tr><td>خوارن</td><td><span class="en">Eat</span></td><td><span class="en">Ate</span></td><td><span class="en">Eaten</span></td><td><span class="en">Eating</span></td></tr>
-            <tr><td>ئاخفتن</td><td><span class="en">Speak</span></td><td><span class="en">Spoke</span></td><td><span class="en">Spoken</span></td><td><span class="en">Speaking</span></td></tr>
-            <tr><td>نڤیسین</td><td><span class="en">Write</span></td><td><span class="en">Wrote</span></td><td><span class="en">Written</span></td><td><span class="en">Writing</span></td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w2-s4"></div>
-    </div>
-
-    <!-- WEEK 2 - SLIDE 5 -->
-    <div class="slide-card">
-      <div class="slide-header">
-        <span class="slide-title">سلاید ٥ (پەڕا ٥): شیکارکرنا راهێنانێن PDFـێ (Practice Exercises)</span>
-        <span class="slide-pill">Week 2 - Page 5</span>
-      </div>
-
-      <div class="topic-box">
-        <h3>8️⃣ شیکارکرنا هەمی ٧ راهێنانێن پەڕا ٥ ب دروستاهی ١٠٠٪</h3>
-        <div class="solved-box">
-          <ol class="clean-list">
-            <li><span class="en">Look! It <strong>is raining</strong> (rain) outside.</span> ← چنکو پەیڤا <span class="en">Look!</span> هەیە (هەر نۆکە) و <span class="en">It</span> کارێ <span class="en">is</span> وەردگریت.</li>
-            <li><span class="en">They <strong>are not playing / aren't playing</strong> (not / play) football at the moment.</span> ← <span class="en">They</span> ل گەل <span class="en">are not</span> دهێت.</li>
-            <li><span class="en"><strong>Are</strong> you <strong>listening</strong> (listen) to me?</span> ← د پسیارێ دا <span class="en">Are</span> دهێتە بەر <span class="en">you</span>، و <span class="en">listen</span> نابیتە دەبل ن.</li>
-            <li><span class="en">What <strong>is</strong> she <strong>cooking</strong> (cook) for dinner?</span> ← بۆ <span class="en">she</span> ئەم <span class="en">is</span> بکاردهینین د پسیارا <span class="en">Wh-</span> دا.</li>
-            <li><span class="en">Why <strong>are</strong> they <strong>running</strong> (run) so fast?</span> ← <span class="en">run</span> یاسایا CVC یە لەورا دبیتە <span class="en">running</span> (دوو n).</li>
-            <li><span class="en">She <strong>is writing</strong> (write) a letter to her friend right now.</span> ← پیتا <span class="en">-e</span> ژێدچیت: <span class="en">writing</span>.</li>
-            <li><span class="en">The workers <strong>are planning</strong> (plan) a new strategy today.</span> ← <span class="en">The workers</span> کۆمن (= <span class="en">They</span>) لەورا <span class="en">are</span>، و <span class="en">plan</span> یاسایا CVC یە لەورا دبیتە <span class="en">planning</span> (دوو n).</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="quiz-section" id="quiz-w2-s5"></div>
-    </div>
-  </section>
-
-  <!-- ========================================================= -->
-  <!-- COMBINED MIDTERM EXAM SECTION                             -->
-  <!-- ========================================================= -->
-  <section id="sec-exam" class="pdf-section">
-    <div class="pdf-banner banner-exam">
-      <h2>📝 تاقیکرنا مەزن یا میتێرمێ (Midterm Exam - ٣٠ پسیار)</h2>
-      <p>ئەڤ تاقیکرنە هەردوو PDFـان (Week 1 &amp; Week 2) پێکڤە دگریت — تێدا هەلبژارتن (١٢)، فەراغات (١٠)، و ساح و خەلەت (٨) هەنە. پێناسەیێن تەرک تێدا نینن! وەلام بدە و بزانە دێ چەندێ ژ ١٠٠٪ ئینی!</p>
-    </div>
-
-    <div class="slide-card">
-      <div id="midterm-container"></div>
-    </div>
-  </section>
-
-</div>
-
-<button type="button" id="topBtn" title="بچە سەری" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆</button>
-
-<script>
-  // ==========================================================
-  // TAB SWITCHING & THEME TOGGLE
-  // ==========================================================
-  function switchTab(mode, btn) {
-    var w1 = document.getElementById("sec-w1");
-    var w2 = document.getElementById("sec-w2");
-    var ex = document.getElementById("sec-exam");
-    var allBtns = document.querySelectorAll(".tab-btn");
-
-    for (var i = 0; i < allBtns.length; i++) {
-      allBtns[i].classList.remove("active-w1", "active-w2", "active-exam", "active-all");
-    }
-
-    if (mode === "w1") {
-      w1.classList.add("visible");
-      w2.classList.remove("visible");
-      ex.classList.remove("visible");
-      btn.classList.add("active-w1");
-    } else if (mode === "w2") {
-      w1.classList.remove("visible");
-      w2.classList.add("visible");
-      ex.classList.remove("visible");
-      btn.classList.add("active-w2");
-    } else if (mode === "exam") {
-      w1.classList.remove("visible");
-      w2.classList.remove("visible");
-      ex.classList.add("visible");
-      btn.classList.add("active-exam");
-    } else {
-      w1.classList.add("visible");
-      w2.classList.add("visible");
-      ex.classList.add("visible");
-      btn.classList.add("active-all");
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function toggleTheme() {
-    var html = document.documentElement;
-    var current = html.getAttribute("data-theme") || "light";
-    var next = current === "light" ? "dark" : "light";
-    html.setAttribute("data-theme", next);
-    document.getElementById("themeToggle").innerHTML = next === "dark" ? "☀️ رۆژ" : "🌙 شەڤ / رۆژ";
-  }
-
-  window.addEventListener("scroll", function () {
-    var btn = document.getElementById("topBtn");
-    if (window.scrollY > 320) {
-      btn.style.display = "flex";
-    } else {
-      btn.style.display = "none";
-    }
-  });
-
-  // ==========================================================
-  // HELPER FUNCTIONS
-  // ==========================================================
-  function normalizeText(str) {
-    return (str || "").trim().toLowerCase().replace(/\s+/g, " ").replace(/’/g, "'");
-  }
-
-  // ==========================================================
-  // SLIDE QUIZZES (6 QUESTIONS EACH)
-  // ==========================================================
-  var slideQuizzes = {
-    "quiz-w1-s1": {
-      title: "📝 پسیارێن سلاید ١ (Week 1 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. راستیا زانستی (Present Simple) هەلبژێرە:", q: "Water ________ at 100°C.", options: ["boil", "boils", "boiling", "are boiling"], ans: ["boils"], exp: "چنکو راستیا زانستی یە و Water (= It) تاکە، پێدڤی ب (-s) یە ← boils." },
-        { type: "mcq", ku: "٢. کیژ کارێ هاریکار بۆ پسیارا Present Simple دگەل She دهێت؟", q: "________ she work every day?", options: ["Do", "Does", "Is", "Are"], ans: ["Does"], exp: "د دەمێ نۆکە یێ سادە دا بۆ He / She / It ئەم Does بکاردهینین." },
-        { type: "blank", ku: "٣. فەراغێ پڕ بکە (تێبینی: watch ب -ch ب دوماهی دهێت):", q: "He ________ (watch) TV every evening.", ans: ["watches"], exp: "کارێن ب -ch ب دوماهی دهێن دگەل He/She/It پاشگرێ -es وەردگرن ← watches." },
-        { type: "blank", ku: "٤. پسیارێ تەمام بکە:", q: "________ they work on Mondays?", ans: ["do"], exp: "بۆ they د پسیارا Present Simple دا ئەم Do بکاردهینین." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "The sentence 'She does not works every day.' is grammatically CORRECT.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پشتی does not کار دزڤڕیتە بنەڕەت (work بێ s)، نەک works." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "For he/she/it, verbs ending in consonant + -y (like 'study') change -y to -ies (studies).", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! پیتا نەبزوێن + y دگۆهۆڕیت بۆ ies (study → studies)." }
-      ]
-    },
-    "quiz-w1-s2": {
-      title: "📝 پسیارێن سلاید ٢ (Week 1 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. هەڤواتایا (Synonym) پەیڤا Essential کیژکە؟", q: "Choose a synonym for 'Essential':", options: ["Optional", "Vital", "Destroy", "Seldom"], ans: ["Vital"], exp: "هەڤواتایێن Essential ئەڤەنە: Vital, crucial, required." },
-        { type: "mcq", ku: "٢. دژواتایا (Antonym) پەیڤا Difficult کیژکە؟", q: "Choose an antonym for 'Difficult':", options: ["Hard", "Tough", "Easy", "Challenging"], ans: ["Easy"], exp: "Difficult ئانکو زەحمەت؛ دژواتایا وێ Easy (بساناهی) یە." },
-        { type: "blank", ku: "٣. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Begin بنڤیسە:", q: "An antonym of 'Begin' is: ________", ans: ["end", "finish", "stop"], exp: "دژواتایێن Begin د پەڕێ دا: End, finish, stop." },
-        { type: "blank", ku: "٤. شێوازێ دروست یێ Present Simple بنڤیسە:", q: "He always ________ (study) late at night.", ans: ["studies"], exp: "چنکو He تاکە و always ئاماژەیە بۆ Present Simple ← studies." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "'Seldom' and 'Rarely' are Synonyms of 'Frequently'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Seldom و Rarely دژواتایێن (Antonyms) پەیڤا Frequently نە." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Make, produce, build' are Synonyms of 'Create'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! هەڤواتایێن Create ئەڤەنە: Make, produce, build." }
-      ]
-    },
-    "quiz-w1-s3": {
-      title: "📝 پسیارێن سلاید ٣ (Week 1 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Go چیە؟", q: "What is the Past Participle (V3) of 'Go'?", options: ["Went", "Gone", "Goed", "Going"], ans: ["Gone"], exp: "Go (V1) → Went (V2) → Gone (V3)." },
-        { type: "mcq", ku: "٢. کیژ ژ ڤان کاران کارەکێ ئاسایی (Regular Verb) یە؟", q: "Which verb is a Regular Verb?", options: ["Be", "Go", "Help", "Take"], ans: ["Help"], exp: "Help کارەکێ ئاسایی یە (Helped / Helped)، یێن دی هەمی نەئاساینە." },
-        { type: "blank", ku: "٣. بۆریێ سادە (Simple Past - V2) یێ کارێ Take بنڤیسە:", q: "Simple Past (V2) of 'Take' = ________", ans: ["took"], exp: "Take (V1) → Took (V2) → Taken (V3)." },
-        { type: "blank", ku: "٤. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Be بنڤیسە:", q: "Past Participle (V3) of 'Be' = ________", ans: ["been"], exp: "Be (V1) → Was / Were (V2) → Been (V3)." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Both V2 and V3 of the verb 'Make' are 'Made'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Make → Made → Made." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Play' is an irregular verb.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Play کارەکێ ئاسایی (Regular) یە: Play → Played → Played." }
-      ]
-    },
-    "quiz-w2-s1": {
-      title: "📝 پسیارێن سلاید ١ (Week 2 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. پلانا مسۆگەر بۆ داهاتووی (Present Continuous) تەمام بکە:", q: "We ________ John tomorrow.", options: ["is meeting", "are meeting", "am meeting", "meets"], ans: ["are meeting"], exp: "We کارێ هاریکار are وەردگریت دگەل Verb-ing ← are meeting." },
-        { type: "mcq", ku: "٢. کیژ کارێ هاریکار دگەل I دهێت؟", q: "I ________ reading a book right now.", options: ["is", "are", "am", "does"], ans: ["am"], exp: "I هەردەم am وەردگریت ← I am reading." },
-        { type: "blank", ku: "٣. رستێ ب Present Continuous تەمام بکە:", q: "She ________ (study) for her exam right now.", ans: ["is studying"], exp: "She ل گەل is دهێت و study دبیتە studying ← is studying." },
-        { type: "blank", ku: "٤. پسیارێ تەمام بکە:", q: "________ they working today?", ans: ["are"], exp: "بۆ they د پسیارا Present Continuous دا Are دهێتە دەستپێکێ." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Present Continuous can be used for temporary situations like 'She is living in London for three months.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئێک ژ بکارهێنانێن Present Continuous بارودۆخێن بەروەختە." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The negative sentence 'He are not working.' is correct.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! He کارێ is وەردگریت، دروستە بێژین: He is not (isn't) working." }
-      ]
-    },
-    "quiz-w2-s2": {
-      title: "📝 پسیارێن سلاید ٢ (Week 2 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. نڤیسینا دروست یا کارێ write دگەل -ing کیژکە؟", q: "What is the correct '-ing' form of 'write'?", options: ["writeing", "writing", "writting", "writeng"], ans: ["writing"], exp: "یاسایا Silent -e: پیتا e یا دوماهیێ ژێدچیت ← writing." },
-        { type: "mcq", ku: "٢. نڤیسینا دروست یا کارێ lie دگەل -ing کیژکە؟", q: "What is the correct '-ing' form of 'lie'?", options: ["lieing", "liing", "lying", "lyeing"], ans: ["lying"], exp: "یاسایا -ie: پیتێن -ie دگۆهۆڕن بۆ -y و -ing زێدە دبیت ← lying." },
-        { type: "blank", ku: "٣. پاشگرێ -ing ل سەر کارێ stop زێدە بکە:", q: "stop + -ing = ________", ans: ["stopping"], exp: "یاسایا CVC (١ بڕگە): پیتا p دبیتە دوو قات ← stopping." },
-        { type: "blank", ku: "٤. پاشگرێ -ing ل سەر کارێ agree زێدە بکە:", q: "agree + -ing = ________", ans: ["agreeing"], exp: "کارێن ب -ee ب دوماهی دهێن پیتا e ژێنابەن ← agreeing." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "In 'Who is she talking to on the phone?', 'Who' asks about a person.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Who بۆ پسیارکرنێ دەربارەی کەسان (کی) بکاردهێت." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The '-ing' form of 'run' is 'runing' with a single 'n'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! run یاسایا CVC یە، دروست: running ب دوو n." }
-      ]
-    },
-    "quiz-w2-s3": {
-      title: "📝 پسیارێن سلاید ٣ (Week 2 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. نڤیسینا ١٠٠٪ دروست یا یاسایا دوو بڕگەیی (Stress) کیژکە؟", q: "Which '-ing' spelling is CORRECT?", options: ["begining", "visitting", "openning", "beginning"], ans: ["beginning"], exp: "begin فشار ل سەر بڕگا دووێ یە لەورا n دبیتە دوو قات (beginning)؛ بەلێ open و visit نابنە دەبل." },
-        { type: "mcq", ku: "٢. کیژ رستە ژ ئالیێ رێزمانێ ڤە دروستە (Stative Verbs Warning)؟", q: "Which sentence is CORRECT?", options: ["I am wanting an ice cream.", "I want an ice cream.", "I is wanting an ice cream.", "I wanting an ice cream."], ans: ["I want an ice cream."], exp: "want کارەکێ Stative یە، ب شێوازێ -ing ناهێت، پێدڤیە Present Simple بکاربهینی." },
-        { type: "blank", ku: "٣. ژ خشتەیێ فەرهەنگێ، هەڤواتایەکێ (Synonym) بۆ پەیڤا Generous بنڤیسە:", q: "A synonym of 'Generous' is: ________", ans: ["charitable", "giving", "unselfish"], exp: "هەڤواتایێن Generous د پەڕێ دا: Charitable, giving, unselfish." },
-        { type: "blank", ku: "٤. ژ خشتەیێ فەرهەنگێ، دژواتایەکێ (Antonym) بۆ پەیڤا Expand بنڤیسە:", q: "An antonym of 'Expand' is: ________", ans: ["shrink", "reduce"], exp: "دژواتایێن Expand د پەڕێ دا: Shrink, reduce." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "Stative verbs such as 'know', 'love', and 'believe' are rarely used in the continuous (-ing) form.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! کارێن هەست و رەوشێ ب گشتی د دەمێ بەردەوام دا بکارناهێن." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "'Modern, recent, new' are Synonyms of 'Ancient'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! ئەو دژواتایێن (Antonyms) پەیڤا Ancientـن." }
-      ]
-    },
-    "quiz-w2-s4": {
-      title: "📝 پسیارێن سلاید ٤ (Week 2 - ٦ پسیار دگەل وەلامان):",
-      questions: [
-        { type: "mcq", ku: "١. دژواتایا (Antonym) پەیڤا Temporary کیژکە؟", q: "Choose an antonym for 'Temporary':", options: ["Short-term", "Provisional", "Permanent", "Visiting"], ans: ["Permanent"], exp: "دژواتایێن Temporary ئەڤەنە: Permanent, lasting, constant." },
-        { type: "mcq", ku: "٢. شێوازێ V2 و V3 یێ کارێ Break کیژکن؟", q: "What are the V2 and V3 forms of 'Break'?", options: ["Breaked / Breaked", "Broke / Broken", "Broken / Broke", "Broke / Breaked"], ans: ["Broke / Broken"], exp: "Break (V1) → Broke (V2) → Broken (V3)." },
-        { type: "blank", ku: "٣. شێوازێ سێیێ (Past Participle - V3) یێ کارێ Drive بنڤیسە:", q: "Past Participle (V3) of 'Drive' = ________", ans: ["driven"], exp: "Drive (V1) → Drove (V2) → Driven (V3)." },
-        { type: "blank", ku: "٤. شێوازێ V-ing یێ کارێ Write بنڤیسە:", q: "Present Continuous (V-ing) of 'Write' = ________", ans: ["writing"], exp: "پیتا e ژێدچیت و -ing زێدە دبیت ← Writing." },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "'Short-term' and 'provisional' are Synonyms of 'Temporary'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! هەردوو هەڤواتایێن Temporary نە." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The Simple Past (V2) of 'Eat' is 'Eated'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Eat کارەکێ نەئاسایی یە: Eat → Ate → Eaten." }
-      ]
-    },
-    "quiz-w2-s5": {
-      title: "📝 پسیارێن سلاید ٥ (Week 2 - ٦ پسیار ل سەر راهێنانان):",
-      questions: [
-        { type: "mcq", ku: "١. بکارهێنانی دەمێ نۆکە یێ بەردەوام هەلبژێرە:", q: "Look! It ________ outside.", options: ["rain", "rains", "is raining", "are raining"], ans: ["is raining"], exp: "Look! نیشانا نۆکە یە، و It کارێ is وەردگریت ← is raining." },
-        { type: "mcq", ku: "٢. نڤیسین و رێزمانا دروست هەلبژێرە:", q: "The workers ________ a new strategy today.", options: ["is planing", "are planing", "is planning", "are planning"], ans: ["are planning"], exp: "The workers کۆمن (= They → are) و plan دبیتە planning ب دوو n." },
-        { type: "blank", ku: "٣. رستێ ب شێوازێ نەرێ (Negative) د Present Continuous دا تەمام بکە:", q: "They ________ (not / play) football at the moment.", ans: ["are not playing", "aren't playing"], exp: "They → are not playing (یان aren't playing)." },
-        { type: "blank", ku: "٤. تەنها پەیڤا بەرزە یا پسیارێ بنڤیسە:", q: "What ________ she cooking for dinner?", ans: ["is"], exp: "بۆ she د پسیارێ دا is بکاردهێت: What is she cooking for dinner?" },
-        { type: "tf", ku: "٥. ساح یان خەلەت (True or False):", q: "In 'Why are they running so fast?', 'running' has two 'n's because of the CVC rule.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! run → running." },
-        { type: "tf", ku: "٦. ساح یان خەلەت (True or False):", q: "The sentence 'Are you listen to me?' is grammatically correct.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پشتی Are پێدڤیە کار -ing وەربگریت ← Are you listening to me?" }
-      ]
-    }
-  };
-
-  function buildQuestionHTML(item, qId) {
-    var tagClass = item.type === "mcq" ? "tag-mcq" : item.type === "blank" ? "tag-blank" : "tag-tf";
-    var tagName = item.type === "mcq" ? "هەلبژارتن (MCQ)" : item.type === "blank" ? "فەراغات (Blank)" : "ساح و خەلەت (T/F)";
-
-    var html = '<div class="q-item" id="' + qId + '">';
-    html += '<span class="q-type-tag ' + tagClass + '">' + tagName + '</span>';
-    html += '<div class="q-text-ku">' + item.ku + '</div>';
-    html += '<div class="q-text">' + item.q + '</div>';
-
-    if (item.type === "blank") {
-      html += '<input type="text" class="blank-input" id="' + qId + '-input" placeholder="وەلامێ خۆ ل ڤێرە بنڤیسە..." />';
-    } else {
-      html += '<div class="options-grid">';
-      for (var o = 0; o < item.options.length; o++) {
-        var opt = item.options[o];
-        html += '<label class="opt-label"><input type="radio" name="' + qId + '-radio" value="' + opt + '" /><span>' + opt + '</span></label>';
-      }
-      html += '</div>';
-    }
-    html += '<div class="feedback" id="' + qId + '-fb"></div></div>';
-    return html;
-  }
-
-  function renderSlideQuiz(containerId) {
-    var data = slideQuizzes[containerId];
-    var container = document.getElementById(containerId);
-    if (!data || !container) return;
-
-    var html = '<div class="quiz-header"><h4>' + data.title + '</h4></div>';
-    for (var i = 0; i < data.questions.length; i++) {
-      html += buildQuestionHTML(data.questions[i], containerId + '-q' + i);
-    }
-
-    html += '<div class="btn-row">' +
-      '<button type="button" class="btn btn-check" onclick="gradeQuiz(\'' + containerId + '\', false)">✅ پشکنینا وەلامان</button>' +
-      '<button type="button" class="btn btn-show" onclick="showAnswers(\'' + containerId + '\', false)">👁️ نیشاندانا وەلامێن ١٠٠٪ دروست</button>' +
-      '<button type="button" class="btn btn-reset" onclick="resetQuiz(\'' + containerId + '\', false)">🔄 دووبارەکرن</button>' +
-      '</div><div class="score-banner" id="' + containerId + '-score"></div>';
-
-    container.innerHTML = html;
-  }
-
-  // ==========================================================
-  // COMBINED MIDTERM EXAM (30 QUESTIONS: 12 MCQ + 10 BLANK + 8 T/F)
-  // ==========================================================
-  var midtermQuestions = [
-    // Part 1: 12 MCQ
-    { part: "پشکا ئێکێ: هەلبژارتن (Multiple Choice - ١٢ پسیار)", type: "mcq", ku: "١. راستیا زانستی (Week 1):", q: "The sun ________ in the east.", options: ["rise", "rises", "is rising", "rising"], ans: ["rises"], exp: "راستیا گشتی یە (Present Simple)، The sun تاکە ← rises." },
-    { type: "mcq", ku: "٢. ئاماژەیا right now (Week 2):", q: "Listen! Someone ________ at the door right now.", options: ["knock", "knocks", "is knocking", "are knocking"], ans: ["is knocking"], exp: "Listen! و right now نیشانێن Present Continuousـن، Someone تاکە ← is knocking." },
-    { type: "mcq", ku: "٣. کارێ نەبزاڤ (Stative Verb - Week 2):", q: "I ________ the answer to this question.", options: ["am knowing", "knowing", "know", "is knowing"], ans: ["know"], exp: "know کارەکێ Stative یە، دگەل -ing ناهێت! ← I know." },
-    { type: "mcq", ku: "٤. نەرێ د Present Simple دا (Week 1):", q: "She ________ work on Fridays.", options: ["do not", "does not", "is not", "are not"], ans: ["does not"], exp: "بۆ کارێ بنەڕەت work د Present Simple دا دگەل She ئەم does not بکاردهینین." },
-    { type: "mcq", ku: "٥. یاسایا نڤیسینا -ing (Week 2):", q: "What is the correct '-ing' form of 'die'?", options: ["dieing", "dying", "diing", "dyeing"], ans: ["dying"], exp: "یاسایا -ie: پیتێن -ie دگۆهۆڕن بۆ -y و -ing زێدە دبیت ← dying." },
-    { type: "mcq", ku: "٦. یاسایا دوو بڕگەیی Stress (Week 2):", q: "Which '-ing' form is CORRECT?", options: ["prefering", "visitting", "opening", "begining"], ans: ["opening"], exp: "open فشار ل سەر بڕگا ئێکێ یە لەورا نابیتە دەبل (opening). یێن دی هەمی خەلەتن." },
-    { type: "mcq", ku: "٧. هەڤواتا (Synonym - Week 1):", q: "Which word is a Synonym of 'Create'?", options: ["Destroy", "Ruin", "Produce", "Stop"], ans: ["Produce"], exp: "هەڤواتایێن Create: Make, produce, build." },
-    { type: "mcq", ku: "٨. دژواتا (Antonym - Week 2):", q: "Which word is an Antonym of 'Generous'?", options: ["Charitable", "Stingy", "Giving", "Unselfish"], ans: ["Stingy"], exp: "دژواتایێن Generous: Stingy, selfish, greedy." },
-    { type: "mcq", ku: "٩. هەڤواتا (Synonym - Week 2):", q: "Which word is a Synonym of 'Achieve'?", options: ["Fail", "Lose", "Give up", "Reach"], ans: ["Reach"], exp: "هەڤواتایێن Achieve: get, reach." },
-    { type: "mcq", ku: "١٠. دژواتا (Antonym - Week 1):", q: "Which word is an Antonym of 'Frequently'?", options: ["Often", "Regularly", "Seldom", "Repeatedly"], ans: ["Seldom"], exp: "دژواتایێن Frequently: Seldom, rarely, infrequently." },
-    { type: "mcq", ku: "١١. کارێ نەئاسایی (Irregular Verb - Week 2):", q: "What is the Past Participle (V3) of 'Write'?", options: ["Wrote", "Writed", "Written", "Writing"], ans: ["Written"], exp: "Write (V1) → Wrote (V2) → Written (V3)." },
-    { type: "mcq", ku: "١٢. پلانا داهاتووی (Week 2) دگەل کۆمێ:", q: "We ________ for the airport at 6:00 PM tonight.", options: ["am leaving", "is leaving", "are leaving", "leaves"], ans: ["are leaving"], exp: "We ل گەل are دهێت و leave پیتا e ژێدبەت ← are leaving." },
-
-    // Part 2: 10 Blank
-    { part: "پشکا دووێ: فەراغات / پڕکرنا بۆشاییان (Fill in the Blanks - ١٠ پسیار)", type: "blank", ku: "١٣. یاسایا CVC (Present Continuous - Week 2):", q: "Look! The kids ________ (swim) in the pool right now.", ans: ["are swimming"], exp: "The kids کۆمن (= They → are)، و swim دبیتە swimming ب دوو m." },
-    { type: "blank", ku: "١٤. عادەتێ رۆژانە (Present Simple - Week 1):", q: "She ________ (go) to the gym three times a week.", ans: ["goes"], exp: "She تاکە و عادەتە، go دبیتە goes." },
-    { type: "blank", ku: "١٥. نەرێ د Present Simple دا (Week 1):", q: "They ________ (not / like) cold weather.", ans: ["do not like", "don't like"], exp: "They ل گەل do not like (یان don't like) دهێت." },
-    { type: "blank", ku: "١٦. یاسایا Consonant + y (Week 1):", q: "He always ________ (fly) to London in summer.", ans: ["flies"], exp: "fly ب پیتا نەبزوێن l + y ب دوماهی دهێت، لەورا دبیتە flies." },
-    { type: "blank", ku: "١٧. پسیارا Present Continuous (Week 2):", q: "Why ________ (be) they running so fast?", ans: ["are"], exp: "بۆ they د پسیارێ دا are بکاردهێت." },
-    { type: "blank", ku: "١٨. یاسایا -ee (Week 2):", q: "Add -ing to 'see': ________", ans: ["seeing"], exp: "کارێن ب -ee ب دوماهی دهێن پیتا e ژێنابەن ← seeing." },
-    { type: "blank", ku: "١٩. هەڤواتا (Synonym - Week 2):", q: "Write a synonym for 'Ancient' (from the table): ________", ans: ["old", "antique", "historic"], exp: "هەڤواتایێن Ancient: Old, antique, historic." },
-    { type: "blank", ku: "٢٠. دژواتا (Antonym - Week 1):", q: "Write an antonym for 'Essential' (from the table): ________", ans: ["optional", "unnecessary", "minor"], exp: "دژواتایێن Essential: Optional, unnecessary, minor." },
-    { type: "blank", ku: "٢١. کارێ نەئاسایی (V2 - Week 2):", q: "Simple Past (V2) of 'Speak' = ________", ans: ["spoke"], exp: "Speak (V1) → Spoke (V2) → Spoken (V3)." },
-    { type: "blank", ku: "٢٢. کارێ نەئاسایی (V3 - Week 1):", q: "Past Participle (V3) of 'Have' = ________", ans: ["had"], exp: "Have (V1) → Had (V2) → Had (V3)." },
-
-    // Part 3: 8 T/F
-    { part: "پشکا سێیێ: ساح و خەلەت (True or False - ٨ پسیار)", type: "tf", ku: "٢٣. یاسایا vowel + y (Week 1):", q: "With 'he/she/it', the verb 'play' becomes 'plaies'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! پێش y پیتا بزوێن (a) هەیە، لەورا تەنها s زێدە دبیت ← plays." },
-    { type: "tf", ku: "٢٤. خشتێ جێگیر (Fixed Timetables - Week 1):", q: "We use the Present Simple for fixed timetables like 'The train departs at 8:00 AM.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئێک ژ بکارهێنانێن Present Simple خشتە و کاتێن دیارکری نە." },
-    { type: "tf", ku: "٢٥. یاسایا Silent -e (Week 2):", q: "The '-ing' form of 'canoe' drops the 'e' to become 'canoing'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! canoe ب -oe ب دوماهی دهێت، e ژێناچیت ← canoeing." },
-    { type: "tf", ku: "٢٦. یاسایا Stative Verbs (Week 2):", q: "'She is understanding the lesson now.' is better written as 'She understands the lesson now.'", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! understand کارەکێ Stative یە و ب Present Simple دهێتە نڤیسین." },
-    { type: "tf", ku: "٢٧. کارێ نەئاسایی (Week 1):", q: "The Past Participle (V3) of the verb 'Go' is 'Went'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["False (خەلەت)"], exp: "خەلەتە! Went بۆریێ سادەیە (V2)، شێوازێ سێیێ (V3) دبیتە Gone." },
-    { type: "tf", ku: "٢٨. هەڤواتایێن فەرهەنگێ (Week 1):", q: "'Hard, challenging, tough' are Synonyms of 'Difficult'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! ئەڤە هەمی هەڤواتایێن Difficultـن." },
-    { type: "tf", ku: "٢٩. دژواتایێن فەرهەنگێ (Week 2):", q: "'Permanent, lasting, constant' are Antonyms of 'Temporary'.", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! Temporary ئانکو بەروەخت و دژواتایا وێ Permanent (هەردەمی) یە." },
-    { type: "tf", ku: "٣٠. نەرێ د Present Simple دا (Week 1):", q: "In Present Simple negative sentences with 'he/she/it', we use 'does not' + the base verb (without -s).", options: ["True (ساح)", "False (خەلەت)"], ans: ["True (ساح)"], exp: "ساحە! پشتی does not کار هەردەم دزڤڕیتە شێوازێ بنەڕەت." }
-  ];
-
-  function renderMidterm() {
-    var container = document.getElementById("midterm-container");
-    if (!container) return;
-
-    var html = "";
-    for (var i = 0; i < midtermQuestions.length; i++) {
-      var item = midtermQuestions[i];
-      if (item.part) {
-        html += '<div class="part-divider">' + item.part + '</div>';
-      }
-      html += buildQuestionHTML(item, "midterm-q" + i);
-    }
-
-    html += '<div class="btn-row">' +
-      '<button type="button" class="btn btn-check" onclick="gradeQuiz(\'midterm\', true)">✅ پشکنینا ئەزموونا میتێرمێ (٣٠ پسیار)</button>' +
-      '<button type="button" class="btn btn-show" onclick="showAnswers(\'midterm\', true)">👁️ نیشاندانا هەمی وەلامێن ١٠٠٪ دروست</button>' +
-      '<button type="button" class="btn btn-reset" onclick="resetQuiz(\'midterm\', true)">🔄 دووبارەکرنا ئەزموونێ</button>' +
-      '</div><div class="score-banner" id="midterm-score"></div>';
-
-    container.innerHTML = html;
-  }
-
-  // ==================
+  <nav class="quick-nav">
+    <div class="quick-nav-title">چوونا بلەز بۆ سلایدان:</div>
+    <div class="slide-pills" id="slidePills"></div>
+  </nav>
+
+  <main class="container" id="slidesContainer"></main>
+  <div class="empty-state" id="emptyState">چ ئەنجامەک بۆ لێگەڕیانا تە نەهاتە دیتن!</div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="زڤڕین بۆ سەری">⬆</button>
+
+  <footer>
+    سەرکەفتی بی د تاقیکرنا خۆ یا عەمەلی دا! — ئامادەکرییە ل سەر بنەمایێ سلایدێن Fundamentals of Programming by C#
+  </footer>
+
+  <script>
+    const slidesData = [
+      {
+        num: 3,
+        title: "ناساندنا جۆرێن داتایان و ڤاریەبڵان",
+        enTitle: "C# Data Types (Intro)",
+        summary: [
+          "زمانێ C# زمانەکێ <code>Strongly-typed</code> یە؛ واتە بەری بکارئینانێ دڤێت جۆرێ هەر ڤاریەبڵەکێ بهێتە دیارکرن.",
+          "جۆرێ داتای (Data Type) قەبارێ د بیرگەهێ دا و جۆرێ بەهای دیار دکەت، و خەلەتیان کێم دکەت.",
+          "جۆرێن سەرەکی: <code>int</code> (ژمارا تمام)، <code>float</code> (ژمارا دەیی ب <code>f</code>)، <code>char</code> (ئێک پیت د <code>' '</code> دا)، <code>bool</code> (دروست/خەلەت)، <code>string</code> (دەق د <code>\" \"</code> دا)."
+        ],
+        questions: [
+          {
+            q: "کۆدەکی بنڤیسە بۆ دروستکرنا ڤاریەبڵەکا ژمارا تمام <code>int</code> ب ناڤێ <code>myNum</code> کو بەهایێ وێ <code>15</code> بیت، پاشان چاپ بکە.",
+            code: `int myNum = 15;\nConsole.WriteLine(myNum);`,
+            out: `15`
+          },
+          {
+            q: "ڤاریەبڵەکا <code>float</code> ب ناڤێ <code>price</code> دروست بکە و بەهایێ <code>10.5f</code> بدەیێ، و ل سەر شاشێ نیشان بدە.",
+            code: `float price = 10.5f;\nConsole.WriteLine(price);`,
+            out: `10.5`
+          },
+          {
+            q: "پیتا <code>'D'</code> د ناڤ ڤاریەبڵەکا جۆرێ <code>char</code> ب ناڤێ <code>myLetter</code> دا خەزن بکە و چاپ بکە.",
+            code: `char myLetter = 'D';\nConsole.WriteLine(myLetter);`,
+            out: `D`
+          },
+          {
+            q: "ڤاریەبڵەکا <code>bool</code> ب ناڤێ <code>isReady</code> دروست بکە ب بەهایێ <code>true</code> و چاپ بکە.",
+            code: `bool isReady = true;\nConsole.WriteLine(isReady);`,
+            out: `True`
+          },
+          {
+            q: "پەیڤا <code>\"Kurdistan\"</code> د ڤاریەبڵەکا <code>string</code> دا ب ناڤێ <code>myText</code> هەڵبگرە و چاپ بکە.",
+            code: `string myText = "Kurdistan";\nConsole.WriteLine(myText);`,
+            out: `Kurdistan`
+          }
+        ]
+      },
+      {
+        num: 4,
+        title: "جۆرێن داتایێن بەربەلاڤ و قەبارێ وان",
+        enTitle: "Most Common Data Types & Sizes",
+        summary: [
+          "<code>int</code> (4 bytes) بۆ ژمارێن تمام یێن مامناوەند؛ <code>long</code> (8 bytes) بۆ ژمارێن تمام یێن گەلەک مەزن.",
+          "<code>float</code> (4 bytes) هەتا 6 بۆ 7 ژمارێن دەیی دپارێزیت؛ <code>double</code> (8 bytes) هەتا 15 ژمارێن دەیی دپارێزیت.",
+          "<code>bool</code> قەبارێ وێ 1 bit یە؛ <code>char</code> قەبارێ وێ 2 bytes یە؛ <code>string</code> 2 bytes بۆ هەر پیتەکێ."
+        ],
+        questions: [
+          {
+            q: "بۆ هەڵگرتنا ژمارا ئاکنجیێن جیهانێ <code>8000000000</code> جۆرێ گونجای (<code>long</code>) بکاربینە و چاپ بکە.",
+            code: `long population = 8000000000;\nConsole.WriteLine(population);`,
+            out: `8000000000`
+          },
+          {
+            q: "ژمارا <code>12.345678901234</code> ب جۆرێ <code>double</code> خەزن بکە دا هویریا وێ نەچیت و چاپ بکە.",
+            code: `double preciseNum = 12.345678901234;\nConsole.WriteLine(preciseNum);`,
+            out: `12.345678901234`
+          },
+          {
+            q: "دوو ڤاریەبڵان دروست بکە: ئێک جۆرێ <code>char</code> ب بەهایێ <code>'A'</code> و ئێک جۆرێ <code>bool</code> ب بەهایێ <code>false</code>، و هەردووان چاپ بکە.",
+            code: `char grade = 'A';\nbool passed = false;\nConsole.WriteLine(grade);\nConsole.WriteLine(passed);`,
+            out: `A\nFalse`
+          },
+          {
+            q: "ناڤێ زانکۆیا خۆ <code>\"AUAS\"</code> ب <code>string</code> و ساڵا دامەزراندنێ <code>2023</code> ب <code>int</code> خەزن بکە و پێکڤە چاپ بکە.",
+            code: `string uni = "AUAS";\nint year = 2023;\nConsole.WriteLine(uni + " " + year);`,
+            out: `AUAS 2023`
+          },
+          {
+            q: "ژمارا <code>45.678f</code> ب جۆرێ 4 بایتی (<code>float</code>) بنڤیسە و چاپ بکە.",
+            code: `float temp = 45.678f;\nConsole.WriteLine(temp);`,
+            out: `45.678`
+          }
+        ]
+      },
+      {
+        num: 5,
+        title: "دابەشبوونا ژماران (Integer & Floating-Point)",
+        enTitle: "C# Data Types (Numbers)",
+        summary: [
+          "ژمارە د C# دا دبنە دوو گروپ: <strong>Integer types</strong> (ژمارێن تمام بێ خاڵا دەیی) و <strong>Floating-point types</strong> (ژمارێن ب خاڵا دەیی).",
+          "جۆرێن تمام: <code>byte, sbyte</code> (8-bit)، <code>short, ushort</code> (16-bit)، <code>int, uint</code> (32-bit)، <code>long, ulong</code> (64-bit).",
+          "جۆرێن دەیی: <code>float</code> (32-bit)، <code>double</code> (64-bit)، <code>decimal</code> (128-bit)."
+        ],
+        questions: [
+          {
+            q: "ژمارەکا تمام یا نێگەتیڤ <code>-25</code> و ژمارەکا تمام یا پۆزەتیڤ <code>100</code> ب <code>int</code> دروست بکە و چاپ بکە.",
+            code: `int neg = -25;\nint pos = 100;\nConsole.WriteLine(neg);\nConsole.WriteLine(pos);`,
+            out: `-25\n100`
+          },
+          {
+            q: "دوو ژمارێن دەیی دروست بکە (ئێک نێگەتیڤ <code>-3.5</code> و ئێک پۆزەتیڤ <code>9.25</code>) ب جۆرێ <code>double</code> و چاپ بکە.",
+            code: `double d1 = -3.5;\ndouble d2 = 9.25;\nConsole.WriteLine(d1);\nConsole.WriteLine(d2);`,
+            out: `-3.5\n9.25`
+          },
+          {
+            q: "ژمارا <code>200</code> د جۆرێ 8-bit یێ بێ نیشان (<code>byte</code>) دا و ژمارا <code>-15</code> د جۆرێ 8-bit یێ ب نیشان (<code>sbyte</code>) دا خەزن بکە و چاپ بکە.",
+            code: `byte ageGroup = 200;\nsbyte winterTemp = -15;\nConsole.WriteLine(ageGroup);\nConsole.WriteLine(winterTemp);`,
+            out: `200\n-15`
+          },
+          {
+            q: "جۆرێ 16-bit یێ ب نیشان (<code>short</code>) بۆ <code>-30000</code> و یێ بێ نیشان (<code>ushort</code>) بۆ <code>60000</code> بکاربینە و چاپ بکە.",
+            code: `short a = -30000;\nushort b = 60000;\nConsole.WriteLine(a);\nConsole.WriteLine(b);`,
+            out: `-30000\n60000`
+          },
+          {
+            q: "بۆ کارێن دارایی، جۆرێ 128-bit (<code>decimal</code>) بکاربینە بۆ خەزنکرنا مووچێ <code>1250.50m</code> و چاپ بکە.",
+            code: `decimal salary = 1250.50m;\nConsole.WriteLine(salary);`,
+            out: `1250.50`
+          }
+        ]
+      },
+      {
+        num: 6,
+        title: "مەودا، پاشگر (Suffix) و بەهایێ سەرەکی",
+        enTitle: "Numbers Range, Suffix & Default Values",
+        summary: [
+          "پاشگر (Suffix) بۆ دیارکرنا جۆری دهێنە دانان: <code>u</code> بۆ <code>uint</code>، <code>l</code> بۆ <code>long</code>، <code>ul</code> بۆ <code>ulong</code>، <code>f</code> بۆ <code>float</code>، <code>d</code> بۆ <code>double</code>، <code>m</code> بۆ <code>decimal</code>.",
+          "بەهایێ سەرەکی (Default) بۆ هەمی جۆرێن تمام <code>0</code> یە، ژ بلی <code>long</code> کو <code>0L</code> یە.",
+          "بەهایێ سەرەکی بۆ <code>float</code> بریتیە ژ <code>0.0F</code> و بۆ <code>double</code> بریتیە ژ <code>0.0D</code>."
+        ],
+        questions: [
+          {
+            q: "ڤاریەبڵەکا <code>uint</code> ب پاشگرێ <code>u</code> دروست بکە (بەهایێ <code>4000000000u</code>) و چاپ بکە.",
+            code: `uint bigUnsigned = 4000000000u;\nConsole.WriteLine(bigUnsigned);`,
+            out: `4000000000`
+          },
+          {
+            q: "ب پاشگرێن <code>L</code> و <code>ul</code> دوو ڤاریەبڵێن <code>long</code> و <code>ulong</code> دروست بکە و چاپ بکە.",
+            code: `long val1 = 5000000000L;\nulong val2 = 18000000000ul;\nConsole.WriteLine(val1);\nConsole.WriteLine(val2);`,
+            out: `5000000000\n18000000000`
+          },
+          {
+            q: "ڤاریەبڵەکا <code>float</code> ب پاشگرێ <code>f</code> (<code>5.5f</code>) و ئێکا <code>double</code> ب پاشگرێ <code>d</code> (<code>4.5d</code>) دروست بکە و کۆما وان چاپ بکە.",
+            code: `float x = 5.5f;\ndouble y = 4.5d;\nConsole.WriteLine(x + y);`,
+            out: `10`
+          },
+          {
+            q: "ب پاشگرێ <code>m</code> بەهایێ <code>999.95m</code> د <code>decimal</code> دا هەڵبگرە و چاپ بکە.",
+            code: `decimal bankBalance = 999.95m;\nConsole.WriteLine(bankBalance);`,
+            out: `999.95`
+          },
+          {
+            q: "بەهایێن سەرەکی (Default) بۆ <code>int</code> (<code>0</code>)، <code>long</code> (<code>0L</code>)، <code>float</code> (<code>0.0F</code>)، و <code>double</code> (<code>0.0D</code>) بنڤیسە و چاپ بکە.",
+            code: `int a = 0;\nlong b = 0L;\nfloat c = 0.0F;\ndouble d = 0.0D;\nConsole.WriteLine(a + " " + b + " " + c + " " + d);`,
+            out: `0 0 0 0`
+          }
+        ]
+      },
+      {
+        num: 7,
+        title: "نموونا پیڤانا دەمی ب ژمارێن تمام",
+        enTitle: "Example: Measuring Time & Placeholders",
+        summary: [
+          "ل دیڤ قەبارێ ژمارێ، ئەم جۆرێ گونجای هەلدبژێرین (ژ <code>byte</code> بۆ ژمارا بچویک هەتا <code>ulong</code> بۆ ژمارا گەلەک مەزن).",
+          "دشێین رێزبەندیا <code>{0}</code>، <code>{1}</code>، <code>{2}</code> د ناڤ <code>Console.WriteLine</code> دا بکاربینین بۆ نیشاندانا ڤاریەبڵان د ناڤ ڕستێ دا."
+        ],
+        questions: [
+          {
+            q: "دەمی ب سەدساڵان (<code>byte centuries = 20</code>)، ساڵان (<code>ushort years = 2000</code>)، و رۆژان (<code>uint days = 730480</code>) خەزن بکە و ب شێوازێ <code>{0}</code> چاپ بکە.",
+            code: `byte centuries = 20;\nushort years = 2000;\nuint days = 730480;\nConsole.WriteLine("{0} centuries is {1} years, or {2} days.", centuries, years, days);`,
+            out: `20 centuries is 2000 years, or 730480 days.`
+          },
+          {
+            q: "<code>byte hours = 2</code>، <code>ushort minutes = 120</code>، <code>uint seconds = 7200</code> دروست بکە و ب <code>{0}, {1}, {2}</code> چاپ بکە.",
+            code: `byte hours = 2;\nushort minutes = 120;\nuint seconds = 7200;\nConsole.WriteLine("{0} hours = {1} minutes = {2} seconds.", hours, minutes, seconds);`,
+            out: `2 hours = 120 minutes = 7200 seconds.`
+          },
+          {
+            q: "قەبارێ داتای ب <code>byte gb = 4</code>، <code>ushort mb = 4096</code>، <code>ulong kb = 4194304</code> بنڤیسە و د ئێک دێر دا چاپ بکە.",
+            code: `byte gb = 4;\nushort mb = 4096;\nulong kb = 4194304;\nConsole.WriteLine("{0} GB is {1} MB or {2} KB.", gb, mb, kb);`,
+            out: `4 GB is 4096 MB or 4194304 KB.`
+          },
+          {
+            q: "بکارئینانا <code>byte weeks = 4</code> و <code>ushort days = 28</code> و <code>uint hours = 672</code> د ڕستەکا رێکخستی دا چاپ بکە.",
+            code: `byte weeks = 4;\nushort days = 28;\nuint hours = 672;\nConsole.WriteLine("{0} weeks = {1} days = {2} hours.", weeks, days, hours);`,
+            out: `4 weeks = 28 days = 672 hours.`
+          },
+          {
+            q: "<code>byte departments = 5</code>، <code>ushort students = 1500</code>، <code>ulong totalCredits = 180000</code> دروست بکە و چاپ بکە.",
+            code: `byte departments = 5;\nushort students = 1500;\nulong totalCredits = 180000;\nConsole.WriteLine("{0} depts, {1} students, {2} credits.", departments, students, totalCredits);`,
+            out: `5 depts, 1500 students, 180000 credits.`
+          }
+        ]
+      },
+      {
+        num: 8,
+        title: "هویریا ژمارێن دەیی (Float vs Double)",
+        enTitle: "Example: PI Precision (float vs double)",
+        summary: [
+          "ب شێوەیەکێ بنەڕەتی (Default) هەر ژمارەکا دەیی د C# دا وەک <code>double</code> دهێتە هژمارتن.",
+          "بۆ خەزنکرنا ژمارەکا دەیی د ناڤ <code>float</code> دا دڤێت پاشگرێ <code>f</code> بنڤیسی دا کۆمپایلەر خەلەتیێ نەدەت.",
+          "<code>float</code> هویریا وێ کێمترە (نێزیکی 7 ژماران)، بەلێ <code>double</code> هەتا 15 ژماران ب دروستی دپارێزیت."
+        ],
+        questions: [
+          {
+            q: "بەهایێ PI (<code>3.141592653589793238</code>) جارەکێ د <code>float</code> دا (ب <code>f</code>) و جارەکێ د <code>double</code> دا خەزن بکە و جیاوازیا وان چاپ بکە.",
+            code: `float floatPI = 3.141592653589793238f;\ndouble doublePI = 3.141592653589793238;\nConsole.WriteLine("Float PI is: {0}", floatPI);\nConsole.WriteLine("Double PI is: {0}", doublePI);`,
+            out: `Float PI is: 3.141593\nDouble PI is: 3.14159265358979`
+          },
+          {
+            q: "کۆدەکێ بنڤیسە کو تێدا <code>float a = 2.5f</code> و <code>double b = 2.512345678912</code> هەبن و هەردووان چاپ بکە.",
+            code: `float a = 2.5f;\ndouble b = 2.512345678912;\nConsole.WriteLine("a = {0}", a);\nConsole.WriteLine("b = {0}", b);`,
+            out: `a = 2.5\nb = 2.512345678912`
+          },
+          {
+            q: "ب بکارئینانا <code>float pi = 3.14f</code> و <code>float r = 2.0f</code>، ڕووبەرێ بازنەی (<code>pi * r * r</code>) حساب بکە و چاپ بکە.",
+            code: `float pi = 3.14f;\nfloat r = 2.0f;\nfloat area = pi * r * r;\nConsole.WriteLine("Area is: {0}", area);`,
+            out: `Area is: 12.56`
+          },
+          {
+            q: "دوو ڤاریەبڵێن <code>double</code> ب ناڤێ <code>x = 10.5</code> و <code>y = 2.5</code> دروست بکە و ئەنجامێ دابەشکرنا وان چاپ بکە.",
+            code: `double x = 10.5;\ndouble y = 2.5;\nConsole.WriteLine("Result: {0}", x / y);`,
+            out: `Result: 4.2`
+          },
+          {
+            q: "نیشان بدە چەوا ژمارا <code>7.25</code> ب دروستی د <code>float</code> دا دهێتە ناساندن ب رێکا پاشگرێ <code>f</code> و چاپ بکە.",
+            code: `float num = 7.25f;\nConsole.WriteLine("Float value: " + num);`,
+            out: `Float value: 7.25`
+          }
+        ]
+      },
+      {
+        num: 9,
+        title: "جۆرێ داتایێ Boolean",
+        enTitle: "C# Data Types (Boolean)",
+        summary: [
+          "ب کلیلەپەیڤا <code>bool</code> دهێتە نڤیسین و بتنێ دوو بەهایان وەردگریت: <code>true</code> یان <code>false</code>.",
+          "بەهایێ سەرەکی (Default) یێ <code>bool</code> بریتیە ژ <code>false</code>.",
+          "د گوزارشتێن لۆژیکی و بەراوردکاریێ دا دهێتە بکارئینان، و دەمێ دهێتە چاپکرن ب پیتا مەزن <code>True</code> یان <code>False</code> دەردکەڤیت."
+        ],
+        questions: [
+          {
+            q: "دوو ڤاریەبڵێن <code>int a = 1; int b = 2;</code> دروست بکە، پاشان ب <code>bool</code> بپشکنە کا ئایا <code>a > b</code> و <code>a == 1</code> دروستن و چاپ بکە.",
+            code: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nbool equalA1 = (a == 1);\nConsole.WriteLine(greaterAB);\nConsole.WriteLine(equalA1);`,
+            out: `False\nTrue`
+          },
+          {
+            q: "نمرەیێ قوتابیەکێ <code>int mark = 65;</code> خەزن بکە و ب <code>bool isPassed</code> بپشکنە کا ژ ٥٠ مەزنتر یان یەکسانە و چاپ بکە.",
+            code: `int mark = 65;\nbool isPassed = (mark >= 50);\nConsole.WriteLine(isPassed);`,
+            out: `True`
+          },
+          {
+            q: "ژییێ کەسەکی <code>int age = 16;</code> دابنێ و ب <code>bool canVote = (age >= 18);</code> ئەنجامی چاپ بکە.",
+            code: `int age = 16;\nbool canVote = (age >= 18);\nConsole.WriteLine("Can vote: " + canVote);`,
+            out: `Can vote: False`
+          },
+          {
+            q: "دوو ڤاریەبڵێن <code>bool</code> دروست بکە: <code>isOnline = true</code> و <code>isAdmin = false</code> و هەردووان چاپ بکە.",
+            code: `bool isOnline = true;\nbool isAdmin = false;\nConsole.WriteLine(isOnline);\nConsole.WriteLine(isAdmin);`,
+            out: `True\nFalse`
+          },
+          {
+            q: "بپشکنە کا ژمارا <code>10</code> دابەشی <code>2</code> دبیت بێ ماوە (<code>10 % 2 == 0</code>) و د ناڤ <code>bool isEven</code> دا خەزن بکە و چاپ بکە.",
+            code: `int num = 10;\nbool isEven = (num % 2 == 0);\nConsole.WriteLine(isEven);`,
+            out: `True`
+          }
+        ]
+      },
+      {
+        num: 10,
+        title: "جۆرێ داتایێ Char",
+        enTitle: "C# Data Types (Char)",
+        summary: [
+          "جۆرێ <code>char</code> بۆ خەزنکرنا <strong>تنێ ئێک پیت یان هێما</strong> دهێتە بکارئینان.",
+          "دڤێت بەهایێ <code>char</code> د ناڤ کەڤانێن تاک (Single quotes) وەکی <code>'B'</code> دا بیت.",
+          "بەهایێ سەرەکی (Default) یێ جۆرێ <code>char</code> بریتیە ژ <code>'\\0'</code>."
+        ],
+        questions: [
+          {
+            q: "ڤاریەبڵەکا <code>char</code> ب ناڤێ <code>myGrade</code> و بەهایێ <code>'B'</code> دروست بکە و چاپ بکە.",
+            code: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`,
+            out: `B`
+          },
+          {
+            q: "پیتا ئێکێ یا ناڤێ خۆ <code>'A'</code> و پیتا دوماهیێ <code>'Z'</code> د دوو <code>char</code> دا خەزن بکە و ل سەر دوو دێران چاپ بکە.",
+            code: `char first = 'A';\nchar last = 'Z';\nConsole.WriteLine(first);\nConsole.WriteLine(last);`,
+            out: `A\nZ`
+          },
+          {
+            q: "هێمایا دۆلار <code>'$'</code> و پیتا ژمارە <code>'5'</code> وەک <code>char</code> خەزن بکە و پێکڤە د ڕستەکێ دا چاپ بکە.",
+            code: `char currency = '$';\nchar amount = '5';\nConsole.WriteLine("Price: {0}{1}", currency, amount);`,
+            out: `Price: $5`
+          },
+          {
+            q: "دوو ڤاریەبڵێن <code>char</code> بۆ پشکا <code>'I'</code> و <code>'T'</code> دروست بکە و چاپ بکە <code>Department: IT</code>.",
+            code: `char c1 = 'I';\nchar c2 = 'T';\nConsole.WriteLine("Department: {0}{1}", c1, c2);`,
+            out: `Department: IT`
+          },
+          {
+            q: "بەهایێ ڕەگەز <code>char gender = 'M';</code> دروست بکە و ب <code>Console.WriteLine</code> چاپ بکە.",
+            code: `char gender = 'M';\nConsole.WriteLine("Gender: " + gender);`,
+            out: `Gender: M`
+          }
+        ]
+      },
+      {
+        num: 11,
+        title: "جۆرێ داتایێ String و لێکدانا دەقان",
+        enTitle: "C# Data Types (String)",
+        summary: [
+          "جۆرێ <code>string</code> زنجیرەکا پیتان (دەق/Text) د ناڤ کەڤانێن جوت <code>\" \"</code> دا هەڵدگریت.",
+          "بەهایێ سەرەکی (Default) یێ <code>string</code> بریتیە ژ <code>null</code> (بێ بەها).",
+          "دەق دشێن ب نیشانا <code>+</code> ب هەڤڕا بهێنە گرێدان (Concatenation)، و <code>\\n</code> دێرەکا نوی دەستپێدکەت."
+        ],
+        questions: [
+          {
+            q: "<code>firstName = \"Dareen\"</code> و <code>lastName = \"Muhammed\"</code> دروست بکە، ب <code>+ \" \" +</code> تێکەل بکە و چاپ بکە.",
+            code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`,
+            out: `Your full name is Dareen Muhammed.`
+          },
+          {
+            q: "ب بکارئینانا <code>\\n</code> ناڤێ <code>\"Hello, Dareen!\"</code> و دێرەکا ڤاڵا پاشان <code>\"Welcome!\"</code> چاپ بکە.",
+            code: `string name = "Dareen";\nConsole.WriteLine("Hello, {0}!\\n", name);\nConsole.WriteLine("Welcome!");`,
+            out: `Hello, Dareen!\n\nWelcome!`
+          },
+          {
+            q: "دوو <code>string</code> بۆ <code>city = \"Akre\"</code> و <code>country = \"Kurdistan\"</code> دروست بکە و چاپ بکە: <code>Akre, Kurdistan</code>.",
+            code: `string city = "Akre";\nstring country = "Kurdistan";\nConsole.WriteLine(city + ", " + country);`,
+            out: `Akre, Kurdistan`
+          },
+          {
+            q: "سێ <code>string</code> دروست بکە (<code>\"C#\"</code>، <code>\" is \"</code>، <code>\"Fun\"</code>) و ب <code>+</code> پێکڤە گرێبدە و چاپ بکە.",
+            code: `string s1 = "C#";\nstring s2 = " is ";\nstring s3 = "Fun";\nConsole.WriteLine(s1 + s2 + s3);`,
+            out: `C# is Fun`
+          },
+          {
+            q: "<code>string dept = \"IT\";</code> دروست بکە و ب فۆرماتێ <code>{0}</code> بنڤیسە <code>Welcome to IT Department</code>.",
+            code: `string dept = "IT";\nConsole.WriteLine("Welcome to {0} Department", dept);`,
+            out: `Welcome to IT Department`
+          }
+        ]
+      },
+      {
+        num: 12,
+        title: "پۆلێن ئۆپەرەیتەران ل C#",
+        enTitle: "Categories of Operators in C#",
+        summary: [
+          "ئۆپەرەیتەر بۆ جێبەجێکرنا کرداران ل سەر ڤاریەبڵ و بەهایان دهێنە بکارئینان.",
+          "پۆلێن سەرەکی: <strong>Arithmetic</strong> (<code>+ - * / % ++ --</code>)، <strong>Logical</strong> (<code>&& || ^ !</code>)، <strong>Binary</strong> (<code>& | ^ ~ << >></code>)، <strong>Comparison</strong> (<code>== != < > <= >=</code>)، <strong>Assignment</strong> (<code>= += -= ...</code>)، <strong>String Concatenation</strong> (<code>+</code>)، و <strong>Type conversion</strong> (<code>is, as, typeof</code>)."
+        ],
+        questions: [
+          {
+            q: "کۆدەکی بنڤیسە کو تێدا <code>+</code> جارەکێ بۆ کۆمکرنا دوو ژماران و جارەکێ بۆ لێکدانا دوو دەقان بکاربهێت و هەردووان چاپ بکەت.",
+            code: `int sum = 5 + 3;\nstring text = "5" + "3";\nConsole.WriteLine(sum);\nConsole.WriteLine(text);`,
+            out: `8\n53`
+          },
+          {
+            q: "نمونەکا ئۆپەرەیتەرێ Assignment (<code>+=</code>) و Comparison (<code>></code>) د ئێک پرۆگرام دا بنڤیسە و چاپ بکە.",
+            code: `int x = 10;\nx += 5;\nConsole.WriteLine(x);\nConsole.WriteLine(x > 12);`,
+            out: `15\nTrue`
+          },
+          {
+            q: "ئۆپەرەیتەرێ <code>typeof</code> بکاربینە بۆ زانینا جۆرێ <code>int</code> و چاپ بکە.",
+            code: `Console.WriteLine(typeof(int));`,
+            out: `System.Int32`
+          },
+          {
+            q: "ئۆپەرەیتەرێ لۆژیکی <code>&&</code> و ئۆپەرەیتەرێ بەراوردکاریێ <code>==</code> پێکڤە بکاربینە و چاپ بکە.",
+            code: `int a = 5;\nbool result = (a == 5) && (a < 10);\nConsole.WriteLine(result);`,
+            out: `True`
+          },
+          {
+            q: "کردارێ لێکدانێ (<code>*</code>) و ئۆپەرەیتەرێ مەرجی (<code>?:</code>) بکاربینە بۆ نیشاندانا ئەگەر ئەنجام ژ ١٠ مەزنتر بیت.",
+            code: `int n = 4 * 3;\nstring msg = (n > 10) ? "Big" : "Small";\nConsole.WriteLine(msg);`,
+            out: `Big`
+          }
+        ]
+      },
+      {
+        num: 13,
+        title: "ئۆپەرەیتەرێن ژمارەیی (Arithmetic Operators)",
+        enTitle: "Arithmetic Operators Table",
+        summary: [
+          "<code>+</code> (کۆمکرن)، <code>-</code> (لێدەرکرن)، <code>*</code> (لێکدان)، <code>/</code> (دابەشکرن)، <code>%</code> (ماوێ دابەشکرنێ / Remainder).",
+          "<code>++</code> (زێدەکرن ب ١) و <code>--</code> (کێمکرن ب ١).",
+          "نیشانا تاک <code>+</code> بەهای دپارێزیت، و <code>-</code> بەهای دکەتە نێگەتیڤ (Negation)."
+        ],
+        questions: [
+          {
+            q: "بەهایێ <code>x = 10</code> و <code>y = 2</code> دابنێ؛ ئەنجامێ کۆمکرن، لێدەرکرن، لێکدان، و دابەشکرنا وان چاپ بکە.",
+            code: `int x = 10, y = 2;\nConsole.WriteLine(x + y);\nConsole.WriteLine(x - y);\nConsole.WriteLine(x * y);\nConsole.WriteLine(x / y);`,
+            out: `12\n8\n20\n5`
+          },
+          {
+            q: "ماوێ دابەشکرنا <code>17</code> ل سەر <code>5</code> ب ئۆپەرەیتەرێ <code>%</code> حساب بکە و چاپ بکە.",
+            code: `int rem = 17 % 5;\nConsole.WriteLine(rem);`,
+            out: `2`
+          },
+          {
+            q: "ڤاریەبڵەکا <code>int count = 5;</code> دروست بکە، ب <code>count++</code> ب ١ زێدە بکە و چاپ بکە، پاشان ب <code>count--</code> کێم بکە و چاپ بکە.",
+            code: `int count = 5;\ncount++;\nConsole.WriteLine(count);\ncount--;\nConsole.WriteLine(count);`,
+            out: `6\n5`
+          },
+          {
+            q: "ئۆپەرەیتەرێ تاک یێ نێگەتیڤ (Unary minus) ل سەر <code>int a = 8;</code> جێبەجێ بکە و چاپ بکە.",
+            code: `int a = 8;\nint b = -a;\nConsole.WriteLine(b);`,
+            out: `-8`
+          },
+          {
+            q: "ماوێ دابەشکرنا <code>5 % 2</code> و <code>20 % 4</code> چاپ بکە.",
+            code: `Console.WriteLine(5 % 2);\nConsole.WriteLine(20 % 4);`,
+            out: `1\n0`
+          }
+        ]
+      },
+      {
+        num: 14,
+        title: "ئۆپەرەیتەرێن ژمارەیی: ++ پێش و پاش و دابەشکرن",
+        enTitle: "Arithmetic Simple Example (b++ vs ++b)",
+        summary: [
+          "دابەشکرنا دوو ژمارێن <code>int</code> ئەنجامێ تمام ددەت (بۆ نموونە <code>11 / 3</code> دبیتە <code>3</code>)، بەلێ دابەشکرن ل سەر <code>4.0</code> ئەنجامێ <code>double</code> ددەت.",
+          "<code>b++</code> (Postfix): بەری زێدەکرنێ بەهایێ کەڤن د دێرێ دا بکاردهێت، پاشان ب ١ زێدە دبیت.",
+          "<code>++b</code> (Prefix): بەری هەر کارەکی ب ١ زێدە دبیت، پاشان بەهایێ نوی بکاردهێت."
+        ],
+        questions: [
+          {
+            q: "کۆدەکێ بنڤیسە بۆ دۆزینەڤا درێژاهیا لایێ چوارگۆشەی و ڕووبەرێ وێ، ئەگەر چێوەیێ وێ <code>17</code> بیت.",
+            code: `int squarePerimeter = 17;\ndouble squareSide = squarePerimeter / 4.0;\ndouble squareArea = squareSide * squareSide;\nConsole.WriteLine(squareSide);\nConsole.WriteLine(squareArea);`,
+            out: `4.25\n18.0625`
+          },
+          {
+            q: "<code>int a = 5, b = 4;</code> دابنێ؛ سەرەتا <code>a + b++</code> چاپ بکە و پاشان <code>a + b</code> چاپ بکە دا جیاوازیا <code>b++</code> دیار بیت.",
+            code: `int a = 5, b = 4;\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);`,
+            out: `9\n10`
+          },
+          {
+            q: "<code>int a = 5, b = 5;</code> دابنێ؛ <code>a + (++b)</code> چاپ بکە و پاشان <code>a + b</code> چاپ بکە.",
+            code: `int a = 5, b = 5;\nConsole.WriteLine(a + (++b));\nConsole.WriteLine(a + b);`,
+            out: `11\n11`
+          },
+          {
+            q: "ئەنجامێ <code>11 / 3</code>، <code>11 % 3</code>، و <code>12 / 3</code> د سێ دێران دا چاپ بکە.",
+            code: `Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);\nConsole.WriteLine(12 / 3);`,
+            out: `3\n2\n4`
+          },
+          {
+            q: "<code>int x = 10;</code> دروست بکە و ئەنجامێ <code>x--</code> و <code>--x</code> ل دیڤ ئێک چاپ بکە.",
+            code: `int x = 10;\nConsole.WriteLine(x--);\nConsole.WriteLine(--x);`,
+            out: `10\n8`
+          }
+        ]
+      },
+      {
+        num: 15,
+        title: "ئۆپەرەیتەرێن دیارکرنا بەهای (Assignment Operators)",
+        enTitle: "Assignment Operators Table",
+        summary: [
+          "ئۆپەرەیتەرێ <code>=</code> بەهای ژ لایێ راستێ دکەتە د لایێ چەپێ دا.",
+          "ئۆپەرەیتەرێن تێکەل <code>+=</code>، <code>-=</code>، <code>*=</code>، <code>/=</code>، <code>%=</code> کردارا ژمارەیی دکەن و ئەنجامی د هەمان ڤاریەبڵ دا خەزن دکەن.",
+          "هەروەسا یێن Bitwise هەنە وەکی <code>&lt;&lt;=</code>، <code>&gt;&gt;=</code>، <code>&=</code>، <code>^=</code>، <code>|=</code>."
+        ],
+        questions: [
+          {
+            q: "ڤاریەبڵا <code>int balance = 100;</code> دروست بکە، ب <code>+=</code> ٥٠ زێدە بکە و ب <code>-=</code> ٣٠ کێم بکە و چاپ بکە.",
+            code: `int balance = 100;\nbalance += 50;\nbalance -= 30;\nConsole.WriteLine(balance);`,
+            out: `120`
+          },
+          {
+            q: "<code>int x = 6;</code> ب <code>*=</code> لێکدانی ٥ بکە، پاشان ب <code>/=</code> دابەشی ٣ بکە و چاپ بکە.",
+            code: `int x = 6;\nx *= 5;\nx /= 3;\nConsole.WriteLine(x);`,
+            out: `10`
+          },
+          {
+            q: "<code>int n = 23;</code> دابنێ و ب <code>n %= 5;</code> ماوێ دابەشکرنێ د ناڤ <code>n</code> دا خەزن بکە و چاپ بکە.",
+            code: `int n = 23;\nn %= 5;\nConsole.WriteLine(n);`,
+            out: `3`
+          },
+          {
+            q: "<code>int a = 10, b = 20, c;</code> دروست بکە؛ <code>c = a + b;</code> پاشان <code>c += 5;</code> و <code>c</code> چاپ بکە.",
+            code: `int a = 10, b = 20, c;\nc = a + b;\nc += 5;\nConsole.WriteLine(c);`,
+            out: `35`
+          },
+          {
+            q: "ب <code>double price = 50.0;</code> سەرەتا <code>price *= 2;</code> پاشان <code>price /= 4;</code> جێبەجێ بکە و چاپ بکە.",
+            code: `double price = 50.0;\nprice *= 2;\nprice /= 4;\nConsole.WriteLine(price);`,
+            out: `25`
+          }
+        ]
+      },
+      {
+        num: 16,
+        title: "نموونا تەمام یا ئۆپەرەیتەرێن دیارکرنێ",
+        enTitle: "Assignment Operators Detailed Example",
+        summary: [
+          "د سلایدێ ١٦ دا گوهۆڕینا بەهایێ <code>c</code> قۆناغ ب قۆناغ هاتیە نیشاندان ب رێکا هەمی ئۆپەرەیتەرێن دیارکرنێ.",
+          "تێبینی: ئۆپەرەیتەرێن شیفتکرن و بیتان (<code>&lt;&lt;=</code>، <code>&gt;&gt;=</code>، <code>&=</code>، <code>^=</code>، <code>|=</code>) ل سەر ژمارا دوانی (Binary) کار دکەن."
+        ],
+        questions: [
+          {
+            q: "ب <code>int a = 21; int c;</code> قۆناغ ب قۆناغ <code>c = a;</code>، <code>c += a;</code>، <code>c -= a;</code>، <code>c *= a;</code>، <code>c /= a;</code> جێبەجێ بکە و پشتی هەر قۆناغەکێ چاپ بکە.",
+            code: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("= : {0}", c);\nc += a;\nConsole.WriteLine("+= : {0}", c);\nc -= a;\nConsole.WriteLine("-= : {0}", c);\nc *= a;\nConsole.WriteLine("*= : {0}", c);\nc /= a;\nConsole.WriteLine("/= : {0}", c);`,
+            out: `= : 21\n+= : 42\n-= : 21\n*= : 441\n/= : 21`
+          },
+          {
+            q: "بەهایێ <code>c = 200;</code> دابنێ و <code>c %= 21;</code> جێبەجێ بکە و ئەنجامێ وێ چاپ بکە.",
+            code: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine("c %= a : {0}", c);`,
+            out: `c %= a : 11`
+          },
+          {
+            q: "ل سەر <code>int c = 11;</code>، ئۆپەرەیتەرێ <code>c &lt;&lt;= 2;</code> و پاشان <code>c &gt;&gt;= 2;</code> جێبەجێ بکە و پشتی هەر ئێکێ چاپ بکە.",
+            code: `int c = 11;\nc <<= 2;\nConsole.WriteLine("<<= 2 : {0}", c);\nc >>= 2;\nConsole.WriteLine(">>= 2 : {0}", c);`,
+            out: `<<= 2 : 44\n>>= 2 : 11`
+          },
+          {
+            q: "ل سەر <code>int c = 6;</code> (بیتێن 0110)، <code>c &= 3;</code> (0011) جێبەجێ بکە و ئەنجامی چاپ بکە.",
+            code: `int c = 6;\nc &= 3;\nConsole.WriteLine("&= 3 : {0}", c);`,
+            out: `&= 3 : 2`
+          },
+          {
+            q: "ل سەر <code>int c = 5;</code>، سەرەتا <code>c ^= 3;</code> چاپ بکە و پاشان <code>c |= 1;</code> چاپ بکە.",
+            code: `int c = 5;\nc ^= 3;\nConsole.WriteLine("^= 3 : {0}", c);\nc |= 1;\nConsole.WriteLine("|= 1 : {0}", c);`,
+            out: `^= 3 : 6\n|= 1 : 7`
+          }
+        ]
+      },
+      {
+        num: 17,
+        title: "کورتکرنا ئۆپەرەیتەرێن دیارکرنێ",
+        enTitle: "Assignment Operators: Short Equivalent",
+        summary: [
+          "نڤیسینا کورت <code>x += 3</code> ب تەمامی هەمان واتایا <code>x = x + 3</code> هەیە.",
+          "هەمان یاسا بۆ <code>-=</code>، <code>*=</code>، <code>/=</code>، <code>%=</code> و ئۆپەرەیتەرێن Bitwise (<code>&=</code>، <code>|=</code>، <code>^=</code>، <code>&gt;&gt;=</code>، <code>&lt;&lt;=</code>) کار دکەت."
+        ],
+        questions: [
+          {
+            q: "دەربڕینا <code>x = x + 3;</code> بگوهۆڕە بۆ شێوازێ کورت ل سەر <code>int x = 5;</code> و چاپ بکە.",
+            code: `int x = 5;\nx += 3;\nConsole.WriteLine(x);`,
+            out: `8`
+          },
+          {
+            q: "دەربڕینێن <code>x = x - 3;</code> و <code>x = x * 3;</code> ب شێوازێ کورت ل سەر <code>int x = 10;</code> بنڤیسە و چاپ بکە.",
+            code: `int x = 10;\nx -= 3;\nConsole.WriteLine(x);\nx *= 3;\nConsole.WriteLine(x);`,
+            out: `7\n21`
+          },
+          {
+            q: "دەربڕینێن <code>x = x / 3;</code> و <code>x = x % 3;</code> ب شێوازێ کورت ل سەر <code>int x = 15;</code> بنڤیسە و چاپ بکە.",
+            code: `int x = 15;\nx /= 3;\nConsole.WriteLine(x);\nx %= 3;\nConsole.WriteLine(x);`,
+            out: `5\n2`
+          },
+          {
+            q: "دەربڕینا <code>x = x &amp; 3;</code> ب شێوازێ کورت ل سەر <code>int x = 7;</code> بنڤیسە و چاپ بکە.",
+            code: `int x = 7;\nx &= 3;\nConsole.WriteLine(x);`,
+            out: `3`
+          },
+          {
+            q: "دەربڕینێن <code>x = x &lt;&lt; 3;</code> و <code>x = x &gt;&gt; 3;</code> ب شێوازێ کورت ل سەر <code>int x = 2;</code> بنڤیسە و چاپ بکە.",
+            code: `int x = 2;\nx <<= 3;\nConsole.WriteLine(x);\nx >>= 3;\nConsole.WriteLine(x);`,
+            out: `16\n2`
+          }
+        ]
+      },
+      {
+        num: 18,
+        title: "چاپکرنا راستەوخۆ یا ئۆپەرەیتەرێن دیارکرنێ",
+        enTitle: "Assignment Operators Example 2",
+        summary: [
+          "دشێین ئۆپەرەیتەرێ دیارکرنێ راستەوخۆ د ناڤ <code>Console.WriteLine(x += 3);</code> دا بنڤیسین؛ هەم بەهای دگوهۆڕیت و هەم چاپ دکەت.",
+          "ئاگەهداری: د ناڤ ئێک بڵۆکێ کۆدی دا نابیت هەمان ڤاریەبڵ دوو جاران ب <code>int y</code> بهێتە راگەهاندن، بتنێ جارا دووێ دێ نڤیسین <code>y = 3;</code>."
+        ],
+        questions: [
+          {
+            q: "ب <code>int x = 6;</code> ئەنجامێ <code>x += 3</code>، <code>x -= 3</code>، <code>x /= 2</code>، و <code>x *= 3</code> راستەوخۆ د ناڤ <code>Console.WriteLine</code> دا چاپ بکە.",
+            code: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`,
+            out: `9\n6\n3\n9`
+          },
+          {
+            q: "<code>int y = 4;</code> دروست بکە؛ <code>Console.WriteLine(y *= 2);</code> بنڤیسە، پاشان بەهایێ <code>y</code> بکە <code>3</code> و چاپ بکە.",
+            code: `int y = 4;\nConsole.WriteLine(y *= 2);\ny = 3;\nConsole.WriteLine(y);`,
+            out: `8\n3`
+          },
+          {
+            q: "<code>int a = 10;</code> دابنێ و راستەوخۆ <code>a += 5</code>، <code>a %= 4</code>، و <code>a *= 10</code> د <code>Console.WriteLine</code> دا چاپ بکە.",
+            code: `int a = 10;\nConsole.WriteLine(a += 5);\nConsole.WriteLine(a %= 4);\nConsole.WriteLine(a *= 10);`,
+            out: `15\n3\n30`
+          },
+          {
+            q: "<code>int p = 20;</code> دابنێ و راستەوخۆ <code>p -= 8</code>، <code>p /= 3</code>، و <code>p += 1</code> چاپ بکە.",
+            code: `int p = 20;\nConsole.WriteLine(p -= 8);\nConsole.WriteLine(p /= 3);\nConsole.WriteLine(p += 1);`,
+            out: `12\n4\n5`
+          },
+          {
+            q: "<code>int score = 50;</code> دابنێ و راستەوخۆ <code>score += 25</code> پاشان <code>score -= 10</code> د ناڤ <code>Console.WriteLine</code> دا چاپ بکە.",
+            code: `int score = 50;\nConsole.WriteLine(score += 25);\nConsole.WriteLine(score -= 10);`,
+            out: `75\n65`
+          }
+        ]
+      },
+      {
+        num: 19,
+        title: "ئۆپەرەیتەرێن بەراوردکاریێ (Comparison Operators)",
+        enTitle: "Comparison Operators Table",
+        summary: [
+          "بۆ بەراوردکرنا دوو بەهایان دهێنە بکارئینان و ئەنجامێ وان هەردەم <code>bool</code> یە (<code>True</code> یان <code>False</code>).",
+          "یەکسانە (<code>==</code>)، نەیەکسانە (<code>!=</code>)، مەزنتر (<code>&gt;</code>)، بچویکتر (<code>&lt;</code>)، مەزنتر یان یەکسان (<code>&gt;=</code>)، بچویکتر یان یەکسان (<code>&lt;=</code>)."
+        ],
+        questions: [
+          {
+            q: "<code>int x = 10, y = 20;</code> دابنێ؛ بەراوردیا <code>x == y</code> و <code>x != y</code> چاپ بکە.",
+            code: `int x = 10, y = 20;\nConsole.WriteLine(x == y);\nConsole.WriteLine(x != y);`,
+            out: `False\nTrue`
+          },
+          {
+            q: "<code>int x = 15, y = 15;</code> دابنێ؛ ئەنجامێ <code>x &gt; y</code> و <code>x &gt;= y</code> چاپ بکە.",
+            code: `int x = 15, y = 15;\nConsole.WriteLine(x > y);\nConsole.WriteLine(x >= y);`,
+            out: `False\nTrue`
+          },
+          {
+            q: "<code>int a = 8, b = 12;</code> دابنێ؛ ئەنجامێ <code>a &lt; b</code> و <code>a &lt;= 8</code> چاپ بکە.",
+            code: `int a = 8, b = 12;\nConsole.WriteLine(a < b);\nConsole.WriteLine(a <= 8);`,
+            out: `True\nTrue`
+          },
+          {
+            q: "دوو پیتان <code>char c1 = 'A', c2 = 'B';</code> ب <code>==</code> و <code>!=</code> بەراورد بکە و چاپ بکە.",
+            code: `char c1 = 'A', c2 = 'B';\nConsole.WriteLine(c1 == c2);\nConsole.WriteLine(c1 != c2);`,
+            out: `False\nTrue`
+          },
+          {
+            q: "ژییێ کەسەکی <code>int age = 18;</code> دابنێ؛ بپشکنە کا <code>age &gt;= 18</code> و <code>age &lt; 18</code> و چاپ بکە.",
+            code: `int age = 18;\nConsole.WriteLine(age >= 18);\nConsole.WriteLine(age < 18);`,
+            out: `True\nFalse`
+          }
+        ]
+      },
+      {
+        num: 20,
+        title: "نموونا ئۆپەرەیتەرێن بەراوردکاریێ دگەل ++",
+        enTitle: "Comparison Operators Simple Example",
+        summary: [
+          "دەمێ <code>++b</code> د ناڤ بەراوردیێ دا بکاردهێت، سەرەتا بەهایێ <code>b</code> زێدە دبیت پاشان بەراوردی دهێتە کرن.",
+          "بۆ نموونە ئەگەر <code>a = 5</code> و <code>b = 4</code> بن، د <code>a != ++b</code> دا <code>b</code> دبیتە <code>5</code> و <code>5 != 5</code> دبیتە <code>False</code>، و پشتی وێ <code>a &gt; b</code> ژی دبیتە <code>False</code>!"
+        ],
+        questions: [
+          {
+            q: "<code>int a = 5, b = 4;</code> دابنێ و ئەنجامێ <code>a &gt;= b</code>، <code>a != b</code>، و <code>a == b</code> چاپ بکە.",
+            code: `int a = 5, b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);\nConsole.WriteLine(a == b);`,
+            out: `True\nTrue\nFalse`
+          },
+          {
+            q: "<code>int a = 5, b = 4;</code> دابنێ؛ سەرەتا <code>a != ++b</code> چاپ بکە پاشان <code>a &gt; b</code> چاپ بکە.",
+            code: `int a = 5, b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`,
+            out: `False\nFalse`
+          },
+          {
+            q: "<code>int x = 10, y = 10;</code> دابنێ؛ سەرەتا <code>x == y++</code> چاپ بکە و پاشان <code>x == y</code> چاپ بکە.",
+            code: `int x = 10, y = 10;\nConsole.WriteLine(x == y++);\nConsole.WriteLine(x == y);`,
+            out: `True\nFalse`
+          },
+          {
+            q: "<code>int m = 7, n = 8;</code> دابنێ؛ ئەنجامێ <code>m &lt; n</code> و <code>++m == n</code> چاپ بکە.",
+            code: `int m = 7, n = 8;\nConsole.WriteLine(m < n);\nConsole.WriteLine(++m == n);`,
+            out: `True\nTrue`
+          },
+          {
+            q: "<code>int p = 3, q = 5;</code> دابنێ؛ ئەنجامێ <code>p &gt;= --q</code> و <code>p &lt;= q</code> چاپ بکە.",
+            code: `int p = 3, q = 5;\nConsole.WriteLine(p >= --q);\nConsole.WriteLine(p <= q);`,
+            out: `False\nTrue`
+          }
+        ]
+      },
+      {
+        num: 21,
+        title: "ئۆپەرەیتەرێن لۆژیکی: AND, OR, NOT",
+        enTitle: "Logical Operators (&&, ||, !)",
+        summary: [
+          "ئۆپەرەیتەرێن لۆژیکی بەهایێن Boolean وەردگرن و ئەنجامێ <code>bool</code> دزڤڕینن.",
+          "<code>&&</code> (Logical AND - و): <code>True</code> یە <strong>بتنێ</strong> ئەگەر هەردوو مەرج <code>True</code> بن.",
+          "<code>||</code> (Logical OR - یان): <code>True</code> یە ئەگەر <strong>ل کێمی ئێک</strong> ژ مەرجان <code>True</code> بیت.",
+          "<code>!</code> (Logical NOT - نە): ئەنجامی بەروڤاژی دکەت (<code>true</code> دکەتە <code>false</code> و ب بەروڤاژی)."
+        ],
+        questions: [
+          {
+            q: "ب <code>int x = 7;</code> بپشکنە کا <code>x &gt; 5 &amp;&amp; x &lt; 10</code> دروستە و ئەنجامی چاپ بکە.",
+            code: `int x = 7;\nConsole.WriteLine(x > 5 && x < 10);`,
+            out: `True`
+          },
+          {
+            q: "ب <code>int x = 3;</code> بپشکنە کا <code>x &lt; 5 || x &lt; 4</code> دروستە و چاپ بکە.",
+            code
