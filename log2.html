@@ -833,12 +833,13 @@ function runMiniCs(rawCode) {
     throw new Error("هێشتا تە چ کۆد نەنڤیسییە برا! تشتەکی بنڤیسە دا بزانم تە تێگەهشتییە یان نە.");
   }
 
-  // Friendly check for wrong casing on Console.WriteLine / Write / ReadKey
-  if (/\bconsole\b|\bwriteline\b|\bwrite\b/i.test(code)) {
-    if (/\bconsole\b/.test(code) || /\.writeline\b/i.test(code) && !/\.WriteLine\b/.test(code)) {
+  // Friendly check for wrong casing on Console.WriteLine / Write (outside string literals)
+  const codeNoStrings = code.replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, '""');
+  if (/\bconsole\b|\bwriteline\b|\bwrite\b/i.test(codeNoStrings)) {
+    if (/\bconsole\b/.test(codeNoStrings) || (/\.writeline\b/i.test(codeNoStrings) && !/\.WriteLine\b/.test(codeNoStrings))) {
       throw new Error("پیتێن مەزن و بچویک: د C# دا دڤێت بنڤیسی Console.WriteLine (پیتێن C و W و L مەزنن)!");
     }
-    if (/\.write\b/.test(code)) {
+    if (/\.write\b/.test(codeNoStrings)) {
       throw new Error("پیتێن مەزن و بچویک: د C# دا دڤێت بنڤیسی Console.Write (پیتێن C و W مەزنن)!");
     }
   }
@@ -1973,7 +1974,7 @@ Console.WriteLine(11 % 3);    // 2</div>
       {
         prompt: 'int c = 42; و int a = 21; دروست بکە، c -= a; بکە و c چاپ بکە.',
         answer: 'int c = 42;\nint a = 21;\nc -= a;\nConsole.WriteLine(c);',
-        check: (r) => /-=/ .test(r.code) && hasVar(r, 'c', 'int', 21) && hasLine(r, '21') ? true : 'c -= a; بکە و 21 چاپ بکە.'
+        check: (r) => /-=/.test(r.code) && hasVar(r, 'c', 'int', 21) && hasLine(r, '21') ? true : 'c -= a; بکە و 21 چاپ بکە.'
       },
       {
         prompt: 'int c = 5; و int a = 4; دروست بکە، c *= a; بکە و c چاپ بکە.',
@@ -2029,7 +2030,7 @@ Console.WriteLine(x *= 3); // 9</div>
       {
         prompt: 'int x = 6; دروست بکە، پاشان ب += 3 بکە و ب -= 3 بکە، هەردوو ئەنجامان چاپ بکە.',
         answer: 'int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);',
-        check: (r) => /\+=/.test(r.code) && /-=/ .test(r.code) && hasLine(r, '9\n6') ? true : 'دڤێت 9 پاشان 6 چاپ ببیت.'
+        check: (r) => /\+=/.test(r.code) && /-=/.test(r.code) && hasLine(r, '9\n6') ? true : 'دڤێت 9 پاشان 6 چاپ ببیت.'
       },
       {
         prompt: 'int x = 6; دروست بکە، پاشان ب /= 2 دابەش بکە و چاپ بکە، پاشان ب *= 3 لێکبدە و چاپ بکە.',
@@ -2096,72 +2097,4 @@ Console.WriteLine(a > b);    // False (چونکی b نوکە 5 یە!)</div>
       {
         prompt: 'int score = 50; دروست بکە، و ب بەراوردکرنێ د گۆڕاوەیا bool pass دا پشکنین بکە کا score >= 50 یە و pass چاپ بکە.',
         answer: 'int score = 50;\nbool pass = score >= 50;\nConsole.WriteLine(pass);',
-        check: (r) => hasVar(r, 'pass', 'bool', true) && />=/.test(r.code) && hasLine(r, 'True') ? true : 'bool pass = score >= 50; دروست بکە و چاپ بکە.'
-      }
-    ]
-  },
-  {
-    id: "s21_22",
-    navTitle: "سلاید ٢١-٢٢: ئۆپەرەیتەرێن لۆجیکی (AND, OR, NOT, XOR)",
-    pill: "Logical Operators • سلاید ٢١-٢٢ (دووماهییا ئەزموونێ)",
-    title: "ئۆپەرەیتەرێن لۆجیکی: && (AND)، || (OR)، ! (NOT)، ^ (XOR)",
-    sub: "Logical AND, OR, NOT & XOR Truth Rules",
-    explainHtml: `
-      <ul class="explain-list">
-        <li><span class="inline-code">&amp;&amp;</span> <strong>(Logical AND):</strong> تەنێ دەمێ <strong>هەردوو لایێن وێ true</strong> بن ئەنجام <span class="inline-code">True</span> یە.</li>
-        <li><span class="inline-code">||</span> <strong>(Logical OR):</strong> ئەگەر <strong>بەس ئێک ژ وان true</strong> بیت ئەنجام <span class="inline-code">True</span> یە.</li>
-        <li><span class="inline-code">!</span> <strong>(Logical NOT):</strong> بەروڤاژی دکەت (<span class="inline-code">!true</span> دبیتە <span class="inline-code">False</span>، و <span class="inline-code">!false</span> دبیتە <span class="inline-code">True</span>).</li>
-        <li><span class="inline-code">^</span> <strong>(Logical XOR):</strong> ئەگەر هەردوو <strong>ژێک جودا</strong> بن (ئێک true و ئێک false) ئەنجام <span class="inline-code">True</span> یە، ئەگەر وەکی ئێک بن <span class="inline-code">False</span> یە!</li>
-      </ul>
-      <div class="code-block">bool a = true;
-bool b = false;
-Console.WriteLine(a &amp;&amp; b);                // False
-Console.WriteLine(a || b);                // True
-Console.WriteLine(a ^ b);                 // True
-Console.WriteLine(!b);                    // True
-Console.WriteLine((5 &gt; 7) ^ (a == b));    // False ^ False = False</div>
-    `,
-    questions: [
-      {
-        prompt: 'bool a = true; و bool b = false; دروست بکە، و ئەنجامێ (a && b) چاپ بکە.',
-        answer: 'bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);',
-        check: (r) => /&&/.test(r.code) && hasLine(r, 'False') ? true : 'a && b چاپ بکە (False).'
-      },
-      {
-        prompt: 'bool a = true; و bool b = false; دروست بکە، و ئەنجامێ (a || b) چاپ بکە.',
-        answer: 'bool a = true;\nbool b = false;\nConsole.WriteLine(a || b);',
-        check: (r) => /\|\|/.test(r.code) && hasLine(r, 'True') ? true : 'a || b چاپ بکە (True).'
-      },
-      {
-        prompt: 'bool a = true; و bool b = false; دروست بکە، پاشان !a و !b ل دوو ڕێزان چاپ بکە.',
-        answer: 'bool a = true;\nbool b = false;\nConsole.WriteLine(!a);\nConsole.WriteLine(!b);',
-        check: (r) => /!a/.test(r.code) && /!b/.test(r.code) && hasLine(r, 'False\nTrue') ? true : 'دڤێت False و پاشان True چاپ ببیت.'
-      },
-      {
-        prompt: 'bool a = true; و bool b = false; دروست بکە، و ئەنجامێ (a ^ b) چاپ بکە.',
-        answer: 'bool a = true;\nbool b = false;\nConsole.WriteLine(a ^ b);',
-        check: (r) => /\^/.test(r.code) && hasLine(r, 'True') ? true : 'a ^ b چاپ بکە (True).'
-      },
-      {
-        prompt: 'int x = 7; دروست بکە و پشکنین بکە کا (x > 5 && x < 10) و ئەنجامی چاپ بکە.',
-        answer: 'int x = 7;\nConsole.WriteLine(x > 5 && x < 10);',
-        check: (r) => /&&/.test(r.code) && hasLine(r, 'True') ? true : 'دڤێت True چاپ ببیت.'
-      },
-      {
-        prompt: 'bool a = true; و bool b = false; دروست بکە، و Console.WriteLine((5 > 7) ^ (a == b)); بنڤیسە.',
-        answer: 'bool a = true;\nbool b = false;\nConsole.WriteLine((5 > 7) ^ (a == b));',
-        check: (r) => /\^/.test(r.code) && hasLine(r, 'False') ? true : '(5 > 7) ^ (a == b) دێ بیتە False.'
-      }
-    ]
-  },
-  {
-    id: "final",
-    navTitle: "🏆 تاقیکرنا گشتی یا هەمی سلایدان (سلاید ١-٢٢)",
-    pill: "Final Practical Exam • ١٠ پسیارێن گشتی",
-    title: "تاقیکرنا گشتی یا بەرهەڤیا ئەزموونا عەمەلی",
-    sub: "Comprehensive C# Exam (Data Types + Arithmetic + Assignment + Comparison + Logical)",
-    isFinal: true,
-    explainHtml: `
-      <ul class="explain-list">
-        <li>ئەڤ ١٠ پسیارە ژ هەمی بابەتێن سلاید ١ هەتا ٢٢ هاتینە هەلبژارتن وەک پسیارێن ئەزموونا عەمەلی یا کومپیوتەری.</li>
-        <li>هەول بدە بێ تەماشاکرنا نموونەیان خۆ تاقی بکەی دا پ
+        check: (r) => h
