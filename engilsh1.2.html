@@ -3,1343 +3,1159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>پوختە و پسیارێن عەمەلی یێن C# — AUAS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <title>C# Practical Exam Practice - Slides 3 to 22</title>
   <style>
     :root {
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #475569;
       --primary: #0f4c81;
-      --primary-light: #e0f2fe;
-      --accent: #0284c7;
-      --success: #059669;
-      --success-bg: #ecfdf5;
-      --code-bg: #1e293b;
-      --code-text: #e2e8f0;
-      --console-bg: #09090b;
-      --console-text: #4ade80;
-      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-      --radius: 16px;
-    }
-
-    body.dark {
-      --bg: #0b1120;
-      --surface: #111827;
-      --surface-2: #1e293b;
-      --border: #283548;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --primary: #38bdf8;
-      --primary-light: #0c4a6e;
+      --primary-dark: #093256;
       --accent: #0ea5e9;
-      --success: #34d399;
-      --success-bg: #064e3b;
-      --code-bg: #0d1322;
-      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+      --success: #16a34a;
+      --kurdish-bg: #eff6ff;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: 'Vazirmatn', system-ui, -apple-system, Tahoma, sans-serif;
-      background-color: var(--bg);
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.75;
-      transition: background-color 0.25s, color 0.25s;
+      line-height: 1.65;
     }
 
-    code, pre, .mono {
-      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
-      direction: ltr;
-      unicode-bidi: isolate;
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
-    /* Inline code inside Kurdish text */
-    .summary-list code, .q-text code {
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 1px 7px;
-      border-radius: 6px;
-      font-size: 0.88em;
-      font-weight: 600;
-      display: inline-block;
-      margin: 0 2px;
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.65rem;
     }
 
-    /* Header */
-    .hero {
-      background: linear-gradient(135deg, #0c3559 0%, #0f4c81 55%, #0284c7 100%);
-      color: #ffffff;
-      padding: 28px 20px 24px;
-      box-shadow: 0 6px 25px rgba(15, 76, 129, 0.25);
-      position: relative;
-    }
-
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .badge-top {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 4px 14px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      margin-bottom: 10px;
-      backdrop-filter: blur(6px);
-    }
-
-    .hero h1 {
-      font-size: clamp(1.4rem, 3vw, 2.1rem);
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .hero p {
-      font-size: 0.98rem;
+    header p {
+      margin: 0;
       opacity: 0.92;
-      max-width: 780px;
+      font-size: 0.98rem;
     }
 
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .stat-pill {
-      background: rgba(255, 255, 255, 0.14);
-      padding: 6px 14px;
-      border-radius: 10px;
-      font-size: 0.86rem;
-      font-weight: 600;
-    }
-
-    /* Sticky Toolbar */
-    .toolbar {
+    .controls {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: var(--surface);
+      z-index: 100;
+      background: #ffffff;
       border-bottom: 1px solid var(--border);
       padding: 12px 16px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .toolbar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
-    .search-box {
-      flex: 1 1 240px;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 9px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .search-box input:focus {
-      border-color: var(--accent);
-    }
-
-    .toolbar-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .btn {
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 0.86rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn:hover {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    body.dark .btn-primary {
-      color: #0b1120;
-    }
-
-    .btn-success {
-      background: var(--success);
-      color: #fff;
-      border-color: var(--success);
-    }
-
-    /* Slide Quick Nav */
-    .quick-nav {
-      max-width: 1100px;
-      margin: 18px auto 0;
-      padding: 0 16px;
-    }
-
-    .quick-nav-title {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .slide-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .slide-pill {
-      text-decoration: none;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 5px 11px;
+    .controls select,
+    .controls input,
+    .controls button {
+      padding: 8px 12px;
       border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: all 0.2s;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      font-family: inherit;
     }
 
-    .slide-pill:hover {
+    .controls select, .controls input {
+      background: #f8fafc;
+      color: var(--text);
+    }
+
+    .controls button {
       background: var(--primary);
       color: #fff;
-      border-color: var(--primary);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
     }
 
-    body.dark .slide-pill:hover {
-      color: #0b1120;
+    .controls button:hover {
+      background: var(--primary-dark);
     }
 
-    /* Main Container */
+    .controls button.secondary {
+      background: #475569;
+    }
+
+    .controls button.secondary:hover {
+      background: #334155;
+    }
+
     .container {
-      max-width: 1100px;
-      margin: 20px auto 60px;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 26px;
+      max-width: 980px;
+      margin: 22px auto;
+      padding: 0 14px 40px;
     }
 
-    /* Slide Card */
-    .slide-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      scroll-margin-top: 80px;
+    .stats {
+      text-align: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .slide-group {
+      margin-bottom: 28px;
     }
 
     .slide-header {
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .slide-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .slide-num {
       background: var(--primary);
       color: #fff;
-      font-weight: 800;
-      font-size: 0.88rem;
-      padding: 4px 12px;
-      border-radius: 8px;
-    }
-
-    body.dark .slide-num {
-      color: #0b1120;
-    }
-
-    .slide-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .slide-en {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      direction: ltr;
-    }
-
-    /* Summary Box */
-    .summary-box {
-      padding: 16px 20px;
-      background: linear-gradient(to left, rgba(2, 132, 199, 0.06), transparent);
-      border-bottom: 1px dashed var(--border);
-    }
-
-    .summary-label {
-      font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 8px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 12px;
       display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .summary-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .summary-list li {
-      position: relative;
-      padding-right: 18px;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .summary-list li::before {
-      content: "•";
-      position: absolute;
-      right: 2px;
-      color: var(--accent);
-      font-weight: 900;
-      font-size: 1.15rem;
-      line-height: 1.4;
-    }
-
-    /* Questions Section */
-    .questions-wrap {
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .questions-heading {
-      font-size: 0.94rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
 
-    .q-item {
+    .q-card {
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: var(--surface-2);
-      padding: 14px 16px;
-      transition: border-color 0.2s;
-    }
-
-    .q-item:hover {
-      border-color: var(--accent);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
     }
 
     .q-top {
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
-    .q-prompt {
-      flex: 1 1 300px;
+    .q-num {
+      background: #dbeafe;
+      color: var(--primary-dark);
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .q-en {
+      direction: ltr;
+      text-align: left;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .q-ku {
+      background: var(--kurdish-bg);
+      border-right: 4px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 6px;
       font-size: 0.96rem;
+      color: #1e3a5f;
+      margin-bottom: 12px;
+    }
+
+    .toggle-btn {
+      background: #e2e8f0;
+      color: #0f172a;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
       font-weight: 600;
     }
 
-    .q-badge {
-      display: inline-block;
-      background: var(--primary-light);
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 2px 9px;
-      border-radius: 6px;
-      margin-left: 8px;
+    .toggle-btn:hover {
+      background: #cbd5e1;
     }
 
-    .toggle-ans-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 9px;
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    body.dark .toggle-ans-btn {
-      color: #0b1120;
-    }
-
-    .toggle-ans-btn:hover {
-      opacity: 0.92;
-      transform: scale(1.02);
-    }
-
-    .toggle-ans-btn.active {
-      background: var(--success);
-      color: #fff;
-    }
-
-    /* Answer Drawer */
-    .ans-panel {
-      display: none;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border);
-      animation: fadeIn 0.25s ease;
-    }
-
-    .ans-panel.open {
+    .solution-box {
+      margin-top: 10px;
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
+    .solution-box.hidden {
+      display: none;
     }
 
-    .code-box {
+    .code-wrap {
+      position: relative;
+      direction: ltr;
+      text-align: left;
+    }
+
+    pre {
       background: var(--code-bg);
       color: var(--code-text);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 10px;
-      border: 1px solid #334155;
-      direction: ltr;
-    }
-
-    .code-header {
-      background: #0f172a;
-      padding: 6px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      color: #94a3b8;
-      border-bottom: 1px solid #334155;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
     }
 
     .copy-btn {
-      background: #1e293b;
-      color: #e2e8f0;
-      border: 1px solid #475569;
-      padding: 3px 10px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 6px;
-      font-family: 'Vazirmatn', sans-serif;
-      font-size: 0.76rem;
+      padding: 4px 9px;
+      font-size: 0.78rem;
       cursor: pointer;
-      transition: background 0.2s;
     }
 
     .copy-btn:hover {
-      background: #334155;
+      background: rgba(255, 255, 255, 0.28);
     }
 
-    pre.csharp {
-      padding: 12px 14px;
-      overflow-x: auto;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    /* Syntax colors */
-    .tok-kw { color: #38bdf8; font-weight: 600; }
-    .tok-cls { color: #2dd4bf; }
-    .tok-str { color: #fca5a5; }
-    .tok-num { color: #c4b5fd; }
-    .tok-com { color: #64748b; font-style: italic; }
-
-    /* Console Output Box */
-    .console-box {
-      background: var(--console-bg);
-      border: 1px solid #27272a;
-      border-radius: 10px;
-      overflow: hidden;
+    .output-box {
       direction: ltr;
-    }
-
-    .console-header {
-      background: #18181b;
-      color: #a1a1aa;
-      padding: 5px 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid #27272a;
-    }
-
-    .dots {
-      display: inline-flex;
-      gap: 5px;
-    }
-
-    .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-    }
-    .dot-r { background: #ef4444; }
-    .dot-y { background: #eab308; }
-    .dot-g { background: #22c55e; }
-
-    pre.console-out {
-      padding: 10px 14px;
-      color: #f8fafc;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      overflow-x: auto;
       text-align: left;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      display: none;
-    }
-
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 60;
-    }
-
-    body.dark .scroll-top-btn {
-      color: #0b1120;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px 16px 40px;
-      color: var(--text-muted);
+      background: #000000;
+      color: #4ade80;
+      font-family: Consolas, "Courier New", monospace;
       font-size: 0.88rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 8px;
+      white-space: pre-wrap;
     }
 
-    @media (max-width: 640px) {
-      .slide-header, .summary-box, .questions-wrap {
-        padding: 14px;
-      }
-      .toggle-ans-btn {
-        width: 100%;
-        justify-content: center;
-      }
+    .output-label {
+      color: #94a3b8;
+      font-size: 0.78rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .note-banner {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #78350f;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 0.94rem;
+    }
+
+    @media print {
+      .controls, .copy-btn, .toggle-btn { display: none !important; }
+      .solution-box.hidden { display: block !important; }
+      body { background: #fff; }
     }
   </style>
 </head>
 <body>
 
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="badge-top">🎓 زانکۆیا ئاکرێ بۆ زانستێن کرداری (AUAS) • پشکا IT</div>
-      <h1>پوختە و ڕاهێنانێن تاقیکرنا عەمەلی ب C#</h1>
-      <p>شڕۆڤەکرنا هەمی سلایدان ب شێوەیەکێ کورت و پوخت، ژ <strong>Data Types</strong> هەتا دوماهیا <strong>Logical Operators (AND, OR, NOT)</strong>، دگەل ٥ پسیارێن کۆدنڤیسینێ و Output بۆ هەر سلایدەکی.</p>
-      <div class="stats-row">
-        <div class="stat-pill">📑 ٢٠ سلاید (سلاید ٣ تا ٢٢)</div>
-        <div class="stat-pill">💻 ١٠٠ پسیارێن عەمەلی + Output</div>
-        <div class="stat-pill">⚡ تبلێ ل سەر «دیتنا بەرسڤێ» بدە دا کۆد و ئەنجام دیار بن</div>
-      </div>
-    </div>
-  </header>
+<header>
+  <h1>پسیارێن تاقیكرنا عەمەلی یا C# (سلاید ٣ هەتا ٢٢)</h1>
+  <p>١٠٠ پسیار ب ئینگلیزی + مانایا وان ب بادینی + كۆدێ دروست یێ C# و ئەنجام (ب تەنێ جۆرێن: int, long, float, double, bool, char, string و هەتا &&, ||, !)</p>
+</header>
 
-  <div class="toolbar">
-    <div class="toolbar-inner">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 لێگەڕیان د پسیاران یان بابەتان دا (نموونە: float، &&، +=)..." />
-      </div>
-      <div class="toolbar-actions">
-        <button class="btn btn-primary" onclick="toggleAllAnswers(true)">👁️ ڤەکرنا هەمی بەرسڤان</button>
-        <button class="btn" onclick="toggleAllAnswers(false)">🙈 ڤەشارتنا هەمی بەرسڤان</button>
-        <button class="btn" id="themeBtn" onclick="toggleTheme()">🌙 شێوازێ تاری</button>
-      </div>
-    </div>
+<div class="controls">
+  <select id="slideFilter">
+    <option value="all">هەمی سلاید (سلاید ٣ - ٢٢)</option>
+  </select>
+  <input type="text" id="searchInput" placeholder="لێگەڕیان (ب ئینگلیزی یان بادینی)..." />
+  <button id="toggleAllBtn" class="secondary">ڤەشارتنا هەمی بەرسڤان</button>
+  <button onclick="window.print()">چاپكرن / PDF</button>
+</div>
+
+<div class="container">
+  <div class="note-banner">
+    <strong>تێبینی بۆ تاقیكرنا سوبەهی:</strong> د ناڤ كۆدێ C# دا، هەمی پسیار ب شێوەیێ كۆدێ ناڤ <code>static void Main(string[] args)</code> هاتینە نڤیسین دا راستەوخۆ بكاربی د ناڤ Visual Studio یان كۆمپیوتەرێ دا تاقی بكەی. بیر نەكە: <code>float</code> پێتڤی ب پاشگرێ <code>f</code> هەیە، <code>char</code> ب <code>' '</code> و <code>string</code> ب <code>" "</code> دهێتە نڤیسین!
   </div>
+  <div class="stats" id="stats"></div>
+  <div id="questionsRoot"></div>
+</div>
 
-  <nav class="quick-nav">
-    <div class="quick-nav-title">چوونا بلەز بۆ سلایدان:</div>
-    <div class="slide-pills" id="slidePills"></div>
-  </nav>
+<script>
+const slidesData = [
+  {
+    slide: 3,
+    title: "Slide 3: C# Data Types (Introduction & Variables)",
+    kuTitle: "سلایدێ ٣: ناساندنا جۆرێن داتایان و دروستكرنا گۆڕاوان",
+    questions: [
+      {
+        en: "Declare an integer variable named myNum, assign it the value 5, and print it on the screen.",
+        ku: "گۆڕاوەكێ ژ جۆرێ ژمارا تەمام (int) ب ناڤێ myNum دروست بكە، بهایێ 5 بدێ و ل سەر شاشێ چاپ بكە.",
+        code: `int myNum = 5;\nConsole.WriteLine(myNum);`,
+        out: `5`
+      },
+      {
+        en: "Create a float variable named floatVar with the value 10.2, then display its value.",
+        ku: "گۆڕاوەكێ ژ جۆرێ float ب ناڤێ floatVar دروست بكە و بهایێ 10.2 بدێ (پاشگرێ f بیر نەكە)، پاشان چاپ بكە.",
+        code: `float floatVar = 10.2f;\nConsole.WriteLine(floatVar);`,
+        out: `10.2`
+      },
+      {
+        en: "Declare a char variable named myLetter, store the character 'D' in it, and print it.",
+        ku: "گۆڕاوەكێ ژ جۆرێ char ب ناڤێ myLetter دروست بكە، پیتا 'D' تێدا هەلگرە و چاپ بكە.",
+        code: `char myLetter = 'D';\nConsole.WriteLine(myLetter);`,
+        out: `D`
+      },
+      {
+        en: "Create a bool variable named myBool, set its value to true, and print it.",
+        ku: "گۆڕاوەكێ ژ جۆرێ bool ب ناڤێ myBool چێكە، بهایێ true بدێ و چاپ بكە.",
+        code: `bool myBool = true;\nConsole.WriteLine(myBool);`,
+        out: `True`
+      },
+      {
+        en: "Declare a string variable named myText, assign it \"Kurdistan\", and print it on the console.",
+        ku: "گۆڕاوەكێ ژ جۆرێ string ب ناڤێ myText چێكە، بهایێ \"Kurdistan\" بدێ و ل سەر شاشێ چاپ بكە.",
+        code: `string myText = "Kurdistan";\nConsole.WriteLine(myText);`,
+        out: `Kurdistan`
+      }
+    ]
+  },
+  {
+    slide: 4,
+    title: "Slide 4: Most Common Data Types",
+    kuTitle: "سلایدێ ٤: بەربەلاڤترین جۆرێن داتایان (int, long, float, double, bool, char, string)",
+    questions: [
+      {
+        en: "Create a long variable named population to store the whole number 8000000000 and print it.",
+        ku: "گۆڕاوەكێ ژ جۆرێ long ب ناڤێ population دروست بكە بۆ هەلگرتنا ژمارا مەزن 8000000000 و چاپ بكە.",
+        code: `long population = 8000000000L;\nConsole.WriteLine(population);`,
+        out: `8000000000`
+      },
+      {
+        en: "Declare a double variable named price with the value 19.995 and print it.",
+        ku: "گۆڕاوەكێ ژ جۆرێ double ب ناڤێ price چێكە و بهایێ 19.995 بدێ و چاپ بكە.",
+        code: `double price = 19.995;\nConsole.WriteLine(price);`,
+        out: `19.995`
+      },
+      {
+        en: "Declare two variables: an int named age = 20 and a string named city = \"Akre\", then print both on separate lines.",
+        ku: "دوو گۆڕاوان چێكە: ئێك ژ جۆرێ int ب ناڤێ age = 20 و یێ دی ژ جۆرێ string ب ناڤێ city = \"Akre\"، و هەردوویان ل سەر دوو هێلێن جودا چاپ بكە.",
+        code: `int age = 20;\nstring city = "Akre";\nConsole.WriteLine(age);\nConsole.WriteLine(city);`,
+        out: `20\nAkre`
+      },
+      {
+        en: "Create a bool variable named isPassed with the value false and a char variable named grade with the value 'F', then print them.",
+        ku: "گۆڕاوەكێ bool ب ناڤێ isPassed = false و گۆڕاوەكێ char ب ناڤێ grade = 'F' چێكە و چاپ بكە.",
+        code: `bool isPassed = false;\nchar grade = 'F';\nConsole.WriteLine(isPassed);\nConsole.WriteLine(grade);`,
+        out: `False\nF`
+      },
+      {
+        en: "Write a C# program that stores the maximum positive int value (2147483647) in a variable named maxInt and prints it.",
+        ku: "پڕۆگرامەكێ بنڤیسە كو مەزنترین ژمارا پۆزەتیڤ یا int (2147483647) د ناڤ گۆڕاوەكێ ب ناڤێ maxInt دا هەلگریت و چاپ بكەت.",
+        code: `int maxInt = 2147483647;\nConsole.WriteLine(maxInt);`,
+        out: `2147483647`
+      }
+    ]
+  },
+  {
+    slide: 5,
+    title: "Slide 5: Data Types - Numbers (Integer vs Floating-Point)",
+    kuTitle: "سلایدێ ٥: جۆرێن ژماران (ژمارێن تەمام و ژمارێن پۆینت)",
+    questions: [
+      {
+        en: "Declare a negative integer variable named temp = -15 and a positive integer variable named score = 95, then print both.",
+        ku: "گۆڕاوەكێ تەمام یێ نێگەتیڤ ب ناڤێ temp = -15 و ئێكێ پۆزەتیڤ ب ناڤێ score = 95 چێكە و هەردوویان چاپ بكە.",
+        code: `int temp = -15;\nint score = 95;\nConsole.WriteLine(temp);\nConsole.WriteLine(score);`,
+        out: `-15\n95`
+      },
+      {
+        en: "Create a negative floating-point variable named balance of type double with value -45.75 and print it.",
+        ku: "گۆڕاوەكێ ژمارا پۆینت یێ نێگەتیڤ ژ جۆرێ double ب ناڤێ balance و بهایێ -45.75 چێكە و چاپ بكە.",
+        code: `double balance = -45.75;\nConsole.WriteLine(balance);`,
+        out: `-45.75`
+      },
+      {
+        en: "Declare one integer variable (int) named count = 100 and one floating-point variable (float) named weight = 65.5f, then print them.",
+        ku: "گۆڕاوەكێ ژمارا تەمام (int) ب ناڤێ count = 100 و گۆڕاوەكێ ژمارا پۆینت (float) ب ناڤێ weight = 65.5f چێكە و چاپ بكە.",
+        code: `int count = 100;\nfloat weight = 65.5f;\nConsole.WriteLine(count);\nConsole.WriteLine(weight);`,
+        out: `100\n65.5`
+      },
+      {
+        en: "Write a program to store a large negative whole number (-5000000000) using the long data type and print it.",
+        ku: "پڕۆگرامەكێ بنڤیسە بۆ هەلگرتنا ژمارەكا تەمام یا مەزن و نێگەتیڤ (-5000000000) ب جۆرێ long و چاپ بكە.",
+        code: `long bigNeg = -5000000000L;\nConsole.WriteLine(bigNeg);`,
+        out: `-5000000000`
+      },
+      {
+        en: "Declare a double variable named average and a float variable named rate, assign them 88.25 and 3.5f, and print both.",
+        ku: "گۆڕاوەكێ double ب ناڤێ average = 88.25 و گۆڕاوەكێ float ب ناڤێ rate = 3.5f چێكە و هەردوویان چاپ بكە.",
+        code: `double average = 88.25;\nfloat rate = 3.5f;\nConsole.WriteLine(average);\nConsole.WriteLine(rate);`,
+        out: `88.25\n3.5`
+      }
+    ]
+  },
+  {
+    slide: 6,
+    title: "Slide 6: Number Suffixes & Default Values",
+    kuTitle: "سلایدێ ٦: پاشگرێن ژماران (L, f, d) و بهایێن بنەرەتی",
+    questions: [
+      {
+        en: "Declare a long variable named distance using the L suffix with value 150000L and print it.",
+        ku: "گۆڕاوەكێ long ب ناڤێ distance ب بكارئینانا پاشگرێ L و بهایێ 150000L چێكە و چاپ بكە.",
+        code: `long distance = 150000L;\nConsole.WriteLine(distance);`,
+        out: `150000`
+      },
+      {
+        en: "Declare a float variable named speed using the f suffix with value 90.5f and print it.",
+        ku: "گۆڕاوەكێ float ب ناڤێ speed ب بكارئینانا پاشگرێ f و بهایێ 90.5f چێكە و چاپ بكە.",
+        code: `float speed = 90.5f;\nConsole.WriteLine(speed);`,
+        out: `90.5`
+      },
+      {
+        en: "Declare a double variable named height using the d suffix with value 1.78d and print it.",
+        ku: "گۆڕاوەكێ double ب ناڤێ height ب بكارئینانا پاشگرێ d و بهایێ 1.78d چێكە و چاپ بكە.",
+        code: `double height = 1.78d;\nConsole.WriteLine(height);`,
+        out: `1.78`
+      },
+      {
+        en: "Create variables with their default values: an int = 0, a long = 0L, a float = 0.0F, and a double = 0.0D, then print all four.",
+        ku: "گۆڕاوان ب بهایێن وان یێن بنەرەتی چێكە: int = 0، long = 0L، float = 0.0F، و double = 0.0D، پاشان هەر چاران چاپ بكە.",
+        code: `int a = 0;\nlong b = 0L;\nfloat c = 0.0F;\ndouble d = 0.0D;\nConsole.WriteLine(a);\nConsole.WriteLine(b);\nConsole.WriteLine(c);\nConsole.WriteLine(d);`,
+        out: `0\n0\n0\n0`
+      },
+      {
+        en: "Store the minimum negative int value (-2147483648) in a variable named minVal and print it.",
+        ku: "بچووكترین بهایێ int یێ نێگەتیڤ (-2147483648) د ناڤ گۆڕاوەكێ ب ناڤێ minVal دا هەلگرە و چاپ بكە.",
+        code: `int minVal = -2147483648;\nConsole.WriteLine(minVal);`,
+        out: `-2147483648`
+      }
+    ]
+  },
+  {
+    slide: 7,
+    title: "Slide 7: Measuring Time Example & Formatted Output",
+    kuTitle: "سلایدێ ٧: نموونا پیڤانا دەمێ و چاپكرن ب {0}, {1}",
+    questions: [
+      {
+        en: "Declare int centuries = 20, int years = 2000, int days = 730480, and long hours = 17531520L, then print them in one sentence using {0}, {1}, {2}, {3}.",
+        ku: "گۆڕاوێن int centuries = 20 و int years = 2000 و int days = 730480 و long hours = 17531520L چێكە و هەمیان د ئێك رستێ دا ب {0}, {1}, {2}, {3} چاپ بكە.",
+        code: `int centuries = 20;\nint years = 2000;\nint days = 730480;\nlong hours = 17531520L;\nConsole.WriteLine("{0} centuries is {1} years, or {2} days, or {3} hours.", centuries, years, days, hours);`,
+        out: `20 centuries is 2000 years, or 730480 days, or 17531520 hours.`
+      },
+      {
+        en: "Create two int variables: hours = 2 and minutes = 120. Print: \"2 hours is 120 minutes.\" using placeholders {0} and {1}.",
+        ku: "دوو گۆڕاوێن int چێكە: hours = 2 و minutes = 120. ب بكارئینانا {0} و {1} چاپ بكە: \"2 hours is 120 minutes.\"",
+        code: `int hours = 2;\nint minutes = 120;\nConsole.WriteLine("{0} hours is {1} minutes.", hours, minutes);`,
+        out: `2 hours is 120 minutes.`
+      },
+      {
+        en: "Declare int days = 7 and int weeks = 1. Print: \"1 week has 7 days.\" using Console.WriteLine formatting.",
+        ku: "گۆڕاوێن int days = 7 و int weeks = 1 چێكە و چاپ بكە: \"1 week has 7 days.\"",
+        code: `int days = 7;\nint weeks = 1;\nConsole.WriteLine("{0} week has {1} days.", weeks, days);`,
+        out: `1 week has 7 days.`
+      },
+      {
+        en: "Declare long seconds = 86400L and int day = 1, then print: \"1 day = 86400 seconds\".",
+        ku: "گۆڕاوێن long seconds = 86400L و int day = 1 چێكە و چاپ بكە: \"1 day = 86400 seconds\".",
+        code: `long seconds = 86400L;\nint day = 1;\nConsole.WriteLine("{0} day = {1} seconds", day, seconds);`,
+        out: `1 day = 86400 seconds`
+      },
+      {
+        en: "Write a C# code that stores your birth year (int year = 2005) and age (int age = 21) and prints: \"Born in 2005, Age is 21\" using {0} and {1}.",
+        ku: "كۆدەكێ بنڤیسە كو سالا بوونا تە (int year = 2005) و ژیێ تە (int age = 21) هەلگریت و ب {0} و {1} چاپ بكەت.",
+        code: `int year = 2005;\nint age = 21;\nConsole.WriteLine("Born in {0}, Age is {1}", year, age);`,
+        out: `Born in 2005, Age is 21`
+      }
+    ]
+  },
+  {
+    slide: 8,
+    title: "Slide 8: Float vs Double Precision",
+    kuTitle: "سلایدێ ٨: جیاوازیا وردبینیا float و double",
+    questions: [
+      {
+        en: "Declare float floatPI = 3.141592f and double doublePI = 3.14159265358979, then print both with labels using {0}.",
+        ku: "گۆڕاوێن float floatPI = 3.141592f و double doublePI = 3.14159265358979 چێكە و هەردوویان د گەل ناڤێ وان ب {0} چاپ بكە.",
+        code: `float floatPI = 3.141592f;\ndouble doublePI = 3.14159265358979;\nConsole.WriteLine("Float PI is: {0}", floatPI);\nConsole.WriteLine("Double PI is: {0}", doublePI);`,
+        out: `Float PI is: 3.141592\nDouble PI is: 3.14159265358979`
+      },
+      {
+        en: "Create a float variable f = 12.3456f and print it. Explain by a comment why 'f' is required.",
+        ku: "گۆڕاوەكێ float ب ناڤێ f = 12.3456f چێكە و چاپ بكە، و ب كۆمێنتەكێ بنڤیسە بۆچی 'f' پێدڤی یە.",
+        code: `float f = 12.3456f; // f suffix is needed because real numbers default to double\nConsole.WriteLine(f);`,
+        out: `12.3456`
+      },
+      {
+        en: "Declare a double variable result = 1.12345678901234 (15 digits) without any suffix and print it.",
+        ku: "گۆڕاوەكێ double ب ناڤێ result = 1.12345678901234 بێی پاشگر چێكە و چاپ بكە.",
+        code: `double result = 1.12345678901234;\nConsole.WriteLine(result);`,
+        out: `1.12345678901234`
+      },
+      {
+        en: "Write a program that stores 5.5 as float (fVal) and 5.5 as double (dVal) and prints both on one line.",
+        ku: "پڕۆگرامەكێ بنڤیسە كو 5.5 وەك float (fVal) و 5.5 وەك double (dVal) هەلگریت و هەردوویان ل سەر ئێك هێل چاپ بكەت.",
+        code: `float fVal = 5.5f;\ndouble dVal = 5.5;\nConsole.WriteLine("Float: {0}, Double: {1}", fVal, dVal);`,
+        out: `Float: 5.5, Double: 5.5`
+      },
+      {
+        en: "Declare float radius = 2.5f and double area = 3.14159 * 2.5 * 2.5, then print the area.",
+        ku: "گۆڕاوێن float radius = 2.5f و double area = 3.14159 * 2.5 * 2.5 چێكە و بهایێ area چاپ بكە.",
+        code: `float radius = 2.5f;\ndouble area = 3.14159 * radius * radius;\nConsole.WriteLine("Area is: {0}", area);`,
+        out: `Area is: 19.6349375`
+      }
+    ]
+  },
+  {
+    slide: 9,
+    title: "Slide 9: Boolean Data Type (bool)",
+    kuTitle: "سلایدێ ٩: گۆڕاوێ bool (دروست یان خەلەت)",
+    questions: [
+      {
+        en: "Declare int a = 1 and int b = 2. Create a bool variable greaterAB = (a > b) and print it.",
+        ku: "گۆڕاوێن int a = 1 و int b = 2 چێكە. گۆڕاوەكێ bool ب ناڤێ greaterAB = (a > b) دروست بكە و چاپ بكە.",
+        code: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nConsole.WriteLine(greaterAB);`,
+        out: `False`
+      },
+      {
+        en: "Declare int a = 1, create bool equalA1 = (a == 1), and print equalA1.",
+        ku: "گۆڕاوێ int a = 1 چێكە، گۆڕاوەكێ bool ب ناڤێ equalA1 = (a == 1) دروست بكە و چاپ بكە.",
+        code: `int a = 1;\nbool equalA1 = (a == 1);\nConsole.WriteLine(equalA1);`,
+        out: `True`
+      },
+      {
+        en: "Declare a bool variable isCSharpFun = true and another bool isFishTasty = false, then print both.",
+        ku: "گۆڕاوەكێ bool ب ناڤێ isCSharpFun = true و یێ دی isFishTasty = false چێكە و هەردوویان چاپ بكە.",
+        code: `bool isCSharpFun = true;\nbool isFishTasty = false;\nConsole.WriteLine(isCSharpFun);\nConsole.WriteLine(isFishTasty);`,
+        out: `True\nFalse`
+      },
+      {
+        en: "Create two int variables x = 15 and y = 10, store the result of (x > y) in a bool variable check, and print it.",
+        ku: "دوو گۆڕاوێن int چێكە x = 15 و y = 10، ئەنجامێ (x > y) د ناڤ گۆڕاوێ bool check دا هەلگرە و چاپ بكە.",
+        code: `int x = 15;\nint y = 10;\nbool check = (x > y);\nConsole.WriteLine(check);`,
+        out: `True`
+      },
+      {
+        en: "Declare int mark = 45, create bool passed = (mark >= 50), and print \"Passed: \" followed by the result.",
+        ku: "گۆڕاوێ int mark = 45 چێكە، گۆڕاوێ bool passed = (mark >= 50) دروست بكە و ئەنجامی چاپ بكە.",
+        code: `int mark = 45;\nbool passed = (mark >= 50);\nConsole.WriteLine("Passed: " + passed);`,
+        out: `Passed: False`
+      }
+    ]
+  },
+  {
+    slide: 10,
+    title: "Slide 10: Char Data Type",
+    kuTitle: "سلایدێ ١٠: گۆڕاوێ char (ئێك پیت)",
+    questions: [
+      {
+        en: "Declare a char variable named myGrade, assign it 'B', and print it.",
+        ku: "گۆڕاوەكێ char ب ناڤێ myGrade چێكە، بهایێ 'B' بدێ و چاپ بكە.",
+        code: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`,
+        out: `B`
+      },
+      {
+        en: "Create two char variables: first = 'A' and second = 'c', then print both on separate lines.",
+        ku: "دوو گۆڕاوێن char چێكە: first = 'A' و second = 'c'، و هەردوویان ل سەر دوو هێلێن جودا چاپ بكە.",
+        code: `char first = 'A';\nchar second = 'c';\nConsole.WriteLine(first);\nConsole.WriteLine(second);`,
+        out: `A\nc`
+      },
+      {
+        en: "Store the symbol '@' in a char variable named atSymbol and print it with a message.",
+        ku: "نیشانا '@' د ناڤ گۆڕاوەكێ char ب ناڤێ atSymbol دا هەلگرە و د گەل پەیڤەكێ چاپ بكە.",
+        code: `char atSymbol = '@';\nConsole.WriteLine("Symbol is: {0}", atSymbol);`,
+        out: `Symbol is: @`
+      },
+      {
+        en: "Declare a char variable digit = '9' and print it.",
+        ku: "گۆڕاوەكێ char ب ناڤێ digit و بهایێ '9' دروست بكە و چاپ بكە.",
+        code: `char digit = '9';\nConsole.WriteLine(digit);`,
+        out: `9`
+      },
+      {
+        en: "Create three char variables c1 = 'I', c2 = 'T', and c3 = '!' and print them together on one line.",
+        ku: "سێ گۆڕاوێن char چێكە c1 = 'I'، c2 = 'T'، c3 = '!' و هەرسێیان ل سەر ئێك هێل چاپ بكە.",
+        code: `char c1 = 'I';\nchar c2 = 'T';\nchar c3 = '!';\nConsole.WriteLine("{0}{1}{2}", c1, c2, c3);`,
+        out: `IT!`
+      }
+    ]
+  },
+  {
+    slide: 11,
+    title: "Slide 11: String Data Type",
+    kuTitle: "سلایدێ ١١: گۆڕاوێ string (نڤیسین) و لێكدانا وان",
+    questions: [
+      {
+        en: "Declare string firstName = \"Dareen\" and string lastName = \"Muhammed\", then print \"Hello, Dareen!\" followed by an empty line.",
+        ku: "گۆڕاوێن string firstName = \"Dareen\" و lastName = \"Muhammed\" چێكە و \"Hello, Dareen!\" د گەل هێلەكا ڤالا (\\n) چاپ بكە.",
+        code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nConsole.WriteLine("Hello, {0}!\\n", firstName);`,
+        out: `Hello, Dareen!\n`
+      },
+      {
+        en: "Using firstName = \"Dareen\" and lastName = \"Muhammed\", concatenate them with a space into fullName and print \"Your full name is Dareen Muhammed.\".",
+        ku: "ب هاریكاریا firstName و lastName، هەردوویان ب + و سپەیسەكێ د ناڤ fullName دا پێكڤە گرێبدە و چاپ بكە.",
+        code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`,
+        out: `Your full name is Dareen Muhammed.`
+      },
+      {
+        en: "Create a string variable dept = \"IT Department\" and a string uni = \"AUAS\", then concatenate them and print.",
+        ku: "گۆڕاوەكێ string dept = \"IT Department\" و string uni = \"AUAS\" چێكە و پێكڤە گرێبدە و چاپ بكە.",
+        code: `string dept = "IT Department";\nstring uni = "AUAS";\nConsole.WriteLine(dept + " - " + uni);`,
+        out: `IT Department - AUAS`
+      },
+      {
+        en: "Declare a string variable greeting = \"Welcome to C#\" and print it.",
+        ku: "گۆڕاوەكێ string ب ناڤێ greeting و بهایێ \"Welcome to C#\" چێكە و چاپ بكە.",
+        code: `string greeting = "Welcome to C#";\nConsole.WriteLine(greeting);`,
+        out: `Welcome to C#`
+      },
+      {
+        en: "Declare string word1 = \"Good\", string word2 = \"Morning\", combine them into one variable message, and print it.",
+        ku: "گۆڕاوێن string word1 = \"Good\" و word2 = \"Morning\" چێكە، بكە د ناڤ گۆڕاوەكێ ب ناڤێ message دا و چاپ بكە.",
+        code: `string word1 = "Good";\nstring word2 = "Morning";\nstring message = word1 + " " + word2;\nConsole.WriteLine(message);`,
+        out: `Good Morning`
+      }
+    ]
+  },
+  {
+    slide: 12,
+    title: "Slide 12: C# Operators Overview",
+    kuTitle: "سلایدێ ١٢: پۆلێن ئۆپەرەیتەران د C# دا",
+    questions: [
+      {
+        en: "Use an arithmetic operator (+) to add two int variables a = 10 and b = 20, and print the result.",
+        ku: "ئۆپەرەیتەرێ ژمێریاری (+) بكاربینە بۆ كۆمكرنا دوو گۆڕاوێن int (a = 10 و b = 20) و ئەنجامی چاپ بكە.",
+        code: `int a = 10;\nint b = 20;\nConsole.WriteLine(a + b);`,
+        out: `30`
+      },
+      {
+        en: "Use a comparison operator (>) to check if 15 is greater than 8, store it in a bool, and print it.",
+        ku: "ئۆپەرەیتەرێ بەراوردكرنێ (>) بكاربینە بۆ زانینا ئایا 15 مەزنترە ژ 8، د ناڤ bool دا هەلگرە و چاپ بكە.",
+        code: `bool res = 15 > 8;\nConsole.WriteLine(res);`,
+        out: `True`
+      },
+      {
+        en: "Use the assignment operator (+=) to add 5 to an int variable x = 10, and print x.",
+        ku: "ئۆپەرەیتەرێ دانانا بهای (+=) بكاربینە بۆ زێدەكرنا 5 ل سەر گۆڕاوێ int x = 10 و چاپ بكە.",
+        code: `int x = 10;\nx += 5;\nConsole.WriteLine(x);`,
+        out: `15`
+      },
+      {
+        en: "Use a logical operator (&&) to check if 5 < 10 AND 5 > 2, and print the boolean result.",
+        ku: "ئۆپەرەیتەرێ لۆژیكی (&&) بكاربینە بۆ پشكنینا ئایا 5 < 10 و 5 > 2، و ئەنجامی چاپ بكە.",
+        code: `bool check = (5 < 10) && (5 > 2);\nConsole.WriteLine(check);`,
+        out: `True`
+      },
+      {
+        en: "Use the string concatenation operator (+) to join \"C# \" and \"Programming\" and print the output.",
+        ku: "ئۆپەرەیتەرێ پێكڤەگرێدانا نڤیسینێ (+) بكاربینە بۆ گرێدانا \"C# \" و \"Programming\" و چاپ بكە.",
+        code: `string text = "C# " + "Programming";\nConsole.WriteLine(text);`,
+        out: `C# Programming`
+      }
+    ]
+  },
+  {
+    slide: 13,
+    title: "Slide 13: Arithmetic Operators",
+    kuTitle: "سلایدێ ١٣: ئۆپەرەیتەرێن ژمێریاری (+, -, *, /, %, ++, --)",
+    questions: [
+      {
+        en: "Declare int x = 5 + 5, int y = 5 - 1, and int z = 5 * 2, then print x, y, and z.",
+        ku: "گۆڕاوێن int x = 5 + 5 و int y = 5 - 1 و int z = 5 * 2 دروست بكە و هەرسێیان چاپ بكە.",
+        code: `int x = 5 + 5;\nint y = 5 - 1;\nint z = 5 * 2;\nConsole.WriteLine(x);\nConsole.WriteLine(y);\nConsole.WriteLine(z);`,
+        out: `10\n4\n10`
+      },
+      {
+        en: "Write a C# program to divide 10 by 2 and find the remainder of 5 divided by 2, then print both results.",
+        ku: "پڕۆگرامەكێ بنڤیسە بۆ دابەشكرنا 10 ل سەر 2 و دیتنا ماوەیێ دابەشكرنا 5 ل سەر 2 (%) و هەردوویان چاپ بكە.",
+        code: `int div = 10 / 2;\nint rem = 5 % 2;\nConsole.WriteLine(div);\nConsole.WriteLine(rem);`,
+        out: `5\n1`
+      },
+      {
+        en: "Declare int x = 7, use the unary increment operator (x++) to increase it by 1, and print the new value of x.",
+        ku: "گۆڕاوێ int x = 7 چێكە، ب x++ ئێكێ لێ زێدە بكە و بهایێ نوی یێ x چاپ بكە.",
+        code: `int x = 7;\nx++;\nConsole.WriteLine(x);`,
+        out: `8`
+      },
+      {
+        en: "Declare int y = 10, use the unary decrement operator (y--) to decrease it by 1, and print the new value of y.",
+        ku: "گۆڕاوێ int y = 10 چێكە، ب y-- ئێكێ ژێ كێم بكە و بهایێ نوی یێ y چاپ بكە.",
+        code: `int y = 10;\ny--;\nConsole.WriteLine(y);`,
+        out: `9`
+      },
+      {
+        en: "Declare int num = 5, create int negNum = -num using unary minus, and print negNum.",
+        ku: "گۆڕاوێ int num = 5 چێكە، گۆڕاوێ negNum = -num ب نیشانا سالب چێكە و چاپ بكە.",
+        code: `int num = 5;\nint negNum = -num;\nConsole.WriteLine(negNum);`,
+        out: `-5`
+      }
+    ]
+  },
+  {
+    slide: 14,
+    title: "Slide 14: Arithmetic Operators Practical Examples",
+    kuTitle: "سلایدێ ١٤: نموونێن عەمەلی ل سەر ژمێریاری و ++",
+    questions: [
+      {
+        en: "Declare int squarePerimeter = 17. Calculate double squareSide = squarePerimeter / 4.0 and double squareArea = squareSide * squareSide, then print both.",
+        ku: "گۆڕاوێ int squarePerimeter = 17 چێكە. لایێ چوارگۆشەی (squareSide = squarePerimeter / 4.0) و رووبەرێ وێ (squareArea) ب جۆرێ double هەژمار بكە و چاپ بكە.",
+        code: `int squarePerimeter = 17;\ndouble squareSide = squarePerimeter / 4.0;\ndouble squareArea = squareSide * squareSide;\nConsole.WriteLine(squareSide);\nConsole.WriteLine(squareArea);`,
+        out: `4.25\n18.0625`
+      },
+      {
+        en: "Given int a = 5 and int b = 4, print (a + b++) on the first line and (a + b) on the second line.",
+        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، ل سەر هێلا ئێكێ (a + b++) و ل سەر هێلا دوویێ (a + b) چاپ بكە.",
+        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);`,
+        out: `9\n10`
+      },
+      {
+        en: "Given int a = 5 and int b = 5, print (a + (++b)) and then print (a + b).",
+        ku: "گۆڕاوێن int a = 5 و int b = 5 چێكە، (a + (++b)) چاپ بكە و پاشان (a + b) چاپ بكە.",
+        code: `int a = 5;\nint b = 5;\nConsole.WriteLine(a + (++b));\nConsole.WriteLine(a + b);`,
+        out: `11\n11`
+      },
+      {
+        en: "Write a C# program to print the results of integer division (11 / 3), remainder (11 % 3), and (12 / 3).",
+        ku: "پڕۆگرامەكێ بنڤیسە بۆ چاپكرنا ئەنجامێن: (11 / 3)، (11 % 3)، و (12 / 3).",
+        code: `Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);\nConsole.WriteLine(12 / 3);`,
+        out: `3\n2\n4`
+      },
+      {
+        en: "Declare double length = 10.5 and double width = 4.0, calculate the perimeter (2 * (length + width)) and print it.",
+        ku: "گۆڕاوێن double length = 10.5 و double width = 4.0 چێكە، دەوروبەرێ لاكێشەی هەژمار بكە و چاپ بكە.",
+        code: `double length = 10.5;\ndouble width = 4.0;\ndouble perimeter = 2 * (length + width);\nConsole.WriteLine(perimeter);`,
+        out: `29`
+      }
+    ]
+  },
+  {
+    slide: 15,
+    title: "Slide 15: Assignment Operators",
+    kuTitle: "سلایدێ ١٥: ئۆپەرەیتەرێن دانانا بهای (=, +=, -=, *=, /=, %=)",
+    questions: [
+      {
+        en: "Declare int A = 10, int B = 5, and int C. Assign C = A + B and print C.",
+        ku: "گۆڕاوێن int A = 10، B = 5 و C چێكە. بهایێ A + B بدە C و C چاپ بكە.",
+        code: `int A = 10;\nint B = 5;\nint C = A + B;\nConsole.WriteLine(C);`,
+        out: `15`
+      },
+      {
+        en: "Declare int C = 20 and int A = 5. Use += to add A to C (C += A) and print C.",
+        ku: "گۆڕاوێن int C = 20 و int A = 5 چێكە. ب += بهایێ A ل سەر C زێدە بكە و چاپ بكە.",
+        code: `int C = 20;\nint A = 5;\nC += A;\nConsole.WriteLine(C);`,
+        out: `25`
+      },
+      {
+        en: "Declare int C = 20 and int A = 8. Use -= to subtract A from C (C -= A) and print C.",
+        ku: "گۆڕاوێن int C = 20 و int A = 8 چێكە. ب -= بهایێ A ژ C كێم بكە و چاپ بكە.",
+        code: `int C = 20;\nint A = 8;\nC -= A;\nConsole.WriteLine(C);`,
+        out: `12`
+      },
+      {
+        en: "Declare int C = 6 and int A = 4. Use *= to multiply C by A (C *= A) and print C.",
+        ku: "گۆڕاوێن int C = 6 و int A = 4 چێكە. ب *= بهایێ C ل گەل A جاران بكە و چاپ بكە.",
+        code: `int C = 6;\nint A = 4;\nC *= A;\nConsole.WriteLine(C);`,
+        out: `24`
+      },
+      {
+        en: "Declare int C = 25 and int A = 4. Use /= and then %= on C with A, printing C after each operation.",
+        ku: "گۆڕاوێن int C = 25 و int A = 4 چێكە. ئۆپەرەیتەرێن /= و پاشان %= ل سەر C ب A بكاربینە و د هەر پێنگاڤەكێ دا چاپ بكە.",
+        code: `int C = 25;\nint A = 4;\nC /= A;\nConsole.WriteLine(C);\nC %= A;\nConsole.WriteLine(C);`,
+        out: `6\n2`
+      }
+    ]
+  },
+  {
+    slide: 16,
+    title: "Slide 16: Assignment Operators Step-by-Step Example",
+    kuTitle: "سلایدێ ١٦: نموونا پێنگاڤ ب پێنگاڤ یا ئۆپەرەیتەرێن دانانا بهای",
+    questions: [
+      {
+        en: "Declare int a = 21 and int c. Set c = a, print it, then perform c += a and print \"Line 2 - += Value of c = {0}\".",
+        ku: "گۆڕاوێن int a = 21 و int c چێكە. c = a بدانە و چاپ بكە، پاشان c += a بكە و ب {0} چاپ بكە.",
+        code: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("Line 1 - = Value of c = {0}", c);\nc += a;\nConsole.WriteLine("Line 2 - += Value of c = {0}", c);`,
+        out: `Line 1 - = Value of c = 21\nLine 2 - += Value of c = 42`
+      },
+      {
+        en: "Start with int a = 21 and int c = 42. Perform c -= a, print c, then perform c *= a and print c.",
+        ku: "ب int a = 21 و int c = 42 دەستپێبكە. c -= a بكە و چاپ بكە، پاشان c *= a بكە و چاپ بكە.",
+        code: `int a = 21;\nint c = 42;\nc -= a;\nConsole.WriteLine("c -= a : {0}", c);\nc *= a;\nConsole.WriteLine("c *= a : {0}", c);`,
+        out: `c -= a : 21\nc *= a : 441`
+      },
+      {
+        en: "Start with int a = 21 and int c = 441. Perform c /= a and print the result.",
+        ku: "ب int a = 21 و int c = 441 دەستپێبكە. c /= a بكە و ئەنجامی چاپ بكە.",
+        code: `int a = 21;\nint c = 441;\nc /= a;\nConsole.WriteLine("Value of c = {0}", c);`,
+        out: `Value of c = 21`
+      },
+      {
+        en: "Declare int a = 21 and int c = 200. Perform c %= a and print the remainder in c.",
+        ku: "گۆڕاوێن int a = 21 و int c = 200 چێكە. c %= a بكە و بهایێ ماوەی د ناڤ c دا چاپ بكە.",
+        code: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine("Value of c = {0}", c);`,
+        out: `Value of c = 11`
+      },
+      {
+        en: "Write a C# program with int num = 10: add 5 using +=, subtract 3 using -=, and multiply by 2 using *=, then print the final value.",
+        ku: "پڕۆگرامەكێ بنڤیسە كو int num = 10 هەبیت: 5 لێ زێدە بكە ب +=، 3 ژێ كێم بكە ب -=، و جاران 2 بكە ب *=، پاشان بهایێ دوماهیێ چاپ بكە.",
+        code: `int num = 10;\nnum += 5;\nnum -= 3;\nnum *= 2;\nConsole.WriteLine(num);`,
+        out: `24`
+      }
+    ]
+  },
+  {
+    slide: 17,
+    title: "Slide 17: Assignment Shorthand Table",
+    kuTitle: "سلایدێ ١٧: كورتكرنا ئۆپەرەیتەرێن دانانا بهای (x += 3)",
+    questions: [
+      {
+        en: "Declare int x = 5. Write the shorthand assignment for x = x + 3 and print x.",
+        ku: "گۆڕاوێ int x = 5 چێكە. كورتكراوێ x = x + 3 بنڤیسە (x += 3) و x چاپ بكە.",
+        code: `int x = 5;\nx += 3;\nConsole.WriteLine(x);`,
+        out: `8`
+      },
+      {
+        en: "Declare int x = 10. Write the shorthand assignment for x = x - 3 and print x.",
+        ku: "گۆڕاوێ int x = 10 چێكە. كورتكراوێ x = x - 3 بنڤیسە و x چاپ بكە.",
+        code: `int x = 10;\nx -= 3;\nConsole.WriteLine(x);`,
+        out: `7`
+      },
+      {
+        en: "Declare int x = 4. Write the shorthand assignment for x = x * 3 and print x.",
+        ku: "گۆڕاوێ int x = 4 چێكە. كورتكراوێ x = x * 3 بنڤیسە و x چاپ بكە.",
+        code: `int x = 4;\nx *= 3;\nConsole.WriteLine(x);`,
+        out: `12`
+      },
+      {
+        en: "Declare double x = 15.0. Write the shorthand assignment for x = x / 3 and print x.",
+        ku: "گۆڕاوێ double x = 15.0 چێكە. كورتكراوێ x = x / 3 بنڤیسە و x چاپ بكە.",
+        code: `double x = 15.0;\nx /= 3;\nConsole.WriteLine(x);`,
+        out: `5`
+      },
+      {
+        en: "Declare int x = 14. Write the shorthand assignment for x = x % 3 and print x.",
+        ku: "گۆڕاوێ int x = 14 چێكە. كورتكراوێ x = x % 3 بنڤیسە و x چاپ بكە.",
+        code: `int x = 14;\nx %= 3;\nConsole.WriteLine(x);`,
+        out: `2`
+      }
+    ]
+  },
+  {
+    slide: 18,
+    title: "Slide 18: Assignment Inside Console.WriteLine",
+    kuTitle: "سلایدێ ١٨: بكارئینانا ئۆپەرەیتەرێن دانانا بهای د ناڤ Console.WriteLine دا",
+    questions: [
+      {
+        en: "Declare int y = 4 and print (y *= 2) directly inside Console.WriteLine.",
+        ku: "گۆڕاوێ int y = 4 چێكە و راستەوخۆ د ناڤ Console.WriteLine دا (y *= 2) چاپ بكە.",
+        code: `int y = 4;\nConsole.WriteLine(y *= 2);`,
+        out: `8`
+      },
+      {
+        en: "Declare int x = 6. Inside two separate Console.WriteLine statements, print (x += 3) and then (x -= 3).",
+        ku: "گۆڕاوێ int x = 6 چێكە. د ناڤ دوو Console.WriteLine یێن جودا دا (x += 3) و پاشان (x -= 3) چاپ بكە.",
+        code: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);`,
+        out: `9\n6`
+      },
+      {
+        en: "Declare int x = 6. Print (x /= 2) and then print (x *= 3) directly inside Console.WriteLine.",
+        ku: "گۆڕاوێ int x = 6 چێكە. د ناڤ Console.WriteLine دا (x /= 2) و پاشان (x *= 3) چاپ بكە.",
+        code: `int x = 6;\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`,
+        out: `3\n9`
+      },
+      {
+        en: "Declare int z = 3 and int k = 10. Print z, then print (k %= 4) inside Console.WriteLine.",
+        ku: "گۆڕاوێن int z = 3 و int k = 10 چێكە. بهایێ z و پاشان (k %= 4) د ناڤ Console.WriteLine دا چاپ بكە.",
+        code: `int z = 3;\nint k = 10;\nConsole.WriteLine(z);\nConsole.WriteLine(k %= 4);`,
+        out: `3\n2`
+      },
+      {
+        en: "Declare double price = 50.0. Inside Console.WriteLine, discount it by 10 using (price -= 10) and print it.",
+        ku: "گۆڕاوێ double price = 50.0 چێكە. د ناڤ Console.WriteLine دا 10 ژێ كێم بكە ب (price -= 10) و چاپ بكە.",
+        code: `double price = 50.0;\nConsole.WriteLine(price -= 10);`,
+        out: `40`
+      }
+    ]
+  },
+  {
+    slide: 19,
+    title: "Slide 19: Comparison Operators",
+    kuTitle: "سلایدێ ١٩: ئۆپەرەیتەرێن بەراوردكرنێ (==, !=, >, <, >=, <=)",
+    questions: [
+      {
+        en: "Declare int x = 10 and int y = 10. Check if x is equal to y (x == y) and print the result.",
+        ku: "گۆڕاوێن int x = 10 و int y = 10 چێكە. بپشكنە ئایا x یەكسانە ب y (x == y) و ئەنجامی چاپ بكە.",
+        code: `int x = 10;\nint y = 10;\nConsole.WriteLine(x == y);`,
+        out: `True`
+      },
+      {
+        en: "Declare int x = 5 and int y = 3. Check if x is not equal to y (x != y) and print the result.",
+        ku: "گۆڕاوێن int x = 5 و int y = 3 چێكە. بپشكنە ئایا x نە یەكسانە ب y (x != y) و چاپ بكە.",
+        code: `int x = 5;\nint y = 3;\nConsole.WriteLine(x != y);`,
+        out: `True`
+      },
+      {
+        en: "Declare int x = 7 and int y = 12. Print the results of (x > y) and (x < y).",
+        ku: "گۆڕاوێن int x = 7 و int y = 12 چێكە. ئەنجامێن (x > y) و (x < y) چاپ بكە.",
+        code: `int x = 7;\nint y = 12;\nConsole.WriteLine(x > y);\nConsole.WriteLine(x < y);`,
+        out: `False\nTrue`
+      },
+      {
+        en: "Declare int x = 20 and int y = 20. Print the results of (x >= y) and (x <= 15).",
+        ku: "گۆڕاوێن int x = 20 و int y = 20 چێكە. ئەنجامێن (x >= y) و (x <= 15) چاپ بكە.",
+        code: `int x = 20;\nint y = 20;\nConsole.WriteLine(x >= y);\nConsole.WriteLine(x <= 15);`,
+        out: `True\nFalse`
+      },
+      {
+        en: "Declare char c1 = 'A' and char c2 = 'A'. Compare them using == and store the result in a bool variable, then print it.",
+        ku: "گۆڕاوێن char c1 = 'A' و char c2 = 'A' چێكە. ب == بەراورد بكە و ئەنجامی د ناڤ bool دا هەلگرە و چاپ بكە.",
+        code: `char c1 = 'A';\nchar c2 = 'A';\nbool same = (c1 == c2);\nConsole.WriteLine(same);`,
+        out: `True`
+      }
+    ]
+  },
+  {
+    slide: 20,
+    title: "Slide 20: Comparison Operators Practical Example",
+    kuTitle: "سلایدێ ٢٠: نموونێن عەمەلی ل سەر بەراوردكرنێ",
+    questions: [
+      {
+        en: "Given int a = 5 and int b = 4, print the results of (a >= b), (a != b), and (a == b).",
+        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، ئەنجامێن (a >= b)، (a != b)، و (a == b) چاپ بكە.",
+        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);\nConsole.WriteLine(a == b);`,
+        out: `True\nTrue\nFalse`
+      },
+      {
+        en: "Given int a = 5 and int b = 4, print (a != ++b) and then on the next line print (a > b).",
+        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، (a != ++b) چاپ بكە و ل سەر هێلا دویڤدا (a > b) چاپ بكە.",
+        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`,
+        out: `False\nFalse`
+      },
+      {
+        en: "Compare two double variables: d1 = 4.5 and d2 = 4.50. Print (d1 == d2) and (d1 < d2).",
+        ku: "دوو گۆڕاوێن double بەراورد بكە: d1 = 4.5 و d2 = 4.50. ئەنجامێ (d1 == d2) و (d1 < d2) چاپ بكە.",
+        code: `double d1 = 4.5;\ndouble d2 = 4.50;\nConsole.WriteLine(d1 == d2);\nConsole.WriteLine(d1 < d2);`,
+        out: `True\nFalse`
+      },
+      {
+        en: "Compare two strings: string s1 = \"C#\" and string s2 = \"Java\". Print (s1 == s2) and (s1 != s2).",
+        ku: "دوو گۆڕاوێن string بەراورد بكە: s1 = \"C#\" و s2 = \"Java\". ئەنجامێ (s1 == s2) و (s1 != s2) چاپ بكە.",
+        code: `string s1 = "C#";\nstring s2 = "Java";\nConsole.WriteLine(s1 == s2);\nConsole.WriteLine(s1 != s2);`,
+        out: `False\nTrue`
+      },
+      {
+        en: "Declare int age = 18. Check if age is greater than or equal to 18 (age >= 18), store in bool canVote, and print it.",
+        ku: "گۆڕاوێ int age = 18 چێكە. بپشكنە ئایا age >= 18 و د ناڤ bool canVote دا هەلگرە و چاپ بكە.",
+        code: `int age = 18;\nbool canVote = (age >= 18);\nConsole.WriteLine(canVote);`,
+        out: `True`
+      }
+    ]
+  },
+  {
+    slide: 21,
+    title: "Slide 21: Logical Operators (AND &&, OR ||, NOT !)",
+    kuTitle: "سلایدێ ٢١: ئۆپەرەیتەرێن لۆژیكی (AND &&, OR ||, NOT !)",
+    questions: [
+      {
+        en: "Declare int x = 3. Use logical AND (&&) to check if (x < 5 && x < 10) and print the result.",
+        ku: "گۆڕاوێ int x = 3 چێكە. ب ئۆپەرەیتەرێ AND (&&) بپشكنە ئایا (x < 5 && x < 10) و ئەنجامی چاپ بكە.",
+        code: `int x = 3;\nConsole.WriteLine(x < 5 && x < 10);`,
+        out: `True`
+      },
+      {
+        en: "Declare int x = 6. Use logical OR (||) to check if (x < 5 || x < 4) and print the result.",
+        ku: "گۆڕاوێ int x = 6 چێكە. ب ئۆپەرەیتەرێ OR (||) بپشكنە ئایا (x < 5 || x < 4) و ئەنجامی چاپ بكە.",
+        code: `int x = 6;\nConsole.WriteLine(x < 5 || x < 4);`,
+        out: `False`
+      },
+      {
+        en: "Declare int x = 3. Use logical NOT (!) to reverse the result of !(x < 5 && x < 10) and print it.",
+        ku: "گۆڕاوێ int x = 3 چێكە. ب ئۆپەرەیتەرێ NOT (!) ئەنجامێ !(x < 5 && x < 10) بەروڤاژی بكە و چاپ بكە.",
+        code: `int x = 3;\nConsole.WriteLine(!(x < 5 && x < 10));`,
+        out: `False`
+      },
+      {
+        en: "Declare int x = 8. Check if (x > 5 || x < 4) using logical OR and store it in a bool variable result, then print it.",
+        ku: "گۆڕاوێ int x = 8 چێكە. بپشكنە ئایا (x > 5 || x < 4) و د ناڤ bool result دا هەلگرە و چاپ بكە.",
+        code: `int x = 8;\nbool result = (x > 5 || x < 4);\nConsole.WriteLine(result);`,
+        out: `True`
+      },
+      {
+        en: "Declare int score = 75. Check if score is between 50 and 100 inclusive (score >= 50 && score <= 100) and print the result.",
+        ku: "گۆڕاوێ int score = 75 چێكە. بپشكنە ئایا د ناڤبەرا 50 و 100 دایە (score >= 50 && score <= 100) و چاپ بكە.",
+        code: `int score = 75;\nbool valid = (score >= 50 && score <= 100);\nConsole.WriteLine(valid);`,
+        out: `True`
+      }
+    ]
+  },
+  {
+    slide: 22,
+    title: "Slide 22: Logical Operators Practical Examples",
+    kuTitle: "سلایدێ ٢٢: نموونێن عەمەلی ل سەر &&، ||، ! (دوماهیا بەشێ داخل)",
+    questions: [
+      {
+        en: "Declare bool a = true and bool b = false. Print (a && b) and (a || b).",
+        ku: "گۆڕاوێن bool a = true و bool b = false چێكە. ئەنجامێن (a && b) و (a || b) چاپ بكە.",
+        code: `bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);\nConsole.WriteLine(a || b);`,
+        out: `False\nTrue`
+      },
+      {
+        en: "Declare bool a = true and bool b = false. Print (!a) and (!b).",
+        ku: "گۆڕاوێن bool a = true و bool b = false چێكە. ئەنجامێن (!a) و (!b) چاپ بكە.",
+        code: `bool a = true;\nbool b = false;\nConsole.WriteLine(!a);\nConsole.WriteLine(!b);`,
+        out: `False\nTrue`
+      },
+      {
+        en: "Declare bool b = false. Print (b || true) and (b && true).",
+        ku: "گۆڕاوێ bool b = false چێكە. ئەنجامێن (b || true) و (b && true) چاپ بكە.",
+        code: `bool b = false;\nConsole.WriteLine(b || true);\nConsole.WriteLine(b && true);`,
+        out: `True\nFalse`
+      },
+      {
+        en: "Declare bool a = true. Print (a || false) and (a && true).",
+        ku: "گۆڕاوێ bool a = true چێكە. ئەنجامێن (a || false) و (a && true) چاپ بكە.",
+        code: `bool a = true;\nConsole.WriteLine(a || false);\nConsole.WriteLine(a && true);`,
+        out: `True\nTrue`
+      },
+      {
+        en: "Declare int num1 = 10 and int num2 = 20. Print the result of (!(num1 > num2) && (num2 == 20)).",
+        ku: "گۆڕاوێن int num1 = 10 و int num2 = 20 چێكە. ئەنجامێ (!(num1 > num2) && (num2 == 20)) چاپ بكە.",
+        code: `int num1 = 10;\nint num2 = 20;\nConsole.WriteLine(!(num1 > num2) && (num2 == 20));`,
+        out: `True`
+      }
+    ]
+  }
+];
 
-  <main class="container" id="slidesContainer"></main>
-  <div class="empty-state" id="emptyState">چ ئەنجامەک بۆ لێگەڕیانا تە نەهاتە دیتن!</div>
+const root = document.getElementById("questionsRoot");
+const slideFilter = document.getElementById("slideFilter");
+const searchInput = document.getElementById("searchInput");
+const toggleAllBtn = document.getElementById("toggleAllBtn");
+const statsEl = document.getElementById("stats");
 
-  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="زڤڕین بۆ سەری">⬆</button>
+let allSolutionsVisible = true;
 
-  <footer>
-    سەرکەفتی بی د تاقیکرنا خۆ یا عەمەلی دا! — ئامادەکرییە ل سەر بنەمایێ سلایدێن Fundamentals of Programming by C#
-  </footer>
+slidesData.forEach(s => {
+  const opt = document.createElement("option");
+  opt.value = s.slide;
+  opt.textContent = `Slide ${s.slide}: ${s.kuTitle.replace(/^سلایدێ \d+:\s*/, "")}`;
+  slideFilter.appendChild(opt);
+});
 
-  <script>
-    const slidesData = [
-      {
-        num: 3,
-        title: "ناساندنا جۆرێن داتایان و ڤاریەبڵان",
-        enTitle: "C# Data Types (Intro)",
-        summary: [
-          "زمانێ C# زمانەکێ <code>Strongly-typed</code> یە؛ واتە بەری بکارئینانێ دڤێت جۆرێ هەر ڤاریەبڵەکێ بهێتە دیارکرن.",
-          "جۆرێ داتای (Data Type) قەبارێ د بیرگەهێ دا و جۆرێ بەهای دیار دکەت، و خەلەتیان کێم دکەت.",
-          "جۆرێن سەرەکی: <code>int</code> (ژمارا تمام)، <code>float</code> (ژمارا دەیی ب <code>f</code>)، <code>char</code> (ئێک پیت د <code>' '</code> دا)، <code>bool</code> (دروست/خەلەت)، <code>string</code> (دەق د <code>\" \"</code> دا)."
-        ],
-        questions: [
-          {
-            q: "کۆدەکی بنڤیسە بۆ دروستکرنا ڤاریەبڵەکا ژمارا تمام <code>int</code> ب ناڤێ <code>myNum</code> کو بەهایێ وێ <code>15</code> بیت، پاشان چاپ بکە.",
-            code: `int myNum = 15;\nConsole.WriteLine(myNum);`,
-            out: `15`
-          },
-          {
-            q: "ڤاریەبڵەکا <code>float</code> ب ناڤێ <code>price</code> دروست بکە و بەهایێ <code>10.5f</code> بدەیێ، و ل سەر شاشێ نیشان بدە.",
-            code: `float price = 10.5f;\nConsole.WriteLine(price);`,
-            out: `10.5`
-          },
-          {
-            q: "پیتا <code>'D'</code> د ناڤ ڤاریەبڵەکا جۆرێ <code>char</code> ب ناڤێ <code>myLetter</code> دا خەزن بکە و چاپ بکە.",
-            code: `char myLetter = 'D';\nConsole.WriteLine(myLetter);`,
-            out: `D`
-          },
-          {
-            q: "ڤاریەبڵەکا <code>bool</code> ب ناڤێ <code>isReady</code> دروست بکە ب بەهایێ <code>true</code> و چاپ بکە.",
-            code: `bool isReady = true;\nConsole.WriteLine(isReady);`,
-            out: `True`
-          },
-          {
-            q: "پەیڤا <code>\"Kurdistan\"</code> د ڤاریەبڵەکا <code>string</code> دا ب ناڤێ <code>myText</code> هەڵبگرە و چاپ بکە.",
-            code: `string myText = "Kurdistan";\nConsole.WriteLine(myText);`,
-            out: `Kurdistan`
-          }
-        ]
-      },
-      {
-        num: 4,
-        title: "جۆرێن داتایێن بەربەلاڤ و قەبارێ وان",
-        enTitle: "Most Common Data Types & Sizes",
-        summary: [
-          "<code>int</code> (4 bytes) بۆ ژمارێن تمام یێن مامناوەند؛ <code>long</code> (8 bytes) بۆ ژمارێن تمام یێن گەلەک مەزن.",
-          "<code>float</code> (4 bytes) هەتا 6 بۆ 7 ژمارێن دەیی دپارێزیت؛ <code>double</code> (8 bytes) هەتا 15 ژمارێن دەیی دپارێزیت.",
-          "<code>bool</code> قەبارێ وێ 1 bit یە؛ <code>char</code> قەبارێ وێ 2 bytes یە؛ <code>string</code> 2 bytes بۆ هەر پیتەکێ."
-        ],
-        questions: [
-          {
-            q: "بۆ هەڵگرتنا ژمارا ئاکنجیێن جیهانێ <code>8000000000</code> جۆرێ گونجای (<code>long</code>) بکاربینە و چاپ بکە.",
-            code: `long population = 8000000000;\nConsole.WriteLine(population);`,
-            out: `8000000000`
-          },
-          {
-            q: "ژمارا <code>12.345678901234</code> ب جۆرێ <code>double</code> خەزن بکە دا هویریا وێ نەچیت و چاپ بکە.",
-            code: `double preciseNum = 12.345678901234;\nConsole.WriteLine(preciseNum);`,
-            out: `12.345678901234`
-          },
-          {
-            q: "دوو ڤاریەبڵان دروست بکە: ئێک جۆرێ <code>char</code> ب بەهایێ <code>'A'</code> و ئێک جۆرێ <code>bool</code> ب بەهایێ <code>false</code>، و هەردووان چاپ بکە.",
-            code: `char grade = 'A';\nbool passed = false;\nConsole.WriteLine(grade);\nConsole.WriteLine(passed);`,
-            out: `A\nFalse`
-          },
-          {
-            q: "ناڤێ زانکۆیا خۆ <code>\"AUAS\"</code> ب <code>string</code> و ساڵا دامەزراندنێ <code>2023</code> ب <code>int</code> خەزن بکە و پێکڤە چاپ بکە.",
-            code: `string uni = "AUAS";\nint year = 2023;\nConsole.WriteLine(uni + " " + year);`,
-            out: `AUAS 2023`
-          },
-          {
-            q: "ژمارا <code>45.678f</code> ب جۆرێ 4 بایتی (<code>float</code>) بنڤیسە و چاپ بکە.",
-            code: `float temp = 45.678f;\nConsole.WriteLine(temp);`,
-            out: `45.678`
-          }
-        ]
-      },
-      {
-        num: 5,
-        title: "دابەشبوونا ژماران (Integer & Floating-Point)",
-        enTitle: "C# Data Types (Numbers)",
-        summary: [
-          "ژمارە د C# دا دبنە دوو گروپ: <strong>Integer types</strong> (ژمارێن تمام بێ خاڵا دەیی) و <strong>Floating-point types</strong> (ژمارێن ب خاڵا دەیی).",
-          "جۆرێن تمام: <code>byte, sbyte</code> (8-bit)، <code>short, ushort</code> (16-bit)، <code>int, uint</code> (32-bit)، <code>long, ulong</code> (64-bit).",
-          "جۆرێن دەیی: <code>float</code> (32-bit)، <code>double</code> (64-bit)، <code>decimal</code> (128-bit)."
-        ],
-        questions: [
-          {
-            q: "ژمارەکا تمام یا نێگەتیڤ <code>-25</code> و ژمارەکا تمام یا پۆزەتیڤ <code>100</code> ب <code>int</code> دروست بکە و چاپ بکە.",
-            code: `int neg = -25;\nint pos = 100;\nConsole.WriteLine(neg);\nConsole.WriteLine(pos);`,
-            out: `-25\n100`
-          },
-          {
-            q: "دوو ژمارێن دەیی دروست بکە (ئێک نێگەتیڤ <code>-3.5</code> و ئێک پۆزەتیڤ <code>9.25</code>) ب جۆرێ <code>double</code> و چاپ بکە.",
-            code: `double d1 = -3.5;\ndouble d2 = 9.25;\nConsole.WriteLine(d1);\nConsole.WriteLine(d2);`,
-            out: `-3.5\n9.25`
-          },
-          {
-            q: "ژمارا <code>200</code> د جۆرێ 8-bit یێ بێ نیشان (<code>byte</code>) دا و ژمارا <code>-15</code> د جۆرێ 8-bit یێ ب نیشان (<code>sbyte</code>) دا خەزن بکە و چاپ بکە.",
-            code: `byte ageGroup = 200;\nsbyte winterTemp = -15;\nConsole.WriteLine(ageGroup);\nConsole.WriteLine(winterTemp);`,
-            out: `200\n-15`
-          },
-          {
-            q: "جۆرێ 16-bit یێ ب نیشان (<code>short</code>) بۆ <code>-30000</code> و یێ بێ نیشان (<code>ushort</code>) بۆ <code>60000</code> بکاربینە و چاپ بکە.",
-            code: `short a = -30000;\nushort b = 60000;\nConsole.WriteLine(a);\nConsole.WriteLine(b);`,
-            out: `-30000\n60000`
-          },
-          {
-            q: "بۆ کارێن دارایی، جۆرێ 128-bit (<code>decimal</code>) بکاربینە بۆ خەزنکرنا مووچێ <code>1250.50m</code> و چاپ بکە.",
-            code: `decimal salary = 1250.50m;\nConsole.WriteLine(salary);`,
-            out: `1250.50`
-          }
-        ]
-      },
-      {
-        num: 6,
-        title: "مەودا، پاشگر (Suffix) و بەهایێ سەرەکی",
-        enTitle: "Numbers Range, Suffix & Default Values",
-        summary: [
-          "پاشگر (Suffix) بۆ دیارکرنا جۆری دهێنە دانان: <code>u</code> بۆ <code>uint</code>، <code>l</code> بۆ <code>long</code>، <code>ul</code> بۆ <code>ulong</code>، <code>f</code> بۆ <code>float</code>، <code>d</code> بۆ <code>double</code>، <code>m</code> بۆ <code>decimal</code>.",
-          "بەهایێ سەرەکی (Default) بۆ هەمی جۆرێن تمام <code>0</code> یە، ژ بلی <code>long</code> کو <code>0L</code> یە.",
-          "بەهایێ سەرەکی بۆ <code>float</code> بریتیە ژ <code>0.0F</code> و بۆ <code>double</code> بریتیە ژ <code>0.0D</code>."
-        ],
-        questions: [
-          {
-            q: "ڤاریەبڵەکا <code>uint</code> ب پاشگرێ <code>u</code> دروست بکە (بەهایێ <code>4000000000u</code>) و چاپ بکە.",
-            code: `uint bigUnsigned = 4000000000u;\nConsole.WriteLine(bigUnsigned);`,
-            out: `4000000000`
-          },
-          {
-            q: "ب پاشگرێن <code>L</code> و <code>ul</code> دوو ڤاریەبڵێن <code>long</code> و <code>ulong</code> دروست بکە و چاپ بکە.",
-            code: `long val1 = 5000000000L;\nulong val2 = 18000000000ul;\nConsole.WriteLine(val1);\nConsole.WriteLine(val2);`,
-            out: `5000000000\n18000000000`
-          },
-          {
-            q: "ڤاریەبڵەکا <code>float</code> ب پاشگرێ <code>f</code> (<code>5.5f</code>) و ئێکا <code>double</code> ب پاشگرێ <code>d</code> (<code>4.5d</code>) دروست بکە و کۆما وان چاپ بکە.",
-            code: `float x = 5.5f;\ndouble y = 4.5d;\nConsole.WriteLine(x + y);`,
-            out: `10`
-          },
-          {
-            q: "ب پاشگرێ <code>m</code> بەهایێ <code>999.95m</code> د <code>decimal</code> دا هەڵبگرە و چاپ بکە.",
-            code: `decimal bankBalance = 999.95m;\nConsole.WriteLine(bankBalance);`,
-            out: `999.95`
-          },
-          {
-            q: "بەهایێن سەرەکی (Default) بۆ <code>int</code> (<code>0</code>)، <code>long</code> (<code>0L</code>)، <code>float</code> (<code>0.0F</code>)، و <code>double</code> (<code>0.0D</code>) بنڤیسە و چاپ بکە.",
-            code: `int a = 0;\nlong b = 0L;\nfloat c = 0.0F;\ndouble d = 0.0D;\nConsole.WriteLine(a + " " + b + " " + c + " " + d);`,
-            out: `0 0 0 0`
-          }
-        ]
-      },
-      {
-        num: 7,
-        title: "نموونا پیڤانا دەمی ب ژمارێن تمام",
-        enTitle: "Example: Measuring Time & Placeholders",
-        summary: [
-          "ل دیڤ قەبارێ ژمارێ، ئەم جۆرێ گونجای هەلدبژێرین (ژ <code>byte</code> بۆ ژمارا بچویک هەتا <code>ulong</code> بۆ ژمارا گەلەک مەزن).",
-          "دشێین رێزبەندیا <code>{0}</code>، <code>{1}</code>، <code>{2}</code> د ناڤ <code>Console.WriteLine</code> دا بکاربینین بۆ نیشاندانا ڤاریەبڵان د ناڤ ڕستێ دا."
-        ],
-        questions: [
-          {
-            q: "دەمی ب سەدساڵان (<code>byte centuries = 20</code>)، ساڵان (<code>ushort years = 2000</code>)، و رۆژان (<code>uint days = 730480</code>) خەزن بکە و ب شێوازێ <code>{0}</code> چاپ بکە.",
-            code: `byte centuries = 20;\nushort years = 2000;\nuint days = 730480;\nConsole.WriteLine("{0} centuries is {1} years, or {2} days.", centuries, years, days);`,
-            out: `20 centuries is 2000 years, or 730480 days.`
-          },
-          {
-            q: "<code>byte hours = 2</code>، <code>ushort minutes = 120</code>، <code>uint seconds = 7200</code> دروست بکە و ب <code>{0}, {1}, {2}</code> چاپ بکە.",
-            code: `byte hours = 2;\nushort minutes = 120;\nuint seconds = 7200;\nConsole.WriteLine("{0} hours = {1} minutes = {2} seconds.", hours, minutes, seconds);`,
-            out: `2 hours = 120 minutes = 7200 seconds.`
-          },
-          {
-            q: "قەبارێ داتای ب <code>byte gb = 4</code>، <code>ushort mb = 4096</code>، <code>ulong kb = 4194304</code> بنڤیسە و د ئێک دێر دا چاپ بکە.",
-            code: `byte gb = 4;\nushort mb = 4096;\nulong kb = 4194304;\nConsole.WriteLine("{0} GB is {1} MB or {2} KB.", gb, mb, kb);`,
-            out: `4 GB is 4096 MB or 4194304 KB.`
-          },
-          {
-            q: "بکارئینانا <code>byte weeks = 4</code> و <code>ushort days = 28</code> و <code>uint hours = 672</code> د ڕستەکا رێکخستی دا چاپ بکە.",
-            code: `byte weeks = 4;\nushort days = 28;\nuint hours = 672;\nConsole.WriteLine("{0} weeks = {1} days = {2} hours.", weeks, days, hours);`,
-            out: `4 weeks = 28 days = 672 hours.`
-          },
-          {
-            q: "<code>byte departments = 5</code>، <code>ushort students = 1500</code>، <code>ulong totalCredits = 180000</code> دروست بکە و چاپ بکە.",
-            code: `byte departments = 5;\nushort students = 1500;\nulong totalCredits = 180000;\nConsole.WriteLine("{0} depts, {1} students, {2} credits.", departments, students, totalCredits);`,
-            out: `5 depts, 1500 students, 180000 credits.`
-          }
-        ]
-      },
-      {
-        num: 8,
-        title: "هویریا ژمارێن دەیی (Float vs Double)",
-        enTitle: "Example: PI Precision (float vs double)",
-        summary: [
-          "ب شێوەیەکێ بنەڕەتی (Default) هەر ژمارەکا دەیی د C# دا وەک <code>double</code> دهێتە هژمارتن.",
-          "بۆ خەزنکرنا ژمارەکا دەیی د ناڤ <code>float</code> دا دڤێت پاشگرێ <code>f</code> بنڤیسی دا کۆمپایلەر خەلەتیێ نەدەت.",
-          "<code>float</code> هویریا وێ کێمترە (نێزیکی 7 ژماران)، بەلێ <code>double</code> هەتا 15 ژماران ب دروستی دپارێزیت."
-        ],
-        questions: [
-          {
-            q: "بەهایێ PI (<code>3.141592653589793238</code>) جارەکێ د <code>float</code> دا (ب <code>f</code>) و جارەکێ د <code>double</code> دا خەزن بکە و جیاوازیا وان چاپ بکە.",
-            code: `float floatPI = 3.141592653589793238f;\ndouble doublePI = 3.141592653589793238;\nConsole.WriteLine("Float PI is: {0}", floatPI);\nConsole.WriteLine("Double PI is: {0}", doublePI);`,
-            out: `Float PI is: 3.141593\nDouble PI is: 3.14159265358979`
-          },
-          {
-            q: "کۆدەکێ بنڤیسە کو تێدا <code>float a = 2.5f</code> و <code>double b = 2.512345678912</code> هەبن و هەردووان چاپ بکە.",
-            code: `float a = 2.5f;\ndouble b = 2.512345678912;\nConsole.WriteLine("a = {0}", a);\nConsole.WriteLine("b = {0}", b);`,
-            out: `a = 2.5\nb = 2.512345678912`
-          },
-          {
-            q: "ب بکارئینانا <code>float pi = 3.14f</code> و <code>float r = 2.0f</code>، ڕووبەرێ بازنەی (<code>pi * r * r</code>) حساب بکە و چاپ بکە.",
-            code: `float pi = 3.14f;\nfloat r = 2.0f;\nfloat area = pi * r * r;\nConsole.WriteLine("Area is: {0}", area);`,
-            out: `Area is: 12.56`
-          },
-          {
-            q: "دوو ڤاریەبڵێن <code>double</code> ب ناڤێ <code>x = 10.5</code> و <code>y = 2.5</code> دروست بکە و ئەنجامێ دابەشکرنا وان چاپ بکە.",
-            code: `double x = 10.5;\ndouble y = 2.5;\nConsole.WriteLine("Result: {0}", x / y);`,
-            out: `Result: 4.2`
-          },
-          {
-            q: "نیشان بدە چەوا ژمارا <code>7.25</code> ب دروستی د <code>float</code> دا دهێتە ناساندن ب رێکا پاشگرێ <code>f</code> و چاپ بکە.",
-            code: `float num = 7.25f;\nConsole.WriteLine("Float value: " + num);`,
-            out: `Float value: 7.25`
-          }
-        ]
-      },
-      {
-        num: 9,
-        title: "جۆرێ داتایێ Boolean",
-        enTitle: "C# Data Types (Boolean)",
-        summary: [
-          "ب کلیلەپەیڤا <code>bool</code> دهێتە نڤیسین و بتنێ دوو بەهایان وەردگریت: <code>true</code> یان <code>false</code>.",
-          "بەهایێ سەرەکی (Default) یێ <code>bool</code> بریتیە ژ <code>false</code>.",
-          "د گوزارشتێن لۆژیکی و بەراوردکاریێ دا دهێتە بکارئینان، و دەمێ دهێتە چاپکرن ب پیتا مەزن <code>True</code> یان <code>False</code> دەردکەڤیت."
-        ],
-        questions: [
-          {
-            q: "دوو ڤاریەبڵێن <code>int a = 1; int b = 2;</code> دروست بکە، پاشان ب <code>bool</code> بپشکنە کا ئایا <code>a > b</code> و <code>a == 1</code> دروستن و چاپ بکە.",
-            code: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nbool equalA1 = (a == 1);\nConsole.WriteLine(greaterAB);\nConsole.WriteLine(equalA1);`,
-            out: `False\nTrue`
-          },
-          {
-            q: "نمرەیێ قوتابیەکێ <code>int mark = 65;</code> خەزن بکە و ب <code>bool isPassed</code> بپشکنە کا ژ ٥٠ مەزنتر یان یەکسانە و چاپ بکە.",
-            code: `int mark = 65;\nbool isPassed = (mark >= 50);\nConsole.WriteLine(isPassed);`,
-            out: `True`
-          },
-          {
-            q: "ژییێ کەسەکی <code>int age = 16;</code> دابنێ و ب <code>bool canVote = (age >= 18);</code> ئەنجامی چاپ بکە.",
-            code: `int age = 16;\nbool canVote = (age >= 18);\nConsole.WriteLine("Can vote: " + canVote);`,
-            out: `Can vote: False`
-          },
-          {
-            q: "دوو ڤاریەبڵێن <code>bool</code> دروست بکە: <code>isOnline = true</code> و <code>isAdmin = false</code> و هەردووان چاپ بکە.",
-            code: `bool isOnline = true;\nbool isAdmin = false;\nConsole.WriteLine(isOnline);\nConsole.WriteLine(isAdmin);`,
-            out: `True\nFalse`
-          },
-          {
-            q: "بپشکنە کا ژمارا <code>10</code> دابەشی <code>2</code> دبیت بێ ماوە (<code>10 % 2 == 0</code>) و د ناڤ <code>bool isEven</code> دا خەزن بکە و چاپ بکە.",
-            code: `int num = 10;\nbool isEven = (num % 2 == 0);\nConsole.WriteLine(isEven);`,
-            out: `True`
-          }
-        ]
-      },
-      {
-        num: 10,
-        title: "جۆرێ داتایێ Char",
-        enTitle: "C# Data Types (Char)",
-        summary: [
-          "جۆرێ <code>char</code> بۆ خەزنکرنا <strong>تنێ ئێک پیت یان هێما</strong> دهێتە بکارئینان.",
-          "دڤێت بەهایێ <code>char</code> د ناڤ کەڤانێن تاک (Single quotes) وەکی <code>'B'</code> دا بیت.",
-          "بەهایێ سەرەکی (Default) یێ جۆرێ <code>char</code> بریتیە ژ <code>'\\0'</code>."
-        ],
-        questions: [
-          {
-            q: "ڤاریەبڵەکا <code>char</code> ب ناڤێ <code>myGrade</code> و بەهایێ <code>'B'</code> دروست بکە و چاپ بکە.",
-            code: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`,
-            out: `B`
-          },
-          {
-            q: "پیتا ئێکێ یا ناڤێ خۆ <code>'A'</code> و پیتا دوماهیێ <code>'Z'</code> د دوو <code>char</code> دا خەزن بکە و ل سەر دوو دێران چاپ بکە.",
-            code: `char first = 'A';\nchar last = 'Z';\nConsole.WriteLine(first);\nConsole.WriteLine(last);`,
-            out: `A\nZ`
-          },
-          {
-            q: "هێمایا دۆلار <code>'$'</code> و پیتا ژمارە <code>'5'</code> وەک <code>char</code> خەزن بکە و پێکڤە د ڕستەکێ دا چاپ بکە.",
-            code: `char currency = '$';\nchar amount = '5';\nConsole.WriteLine("Price: {0}{1}", currency, amount);`,
-            out: `Price: $5`
-          },
-          {
-            q: "دوو ڤاریەبڵێن <code>char</code> بۆ پشکا <code>'I'</code> و <code>'T'</code> دروست بکە و چاپ بکە <code>Department: IT</code>.",
-            code: `char c1 = 'I';\nchar c2 = 'T';\nConsole.WriteLine("Department: {0}{1}", c1, c2);`,
-            out: `Department: IT`
-          },
-          {
-            q: "بەهایێ ڕەگەز <code>char gender = 'M';</code> دروست بکە و ب <code>Console.WriteLine</code> چاپ بکە.",
-            code: `char gender = 'M';\nConsole.WriteLine("Gender: " + gender);`,
-            out: `Gender: M`
-          }
-        ]
-      },
-      {
-        num: 11,
-        title: "جۆرێ داتایێ String و لێکدانا دەقان",
-        enTitle: "C# Data Types (String)",
-        summary: [
-          "جۆرێ <code>string</code> زنجیرەکا پیتان (دەق/Text) د ناڤ کەڤانێن جوت <code>\" \"</code> دا هەڵدگریت.",
-          "بەهایێ سەرەکی (Default) یێ <code>string</code> بریتیە ژ <code>null</code> (بێ بەها).",
-          "دەق دشێن ب نیشانا <code>+</code> ب هەڤڕا بهێنە گرێدان (Concatenation)، و <code>\\n</code> دێرەکا نوی دەستپێدکەت."
-        ],
-        questions: [
-          {
-            q: "<code>firstName = \"Dareen\"</code> و <code>lastName = \"Muhammed\"</code> دروست بکە، ب <code>+ \" \" +</code> تێکەل بکە و چاپ بکە.",
-            code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`,
-            out: `Your full name is Dareen Muhammed.`
-          },
-          {
-            q: "ب بکارئینانا <code>\\n</code> ناڤێ <code>\"Hello, Dareen!\"</code> و دێرەکا ڤاڵا پاشان <code>\"Welcome!\"</code> چاپ بکە.",
-            code: `string name = "Dareen";\nConsole.WriteLine("Hello, {0}!\\n", name);\nConsole.WriteLine("Welcome!");`,
-            out: `Hello, Dareen!\n\nWelcome!`
-          },
-          {
-            q: "دوو <code>string</code> بۆ <code>city = \"Akre\"</code> و <code>country = \"Kurdistan\"</code> دروست بکە و چاپ بکە: <code>Akre, Kurdistan</code>.",
-            code: `string city = "Akre";\nstring country = "Kurdistan";\nConsole.WriteLine(city + ", " + country);`,
-            out: `Akre, Kurdistan`
-          },
-          {
-            q: "سێ <code>string</code> دروست بکە (<code>\"C#\"</code>، <code>\" is \"</code>، <code>\"Fun\"</code>) و ب <code>+</code> پێکڤە گرێبدە و چاپ بکە.",
-            code: `string s1 = "C#";\nstring s2 = " is ";\nstring s3 = "Fun";\nConsole.WriteLine(s1 + s2 + s3);`,
-            out: `C# is Fun`
-          },
-          {
-            q: "<code>string dept = \"IT\";</code> دروست بکە و ب فۆرماتێ <code>{0}</code> بنڤیسە <code>Welcome to IT Department</code>.",
-            code: `string dept = "IT";\nConsole.WriteLine("Welcome to {0} Department", dept);`,
-            out: `Welcome to IT Department`
-          }
-        ]
-      },
-      {
-        num: 12,
-        title: "پۆلێن ئۆپەرەیتەران ل C#",
-        enTitle: "Categories of Operators in C#",
-        summary: [
-          "ئۆپەرەیتەر بۆ جێبەجێکرنا کرداران ل سەر ڤاریەبڵ و بەهایان دهێنە بکارئینان.",
-          "پۆلێن سەرەکی: <strong>Arithmetic</strong> (<code>+ - * / % ++ --</code>)، <strong>Logical</strong> (<code>&& || ^ !</code>)، <strong>Binary</strong> (<code>& | ^ ~ << >></code>)، <strong>Comparison</strong> (<code>== != < > <= >=</code>)، <strong>Assignment</strong> (<code>= += -= ...</code>)، <strong>String Concatenation</strong> (<code>+</code>)، و <strong>Type conversion</strong> (<code>is, as, typeof</code>)."
-        ],
-        questions: [
-          {
-            q: "کۆدەکی بنڤیسە کو تێدا <code>+</code> جارەکێ بۆ کۆمکرنا دوو ژماران و جارەکێ بۆ لێکدانا دوو دەقان بکاربهێت و هەردووان چاپ بکەت.",
-            code: `int sum = 5 + 3;\nstring text = "5" + "3";\nConsole.WriteLine(sum);\nConsole.WriteLine(text);`,
-            out: `8\n53`
-          },
-          {
-            q: "نمونەکا ئۆپەرەیتەرێ Assignment (<code>+=</code>) و Comparison (<code>></code>) د ئێک پرۆگرام دا بنڤیسە و چاپ بکە.",
-            code: `int x = 10;\nx += 5;\nConsole.WriteLine(x);\nConsole.WriteLine(x > 12);`,
-            out: `15\nTrue`
-          },
-          {
-            q: "ئۆپەرەیتەرێ <code>typeof</code> بکاربینە بۆ زانینا جۆرێ <code>int</code> و چاپ بکە.",
-            code: `Console.WriteLine(typeof(int));`,
-            out: `System.Int32`
-          },
-          {
-            q: "ئۆپەرەیتەرێ لۆژیکی <code>&&</code> و ئۆپەرەیتەرێ بەراوردکاریێ <code>==</code> پێکڤە بکاربینە و چاپ بکە.",
-            code: `int a = 5;\nbool result = (a == 5) && (a < 10);\nConsole.WriteLine(result);`,
-            out: `True`
-          },
-          {
-            q: "کردارێ لێکدانێ (<code>*</code>) و ئۆپەرەیتەرێ مەرجی (<code>?:</code>) بکاربینە بۆ نیشاندانا ئەگەر ئەنجام ژ ١٠ مەزنتر بیت.",
-            code: `int n = 4 * 3;\nstring msg = (n > 10) ? "Big" : "Small";\nConsole.WriteLine(msg);`,
-            out: `Big`
-          }
-        ]
-      },
-      {
-        num: 13,
-        title: "ئۆپەرەیتەرێن ژمارەیی (Arithmetic Operators)",
-        enTitle: "Arithmetic Operators Table",
-        summary: [
-          "<code>+</code> (کۆمکرن)، <code>-</code> (لێدەرکرن)، <code>*</code> (لێکدان)، <code>/</code> (دابەشکرن)، <code>%</code> (ماوێ دابەشکرنێ / Remainder).",
-          "<code>++</code> (زێدەکرن ب ١) و <code>--</code> (کێمکرن ب ١).",
-          "نیشانا تاک <code>+</code> بەهای دپارێزیت، و <code>-</code> بەهای دکەتە نێگەتیڤ (Negation)."
-        ],
-        questions: [
-          {
-            q: "بەهایێ <code>x = 10</code> و <code>y = 2</code> دابنێ؛ ئەنجامێ کۆمکرن، لێدەرکرن، لێکدان، و دابەشکرنا وان چاپ بکە.",
-            code: `int x = 10, y = 2;\nConsole.WriteLine(x + y);\nConsole.WriteLine(x - y);\nConsole.WriteLine(x * y);\nConsole.WriteLine(x / y);`,
-            out: `12\n8\n20\n5`
-          },
-          {
-            q: "ماوێ دابەشکرنا <code>17</code> ل سەر <code>5</code> ب ئۆپەرەیتەرێ <code>%</code> حساب بکە و چاپ بکە.",
-            code: `int rem = 17 % 5;\nConsole.WriteLine(rem);`,
-            out: `2`
-          },
-          {
-            q: "ڤاریەبڵەکا <code>int count = 5;</code> دروست بکە، ب <code>count++</code> ب ١ زێدە بکە و چاپ بکە، پاشان ب <code>count--</code> کێم بکە و چاپ بکە.",
-            code: `int count = 5;\ncount++;\nConsole.WriteLine(count);\ncount--;\nConsole.WriteLine(count);`,
-            out: `6\n5`
-          },
-          {
-            q: "ئۆپەرەیتەرێ تاک یێ نێگەتیڤ (Unary minus) ل سەر <code>int a = 8;</code> جێبەجێ بکە و چاپ بکە.",
-            code: `int a = 8;\nint b = -a;\nConsole.WriteLine(b);`,
-            out: `-8`
-          },
-          {
-            q: "ماوێ دابەشکرنا <code>5 % 2</code> و <code>20 % 4</code> چاپ بکە.",
-            code: `Console.WriteLine(5 % 2);\nConsole.WriteLine(20 % 4);`,
-            out: `1\n0`
-          }
-        ]
-      },
-      {
-        num: 14,
-        title: "ئۆپەرەیتەرێن ژمارەیی: ++ پێش و پاش و دابەشکرن",
-        enTitle: "Arithmetic Simple Example (b++ vs ++b)",
-        summary: [
-          "دابەشکرنا دوو ژمارێن <code>int</code> ئەنجامێ تمام ددەت (بۆ نموونە <code>11 / 3</code> دبیتە <code>3</code>)، بەلێ دابەشکرن ل سەر <code>4.0</code> ئەنجامێ <code>double</code> ددەت.",
-          "<code>b++</code> (Postfix): بەری زێدەکرنێ بەهایێ کەڤن د دێرێ دا بکاردهێت، پاشان ب ١ زێدە دبیت.",
-          "<code>++b</code> (Prefix): بەری هەر کارەکی ب ١ زێدە دبیت، پاشان بەهایێ نوی بکاردهێت."
-        ],
-        questions: [
-          {
-            q: "کۆدەکێ بنڤیسە بۆ دۆزینەڤا درێژاهیا لایێ چوارگۆشەی و ڕووبەرێ وێ، ئەگەر چێوەیێ وێ <code>17</code> بیت.",
-            code: `int squarePerimeter = 17;\ndouble squareSide = squarePerimeter / 4.0;\ndouble squareArea = squareSide * squareSide;\nConsole.WriteLine(squareSide);\nConsole.WriteLine(squareArea);`,
-            out: `4.25\n18.0625`
-          },
-          {
-            q: "<code>int a = 5, b = 4;</code> دابنێ؛ سەرەتا <code>a + b++</code> چاپ بکە و پاشان <code>a + b</code> چاپ بکە دا جیاوازیا <code>b++</code> دیار بیت.",
-            code: `int a = 5, b = 4;\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);`,
-            out: `9\n10`
-          },
-          {
-            q: "<code>int a = 5, b = 5;</code> دابنێ؛ <code>a + (++b)</code> چاپ بکە و پاشان <code>a + b</code> چاپ بکە.",
-            code: `int a = 5, b = 5;\nConsole.WriteLine(a + (++b));\nConsole.WriteLine(a + b);`,
-            out: `11\n11`
-          },
-          {
-            q: "ئەنجامێ <code>11 / 3</code>، <code>11 % 3</code>، و <code>12 / 3</code> د سێ دێران دا چاپ بکە.",
-            code: `Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);\nConsole.WriteLine(12 / 3);`,
-            out: `3\n2\n4`
-          },
-          {
-            q: "<code>int x = 10;</code> دروست بکە و ئەنجامێ <code>x--</code> و <code>--x</code> ل دیڤ ئێک چاپ بکە.",
-            code: `int x = 10;\nConsole.WriteLine(x--);\nConsole.WriteLine(--x);`,
-            out: `10\n8`
-          }
-        ]
-      },
-      {
-        num: 15,
-        title: "ئۆپەرەیتەرێن دیارکرنا بەهای (Assignment Operators)",
-        enTitle: "Assignment Operators Table",
-        summary: [
-          "ئۆپەرەیتەرێ <code>=</code> بەهای ژ لایێ راستێ دکەتە د لایێ چەپێ دا.",
-          "ئۆپەرەیتەرێن تێکەل <code>+=</code>، <code>-=</code>، <code>*=</code>، <code>/=</code>، <code>%=</code> کردارا ژمارەیی دکەن و ئەنجامی د هەمان ڤاریەبڵ دا خەزن دکەن.",
-          "هەروەسا یێن Bitwise هەنە وەکی <code>&lt;&lt;=</code>، <code>&gt;&gt;=</code>، <code>&=</code>، <code>^=</code>، <code>|=</code>."
-        ],
-        questions: [
-          {
-            q: "ڤاریەبڵا <code>int balance = 100;</code> دروست بکە، ب <code>+=</code> ٥٠ زێدە بکە و ب <code>-=</code> ٣٠ کێم بکە و چاپ بکە.",
-            code: `int balance = 100;\nbalance += 50;\nbalance -= 30;\nConsole.WriteLine(balance);`,
-            out: `120`
-          },
-          {
-            q: "<code>int x = 6;</code> ب <code>*=</code> لێکدانی ٥ بکە، پاشان ب <code>/=</code> دابەشی ٣ بکە و چاپ بکە.",
-            code: `int x = 6;\nx *= 5;\nx /= 3;\nConsole.WriteLine(x);`,
-            out: `10`
-          },
-          {
-            q: "<code>int n = 23;</code> دابنێ و ب <code>n %= 5;</code> ماوێ دابەشکرنێ د ناڤ <code>n</code> دا خەزن بکە و چاپ بکە.",
-            code: `int n = 23;\nn %= 5;\nConsole.WriteLine(n);`,
-            out: `3`
-          },
-          {
-            q: "<code>int a = 10, b = 20, c;</code> دروست بکە؛ <code>c = a + b;</code> پاشان <code>c += 5;</code> و <code>c</code> چاپ بکە.",
-            code: `int a = 10, b = 20, c;\nc = a + b;\nc += 5;\nConsole.WriteLine(c);`,
-            out: `35`
-          },
-          {
-            q: "ب <code>double price = 50.0;</code> سەرەتا <code>price *= 2;</code> پاشان <code>price /= 4;</code> جێبەجێ بکە و چاپ بکە.",
-            code: `double price = 50.0;\nprice *= 2;\nprice /= 4;\nConsole.WriteLine(price);`,
-            out: `25`
-          }
-        ]
-      },
-      {
-        num: 16,
-        title: "نموونا تەمام یا ئۆپەرەیتەرێن دیارکرنێ",
-        enTitle: "Assignment Operators Detailed Example",
-        summary: [
-          "د سلایدێ ١٦ دا گوهۆڕینا بەهایێ <code>c</code> قۆناغ ب قۆناغ هاتیە نیشاندان ب رێکا هەمی ئۆپەرەیتەرێن دیارکرنێ.",
-          "تێبینی: ئۆپەرەیتەرێن شیفتکرن و بیتان (<code>&lt;&lt;=</code>، <code>&gt;&gt;=</code>، <code>&=</code>، <code>^=</code>، <code>|=</code>) ل سەر ژمارا دوانی (Binary) کار دکەن."
-        ],
-        questions: [
-          {
-            q: "ب <code>int a = 21; int c;</code> قۆناغ ب قۆناغ <code>c = a;</code>، <code>c += a;</code>، <code>c -= a;</code>، <code>c *= a;</code>، <code>c /= a;</code> جێبەجێ بکە و پشتی هەر قۆناغەکێ چاپ بکە.",
-            code: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("= : {0}", c);\nc += a;\nConsole.WriteLine("+= : {0}", c);\nc -= a;\nConsole.WriteLine("-= : {0}", c);\nc *= a;\nConsole.WriteLine("*= : {0}", c);\nc /= a;\nConsole.WriteLine("/= : {0}", c);`,
-            out: `= : 21\n+= : 42\n-= : 21\n*= : 441\n/= : 21`
-          },
-          {
-            q: "بەهایێ <code>c = 200;</code> دابنێ و <code>c %= 21;</code> جێبەجێ بکە و ئەنجامێ وێ چاپ بکە.",
-            code: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine("c %= a : {0}", c);`,
-            out: `c %= a : 11`
-          },
-          {
-            q: "ل سەر <code>int c = 11;</code>، ئۆپەرەیتەرێ <code>c &lt;&lt;= 2;</code> و پاشان <code>c &gt;&gt;= 2;</code> جێبەجێ بکە و پشتی هەر ئێکێ چاپ بکە.",
-            code: `int c = 11;\nc <<= 2;\nConsole.WriteLine("<<= 2 : {0}", c);\nc >>= 2;\nConsole.WriteLine(">>= 2 : {0}", c);`,
-            out: `<<= 2 : 44\n>>= 2 : 11`
-          },
-          {
-            q: "ل سەر <code>int c = 6;</code> (بیتێن 0110)، <code>c &= 3;</code> (0011) جێبەجێ بکە و ئەنجامی چاپ بکە.",
-            code: `int c = 6;\nc &= 3;\nConsole.WriteLine("&= 3 : {0}", c);`,
-            out: `&= 3 : 2`
-          },
-          {
-            q: "ل سەر <code>int c = 5;</code>، سەرەتا <code>c ^= 3;</code> چاپ بکە و پاشان <code>c |= 1;</code> چاپ بکە.",
-            code: `int c = 5;\nc ^= 3;\nConsole.WriteLine("^= 3 : {0}", c);\nc |= 1;\nConsole.WriteLine("|= 1 : {0}", c);`,
-            out: `^= 3 : 6\n|= 1 : 7`
-          }
-        ]
-      },
-      {
-        num: 17,
-        title: "کورتکرنا ئۆپەرەیتەرێن دیارکرنێ",
-        enTitle: "Assignment Operators: Short Equivalent",
-        summary: [
-          "نڤیسینا کورت <code>x += 3</code> ب تەمامی هەمان واتایا <code>x = x + 3</code> هەیە.",
-          "هەمان یاسا بۆ <code>-=</code>، <code>*=</code>، <code>/=</code>، <code>%=</code> و ئۆپەرەیتەرێن Bitwise (<code>&=</code>، <code>|=</code>، <code>^=</code>، <code>&gt;&gt;=</code>، <code>&lt;&lt;=</code>) کار دکەت."
-        ],
-        questions: [
-          {
-            q: "دەربڕینا <code>x = x + 3;</code> بگوهۆڕە بۆ شێوازێ کورت ل سەر <code>int x = 5;</code> و چاپ بکە.",
-            code: `int x = 5;\nx += 3;\nConsole.WriteLine(x);`,
-            out: `8`
-          },
-          {
-            q: "دەربڕینێن <code>x = x - 3;</code> و <code>x = x * 3;</code> ب شێوازێ کورت ل سەر <code>int x = 10;</code> بنڤیسە و چاپ بکە.",
-            code: `int x = 10;\nx -= 3;\nConsole.WriteLine(x);\nx *= 3;\nConsole.WriteLine(x);`,
-            out: `7\n21`
-          },
-          {
-            q: "دەربڕینێن <code>x = x / 3;</code> و <code>x = x % 3;</code> ب شێوازێ کورت ل سەر <code>int x = 15;</code> بنڤیسە و چاپ بکە.",
-            code: `int x = 15;\nx /= 3;\nConsole.WriteLine(x);\nx %= 3;\nConsole.WriteLine(x);`,
-            out: `5\n2`
-          },
-          {
-            q: "دەربڕینا <code>x = x &amp; 3;</code> ب شێوازێ کورت ل سەر <code>int x = 7;</code> بنڤیسە و چاپ بکە.",
-            code: `int x = 7;\nx &= 3;\nConsole.WriteLine(x);`,
-            out: `3`
-          },
-          {
-            q: "دەربڕینێن <code>x = x &lt;&lt; 3;</code> و <code>x = x &gt;&gt; 3;</code> ب شێوازێ کورت ل سەر <code>int x = 2;</code> بنڤیسە و چاپ بکە.",
-            code: `int x = 2;\nx <<= 3;\nConsole.WriteLine(x);\nx >>= 3;\nConsole.WriteLine(x);`,
-            out: `16\n2`
-          }
-        ]
-      },
-      {
-        num: 18,
-        title: "چاپکرنا راستەوخۆ یا ئۆپەرەیتەرێن دیارکرنێ",
-        enTitle: "Assignment Operators Example 2",
-        summary: [
-          "دشێین ئۆپەرەیتەرێ دیارکرنێ راستەوخۆ د ناڤ <code>Console.WriteLine(x += 3);</code> دا بنڤیسین؛ هەم بەهای دگوهۆڕیت و هەم چاپ دکەت.",
-          "ئاگەهداری: د ناڤ ئێک بڵۆکێ کۆدی دا نابیت هەمان ڤاریەبڵ دوو جاران ب <code>int y</code> بهێتە راگەهاندن، بتنێ جارا دووێ دێ نڤیسین <code>y = 3;</code>."
-        ],
-        questions: [
-          {
-            q: "ب <code>int x = 6;</code> ئەنجامێ <code>x += 3</code>، <code>x -= 3</code>، <code>x /= 2</code>، و <code>x *= 3</code> راستەوخۆ د ناڤ <code>Console.WriteLine</code> دا چاپ بکە.",
-            code: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`,
-            out: `9\n6\n3\n9`
-          },
-          {
-            q: "<code>int y = 4;</code> دروست بکە؛ <code>Console.WriteLine(y *= 2);</code> بنڤیسە، پاشان بەهایێ <code>y</code> بکە <code>3</code> و چاپ بکە.",
-            code: `int y = 4;\nConsole.WriteLine(y *= 2);\ny = 3;\nConsole.WriteLine(y);`,
-            out: `8\n3`
-          },
-          {
-            q: "<code>int a = 10;</code> دابنێ و راستەوخۆ <code>a += 5</code>، <code>a %= 4</code>، و <code>a *= 10</code> د <code>Console.WriteLine</code> دا چاپ بکە.",
-            code: `int a = 10;\nConsole.WriteLine(a += 5);\nConsole.WriteLine(a %= 4);\nConsole.WriteLine(a *= 10);`,
-            out: `15\n3\n30`
-          },
-          {
-            q: "<code>int p = 20;</code> دابنێ و راستەوخۆ <code>p -= 8</code>، <code>p /= 3</code>، و <code>p += 1</code> چاپ بکە.",
-            code: `int p = 20;\nConsole.WriteLine(p -= 8);\nConsole.WriteLine(p /= 3);\nConsole.WriteLine(p += 1);`,
-            out: `12\n4\n5`
-          },
-          {
-            q: "<code>int score = 50;</code> دابنێ و راستەوخۆ <code>score += 25</code> پاشان <code>score -= 10</code> د ناڤ <code>Console.WriteLine</code> دا چاپ بکە.",
-            code: `int score = 50;\nConsole.WriteLine(score += 25);\nConsole.WriteLine(score -= 10);`,
-            out: `75\n65`
-          }
-        ]
-      },
-      {
-        num: 19,
-        title: "ئۆپەرەیتەرێن بەراوردکاریێ (Comparison Operators)",
-        enTitle: "Comparison Operators Table",
-        summary: [
-          "بۆ بەراوردکرنا دوو بەهایان دهێنە بکارئینان و ئەنجامێ وان هەردەم <code>bool</code> یە (<code>True</code> یان <code>False</code>).",
-          "یەکسانە (<code>==</code>)، نەیەکسانە (<code>!=</code>)، مەزنتر (<code>&gt;</code>)، بچویکتر (<code>&lt;</code>)، مەزنتر یان یەکسان (<code>&gt;=</code>)، بچویکتر یان یەکسان (<code>&lt;=</code>)."
-        ],
-        questions: [
-          {
-            q: "<code>int x = 10, y = 20;</code> دابنێ؛ بەراوردیا <code>x == y</code> و <code>x != y</code> چاپ بکە.",
-            code: `int x = 10, y = 20;\nConsole.WriteLine(x == y);\nConsole.WriteLine(x != y);`,
-            out: `False\nTrue`
-          },
-          {
-            q: "<code>int x = 15, y = 15;</code> دابنێ؛ ئەنجامێ <code>x &gt; y</code> و <code>x &gt;= y</code> چاپ بکە.",
-            code: `int x = 15, y = 15;\nConsole.WriteLine(x > y);\nConsole.WriteLine(x >= y);`,
-            out: `False\nTrue`
-          },
-          {
-            q: "<code>int a = 8, b = 12;</code> دابنێ؛ ئەنجامێ <code>a &lt; b</code> و <code>a &lt;= 8</code> چاپ بکە.",
-            code: `int a = 8, b = 12;\nConsole.WriteLine(a < b);\nConsole.WriteLine(a <= 8);`,
-            out: `True\nTrue`
-          },
-          {
-            q: "دوو پیتان <code>char c1 = 'A', c2 = 'B';</code> ب <code>==</code> و <code>!=</code> بەراورد بکە و چاپ بکە.",
-            code: `char c1 = 'A', c2 = 'B';\nConsole.WriteLine(c1 == c2);\nConsole.WriteLine(c1 != c2);`,
-            out: `False\nTrue`
-          },
-          {
-            q: "ژییێ کەسەکی <code>int age = 18;</code> دابنێ؛ بپشکنە کا <code>age &gt;= 18</code> و <code>age &lt; 18</code> و چاپ بکە.",
-            code: `int age = 18;\nConsole.WriteLine(age >= 18);\nConsole.WriteLine(age < 18);`,
-            out: `True\nFalse`
-          }
-        ]
-      },
-      {
-        num: 20,
-        title: "نموونا ئۆپەرەیتەرێن بەراوردکاریێ دگەل ++",
-        enTitle: "Comparison Operators Simple Example",
-        summary: [
-          "دەمێ <code>++b</code> د ناڤ بەراوردیێ دا بکاردهێت، سەرەتا بەهایێ <code>b</code> زێدە دبیت پاشان بەراوردی دهێتە کرن.",
-          "بۆ نموونە ئەگەر <code>a = 5</code> و <code>b = 4</code> بن، د <code>a != ++b</code> دا <code>b</code> دبیتە <code>5</code> و <code>5 != 5</code> دبیتە <code>False</code>، و پشتی وێ <code>a &gt; b</code> ژی دبیتە <code>False</code>!"
-        ],
-        questions: [
-          {
-            q: "<code>int a = 5, b = 4;</code> دابنێ و ئەنجامێ <code>a &gt;= b</code>، <code>a != b</code>، و <code>a == b</code> چاپ بکە.",
-            code: `int a = 5, b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);\nConsole.WriteLine(a == b);`,
-            out: `True\nTrue\nFalse`
-          },
-          {
-            q: "<code>int a = 5, b = 4;</code> دابنێ؛ سەرەتا <code>a != ++b</code> چاپ بکە پاشان <code>a &gt; b</code> چاپ بکە.",
-            code: `int a = 5, b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`,
-            out: `False\nFalse`
-          },
-          {
-            q: "<code>int x = 10, y = 10;</code> دابنێ؛ سەرەتا <code>x == y++</code> چاپ بکە و پاشان <code>x == y</code> چاپ بکە.",
-            code: `int x = 10, y = 10;\nConsole.WriteLine(x == y++);\nConsole.WriteLine(x == y);`,
-            out: `True\nFalse`
-          },
-          {
-            q: "<code>int m = 7, n = 8;</code> دابنێ؛ ئەنجامێ <code>m &lt; n</code> و <code>++m == n</code> چاپ بکە.",
-            code: `int m = 7, n = 8;\nConsole.WriteLine(m < n);\nConsole.WriteLine(++m == n);`,
-            out: `True\nTrue`
-          },
-          {
-            q: "<code>int p = 3, q = 5;</code> دابنێ؛ ئەنجامێ <code>p &gt;= --q</code> و <code>p &lt;= q</code> چاپ بکە.",
-            code: `int p = 3, q = 5;\nConsole.WriteLine(p >= --q);\nConsole.WriteLine(p <= q);`,
-            out: `False\nTrue`
-          }
-        ]
-      },
-      {
-        num: 21,
-        title: "ئۆپەرەیتەرێن لۆژیکی: AND, OR, NOT",
-        enTitle: "Logical Operators (&&, ||, !)",
-        summary: [
-          "ئۆپەرەیتەرێن لۆژیکی بەهایێن Boolean وەردگرن و ئەنجامێ <code>bool</code> دزڤڕینن.",
-          "<code>&&</code> (Logical AND - و): <code>True</code> یە <strong>بتنێ</strong> ئەگەر هەردوو مەرج <code>True</code> بن.",
-          "<code>||</code> (Logical OR - یان): <code>True</code> یە ئەگەر <strong>ل کێمی ئێک</strong> ژ مەرجان <code>True</code> بیت.",
-          "<code>!</code> (Logical NOT - نە): ئەنجامی بەروڤاژی دکەت (<code>true</code> دکەتە <code>false</code> و ب بەروڤاژی)."
-        ],
-        questions: [
-          {
-            q: "ب <code>int x = 7;</code> بپشکنە کا <code>x &gt; 5 &amp;&amp; x &lt; 10</code> دروستە و ئەنجامی چاپ بکە.",
-            code: `int x = 7;\nConsole.WriteLine(x > 5 && x < 10);`,
-            out: `True`
-          },
-              {
-          q: "<code>int x = 3;</code> بپشکنە کا <code>x &lt; 5 || x &lt; 4</code> چاپ بکە",
-          code: "int x = 3;\nConsole.WriteLine(x < 5 || x < 4);",
-          out: "True"
-        }
-      ]
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function render() {
+  const selectedSlide = slideFilter.value;
+  const query = searchInput.value.trim().toLowerCase();
+  root.innerHTML = "";
+
+  let totalShown = 0;
+  let globalIndex = 0;
+
+  slidesData.forEach(slideObj => {
+    if (selectedSlide !== "all" && String(slideObj.slide) !== selectedSlide) {
+      globalIndex += slideObj.questions.length;
+      return;
     }
-    
+
+    const matchedQuestions = [];
+    slideObj.questions.forEach((q, idx) => {
+      globalIndex++;
+      const hay = (q.en + " " + q.ku + " " + q.code).toLowerCase();
+      if (!query || hay.includes(query)) {
+        matchedQuestions.push({ q, qNum: globalIndex, slideQNum: idx + 1 });
+      }
+    });
+
+    if (matchedQuestions.length === 0) return;
+
+    const group = document.createElement("div");
+    group.className = "slide-group";
+
+    const header = document.createElement("div");
+    header.className = "slide-header";
+    header.innerHTML = `<span>${slideObj.kuTitle}</span><span style="direction:ltr;font-size:0.88rem;opacity:0.9;">${slideObj.title}</span>`;
+    group.appendChild(header);
+
+    matchedQuestions.forEach(({ q, qNum, slideQNum }) => {
+      totalShown++;
+      const card = document.createElement("div");
+      card.className = "q-card";
+
+      const solClass = allSolutionsVisible ? "solution-box" : "solution-box hidden";
+      const btnText = allSolutionsVisible ? "ڤەشارتنا بەرسڤێ" : "نیشادانا بەرسڤێ";
+
+      card.innerHTML = `
+        <div class="q-top">
+          <span class="q-num">پسیارا #${qNum} (سلاید ${slideObj.slide} - ${slideQNum}/5)</span>
+          <button class="toggle-btn" onclick="toggleSingle(this)">${btnText}</button>
+        </div>
+        <div class="q-en">${escapeHtml(q.en)}</div>
+        <div class="q-ku">${escapeHtml(q.ku)}</div>
+        <div class="${solClass}">
+          <div class="code-wrap">
+            <button class="copy-btn" onclick="copyCode(this)">Copy C#</button>
+            <pre><code>${escapeHtml(q.code)}</code></pre>
+          </div>
+          <div class="output-box"><span class="output-label">Output (ئەنجام ل سەر شاشێ):</span>${escapeHtml(q.out)}</div>
+        </div>
+      `;
+      group.appendChild(card);
+    });
+
+    root.appendChild(group);
+  });
+
+  statsEl.textContent = `ژمارا پسیارێن نیشاندای: ${totalShown} ژ ١٠٠ پسیاران`;
+}
+
+window.toggleSingle = function(btn) {
+  const card = btn.closest(".q-card");
+  const sol = card.querySelector(".solution-box");
+  sol.classList.toggle("hidden");
+  btn.textContent = sol.classList.contains("hidden") ? "نیشادانا بەرسڤێ" : "ڤەشارتنا بەرسڤێ";
+};
+
+window.copyCode = function(btn) {
+  const code = btn.nextElementSibling.innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const old = btn.textContent;
+    btn.textContent = "Copied!";
+    btn.style.background = "#16a34a";
+    setTimeout(() => {
+      btn.textContent = old;
+      btn.style.background = "";
+    }, 1200);
+  });
+};
+
+toggleAllBtn.addEventListener("click", () => {
+  allSolutionsVisible = !allSolutionsVisible;
+  toggleAllBtn.textContent = allSolutionsVisible ? "ڤەشارتنا هەمی بەرسڤان" : "نیشادانا هەمی بەرسڤان";
+  render();
+});
+
+slideFilter.addEventListener("change", render);
+searchInput.addEventListener("input", render);
+
+render();
+</script>
+</body>
+</html>
