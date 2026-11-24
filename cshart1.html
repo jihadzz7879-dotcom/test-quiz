@@ -6,717 +6,598 @@
   <title>کوردۆلۆجی | پوختە و پرسیار (سلاید ١ تا ١٩)</title>
   <style>
     :root {
-      --bg: #f4f7f6;
-      --surface: #ffffff;
-      --surface-alt: #f8fafc;
-      --text: #1e293b;
-      --text-muted: #475569;
-      --primary: #0f766e;
-      --primary-dark: #115e59;
-      --primary-light: #ccfbf1;
-      --accent: #d97706;
-      --accent-bg: #fef3c7;
-      --border: #e2e8f0;
-      --success: #15803d;
-      --success-bg: #dcfce7;
-      --danger: #b91c1c;
-      --danger-bg: #fee2e2;
-      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-      --radius: 16px;
+      --bg: #f1f5f9; --card: #ffffff; --alt: #f8fafc; --txt: #0f172a; --muted: #475569;
+      --pri: #0f766e; --pri-d: #115e59; --pri-l: #ccfbf1;
+      --acc: #b45309; --acc-bg: #fef3c7; --bdr: #cbd5e1;
+      --ok: #15803d; --ok-bg: #dcfce7; --err: #b91c1c; --err-bg: #fee2e2;
     }
-
     body.dark {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface-alt: #0f172a;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --primary: #14b8a6;
-      --primary-dark: #2dd4bf;
-      --primary-light: rgba(20, 184, 166, 0.16);
-      --accent: #fbbf24;
-      --accent-bg: rgba(251, 191, 36, 0.14);
-      --border: #334155;
-      --success: #4ade80;
-      --success-bg: rgba(74, 222, 128, 0.14);
-      --danger: #f87171;
-      --danger-bg: rgba(248, 113, 113, 0.14);
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      --bg: #0f172a; --card: #1e293b; --alt: #0f172a; --txt: #f1f5f9; --muted: #94a3b8;
+      --pri: #14b8a6; --pri-d: #2dd4bf; --pri-l: rgba(20,184,166,0.16);
+      --acc: #fbbf24; --acc-bg: rgba(251,191,36,0.15); --bdr: #334155;
+      --ok: #4ade80; --ok-bg: rgba(74,222,128,0.15); --err: #f87171; --err-bg: rgba(248,113,113,0.15);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
-      transition: background 0.25s, color 0.25s;
-      padding-bottom: 60px;
-    }
-
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #0f766e, #064e3b);
-      color: #fff;
-      padding: 26px 20px 22px;
-      text-align: center;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
-    }
-    header h1 {
-      font-size: 1.75rem;
-      margin-bottom: 6px;
-      font-weight: 800;
-    }
-    header p {
-      font-size: 0.98rem;
-      opacity: 0.92;
-    }
-    .badge-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .header-badge {
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    /* Sticky Toolbar */
-    .toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 16px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    .toolbar-inner {
-      max-width: 1050px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .controls-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .btn {
-      background: var(--surface-alt);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 7px 13px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.86rem;
-      font-weight: 600;
-      font-family: inherit;
-      transition: all 0.18s;
-    }
-    .btn:hover { border-color: var(--primary); color: var(--primary); }
-    .btn.primary {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    .btn.primary:hover { opacity: 0.9; color: #fff; }
-    .btn.active {
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      border-color: var(--primary);
-    }
-
-    .score-pill {
-      background: var(--accent-bg);
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.88rem;
-    }
-
-    /* Slide Navigation Pills */
-    .nav-bar {
-      max-width: 1050px;
-      margin: 16px auto 8px;
-      padding: 0 16px;
-    }
-    .search-box {
-      width: 100%;
-      padding: 11px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-      outline: none;
-    }
-    .search-box:focus { border-color: var(--primary); }
-    .slide-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: center;
-    }
-    .slide-pill {
-      text-decoration: none;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      transition: all 0.15s;
-    }
-    .slide-pill:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* Main Container */
-    main {
-      max-width: 1050px;
-      margin: 18px auto;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* Slide Card */
-    .slide-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .slide-header {
-      background: var(--primary-light);
-      border-bottom: 2px solid var(--primary);
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .slide-num {
-      background: var(--primary);
-      color: #fff;
-      padding: 3px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 800;
-    }
-    .slide-title {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-      flex: 1;
-      margin-right: 10px;
-    }
-
-    .slide-body { padding: 20px; }
-
-    /* Summary Box */
-    .summary-section h3 {
-      font-size: 1rem;
-      color: var(--primary-dark);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .summary-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .summary-list li {
-      background: var(--surface-alt);
-      border-right: 4px solid var(--primary);
-      padding: 9px 14px;
-      border-radius: 8px;
-      font-size: 0.96rem;
-    }
-    .summary-list li strong { color: var(--primary-dark); }
-
-    /* Important Note Box */
-    .note-box {
-      margin-top: 14px;
-      background: var(--accent-bg);
-      border: 1px solid var(--accent);
-      border-right: 5px solid var(--accent);
-      padding: 11px 15px;
-      border-radius: 10px;
-      font-size: 0.93rem;
-    }
-    .note-box strong { color: var(--accent); }
-
-    /* Questions Section */
-    .quiz-section {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 2px dashed var(--border);
-    }
-    .quiz-section h3 {
-      font-size: 1.02rem;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    .q-item {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 15px;
-      margin-bottom: 11px;
-    }
-    .q-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 9px;
-    }
-    .q-text { font-weight: 700; font-size: 0.95rem; }
-    .q-type {
-      font-size: 0.75rem;
-      padding: 2px 9px;
-      border-radius: 999px;
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 8px;
-    }
-    .opt-btn {
-      text-align: right;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: all 0.15s;
-    }
-    .opt-btn:hover { border-color: var(--primary); }
-    .opt-btn.correct {
-      background: var(--success-bg);
-      border-color: var(--success);
-      color: var(--success);
-      font-weight: 700;
-    }
-    .opt-btn.wrong {
-      background: var(--danger-bg);
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-
-    .blank-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .blank-input {
-      padding: 7px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.9rem;
-      min-width: 190px;
-    }
-    .answer-reveal {
-      display: none;
-      margin-top: 8px;
-      padding: 6px 11px;
-      border-radius: 8px;
-      background: var(--success-bg);
-      color: var(--success);
-      font-weight: 700;
-      font-size: 0.89rem;
-    }
-    .answer-reveal.show { display: block; }
-
-    /* Mode Visibility */
-    body.hide-summary .summary-wrap { display: none; }
-    body.hide-quiz .quiz-section { display: none; }
-
-    /* Print */
-    @media print {
-      .toolbar, .nav-bar, .btn { display: none !important; }
-      body { background: #fff; color: #000; }
-      .slide-card { box-shadow: none; break-inside: avoid; margin-bottom: 16px; }
-      .answer-reveal { display: block !important; }
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.35rem; }
-      .slide-title { font-size: 1.05rem; }
-      .options-grid { grid-template-columns: 1fr; }
-    }
+    body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.75; padding-bottom: 50px; }
+    header { background: linear-gradient(135deg, #0f766e, #064e3b); color: #fff; padding: 18px 14px; text-align: center; }
+    header h1 { font-size: 1.35rem; margin-bottom: 4px; }
+    header p { font-size: 0.88rem; opacity: 0.92; }
+    .top-bar { max-width: 980px; margin: 12px auto; padding: 0 12px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; }
+    .btn { background: var(--card); color: var(--txt); border: 1px solid var(--bdr); padding: 6px 11px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 700; font-family: inherit; }
+    .btn.pri { background: var(--pri); color: #fff; border-color: var(--pri); }
+    .score { background: var(--acc-bg); color: var(--acc); border: 1px solid var(--acc); padding: 5px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 800; }
+    .nav-wrap { max-width: 980px; margin: 10px auto; padding: 0 12px; }
+    .search { width: 100%; padding: 9px 13px; border-radius: 10px; border: 1px solid var(--bdr); background: var(--card); color: var(--txt); font-family: inherit; margin-bottom: 8px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+    .pills a { text-decoration: none; background: var(--card); color: var(--txt); border: 1px solid var(--bdr); padding: 3px 9px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; }
+    .pills a:hover { background: var(--pri); color: #fff; }
+    main { max-width: 980px; margin: 14px auto; padding: 0 12px; display: flex; flex-direction: column; gap: 18px; }
+    .card { background: var(--card); border: 1px solid var(--bdr); border-radius: 14px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.05); }
+    .card-h { background: var(--pri-l); border-bottom: 2px solid var(--pri); padding: 11px 15px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .s-num { background: var(--pri); color: #fff; padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; }
+    .s-title { font-size: 1.05rem; font-weight: 800; color: var(--pri-d); }
+    .card-b { padding: 14px; }
+    .sum-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .sum-list li { background: var(--alt); border-right: 4px solid var(--pri); padding: 8px 11px; border-radius: 7px; font-size: 0.92rem; }
+    .sum-list strong { color: var(--pri-d); }
+    .note { margin-top: 11px; background: var(--acc-bg); border: 1px solid var(--acc); border-right: 5px solid var(--acc); padding: 9px 12px; border-radius: 9px; font-size: 0.88rem; }
+    .quiz { margin-top: 15px; padding-top: 13px; border-top: 2px dashed var(--bdr); }
+    .quiz h4 { font-size: 0.95rem; margin-bottom: 10px; color: var(--pri-d); }
+    .q { background: var(--alt); border: 1px solid var(--bdr); border-radius: 10px; padding: 10px 12px; margin-bottom: 9px; }
+    .q-t { font-weight: 700; font-size: 0.9rem; margin-bottom: 7px; display: flex; justify-content: space-between; gap: 8px; }
+    .tag { font-size: 0.72rem; background: var(--pri-l); color: var(--pri-d); padding: 2px 7px; border-radius: 999px; white-space: nowrap; height: fit-content; }
+    .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px; }
+    .opt { text-align: right; background: var(--card); color: var(--txt); border: 1px solid var(--bdr); padding: 7px 10px; border-radius: 7px; cursor: pointer; font-family: inherit; font-size: 0.86rem; }
+    .opt.ok { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); font-weight: 700; }
+    .opt.err { background: var(--err-bg); border-color: var(--err); color: var(--err); }
+    details.ans { margin-top: 7px; }
+    details.ans summary { cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--pri-d); }
+    .ans-txt { margin-top: 4px; padding: 5px 9px; background: var(--ok-bg); color: var(--ok); border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
+    body.hide-sum .sum-wrap { display: none; }
+    body.hide-quiz .quiz { display: none; }
+    @media print { .top-bar, .nav-wrap { display: none; } details.ans { display: block; } }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>پوختەیا تەمام یا کوردۆلۆجی (سلاید ١ تا ١٩)</h1>
-  <p>ئامادەکرن ب کورتترین و گشتگیرترین شێوە بۆ ئەزموونێ — سلایدێن ١ تا ١٩ بتنێ داخڵن</p>
-  <div class="badge-row">
-    <span class="header-badge">📚 ١٩ سلاید ١٠٠٪ تەمام</span>
-    <span class="header-badge">⭐ تێبینیێن گرنگ</span>
-    <span class="header-badge">📝 ٩٥ پرسیار (هەلبژارتن + راست و خەلەت + بۆشایی)</span>
-  </div>
+  <h1>پوختەیا کوردۆلۆجی (سلاید ١ تا ١٩ بتنێ)</h1>
+  <p>هەمی زانیاریێن گرنگ ١٠٠٪ + تێبینی + ٩٥ پرسیار (بۆ هەر سلایدەکێ ٥ پرسیار)</p>
 </header>
 
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <div class="controls-group">
-      <button class="btn active" id="modeBoth" onclick="setMode('both')">هەمی (پوختە + پرسیار)</button>
-      <button class="btn" id="modeSummary" onclick="setMode('summary')">پوختە بتنێ</button>
-      <button class="btn" id="modeQuiz" onclick="setMode('quiz')">پرسیار بتنێ</button>
-      <button class="btn primary" id="toggleAllAnsBtn" onclick="toggleAllAnswers()">نیشاندانا هەمی بەرسڤان</button>
-    </div>
-    <div class="controls-group">
-      <span class="score-pill" id="scoreDisplay">خالا تە: 0 / 95</span>
-      <button class="btn" onclick="changeFont(1)">A+</button>
-      <button class="btn" onclick="changeFont(-1)">A-</button>
-      <button class="btn" onclick="document.body.classList.toggle('dark')">🌙 شەڤ/رۆژ</button>
-      <button class="btn" onclick="window.print()">🖨️ چاپ</button>
-    </div>
+<div class="top-bar">
+  <button class="btn pri" onclick="setMode('both')">هەمی</button>
+  <button class="btn" onclick="setMode('sum')">پوختە بتنێ</button>
+  <button class="btn" onclick="setMode('quiz')">پرسیار بتنێ</button>
+  <button class="btn" onclick="toggleAllAns()">نیشاندان/ڤەشارتنا بەرسڤان</button>
+  <span class="score" id="scoreBox">خال: 0 / 95</span>
+  <button class="btn" onclick="document.body.classList.toggle('dark')">🌙 شەڤ</button>
+  <button class="btn" onclick="window.print()">🖨️ چاپ</button>
+</div>
+
+<div class="nav-wrap">
+  <input class="search" id="srch" type="text" placeholder="🔍 ل هەر پەیڤەکێ یان سالەکێ بگەرە..." oninput="doSearch()" />
+  <div class="pills">
+    <a href="#s1">١</a><a href="#s2">٢</a><a href="#s3">٣</a><a href="#s4">٤</a><a href="#s5">٥</a>
+    <a href="#s6">٦</a><a href="#s7">٧</a><a href="#s8">٨</a><a href="#s9">٩</a><a href="#s10">١٠</a>
+    <a href="#s11">١١</a><a href="#s12">١٢</a><a href="#s13">١٣</a><a href="#s14">١٤</a><a href="#s15">١٥</a>
+    <a href="#s16">١٦</a><a href="#s17">١٧</a><a href="#s18">١٨</a><a href="#s19">١٩</a>
   </div>
 </div>
 
-<div class="nav-bar">
-  <input type="text" class="search-box" id="searchInput" placeholder="🔍 ل پەیڤەکێ، ناڤەکی یان سالەکێ بگەرە د هەمی سلایدان دا..." oninput="filterSlides()" />
-  <div class="slide-pills" id="slidePills"></div>
-</div>
+<main id="mainList">
 
-<main id="slidesContainer"></main>
+<!-- SLIDE 1 -->
+<section class="card" id="s1">
+  <div class="card-h"><span class="s-num">سلاید ١</span><h2 class="s-title">دەرازینک (کوردۆلۆجی - وەرزێ یەکەم)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>بڕیارا خواندنێ:</strong> پشتی راپەڕینا گەلێ کورد ل سالا <strong>١٩٩١</strong> و هەلبژارتنا پەرلەمان و دامەزراندنا یەکەم کابینەیا حکومەتا کوردستانێ، بریار هاتە دان بابەتێ (کوردۆلۆجی) ل هەمی زانکۆ و پەیمانگەهان ل <strong>قۆناغا یەکەم</strong> بهێتە خواندن.</li>
+        <li><strong>کوردۆلۆجی یان کوردناسی:</strong> ژ <strong>مێژوو، زمان، ئەدەب، جوگرافیا، ئەتنۆگرافیا و کەلتورێ</strong> مللەتێ کورد دکۆڵیتەڤە.</li>
+        <li><strong>دەستپێکرن:</strong> کوردناسێن بیانی پێش کوردان دەست ب لێکۆڵینێ کر، دواتر کوردناسێن کورد هاتن.</li>
+        <li><strong>خزمەت و زیان:</strong> بیانیان خزمەتا فۆلکلۆر و زمانی کریە و بەلگەنامەیا مێژوویینە، بەلێ گەلەک جاران زیان گەهاندیە و بێ بەلگە و بێ بنەما لسەر نەژاد و نەتەوەیێ کورد گۆتینە؛ لەوما پێدڤییە کورد ب عەقلانە و رەخنەیەکا بابەتیانە پێداچوونێ بکەن.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> کوردناسێن <strong>بیانی</strong> پێش کوردان دەست پێ کر. سالا راپەڕینێ <strong>١٩٩١</strong> و قۆناغا خواندنێ <strong>قۆناغا یەکەم</strong>ە.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١</h4>
+      <div class="q"><div class="q-t"><span>١. بابەتێ کوردۆلۆجی ل زانکۆ و پەیمانگەهێن کوردستانێ بۆ کیژ قۆناغێ هاتە بڕیاردان؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) قۆناغا یەکەم</button><button class="opt" onclick="ans(this,0)">ب) قۆناغا دووەم</button><button class="opt" onclick="ans(this,0)">ج) قۆناغا سێیەم</button><button class="opt" onclick="ans(this,0)">د) قۆناغا چوارەم</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) قۆناغا یەکەم</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. کوردۆلۆجی ژ کیژ ژ ئەڤان بابەتان دکۆڵیتەڤە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) مێژوو و زمان و ئەدەب بتنێ</button><button class="opt" onclick="ans(this,0)">ب) جوگرافیا و ئەتنۆگرافیا بتنێ</button><button class="opt" onclick="ans(this,0)">ج) کەلتور بتنێ</button><button class="opt" onclick="ans(this,1)">د) هەمی پێکڤە راستن</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ د) هەمی پێکڤە راستن</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. کوردناسێن کورد بەری کوردناسێن بیانی دەست ب لێکۆڵینێ لسەر کوردان کر.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — بیانی بەری کوردان بوون.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. هەولێن کوردناسێن بیانی هەمی دەمێ بێ زیان بوون و ب بەلگە لسەر نەژادێ کورد گۆتینە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — گەلەک جاران بێ بەلگە و بێ بنەما گۆتینە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. بڕیارا خواندنا کوردۆلۆجی پشتی راپەڕینا گەلێ کورد ل سالا _____ هاتە دان.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ ١٩٩١</div></details></div>
+    </div>
+  </div>
+</section>
 
-<script>
-const slidesData = [
-  {
-    id: 1,
-    title: "دەرازینک (پێشەکی لسەر کوردۆلۆجی - وەرزێ ئێکەم)",
-    points: [
-      "<strong>بڕیارا خواندنا کوردۆلۆجی:</strong> پشتی راپەرینا گەلێ کورد ل سالا <strong>١٩٩١</strong>، هەلبژارتنا پەرلەمان و دامەزراندنا یەکەم کابینەیا حکومەتا کوردستانێ، بریار هاتە دان بابەتێ (کوردۆلۆجی) د تەواوا زانکۆ و پەیمانگەهێن کوردستانێ دا ل <strong>قۆناغا یەکەم</strong> بهێتە خواندن.",
-      "<strong>کوردۆلۆجی (کوردناسی) چییە؟</strong> ژ <strong>مێژوو، زمان، ئەدەب، جوگرافیا، ئەتنۆگرافیا و کەلتورێ</strong> مللەتێ کورد دکۆڵیتەڤە.",
-      "<strong>کوردناسێن بیانی و کورد:</strong> بیانییان بەری کوردان دەست ب لێکۆڵینێ لسەر کوردان کر، پاشان کوردناسێن کورد هاتن.",
-      "<strong>خزمەت و زیانێن بیانیان:</strong> کارەکێ پیرۆز و خزمەتەکا باش بۆ زمان و فۆلکلۆر کریە و بەلگەنامەیا مێژوویینە، بەلێ گەلەک جاران زیان گەهاندیە و بێ بەلگە و بێ بنەما لسەر نەژاد و نەتەوەیێ کورد گۆتینە.",
-      "<strong>ئەرکێ مە:</strong> پێدڤییە کورد ب عەقلانە و رەخنەیەکا بابەتیانە پێداچوونێ ب کارێن وان دا بکەن و وەک خۆ بنڤیسنەڤە."
-    ],
-    note: "گەلەک جاران دهێتە پرسین: ئەرێ بیانییان بەری کوردان دەست پێ کر یان کوردان؟ بەرسڤ: <strong>بیانییان بەری کوردان</strong> دەست ب لێکۆڵینێ کریە.",
-    questions: [
-      { type: "mcq", q: "بریارا خواندنا بابەتێ کوردۆلۆجی ل زانکۆ و پەیمانگەهێن کوردستانێ بۆ کیژ قۆناغێ هاتە دان؟", options: ["قۆناغا یەکەم", "قۆناغا دووەم", "قۆناغا سێیەم", "هەمی قۆناغان"], ans: 0 },
-      { type: "mcq", q: "کوردۆلۆجی یان کوردناسی ژ کیژ ژ ئەڤان بابەتان دکۆڵیتەڤە؟", options: ["مێژوو و زمان و ئەدەب", "جوگرافیا و ئەتنۆگرافیا", "کەلتورێ مللەتێ کورد", "هەمی بەرسڤ راستن"], ans: 3 },
-      { type: "tf", q: "کوردناسێن کورد بەری کوردناسێن بیانی دەست ب لێکۆڵینێ لسەر کورد و نەتەوەبوونا کورد کریە.", ans: false, explain: "خەلەتە: کوردناسێن بیانی بەری کوردان دەست پێ کر." },
-      { type: "tf", q: "هەول و تۆژینەوەی کوردناسێن بیانی گەلەک جاران زیان ژی بۆ کورد هەبوویە چونکی بێ بەلگە و بێ بنەما لسەر نەژادێ کورد گۆتینە.", ans: true, explain: "راستە." },
-      { type: "blank", q: "بریارا خواندنا بابەتێ کوردۆلۆجی پشتی راپەرینا سالا _____ و دامەزراندنا یەکەم کابینەیا حکومەتا کوردستانێ هاتە دان.", ans: "١٩٩١ / 1991" }
-    ]
-  },
-  {
-    id: 2,
-    title: "زاراڤ و مێژوویا کوردستانێ",
-    points: [
-      "<strong>بنیاتێ زاراڤێ (کوردستان):</strong> پەیڤەکا دارێتی یە ژ (<strong>کورد</strong> = نەتەوا کورد + <strong>ستان</strong> = ئاخا کورد لسەر دژین)، واتە جهێ کوردان یان ئاخا کوردان ب زاراڤێ (جوگرافی و نەتەوەیی). بۆچوونەکا دی دبێژیت وشەکا فارسی یە (کورد+ستان = وەلاتێ کوردان).",
-      "<strong>ناڤێن کوردستانێ د کەڤندا:</strong> عیلام، سوپارتو، کوتی، میدی، وەلاتێ دناڤبەرا هەردوو رووباران. <strong>مانا وشا کورد/کوردستان:</strong> چەلەنگ، زیرەک، سەگڤان.",
-      "<strong>مێژوویا مرۆڤ و شارستانیەتێ:</strong> هەر ژ <strong>٤٠ تا ٦٠ هزار سالان بەری زایینی</strong> ئاڤەدانی لسەر هەبوو. لدویڤ سەرچاوێن ئایینی (تەورات، ئینجیل، قورئان) ئەڤ وەلاتە <strong>لاندکا مرۆڤان</strong> بوویە (ئادەم و حەوا، نوح، ئیبراهیم و دیندەها وی لسەر بوون).",
-      "<strong>ئیمپراتۆریەت و میرگەهـ:</strong> دەولەتێن کەڤن (گوتی، لولوی، سوپارتی، میدی، کاشی...). میرگەهـ و حکومەت (حکومەتا هەموزانی، دوستەکی، میرگەها بوتان، هەکاری، بەهدینان، سوران، بابان، ئەردەلان، بەدلیسی).",
-      "<strong>سەردەمێ ئیسلامی:</strong> کەڤنترین ژێدەرێ موسلمانان پەیڤا (کوردستان) تێدا: پەرتووکا (<strong>نزهة القلوب</strong>) یا (<strong>حەمدولڵا موستەوفی</strong>). کەڤنترین نڤیسینا فەرمی ناڤێ کوردان ب شێوێ نوکە تێدا: نامەیەکا (<strong>ئیمام عەلی</strong>) بۆ (<strong>زیادێ کورێ ئەبیهـ</strong>).",
-      "<strong>رەگەز و زمان:</strong> ژ لایێ رەگەزی کورد دگەل مللەتێن <strong>ئاری</strong> دهێتە هژمارتن؛ زمانێ وان <strong>هند و ئەورۆپی</strong> یە؛ لدویڤ شەرەفخانێ بەدلیسی ژ چوار دیالێکتێن سەرەکی پێکدهێت: <strong>کرمانجی، لوری، کەهلوری، گورانی</strong>."
-    ],
-    note: "جوداهیا ڤان هەردووکان بپارێزە: <strong>نزهة القلوب (حەمدولڵا موستەوفی)</strong> = کەڤنترین ژێدەر بۆ پەیڤا (کوردستان)؛ <strong>نامەیا ئیمام عەلی بۆ زیادێ کورێ ئەبیهـ</strong> = کەڤنترین نڤیسینا فەرمی بۆ ناڤێ (کوردان).",
-    questions: [
-      { type: "mcq", q: "د سەردەمێ ئیسلامێ دا، کەڤنترین ژێدەرێ موسلمانان کو پەیڤا (کوردستان) ب ڤی رەنگێ نوی تێدا بکارئینای کیژە؟", options: ["شەرەفنامە", "نزهة القلوب یا حەمدولڵا موستەوفی", "الكامل في التاريخ", "معجم البلدان"], ans: 1 },
-      { type: "mcq", q: "لدویڤ شەرەفخانێ بەدلیسی، زمانێ کوردی ژ چوار دیالێکتێن سەرەکی پێکدهێت کو ئەڤەنە:", options: ["کرمانجی، لوری، کەهلوری، گورانی", "سۆرانی، زازاکی، ئاری، فارسی", "میدی، لوری، عیلامی، بادینی", "لوری، گورانی، ئاڤێستایی، هەورامی"], ans: 0 },
-      { type: "tf", q: "کەڤنترین نڤیسینا فەرمی یا ناڤێ کوردان ب شێوەیێ نوکە نامەیەکا ئیمام عەلی بوو بۆ زیادێ کورێ ئەبیهـ هنارت بوو.", ans: true, explain: "راستە." },
-      { type: "tf", q: "ژ لایێ رەگەزی ڤە مللەتێ کورد دگەل مللەتێن سامی دهێتە هژمارتن و زمانێ وان زمانەکێ سامی یە.", ans: false, explain: "خەلەتە: دگەل مللەتێن ئاری دهێتە هژمارتن و زمانێ وان هند و ئەورۆپی یە." },
-      { type: "blank", q: "ئاڤەدانی و مرۆڤ لسەر ئاخا کوردستانێ هەر ژ _____ هزار سالان بەری زایینی هەبوویە.", ans: "٦٠ تا ٤٠ (40 تا 60)" }
-    ]
-  },
-  {
-    id: 3,
-    title: "ئەگەرێن درەنگ بکارئینانا زاراڤێ کوردستان",
-    points: [
-      "<strong>١- نەجێگیریا سیاسی و عەشیرەتگەری:</strong> وەلاتێ کوردان ژ لایێ سەقامگیریێ ڤە یێ جێگیر نەبوو، دەستهەلات ژ لایێ عەشیرەت و هۆزان دهاتە برێڤەبرن، لەوما هەر هەرێمەک ب ناڤێ هۆزەکێ دهاتە ناڤکرن.",
-      "<strong>٢- نووبوونا زاراڤی و گوهۆرینا زمانی:</strong> زاراڤێ کوردستانێ زاراڤەکێ نوی یە بەراورد دگەل مێژوویا وەلاتێ کوردان؛ زمان بەردەوام د گوهۆرینێ دایە، هندەک پەیڤێن نوی دهێن و یێن کەڤن دهێنە ژدەستدان.",
-      "<strong>٣- کێمیا هەستا نەتەوەیی:</strong> خەلکێ خۆجهـ ناڤێ وەلاتێ خۆ نەدانا، بەلکو دگۆت (باژێرێ من، گوندێ مە) ب رامانا هندێ کو ل وی دەمی هەستا نەتەوەیی یا کێم بوو."
-    ],
-    note: "سێ ئەگەرێن سەرەکی نە بۆ درەنگ بکارئینانا زاراڤێ کوردستان: <strong>١) ناڤکرنا هەرێمان ب ناڤێ هۆزان</strong>، <strong>٢) گوهۆرینا زمانی (هاتنا پەیڤێن نوی و ژدەستدانا کەڤنان)</strong>، <strong>٣) کێمیا هەستا نەتەوەیی</strong>.",
-    questions: [
-      { type: "mcq", q: "ژ بەر دەستهەلاتا عەشیرەت و هۆزان د کەڤندا، هەر هەرێمەکا کوردستانێ ب چ ناڤ دهاتە ناڤکرن؟", options: ["ب ناڤێ کوردستانێ", "ب ناڤێ هۆزەکێ", "ب ناڤێ شاهەکی", "ب ناڤێ رووبارەکی"], ans: 1 },
-      { type: "mcq", q: "دەربڕینا خەلکێ خۆجهـ ب گۆتنا (باژێرێ من، گوندێ مە) بەلگە لسەر چ بوو؟", options: ["بەرفرەهبوونا بازرگانیێ", "کێمبوونا هەستا نەتەوەیی ل وی دەمی", "بکارئینانا زمانێ فارسی", "هەبوونا دەولەتەکا مەزن"], ans: 1 },
-      { type: "tf", q: "زاراڤێ کوردستانێ زاراڤەکێ کەڤنترە بەراورد دگەل مێژوویا وەلاتێ کوردان.", ans: false, explain: "خەلەتە: زاراڤەکێ نوی یە بەراورد دگەل مێژوویا وەلاتێ کوردان." },
-      { type: "tf", q: "زمان بەردەوام د گوهۆرینێ دایە کو هندەک پەیڤێن نوی دهێن و یێن کەڤن دهێنە ژدەستدان.", ans: true, explain: "راستە." },
-      { type: "blank", q: "د کەڤندا خەلکێ خۆجهـ ناڤێ وەلاتێ خۆ نەدانابوو، بەلکو دگۆت _____ و _____ وەکو ئاماژە ب ناڤێ جهێ تێدا دژیا.", ans: "باژێرێ من ، گوندێ مە" }
-    ]
-  },
-  {
-    id: 4,
-    title: "کوردۆلۆجی (کوردناسی) و دیرۆکا کوردۆلۆجی",
-    points: [
-      "<strong>پێناسا کوردۆلۆجی:</strong> ئەو زانستە کو خۆ بۆ ناساندنا نەتەوەیێ کورد و دیارکرنا ناسنامەیا نەتەوی تەرخان دکەت و ل تەڤ ئالیێن ژیانێ (نەژاد، دیرۆک، زمان، دیالێکت، فۆلکلۆر، ئەتنۆگرافیا، تیتالان، نیشتمان، هونەر، ئاین و ئاینزایان) ڤەدکۆلیت.",
-      "<strong>بنیاتێ پەیڤێ:</strong> پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە: <strong>کورد</strong> (نەتەوە یان مللەتێ کورد) + <strong>لۆجی / لۆجیا</strong> (زانست و نیاسین) = <strong>کوردناسی (زانستێ کوردناسیێ)</strong>.",
-      "<strong>دیرۆکا کوردۆلۆجی:</strong> لقەکە ژ <strong>رۆژهەلاتناسیێ</strong> و د ناڤ چەرگەیا رۆژهەلاتناسیێ دا ژ دایک بوویە (دیتن و تێفکرینا رۆژئاڤاییانە بۆ مللەتێ کورد).",
-      "<strong>دەستپێکرنا بیانیان:</strong> کوردناسێن بیانی بەری کوردناسێن کورد دەست ب ڤەکۆلینێ کرینە؛ هندەک جاران ب ئاوایەکێ بابەتی و زانستیانە، جاران ژی بێ بنەما یان بۆ بەرژەوەندی و مەرامێن سیاسی و ئابووری."
-    ],
-    note: "تێگەهێ بنەرەتی: <strong>کورد + لۆجی = زانستێ کوردناسیێ</strong>، و کوردۆلۆجی د ناڤ چەرگەیا <strong>رۆژهەلاتناسیێ</strong> دا ژ دایک بوویە.",
-    questions: [
-      { type: "mcq", q: "زانستێ کوردۆلۆجی لقەکە ژ کیژ زانستێ سەرەکی و د ناڤ چەرگەیا وێ دا ژ دایک بوویە؟", options: ["فەلسەفە", "رۆژهەلاتناسی", "جڤاکناسی", "فۆلکلۆرناسی"], ans: 1 },
-      { type: "mcq", q: "د پەیڤا (کوردۆلۆجی) دا، پەیڤا (لۆجی - لۆجیا) ب چ رامان دهێت؟", options: ["نیشتمان و وەلات", "زمان و ئەدەب", "زانست و نیاسین", "نەژاد و دیرۆک"], ans: 2 },
-      { type: "tf", q: "کوردناسێن بیانی بەری کوردناسێن کورد دەست ب ڤەکۆلینا لسەر کوردان کرینە.", ans: true, explain: "راستە." },
-      { type: "tf", q: "هەمی ڤەکۆلینێن کوردناسێن بیانی ب تنێ ب ئاوایەکێ زانستیانە و بێ چ مەرامێ سیاسی و ئابووری هاتینە ئەنجامدان.", ans: false, explain: "خەلەتە: جاران بێ بنەما یان بۆ بەرژەوەندی و مەرامێ سیاسی و ئابووری بووینە." },
-      { type: "blank", q: "کوردۆلۆجی پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە پێکهاتییە کو _____ و _____ نە.", ans: "کورد ، لۆجی (لۆجیا)" }
-    ]
-  },
-  {
-    id: 5,
-    title: "دابەشکرنا کوردناسان و کوردناسێن رۆژئاڤایی (ئەورۆپی)",
-    points: [
-      "<strong>دوو دەستەیێن کوردناسان:</strong> ١- <strong>کوردناسێن بیانی</strong> (a- رۆژئاڤایی/ئەورۆپی، b- رۆژهەلاتی/موسلمان) ٢- <strong>کوردناسێن کورد</strong>.",
-      "<strong>ئێکەم ڤەکۆلینا ئەورۆپیان:</strong> ل سەدسالیا <strong>هەژدێ (١٨) زایینی</strong> ژ لایێ قەشە <strong>(مۆریزیۆ گارزۆنی)</strong> یێ ئیتالی هاتە ئەنجامدان. بۆ کارێ شێوەرمەندیێ ل دەڤەرا <strong>ئامێدیێ</strong> بۆ ماوێ <strong>١٨ سالان</strong> ئاکنجی بوو، پەرتووکەکا <strong>(رێزمانێ کوردی)</strong> ژ <strong>٢٢٠ لاپەران</strong> دگەل فەرهەنگەکا <strong>(ئیتالی - کوردی)</strong> دانا.",
-      "<strong>کوردناسێن رۆژئاڤایی ژ ڤان وەلاتان بوون:</strong> رووسی، فەرەنسی، ئیتالی، بەریتانی، ئەلمانی، ئەرمەنی... (سەدان ئەرشیفێن دیکۆمێنتێن کوردی د دەزگەهێن وان یێن ئەکادیمی دا هەنە).",
-      "<strong>گرنگیا وان:</strong> کورد مینا نەتەوەیەکا رۆژهەلاتی ب رێکا ڤان رۆژهەلاتناسێن رۆژئاڤایی هاتە نیاسین.",
-      "<strong>زەینەفوون و خاچ پەرستان:</strong> <strong>(زەینەفوون)</strong> ئێکەم رۆژئاڤاییە ل پشتی <strong>(هیرۆدۆتس)</strong>ی دەربارەی کوردان نڤیسی. د سەردەمێ شەرێ <strong>(خاچ پەرستان)</strong> دا پەیوەندی د ناڤبەرا ئەورۆپا و کوردان دا هەبوو."
-    ],
-    note: "ژمارەیێن قەشە <strong>مۆریزیۆ گارزۆنی</strong> باش ژبەر بکە: سەدێ <strong>١٨</strong>، ل <strong>ئامێدیێ</strong> بۆ ماوێ <strong>١٨ سالان</strong>، پەرتووکا رێزمانێ ژ <strong>٢٢٠ لاپەران</strong> دگەل فەرهەنگا <strong>ئیتالی-کوردی</strong>.",
-    questions: [
-      { type: "mcq", q: "ئێکەم ڤەکۆلینا کوردناسیێ ژ لایێ ئەورۆپیان ل سەدێ ١٨ ژ لایێ کێ هاتە ئەنجامدان؟", options: ["مارکۆ پۆلۆ", "قەشە مۆریزیۆ گارزۆنی", "ڤلادیمێر مینۆرسکی", "ئەلەکسەندەر ژاپا"], ans: 1 },
-      { type: "mcq", q: "قەشە مۆریزیۆ گارزۆنی ل کیژ دەڤەرا کوردستانێ بۆ ماوێ ١٨ سالان ئاکنجی بوو و فێری زمانێ کوردی بوو؟", options: ["ئامێدیێ", "سلێمانیێ", "هەولێرێ", "زاخۆ"], ans: 0 },
-      { type: "tf", q: "زەینەفوون ئێکەم رۆژئاڤاییە ل پشتی هیرۆدۆتسێ دیرۆکنڤیس دەربارەی کوردان نڤیس هەبن یان تشت گۆتبن.", ans: true, explain: "راستە." },
-      { type: "tf", q: "پەرتووکا قەشە گارزۆنی لسەر رێزمانێ کوردی ژ ٢٢٠ لاپەران پێکدهات دگەل فەرهەنگا (کوردی - فەرەنسی).", ans: false, explain: "خەلەتە: فەرهەنگا (ئیتالی - کوردی) تێدا بوو." },
-      { type: "blank", q: "ڤەکۆلەرێن کوردناس دابەشی دوو دەستەیان دبن: کوردناسێن _____ و کوردناسێن _____.", ans: "بیانی ، کورد" }
-    ]
-  },
-  {
-    id: 6,
-    title: "پەیوەندیا شەرێ خاچپەرستان + کوردناسێن رۆژئاڤایی (١ تا ٦)",
-    points: [
-      "<strong>شەرێ خاچ پەرستان و کوردناسی:</strong> پەیوەندیا دگەل ئەورۆپا ژ بەر دوو هۆکاران بوو: ١- <strong>سەلاحەدینێ ئەیوبی</strong>، ٢- <strong>پرانیا شەرکەرێن سوپایێ وی کورد بوون</strong>. <strong>بەلێ د بیاڤێ کوردناسیێ دا ناهێنە هژمارتن</strong> چونکی ب ئەگەرێ شەری بوون نەکو ل سەر بنەمایەکێ بابەتی و زانستی.",
-      "<strong>١- مارکۆ پۆلۆ (١٢٥٤-١٣٢٤):</strong> جوگرافیناس و گەرۆکێ ئیتالی؛ <strong>ئێکەم رۆژئاڤاییە ناڤێ (کوردستان) بکارئینای</strong>.",
-      "<strong>٢- کریستین بنور:</strong> گەشتەک بۆ کوردستانێ کریە، ل سالا <strong>١٧٦٦ز</strong> چاپکریە و ڤەکۆلینەک لسەر کوردان نڤیسیە.",
-      "<strong>٣- قەشە مۆریزیۆ گارزۆنی:</strong> ل سالا <strong>١٧٨٧</strong> پەرتووکا <strong>(رێزمانا دانەپەیڤا زمانێ کوردی)</strong> بەلاڤکریە.",
-      "<strong>٤- مێریلا گالیتی:</strong> پەرتووکا <strong>(کەلتورێ کوردی د نڤیسینێن ئیتالیاندا)</strong> نڤیسیە.",
-      "<strong>٥- لێرخ:</strong> کوردناسێ رووسی، <strong>سێ کتیب</strong> لسەر کوردێن رۆژهەلات نڤیسینە.",
-      "<strong>٦- ئەلەکسەندەر ژاپا (١٨٠٣-١٨٩٤):</strong> کوردناسێ رووسی و دۆستێ نێزیکێ <strong>مەلا مەحمود بایەزیدی (١٧٩٩-١٨٦٠)</strong>؛ نڤیسینێن ژاپا و بایەزیدی ب دەستپێکا سەرهلدانا <strong>پەخشانا کوردی</strong> دهێنە زانین."
-    ],
-    note: "جوداهیێ بکە: <strong>ئێکەم رۆژئاڤایی ناڤێ کوردستان بکارئینای = مارکۆ پۆلۆ</strong>؛ <strong>ئێکەم ژێدەرێ موسلمانان = حەمدولڵا موستەوفی (نزهة القلوب)</strong>!",
-    questions: [
-      { type: "mcq", q: "ئێکەم رۆژئاڤایی کو ناڤێ (کوردستان) بکارئینای کیژ گەرۆک و جوگرافیناسێ ئیتالی بوو؟", options: ["کریستین بنور", "مارکۆ پۆلۆ", "مۆریزیۆ گارزۆنی", "لێرخ"], ans: 1 },
-      { type: "mcq", q: "هندەک ژ ڤەکۆلەرێن رەخنەیا ئەدەبی نڤیسینێن کێ ب دەستپێکا سەرهلدانا پەخشانا کوردی دزانن؟", options: ["مارکۆ پۆلۆ و گالیتی", "لێرخ و مینۆرسکی", "ئەلەکسەندەر ژاپا و مەلا مەحمود بایەزیدی", "گارزۆنی و کرێس کۆچێرا"], ans: 2 },
-      { type: "tf", q: "پەیوەندیێن ئەورۆپا و کوردان ل سەردەمێ شەرێ خاچپەرستان د بیاڤێ کوردناسیێ دا دهێنە هژمارتن.", ans: false, explain: "خەلەتە: ناهێنە هژمارتن چونکی ب ئەگەرێ شەری بوون نەکو ل سەر بنەمایەکێ بابەتی و زانستی." },
-      { type: "tf", q: "کوردناسێ رووسی (لێرخ) سێ کتیب لسەر کوردێن رۆژهەلات نڤیسینە.", ans: true, explain: "راستە." },
-      { type: "blank", q: "مێریلا گالیتی پەرتووکەک لسەر کوردان نڤیسیە ب ناڤێ _____.", ans: "کەلتورێ کوردی د نڤیسینێن ئیتالیاندا" }
-    ]
-  },
-  {
-    id: 7,
-    title: "کوردناسێن رۆژئاڤایی (٧-٨) + پەرتووکێن ئەورۆپی + کوردناسێن موسلمان",
-    points: [
-      "<strong>٧- ڤلادیمێر مینۆرسکی (١٨٧٧-١٩٦٦):</strong> گەلەک نڤیسین لسەر زمان، نەژاد و کەلتورێ کوردان نڤیسینە. دبێژیت: <strong>(کورد نەڤیێن میدیانن)</strong>.",
-      "<strong>٨- کرێس کۆچێرا:</strong> چەند جاران سەرەدانا کوردستانێ کریە؛ کتیبا <strong>(بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ)</strong> یا وی یە.",
-      "<strong>٥ پەرتووکێن کوردناسێن ئەورۆپی:</strong> ١- <strong>دەیڤد ئادەمسۆن:</strong> شەرێ کورد (لەندەن ١٩٦٤). ٢- <strong>بێنیگسۆن:</strong> کورد و کوردۆلۆجی ل ئێکەتیا سۆڤیەتا بەرێ (پاریس ١٩٦٠). ٣- <strong>دێرک کینان:</strong> کورد و کوردستان (لەندەن ١٩٦٤). ٤- <strong>فردریک بارس (باريس):</strong> بنەمایێن رێکخستنا جڤاکی ل باشورێ کوردستانێ (ئۆسلۆ ١٩٥٣). ٥- <strong>جۆیس بلۆ:</strong> فەرهەنگا کوردی-فەرەنسی-ئینگلیزی (پاریس ١٩٦٥).",
-      "<strong>ب- کوردناسێن موسلمان - رۆژهەلاتی:</strong> پشتی ئاشنابوونا کوردان ب ئیسلامێ، دیرۆکنڤیس و جوگرافیناسێن موسلمان وەک نەتەوەیەک بەحسێ کوردان کریە. نڤیسینێن وان <strong>جهێ باوەریێ بوون</strong> چونکی ل وی سەردەمی چ <strong>ململانێیێن نەتەوەیی، ئۆلی و مەزهەبی نەبوون</strong> و هەمی نەتەوە پشکدار بوون د ئاڤاکرنا شارستانیەتا ئیسلامیدا."
-    ],
-    note: "گۆتنا <strong>مینۆرسکی</strong> گەلەک گرنگە: <strong>(کورد نەڤیێن میدیانن)</strong>. هەروەسا پەرتووک و سالێن ٥ نڤیسەرێن ئەورۆپی (ب تایبەت جۆیس بلۆ ١٩٦٥ و فردریک باريس ١٩٥٣) ژبەر بکە.",
-    questions: [
-      { type: "mcq", q: "کیژ کوردناسێ رۆژئاڤایی دبێژیت (کورد نەڤیێن میدیانن)؟", options: ["کرێس کۆچێرا", "ڤلادیمێر مینۆرسکی", "دێرک کینان", "ئەلەکسەندەر ژاپا"], ans: 1 },
-      { type: "mcq", q: "کتیبا (بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ) بەرهەمێ کیژ کوردناسی یە؟", options: ["کرێس کۆچێرا", "دەیڤد ئادەمسۆن", "بێنیگسۆن", "جۆیس بلۆ"], ans: 0 },
-      { type: "tf", q: "فەرهەنگا کوردی – فەرەنسی – ئینگلیزی ل سالا ١٩٦٥ ل پاریس ژ لایێ جۆیس بلۆ ڤە هاتیە نڤیسین.", ans: true, explain: "راستە." },
-      { type: "tf", q: "نڤیسینێن دیرۆکنڤیسێن موسلمان لسەر کوردان جهێ باوەریێ نەبوون ژ بەر هەبوونا ململانێیا مەزهەبی و نەتەوەیی.", ans: false, explain: "خەلەتە: جهێ باوەریێ بوون چونکی ل وی سەردەمی چ ململانێیێن نەتەوەیی، ئۆلی و مەزهەبی نەبوون." },
-      { type: "blank", q: "پەرتووکا (کورد و کوردۆلۆجی ل ئێکەتیا سۆڤیەتا بەرێ) ل پاریس سالا ١٩٦٠ ژ لایێ _____ ڤە هاتیە نڤیسین.", ans: "بێنیگسۆن" }
-    ]
-  },
-  {
-    id: 8,
-    title: "کوردناسێن موسلمان - رۆژهەلاتی (١ تا ٦)",
-    points: [
-      "<strong>١- محەمەدێ کورێ جەریرێ تەبەری (٨٣٩-٩٢٣ز):</strong> کتیبا <strong>(تاريخ الامم والملوك)</strong>؛ ژ دروستبوونا بوونەوەران تا سالا <strong>٩١٥ز</strong>، ل گەلەک جهان بەحسێ کوردان دکەت.",
-      "<strong>٢- ئەبی حەسەنێ عەلی شەیبانی (مری ل ٦٣٠ مشەختی):</strong> کتیبا <strong>(الكامل في التاريخ)</strong>؛ درێژەپێدانا پەرتووکا تەبەری یە و ب درێژی بەحسێ بزاڤێن کوردی ل سەدێ <strong>٩ و ١٠</strong> دکەت.",
-      "<strong>٣- حافز عیمادەدین ئەبو فیدای ئیسماعیل ئیبن کەسیر (مری ل ٧٧٤ مشەختی):</strong> ب ئیبن کەسیرێ دیمەشقی دهێتە نیاسین؛ کتیبا <strong>(البداية والنهاية)</strong>.",
-      "<strong>٤- ئیبن حەوقەل (مری ٩٧٧ز):</strong> کتیبا <strong>(صورة الارض)</strong>؛ ب روون و ئاشکەرایی <strong>نەخشێ کوردستانێ کێشایە</strong> و هەردوو پشکێن <strong>(جیبال)</strong> و <strong>(جەزیرە)</strong> دیارکرینە.",
-      "<strong>٥- ئەلمەقدیسی (مری ٩٨٥ز):</strong> کتیبا <strong>(أحسن التقاسيم في معرفة الاقاليم)</strong>؛ ب درێژی بەحسێ رەوشت و تیتال و کەلتور و وەلاتێ کوردان کریە و کوردستان وەک <strong>هەرێمەکا سەربەخۆ</strong> ژ وەلاتێن دی دانایە.",
-      "<strong>٦- یاقوت حەمەوی (١١٧٠-١٢٢٩ز):</strong> کتیبا <strong>(معجم البلدان)</strong>، گەلەک ئاگەهی لسەر کوردان تێدا هەنە.",
-      "<strong>تێبینی:</strong> هەر ژ سەدێ <strong>سێیێ مشەختی</strong>، موسلمانێن گەرۆک و وەلاتناسان ژ بلی بەحسکرنا کوردان، پرانیا جوگرافیناسان نەخشێ کوردستانێ ژی کێشایە."
-    ],
-    note: "ئەڤ شەش زانایە دگەل ناڤێن پەرتووکێن وان د ئەزموونێ دا گەلەک دهێن: <strong>تەبەری</strong> (تاريخ الامم والملوك)، <strong>شەیبانی</strong> (الكامل)، <strong>ئیبن کەسیر</strong> (البداية والنهاية)، <strong>ئیبن حەوقەل</strong> (صورة الارض + نەخشە و جیبال و جەزیرە)، <strong>مەقدیسی</strong> (أحسن التقاسيم + هەرێما سەربەخۆ)، <strong>یاقوت حەمەوی</strong> (معجم البلدان).",
-    questions: [
-      { type: "mcq", q: "کیژ جوگرافیناسێ موسلمان د پەرتووکا (صورة الارض) دا ب روونی نەخشێ کوردستانێ کێشایە و (جیبال) و (جەزیرە) دیارکرینە؟", options: ["یاقوت حەمەوی", "ئیبن حەوقەل", "ئەلمەقدیسی", "تەبەری"], ans: 1 },
-      { type: "mcq", q: "پەرتووکا (الكامل في التاريخ) یا ئەبی حەسەنێ عەلی شەیبانی درێژەپێدانا کیژ پەرتووکێ یە؟", options: ["معجم البلدان", "البداية والنهاية", "تاريخ الامم والملوك (تەبەری)", "أحسن التقاسيم"], ans: 2 },
-      { type: "tf", q: "ئەلمەقدیسی د پەرتووکا (أحسن التقاسيم في معرفة الاقاليم) دا کوردستان وەک هەرێمەکا سەربەخۆ ژ وەلاتێن دی دانایە.", ans: true, explain: "راستە." },
-      { type: "tf", q: "پەرتووکا (البداية والنهاية) بەرهەمێ یاقوت حەمەوی یە.", ans: false, explain: "خەلەتە: یا حافز عیمادەدین ئیبن کەسیرێ دیمەشقی یە؛ یاقوت حەمەوی خۆدانێ (معجم البلدان)ە." },
-      { type: "blank", q: "هەر ژ سەدێ _____ مشەختی، موسلمانێن گەرۆک و جوگرافیناسان نەخشێ کوردستانێ ژی کێشایە.", ans: "سێیێ (٣)" }
-    ]
-  },
-  {
-    id: 9,
-    title: "٢- کوردناسێن کورد",
-    points: [
-      "<strong>کوردناسێن کورد:</strong> ژ میر، خواندەڤان، رەوشەنبیر و نشتیمانپەروەرێن کورد پێک دهێن کو خواستینە کورد مینا نەتەوەیەکێ خۆدان زمان، ئەدەب، دیرۆک و کەلتور بدەن ناسکرن.",
-      "<strong>دیرۆکنڤیسێن کورد:</strong> ١- <strong>شەرەفخانێ بەدلیسی:</strong> (شەرەفنامە) ل سالا <strong>١٥٩٦ز</strong>. ٢- <strong>محەمەد عەلی عەونی:</strong> ل پشتی شەرەفخانی دیرۆکا کوردی نڤیسیەڤە. ٣- <strong>محەمەد ئەمین زەکی:</strong> پەرتووکا (خلاصة تاريخ الكورد).",
-      "<strong>ئێکەم کەسێن پەیڤا (کوردناسی) بکارئیناین:</strong> ١- <strong>دکتۆر عەبدولڵا جەودەت</strong> ل سالا <strong>١٩١٣ز</strong>. ٢- <strong>جەلادەت بەدرخان</strong> ل سالا <strong>١٩٣٤ز</strong> د گوتارا (کورد و کوردستان ب چاڤێ بیانیان).",
-      "<strong>دەستەیا پێشەنگ یا زمانناسیێ و رێنڤیسێ:</strong> سەعید سدقی کابان، تۆفیق وەهبی، جەلادەت بەدرخان، کامەران بەدرخان، مەسعود محەمەد، مەلای گەورە، سادق بەهائەدین...",
-      "<strong>بیاڤێ ئەدەبی:</strong> ئەمینێ عەبدال، حاجی جندی، عەرەب شەمۆ، ئیبراهیم ئەحمەد، سەدیق بۆرەکەیی، عزەدین مستەفا رەسول، مارف خەزنەدار... و <strong>عەلائەدین سەجادی</strong> ئێکەم نڤیسکارە پەرتووکەک لسەر <strong>(دیرۆکا ئەدەبێ کوردی)</strong> ل سالا <strong>١٩٥٦ز</strong> نڤیسی.",
-      "<strong>بیاڤێ دیرۆکێ:</strong> <strong>د. کەمال مەزهەر</strong> مژارێن ڤەشارتی یێن نەتەوەیێ کورد ب نەتەوەیێن دی داینە ناسکرن."
-    ],
-    note: "٣ مێژوویێن زێرین د ڤێ سلایدێ دا: <strong>شەرەفنامە (١٥٩٦ز)</strong>، <strong>عەبدولڵا جەودەت / ئێکەم بکارئینانا کوردناسی (١٩١٣ز)</strong>، <strong>جەلادەت بەدرخان (١٩٣٤ز)</strong>، <strong>سەجادی / دیرۆکا ئەدەبێ کوردی (١٩٥٦ز)</strong>.",
-    questions: [
-      { type: "mcq", q: "ئێکەم کەس ژ کوردناسێن کورد کو پەیڤا (کوردناسی) بکارئینابیت کی بوو و ل کیژ سالێ؟", options: ["جەلادەت بەدرخان - ١٩٣٤ز", "دکتۆر عەبدولڵا جەودەت - ١٩١٣ز", "شەرەفخانێ بەدلیسی - ١٥٩٦ز", "عەلائەدین سەجادی - ١٩٥٦ز"], ans: 1 },
-      { type: "mcq", q: "ئێکەم نڤیسکار کو کێرا پەرتووکەکێ لسەر (دیرۆکا ئەدەبێ کوردی) ل سالا ١٩٥٦ز بنڤیسیت کی بوو؟", options: ["مارف خەزنەدار", "د. کەمال مەزهەر", "عەلائەدین سەجادی", "تۆفیق وەهبی"], ans: 2 },
-      { type: "tf", q: "شەرەفخانێ بەدلیسی دیرۆکا نەتەویی یا مللەتێ کورد د پەرتووکا (شەرەفنامە) دا ل سالا ١٥٩٦ز نڤیسیە.", ans: true, explain: "راستە." },
-      { type: "tf", q: "پەرتووکا (خلاصة تاريخ الكورد) ژ لایێ محەمەد عەلی عەونی ڤە هاتیە نڤیسین.", ans: false, explain: "خەلەتە: محەمەد ئەمین زەکی خۆدانێ پەرتووکا (خلاصة تاريخ الكورد)ە." },
-      { type: "blank", q: "جەلادەت بەدرخان ل سالا ١٩٣٤ز پەیڤا (کوردناسی) د گوتارەکا خۆ دا ب ناڤێ _____ بکارئینا.", ans: "کورد و کوردستان ب چاڤێ بیانیان" }
-    ]
-  },
-  {
-    id: 10,
-    title: "ئەگەرێن درەنگ دەستپێکرنا کوردان + دەستپێشخەریا بیانیان",
-    points: [
-      "<strong>٤ هۆکارێن درەنگ دەستپێکرنا کوردۆلۆجی ژ لایێ کوردان ڤە:</strong>",
-      "١- کوردستان وەلاتەکێ دابەشکری بوویە د ناڤبەرا ئیمپراتۆریەتێن <strong>سەفەوی و عوسمانیاندا</strong> و بێ دەستهەلات و ژێردەست بوویە (نەخاسمە ژ لایێ سیاسی و کارگێری ڤە).",
-      "٢- <strong>قەدەغەکرنا خواندن و نڤیسینێ</strong> ب زمانێ کوردی.",
-      "٣- <strong>داننەنان ب کوردان</strong> مینا نەتەوە.",
-      "٤- دووبارە دابەشکرنا کوردستانێ بۆ <strong>چوار پێنج پارچان</strong> بسەر وەلاتێن ئێقلیمی (تورکیا، ئیران، عێراق، سوریا، ئێکەتیا سۆڤیەتا جاران).",
-      "<strong>بۆچی رۆژهەلاتناسێن ئەورۆپی (بیانی) بەری کوردان دەست پێ کریە؟ (٣ هۆکار):</strong>",
-      "١- بۆ جێبەجێکرنا مەبەست و مەرامێ سیاسیێ وەلاتێن خۆ و بەرژەوەندیێن خۆ.",
-      "٢- بۆ جێبەجێکرنا مەرەما بەرژەوەندیێن ئابووریێن وەلاتێن خۆ.",
-      "٣- بۆ نیاسینا جڤاکێ کورد و رێکخۆشکرن و جێبەجێکرنا هەردوو خالێن (مەرەما سیاسی و بەرژەوەندیێن ئابووری)."
-    ],
-    note: "ئەڤ هەردوو پرسیارێن ژمارەیی (<strong>٤ هۆکارێن درەنگبوونا کوردان</strong> و <strong>٣ هۆکارێن دەستپێشخەریا بیانیان</strong>) پرسیارێن کلاسیکی یێن هژمارتنێ نە د ئەزموونێ دا!",
-    questions: [
-      { type: "mcq", q: "بەرێ دابەشکرنا نوکە، کوردستان د ناڤبەرا کیژ هەردوو ئیمپراتۆریەتان دا دابەشکرا و ژێردەست بوو؟", options: ["سەفەوی و عوسمانی", "ئاشووری و بابلی", "رووسی و بەریتانی", "میدی و فارسی"], ans: 0 },
-      { type: "mcq", q: "ئارمانجا سەرەکی یا رۆژهەلاتناسێن ئەورۆپی ژ دەستپێکرنا ڤەکۆلینان لسەر کوردان بەری کوردان چ بوو؟", options: ["ب تنێ خزمەتکرنا ئەدەبێ کوردی", "جێبەجێکرنا مەرامێ سیاسی و بەرژەوەندیێن ئابووری و نیاسینا جڤاکێ کورد", "بەلاڤکرنا ئاینێ ئیسلامێ", "ئاڤاکرنا دەولەتەکا کوردی"], ans: 1 },
-      { type: "tf", q: "ئێک ژ ئەگەرێن درەنگ دەستپێکرنا ڤەکۆلینێن کوردۆلۆجی ژ لایێ کوردان قەدەغەکرنا خواندن و نڤیسینێ ب زمانێ کوردی بوو.", ans: true, explain: "راستە." },
-      { type: "tf", q: "کوردستان دووبارە ب تنێ بۆ دوو پارچان بسەر وەلاتێن ئێقلیمی دا هاتە دابەشکرن.", ans: false, explain: "خەلەتە: بۆ چوار پێنج پارچان (تورکیا، ئیران، عێراق، سوریا، ئێکەتیا سۆڤیەتا جاران)." },
-      { type: "blank", q: "ئێک ژ هۆکارێن درەنگ دەستپێکرنا ڤەکۆلینێ ژ لایێ کوردان ڤە _____ ب کوردان مینا نەتەوە بوو.", ans: "داننەنان" }
-    ]
-  },
-  {
-    id: 11,
-    title: "زمــــان (پەیڤ، پێناسە و گرنگیا زمانی)",
-    points: [
-      "<strong>بنیاتێ پەیڤا زمان (Language):</strong> د بنەرەتدا ژ پەیڤا <strong>(Logos)</strong> یا گریکی دهێت ب رامانا <strong>(پەیڤ یان ئاخفتن)</strong>. د زمانێ لاتینی دا ب رامانا <strong>(دەستەلات، حیکمەت یان هزرکرن...)</strong> دهێت.",
-      "<strong>پێناسا ئێکێ یا زمانی:</strong> باشترین رێکا پەیوەندیکرنێ یە کو مرۆڤ ب رێکا زمانی دەربڕینێ ژ هزرو بیرۆبۆچوون و مەبەستێن خۆ دکەت بۆ برێڤەبرنا ژیانێ و هەڤکاریێ.",
-      "<strong>پێناسا (کارۆل):</strong> زمان کۆمەکا <strong>رەمزێن دەنگی</strong>نە، کو دشێن بهێنە بکارئینان ژ بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانێن دەورووبەر.",
-      "<strong>گرنگیا زمانی (٥ خال):</strong> ١- پاراستنا کەلتوور و شارستانییا مللەتان. ٢- برێڤەبرنا کاروبارێن کەسی د ناڤ جڤاکیدا. ٣- باشترین دیمەنە بۆ هەبوونا جڤاکان و تاکە کەسێن جڤاکی دگەهینیتە ئێک. ٤- سیمبولە بۆ جڤاکی و پێشکەفتنا جڤاکان دیاردکەت. ٥- دبیتە ئەگەرێ پاراستنا ئێکگرتنا سیاسی و جڤاکی."
-    ],
-    note: "جوداهیێ بکە د ناڤبەرا رامانا <strong>Logos</strong> د گریکی دا (پەیڤ یان ئاخفتن) و د لاتینی دا (دەستەلات، حیکمەت، هزرکرن). هەروەسا پێناسا <strong>کارۆل</strong> ژبەر بکە.",
-    questions: [
-      { type: "mcq", q: "پەیڤا زمان (Language) د بنەرەتدا ژ پەیڤا (Logos) یا کیژ زمانی دهێت ب رامانا (پەیڤ یان ئاخفتن)؟", options: ["لاتینی", "گریکی", "ئەلمانی", "ئارامی"], ans: 1 },
-      { type: "mcq", q: "ل دویڤ پێناسا (کارۆل)، زمان کۆمەکا _____ یە کو بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانان بکاردئینن.", options: ["ئاخفتنێن نڤیسکی", "رەمزێن دەنگی", "هزرێن فەلسەفی", "یاسایێن جڤاکی"], ans: 1 },
-      { type: "tf", q: "پەیڤا (Logos) د زمانێ لاتینی دا ب رامانا دەستەلات یان حیکمەت یان هزرکرن دهێت.", ans: true, explain: "راستە." },
-      { type: "tf", q: "زمان چ ڕۆل د پاراستنا ئێکگرتنا سیاسی و جڤاکی دا نینە.", ans: false, explain: "خەلەتە: گەلەک جاران دبیتە ئەگەرێ پاراستنا ئێکگرتنا سیاسی و جڤاکی." },
-      { type: "blank", q: "ئێک ژ گرنگیێن زمانی ئەوە کو پاراستنا _____ و _____ مللەتان دکەت.", ans: "کەلتوور ، شارستانییا" }
-    ]
-  },
-  {
-    id: 12,
-    title: "بنچینەیا پەیدابوونا زمانی (ئێکەم زمان و ٦٠٠٠ زمان)",
-    points: [
-      "<strong>سروشتێ زمانی:</strong> زمان دیاردەیەکا جڤاکی یە و بەردەوام دکەڤیتە بەر وەرار و گوهۆرینێ ل پەی هۆکارێن تایبەت (نەمەرجە گوهۆرین د تەڤ زماناندا ب وەکهەڤی و یەک ئاوایی بیت).",
-      "<strong>ئێکەم زمان کیژ بوو؟</strong> ئەو بوو دەمێ خودێ دگەل <strong>(ئادەم)</strong>ی ئاخفتی؛ جوهی دبێژن <strong>(عبری)</strong> یە و هندەک عەرەب دبێژن <strong>(عەرەبی)</strong> یە، بەلێ نە د قورئانا پیرۆز و نە د ئنجیل دا نەهاتیە دیارکرن کا کیژ زمانە.",
-      "<strong>چەوا ژ زمانەکی (٦٠٠٠) زمان چێبووینە؟</strong> دەستپێکێ ئێک زمان هەبوو، پشتی زێدەبوونا هژمارا ئاخفتنکەران نەشیان ل ئێک جهـ بژین ژ بەر <strong>دوو ئەگەران</strong>: ١- <strong>نەبوونا جهی</strong> ٢- <strong>نەبوونا خوارنێ و کێماتیا دەرامەتی (ئەرزاقی)</strong>.",
-      "<strong>ئەنجام:</strong> نەچاربوون کۆچبکەن، پشتی بۆرینا <strong>(٥-٦) چەرخان</strong> گوهۆرینێن رەھ و ریشالی ب سەر زمانیدا هاتن؛ دەستپێکێ بوونە <strong>دیالێکت</strong> و پاشی بوونە <strong>زمانێن سەربەخۆ</strong> (نوکە نێزیکی <strong>٦٠٠٠ زمانان</strong> پەیدابووینە)."
-    ],
-    note: "ژمارەیان ژبیر نەکە: پشتی بۆرینا <strong>(٥-٦) چەرخان</strong> -> سەرەتا <strong>دیالێکت</strong> -> پاشی <strong>زمانێن سەربەخۆ</strong> -> نوکە نێزیکی <strong>٦٠٠٠ زمانان</strong>.",
-    questions: [
-      { type: "mcq", q: "هژمارا زمانێن جیهانێ ل دویڤ سلایدێ نوکە گەهشتییە نێزیکی چەند زمانان؟", options: ["٦٠٠ زمان", "١٠٠٠ زمان", "٦٠٠٠ زمان", "١٠٠٠٠ زمان"], ans: 2 },
-      { type: "mcq", q: "پشتی بۆرینا چەند چەرخان گوهۆرینێن رەھ و ریشالی ب سەر زمانێ ئێکێ دا هاتن و گرۆپ بوونە دیالێکت و پاشی زمانێن سەربەخۆ؟", options: ["١ تا ٢ چەرخان", "٥ تا ٦ چەرخان", "١٠ تا ١٢ چەرخان", "٢٠ چەرخان"], ans: 1 },
-      { type: "tf", q: "د قورئانا پیرۆز و ئنجیل دا ب ئاشکەرایی هاتیە گۆتن کو ئێکەم زمانێ مرۆڤان زمانێ عبری یان عەرەبی بوویە.", ans: false, explain: "خەلەتە: نە د قورئانێ و نە د ئنجیل دا نەهاتیە دیارکرن کا کیژ زمانە." },
-      { type: "tf", q: "نەمەرجە گوهۆرین د تەڤ زماناندا ب وەکهەڤی و یەک ئاوایی بهێتە گوهۆرین.", ans: true, explain: "راستە." },
-      { type: "blank", q: "دوو ئەگەرێن سەرەکی بۆ کۆچکرنا ئاخفتنکەرێن زمانێ ئێکێ _____ و _____ بوون.", ans: "نەبوونا جهی ، نەبوونا خوارنێ و کێماتیا دەرامەتی" }
-    ]
-  },
-  {
-    id: 13,
-    title: "بنیاتێ زمانی دناڤبەرا مگرتێن مرۆڤی و خەلاتا خودێ دا",
-    points: [
-      "<strong>دوو بۆچوون یان مگرتە لسەر بنیاتێ زمانی هەنە:</strong> ١- <strong>بۆچوونێن گرتی (ئۆلی-باوەری)</strong>، ٢- <strong>مگرتێن ڤەکری (مرۆڤی)</strong>.",
-      "<strong>بۆچوونا ئێکێ - ئۆلی (باوەری):</strong> پشت ب ژێدەرێن ئۆلی (تەورات، ئینجیل، قورئان) دبەستیت. زمان خەلاتەکە ژ لایێ خودێ بۆ مرۆڤی (خودایێ مەزن 'ئادەم' فێری زمانی کریە و پاشی بۆ کور و نەڤیێن وی هاتیە ڤەگۆهاستن).",
-      "<strong>ئەفلاتۆن و زانایێن ئیسلامی:</strong> فەیلەسوفێ گریکی <strong>(ئەفلاتۆن)</strong> ل سەدێ <strong>٥ێ ب.ز</strong> گۆت زمان دیاردەکا خوەزایی (سروشتی)یە و مرۆڤان پەیوەندی ب ئافراندنا وێ نینە. پرانیا زانایێن ئیسلامی وەک (ئەبو حەسەن ئەشعەری، ئیبن فارس، ئیبن عەباس) هوسا دفکرین؛ <strong>ئیبن عەباس</strong> ئایەتا <em>(وعلم آدم الأسماء كلها)</em> دکەتە بەلگە (الأسماء = تشتێ دەورووبەرێ مرۆڤ و گیانەوەران).",
-      "<strong>بۆچوونا دوویێ - مگرتێن ڤەکری (مرۆڤی / زمان بخوە چێبوویە):</strong>",
-      "<strong>١- گریمانا دەنگێن سروشتی:</strong> ل سەدێ <strong>(٤-٥) ب.ز</strong> ژ لایێ <strong>(دیموکراتیس، ئەرستۆ، ئەفلاتۆن)</strong>؛ ل سەدێ <strong>(١٧-١٨)</strong> ژ لایێ <strong>(لایبنیز)</strong>؛ ل سەدێ <strong>١٩</strong> ژ لایێ <strong>(یسپرسن، عەلی عەبدولواحد الوافی، تینی)</strong> هاتە پەسەندکرن. ژ لاسایکرنا دەنگێن سروشتی (شرشرا ئاڤێ، گرگرا عەوران، چرچرا چویچکان، قدقدا مریشکێ) پەیدابووینە."
-    ],
-    note: "ناڤێن زانایێن <strong>گریمانا دەنگێن سروشتی</strong> لدویڤ سەدەیان جودا بکە: سەدێ ٤-٥ ب.ز (دیموکراتیس، ئەرستۆ، ئەفلاتۆن)، سەدێ ١٧-١٨ (لایبنیز)، سەدێ ١٩ (یسپرسن، عەلی عەبدولواحد الوافی، تینی).",
-    questions: [
-      { type: "mcq", q: "کیژ زانایێ ئیسلامی ئایەتا (وعلم آدم الأسماء كلها) دکەتە بەلگە کو زمان ژ لایێ خودێ هاتیە ئافراندن؟", options: ["تەبەری", "ئیبن عەباس", "مەقدیسی", "ئیبن کەسیر"], ans: 1 },
-      { type: "mcq", q: "گریمانا دەنگێن سروشتی ل سەدێ (١٧-١٨) ژ لایێ کیژ زانای ڤە هاتیە بەحسکرن؟", options: ["لایبنیز", "داروین", "رڤیز", "شتانیشتال"], ans: 0 },
-      { type: "tf", q: "ئەفلاتۆن ل سەدسالیا پێنجێ ب.ز دبێژیت زمان دیاردەکا خوەزایی (سروشتی)یە و مرۆڤان چ پەیوەندی ب ئافراندنا وێ ڤە نینە.", ans: true, explain: "راستە." },
-      { type: "tf", q: "گریمانا دەنگێن سروشتی دبێژیت زمان ژ دەنگێن زگماکی یێن مرۆڤی وەک کەنی و گری و ئاخ و ئۆف پەیدابوویە.", ans: false, explain: "خەلەتە: ئەوا دەنگێن سروشتی ژ لاسایکرنا (شرشرا ئاڤێ، گرگرا عەوران، چرچرا چویچکان، قدقدا مریشکێ) پەیدابوویە." },
-      { type: "blank", q: "د بۆچوونا ئۆلی-باوەری دا، خودایێ مەزن _____ فێری زمانی کریە و پاشی بۆ کور و نەڤیێن وی هاتیە ڤەگۆهاستن.", ans: "ئادەم" }
-    ]
-  },
-  {
-    id: 14,
-    title: "تەمامەتیا گریمانێن مرۆڤی (گازی/قیژی، پەیوەندیکرن، رێکەفتن)",
-    points: [
-      "<strong>٢- گریمانا گازی و قیژیێن هەست دەربڕ:</strong> دزڤریتە سەدێ <strong>١٧ز</strong> ژ لایێ زانایێ ئەلمانی <strong>(شتانیشتال / شتاینتال)</strong> و زانایێن سەدێ ١٩. زمان ژ دەنگێن زگماکی یێن مرۆڤی (کەنی، گری، ئاخ و ئۆف) پەیدابوویە. پشتەڤان: <strong>(داروین)</strong> د تیۆرا 'گەشەکرنا بوونەوەرێن زیندی' دا، <strong>(ماکس مولەر)</strong> و <strong>(ئارنست رینان)</strong>.",
-      "<strong>٣- گریمانا پەیوەندیکرنێ:</strong> ژ لایێ <strong>(رڤیز / ریڤێز)</strong> هاتیە بەحسکرن؛ زمان ب سێ قۆناغان دەربازبوویە: أ- <strong>قۆناغا قیژیان</strong> (ئارمانج ژێ تێگەهشتن نەبوویە). ب- <strong>قۆناغا گازیکرنێ</strong> (ب جهئینانا حەز و ئارەزویێن مرۆڤی بوویە). ت- <strong>قۆناغا پەیڤی</strong> (دەنگ وەک پەیڤ/هێما بکاهاتینە). ل دویڤ رڤیزی ئێکەم گۆتن ب شێوێ <strong>فەرمان</strong> بوویە پاشی راگەهاندن و پرسیارکرن.",
-      "<strong>٤- گریمانا رێکەفتنێ:</strong> زانایێ ئەلمانی <strong>(چیجر / گیگەر)</strong> خودانێ وێ یە. زمان ژ دەنگێ کۆمەکا مرۆڤان پەیدابوویە ل دەمێ ئەنجامدانا کارەکی ب هەڤکاری و ل سەر ناڤێن تشتان رێککەفتینە."
-    ],
-    note: "هەر چوار گریمانێن مرۆڤی ب ناڤێ خۆدانێن وان ڤە ببەستە: ١- دەنگێن سروشتی (ئەرستۆ/لایبنیز/یسپرسن)، ٢- گازی و قیژی (شتانیشتال + داروین)، ٣- پەیوەندیکرن (رڤیز - فەرمان)، ٤- رێکەفتن (چیجر).",
-    questions: [
-      { type: "mcq", q: "خودانێ (گریمانا رێکەفتنێ) کیژ زانایێ ئەلمانی بوو؟", options: ["شتانیشتال", "چیجر (گیگەر)", "ماکس مولەر", "رڤیز"], ans: 1 },
-      { type: "mcq", q: "ب باوەریا (رڤیزی) د گریمانا پەیوەندیکرنێ دا، ئێکەم گۆتن ل دەڤ مرۆڤان ب چ شێوەی بوویە؟", options: ["پرسیارکرن", "راگەهاندن", "فەرمان", "سۆز و خەیاڵ"], ans: 2 },
-      { type: "tf", q: "داروین د تیۆرا خۆ یا بناڤێ (گەشەکرنا بوونەوەرێن زیندی) دا ئاماژە ب گریمانا گازی و قیژیێن هەست دەربڕ دایە.", ans: true, explain: "راستە." },
-      { type: "tf", q: "د قۆناغا قیژیان یا رڤیزی دا، ئارمانج ژ دەنگان تێگەهشتن و راگەهاندنا هزران بوویە.", ans: false, explain: "خەلەتە: د قۆناغا قیژیان دا ئارمانج ژێ تێگەهشتن نەبوویە." },
-      { type: "blank", q: "هزرا گریمانا گازی و قیژیێن هەست دەربڕ دزڤریتە سەدێ ١٧ زایینی ژ لایێ زانایێ ئەلمانی _____ ڤە.", ans: "شتانیشتال (شتاینتال)" }
-    ]
-  },
-  {
-    id: 15,
-    title: "خێزانا زمانێن جیهانی",
-    points: [
-      "<strong>چوار خێزانێن زمانێن جیهانی:</strong> ١- <strong>هندو ئەورۆپی</strong>، ٢- <strong>سامی</strong>، ٣- <strong>ئۆرالی و ئالتیکی</strong>، ٤- <strong>چینی تبتی</strong>.",
-      "<strong>خێزانا زمانێن هندو ئەورۆپی:</strong> مەزنترین خێزانا زمانییە، ژ ناڤەراستا ئاسیا هەتا کەنارێن رۆژئاڤایێ ئەورۆپا دگرن؛ دابەشی <strong>چوار ژێر خێزانان</strong> دبیت:",
-      "<strong>أ- خێزانا زمانێ ئیرانی:</strong> I. <strong>ئیرانیێن کەڤن</strong> (ماد، ئاڤێستا). II. <strong>ئیرانیێن ناڤەراست</strong> (پەهلەوی، پەهلەوییا باشور، دەری). III. <strong>ئیرانیێن نوی</strong> (<strong>کوردی</strong>، فارسی، پەشتو، بەلوجی).",
-      "<strong>ب- خێزانا زمانێ هندی:</strong> (سانسکریتی، هندی، نیپالی، کشمیری).",
-      "<strong>ج- خێزانا زمانێ ئەورۆپی:</strong> (ئەلمانی، ئنگلیزی، یۆنانی، لاتینی).",
-      "<strong>د- خێزانا زمانێ هندو هیتی:</strong> (هیتی، ئەرمەنی، ئەناتۆلی)."
-    ],
-    note: "پرسیارا بەربەلاڤ: زمانێ <strong>کوردی</strong> د ناڤ خێزانا <strong>هندو ئەورۆپی</strong>، ژێر خێزانا <strong>زمانێ ئیرانی</strong>، پشکا <strong>ئیرانیێن نوی</strong> دایە! هەروەسا <strong>ئەرمەنی</strong> سەر ب <strong>هندو هیتی</strong> یە.",
-    questions: [
-      { type: "mcq", q: "زمانێ کوردی د ناڤ کیژ پشکا خێزانا زمانێ ئیرانی دایە؟", options: ["ئیرانیێن کەڤن", "ئیرانیێن ناڤەراست", "ئیرانیێن نوی", "خێزانا سامی"], ans: 2 },
-      { type: "mcq", q: "زمانێ (ماد و ئاڤێستا) سەر ب کیژ پشکا زمانێن ئیرانی ڤەنە؟", options: ["ئیرانیێن کەڤن", "ئیرانیێن ناڤەراست", "ئیرانیێن نوی", "ئیرانیێن هندی"], ans: 0 },
-      { type: "tf", q: "خێزانا زمانێن هندو ئەورۆپی مەزنترین خێزانا زمانییە ل جیهانێ.", ans: true, explain: "راستە." },
-      { type: "tf", q: "زمانێ ئەرمەنی سەر ب خێزانا زمانێن ئیرانی یە.", ans: false, explain: "خەلەتە: سەر ب خێزانا زمانێ هندو هیتی یە (هیتی، ئەرمەنی، ئەناتۆلی)." },
-      { type: "blank", q: "زمانناسان زمانێن جیهانی ب سەر _____ خێزانێن زمانی دابەشکرینە.", ans: "چوار (٤)" }
-    ]
-  },
-  {
-    id: 16,
-    title: "مێژوویا زمانێ کوردی + دیالێکت - زاراڤ - لەهجە",
-    points: [
-      "<strong>مێژوویا زمانێ کوردی:</strong> ل سەدێ <strong>٦ ب.ز</strong> هەبوویە و ژ چیایێن زاگرۆس هاتیە. هەمی زانا د وێ باوەرێدانە کو زمانێ کوردی ژ زمانێ <strong>(ماد - ئاڤێستا)</strong> هاتییە (زمانێ پەرتووکا زەردەشتییان) و ب هەمی دیالێکتان ڤە دزڤریتەڤە بۆ زمانێ <strong>(ماد)</strong>.",
-      "<strong>کەڤنترین سەرچاوە:</strong> سەرچاوەیێ یۆنانی <strong>(زەینەفۆن)</strong> دگەل دەھ هزار سەربازان د ناڤ کوردستانێ دا دەرباز بوو و ناڤێ وان ب <strong>(کارۆخی / کاردۆخی)</strong> دانا (ل سەدێ <strong>٦٥٠ ب.ز</strong> ب کۆچکرنێ هاتینە ڤێ ناوچێ).",
-      "<strong>کەڤنترین دەق ب زمانێ کوردی هەتا نها:</strong> ١- پەرتووکا <strong>ئاڤێستا</strong> یا ئۆلێ زەردەشتییان (دیرۆکا وێ دزڤریتە سەدێ <strong>٧ ب.ز</strong>). ٢- بەرهەمێن <strong>(بابە تاهیرێ هەمەدانی)</strong> ل نێزیک سالێن <strong>٩٣٧ز</strong>.",
-      "<strong>دیالێکت - زاراڤ - لەهجە:</strong> رێکا ئاخفتنا خەلکی یە د زمانەکیدا ژ ئەگەرێ جوگرافی، جڤاکی یان رەوشەنبیری. د کوردیدا زاراڤێن <strong>(زار، لەهجە،
+<!-- SLIDE 2 -->
+<section class="card" id="s2">
+  <div class="card-h"><span class="s-num">سلاید ٢</span><h2 class="s-title">زاراڤ و مێژوویا کوردستانێ</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>زاراڤ:</strong> پەیڤەکا دارێتی یە ژ (<strong>کورد + ستان</strong>) = جهێ/ئاخا کوردان ب زاراڤێ (جوگرافی و نەتەوەیی). بۆچوونەکا دی: وشەکا فارسی یە ب مانا وەلاتێ کوردان.</li>
+        <li><strong>ناڤێن کەڤن و مانا وشێ:</strong> د کەڤندا (<strong>عیلام، سوپارتو، کوتی، میدی، وەلاتێ دناڤبەرا هەردوو رووباران</strong>). مانا وشا کوردستان: (<strong>چەلەنگ، زیرەک، سەگڤان</strong>).</li>
+        <li><strong>ئاڤەدانی و ئایین:</strong> ژ <strong>٤٠ تا ٦٠ هزار سالان بەری زایینی</strong> مرۆڤ لسەر هەبوو. لدویڤ (تەورات، ئینجیل، قورئان) <strong>لاندکا مرۆڤان</strong> بوویە (ئادەم و حەوا، نوح، ئیبراهیم).</li>
+        <li><strong>دەولەت و میرگەهـ:</strong> دەولەتێن کەڤن (گوتی، لولوی، سوپارتی، میدی، کاشی). میرگەهـ (هەموزانی، دوستەکی، بوتان، هەکاری، بەهدینان، سوران، بابان، ئەردەلان، بەدلیسی).</li>
+        <li><strong>سەردەمێ ئیسلامی:</strong> کەڤنترین ژێدەر بۆ پەیڤا (کوردستان): <strong>(نزهة القلوب)</strong> یا <strong>(حەمدولڵا موستەوفی)</strong>. کەڤنترین نڤیسینا فەرمی بۆ ناڤێ کوردان: نامەیا <strong>(ئیمام عەلی)</strong> بۆ <strong>(زیادێ کورێ ئەبیهـ)</strong>.</li>
+        <li><strong>رەگەز و زمان:</strong> ژ لایێ رەگەزی <strong>ئاری</strong> نە، زمان <strong>هند و ئەورۆپی</strong> یە، لدویڤ شەرەفخانێ بەدلیسی ٤ دیالێکتن: <strong>کرمانجی، لوری، کەهلوری، گورانی</strong>. کوردناسی ل ئەورۆپا (ئیتالیا، فەرەنسا، ئەلمانیا، بەریتانیا) و روسیا و سۆڤێتی گەشە کر.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> نزهة القلوب (حەمدولڵا موستەوفی) = پەیڤا کوردستان؛ ناما ئیمام عەلی بۆ زیادێ کورێ ئەبیهـ = ناڤێ کوردان.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٢</h4>
+      <div class="q"><div class="q-t"><span>١. کەڤنترین ژێدەرێ موسلمانان کو پەیڤا (کوردستان) تێدا هاتی کیژە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) شەرەفنامە</button><button class="opt" onclick="ans(this,1)">ب) نزهة القلوب یا حەمدولڵا موستەوفی</button><button class="opt" onclick="ans(this,0)">ج) معجم البلدان</button><button class="opt" onclick="ans(this,0)">د) صورة الارض</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) نزهة القلوب یا حەمدولڵا موستەوفی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. لدویڤ شەرەفخانێ بەدلیسی، ٤ دیالێکتێن سەرەکی یێن کوردی کیژن؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) کرمانجی، لوری، کەهلوری، گورانی</button><button class="opt" onclick="ans(this,0)">ب) سۆرانی، بادینی، زازاکی، فارسی</button><button class="opt" onclick="ans(this,0)">ج) میدی، کوتی، لولوی، گورانی</button><button class="opt" onclick="ans(this,0)">د) هەورامی، لوری، عیلامی، کرمانجی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) کرمانجی، لوری، کەهلوری، گورانی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. کەڤنترین نڤیسینا فەرمی یا ناڤێ کوردان نامەیا ئیمام عەلی بوو بۆ زیادێ کورێ ئەبیهـ.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. ژ لایێ رەگەزی ڤە مللەتێ کورد دگەل مللەتێن سامی دهێتە هژمارتن.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — دگەل مللەتێن ئاری دهێتە هژمارتن و زمان هند و ئەورۆپی یە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. مانا وشا کوردستان ب _____، _____، _____ دهێتە نیاسین.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ چەلەنگ، زیرەک، سەگڤان</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="card" id="s3">
+  <div class="card-h"><span class="s-num">سلاید ٣</span><h2 class="s-title">ئەگەرێن درەنگ بکارئینانا زاراڤێ کوردستان</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>١- نەجێگیریا سیاسی:</strong> وەلاتێ کوردان ژ لایێ سەقامگیریێ ڤە جێگیر نەبوو؛ دەستهەلات ژ لایێ عەشیرەت و هۆزان دهاتە برێڤەبرن، لەوما هەر هەرێمەک ب ناڤێ هۆزەکێ دهاتە ناڤکرن.</li>
+        <li><strong>٢- گوهۆرینا زمانی:</strong> زاراڤێ کوردستانێ زاراڤەکێ نوی یە بەراورد دگەل مێژوویا وەلاتێ کوردان، چونکی زمان بەردەوام د گوهۆرینێ دایە (پەیڤێن نوی دهێن و یێن کەڤن دهێنە ژدەستدان).</li>
+        <li><strong>٣- کێمیا هەستا نەتەوەیی:</strong> خەلکێ خۆجهـ ناڤێ وەلاتێ خۆ نەدانا، دگۆت (باژێرێ من، گوندێ مە)، ئانکو هەستا نەتەوەیی یا کێم بوو.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> سێ ئەگەرێن سەرەکی نە: هەرێم ب ناڤێ هۆزان بوون + گوهۆرینا زمانی + کێمیا هەستا نەتەوەیی.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٣</h4>
+      <div class="q"><div class="q-t"><span>١. ژ بەر دەستهەلاتا عەشیرەت و هۆزان، هەر هەرێمەک ب چ ناڤ دهاتە ناڤکرن؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) کوردستان</button><button class="opt" onclick="ans(this,1)">ب) ناڤێ هۆزەکێ</button><button class="opt" onclick="ans(this,0)">ج) ناڤێ شاهەکی</button><button class="opt" onclick="ans(this,0)">د) ناڤێ چیایەکی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ناڤێ هۆزەکێ</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. گۆتنا خەلکێ خۆجهـ ب شێوێ (باژێرێ من، گوندێ مە) نیشانا چ بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) بەرفرەهبوونا ئابووری</button><button class="opt" onclick="ans(this,1)">ب) کێمبوونا هەستا نەتەوەیی</button><button class="opt" onclick="ans(this,0)">ج) هەبوونا دەولەتەکێ</button><button class="opt" onclick="ans(this,0)">د) تێکەلیا بازرگانی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) کێمبوونا هەستا نەتەوەیی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. زاراڤێ کوردستانێ زاراڤەکێ کەڤنترە ژ مێژوویا وەلاتێ کوردان.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — زاراڤەکێ نوی یە بەراورد دگەل مێژوویا وەلاتێ کوردان.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. ژ بەر گوهۆرینا زمانی، هندەک پەیڤێن نوی دهێن و یێن کەڤن دهێنە ژدەستدان.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. د کەڤندا دەستهەلاتا دەڤەرا کوردستانێ ژ لایێ _____ و هۆزان ڤە دهاتە برێڤەبرن.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ عەشیرەت</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="card" id="s4">
+  <div class="card-h"><span class="s-num">سلاید ٤</span><h2 class="s-title">کوردۆلۆجی (کوردناسی) و دیرۆکا وێ</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>پێناسە:</strong> ئەو زانستە کو خۆ بۆ ناساندنا نەتەوەیێ کورد و دیارکرنا ناسنامەیا نەتەوی دکەت ژ لایێ نەژاد، دیرۆک، زمان، دیالێکت، فۆلکلۆر، ئەتنۆگرافیا تیتالان، نیشتمان، هونەر، ئاین و ئاینزایان.</li>
+        <li><strong>بنیاتێ پەیڤێ:</strong> پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە: <strong>کورد</strong> (نەتەوە/مللەتێ کورد) + <strong>لۆجی - لۆجیا</strong> (زانست و نیاسین) = زانستێ کوردناسیێ.</li>
+        <li><strong>دیرۆکا کوردۆلۆجی:</strong> لقەکە ژ <strong>رۆژهەلاتناسیێ</strong> و د ناڤ چەرگەیا رۆژهەلاتناسیێ ژ دایک بوویە. کوردناسێن بیانی بەری کوردان دەست پێ کر؛ جاران بابەتیانە و زانستیانە، جاران بێ بنەما یان بۆ بەرژەوەندی و مەرامێ سیاسی و ئابووری.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> کوردۆلۆجی د ناڤ چەرگەیا <strong>رۆژهەلاتناسیێ</strong> ژ دایک بوویە. لۆجی = زانست و نیاسین.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٤</h4>
+      <div class="q"><div class="q-t"><span>١. کوردۆلۆجی لقەکە ژ کیژ زانستی و د ناڤ چەرگەیا وێ دا ژ دایک بوویە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) جڤاکناسی</button><button class="opt" onclick="ans(this,1)">ب) رۆژهەلاتناسی</button><button class="opt" onclick="ans(this,0)">ج) فەلسەفە</button><button class="opt" onclick="ans(this,0)">د) ئابووریناسی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) رۆژهەلاتناسی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. د پەیڤا (کورد + لۆجی) دا، پەیڤا (لۆجی - لۆجیا) ب چ رامان دهێت؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) نیشتمان</button><button class="opt" onclick="ans(this,0)">ب) دیرۆک</button><button class="opt" onclick="ans(this,1)">ج) زانست و نیاسین</button><button class="opt" onclick="ans(this,0)">د) فۆلکلۆر</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ج) زانست و نیاسین</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. کوردناسێن بیانی بەری کوردناسێن کورد دەست ب ڤەکۆلینێ کرینە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. هەمی ڤەکۆلینێن کوردناسێن بیانی بێ چ مەرامێ سیاسی و ئابووری هاتینە ئەنجامدان.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — جاران بۆ بەرژەوەندی و مەرامێ سیاسی و ئابووری بووینە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. کوردۆلۆجی پەیڤەکا لێکدایە ژ دوو پەیڤێن سادە پێکهاتییە کو _____ و _____ نە.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ کورد ، لۆجی (لۆجیا)</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="card" id="s5">
+  <div class="card-h"><span class="s-num">سلاید ٥</span><h2 class="s-title">دابەشکرنا کوردناسان و کوردناسێن رۆژئاڤایی</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>دوو دەستەیێن کوردناسان:</strong> ١- <strong>کوردناسێن بیانی</strong> (a- رۆژئاڤایی/ئەورۆپی، b- رۆژهەلاتی/موسلمان) ٢- <strong>کوردناسێن کورد</strong>.</li>
+        <li><strong>ئێکەم ڤەکۆلینا ئەورۆپیان:</strong> ل سەدێ <strong>١٨ (هەژدێ)</strong> ژ لایێ قەشە <strong>(مۆریزیۆ گارزۆنی)</strong> یێ ئیتالی. بۆ کارێ شێوەرمەندیێ ل دەڤەرا <strong>(ئامێدیێ)</strong> بۆ ماوێ <strong>١٨ سالان</strong> ئاکنجی بوو، پەرتووکەک لسەر <strong>(رێزمانێ کوردی)</strong> ژ <strong>٢٢٠ لاپەران</strong> دگەل فەرهەنگەکا <strong>(ئیتالی - کوردی)</strong> دانا.</li>
+        <li><strong>وەلاتێن رۆژئاڤایی:</strong> رووسی، فەرەنسی، ئیتالی، بەریتانی، ئەلمانی، ئەرمەنی... (ب سەدان ئەرشیفێن دیکۆمێنتێن کوردی تێدا هەنە).</li>
+        <li><strong>زەینەفوون و خاچ پەرستان:</strong> <strong>(زەینەفوون)</strong> ئێکەم رۆژئاڤاییە ل پشتی <strong>(هیرۆدۆتس)</strong>ی دەربارەی کوردان نڤیسی. ل سەردەمێ شەرێ <strong>(خاچ پەرستان)</strong> پەیوەندی د ناڤبەرا ئەورۆپا و کوردان دا هەبوو.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> قەشە مۆریزیۆ گارزۆنی: سەدێ ١٨، ل ئامێدیێ، ١٨ سالان، ٢٢٠ لاپەر، فەرهەنگا ئیتالی-کوردی!</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٥</h4>
+      <div class="q"><div class="q-t"><span>١. ئێکەم ڤەکۆلینا کوردناسیێ ژ لایێ ئەورۆپیان ل سەدێ ١٨ ژ لایێ کێ هاتە ئەنجامدان؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) مارکۆ پۆلۆ</button><button class="opt" onclick="ans(this,1)">ب) قەشە مۆریزیۆ گارزۆنی</button><button class="opt" onclick="ans(this,0)">ج) مینۆرسکی</button><button class="opt" onclick="ans(this,0)">د) لێرخ</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) قەشە مۆریزیۆ گارزۆنی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. قەشە گارزۆنی ل کیژ دەڤەرێ بۆ ماوێ ١٨ سالان ئاکنجی بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) ئامێدیێ</button><button class="opt" onclick="ans(this,0)">ب) سلێمانیێ</button><button class="opt" onclick="ans(this,0)">ج) هەولێرێ</button><button class="opt" onclick="ans(this,0)">د) مێردینێ</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) ئامێدیێ</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. زەینەفوون ئێکەم رۆژئاڤاییە ل پشتی هیرۆدۆتسێ دیرۆکنڤیس دەربارەی کوردان نڤیسی.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. پەرتووکا رێزمانێ کوردی یا قەشە گارزۆنی ژ ٢٢٠ لاپەران پێکدهات و فەرهەنگا (ئینگلیزی - کوردی) تێدا بوو.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — فەرهەنگا (ئیتالی - کوردی) تێدا بوو.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. ڤەکۆلەرێن کوردناس دابەشی دوو دەستەیان دبن: کوردناسێن _____ و کوردناسێن _____.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ بیانی ، کورد</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="card" id="s6">
+  <div class="card-h"><span class="s-num">سلاید ٦</span><h2 class="s-title">شەرێ خاچپەرستان و کوردناسێن رۆژئاڤایی (١ تا ٦)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>شەرێ خاچپەرستان:</strong> ژ بەر (سەلاحەدینێ ئەیوبی + پرانیا شەرکەران کورد بوون) پەیوەندی هەبوو، بەلێ د بیاڤێ کوردناسیێ دا <strong>ناهێنە هژمارتن</strong> چونکی ب ئەگەرێ شەری بوون نە زانستیانە.</li>
+        <li><strong>١- مارکۆ پۆلۆ (١٢٥٤-١٣٢٤):</strong> جوگرافیناس و گەرۆکێ ئیتالی؛ <strong>ئێکەم رۆژئاڤاییە ناڤێ (کوردستان) بکارئینای</strong>.</li>
+        <li><strong>٢- کریستین بنور:</strong> گەشتەک بۆ کوردستانێ کر و ل سالا <strong>١٧٦٦ز</strong> چاپکر.</li>
+        <li><strong>٣- قەشە مۆریزیۆ گارزۆنی:</strong> ل <strong>١٧٨٧</strong> پەرتووکا (رێزمانا دانەپەیڤا زمانێ کوردی) بەلاڤکر.</li>
+        <li><strong>٤- مێریلا گالیتی:</strong> پەرتووکا <strong>(کەلتورێ کوردی د نڤیسینێن ئیتالیاندا)</strong>.</li>
+        <li><strong>٥- لێرخ:</strong> کوردناسێ رووسی، <strong>٣ کتیب</strong> لسەر کوردێن رۆژهەلات نڤیسینە.</li>
+        <li><strong>٦- ئەلەکسەندەر ژاپا (١٨٠٣-١٨٩٤):</strong> رووسی، دۆستێ <strong>مەلا مەحمود بایەزیدی (١٧٩٩-١٨٦٠)</strong>؛ نڤیسینێن ژاپا و بایەزیدی ب دەستپێکا <strong>پەخشانا کوردی</strong> دهێنە زانین.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ئێکەم رۆژئاڤایی ناڤێ کوردستان بکارئینای = <strong>مارکۆ پۆلۆ</strong>. دەستپێکا پەخشانا کوردی = <strong>ژاپا و بایەزیدی</strong>.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٦</h4>
+      <div class="q"><div class="q-t"><span>١. ئێکەم رۆژئاڤایی کو ناڤێ (کوردستان) بکارئینای کی بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) مارکۆ پۆلۆ</button><button class="opt" onclick="ans(this,0)">ب) کریستین بنور</button><button class="opt" onclick="ans(this,0)">ج) لێرخ</button><button class="opt" onclick="ans(this,0)">د) مێریلا گالیتی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) مارکۆ پۆلۆ</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. نڤیسینێن کێ ب دەستپێکا سەرهلدانا پەخشانا کوردی دهێنە زانین؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) لێرخ و گارزۆنی</button><button class="opt" onclick="ans(this,1)">ب) ئەلەکسەندەر ژاپا و مەلا مەحمود بایەزیدی</button><button class="opt" onclick="ans(this,0)">ج) مارکۆ پۆلۆ و بنور</button><button class="opt" onclick="ans(this,0)">د) گالیتی و زەینەفوون</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ئەلەکسەندەر ژاپا و مەلا مەحمود بایەزیدی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. پەیوەندیێن سەردەمێ شەرێ خاچپەرستان د بیاڤێ کوردناسیێ دا دهێنە هژمارتن.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — ناهێنە هژمارتن چونکی ب ئەگەرێ شەری بوون نە زانستیانە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. کوردناسێ رووسی (لێرخ) سێ کتیب لسەر کوردێن رۆژهەلات نڤیسینە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. مێریلا گالیتی پەرتووکەک لسەر کوردان نڤیسیە ب ناڤێ _____.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ کەلتورێ کوردی د نڤیسینێن ئیتالیاندا</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="card" id="s7">
+  <div class="card-h"><span class="s-num">سلاید ٧</span><h2 class="s-title">مینۆرسکی، کۆچێرا، پەرتووکێن ئەورۆپی و کوردناسێن موسلمان</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>٧- ڤلادیمێر مینۆرسکی (١٨٧٧-١٩٦٦):</strong> لسەر زمان، نەژاد و کەلتور نڤیسیە و دبێژیت: <strong>(کورد نەڤیێن میدیانن)</strong>.</li>
+        <li><strong>٨- کرێس کۆچێرا:</strong> کتیبا <strong>(بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ)</strong>.</li>
+        <li><strong>٥ پەرتووکێن ئەورۆپی:</strong> ١- دەیڤد ئادەمسۆن: شەرێ کورد (لەندەن ١٩٦٤). ٢- بێنیگسۆن: کورد و کوردۆلۆجی ل ئێکەتیا سۆڤیەتا بەرێ (پاریس ١٩٦٠). ٣- دێرک کینان: کورد و کوردستان (لەندەن ١٩٦٤). ٤- فردریک باريس: بنەمایێن رێکخستنا جڤاکی ل باشورێ کوردستانێ (ئۆسلۆ ١٩٥٣). ٥- جۆیس بلۆ: فەرهەنگا کوردی-فەرەنسی-ئینگلیزی (پاریس ١٩٦٥).</li>
+        <li><strong>ب- کوردناسێن موسلمان - رۆژهەلاتی:</strong> نڤیسینێن دیرۆکنڤیس و جوگرافیناسێن موسلمان <strong>جهێ باوەریێ بوون</strong> چونکی ل وی سەردەمی چ ململانێیێن نەتەوەیی، ئۆلی و مەزهەبی نەبوون.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> مینۆرسکی = (کورد نەڤیێن میدیانن). نڤیسینێن موسلمانان جهێ باوەریێ بوون ژ بەر نەبوونا ململانێیێن نەتەوەیی، ئۆلی و مەزهەبی.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٧</h4>
+      <div class="q"><div class="q-t"><span>١. کیژ کوردناس دبێژیت (کورد نەڤیێن میدیانن)؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) کرێس کۆچێرا</button><button class="opt" onclick="ans(this,1)">ب) ڤلادیمێر مینۆرسکی</button><button class="opt" onclick="ans(this,0)">ج) جۆیس بلۆ</button><button class="opt" onclick="ans(this,0)">د) دێرک کینان</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ڤلادیمێر مینۆرسکی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. کتیبا (بزاڤا نەتەوەیا کورد و هیڤیا سەرخوەبونێ) بەرهەمێ کێ یە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) کرێس کۆچێرا</button><button class="opt" onclick="ans(this,0)">ب) دەیڤد ئادەمسۆن</button><button class="opt" onclick="ans(this,0)">ج) فردریک باريس</button><button class="opt" onclick="ans(this,0)">د) بێنیگسۆن</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) کرێس کۆچێرا</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. فەرهەنگا کوردی – فەرەنسی – ئینگلیزی (پاریس ١٩٦٥) ژ لایێ جۆیس بلۆ ڤە هاتیە نڤیسین.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. نڤیسینێن موسلمانان جهێ باوەریێ نەبوون ژ بەر ململانێیا مەزهەبی ل وی سەردەمی.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — جهێ باوەریێ بوون چونکی ململانێ نەبوون.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. کتیبا (کورد و کوردۆلۆجی ل ئێکەتیا سۆڤیەتا بەرێ) سالا ١٩٦٠ ژ لایێ _____ ڤە هاتە نڤیسین.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ بێنیگسۆن</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="card" id="s8">
+  <div class="card-h"><span class="s-num">سلاید ٨</span><h2 class="s-title">کوردناسێن موسلمان - رۆژهەلاتی (١ تا ٦)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>١- محەمەدێ کورێ جەریرێ تەبەری (٨٣٩-٩٢٣ز):</strong> <strong>(تاريخ الامم والملوك)</strong> تا سالا ٩١٥ز.</li>
+        <li><strong>٢- ئەبی حەسەن عەلی شەیبانی (مری ٦٣٠ مشەختی):</strong> <strong>(الكامل في التاريخ)</strong> درێژەپێدانا تەبەری، بەحسێ بزاڤێن کوردی ل سەدێ <strong>٩ و ١٠</strong> دکەت.</li>
+        <li><strong>٣- حافز عیمادەدین ئەبو فیدا ئیسماعیل ئیبن کەسیر دیمەشقی (مری ٧٧٤ مشەختی):</strong> <strong>(البداية والنهاية)</strong>.</li>
+        <li><strong>٤- ئیبن حەوقەل (مری ٩٧٧ز):</strong> <strong>(صورة الارض)</strong>، نەخشێ کوردستانێ کێشایە و <strong>(جیبال) و (جەزیرە)</strong> دیارکرینە.</li>
+        <li><strong>٥- ئەلمەقدیسی (مری ٩٨٥ز):</strong> <strong>(أحسن التقاسيم في معرفة الاقاليم)</strong>، کوردستان وەک <strong>هەرێمەکا سەربەخۆ</strong> دانایە.</li>
+        <li><strong>٦- یاقوت حەمەوی (١١٧٠-١٢٢٩ز):</strong> <strong>(معجم البلدان)</strong>. ژ سەدێ <strong>سێیێ مشەختی</strong> پرانیا جوگرافیناسان نەخشێ کوردستانێ کێشایە.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ئیبن حەوقەل (صورة الارض + جیبال و جەزیرە)، مەقدیسی (أحسن التقاسيم + هەرێما سەربەخۆ)، یاقوت حەمەوی (معجم البلدان).</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٨</h4>
+      <div class="q"><div class="q-t"><span>١. کیژ جوگرافیناسی د (صورة الارض) دا نەخشێ کوردستانێ کێشایە و (جیبال) و (جەزیرە) دیارکرینە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) یاقوت حەمەوی</button><button class="opt" onclick="ans(this,1)">ب) ئیبن حەوقەل</button><button class="opt" onclick="ans(this,0)">ج) مەقدیسی</button><button class="opt" onclick="ans(this,0)">د) تەبەری</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ئیبن حەوقەل</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. کتیبا (الكامل في التاريخ) یا شەیبانی درێژەپێدانا کیژ پەرتووکێ یە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) تاريخ الامم والملوك (تەبەری)</button><button class="opt" onclick="ans(this,0)">ب) البداية والنهاية</button><button class="opt" onclick="ans(this,0)">ج) معجم البلدان</button><button class="opt" onclick="ans(this,0)">د) أحسن التقاسيم</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) تاريخ الامم والملوك (تەبەری)</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. ئەلمەقدیسی د پەرتووکا (أحسن التقاسيم) دا کوردستان وەک هەرێمەکا سەربەخۆ دانایە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. پەرتووکا (البداية والنهاية) بەرهەمێ یاقوت حەمەوی یە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — یا ئیبن کەسیرێ دیمەشقی یە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. هەر ژ سەدێ _____ مشەختی، موسلمانان نەخشێ کوردستانێ ژی کێشایە.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ سێیێ (٣)</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 -->
+<section class="card" id="s9">
+  <div class="card-h"><span class="s-num">سلاید ٩</span><h2 class="s-title">٢- کوردناسێن کورد</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>دیرۆکنڤیس:</strong> ١- <strong>شەرەفخانێ بەدلیسی:</strong> (شەرەفنامە) سالا <strong>١٥٩٦ز</strong>. ٢- <strong>محەمەد عەلی عەونی</strong>. ٣- <strong>محەمەد ئەمین زەکی:</strong> (خلاصة تاريخ الكورد).</li>
+        <li><strong>ئێکەم کەسێن پەیڤا (کوردناسی) بکارئینای:</strong> ١- <strong>دکتۆر عەبدولڵا جەودەت</strong> (<strong>١٩١٣ز</strong>). ٢- <strong>جەلادەت بەدرخان</strong> (<strong>١٩٣٤ز</strong>) د گوتارا (کورد و کوردستان ب چاڤێ بیانیان).</li>
+        <li><strong>پێشەنگێن زمانناسی و رێنڤیسێ:</strong> سەعید سدقی کابان، تۆفیق وەهبی، جەلادەت بەدرخان، کامەران بەدرخان، مەسعود محەمەد، مەلای گەورە، سادق بەهائەدین...</li>
+        <li><strong>ئەدەب و تۆرەڤان:</strong> ئەمینێ عەبدال، حاجی جندی، عەرەب شەمۆ، ئیبراهیم ئەحمەد، سەدیق بۆرەکەیی، عزەدین مستەفا رەسول، مارف خەزنەدار. <strong>عەلائەدین سەجادی</strong> ئێکەم نڤیسکارە لسەر <strong>(دیرۆکا ئەدەبێ کوردی)</strong> سالا <strong>١٩٥٦ز</strong> نڤیسی.</li>
+        <li><strong>دیرۆک:</strong> <strong>د. کەمال مەزهەر</strong> مژارێن ڤەشارتی ب نەتەوەیێن دی داینە ناسکرن.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> شەرەفنامە (١٥٩٦) | عەبدولڵا جەودەت / کوردناسی (١٩١٣) | جەلادەت بەدرخان (١٩٣٤) | سەجادی / دیرۆکا ئەدەبێ کوردی (١٩٥٦).</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ٩</h4>
+      <div class="q"><div class="q-t"><span>١. ئێکەم کەس ژ کوردناسێن کورد کو پەیڤا (کوردناسی) بکارئینابیت کی بوو و ل کیژ سالێ؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) د. عەبدولڵا جەودەت - ١٩١٣ز</button><button class="opt" onclick="ans(this,0)">ب) جەلادەت بەدرخان - ١٩٣٤ز</button><button class="opt" onclick="ans(this,0)">ج) شەرەفخان - ١٥٩٦ز</button><button class="opt" onclick="ans(this,0)">د) سەجادی - ١٩٥٦ز</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) د. عەبدولڵا جەودەت - ١٩١٣ز</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. ئێکەم نڤیسکار کو پەرتووکەک لسەر (دیرۆکا ئەدەبێ کوردی) ل سالا ١٩٥٦ز نڤیسی کی بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) مارف خەزنەدار</button><button class="opt" onclick="ans(this,1)">ب) عەلائەدین سەجادی</button><button class="opt" onclick="ans(this,0)">ج) د. کەمال مەزهەر</button><button class="opt" onclick="ans(this,0)">د) تۆفیق وەهبی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) عەلائەدین سەجادی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. شەرەفخانێ بەدلیسی پەرتووکا (شەرەفنامە) ل سالا ١٥٩٦ز نڤیسیە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. پەرتووکا (خلاصة تاريخ الكورد) ژ لایێ محەمەد عەلی عەونی ڤە هاتیە نڤیسین.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — یا محەمەد ئەمین زەکی یە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. جەلادەت بەدرخان ل سالا ١٩٣٤ز پەیڤا کوردناسی د گوتارا خۆدا ب ناڤێ _____ بکارئینا.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ کورد و کوردستان ب چاڤێ بیانیان</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 -->
+<section class="card" id="s10">
+  <div class="card-h"><span class="s-num">سلاید ١٠</span><h2 class="s-title">ئەگەرێن درەنگبوونا کوردان + دەستپێشخەریا بیانیان</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>٤ هۆکارێن درەنگ دەستپێکرنا کوردۆلۆجی ژ لایێ کوردان ڤە:</strong> ١- دابەشکرنا کوردستانێ د ناڤبەرا ئیمپراتۆریەتێن <strong>سەفەوی و عوسمانی</strong> (بێ دەستهەلات و ژێردەست). ٢- <strong>قەدەغەکرنا خواندن و نڤیسینێ</strong> ب زمانێ کوردی. ٣- <strong>داننەنان ب کوردان</strong> مینا نەتەوە. ٤- دووبارە دابەشکرن بۆ <strong>چوار-پێنج پارچان</strong> (تورکیا، ئیران، عێراق، سوریا، ئێکەتیا سۆڤیەتا جاران).</li>
+        <li><strong>٣ هۆکارێن دەستپێکرنا رۆژهەلاتناسێن ئەورۆپی بەری کوردان:</strong> ١- جێبەجێکرنا مەبەست و مەرامێ <strong>سیاسی</strong> و بەرژەوەندیێن خۆ. ٢- بەرژەوەندیێن <strong>ئابووری</strong> یێن وەلاتێن خۆ. ٣- نیاسینا جڤاکێ کورد بۆ رێکخۆشکرن و جێبەجێکرنا هەردوو خالێن سیاسی و ئابووری.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ئیمپراتۆریەتێن ئێکێ = <strong>سەفەوی و عوسمانی</strong>؛ ئەورۆپیان ژ بەر مەرامێن <strong>سیاسی و ئابووری</strong> دەست پێ کر.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٠</h4>
+      <div class="q"><div class="q-t"><span>١. بەرێ دابەشکرنا نوکە، کوردستان د ناڤبەرا کیژ هەردوو ئیمپراتۆریەتان دا دابەشکرابوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) سەفەوی و عوسمانی</button><button class="opt" onclick="ans(this,0)">ب) ئاشووری و بابلی</button><button class="opt" onclick="ans(this,0)">ج) رووسی و بەریتانی</button><button class="opt" onclick="ans(this,0)">د) میدی و فارسی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) سەفەوی و عوسمانی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. مەبەستا سەرەکی یا ئەورۆپیان ژ ڤەکۆلینێن کوردۆلۆجی بەری کوردان چ بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) خزمەتا ئەدەبێ کوردی بتنێ</button><button class="opt" onclick="ans(this,1)">ب) مەرامێ سیاسی، بەرژەوەندیا ئابووری و نیاسینا جڤاکی</button><button class="opt" onclick="ans(this,0)">ج) دامەزراندنا دەولەتا کوردی</button><button class="opt" onclick="ans(this,0)">د) بەلاڤکرنا ئاینێ ئیسلامێ</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) مەرامێ سیاسی، بەرژەوەندیا ئابووری و نیاسینا جڤاکی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. قەدەغەکرنا خواندن و نڤیسینێ ب کوردی ئێک ژ ئەگەرێن درەنگ دەستپێکرنا کوردان بوو.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. کوردستان دووبارە ب تنێ بۆ دوو پارچان بسەر وەلاتێن ئێقلیمی دا هاتە دابەشکرن.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — بۆ چوار-پێنج پارچان (تورکیا، ئیران، عێراق، سوریا، سۆڤیەتا جاران).</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. ئێک ژ هۆکارێن درەنگبوونا کوردان _____ ب کوردان مینا نەتەوە بوو.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ داننەنان</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 -->
+<section class="card" id="s11">
+  <div class="card-h"><span class="s-num">سلاید ١١</span><h2 class="s-title">زمــــان (پەیڤ، پێناسە و گرنگی)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>بنیاتێ پەیڤا زمان (Language):</strong> ژ پەیڤا <strong>(Logos)</strong> یا <strong>گریکی</strong> دهێت ب رامانا <strong>(پەیڤ یان ئاخفتن)</strong>؛ د زمانێ <strong>لاتینی</strong> دا ب رامانا <strong>(دەستەلات، حیکمەت، هزرکرن)</strong> دهێت.</li>
+        <li><strong>پێناسێن زمانی:</strong> ١- باشترین رێکا پەیوەندیکرنێ یە بۆ دەربڕینا هزر و مەبەستان و برێڤەبرنا ژیانێ. ٢- <strong>کارۆل</strong> دبێژیت: زمان کۆمەکا <strong>رەمزێن دەنگی</strong>نە بۆ تێگەهشتن و پۆلێنکرنا تشتان و رویدانێن دەورووبەر.</li>
+        <li><strong>گرنگیا زمانی (٥ خال):</strong> ١- پاراستنا کەلتوور و شارستانییا مللەتان. ٢- برێڤەبرنا کاروبارێن کەسی د ناڤ جڤاکیدا. ٣- باشترین دیمەنە بۆ هەبوونا جڤاکان و تاکان دگەهینیتە ئێک. ٤- سیمبولە بۆ جڤاکی و پێشکەفتنێ دیاردکەت. ٥- پاراستنا ئێکگرتنا سیاسی و جڤاکی.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> Logos د گریکی دا = پەیڤ یان ئاخفتن؛ د لاتینی دا = دەستەلات، حیکمەت، هزرکرن. کارۆل = رەمزێن دەنگی.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١١</h4>
+      <div class="q"><div class="q-t"><span>١. پەیڤا (Language) ژ پەیڤا (Logos) یا کیژ زمانی دهێت ب رامانا (پەیڤ یان ئاخفتن)؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) لاتینی</button><button class="opt" onclick="ans(this,1)">ب) گریکی</button><button class="opt" onclick="ans(this,0)">ج) ئنگلیزی</button><button class="opt" onclick="ans(this,0)">د) ئەلمانی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) گریکی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. لدویڤ پێناسا (کارۆل)، زمان کۆمەکا _____ یە بۆ تێگەهشتن و پۆلێنکرنا تشتان.</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) رەمزێن دەنگی</button><button class="opt" onclick="ans(this,0)">ب) ئاخفتنێن نڤیسکی</button><button class="opt" onclick="ans(this,0)">ج) یاسایێن جڤاکی</button><button class="opt" onclick="ans(this,0)">د) رەوشتێن باش</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) رەمزێن دەنگی</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. پەیڤا (Logos) د زمانێ لاتینی دا ب رامانا دەستەلات یان حیکمەت یان هزرکرن دهێت.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. زمان چ رۆل د پاراستنا ئێکگرتنا سیاسی و جڤاکی دا نینە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — دبیتە ئەگەرێ پاراستنا ئێکگرتنا سیاسی و جڤاکی.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. ئێک ژ گرنگیێن زمانی پاراستنا _____ و _____ مللەتانە.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ کەلتوور ، شارستانییا</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12 -->
+<section class="card" id="s12">
+  <div class="card-h"><span class="s-num">سلاید ١٢</span><h2 class="s-title">بنچینەیا پەیدابوونا زمانی (ئێکەم زمان و ٦٠٠٠ زمان)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>وەرار و گوهۆرین:</strong> زمان دیاردەیەکا جڤاکی یە و بەردەوام دهێتە گوهۆرین (نەمەرجە هەمی زمان ب وەکهەڤی بهێنە گوهۆرین).</li>
+        <li><strong>ئێکەم زمان کیژ بوو؟</strong> ئەو بوو دەمێ خودێ دگەل <strong>(ئادەم)</strong>ی ئاخفتی؛ جوهی دبێژن <strong>(عبری)</strong> و هندەک عەرەب دبێژن <strong>(عەرەبی)</strong>، بەلێ نە د قورئانێ و نە د ئنجیل دا نەهاتیە دیارکرن.</li>
+        <li><strong>چەوا ژ زمانەکی (٦٠٠٠) زمان چێبووینە؟</strong> سەرەتا ئێک زمان هەبوو، پشتی زێدەبوونا هژمارا ئاخفتنکەران ژ بەر دوو ئەگەران کۆچکرن: ١- <strong>نەبوونا جهی</strong> ٢- <strong>نەبوونا خوارنێ و کێماتیا دەرامەتی (ئەرزاقی)</strong>.</li>
+        <li>پشتی بۆرینا <strong>(٥-٦) چەرخان</strong> گوهۆرینێن رەھ و ریشالی ب سەر زمانیدا هاتن؛ دەستپێکێ بوونە <strong>دیالێکت</strong> و پاشی بوونە <strong>زمانێن سەربەخۆ</strong> (نوکە نێزیکی <strong>٦٠٠٠ زمانان</strong> هەنە).</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ٥-٦ چەرخان -> دیالێکت -> زمانێن سەربەخۆ -> نێزیکی ٦٠٠٠ زمانان.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٢</h4>
+      <div class="q"><div class="q-t"><span>١. نوکە ل جیهانێ نێزیکی چەند زمانان پەیدابووینە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) ٦٠٠ زمان</button><button class="opt" onclick="ans(this,0)">ب) ١٥٠٠ زمان</button><button class="opt" onclick="ans(this,1)">ج) ٦٠٠٠ زمان</button><button class="opt" onclick="ans(this,0)">د) ٩٠٠٠ زمان</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ج) ٦٠٠٠ زمان</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. پشتی بۆرینا چەند چەرخان گوهۆرینێن رەھ و ریشالی ب سەر زمانێ ئێکێ دا هاتن؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) ١-٢ چەرخان</button><button class="opt" onclick="ans(this,1)">ب) ٥-٦ چەرخان</button><button class="opt" onclick="ans(this,0)">ج) ١٠-١٢ چەرخان</button><button class="opt" onclick="ans(this,0)">د) ٢٠ چەرخان</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ٥-٦ چەرخان</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. د قورئانا پیرۆز و ئنجیل دا ب روونی هاتیە گۆتن کا ئێکەم زمان کیژ زمان بوو.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — نە د قورئانێ و نە د ئنجیل دا نەهاتیە گۆتن.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. نەمەرجە گوهۆرین د تەڤ زماناندا ب وەکهەڤی و یەک ئاوایی بهێتە گوهۆرین.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. دوو ئەگەرێن کۆچکرنا ئاخفتنکەرێن زمانێ ئێکێ _____ و _____ بوون.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ نەبوونا جهی ، نەبوونا خوارنێ و کێماتیا دەرامەتی</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13 -->
+<section class="card" id="s13">
+  <div class="card-h"><span class="s-num">سلاید ١٣</span><h2 class="s-title">بنیاتێ زمانی (بۆچوونا ئۆلی و گریمانا دەنگێن سروشتی)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>دوو بۆچوون هەنە:</strong> ١- بۆچوونێن گرتی (ئۆلی-باوەری) ٢- مگرتێن ڤەکری (مرۆڤی).</li>
+        <li><strong>بۆچوونا ئێکێ (ئۆلی-باوەری):</strong> پشت ب (تەورات، ئینجیل، قورئان) دبەستیت. زمان خەلاتا خودێ یە بۆ مرۆڤی و خودێ <strong>(ئادەم)</strong> فێری زمانی کر. <strong>ئەفلاتۆن</strong> ل سەدێ <strong>٥ێ ب.ز</strong> گۆت دیاردەکا خوەزایی یە و مرۆڤان پەیوەندی نینە. زانایێن ئیسلامی (ئەشعەری، ئیبن فارس، <strong>ئیبن عەباس</strong> ئایەتا <em>وعلم آدم الأسماء كلها</em> دکەتە بەلگە).</li>
+        <li><strong>بۆچوونا دوویێ (مرۆڤی) - ١- گریمانا دەنگێن سروشتی:</strong> سەدێ <strong>(٤-٥) ب.ز</strong> (دیموکراتیس، ئەرستۆ، ئەفلاتۆن)؛ سەدێ <strong>(١٧-١٨)</strong> (لایبنیز)؛ سەدێ <strong>١٩</strong> (یسپرسن، عەلی عەبدولواحد الوافی، تینی). ژ لاسایکرنا دەنگێن سروشتی (شرشرا ئاڤێ، گرگرا عەوران، چرچرا چویچکان، قدقدا مریشکێ) پەیدابوویە.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ئایەتا <em>(وعلم آدم الأسماء كلها)</em> = <strong>ئیبن عەباس</strong>. گریمانا دەنگێن سروشتی = لاسایکرنا شرشرا ئاڤێ و گرگرا عەوران.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٣</h4>
+      <div class="q"><div class="q-t"><span>١. کیژ زانایێ ئیسلامی ئایەتا (وعلم آدم الأسماء كلها) دکەتە بەلگە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) تەبەری</button><button class="opt" onclick="ans(this,1)">ب) ئیبن عەباس</button><button class="opt" onclick="ans(this,0)">ج) مەقدیسی</button><button class="opt" onclick="ans(this,0)">د) یاقوت حەمەوی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) ئیبن عەباس</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. گریمانا دەنگێن سروشتی ل سەدێ (١٧-١٨) ژ لایێ کێ ڤە هاتیە بەحسکرن؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) لایبنیز</button><button class="opt" onclick="ans(this,0)">ب) داروین</button><button class="opt" onclick="ans(this,0)">ج) رڤیز</button><button class="opt" onclick="ans(this,0)">د) چیجر</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) لایبنیز</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. ئەفلاتۆن ل سەدێ پێنجێ ب.ز دگۆت زمان دیاردەکا خوەزایی یە و مرۆڤان پەیوەندی ب ئافراندنا وێ نینە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. گریمانا دەنگێن سروشتی دبێژیت زمان ژ کەنی و گری و ئاخ و ئۆف پەیدابوویە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — ژ لاسایکرنا دەنگێن سروشتی (شرشرا ئاڤێ، گرگرا عەوران...).</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. د بۆچوونا ئۆلی دا، خودێ _____ فێری زمانی کریە و پاشی بۆ کور و نەڤیان ڤەگۆهاست.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ ئادەم</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14 -->
+<section class="card" id="s14">
+  <div class="card-h"><span class="s-num">سلاید ١٤</span><h2 class="s-title">گریمانێن مرۆڤی (گازی/قیژی، پەیوەندیکرن، رێکەفتن)</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>٢- گریمانا گازی و قیژیێن هەست دەربڕ:</strong> سەدێ <strong>١٧ز</strong> ژ لایێ زانایێ ئەلمانی <strong>(شتانیشتال)</strong> و زانایێن سەدێ ١٩. زمان ژ دەنگێن زگماکی (کەنی، گری، ئاخ و ئۆف) پەیدابوویە. پشتەڤان: <strong>داروین</strong> (د تیۆرا گەشەکرنا بوونەوەرێن زیندی دا)، <strong>ماکس مولەر، ئارنست رینان</strong>.</li>
+        <li><strong>٣- گریمانا پەیوەندیکرنێ (رڤیز):</strong> ب سێ قۆناغان دەربازبوویە: أ- <strong>قیژیان</strong> (بێ ئارمانجا تێگەهشتنێ) ب- <strong>گازیکرنێ</strong> (ب جهئینانا حەز و ئارەزوویان) ت- <strong>پەیڤی</strong> (دەنگ وەک هێما). ئێکەم گۆتن ب شێوێ <strong>فەرمان</strong> بوویە پاشی راگەهاندن و پرسیارکرن.</li>
+        <li><strong>٤- گریمانا رێکەفتنێ:</strong> زانایێ ئەلمانی <strong>(چیجر / گیگەر)</strong>؛ ل دەمێ ئەنجامدانا کارەکی ب هەڤکاری ناڤ لسەر تشتان رێککەفتن و دانان.</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> شتانیشتال + داروین = گازی و قیژی | رڤیز (فەرمان) = پەیوەندیکرن | چیجر = رێکەفتن.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٤</h4>
+      <div class="q"><div class="q-t"><span>١. خودانێ (گریمانا رێکەفتنێ) کیژ زانایێ ئەلمانی بوو؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) شتانیشتال</button><button class="opt" onclick="ans(this,1)">ب) چیجر (گیگەر)</button><button class="opt" onclick="ans(this,0)">ج) رڤیز</button><button class="opt" onclick="ans(this,0)">د) داروین</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ب) چیجر (گیگەر)</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. ب باوەریا (رڤیزی)، ئێکەم گۆتن ل دەڤ مرۆڤان ب چ شێوەی بوویە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) پرسیارکرن</button><button class="opt" onclick="ans(this,0)">ب) راگەهاندن</button><button class="opt" onclick="ans(this,1)">ج) فەرمان</button><button class="opt" onclick="ans(this,0)">د) ستران</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ج) فەرمان</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. داروین د تیۆرا (گەشەکرنا بوونەوەرێن زیندی) دا پشتەڤانیا گریمانا گازی و قیژیێن هەست دەربڕ کریە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. د قۆناغا قیژیان یا رڤیزی دا، ئارمانج ژ دەنگان تێگەهشتنا مرۆڤان بوویە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — ئارمانج ژێ تێگەهشتن نەبوویە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. گریمانا گازی و قیژیێن هەست دەربڕ ل سەدێ ١٧ ژ لایێ زانایێ ئەلمانی _____ ڤە هاتیە.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ شتانیشتال (شتاینتال)</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 15 -->
+<section class="card" id="s15">
+  <div class="card-h"><span class="s-num">سلاید ١٥</span><h2 class="s-title">خێزانا زمانێن جیهانی</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>چوار خێزانێن زمانێن جیهانی:</strong> ١- <strong>هندو ئەورۆپی</strong>، ٢- <strong>سامی</strong>، ٣- <strong>ئۆرالی و ئالتیکی</strong>، ٤- <strong>چینی تبتی</strong>.</li>
+        <li><strong>خێزانا هندو ئەورۆپی:</strong> مەزنترین خێزانا زمانییە (ژ ناڤەراستا ئاسیا تا رۆژئاڤایێ ئەورۆپا)؛ دابەشی <strong>٤ ژێر خێزانان</strong> دبیت:</li>
+        <li><strong>أ- زمانێ ئیرانی:</strong> I. کەڤن (ماد، ئاڤێستا) | II. ناڤەراست (پەهلەوی، پەهلەوییا باشور، دەری) | III. نوی (<strong>کوردی</strong>، فارسی، پەشتو، بەلوجی).</li>
+        <li><strong>ب- زمانێ هندی:</strong> (سانسکریتی، هندی، نیپالی، کشمیری).</li>
+        <li><strong>ج- زمانێ ئەورۆپی:</strong> (ئەلمانی، ئنگلیزی، یۆنانی، لاتینی).</li>
+        <li><strong>د- زمانێ هندو هیتی:</strong> (هیتی، ئەرمەنی، ئەناتۆلی).</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> زمانێ کوردی = هندو ئەورۆپی -> ئیرانی -> <strong>ئیرانیێن نوی</strong>. ئەرمەنی = <strong>هندو هیتی</strong>.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٥</h4>
+      <div class="q"><div class="q-t"><span>١. زمانێ کوردی د ناڤ کیژ پشکا خێزانا زمانێ ئیرانی دایە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">أ) ئیرانیێن کەڤن</button><button class="opt" onclick="ans(this,0)">ب) ئیرانیێن ناڤەراست</button><button class="opt" onclick="ans(this,1)">ج) ئیرانیێن نوی</button><button class="opt" onclick="ans(this,0)">د) هندو هیتی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ ج) ئیرانیێن نوی</div></details></div>
+      <div class="q"><div class="q-t"><span>٢. زمانێ (ماد و ئاڤێستا) سەر ب کیژ قۆناغا زمانێن ئیرانی ڤەنە؟</span><span class="tag">هەلبژارتن</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">أ) ئیرانیێن کەڤن</button><button class="opt" onclick="ans(this,0)">ب) ئیرانیێن ناڤەراست</button><button class="opt" onclick="ans(this,0)">ج) ئیرانیێن نوی</button><button class="opt" onclick="ans(this,0)">د) زمانێ هندی</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ أ) ئیرانیێن کەڤن</div></details></div>
+      <div class="q"><div class="q-t"><span>٣. خێزانا زمانێن هندو ئەورۆپی مەزنترین خێزانا زمانییە ل جیهانێ.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,1)">✔️ راست</button><button class="opt" onclick="ans(this,0)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ راستە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٤. زمانێ ئەرمەنی سەر ب خێزانا زمانێن ئیرانی یە.</span><span class="tag">راست/خەلەت</span></div>
+        <div class="opts"><button class="opt" onclick="ans(this,0)">✔️ راست</button><button class="opt" onclick="ans(this,1)">✖️ خەلەت</button></div>
+        <details class="ans"><summary>بەرسڤ</summary><div class="ans-txt">✅ خەلەت — سەر ب خێزانا زمانێ هندو هیتی یە.</div></details></div>
+      <div class="q"><div class="q-t"><span>٥. زمانناسان زمانێن جیهانی ب سەر _____ خێزانێن زمانی دابەشکرینە.</span><span class="tag">بۆشایی</span></div>
+        <details class="ans"><summary>نیشاندانا بەرسڤێ</summary><div class="ans-txt">✅ چوار (٤)</div></details></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 16 -->
+<section class="card" id="s16">
+  <div class="card-h"><span class="s-num">سلاید ١٦</span><h2 class="s-title">مێژوویا زمانێ کوردی + دیالێکت - زاراڤ - لەهجە</h2></div>
+  <div class="card-b">
+    <div class="sum-wrap">
+      <ul class="sum-list">
+        <li><strong>مێژوویا زمانێ کوردی:</strong> ل سەدێ <strong>٦ ب.ز</strong> هەبوویە و ژ چیایێن زاگرۆس هاتینە؛ هەمی زانا د وێ باوەرێدانە زمانێ کوردی ژ زمانێ <strong>(ماد - ئاڤێستا)</strong> هاتیە و ب هەمی دیالێکتان ڤە دزڤریتەڤە بۆ زمانێ <strong>(ماد)</strong>.</li>
+        <li><strong>کەڤنترین سەرچاوە:</strong> سەرچاوەیێ یۆنانی <strong>(زەینەفۆن)</strong>؛ دگەل دەھ هزار سەربازان د ناڤ کوردستانێ دا دەرباز بوو و ناڤێ وان ب <strong>(کارۆخی)</strong> دانا (ل سەدێ <strong>٦٥٠ ب.ز</strong> کۆچکرینە ڤێ ناوچێ).</li>
+        <li><strong>کەڤنترین دەق ب زمانێ کوردی:</strong> ١- پەرتووکا <strong>ئاڤێستا</strong> یا زەردەشتییان (سەدێ <strong>٧ ب.ز</strong>). ٢- بەرهەمێن <strong>بابە تاهیرێ هەمەدانی</strong> (نێزیک سالێن <strong>٩٣٧ز</strong>).</li>
+        <li><strong>دیالێکت - زاراڤ - لەهجە:</strong> رێکا ئاخفتنا خەلکی یە د زمانەکیدا ژ ئەگەرێ جوگرافی، جڤاکی یان رەوشەنبیری. د کوردیدا زاراڤێن <strong>(زار، لەهجە، شێوە، گۆڤەر)</strong> بکارتێن. زاراڤێ دیالێکت د بنەرەتدا <strong>لاتینی</strong> یە (جیاوازیا رێزمانی، پێکهاتنا پەیڤێ و دەربڕینێ د ناڤ ئێک زمانیدا).</li>
+      </ul>
+      <div class="note"><strong>⭐ تێبینی گرنگ:</strong> ئاڤێستا (سەدێ ٧ ب.ز) | بابە تاهیر (٩٣٧ز) | زەینەفوون = کارۆخی (٦٥٠ ب.ز) | زاراڤێ دیالێکت = <strong>لاتینی</strong> یە.</div>
+    </div>
+    <div class="quiz">
+      <h4>📝 ٥ پرسیارێن سلاید ١٦</h4>
+      <div class="q"><div class="q-t"><span>١. زەینەفوون د ڤەگەریانا خۆ دا د ناڤ کوردستانێ دا خەلکێ وێ ناوچێ ب چ ناڤ دکر؟</span><span class="tag">هەلبژارتن<
