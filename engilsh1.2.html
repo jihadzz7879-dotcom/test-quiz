@@ -3,1159 +3,1266 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C# Practical Exam Practice - Slides 3 to 22</title>
+  <title>Computer Essentials - 12 Slides Exam Prep</title>
   <style>
     :root {
-      --primary: #0f4c81;
-      --primary-dark: #093256;
+      --bg: #0f172a;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
       --accent: #0ea5e9;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #cbd5e1;
-      --code-bg: #0f172a;
-      --code-text: #e2e8f0;
       --success: #16a34a;
-      --kurdish-bg: #eff6ff;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--bg);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: var(--text);
-      line-height: 1.65;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: #fff;
-      padding: 24px 16px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    }
-
-    header h1 {
-      margin: 0 0 8px;
-      font-size: 1.65rem;
-    }
-
-    header p {
-      margin: 0;
-      opacity: 0.92;
-      font-size: 0.98rem;
-    }
-
-    .controls {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
-      padding: 12px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .controls select,
-    .controls input,
-    .controls button {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      font-size: 0.92rem;
-      font-family: inherit;
-    }
-
-    .controls select, .controls input {
-      background: #f8fafc;
-      color: var(--text);
-    }
-
-    .controls button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .controls button:hover {
-      background: var(--primary-dark);
-    }
-
-    .controls button.secondary {
-      background: #475569;
-    }
-
-    .controls button.secondary:hover {
-      background: #334155;
+      min-height: 100vh;
+      padding: 18px;
+      line-height: 1.7;
     }
 
     .container {
-      max-width: 980px;
-      margin: 22px auto;
-      padding: 0 14px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .stats {
-      text-align: center;
-      margin-bottom: 18px;
+    /* Header */
+    .topbar {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 18px;
+      padding: 16px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+    }
+
+    .brand p {
+      font-size: 0.9rem;
       color: var(--muted);
-      font-weight: 600;
     }
 
-    .slide-group {
-      margin-bottom: 28px;
+    .controls-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-score {
+      background: #eff6ff;
+      color: var(--primary-dark);
+      border: 1px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary-dark);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: #eff6ff;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Slide Nav Pills */
+    .slide-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      justify-content: center;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.14);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 13px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .pill:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .pill.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: #38bdf8;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45);
+    }
+
+    /* Main Slide Card */
+    .slide-card {
+      background: var(--surface);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     }
 
     .slide-header {
-      background: var(--primary);
+      background: linear-gradient(120deg, #1d4ed8 0%, #0284c7 100%);
       color: #fff;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 1.08rem;
-      font-weight: 700;
-      margin-bottom: 12px;
+      padding: 24px 28px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
-    .q-card {
-      background: var(--card);
+    .slide-num {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .slide-title-en {
+      font-size: 1.55rem;
+      font-weight: 800;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .slide-title-ku {
+      font-size: 1.15rem;
+      color: #e0f2fe;
+      margin-top: 4px;
+    }
+
+    .slide-body {
+      padding: 26px 28px;
+    }
+
+    /* Summary Box */
+    .summary-section {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-right: 6px solid var(--primary);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .point-item {
+      background: #fff;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      padding: 13px 15px;
+    }
+
+    .point-en {
+      direction: ltr;
+      text-align: left;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.96rem;
+      margin-bottom: 5px;
+      background: #f1f5f9;
+      padding: 5px 9px;
+      border-radius: 7px;
+      display: inline-block;
+    }
+
+    .point-ku {
+      font-size: 0.94rem;
+      color: #334155;
+      margin-top: 4px;
+    }
+
+    .practical-box {
+      margin-top: 14px;
+      background: var(--warning-bg);
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .practical-box strong {
+      color: #92400e;
+    }
+
+    .kbd {
+      display: inline-block;
+      direction: ltr;
+      background: #1e293b;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 0.85rem;
+      margin: 0 2px;
+    }
+
+    /* Questions Section */
+    .questions-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+
+    .question-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
     }
 
     .q-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
-    .q-num {
-      background: #dbeafe;
-      color: var(--primary-dark);
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
+    .q-badge {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      padding: 3px 11px;
+      border-radius: 8px;
       font-size: 0.85rem;
+      flex-shrink: 0;
     }
 
     .q-en {
       direction: ltr;
       text-align: left;
-      font-size: 1.02rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: #0f172a;
-      margin-bottom: 8px;
+      width: 100%;
     }
 
     .q-ku {
-      background: var(--kurdish-bg);
-      border-right: 4px solid var(--accent);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.96rem;
-      color: #1e3a5f;
+      font-size: 0.95rem;
+      color: #475569;
+      background: #f8fafc;
+      padding: 7px 12px;
+      border-radius: 8px;
       margin-bottom: 12px;
+      border-right: 3px solid var(--accent);
     }
 
-    .toggle-btn {
-      background: #e2e8f0;
-      color: #0f172a;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .option-btn {
+      direction: ltr;
+      text-align: left;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.94rem;
       font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
     }
 
-    .toggle-btn:hover {
-      background: #cbd5e1;
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #eff6ff;
     }
 
-    .solution-box {
-      margin-top: 10px;
-      display: block;
+    .option-btn.correct {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: #14532d;
+      font-weight: 700;
     }
 
-    .solution-box.hidden {
+    .option-btn.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+
+    .q-explain {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #ecfdf5;
+      border: 1px solid #86efac;
+      color: #14532d;
+      font-size: 0.92rem;
       display: none;
     }
 
-    .code-wrap {
-      position: relative;
-      direction: ltr;
-      text-align: left;
-    }
-
-    pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 14px;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.9rem;
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 6px;
-      padding: 4px 9px;
-      font-size: 0.78rem;
-      cursor: pointer;
-    }
-
-    .copy-btn:hover {
-      background: rgba(255, 255, 255, 0.28);
-    }
-
-    .output-box {
-      direction: ltr;
-      text-align: left;
-      background: #000000;
-      color: #4ade80;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.88rem;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-top: 8px;
-      white-space: pre-wrap;
-    }
-
-    .output-label {
-      color: #94a3b8;
-      font-size: 0.78rem;
+    .q-explain.show {
       display: block;
-      margin-bottom: 3px;
     }
 
-    .note-banner {
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
-      color: #78350f;
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      font-size: 0.94rem;
+    /* Footer Nav */
+    .slide-footer {
+      background: #f1f5f9;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
     }
 
-    @media print {
-      .controls, .copy-btn, .toggle-btn { display: none !important; }
-      .solution-box.hidden { display: block !important; }
-      body { background: #fff; }
+    @media (max-width: 640px) {
+      body { padding: 10px; }
+      .slide-header, .slide-body, .slide-footer { padding: 16px; }
+      .slide-title-en { font-size: 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>پسیارێن تاقیكرنا عەمەلی یا C# (سلاید ٣ هەتا ٢٢)</h1>
-  <p>١٠٠ پسیار ب ئینگلیزی + مانایا وان ب بادینی + كۆدێ دروست یێ C# و ئەنجام (ب تەنێ جۆرێن: int, long, float, double, bool, char, string و هەتا &&, ||, !)</p>
-</header>
-
-<div class="controls">
-  <select id="slideFilter">
-    <option value="all">هەمی سلاید (سلاید ٣ - ٢٢)</option>
-  </select>
-  <input type="text" id="searchInput" placeholder="لێگەڕیان (ب ئینگلیزی یان بادینی)..." />
-  <button id="toggleAllBtn" class="secondary">ڤەشارتنا هەمی بەرسڤان</button>
-  <button onclick="window.print()">چاپكرن / PDF</button>
-</div>
-
 <div class="container">
-  <div class="note-banner">
-    <strong>تێبینی بۆ تاقیكرنا سوبەهی:</strong> د ناڤ كۆدێ C# دا، هەمی پسیار ب شێوەیێ كۆدێ ناڤ <code>static void Main(string[] args)</code> هاتینە نڤیسین دا راستەوخۆ بكاربی د ناڤ Visual Studio یان كۆمپیوتەرێ دا تاقی بكەی. بیر نەكە: <code>float</code> پێتڤی ب پاشگرێ <code>f</code> هەیە، <code>char</code> ب <code>' '</code> و <code>string</code> ب <code>" "</code> دهێتە نڤیسین!
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="brand">
+      <h1>ئامادەکاری بۆ ئەزموونا Computer Essentials (١٢ سلاید)</h1>
+      <p>هەمی بابەتێن عەمەلی و نەزەری ب ئینگلیزی + وەرگێرانا بادینی بۆ ١٠٠/١٠٠</p>
+    </div>
+    <div class="controls-top">
+      <span class="badge-score" id="scoreDisplay">نمرە: 0 / 60</span>
+      <button class="btn btn-success" id="toggleAllBtn" onclick="toggleShowAll()">نیشاندانا هەمی بەرسڤان</button>
+    </div>
   </div>
-  <div class="stats" id="stats"></div>
-  <div id="questionsRoot"></div>
+
+  <!-- Slide Selector Pills -->
+  <div class="slide-pills" id="slidePills"></div>
+
+  <!-- Main Slide Card -->
+  <div class="slide-card">
+    <div class="slide-header">
+      <div>
+        <span class="slide-num" id="slideNumLabel">سلاید ١ ژ ١٢</span>
+        <div class="slide-title-en" id="slideTitleEn"></div>
+        <div class="slide-title-ku" id="slideTitleKu"></div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-outline" style="background:#fff;" id="prevBtnTop" onclick="changeSlide(-1)">⬅ سلایدێ پێشتر</button>
+        <button class="btn btn-outline" style="background:#fff;" id="nextBtnTop" onclick="changeSlide(1)">سلایدێ دویڤدا ➡</button>
+      </div>
+    </div>
+
+    <div class="slide-body">
+      <!-- Summary -->
+      <div class="summary-section">
+        <div class="section-heading">📘 پووختەیا بابەتی و هەنگاڤێن عەمەلی (بۆ ئەزموونێ ژبەر بکە)</div>
+        <div class="points-grid" id="summaryGrid"></div>
+        <div class="practical-box" id="practicalTip"></div>
+      </div>
+
+      <!-- Questions -->
+      <div class="questions-header">
+        <div class="section-heading" style="margin-bottom:0;">📝 ٥ پسیارێن گرنگ یێن ڤی سلایدی</div>
+        <span style="font-size:0.88rem; color:var(--muted);">کلیکێ ل سەر بەرسڤا دروست بکە بۆ تاقیکرنا خۆ</span>
+      </div>
+      <div id="questionsContainer"></div>
+    </div>
+
+    <div class="slide-footer">
+      <button class="btn btn-primary" id="prevBtnBottom" onclick="changeSlide(-1)">⬅ سلایدێ پێشتر</button>
+      <span id="footerCounter" style="font-weight:700; color:#334155;"></span>
+      <button class="btn btn-primary" id="nextBtnBottom" onclick="changeSlide(1)">سلایدێ دویڤدا ➡</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const slidesData = [
+const slides = [
+  // SLIDE 1
   {
-    slide: 3,
-    title: "Slide 3: C# Data Types (Introduction & Variables)",
-    kuTitle: "سلایدێ ٣: ناساندنا جۆرێن داتایان و دروستكرنا گۆڕاوان",
+    titleEn: "1. Computer Essentials & Hardware Basics",
+    titleKu: "کەلوپەلێن سەرەکی یێن کۆمپیوتەری (Hardware & Software)",
+    points: [
+      { en: "Hardware (HW)", ku: "پارچێن فیزیکی یێن کۆمپیوتەری کو ب دەست دهێنە گرتن (وەک کیبۆرد، ماوس، شاشە، CPU)." },
+      { en: "Software (SW)", ku: "بەرنامە و سیستەمێن ناڤ کۆمپیوتەری کو ب دەست ناهێنە گرتن (وەک Windows، MS Word)." },
+      { en: "CPU (Central Processing Unit)", ku: "مێشکێ کۆمپیوتەرییە (Brain of Computer)، هەمی کار و حساباتان جێبەجێ دکەت." },
+      { en: "RAM (Random Access Memory)", ku: "بیرگەها کاتی (Temporary)؛ دەمێ کارەب ژ کۆمپیوتەری بچیت زانیاریێن ناڤدا ژناڤدچن." },
+      { en: "ROM (Read Only Memory)", ku: "بیرگەها هەمیشەیی (Permanent)؛ زانیاریێن هەلکرنا کۆمپیوتەری تێدا پاراستینە." },
+      { en: "Motherboard", ku: "تەختێ سەرەکییە کو هەمی پارچێن ناڤ کۆمپیوتەری (CPU, RAM) پێکڤە گرێددەت." }
+    ],
+    practical: "💡 <strong>تێبینییا ئەزموونێ:</strong> د ئەزموونێ دا ئەگەر گۆت <strong>Physical parts</strong> یان <strong>Can be touched</strong> مەبەست پێ <strong>Hardware</strong>ـە. ئەگەر گۆت <strong>Programs</strong> مەبەست پێ <strong>Software</strong>ـە.",
     questions: [
       {
-        en: "Declare an integer variable named myNum, assign it the value 5, and print it on the screen.",
-        ku: "گۆڕاوەكێ ژ جۆرێ ژمارا تەمام (int) ب ناڤێ myNum دروست بكە، بهایێ 5 بدێ و ل سەر شاشێ چاپ بكە.",
-        code: `int myNum = 5;\nConsole.WriteLine(myNum);`,
-        out: `5`
+        qEn: "Which part is known as the 'Brain of the Computer'?",
+        qKu: "کیژ پارچە ب 'مێشکێ کۆمپیوتەری' دهێتە ناسین؟",
+        options: ["A) RAM", "B) CPU", "C) Monitor", "D) Keyboard"],
+        correct: 1,
+        explain: "CPU (Central Processing Unit) مێشکێ کۆمپیوتەرییە چونکی هەمی فرمان و حساباتان جێبەجێ دکەت."
       },
       {
-        en: "Create a float variable named floatVar with the value 10.2, then display its value.",
-        ku: "گۆڕاوەكێ ژ جۆرێ float ب ناڤێ floatVar دروست بكە و بهایێ 10.2 بدێ (پاشگرێ f بیر نەكە)، پاشان چاپ بكە.",
-        code: `float floatVar = 10.2f;\nConsole.WriteLine(floatVar);`,
-        out: `10.2`
+        qEn: "The physical components of a computer that you can touch are called:",
+        qKu: "پارچێن فیزیکی یێن کۆمپیوتەری کو تو دشێی دەستی بکەیێ چ دبێژنێ؟",
+        options: ["A) Software", "B) Hardware", "C) Operating System", "D) Files"],
+        correct: 1,
+        explain: "Hardware ئانکو پارچێن ڕەق و فیزیکی یێن کۆمپیوتەری وەک ماوس و کیبۆرد و شاشە."
       },
       {
-        en: "Declare a char variable named myLetter, store the character 'D' in it, and print it.",
-        ku: "گۆڕاوەكێ ژ جۆرێ char ب ناڤێ myLetter دروست بكە، پیتا 'D' تێدا هەلگرە و چاپ بكە.",
-        code: `char myLetter = 'D';\nConsole.WriteLine(myLetter);`,
-        out: `D`
+        qEn: "Which memory is temporary and loses its data when the power is turned off?",
+        qKu: "کیژ بیرگەهـ کاتییە و دەمێ کۆمپیوتەر دهێتە گرتن زانیاریێن تێدا دچن؟",
+        options: ["A) ROM", "B) Hard Disk", "C) RAM", "D) USB Flash"],
+        correct: 2,
+        explain: "RAM بیرگەهەکا کاتییە (Temporary/Volatile) و ب تنێ دەمێ کۆمپیوتەر هەلکری زانیاریان هەلدگریت."
       },
       {
-        en: "Create a bool variable named myBool, set its value to true, and print it.",
-        ku: "گۆڕاوەكێ ژ جۆرێ bool ب ناڤێ myBool چێكە، بهایێ true بدێ و چاپ بكە.",
-        code: `bool myBool = true;\nConsole.WriteLine(myBool);`,
-        out: `True`
+        qEn: "Microsoft Word and Windows 10 are examples of:",
+        qKu: "بەرنامێ Word و سیستەمێ Windows 10 نموونەنە ل سەر چ؟",
+        options: ["A) Hardware", "B) Input Devices", "C) Software", "D) Storage Devices"],
+        correct: 2,
+        explain: "بەرنامە و سیستەمێن کارپێکرنێ دچنە ناڤ خانەیا Software دا."
       },
       {
-        en: "Declare a string variable named myText, assign it \"Kurdistan\", and print it on the console.",
-        ku: "گۆڕاوەكێ ژ جۆرێ string ب ناڤێ myText چێكە، بهایێ \"Kurdistan\" بدێ و ل سەر شاشێ چاپ بكە.",
-        code: `string myText = "Kurdistan";\nConsole.WriteLine(myText);`,
-        out: `Kurdistan`
+        qEn: "What connects the CPU, RAM, and all internal parts together?",
+        qKu: "چ تشت CPU و RAM و هەمی پارچێن ناڤخۆیی پێکڤە گرێددەت؟",
+        options: ["A) Motherboard", "B) Printer", "C) Scanner", "D) Speaker"],
+        correct: 0,
+        explain: "Motherboard تەختێ سەرەکییە کو هەمی پارچێن کۆمپیوتەری ل سەر دهێنە گرێدان."
       }
     ]
   },
+
+  // SLIDE 2
   {
-    slide: 4,
-    title: "Slide 4: Most Common Data Types",
-    kuTitle: "سلایدێ ٤: بەربەلاڤترین جۆرێن داتایان (int, long, float, double, bool, char, string)",
+    titleEn: "2. Input, Output & Storage Devices",
+    titleKu: "ئامێرێن تێخستنێ (Input)، دەرخستنێ (Output) و هەلگرتنێ (Storage)",
+    points: [
+      { en: "Input Devices", ku: "ئامێرێن تێخستنێ: زانیاریان دکەنە د ناڤ کۆمپیوتەری دا. نموونە: Keyboard، Mouse، Microphone، Scanner، Webcam." },
+      { en: "Output Devices", ku: "ئامێرێن دەرخستنێ: زانیاریان ژ کۆمپیوتەری دەرێخنە دەرڤە. نموونە: Monitor (شاشە)، Printer (چاپکەر)، Speakers (بلندگۆ)، Projector." },
+      { en: "Storage Devices", ku: "ئامێرێن هەلگرتنێ: فایل و زانیاریان ب هەمیشەیی هەلدگرن. نموونە: Hard Disk (HDD)، SSD، USB Flash Drive." },
+      { en: "Touchscreen", ku: "شاشا دەستی (Touchscreen) هەم Inputـە و هەم Outputـە!" },
+      { en: "SSD vs HDD", ku: "SSD گەلەک ژ Hard Disk (HDD) بلەزترە (Faster)." },
+      { en: "Scanner vs Printer", ku: "Scanner کاغەزێ دکەتە د ناڤ کۆمپیوتەری دا (Input)؛ بەلێ Printer فایلێ دەرێخیتە سەر کاغەزێ (Output)." }
+    ],
+    practical: "💡 <strong>تێبینییا ئەزموونێ:</strong> جوداهییا گرنگ: <strong>Scanner = Input</strong> (وێنەی دبەتە ناڤ کۆمپیوتەری) | <strong>Printer = Output</strong> (نڤیسینێ دەرێخیتە سەر کاغەزێ).",
     questions: [
       {
-        en: "Create a long variable named population to store the whole number 8000000000 and print it.",
-        ku: "گۆڕاوەكێ ژ جۆرێ long ب ناڤێ population دروست بكە بۆ هەلگرتنا ژمارا مەزن 8000000000 و چاپ بكە.",
-        code: `long population = 8000000000L;\nConsole.WriteLine(population);`,
-        out: `8000000000`
+        qEn: "Which of the following is an Input device?",
+        qKu: "کیژ ژ ڤان ئامێرێ تێخستنێ (Input) یە؟",
+        options: ["A) Printer", "B) Monitor", "C) Keyboard", "D) Speaker"],
+        correct: 2,
+        explain: "Keyboard زانیاریان دکەتە د ناڤ کۆمپیوتەری دا، لەوما Input Deviceـە."
       },
       {
-        en: "Declare a double variable named price with the value 19.995 and print it.",
-        ku: "گۆڕاوەكێ ژ جۆرێ double ب ناڤێ price چێكە و بهایێ 19.995 بدێ و چاپ بكە.",
-        code: `double price = 19.995;\nConsole.WriteLine(price);`,
-        out: `19.995`
+        qEn: "Which device converts digital documents into paper copies (Output)?",
+        qKu: "کیژ ئامێر بەلگەنامێن ناڤ کۆمپیوتەری چاپ دکەتە سەر کاغەزێ (Output)؟",
+        options: ["A) Scanner", "B) Mouse", "C) Printer", "D) Microphone"],
+        correct: 2,
+        explain: "Printer ئامێرێ دەرخستنێیە (Output) کو فایلان چاپ دکەتە سەر کاغەزێ."
       },
       {
-        en: "Declare two variables: an int named age = 20 and a string named city = \"Akre\", then print both on separate lines.",
-        ku: "دوو گۆڕاوان چێكە: ئێك ژ جۆرێ int ب ناڤێ age = 20 و یێ دی ژ جۆرێ string ب ناڤێ city = \"Akre\"، و هەردوویان ل سەر دوو هێلێن جودا چاپ بكە.",
-        code: `int age = 20;\nstring city = "Akre";\nConsole.WriteLine(age);\nConsole.WriteLine(city);`,
-        out: `20\nAkre`
+        qEn: "Which device is used to input sound/voice into the computer?",
+        qKu: "کیژ ئامێر بۆ تێخستنا دەنگی بۆ ناڤ کۆمپیوتەری دهێتە بکارئینان؟",
+        options: ["A) Speaker", "B) Microphone", "C) Monitor", "D) Projector"],
+        correct: 1,
+        explain: "Microphone دەنگی دبەتە ناڤ کۆمپیوتەری (Input)، بەلێ Speaker دەنگی دەرێخیت (Output)."
       },
       {
-        en: "Create a bool variable named isPassed with the value false and a char variable named grade with the value 'F', then print them.",
-        ku: "گۆڕاوەكێ bool ب ناڤێ isPassed = false و گۆڕاوەكێ char ب ناڤێ grade = 'F' چێكە و چاپ بكە.",
-        code: `bool isPassed = false;\nchar grade = 'F';\nConsole.WriteLine(isPassed);\nConsole.WriteLine(grade);`,
-        out: `False\nF`
+        qEn: "Which of the following is a Storage device?",
+        qKu: "کیژ ژ ڤان ئامێرێ هەلگرتنا فایلانە (Storage)؟",
+        options: ["A) Hard Disk (HDD)", "B) Mouse", "C) CPU", "D) Webcam"],
+        correct: 0,
+        explain: "Hard Disk (HDD)، SSD و USB Flash ئامێرێن هەلگرتنا فایلانن."
       },
       {
-        en: "Write a C# program that stores the maximum positive int value (2147483647) in a variable named maxInt and prints it.",
-        ku: "پڕۆگرامەكێ بنڤیسە كو مەزنترین ژمارا پۆزەتیڤ یا int (2147483647) د ناڤ گۆڕاوەكێ ب ناڤێ maxInt دا هەلگریت و چاپ بكەت.",
-        code: `int maxInt = 2147483647;\nConsole.WriteLine(maxInt);`,
-        out: `2147483647`
+        qEn: "A device that works as BOTH Input and Output is:",
+        qKu: "ئامێرەک کو د هەمان دەم دا هەم Inputـە و هەم Outputـە کیژە؟",
+        options: ["A) Keyboard", "B) Touchscreen", "C) Printer", "D) Microphone"],
+        correct: 1,
+        explain: "Touchscreen (شاشا لەمسێ) هەم وێنەی نیشان ددەت (Output) و هەم ب دەست فەرمانێ وەردگریت (Input)."
       }
     ]
   },
+
+  // SLIDE 3
   {
-    slide: 5,
-    title: "Slide 5: Data Types - Numbers (Integer vs Floating-Point)",
-    kuTitle: "سلایدێ ٥: جۆرێن ژماران (ژمارێن تەمام و ژمارێن پۆینت)",
+    titleEn: "3. Operating Computer, Power & Desktop",
+    titleKu: "هەلکرن و گرتنا کۆمپیوتەری (تشغيل و إطفاء) و شاشا سەرەکی",
+    points: [
+      { en: "Start > Power > Shut down", ku: "بۆ گرتنا تەمام یا کۆمپیوتەری: کلیکێ ل Start بکە پاش Power پاش Shut down." },
+      { en: "Start > Power > Restart", ku: "بۆ گرتن و دوبارە هەلکرنا کۆمپیوتەری ب ئۆتۆماتیکی." },
+      { en: "Start > Power > Sleep", ku: "بۆ نڤاندنا کۆمپیوتەری ب کاتی (کارەبا کێم دچیت و بەرنامە ڤەکرینە)." },
+      { en: "Desktop", ku: "شاشا سەرەکییا ویندۆزییە کو Icons و Taskbar تێدانە." },
+      { en: "Taskbar", ku: "ئەو شریتێ ل بنێ شاشێیە کو Start button، دەمژمێر و بەرنامێن ڤەکری تێدانە." },
+      { en: "Recycle Bin", ku: "سەلکا گلێشی؛ هەر فایلەکێ ب Delete ژێ ببەی دچیتە د ناڤ ڤێرێ دا." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی د ئەزموونێ دا:</strong> بۆ قفلکرنا شاشێ ب بلەزی <span class='kbd'>Win + L</span> داگرە. بۆ گوهۆرینا وێنێ شاشێ: <strong>Right-click on Desktop > Personalize > Background</strong>.",
     questions: [
       {
-        en: "Declare a negative integer variable named temp = -15 and a positive integer variable named score = 95, then print both.",
-        ku: "گۆڕاوەكێ تەمام یێ نێگەتیڤ ب ناڤێ temp = -15 و ئێكێ پۆزەتیڤ ب ناڤێ score = 95 چێكە و هەردوویان چاپ بكە.",
-        code: `int temp = -15;\nint score = 95;\nConsole.WriteLine(temp);\nConsole.WriteLine(score);`,
-        out: `-15\n95`
+        qEn: "Which option turns off the computer completely?",
+        qKu: "کیژ هەلبژاردن کۆمپیوتەری ب تەمامی دگریت (ڤەدمرینیت)؟",
+        options: ["A) Restart", "B) Sleep", "C) Shut down", "D) Minimize"],
+        correct: 2,
+        explain: "Shut down کۆمپیوتەری ب تەمامی دگریت، بەلێ Restart دگریت و جارەکا دی هەلدکەتەڤە."
       },
       {
-        en: "Create a negative floating-point variable named balance of type double with value -45.75 and print it.",
-        ku: "گۆڕاوەكێ ژمارا پۆینت یێ نێگەتیڤ ژ جۆرێ double ب ناڤێ balance و بهایێ -45.75 چێكە و چاپ بكە.",
-        code: `double balance = -45.75;\nConsole.WriteLine(balance);`,
-        out: `-45.75`
+        qEn: "Where do deleted files go first in Windows?",
+        qKu: "فایلێن ژێبری (Delete) د ویندۆزی دا ل دەستپێکێ دچنە کیڤە؟",
+        options: ["A) Control Panel", "B) Recycle Bin", "C) Start Menu", "D) Taskbar"],
+        correct: 1,
+        explain: "هەر فایلەکێ ب ئاسایی بێتە ژێبرن دچیتە د ناڤ Recycle Bin دا و تو دشێی بزڤرینیەڤە (Restore)."
       },
       {
-        en: "Declare one integer variable (int) named count = 100 and one floating-point variable (float) named weight = 65.5f, then print them.",
-        ku: "گۆڕاوەكێ ژمارا تەمام (int) ب ناڤێ count = 100 و گۆڕاوەكێ ژمارا پۆینت (float) ب ناڤێ weight = 65.5f چێكە و چاپ بكە.",
-        code: `int count = 100;\nfloat weight = 65.5f;\nConsole.WriteLine(count);\nConsole.WriteLine(weight);`,
-        out: `100\n65.5`
+        qEn: "What is the long bar at the bottom of the Windows desktop called?",
+        qKu: "ئەو شریتێ درێژ یێ ل بنێ شاشا سەرەکییا ویندۆزی چ دبێژنێ؟",
+        options: ["A) Title Bar", "B) Menu Bar", "C) Taskbar", "D) Scroll Bar"],
+        correct: 2,
+        explain: "Taskbar شریتێ خوارێ یێ ویندۆزییە کو دوگمەیا Start و بەرنامێن ڤەکری و دەمژمێر ل سەرن."
       },
       {
-        en: "Write a program to store a large negative whole number (-5000000000) using the long data type and print it.",
-        ku: "پڕۆگرامەكێ بنڤیسە بۆ هەلگرتنا ژمارەكا تەمام یا مەزن و نێگەتیڤ (-5000000000) ب جۆرێ long و چاپ بكە.",
-        code: `long bigNeg = -5000000000L;\nConsole.WriteLine(bigNeg);`,
-        out: `-5000000000`
+        qEn: "Which option closes all programs and restarts the computer automatically?",
+        qKu: "کیژ هەلبژاردن هەمی بەرنامان دگریت و کۆمپیوتەری دوبارە هەلدکەتەڤە؟",
+        options: ["A) Sleep", "B) Restart", "C) Lock", "D) Shut down"],
+        correct: 1,
+        explain: "Restart کۆمپیوتەری دکوژینیت و ئێکسەر هەلدکەتەڤە."
       },
       {
-        en: "Declare a double variable named average and a float variable named rate, assign them 88.25 and 3.5f, and print both.",
-        ku: "گۆڕاوەكێ double ب ناڤێ average = 88.25 و گۆڕاوەكێ float ب ناڤێ rate = 3.5f چێكە و هەردوویان چاپ بكە.",
-        code: `double average = 88.25;\nfloat rate = 3.5f;\nConsole.WriteLine(average);\nConsole.WriteLine(rate);`,
-        out: `88.25\n3.5`
+        qEn: "To change the Desktop wallpaper (background), we right-click the desktop and choose:",
+        qKu: "بۆ گوهۆرینا وێنێ شاشێ (Background)، ل سەر شاشێ Right-Click دکەین و کیژێ هەلدبژێرین؟",
+        options: ["A) Refresh", "B) Sort by", "C) Personalize", "D) Paste"],
+        correct: 2,
+        explain: "ب رێکا Right-Click > Personalize تو دشێی وێنێ پشتێ (Background) و رەنگان بگوهۆری."
       }
     ]
   },
+
+  // SLIDE 4
   {
-    slide: 6,
-    title: "Slide 6: Number Suffixes & Default Values",
-    kuTitle: "سلایدێ ٦: پاشگرێن ژماران (L, f, d) و بهایێن بنەرەتی",
+    titleEn: "4. File Management & Windows Shortcuts",
+    titleKu: "کارکرن ل سەر فۆڵدەر و فایلان د ویندۆزی دا",
+    points: [
+      { en: "Create New Folder", ku: "دروستکرنا فۆڵدەرێ نوی: Right-click > New > Folder یان ب کیبۆردی Ctrl + Shift + N." },
+      { en: "Rename File/Folder (F2)", ku: "گوهۆرینا ناڤێ فایل یان فۆڵدەری: Right-click > Rename یان دوگمەیا F2." },
+      { en: "Copy (Ctrl + C) & Paste (Ctrl + V)", ku: "کۆپی کرن (Copy) ئانکو دانانا وێنەکێ دی بێی یێ ئەسڵی ژێ بچیت." },
+      { en: "Cut (Ctrl + X) & Paste (Ctrl + V)", ku: "ڤەگوهاستن (Move)؛ فایلی ژ جهێ کەڤن دئینیتە جهێ نوی." },
+      { en: "Shift + Delete", ku: "ژێبرنا هەمیشەیی (Permanent Delete) بێی کو بچیتە ناڤ Recycle Bin!" },
+      { en: "File Extensions (.docx, .pdf, .jpg)", ku: ".docx بۆ Wordـە، .xlsx بۆ Excelـە، .pptx بۆ PowerPointـە، .jpg بۆ وێنەیە." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی د ئەزموونێ دا:</strong> ئەگەر مامۆستایی گۆت <strong>Create a folder on Desktop and name it...</strong> ل سەر شاشێ <strong>Right-click > New > Folder</strong> بکە و ناڤی بنڤیسە پاش <span class='kbd'>Enter</span> داگرە.",
     questions: [
       {
-        en: "Declare a long variable named distance using the L suffix with value 150000L and print it.",
-        ku: "گۆڕاوەكێ long ب ناڤێ distance ب بكارئینانا پاشگرێ L و بهایێ 150000L چێكە و چاپ بكە.",
-        code: `long distance = 150000L;\nConsole.WriteLine(distance);`,
-        out: `150000`
+        qEn: "Which keyboard key is used to Rename a selected file or folder?",
+        qKu: "کیژ دوگمەیا کیبۆردی بۆ گوهۆرینا ناڤێ (Rename) فایلەکێ دهێتە بکارئینان؟",
+        options: ["A) F1", "B) F2", "C) F5", "D) F12"],
+        correct: 1,
+        explain: "دوگمەیا F2 د ویندۆزی دا ناڤێ فایل یان فۆڵدەرێ هەلبژارتی دگوهۆریت (Rename)."
       },
       {
-        en: "Declare a float variable named speed using the f suffix with value 90.5f and print it.",
-        ku: "گۆڕاوەكێ float ب ناڤێ speed ب بكارئینانا پاشگرێ f و بهایێ 90.5f چێكە و چاپ بكە.",
-        code: `float speed = 90.5f;\nConsole.WriteLine(speed);`,
-        out: `90.5`
+        qEn: "How do you permanently delete a file without sending it to the Recycle Bin?",
+        qKu: "تو دێ چەوا فایلەکێ ب هەمیشەیی ژێ بەیی بێی کو بچیتە ناڤ Recycle Bin؟",
+        options: ["A) Ctrl + Delete", "B) Alt + Delete", "C) Shift + Delete", "D) Delete key only"],
+        correct: 2,
+        explain: "ب لێدانا Shift + Delete فایل ئێکسەر ژناڤدچیت و ناچیتە ناڤ Recycle Bin."
       },
       {
-        en: "Declare a double variable named height using the d suffix with value 1.78d and print it.",
-        ku: "گۆڕاوەكێ double ب ناڤێ height ب بكارئینانا پاشگرێ d و بهایێ 1.78d چێكە و چاپ بكە.",
-        code: `double height = 1.78d;\nConsole.WriteLine(height);`,
-        out: `1.78`
+        qEn: "Which shortcut is used to Move (Cut) a file to another location?",
+        qKu: "کیژ کۆرتکرن بۆ برنا/ڤەگوهاستنا (Cut) فایلەکێ دهێتە بکارئینان؟",
+        options: ["A) Ctrl + C", "B) Ctrl + X", "C) Ctrl + V", "D) Ctrl + Z"],
+        correct: 1,
+        explain: "Ctrl + X فایلی Cut دکەت (ڤەدگوهێزیت)، بەلێ Ctrl + C کۆپی دکەت."
       },
       {
-        en: "Create variables with their default values: an int = 0, a long = 0L, a float = 0.0F, and a double = 0.0D, then print all four.",
-        ku: "گۆڕاوان ب بهایێن وان یێن بنەرەتی چێكە: int = 0، long = 0L، float = 0.0F، و double = 0.0D، پاشان هەر چاران چاپ بكە.",
-        code: `int a = 0;\nlong b = 0L;\nfloat c = 0.0F;\ndouble d = 0.0D;\nConsole.WriteLine(a);\nConsole.WriteLine(b);\nConsole.WriteLine(c);\nConsole.WriteLine(d);`,
-        out: `0\n0\n0\n0`
+        qEn: "What is the default file extension of a Microsoft Word document?",
+        qKu: "پاشگرێ (Extension) فایلێ بەرنامێ Microsoft Word چییە؟",
+        options: ["A) .xlsx", "B) .jpg", "C) .docx", "D) .mp3"],
+        correct: 2,
+        explain: "فایلێن MS Word ب .docx یان .doc دهێنە خەزنکرن."
       },
       {
-        en: "Store the minimum negative int value (-2147483648) in a variable named minVal and print it.",
-        ku: "بچووكترین بهایێ int یێ نێگەتیڤ (-2147483648) د ناڤ گۆڕاوەكێ ب ناڤێ minVal دا هەلگرە و چاپ بكە.",
-        code: `int minVal = -2147483648;\nConsole.WriteLine(minVal);`,
-        out: `-2147483648`
+        qEn: "What are the steps to create a new folder on the Desktop?",
+        qKu: "هەنگاڤێن دروستکرنا فۆڵدەرەکێ نوی ل سەر Desktop چینە؟",
+        options: [
+          "A) Right-click > New > Folder",
+          "B) Left-click > View > Folder",
+          "C) Right-click > Delete > Folder",
+          "D) Start > Settings > Folder"
+        ],
+        correct: 0,
+        explain: "ل جهەکێ ڤالا ل سەر Desktop کلیکێ ڕاستێ بکە (Right-click) پاش New پاش Folder."
       }
     ]
   },
+
+  // SLIDE 5
   {
-    slide: 7,
-    title: "Slide 7: Measuring Time Example & Formatted Output",
-    kuTitle: "سلایدێ ٧: نموونا پیڤانا دەمێ و چاپكرن ب {0}, {1}",
+    titleEn: "5. MS Word Interface & Basic File Commands",
+    titleKu: "پێکهاتێ بەرنامێ Word و فەرمانێن سەرەکی (Save, Open, Print)",
+    points: [
+      { en: "Title Bar", ku: "شریتێ سەری یێ بەرنامەییە کو ناڤێ فایلێ (مەسەلەن Document1) تێدا دیار دبیت." },
+      { en: "Ribbon & Tabs", ku: "ئەو تەختێ مەزنێ سەرییە کو Tabs تێدانە وەک: File, Home, Insert, Design, Layout." },
+      { en: "Save (Ctrl + S) vs Save As (F12)", ku: "Save گوهۆرینان خەزن دکەت؛ بەلێ Save As فایلێ ب ناڤەکێ نوی یان جهەکێ نوی یان وەک PDF خەزن دکەت." },
+      { en: "Undo (Ctrl + Z) & Redo (Ctrl + Y)", ku: "Undo زڤراندنا هەنگاڤەکا خەلەتە؛ Redo پێشڤەبرنەڤەیە." },
+      { en: "New Document (Ctrl + N)", ku: "ڤەکرنا بەلگەنامەکا سپیا نوی د ناڤ Word دا." },
+      { en: "Print (Ctrl + P)", ku: "چاپکرنا فایلێ: File > Print یان Ctrl + P." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی د ئەزموونێ دا:</strong> بۆ خەزنکرنا فایلێ Word وەک PDF: <strong>File > Save As > Browse > Save as type: PDF</strong>.",
     questions: [
       {
-        en: "Declare int centuries = 20, int years = 2000, int days = 730480, and long hours = 17531520L, then print them in one sentence using {0}, {1}, {2}, {3}.",
-        ku: "گۆڕاوێن int centuries = 20 و int years = 2000 و int days = 730480 و long hours = 17531520L چێكە و هەمیان د ئێك رستێ دا ب {0}, {1}, {2}, {3} چاپ بكە.",
-        code: `int centuries = 20;\nint years = 2000;\nint days = 730480;\nlong hours = 17531520L;\nConsole.WriteLine("{0} centuries is {1} years, or {2} days, or {3} hours.", centuries, years, days, hours);`,
-        out: `20 centuries is 2000 years, or 730480 days, or 17531520 hours.`
+        qEn: "Which shortcut is used to Undo the last action in MS Word?",
+        qKu: "کیژ کۆرتکرن کارێ دوماهیکێ دزڤرینیتەڤە (پاشگەزبوون - Undo)؟",
+        options: ["A) Ctrl + Y", "B) Ctrl + Z", "C) Ctrl + S", "D) Ctrl + U"],
+        correct: 1,
+        explain: "Ctrl + Z کارێ پێشتر دزڤرینیتەڤە (Undo)، و Ctrl + Y دووبارە دکەتەڤە (Redo)."
       },
       {
-        en: "Create two int variables: hours = 2 and minutes = 120. Print: \"2 hours is 120 minutes.\" using placeholders {0} and {1}.",
-        ku: "دوو گۆڕاوێن int چێكە: hours = 2 و minutes = 120. ب بكارئینانا {0} و {1} چاپ بكە: \"2 hours is 120 minutes.\"",
-        code: `int hours = 2;\nint minutes = 120;\nConsole.WriteLine("{0} hours is {1} minutes.", hours, minutes);`,
-        out: `2 hours is 120 minutes.`
+        qEn: "Where is the name of the current Word document displayed?",
+        qKu: "ناڤێ بەلگەنامەیا Word یا نوکە ل کیڤە دیار دبیت؟",
+        options: ["A) Status Bar", "B) Title Bar", "C) Scroll Bar", "D) Taskbar"],
+        correct: 1,
+        explain: "Title Bar ل هەری سەرێ پەنجەرا بەرنامەی ناڤێ فایلێ نیشان ددەت."
       },
       {
-        en: "Declare int days = 7 and int weeks = 1. Print: \"1 week has 7 days.\" using Console.WriteLine formatting.",
-        ku: "گۆڕاوێن int days = 7 و int weeks = 1 چێكە و چاپ بكە: \"1 week has 7 days.\"",
-        code: `int days = 7;\nint weeks = 1;\nConsole.WriteLine("{0} week has {1} days.", weeks, days);`,
-        out: `1 week has 7 days.`
+        qEn: "Which command is used to save an existing document with a NEW name or new location?",
+        qKu: "کیژ فەرمان بۆ خەزنکرنا فایلەکێ ب ناڤەکێ نوی یان ل جهەکێ نوی دهێتە بکارئینان؟",
+        options: ["A) Open", "B) New", "C) Save As", "D) Print"],
+        correct: 2,
+        explain: "Save As (یان F12) ڕێکێ ددەت فایلێ ب ناڤەکێ نوی، جهەکێ نوی یان شێوێ PDF خەزن بکەی."
       },
       {
-        en: "Declare long seconds = 86400L and int day = 1, then print: \"1 day = 86400 seconds\".",
-        ku: "گۆڕاوێن long seconds = 86400L و int day = 1 چێكە و چاپ بكە: \"1 day = 86400 seconds\".",
-        code: `long seconds = 86400L;\nint day = 1;\nConsole.WriteLine("{0} day = {1} seconds", day, seconds);`,
-        out: `1 day = 86400 seconds`
+        qEn: "What is the shortcut to Print a document?",
+        qKu: "کۆرتکرنا چاپکرنا (Print) بەلگەنامەیێ چییە؟",
+        options: ["A) Ctrl + P", "B) Ctrl + R", "C) Ctrl + O", "D) Ctrl + N"],
+        correct: 0,
+        explain: "Ctrl + P پەنجەرا چاپکرنێ (Print) ڤەدکەت."
       },
       {
-        en: "Write a C# code that stores your birth year (int year = 2005) and age (int age = 21) and prints: \"Born in 2005, Age is 21\" using {0} and {1}.",
-        ku: "كۆدەكێ بنڤیسە كو سالا بوونا تە (int year = 2005) و ژیێ تە (int age = 21) هەلگریت و ب {0} و {1} چاپ بكەت.",
-        code: `int year = 2005;\nint age = 21;\nConsole.WriteLine("Born in {0}, Age is {1}", year, age);`,
-        out: `Born in 2005, Age is 21`
+        qEn: "Which shortcut creates a brand new blank document in MS Word?",
+        qKu: "کیژ کۆرتکرن لاپەڕەکێ نوی یێ سپی د Word دا ڤەدکەت؟",
+        options: ["A) Ctrl + O", "B) Ctrl + N", "C) Ctrl + S", "D) Ctrl + W"],
+        correct: 1,
+        explain: "Ctrl + N ئانکو New Document (بەلگەنامەکا نوی)، بەلێ Ctrl + O بۆ ڤەکرنا فایلەکا کەڤنە."
       }
     ]
   },
+
+  // SLIDE 6
   {
-    slide: 8,
-    title: "Slide 8: Float vs Double Precision",
-    kuTitle: "سلایدێ ٨: جیاوازیا وردبینیا float و double",
+    titleEn: "6. Text Formatting & Design in Word (Home > Font)",
+    titleKu: "دیزاینکرن و رێکخستنا نڤیسینێ د Word دا (Font)",
+    points: [
+      { en: "Bold (Ctrl + B)", ku: "تۆخکرنا نڤیسینێ (ئەستوورکرنا پیتان) - دوگمەیا <strong>B</strong> ل گروپێ Font." },
+      { en: "Italic (Ctrl + I)", ku: "خوارکرنا نڤیسینێ (لارکرن) - دوگمەیا <strong>I</strong>." },
+      { en: "Underline (Ctrl + U)", ku: "دانانا هێلەکێ ل بنێ نڤیسینێ - دوگمەیا <strong>U</strong>." },
+      { en: "Font & Font Size", ku: "گوهۆرینا جۆرێ خەتی (وەک Arial / Times New Roman) و قەبارێ خەتی (وەک 14, 16)." },
+      { en: "Font Color & Text Highlight Color", ku: "Font Color رەنگێ پیتان دگوهۆریت؛ Text Highlight Color ڕەنگێ پشت پیتان دگوهۆریت (وەک قەلەمێ فسفۆری)." },
+      { en: "Change Case (Aa)", ku: "گوهۆرینا پیتێن ئینگلیزی بۆ مەزن (UPPERCASE) یان بچویک (lowercase)." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی د ئەزموونێ دا:</strong> پێش هەر دیزاینەکێ بۆ نڤیسینێ، دڤێت ل دەستپێکێ نڤیسینێ هەلبژێری (<strong>Select text</strong> ب ماوسی یان <span class='kbd'>Ctrl + A</span> بۆ هەمیێ)، پاش ژ تابا <strong>Home > Font</strong> رەنگ و قەبارە و خەتی بگوهۆرە!",
     questions: [
       {
-        en: "Declare float floatPI = 3.141592f and double doublePI = 3.14159265358979, then print both with labels using {0}.",
-        ku: "گۆڕاوێن float floatPI = 3.141592f و double doublePI = 3.14159265358979 چێكە و هەردوویان د گەل ناڤێ وان ب {0} چاپ بكە.",
-        code: `float floatPI = 3.141592f;\ndouble doublePI = 3.14159265358979;\nConsole.WriteLine("Float PI is: {0}", floatPI);\nConsole.WriteLine("Double PI is: {0}", doublePI);`,
-        out: `Float PI is: 3.141592\nDouble PI is: 3.14159265358979`
+        qEn: "Which tab contains the Font formatting tools (Bold, Italic, Font Size, Color)?",
+        qKu: "کیژ تاب (Tab) ئامرازێن دیزاینکرنا نڤیسینێ (Font) تێدانە؟",
+        options: ["A) Insert", "B) Home", "C) Layout", "D) View"],
+        correct: 1,
+        explain: "هەمی ئامرازێن گوهۆرینا خەت و رەنگ و قەبارەی د تابا Home > گروپێ Font دانە."
       },
       {
-        en: "Create a float variable f = 12.3456f and print it. Explain by a comment why 'f' is required.",
-        ku: "گۆڕاوەكێ float ب ناڤێ f = 12.3456f چێكە و چاپ بكە، و ب كۆمێنتەكێ بنڤیسە بۆچی 'f' پێدڤی یە.",
-        code: `float f = 12.3456f; // f suffix is needed because real numbers default to double\nConsole.WriteLine(f);`,
-        out: `12.3456`
+        qEn: "What does the shortcut Ctrl + B do to selected text?",
+        qKu: "کۆرتکرنا Ctrl + B چ دکەتە نڤیسینا هەلبژارتی؟",
+        options: ["A) Makes it Italic", "B) Underlines it", "C) Makes it Bold", "D) Changes its color"],
+        correct: 2,
+        explain: "Ctrl + B نڤیسینێ تۆخ/ئەستوور دکەت (Bold)."
       },
       {
-        en: "Declare a double variable result = 1.12345678901234 (15 digits) without any suffix and print it.",
-        ku: "گۆڕاوەكێ double ب ناڤێ result = 1.12345678901234 بێی پاشگر چێكە و چاپ بكە.",
-        code: `double result = 1.12345678901234;\nConsole.WriteLine(result);`,
-        out: `1.12345678901234`
+        qEn: "Which tool puts a colored background behind text like a marker pen?",
+        qKu: "کیژ ئامراز رەنگەکێ ددانیتە پشت نڤیسینێ وەکی قەلەمێ دیارکرنێ؟",
+        options: ["A) Font Color", "B) Text Highlight Color", "C) Clear Formatting", "D) Strikethrough"],
+        correct: 1,
+        explain: "Text Highlight Color رەنگێ پشت پیتان دکەت، بەلێ Font Color رەنگێ پیتان ب خۆ دگوهۆریت."
       },
       {
-        en: "Write a program that stores 5.5 as float (fVal) and 5.5 as double (dVal) and prints both on one line.",
-        ku: "پڕۆگرامەكێ بنڤیسە كو 5.5 وەك float (fVal) و 5.5 وەك double (dVal) هەلگریت و هەردوویان ل سەر ئێك هێل چاپ بكەت.",
-        code: `float fVal = 5.5f;\ndouble dVal = 5.5;\nConsole.WriteLine("Float: {0}, Double: {1}", fVal, dVal);`,
-        out: `Float: 5.5, Double: 5.5`
+        qEn: "To convert English text from small letters to ALL CAPITAL LETTERS, we use:",
+        qKu: "بۆ گوهۆرینا نڤیسینا ئینگلیزی ژ پیتێن بچویک بۆ پیتێن مەزن (UPPERCASE)، ئەم کیژێ بکار دئینین؟",
+        options: ["A) Change Case (Aa)", "B) Subscript", "C) Superscript", "D) Line Spacing"],
+        correct: 0,
+        explain: "دوگمەیا Change Case (Aa) ل تابا Home نڤیسینێ دکەتە UPPERCASE یان lowercase."
       },
       {
-        en: "Declare float radius = 2.5f and double area = 3.14159 * 2.5 * 2.5, then print the area.",
-        ku: "گۆڕاوێن float radius = 2.5f و double area = 3.14159 * 2.5 * 2.5 چێكە و بهایێ area چاپ بكە.",
-        code: `float radius = 2.5f;\ndouble area = 3.14159 * radius * radius;\nConsole.WriteLine("Area is: {0}", area);`,
-        out: `Area is: 19.6349375`
+        qEn: "What must you do BEFORE changing the font size or color of existing text?",
+        qKu: "بەری کو تو قەبارە یان رەنگێ نڤیسینەکا هەیی بگوهۆری، دڤێت چ بکەی؟",
+        options: ["A) Print the page", "B) Select the text", "C) Close Word", "D) Insert a table"],
+        correct: 1,
+        explain: "دڤێت ل دەستپێکێ نڤیسینێ هەلبژێری (Select)، پاش دیزاینێ ل سەر جێبەجێ بکەی."
       }
     ]
   },
+
+  // SLIDE 7
   {
-    slide: 9,
-    title: "Slide 9: Boolean Data Type (bool)",
-    kuTitle: "سلایدێ ٩: گۆڕاوێ bool (دروست یان خەلەت)",
+    titleEn: "7. Paragraph Formatting & Alignment (Home > Paragraph)",
+    titleKu: "رێکخستنا پەرەگراف، ئاراستە و رێزکرنا نڤیسینێ",
+    points: [
+      { en: "Align Left (Ctrl + L)", ku: "برنا نڤیسینێ بۆ لایێ چەپێ (بۆ زمانێ ئینگلیزی)." },
+      { en: "Center (Ctrl + E)", ku: "دانانا نڤیسینێ ل ناڤەراستا لاپەڕەی (بۆ سەردێڕ و ناڤنیشانان - Title)." },
+      { en: "Align Right (Ctrl + R)", ku: "برنا نڤیسینێ بۆ لایێ ڕاستێ (بۆ زمانێ کوردی و عەرەبی)." },
+      { en: "Justify (Ctrl + J)", ku: "رێککرنا هەردو لێڤێن پەرەگرافی ژ ڕاستێ و چەپێ ڤە دا جوان دیار بیت." },
+      { en: "Bullets & Numbering", ku: "دانانا خاڵان (Bullets •) یان ژمارەیان (Numbering 1,2,3) بۆ لیستان." },
+      { en: "Line and Paragraph Spacing", ku: "گوهۆرینا دووراتیا د ناڤبەرا رێزان دا (وەک 1.0, 1.5, 2.0)." }
+    ],
+    practical: "💡 <strong>تێبینییا زۆر گرنگ:</strong> سەحکە جوداهیێ: <strong>Center = Ctrl + E</strong> (نەک C، چونکی C بۆ Copy یە!). و بۆ نڤیسینا عەرەبی/کوردی <strong>Right-to-Left text direction</strong> هەلبژێرە.",
     questions: [
       {
-        en: "Declare int a = 1 and int b = 2. Create a bool variable greaterAB = (a > b) and print it.",
-        ku: "گۆڕاوێن int a = 1 و int b = 2 چێكە. گۆڕاوەكێ bool ب ناڤێ greaterAB = (a > b) دروست بكە و چاپ بكە.",
-        code: `int a = 1;\nint b = 2;\nbool greaterAB = (a > b);\nConsole.WriteLine(greaterAB);`,
-        out: `False`
+        qEn: "Which shortcut aligns text to the CENTER of the page?",
+        qKu: "کیژ کۆرتکرن نڤیسینێ دئینیتە ناڤەراستا (Center) لاپەڕەی؟",
+        options: ["A) Ctrl + C", "B) Ctrl + E", "C) Ctrl + L", "D) Ctrl + R"],
+        correct: 1,
+        explain: "Ctrl + E نڤیسینێ دئینیتە ناڤەراستێ (Center)؛ Ctrl + C بۆ Copy یە."
       },
       {
-        en: "Declare int a = 1, create bool equalA1 = (a == 1), and print equalA1.",
-        ku: "گۆڕاوێ int a = 1 چێكە، گۆڕاوەكێ bool ب ناڤێ equalA1 = (a == 1) دروست بكە و چاپ بكە.",
-        code: `int a = 1;\nbool equalA1 = (a == 1);\nConsole.WriteLine(equalA1);`,
-        out: `True`
+        qEn: "Which alignment makes both the left and right edges of a paragraph straight and even?",
+        qKu: "کیژ رێکخستن هەردو لێڤێن چەپ و ڕاستێن پەرەگرافی وەک ئێک ڕێک دکەت؟",
+        options: ["A) Align Left", "B) Center", "C) Justify", "D) Align Right"],
+        correct: 2,
+        explain: "Justify (Ctrl + J) هەردو لایێن پەرەگرافی ب ڕێکی و تەرازی رێک دکەت."
       },
       {
-        en: "Declare a bool variable isCSharpFun = true and another bool isFishTasty = false, then print both.",
-        ku: "گۆڕاوەكێ bool ب ناڤێ isCSharpFun = true و یێ دی isFishTasty = false چێكە و هەردوویان چاپ بكە.",
-        code: `bool isCSharpFun = true;\nbool isFishTasty = false;\nConsole.WriteLine(isCSharpFun);\nConsole.WriteLine(isFishTasty);`,
-        out: `True\nFalse`
+        qEn: "To create a numbered list (1, 2, 3...) in MS Word, we use:",
+        qKu: "بۆ دروستکرنا لیستەکا ب ژمارە (1، 2، 3...) د Word دا، ئەم چ بکار دئینین؟",
+        options: ["A) Bullets", "B) Numbering", "C) Borders", "D) Shading"],
+        correct: 1,
+        explain: "Numbering ژمارەیان (1, 2, 3) ددانیت، بەلێ Bullets خاڵ و نیشانان (•) ددانیت."
       },
       {
-        en: "Create two int variables x = 15 and y = 10, store the result of (x > y) in a bool variable check, and print it.",
-        ku: "دوو گۆڕاوێن int چێكە x = 15 و y = 10، ئەنجامێ (x > y) د ناڤ گۆڕاوێ bool check دا هەلگرە و چاپ بكە.",
-        code: `int x = 15;\nint y = 10;\nbool check = (x > y);\nConsole.WriteLine(check);`,
-        out: `True`
+        qEn: "Which shortcut aligns text to the RIGHT?",
+        qKu: "کیژ کۆرتکرن نڤیسینێ دبەتە لایێ ڕاستێ (Align Right)؟",
+        options: ["A) Ctrl + R", "B) Ctrl + L", "C) Ctrl + J", "D) Ctrl + E"],
+        correct: 0,
+        explain: "Ctrl + R ئانکو Align Right (ڕاست)، و Ctrl + L ئانکو Align Left (چەپ)."
       },
       {
-        en: "Declare int mark = 45, create bool passed = (mark >= 50), and print \"Passed: \" followed by the result.",
-        ku: "گۆڕاوێ int mark = 45 چێكە، گۆڕاوێ bool passed = (mark >= 50) دروست بكە و ئەنجامی چاپ بكە.",
-        code: `int mark = 45;\nbool passed = (mark >= 50);\nConsole.WriteLine("Passed: " + passed);`,
-        out: `Passed: False`
+        qEn: "To increase the vertical space between lines of text (e.g., to 1.5 or 2.0), we use:",
+        qKu: "بۆ زێدەکرنا دووراتیا د ناڤبەرا رێزێن نڤیسینێ دا، ئەم کیژ ئامرازی بکار دئینین؟",
+        options: ["A) Font Size", "B) Line and Paragraph Spacing", "C) Indent", "D) Margins"],
+        correct: 1,
+        explain: "ژ تابا Home > گروپێ Paragraph دوگمەیا Line and Paragraph Spacing دووراتیا رێزان دگوهۆریت."
       }
     ]
   },
+
+  // SLIDE 8
   {
-    slide: 10,
-    title: "Slide 10: Char Data Type",
-    kuTitle: "سلایدێ ١٠: گۆڕاوێ char (ئێك پیت)",
+    titleEn: "8. Designing Shapes in MS Word (Insert > Shapes)",
+    titleKu: "دروستکرن و دیزاینکرنا شێوەیان (Shapes) د Word دا",
+    points: [
+      { en: "Insert > Shapes", ku: "هەنگاڤا ئێکێ بۆ دانانا شێوەیەکێ (وەک لاکێشە، بازنە، تیر): بچۆ تابا Insert پاش Shapes، شێوەی هەلبژێرە و ب ماوسی بکێشە." },
+      { en: "Shape Format Tab", ku: "پشتی شێوەی دکێشی، د سەریدا تابەکا نوی ب ناڤێ Shape Format (یان Format) ڤەدبیت!" },
+      { en: "Shape Fill", ku: "رەنگکرنا ناڤێ شێوەی (ب رەنگەکێ، وێنەیەکێ یان Gradient)." },
+      { en: "Shape Outline", ku: "گوهۆرینا رەنگ و ئەستووراتیا (Weight) هێلا دەرڤە یا شێوەی." },
+      { en: "Shape Effects", ku: "دانانا سێبەرێ (Shadow)، ڕۆناهیێ (Glow) یان 3D بۆ شێوەی." },
+      { en: "Add Text to Shape", ku: "نڤیسین د ناڤ شێوەی دا: ل سەر شێوەی Right-click بکە پاش Add Text (یان ئێکسەر بنڤیسە)." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی یێن تاقیکرنا سبەهی:</strong> ئەگەر گۆت 'شێوەیەکێ دیزاین بکە': <br>١) <strong>Insert > Shapes</strong> (هەلبژێرە و بکێشە). <br>٢) ل تابا <strong>Shape Format</strong>: <strong>Shape Fill</strong> رەنگێ ناڤدایە، <strong>Shape Outline</strong> رەنگێ سنوورییە. <br>٣) بۆ نڤیسینا تێدا: <strong>Right-click on shape > Add Text</strong>.",
     questions: [
       {
-        en: "Declare a char variable named myGrade, assign it 'B', and print it.",
-        ku: "گۆڕاوەكێ char ب ناڤێ myGrade چێكە، بهایێ 'B' بدێ و چاپ بكە.",
-        code: `char myGrade = 'B';\nConsole.WriteLine(myGrade);`,
-        out: `B`
+        qEn: "Which tab do you open to draw a rectangle, circle, or arrow in MS Word?",
+        qKu: "بۆ کێشانا شێوەیەکێ وەک لاکێشە یان بازنە د Word دا، دڤێت کیژ تابێ ڤەکەی؟",
+        options: ["A) Home", "B) Insert", "C) Layout", "D) Review"],
+        correct: 1,
+        explain: "ئامرازێ Shapes د ناڤ تابا Insert > Illustrations دا یێ هەیی."
       },
       {
-        en: "Create two char variables: first = 'A' and second = 'c', then print both on separate lines.",
-        ku: "دوو گۆڕاوێن char چێكە: first = 'A' و second = 'c'، و هەردوویان ل سەر دوو هێلێن جودا چاپ بكە.",
-        code: `char first = 'A';\nchar second = 'c';\nConsole.WriteLine(first);\nConsole.WriteLine(second);`,
-        out: `A\nc`
+        qEn: "To change the inside background color of a shape, you use:",
+        qKu: "بۆ گوهۆرینا رەنگێ ناڤخۆیی یێ شێوەیەکێ، تو کیژ ئامرازی بکار دئینی؟",
+        options: ["A) Shape Outline", "B) Shape Fill", "C) Shape Effects", "D) Text Fill"],
+        correct: 1,
+        explain: "Shape Fill رەنگێ ناڤ شێوەی دگوهۆریت."
       },
       {
-        en: "Store the symbol '@' in a char variable named atSymbol and print it with a message.",
-        ku: "نیشانا '@' د ناڤ گۆڕاوەكێ char ب ناڤێ atSymbol دا هەلگرە و د گەل پەیڤەكێ چاپ بكە.",
-        code: `char atSymbol = '@';\nConsole.WriteLine("Symbol is: {0}", atSymbol);`,
-        out: `Symbol is: @`
+        qEn: "Which option changes the border color and thickness of a shape?",
+        qKu: "کیژ هەلبژاردن رەنگ و ئەستووراتیا هێلا دەرڤە (سنوور) یا شێوەی دگوهۆریت؟",
+        options: ["A) Shape Fill", "B) Shape Outline", "C) Font Color", "D) Wrap Text"],
+        correct: 1,
+        explain: "Shape Outline رەنگ و ئەستووراتی (Weight) و شێوێ هێلا دەرڤە یا شێوەی دگوهۆریت."
       },
       {
-        en: "Declare a char variable digit = '9' and print it.",
-        ku: "گۆڕاوەكێ char ب ناڤێ digit و بهایێ '9' دروست بكە و چاپ بكە.",
-        code: `char digit = '9';\nConsole.WriteLine(digit);`,
-        out: `9`
+        qEn: "How do you write text inside a shape in MS Word?",
+        qKu: "تو دێ چەوا د ناڤ شێوەیەکێ دا نڤیسی د Word دا؟",
+        options: [
+          "A) Right-click the shape > Add Text",
+          "B) Insert > Table",
+          "C) File > New",
+          "D) Layout > Margins"
+        ],
+        correct: 0,
+        explain: "کلیکێ ڕاستێ ل سەر شێوەی بکە و Add Text هەلبژێرە (یان دەما شێوە هەلبژارتییە ئێکسەر بنڤیسە)."
       },
       {
-        en: "Create three char variables c1 = 'I', c2 = 'T', and c3 = '!' and print them together on one line.",
-        ku: "سێ گۆڕاوێن char چێكە c1 = 'I'، c2 = 'T'، c3 = '!' و هەرسێیان ل سەر ئێك هێل چاپ بكە.",
-        code: `char c1 = 'I';\nchar c2 = 'T';\nchar c3 = '!';\nConsole.WriteLine("{0}{1}{2}", c1, c2, c3);`,
-        out: `IT!`
+        qEn: "To add a Shadow or 3-D rotation to a shape, you click:",
+        qKu: "بۆ دانانا سێبەرێ (Shadow) یان شێوێ 3D بۆ شێوەیەکێ، کلیکێ ل سەر کیژێ دکەی؟",
+        options: ["A) Shape Effects", "B) Shape Fill", "C) Page Borders", "D) Crop"],
+        correct: 0,
+        explain: "Shape Effects شێوازێن جوانکاریێ وەک Shadow و Glow و 3D ددەتە شێوەی."
       }
     ]
   },
+
+  // SLIDE 9
   {
-    slide: 11,
-    title: "Slide 11: String Data Type",
-    kuTitle: "سلایدێ ١١: گۆڕاوێ string (نڤیسین) و لێكدانا وان",
+    titleEn: "9. Creating & Designing Tables in Word (Insert > Table)",
+    titleKu: "دروستکرن و دیزاینکرنا خشتەیان (Table) د Word دا",
+    points: [
+      { en: "Insert > Table", ku: "دروستکرنا خشتەی: بچۆ تابا Insert پاش Table، ژمارا Columns (ستوون - ستوونی) و Rows (رێز - ئاسۆیی) هەلبژێرە." },
+      { en: "Cell, Row, Column", ku: "Row = رێزا ئاسۆیی | Column = ستوونا ستوونی | Cell = خانە (چوارگۆشا بچویک)." },
+      { en: "Merge Cells (Table Layout)", ku: "ئێکگرتنا چەند خانەیان بۆ ئێک خانە: خانەیان هەلبژێرە > Right-click > Merge Cells." },
+      { en: "Shading & Borders (Table Design)", ku: "Shading رەنگێ ناڤ خانەیان دگوهۆریت؛ Borders هێل و سنوورێن خشتەی دگوهۆریت." },
+      { en: "Insert Row Above/Below", ku: "زێدەکرنا رێزەکا نوی: Right-click inside table > Insert > Insert Rows Above/Below." },
+      { en: "Table Styles", ku: "دیزاینێن ئامادە یێن رەنگاورەنگ ژ تابا Table Design > Table Styles." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی یێن تاقیکرنا سبەهی:</strong> ئەگەر گۆت 'خشتەیەکێ ٣ ستوون و ٤ رێزان چێکە': <br><strong>Insert > Table > Insert Table...</strong> بنڤیسە <strong>Number of columns: 3</strong> و <strong>Number of rows: 4</strong> پاش <strong>OK</strong>. بۆ ڕەنگکرنێ: <strong>Table Design > Shading</strong>.",
     questions: [
       {
-        en: "Declare string firstName = \"Dareen\" and string lastName = \"Muhammed\", then print \"Hello, Dareen!\" followed by an empty line.",
-        ku: "گۆڕاوێن string firstName = \"Dareen\" و lastName = \"Muhammed\" چێكە و \"Hello, Dareen!\" د گەل هێلەكا ڤالا (\\n) چاپ بكە.",
-        code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nConsole.WriteLine("Hello, {0}!\\n", firstName);`,
-        out: `Hello, Dareen!\n`
+        qEn: "Where do you click to create a new Table in MS Word?",
+        qKu: "بۆ دروستکرنا خشتەیەکێ (Table) نوی د Word دا، دچییە کیڤە؟",
+        options: ["A) Home > Table", "B) Insert > Table", "C) Layout > Table", "D) Design > Table"],
+        correct: 1,
+        explain: "هەمی تشتێن نوی یێن زێدەکرنێ (وێنە، شێوە، خشتە) د ناڤ تابا Insert دانە: Insert > Table."
       },
       {
-        en: "Using firstName = \"Dareen\" and lastName = \"Muhammed\", concatenate them with a space into fullName and print \"Your full name is Dareen Muhammed.\".",
-        ku: "ب هاریكاریا firstName و lastName، هەردوویان ب + و سپەیسەكێ د ناڤ fullName دا پێكڤە گرێبدە و چاپ بكە.",
-        code: `string firstName = "Dareen";\nstring lastName = "Muhammed";\nstring fullName = firstName + " " + lastName;\nConsole.WriteLine("Your full name is {0}.", fullName);`,
-        out: `Your full name is Dareen Muhammed.`
+        qEn: "In a table, horizontal lines of boxes are called _____, and vertical lines are called _____.",
+        qKu: "د خشتەی دا رێزێن ئاسۆیی چ دبێژنێ و یێن ستوونی چ دبێژنێ؟",
+        options: [
+          "A) Columns / Rows",
+          "B) Rows / Columns",
+          "C) Cells / Borders",
+          "D) Margins / Pages"
+        ],
+        correct: 1,
+        explain: "Rows ئانکو رێزێن ئاسۆیی (Horizontal)، بەلێ Columns ئانکو ستوونێن ستوونی (Vertical)."
       },
       {
-        en: "Create a string variable dept = \"IT Department\" and a string uni = \"AUAS\", then concatenate them and print.",
-        ku: "گۆڕاوەكێ string dept = \"IT Department\" و string uni = \"AUAS\" چێكە و پێكڤە گرێبدە و چاپ بكە.",
-        code: `string dept = "IT Department";\nstring uni = "AUAS";\nConsole.WriteLine(dept + " - " + uni);`,
-        out: `IT Department - AUAS`
+        qEn: "What does 'Merge Cells' do in a Word table?",
+        qKu: "فەرمانا 'Merge Cells' چ دکەت د خشتێ Word دا؟",
+        options: [
+          "A) Deletes the table",
+          "B) Combines two or more cells into one cell",
+          "C) Splits one cell into many",
+          "D) Colors the table"
+        ],
+        correct: 1,
+        explain: "Merge Cells دو یان پتر خانەیێن هەلبژارتی دکەتە ئێک خانەیا مەزن."
       },
       {
-        en: "Declare a string variable greeting = \"Welcome to C#\" and print it.",
-        ku: "گۆڕاوەكێ string ب ناڤێ greeting و بهایێ \"Welcome to C#\" چێكە و چاپ بكە.",
-        code: `string greeting = "Welcome to C#";\nConsole.WriteLine(greeting);`,
-        out: `Welcome to C#`
+        qEn: "To color the background of selected cells in a table, we use:",
+        qKu: "بۆ رەنگکرنا پشتا خانەیێن هەلبژارتی د خشتەی دا، ئەم کیژێ بکار دئینین؟",
+        options: ["A) Shading", "B) Font Size", "C) Split Cells", "D) Page Color"],
+        correct: 0,
+        explain: "ل تابا Table Design (یان Home) ئامرازێ Shading (سەتڵێ رەنگی) ناڤ خانەیان رەنگ دکەت."
       },
       {
-        en: "Declare string word1 = \"Good\", string word2 = \"Morning\", combine them into one variable message, and print it.",
-        ku: "گۆڕاوێن string word1 = \"Good\" و word2 = \"Morning\" چێكە، بكە د ناڤ گۆڕاوەكێ ب ناڤێ message دا و چاپ بكە.",
-        code: `string word1 = "Good";\nstring word2 = "Morning";\nstring message = word1 + " " + word2;\nConsole.WriteLine(message);`,
-        out: `Good Morning`
+        qEn: "How do you move quickly from one cell to the next cell in a Word table?",
+        qKu: "ب کیژ دوگمەیا کیبۆردی تو دشێی ب بلەزی ژ خانەیەکێ بچییە خانەیا دویڤدا؟",
+        options: ["A) Esc", "B) Tab", "C) Ctrl + Z", "D) Shift"],
+        correct: 1,
+        explain: "لێدانا دوگمەیا Tab د ناڤ خشتەی دا تە دبەتە خانەیا دویڤدا (و ل خانەیا دوماهیکێ رێزەکا نوی زێدە دکەت!)."
       }
     ]
   },
+
+  // SLIDE 10
   {
-    slide: 12,
-    title: "Slide 12: C# Operators Overview",
-    kuTitle: "سلایدێ ١٢: پۆلێن ئۆپەرەیتەران د C# دا",
+    titleEn: "10. Pictures, WordArt & Headers/Footers",
+    titleKu: "زێدەکرنا وێنە، WordArt و سەر و بنێ لاپەڕەی",
+    points: [
+      { en: "Insert > Pictures", ku: "ئینانا وێنەی ژ ناڤ کۆمپیوتەری بۆ د ناڤ Word دا." },
+      { en: "Wrap Text (Square / In Front of Text)", ku: "ڕێکدانا جوولاندنا وێنەی! بێی Wrap Text وێنە ب ئاسانی ناهێتە جوولاندن ل سەر لاپەڕەی." },
+      { en: "Insert > WordArt", ku: "نڤیسینەکا دیزاینکرای یا خەملاندی و سێبەردار (گەلەک بۆ سەردێڕان دهێتە بکارئینان)." },
+      { en: "Insert > Header & Footer", ku: "Header نڤیسینا ل سەرێ هەمی لاپەڕانە؛ Footer نڤیسینا ل بنێ هەمی لاپەڕانە." },
+      { en: "Insert > Page Number", ku: "دانانا ژمارا لاپەڕان ل سەر یان بنێ لاپەڕان ب ئۆتۆماتیکی." },
+      { en: "Crop", ku: "برینا لێڤێن زێدە یێن وێنەی ژ تابا Picture Format." }
+    ],
+    practical: "💡 <strong>نهێنیا ئەزموونا عەمەلی:</strong> ئەگەر وێنەیەک تە ئینا ناڤ Word و <strong>نەهاتە جوولاندن</strong>: کلیکێ ل وێنەی بکە > <strong>Picture Format > Wrap Text > Square</strong> (یان In Front of Text)، ئێکسەر دێ وێنە ب ئازادی جوولیت!",
     questions: [
       {
-        en: "Use an arithmetic operator (+) to add two int variables a = 10 and b = 20, and print the result.",
-        ku: "ئۆپەرەیتەرێ ژمێریاری (+) بكاربینە بۆ كۆمكرنا دوو گۆڕاوێن int (a = 10 و b = 20) و ئەنجامی چاپ بكە.",
-        code: `int a = 10;\nint b = 20;\nConsole.WriteLine(a + b);`,
-        out: `30`
+        qEn: "To freely move a picture anywhere on the Word page, you should change:",
+        qKu: "دا کو تو بشێی وێنەی ب ئازادی ل هەر جهەکێ لاپەڕەی بجوولینی، دڤێت چ بگوهۆری؟",
+        options: ["A) Wrap Text", "B) Font Size", "C) Page Size", "D) Line Spacing"],
+        correct: 0,
+        explain: "Wrap Text (وەک Square یان In Front of Text) ڕێکێ ددەت وێنە ل هەر جهەکێ لاپەڕەی بهێتە جوولاندن."
       },
       {
-        en: "Use a comparison operator (>) to check if 15 is greater than 8, store it in a bool, and print it.",
-        ku: "ئۆپەرەیتەرێ بەراوردكرنێ (>) بكاربینە بۆ زانینا ئایا 15 مەزنترە ژ 8، د ناڤ bool دا هەلگرە و چاپ بكە.",
-        code: `bool res = 15 > 8;\nConsole.WriteLine(res);`,
-        out: `True`
+        qEn: "Which feature allows you to create decorative, stylized text with shadows and colors?",
+        qKu: "کیژ تایبەتمەندی نڤیسینەکا خەملاندی و دیزاینکرای یا تایبەت دروست دکەت؟",
+        options: ["A) WordArt", "B) Bullets", "C) Margins", "D) Find"],
+        correct: 0,
+        explain: "Insert > WordArt نڤیسینا دیزاینکرای و خەملاندی دروست دکەت."
       },
       {
-        en: "Use the assignment operator (+=) to add 5 to an int variable x = 10, and print x.",
-        ku: "ئۆپەرەیتەرێ دانانا بهای (+=) بكاربینە بۆ زێدەكرنا 5 ل سەر گۆڕاوێ int x = 10 و چاپ بكە.",
-        code: `int x = 10;\nx += 5;\nConsole.WriteLine(x);`,
-        out: `15`
+        qEn: "Text placed in the _____ appears automatically at the TOP of every page.",
+        qKu: "نڤیسینا دهێتە دانان د _____ دا ب ئۆتۆماتیکی ل سەرێ هەمی لاپەڕان دیار دبیت.",
+        options: ["A) Footer", "B) Header", "C) Margin", "D) Table"],
+        correct: 1,
+        explain: "Header ل سەرێ لاپەڕانە (Top) و Footer ل بنێ لاپەڕانە (Bottom)."
       },
       {
-        en: "Use a logical operator (&&) to check if 5 < 10 AND 5 > 2, and print the boolean result.",
-        ku: "ئۆپەرەیتەرێ لۆژیكی (&&) بكاربینە بۆ پشكنینا ئایا 5 < 10 و 5 > 2، و ئەنجامی چاپ بكە.",
-        code: `bool check = (5 < 10) && (5 > 2);\nConsole.WriteLine(check);`,
-        out: `True`
+        qEn: "Which tool is used to cut off unwanted outer edges of a picture?",
+        qKu: "کیژ ئامراز بۆ برینا لێڤێن نەپێدڤی یێن وێنەی دهێتە بکارئینان؟",
+        options: ["A) Crop", "B) Copy", "C) Bold", "D) Shading"],
+        correct: 0,
+        explain: "Picture Format > Crop بۆ برینا پارچێن زێدە یێن وێنەیە."
       },
       {
-        en: "Use the string concatenation operator (+) to join \"C# \" and \"Programming\" and print the output.",
-        ku: "ئۆپەرەیتەرێ پێكڤەگرێدانا نڤیسینێ (+) بكاربینە بۆ گرێدانا \"C# \" و \"Programming\" و چاپ بكە.",
-        code: `string text = "C# " + "Programming";\nConsole.WriteLine(text);`,
-        out: `C# Programming`
+        qEn: "Where do you go to add automatic Page Numbers to your document?",
+        qKu: "بۆ دانانا ژمارا لاپەڕان ب ئۆتۆماتیکی، دچییە کیڤە؟",
+        options: ["A) Home > Font", "B) Insert > Page Number", "C) View > Zoom", "D) File > Save"],
+        correct: 1,
+        explain: "ل تابا Insert > گروپێ Header & Footer ئامرازێ Page Number هەیە."
       }
     ]
   },
+
+  // SLIDE 11
   {
-    slide: 13,
-    title: "Slide 13: Arithmetic Operators",
-    kuTitle: "سلایدێ ١٣: ئۆپەرەیتەرێن ژمێریاری (+, -, *, /, %, ++, --)",
+    titleEn: "11. Page Layout, Borders & Printing",
+    titleKu: "رێکخستنا لاپەڕەی، چوارچوڤە (Borders) و چاپکرن",
+    points: [
+      { en: "Layout > Orientation (Portrait / Landscape)", ku: "Portrait = لاپەڕێ ستوونی (ڕاوەستای) | Landscape = لاپەڕێ ئاسۆیی (پان)." },
+      { en: "Layout > Margins", ku: "بۆشاییا سپی یا چار لێڤێن لاپەڕەی (Top, Bottom, Left, Right)." },
+      { en: "Layout > Size (A4 / Letter)", ku: "قەبارێ کاغەزێ؛ کاغەزا ئاسایی یا چاپکرنێ ل کوردستانێ A4ـە." },
+      { en: "Design > Page Borders", ku: "دانانا چوارچوڤەیەکێ (چ هێل یان نەخش و نێگار) ل دورێ لاپەڕەی!" },
+      { en: "Design > Watermark", ku: "نڤیسینەکا ڤەشارتی یا سپی/بۆر ل پشت نڤیسینێ (وەک CONFIDENTIAL یان ناڤێ تە)." },
+      { en: "Design > Page Color", ku: "گوهۆرینا رەنگێ هەمی لاپەڕەی." }
+    ],
+    practical: "💡 <strong>هەنگاڤێن عەمەلی یێن تاقیکرنا سبەهی:</strong> ئەگەر گۆت 'لاپەڕەی بکە ئاسۆیی': <strong>Layout > Orientation > Landscape</strong>. ئەگەر گۆت 'چوارچوڤەکی بدانە سەر لاپەڕەی': <strong>Design > Page Borders > Box</strong>.",
     questions: [
       {
-        en: "Declare int x = 5 + 5, int y = 5 - 1, and int z = 5 * 2, then print x, y, and z.",
-        ku: "گۆڕاوێن int x = 5 + 5 و int y = 5 - 1 و int z = 5 * 2 دروست بكە و هەرسێیان چاپ بكە.",
-        code: `int x = 5 + 5;\nint y = 5 - 1;\nint z = 5 * 2;\nConsole.WriteLine(x);\nConsole.WriteLine(y);\nConsole.WriteLine(z);`,
-        out: `10\n4\n10`
+        qEn: "Which Page Orientation makes the page taller than it is wide (vertical)?",
+        qKu: "کیژ ئاراستێ لاپەڕەی، لاپەڕەی دکەتە ستوونی (درێژتر ژ پانیێ)؟",
+        options: ["A) Landscape", "B) Portrait", "C) Justify", "D) A4"],
+        correct: 1,
+        explain: "Portrait لاپەڕێ ستوونی یە، بەلێ Landscape لاپەڕێ ئاسۆیی یە."
       },
       {
-        en: "Write a C# program to divide 10 by 2 and find the remainder of 5 divided by 2, then print both results.",
-        ku: "پڕۆگرامەكێ بنڤیسە بۆ دابەشكرنا 10 ل سەر 2 و دیتنا ماوەیێ دابەشكرنا 5 ل سەر 2 (%) و هەردوویان چاپ بكە.",
-        code: `int div = 10 / 2;\nint rem = 5 % 2;\nConsole.WriteLine(div);\nConsole.WriteLine(rem);`,
-        out: `5\n1`
+        qEn: "The blank white space around the edges of a page is called:",
+        qKu: "ئەو بۆشاییا سپی یا ل چار لێڤێن لاپەڕەی چ دبێژنێ؟",
+        options: ["A) Header", "B) Margins", "C) Columns", "D) Shading"],
+        correct: 1,
+        explain: "Margins بۆشاییا د ناڤبەرا نڤیسینێ و لێڤێن لاپەڕەیی دایە (Layout > Margins)."
       },
       {
-        en: "Declare int x = 7, use the unary increment operator (x++) to increase it by 1, and print the new value of x.",
-        ku: "گۆڕاوێ int x = 7 چێكە، ب x++ ئێكێ لێ زێدە بكە و بهایێ نوی یێ x چاپ بكە.",
-        code: `int x = 7;\nx++;\nConsole.WriteLine(x);`,
-        out: `8`
+        qEn: "Which tab contains Page Borders, Page Color, and Watermark in modern MS Word?",
+        qKu: "کیژ تاب Page Borders و Page Color و Watermark تێدا هەنە؟",
+        options: ["A) Design", "B) View", "C) Review", "D) Mailings"],
+        correct: 0,
+        explain: "د Word یێن نوی دا (2013 هەتا 365)، Page Borders و Watermark د ناڤ تابا Design دانە."
       },
       {
-        en: "Declare int y = 10, use the unary decrement operator (y--) to decrease it by 1, and print the new value of y.",
-        ku: "گۆڕاوێ int y = 10 چێكە، ب y-- ئێكێ ژێ كێم بكە و بهایێ نوی یێ y چاپ بكە.",
-        code: `int y = 10;\ny--;\nConsole.WriteLine(y);`,
-        out: `9`
+        qEn: "What is the standard paper size commonly used for printing in Iraq/Europe?",
+        qKu: "قەبارێ کاغەزێ یێ ستاندارد یێ بۆ چاپکرنێ دهێتە بکارئینان چییە؟",
+        options: ["A) A4", "B) A1", "C) Tabloid", "D) B5"],
+        correct: 0,
+        explain: "A4 قەبارێ کاغەزێ یێ ئاسایی و بەربەلاڤە بۆ چاپکرنێ (Layout > Size > A4)."
       },
       {
-        en: "Declare int num = 5, create int negNum = -num using unary minus, and print negNum.",
-        ku: "گۆڕاوێ int num = 5 چێكە، گۆڕاوێ negNum = -num ب نیشانا سالب چێكە و چاپ بكە.",
-        code: `int num = 5;\nint negNum = -num;\nConsole.WriteLine(negNum);`,
-        out: `-5`
+        qEn: "To put a faint text or logo behind the main text on every page, we use:",
+        qKu: "بۆ دانانا نڤیسینەکا لاواز و فاهیم ل پشت نڤیسینا سەرەکی ل سەر هەمی لاپەڕان، چ بکار دئینین؟",
+        options: ["A) WordArt", "B) Watermark", "C) Footer", "D) Highlight"],
+        correct: 1,
+        explain: "Design > Watermark نڤیسینەکا بۆر/کاڵ ددانیتە پشت نڤیسینا لاپەڕەی."
       }
     ]
   },
+
+  // SLIDE 12
   {
-    slide: 14,
-    title: "Slide 14: Arithmetic Operators Practical Examples",
-    kuTitle: "سلایدێ ١٤: نموونێن عەمەلی ل سەر ژمێریاری و ++",
+    titleEn: "12. Master Keyboard Shortcuts & Exam Checklist",
+    titleKu: "کۆرتکرنێن گرنگ یێن ئەزموونێ و ئامادەکاریا دوماهیکێ بۆ ١٠٠/١٠٠",
+    points: [
+      { en: "Ctrl + A (Select All)", ku: "هەلبژارتنا هەمی نڤیسین یان هەمی فایلێن ناڤ فۆڵدەرەکێ." },
+      { en: "Ctrl + C / X / V", ku: "Copy (کۆپی) / Cut (ڤەگوهاستن) / Paste (لێکدان)." },
+      { en: "Ctrl + Z / Y", ku: "Undo (زڤراندنەڤە) / Redo (دوبارەکرنەڤە)." },
+      { en: "Ctrl + B / I / U", ku: "Bold (تۆخ) / Italic (لار) / Underline (هێل ل بن)." },
+      { en: "Ctrl + S / P / F", ku: "Save (خەزنکرن) / Print (چاپکرن) / Find (گەریان ل ناڤ نڤیسینێ)." },
+      { en: "Ctrl + E / L / R / J", ku: "Center (ناڤەراست) / Left (چەپ) / Right (ڕاست) / Justify (رێک)." }
+    ],
+    practical: "🏆 <strong>پەیمانا ١٠٠/١٠٠ بۆ سبەهی:</strong> د ئەزموونێ دا نەترسە! هەر پەیڤەکا ئینگلیزی تە دیت، سەحکە ناڤێ تابێ: <strong>Home</strong> (نڤیسین و ڕەنگ) | <strong>Insert</strong> (تشتێن زێدە: خشتە، شێوە، وێنە) | <strong>Design</strong> (چوارچوڤێ لاپەڕەی) | <strong>Layout</strong> (قەبارە و ئاسۆیی/ستوونی).",
     questions: [
       {
-        en: "Declare int squarePerimeter = 17. Calculate double squareSide = squarePerimeter / 4.0 and double squareArea = squareSide * squareSide, then print both.",
-        ku: "گۆڕاوێ int squarePerimeter = 17 چێكە. لایێ چوارگۆشەی (squareSide = squarePerimeter / 4.0) و رووبەرێ وێ (squareArea) ب جۆرێ double هەژمار بكە و چاپ بكە.",
-        code: `int squarePerimeter = 17;\ndouble squareSide = squarePerimeter / 4.0;\ndouble squareArea = squareSide * squareSide;\nConsole.WriteLine(squareSide);\nConsole.WriteLine(squareArea);`,
-        out: `4.25\n18.0625`
+        qEn: "Which shortcut selects EVERYTHING in a document or folder?",
+        qKu: "کیژ کۆرتکرن هەمی تشتێ د ناڤ لاپەڕەی یان فۆڵدەری دا هەلدبژێریت (Select All)؟",
+        options: ["A) Ctrl + S", "B) Ctrl + A", "C) Ctrl + X", "D) Ctrl + E"],
+        correct: 1,
+        explain: "Ctrl + A هەمی نڤیسین یان فایلان ب ئێک جار هەلدبژێریت (Select All)."
       },
       {
-        en: "Given int a = 5 and int b = 4, print (a + b++) on the first line and (a + b) on the second line.",
-        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، ل سەر هێلا ئێكێ (a + b++) و ل سەر هێلا دوویێ (a + b) چاپ بكە.",
-        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a + b++);\nConsole.WriteLine(a + b);`,
-        out: `9\n10`
+        qEn: "Which shortcut opens the Find box to search for a word in MS Word?",
+        qKu: "کیژ کۆرتکرن بۆ گەریانێ (Find) ل دویڤ پەیڤەکێ د ناڤ Word دا دهێتە بکارئینان؟",
+        options: ["A) Ctrl + F", "B) Ctrl + H", "C) Ctrl + G", "D) Ctrl + P"],
+        correct: 0,
+        explain: "Ctrl + F بۆ گەریانێیە (Find)، و Ctrl + H بۆ گوهۆرینا پەیڤەکێیە (Replace)."
       },
       {
-        en: "Given int a = 5 and int b = 5, print (a + (++b)) and then print (a + b).",
-        ku: "گۆڕاوێن int a = 5 و int b = 5 چێكە، (a + (++b)) چاپ بكە و پاشان (a + b) چاپ بكە.",
-        code: `int a = 5;\nint b = 5;\nConsole.WriteLine(a + (++b));\nConsole.WriteLine(a + b);`,
-        out: `11\n11`
+        qEn: "If you want to underline text using the keyboard, you press:",
+        qKu: "ئەگەر تە بڤێت هێلەکێ بدانێیە بنێ نڤیسینێ ب کیبۆردی، دێ چ داگری؟",
+        options: ["A) Ctrl + I", "B) Ctrl + U", "C) Ctrl + B", "D) Ctrl + L"],
+        correct: 1,
+        explain: "Ctrl + U ژ پەیڤا Underline هاتییە کو هێلەکێ ددانیتە بنێ نڤیسینێ."
       },
       {
-        en: "Write a C# program to print the results of integer division (11 / 3), remainder (11 % 3), and (12 / 3).",
-        ku: "پڕۆگرامەكێ بنڤیسە بۆ چاپكرنا ئەنجامێن: (11 / 3)، (11 % 3)، و (12 / 3).",
-        code: `Console.WriteLine(11 / 3);\nConsole.WriteLine(11 % 3);\nConsole.WriteLine(12 / 3);`,
-        out: `3\n2\n4`
+        qEn: "Which shortcut pastes copied or cut content?",
+        qKu: "کیژ کۆرتکرن تشتێ کۆپیکری یان کەتکری ددانیت (Paste)؟",
+        options: ["A) Ctrl + C", "B) Ctrl + P", "C) Ctrl + V", "D) Ctrl + X"],
+        correct: 2,
+        explain: "Ctrl + V بۆ Pasteـە؛ بەلێ Ctrl + P بۆ Printـە."
       },
       {
-        en: "Declare double length = 10.5 and double width = 4.0, calculate the perimeter (2 * (length + width)) and print it.",
-        ku: "گۆڕاوێن double length = 10.5 و double width = 4.0 چێكە، دەوروبەرێ لاكێشەی هەژمار بكە و چاپ بكە.",
-        code: `double length = 10.5;\ndouble width = 4.0;\ndouble perimeter = 2 * (length + width);\nConsole.WriteLine(perimeter);`,
-        out: `29`
-      }
-    ]
-  },
-  {
-    slide: 15,
-    title: "Slide 15: Assignment Operators",
-    kuTitle: "سلایدێ ١٥: ئۆپەرەیتەرێن دانانا بهای (=, +=, -=, *=, /=, %=)",
-    questions: [
-      {
-        en: "Declare int A = 10, int B = 5, and int C. Assign C = A + B and print C.",
-        ku: "گۆڕاوێن int A = 10، B = 5 و C چێكە. بهایێ A + B بدە C و C چاپ بكە.",
-        code: `int A = 10;\nint B = 5;\nint C = A + B;\nConsole.WriteLine(C);`,
-        out: `15`
-      },
-      {
-        en: "Declare int C = 20 and int A = 5. Use += to add A to C (C += A) and print C.",
-        ku: "گۆڕاوێن int C = 20 و int A = 5 چێكە. ب += بهایێ A ل سەر C زێدە بكە و چاپ بكە.",
-        code: `int C = 20;\nint A = 5;\nC += A;\nConsole.WriteLine(C);`,
-        out: `25`
-      },
-      {
-        en: "Declare int C = 20 and int A = 8. Use -= to subtract A from C (C -= A) and print C.",
-        ku: "گۆڕاوێن int C = 20 و int A = 8 چێكە. ب -= بهایێ A ژ C كێم بكە و چاپ بكە.",
-        code: `int C = 20;\nint A = 8;\nC -= A;\nConsole.WriteLine(C);`,
-        out: `12`
-      },
-      {
-        en: "Declare int C = 6 and int A = 4. Use *= to multiply C by A (C *= A) and print C.",
-        ku: "گۆڕاوێن int C = 6 و int A = 4 چێكە. ب *= بهایێ C ل گەل A جاران بكە و چاپ بكە.",
-        code: `int C = 6;\nint A = 4;\nC *= A;\nConsole.WriteLine(C);`,
-        out: `24`
-      },
-      {
-        en: "Declare int C = 25 and int A = 4. Use /= and then %= on C with A, printing C after each operation.",
-        ku: "گۆڕاوێن int C = 25 و int A = 4 چێكە. ئۆپەرەیتەرێن /= و پاشان %= ل سەر C ب A بكاربینە و د هەر پێنگاڤەكێ دا چاپ بكە.",
-        code: `int C = 25;\nint A = 4;\nC /= A;\nConsole.WriteLine(C);\nC %= A;\nConsole.WriteLine(C);`,
-        out: `6\n2`
-      }
-    ]
-  },
-  {
-    slide: 16,
-    title: "Slide 16: Assignment Operators Step-by-Step Example",
-    kuTitle: "سلایدێ ١٦: نموونا پێنگاڤ ب پێنگاڤ یا ئۆپەرەیتەرێن دانانا بهای",
-    questions: [
-      {
-        en: "Declare int a = 21 and int c. Set c = a, print it, then perform c += a and print \"Line 2 - += Value of c = {0}\".",
-        ku: "گۆڕاوێن int a = 21 و int c چێكە. c = a بدانە و چاپ بكە، پاشان c += a بكە و ب {0} چاپ بكە.",
-        code: `int a = 21;\nint c;\nc = a;\nConsole.WriteLine("Line 1 - = Value of c = {0}", c);\nc += a;\nConsole.WriteLine("Line 2 - += Value of c = {0}", c);`,
-        out: `Line 1 - = Value of c = 21\nLine 2 - += Value of c = 42`
-      },
-      {
-        en: "Start with int a = 21 and int c = 42. Perform c -= a, print c, then perform c *= a and print c.",
-        ku: "ب int a = 21 و int c = 42 دەستپێبكە. c -= a بكە و چاپ بكە، پاشان c *= a بكە و چاپ بكە.",
-        code: `int a = 21;\nint c = 42;\nc -= a;\nConsole.WriteLine("c -= a : {0}", c);\nc *= a;\nConsole.WriteLine("c *= a : {0}", c);`,
-        out: `c -= a : 21\nc *= a : 441`
-      },
-      {
-        en: "Start with int a = 21 and int c = 441. Perform c /= a and print the result.",
-        ku: "ب int a = 21 و int c = 441 دەستپێبكە. c /= a بكە و ئەنجامی چاپ بكە.",
-        code: `int a = 21;\nint c = 441;\nc /= a;\nConsole.WriteLine("Value of c = {0}", c);`,
-        out: `Value of c = 21`
-      },
-      {
-        en: "Declare int a = 21 and int c = 200. Perform c %= a and print the remainder in c.",
-        ku: "گۆڕاوێن int a = 21 و int c = 200 چێكە. c %= a بكە و بهایێ ماوەی د ناڤ c دا چاپ بكە.",
-        code: `int a = 21;\nint c = 200;\nc %= a;\nConsole.WriteLine("Value of c = {0}", c);`,
-        out: `Value of c = 11`
-      },
-      {
-        en: "Write a C# program with int num = 10: add 5 using +=, subtract 3 using -=, and multiply by 2 using *=, then print the final value.",
-        ku: "پڕۆگرامەكێ بنڤیسە كو int num = 10 هەبیت: 5 لێ زێدە بكە ب +=، 3 ژێ كێم بكە ب -=، و جاران 2 بكە ب *=، پاشان بهایێ دوماهیێ چاپ بكە.",
-        code: `int num = 10;\nnum += 5;\nnum -= 3;\nnum *= 2;\nConsole.WriteLine(num);`,
-        out: `24`
-      }
-    ]
-  },
-  {
-    slide: 17,
-    title: "Slide 17: Assignment Shorthand Table",
-    kuTitle: "سلایدێ ١٧: كورتكرنا ئۆپەرەیتەرێن دانانا بهای (x += 3)",
-    questions: [
-      {
-        en: "Declare int x = 5. Write the shorthand assignment for x = x + 3 and print x.",
-        ku: "گۆڕاوێ int x = 5 چێكە. كورتكراوێ x = x + 3 بنڤیسە (x += 3) و x چاپ بكە.",
-        code: `int x = 5;\nx += 3;\nConsole.WriteLine(x);`,
-        out: `8`
-      },
-      {
-        en: "Declare int x = 10. Write the shorthand assignment for x = x - 3 and print x.",
-        ku: "گۆڕاوێ int x = 10 چێكە. كورتكراوێ x = x - 3 بنڤیسە و x چاپ بكە.",
-        code: `int x = 10;\nx -= 3;\nConsole.WriteLine(x);`,
-        out: `7`
-      },
-      {
-        en: "Declare int x = 4. Write the shorthand assignment for x = x * 3 and print x.",
-        ku: "گۆڕاوێ int x = 4 چێكە. كورتكراوێ x = x * 3 بنڤیسە و x چاپ بكە.",
-        code: `int x = 4;\nx *= 3;\nConsole.WriteLine(x);`,
-        out: `12`
-      },
-      {
-        en: "Declare double x = 15.0. Write the shorthand assignment for x = x / 3 and print x.",
-        ku: "گۆڕاوێ double x = 15.0 چێكە. كورتكراوێ x = x / 3 بنڤیسە و x چاپ بكە.",
-        code: `double x = 15.0;\nx /= 3;\nConsole.WriteLine(x);`,
-        out: `5`
-      },
-      {
-        en: "Declare int x = 14. Write the shorthand assignment for x = x % 3 and print x.",
-        ku: "گۆڕاوێ int x = 14 چێكە. كورتكراوێ x = x % 3 بنڤیسە و x چاپ بكە.",
-        code: `int x = 14;\nx %= 3;\nConsole.WriteLine(x);`,
-        out: `2`
-      }
-    ]
-  },
-  {
-    slide: 18,
-    title: "Slide 18: Assignment Inside Console.WriteLine",
-    kuTitle: "سلایدێ ١٨: بكارئینانا ئۆپەرەیتەرێن دانانا بهای د ناڤ Console.WriteLine دا",
-    questions: [
-      {
-        en: "Declare int y = 4 and print (y *= 2) directly inside Console.WriteLine.",
-        ku: "گۆڕاوێ int y = 4 چێكە و راستەوخۆ د ناڤ Console.WriteLine دا (y *= 2) چاپ بكە.",
-        code: `int y = 4;\nConsole.WriteLine(y *= 2);`,
-        out: `8`
-      },
-      {
-        en: "Declare int x = 6. Inside two separate Console.WriteLine statements, print (x += 3) and then (x -= 3).",
-        ku: "گۆڕاوێ int x = 6 چێكە. د ناڤ دوو Console.WriteLine یێن جودا دا (x += 3) و پاشان (x -= 3) چاپ بكە.",
-        code: `int x = 6;\nConsole.WriteLine(x += 3);\nConsole.WriteLine(x -= 3);`,
-        out: `9\n6`
-      },
-      {
-        en: "Declare int x = 6. Print (x /= 2) and then print (x *= 3) directly inside Console.WriteLine.",
-        ku: "گۆڕاوێ int x = 6 چێكە. د ناڤ Console.WriteLine دا (x /= 2) و پاشان (x *= 3) چاپ بكە.",
-        code: `int x = 6;\nConsole.WriteLine(x /= 2);\nConsole.WriteLine(x *= 3);`,
-        out: `3\n9`
-      },
-      {
-        en: "Declare int z = 3 and int k = 10. Print z, then print (k %= 4) inside Console.WriteLine.",
-        ku: "گۆڕاوێن int z = 3 و int k = 10 چێكە. بهایێ z و پاشان (k %= 4) د ناڤ Console.WriteLine دا چاپ بكە.",
-        code: `int z = 3;\nint k = 10;\nConsole.WriteLine(z);\nConsole.WriteLine(k %= 4);`,
-        out: `3\n2`
-      },
-      {
-        en: "Declare double price = 50.0. Inside Console.WriteLine, discount it by 10 using (price -= 10) and print it.",
-        ku: "گۆڕاوێ double price = 50.0 چێكە. د ناڤ Console.WriteLine دا 10 ژێ كێم بكە ب (price -= 10) و چاپ بكە.",
-        code: `double price = 50.0;\nConsole.WriteLine(price -= 10);`,
-        out: `40`
-      }
-    ]
-  },
-  {
-    slide: 19,
-    title: "Slide 19: Comparison Operators",
-    kuTitle: "سلایدێ ١٩: ئۆپەرەیتەرێن بەراوردكرنێ (==, !=, >, <, >=, <=)",
-    questions: [
-      {
-        en: "Declare int x = 10 and int y = 10. Check if x is equal to y (x == y) and print the result.",
-        ku: "گۆڕاوێن int x = 10 و int y = 10 چێكە. بپشكنە ئایا x یەكسانە ب y (x == y) و ئەنجامی چاپ بكە.",
-        code: `int x = 10;\nint y = 10;\nConsole.WriteLine(x == y);`,
-        out: `True`
-      },
-      {
-        en: "Declare int x = 5 and int y = 3. Check if x is not equal to y (x != y) and print the result.",
-        ku: "گۆڕاوێن int x = 5 و int y = 3 چێكە. بپشكنە ئایا x نە یەكسانە ب y (x != y) و چاپ بكە.",
-        code: `int x = 5;\nint y = 3;\nConsole.WriteLine(x != y);`,
-        out: `True`
-      },
-      {
-        en: "Declare int x = 7 and int y = 12. Print the results of (x > y) and (x < y).",
-        ku: "گۆڕاوێن int x = 7 و int y = 12 چێكە. ئەنجامێن (x > y) و (x < y) چاپ بكە.",
-        code: `int x = 7;\nint y = 12;\nConsole.WriteLine(x > y);\nConsole.WriteLine(x < y);`,
-        out: `False\nTrue`
-      },
-      {
-        en: "Declare int x = 20 and int y = 20. Print the results of (x >= y) and (x <= 15).",
-        ku: "گۆڕاوێن int x = 20 و int y = 20 چێكە. ئەنجامێن (x >= y) و (x <= 15) چاپ بكە.",
-        code: `int x = 20;\nint y = 20;\nConsole.WriteLine(x >= y);\nConsole.WriteLine(x <= 15);`,
-        out: `True\nFalse`
-      },
-      {
-        en: "Declare char c1 = 'A' and char c2 = 'A'. Compare them using == and store the result in a bool variable, then print it.",
-        ku: "گۆڕاوێن char c1 = 'A' و char c2 = 'A' چێكە. ب == بەراورد بكە و ئەنجامی د ناڤ bool دا هەلگرە و چاپ بكە.",
-        code: `char c1 = 'A';\nchar c2 = 'A';\nbool same = (c1 == c2);\nConsole.WriteLine(same);`,
-        out: `True`
-      }
-    ]
-  },
-  {
-    slide: 20,
-    title: "Slide 20: Comparison Operators Practical Example",
-    kuTitle: "سلایدێ ٢٠: نموونێن عەمەلی ل سەر بەراوردكرنێ",
-    questions: [
-      {
-        en: "Given int a = 5 and int b = 4, print the results of (a >= b), (a != b), and (a == b).",
-        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، ئەنجامێن (a >= b)، (a != b)، و (a == b) چاپ بكە.",
-        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a >= b);\nConsole.WriteLine(a != b);\nConsole.WriteLine(a == b);`,
-        out: `True\nTrue\nFalse`
-      },
-      {
-        en: "Given int a = 5 and int b = 4, print (a != ++b) and then on the next line print (a > b).",
-        ku: "گۆڕاوێن int a = 5 و int b = 4 چێكە، (a != ++b) چاپ بكە و ل سەر هێلا دویڤدا (a > b) چاپ بكە.",
-        code: `int a = 5;\nint b = 4;\nConsole.WriteLine(a != ++b);\nConsole.WriteLine(a > b);`,
-        out: `False\nFalse`
-      },
-      {
-        en: "Compare two double variables: d1 = 4.5 and d2 = 4.50. Print (d1 == d2) and (d1 < d2).",
-        ku: "دوو گۆڕاوێن double بەراورد بكە: d1 = 4.5 و d2 = 4.50. ئەنجامێ (d1 == d2) و (d1 < d2) چاپ بكە.",
-        code: `double d1 = 4.5;\ndouble d2 = 4.50;\nConsole.WriteLine(d1 == d2);\nConsole.WriteLine(d1 < d2);`,
-        out: `True\nFalse`
-      },
-      {
-        en: "Compare two strings: string s1 = \"C#\" and string s2 = \"Java\". Print (s1 == s2) and (s1 != s2).",
-        ku: "دوو گۆڕاوێن string بەراورد بكە: s1 = \"C#\" و s2 = \"Java\". ئەنجامێ (s1 == s2) و (s1 != s2) چاپ بكە.",
-        code: `string s1 = "C#";\nstring s2 = "Java";\nConsole.WriteLine(s1 == s2);\nConsole.WriteLine(s1 != s2);`,
-        out: `False\nTrue`
-      },
-      {
-        en: "Declare int age = 18. Check if age is greater than or equal to 18 (age >= 18), store in bool canVote, and print it.",
-        ku: "گۆڕاوێ int age = 18 چێكە. بپشكنە ئایا age >= 18 و د ناڤ bool canVote دا هەلگرە و چاپ بكە.",
-        code: `int age = 18;\nbool canVote = (age >= 18);\nConsole.WriteLine(canVote);`,
-        out: `True`
-      }
-    ]
-  },
-  {
-    slide: 21,
-    title: "Slide 21: Logical Operators (AND &&, OR ||, NOT !)",
-    kuTitle: "سلایدێ ٢١: ئۆپەرەیتەرێن لۆژیكی (AND &&, OR ||, NOT !)",
-    questions: [
-      {
-        en: "Declare int x = 3. Use logical AND (&&) to check if (x < 5 && x < 10) and print the result.",
-        ku: "گۆڕاوێ int x = 3 چێكە. ب ئۆپەرەیتەرێ AND (&&) بپشكنە ئایا (x < 5 && x < 10) و ئەنجامی چاپ بكە.",
-        code: `int x = 3;\nConsole.WriteLine(x < 5 && x < 10);`,
-        out: `True`
-      },
-      {
-        en: "Declare int x = 6. Use logical OR (||) to check if (x < 5 || x < 4) and print the result.",
-        ku: "گۆڕاوێ int x = 6 چێكە. ب ئۆپەرەیتەرێ OR (||) بپشكنە ئایا (x < 5 || x < 4) و ئەنجامی چاپ بكە.",
-        code: `int x = 6;\nConsole.WriteLine(x < 5 || x < 4);`,
-        out: `False`
-      },
-      {
-        en: "Declare int x = 3. Use logical NOT (!) to reverse the result of !(x < 5 && x < 10) and print it.",
-        ku: "گۆڕاوێ int x = 3 چێكە. ب ئۆپەرەیتەرێ NOT (!) ئەنجامێ !(x < 5 && x < 10) بەروڤاژی بكە و چاپ بكە.",
-        code: `int x = 3;\nConsole.WriteLine(!(x < 5 && x < 10));`,
-        out: `False`
-      },
-      {
-        en: "Declare int x = 8. Check if (x > 5 || x < 4) using logical OR and store it in a bool variable result, then print it.",
-        ku: "گۆڕاوێ int x = 8 چێكە. بپشكنە ئایا (x > 5 || x < 4) و د ناڤ bool result دا هەلگرە و چاپ بكە.",
-        code: `int x = 8;\nbool result = (x > 5 || x < 4);\nConsole.WriteLine(result);`,
-        out: `True`
-      },
-      {
-        en: "Declare int score = 75. Check if score is between 50 and 100 inclusive (score >= 50 && score <= 100) and print the result.",
-        ku: "گۆڕاوێ int score = 75 چێكە. بپشكنە ئایا د ناڤبەرا 50 و 100 دایە (score >= 50 && score <= 100) و چاپ بكە.",
-        code: `int score = 75;\nbool valid = (score >= 50 && score <= 100);\nConsole.WriteLine(valid);`,
-        out: `True`
-      }
-    ]
-  },
-  {
-    slide: 22,
-    title: "Slide 22: Logical Operators Practical Examples",
-    kuTitle: "سلایدێ ٢٢: نموونێن عەمەلی ل سەر &&، ||، ! (دوماهیا بەشێ داخل)",
-    questions: [
-      {
-        en: "Declare bool a = true and bool b = false. Print (a && b) and (a || b).",
-        ku: "گۆڕاوێن bool a = true و bool b = false چێكە. ئەنجامێن (a && b) و (a || b) چاپ بكە.",
-        code: `bool a = true;\nbool b = false;\nConsole.WriteLine(a && b);\nConsole.WriteLine(a || b);`,
-        out: `False\nTrue`
-      },
-      {
-        en: "Declare bool a = true and bool b = false. Print (!a) and (!b).",
-        ku: "گۆڕاوێن bool a = true و bool b = false چێكە. ئەنجامێن (!a) و (!b) چاپ بكە.",
-        code: `bool a = true;\nbool b = false;\nConsole.WriteLine(!a);\nConsole.WriteLine(!b);`,
-        out: `False\nTrue`
-      },
-      {
-        en: "Declare bool b = false. Print (b || true) and (b && true).",
-        ku: "گۆڕاوێ bool b = false چێكە. ئەنجامێن (b || true) و (b && true) چاپ بكە.",
-        code: `bool b = false;\nConsole.WriteLine(b || true);\nConsole.WriteLine(b && true);`,
-        out: `True\nFalse`
-      },
-      {
-        en: "Declare bool a = true. Print (a || false) and (a && true).",
-        ku: "گۆڕاوێ bool a = true چێكە. ئەنجامێن (a || false) و (a && true) چاپ بكە.",
-        code: `bool a = true;\nConsole.WriteLine(a || false);\nConsole.WriteLine(a && true);`,
-        out: `True\nTrue`
-      },
-      {
-        en: "Declare int num1 = 10 and int num2 = 20. Print the result of (!(num1 > num2) && (num2 == 20)).",
-        ku: "گۆڕاوێن int num1 = 10 و int num2 = 20 چێكە. ئەنجامێ (!(num1 > num2) && (num2 == 20)) چاپ بكە.",
-        code: `int num1 = 10;\nint num2 = 20;\nConsole.WriteLine(!(num1 > num2) && (num2 == 20));`,
-        out: `True`
+        qEn: "You want to save your practical exam document quickly so you don't lose your work. Press:",
+        qKu: "تە دڤێت کارێ خۆ یێ ئەزموونا عەمەلی ب بلەزی خەزن بکەی دا ژێ نەچیت، چ دادگری؟",
+        options: ["A) Ctrl + S", "B) Ctrl + N", "C) Ctrl + Z", "D) Ctrl + W"],
+        correct: 0,
+        explain: "Ctrl + S فایلێ خەزن دکەت (Save). ل ئەزموونێ هەر چەند دەقیقان جارەکێ Ctrl + S داگرە!"
       }
     ]
   }
 ];
 
-const root = document.getElementById("questionsRoot");
-const slideFilter = document.getElementById("slideFilter");
-const searchInput = document.getElementById("searchInput");
-const toggleAllBtn = document.getElementById("toggleAllBtn");
-const statsEl = document.getElementById("stats");
+let currentSlide = 0;
+let showAll = false;
+// Store user answers: key = "slideIndex-qIndex", value = chosenOptionIndex
+const userAnswers = {};
 
-let allSolutionsVisible = true;
-
-slidesData.forEach(s => {
-  const opt = document.createElement("option");
-  opt.value = s.slide;
-  opt.textContent = `Slide ${s.slide}: ${s.kuTitle.replace(/^سلایدێ \d+:\s*/, "")}`;
-  slideFilter.appendChild(opt);
-});
-
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+function renderPills() {
+  const container = document.getElementById("slidePills");
+  container.innerHTML = "";
+  slides.forEach((s, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "pill" + (idx === currentSlide ? " active" : "");
+    btn.textContent = "سلاید " + (idx + 1);
+    btn.onclick = () => {
+      currentSlide = idx;
+      renderSlide();
+    };
+    container.appendChild(btn);
+  });
 }
 
-function render() {
-  const selectedSlide = slideFilter.value;
-  const query = searchInput.value.trim().toLowerCase();
-  root.innerHTML = "";
-
-  let totalShown = 0;
-  let globalIndex = 0;
-
-  slidesData.forEach(slideObj => {
-    if (selectedSlide !== "all" && String(slideObj.slide) !== selectedSlide) {
-      globalIndex += slideObj.questions.length;
-      return;
+function updateScore() {
+  let correctCount = 0;
+  for (const key in userAnswers) {
+    const [sIdx, qIdx] = key.split("-").map(Number);
+    if (userAnswers[key] === slides[sIdx].questions[qIdx].correct) {
+      correctCount++;
     }
-
-    const matchedQuestions = [];
-    slideObj.questions.forEach((q, idx) => {
-      globalIndex++;
-      const hay = (q.en + " " + q.ku + " " + q.code).toLowerCase();
-      if (!query || hay.includes(query)) {
-        matchedQuestions.push({ q, qNum: globalIndex, slideQNum: idx + 1 });
-      }
-    });
-
-    if (matchedQuestions.length === 0) return;
-
-    const group = document.createElement("div");
-    group.className = "slide-group";
-
-    const header = document.createElement("div");
-    header.className = "slide-header";
-    header.innerHTML = `<span>${slideObj.kuTitle}</span><span style="direction:ltr;font-size:0.88rem;opacity:0.9;">${slideObj.title}</span>`;
-    group.appendChild(header);
-
-    matchedQuestions.forEach(({ q, qNum, slideQNum }) => {
-      totalShown++;
-      const card = document.createElement("div");
-      card.className = "q-card";
-
-      const solClass = allSolutionsVisible ? "solution-box" : "solution-box hidden";
-      const btnText = allSolutionsVisible ? "ڤەشارتنا بەرسڤێ" : "نیشادانا بەرسڤێ";
-
-      card.innerHTML = `
-        <div class="q-top">
-          <span class="q-num">پسیارا #${qNum} (سلاید ${slideObj.slide} - ${slideQNum}/5)</span>
-          <button class="toggle-btn" onclick="toggleSingle(this)">${btnText}</button>
-        </div>
-        <div class="q-en">${escapeHtml(q.en)}</div>
-        <div class="q-ku">${escapeHtml(q.ku)}</div>
-        <div class="${solClass}">
-          <div class="code-wrap">
-            <button class="copy-btn" onclick="copyCode(this)">Copy C#</button>
-            <pre><code>${escapeHtml(q.code)}</code></pre>
-          </div>
-          <div class="output-box"><span class="output-label">Output (ئەنجام ل سەر شاشێ):</span>${escapeHtml(q.out)}</div>
-        </div>
-      `;
-      group.appendChild(card);
-    });
-
-    root.appendChild(group);
-  });
-
-  statsEl.textContent = `ژمارا پسیارێن نیشاندای: ${totalShown} ژ ١٠٠ پسیاران`;
+  }
+  document.getElementById("scoreDisplay").textContent = "نمرە: " + correctCount + " / 60";
 }
 
-window.toggleSingle = function(btn) {
-  const card = btn.closest(".q-card");
-  const sol = card.querySelector(".solution-box");
-  sol.classList.toggle("hidden");
-  btn.textContent = sol.classList.contains("hidden") ? "نیشادانا بەرسڤێ" : "ڤەشارتنا بەرسڤێ";
-};
+function selectOption(sIdx, qIdx, optIdx) {
+  const key = sIdx + "-" + qIdx;
+  if (userAnswers[key] !== undefined) return; // Lock once answered
+  userAnswers[key] = optIdx;
+  updateScore();
+  renderQuestions();
+}
 
-window.copyCode = function(btn) {
-  const code = btn.nextElementSibling.innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    const old = btn.textContent;
-    btn.textContent = "Copied!";
-    btn.style.background = "#16a34a";
-    setTimeout(() => {
-      btn.textContent = old;
-      btn.style.background = "";
-    }, 1200);
+function renderQuestions() {
+  const slide = slides[currentSlide];
+  const qContainer = document.getElementById("questionsContainer");
+  qContainer.innerHTML = "";
+
+  slide.questions.forEach((q, qIdx) => {
+    const key = currentSlide + "-" + qIdx;
+    const chosen = userAnswers[key];
+    const isAnswered = chosen !== undefined;
+
+    const card = document.createElement("div");
+    card.className = "question-card";
+
+    const top = document.createElement("div");
+    top.className = "q-top";
+    top.innerHTML = `<span class="q-badge">پسیارا ${qIdx + 1}</span><div class="q-en">${q.qEn}</div>`;
+    card.appendChild(top);
+
+    const ku = document.createElement("div");
+    ku.className = "q-ku";
+    ku.textContent = "وەرگێران: " + q.qKu;
+    card.appendChild(ku);
+
+    const optGrid = document.createElement("div");
+    optGrid.className = "options-grid";
+
+    q.options.forEach((optText, optIdx) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = optText;
+
+      if (isAnswered || showAll) {
+        if (optIdx === q.correct) {
+          btn.classList.add("correct");
+          btn.textContent = optText + "  ✔";
+        } else if (isAnswered && optIdx === chosen) {
+          btn.classList.add("wrong");
+          btn.textContent = optText + "  ✖";
+        }
+      }
+
+      if (isAnswered) {
+        btn.disabled = true;
+      } else {
+        btn.onclick = () => selectOption(currentSlide, qIdx, optIdx);
+      }
+
+      optGrid.appendChild(btn);
+    });
+
+    card.appendChild(optGrid);
+
+    const exp = document.createElement("div");
+    exp.className = "q-explain" + (isAnswered || showAll ? " show" : "");
+    exp.innerHTML = "<strong>✔ ڕۆهنکرن:</strong> " + q.explain;
+    card.appendChild(exp);
+
+    qContainer.appendChild(card);
   });
-};
+}
 
-toggleAllBtn.addEventListener("click", () => {
-  allSolutionsVisible = !allSolutionsVisible;
-  toggleAllBtn.textContent = allSolutionsVisible ? "ڤەشارتنا هەمی بەرسڤان" : "نیشادانا هەمی بەرسڤان";
-  render();
-});
+function renderSlide() {
+  const slide = slides[currentSlide];
 
-slideFilter.addEventListener("change", render);
-searchInput.addEventListener("input", render);
+  document.getElementById("slideNumLabel").textContent = `سلاید ${currentSlide + 1} ژ ${slides.length}`;
+  document.getElementById("footerCounter").textContent = `سلاید ${currentSlide + 1} / ${slides.length}`;
+  document.getElementById("slideTitleEn").textContent = slide.titleEn;
+  document.getElementById("slideTitleKu").textContent = slide.titleKu;
 
-render();
+  // Render summary points
+  const summaryGrid = document.getElementById("summaryGrid");
+  summaryGrid.innerHTML = "";
+  slide.points.forEach(pt => {
+    const div = document.createElement("div");
+    div.className = "point-item";
+    div.innerHTML = `<div class="point-en">${pt.en}</div><div class="point-ku">${pt.ku}</div>`;
+    summaryGrid.appendChild(div);
+  });
+
+  document.getElementById("practicalTip").innerHTML = slide.practical;
+
+  // Buttons state
+  const isFirst = currentSlide === 0;
+  const isLast = currentSlide === slides.length - 1;
+  document.getElementById("prevBtnTop").disabled = isFirst;
+  document.getElementById("prevBtnBottom").disabled = isFirst;
+  document.getElementById("nextBtnTop").disabled = isLast;
+  document.getElementById("nextBtnBottom").disabled = isLast;
+
+  renderPills();
+  renderQuestions();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function changeSlide(step) {
+  const next = currentSlide + step;
+  if (next >= 0 && next < slides.length) {
+    currentSlide = next;
+    renderSlide();
+  }
+}
+
+function toggleShowAll() {
+  showAll = !showAll;
+  const btn = document.getElementById("toggleAllBtn");
+  btn.textContent = showAll ? "ڤەشارتنا بەرسڤان" : "نیشاندانا هەمی بەرسڤان";
+  renderQuestions();
+}
+
+// Initial render
+renderSlide();
 </script>
+
 </body>
 </html>
